@@ -1,11 +1,8 @@
 # CORE APPS
-# https://winstall.app/apps/7zip.7zip
 //https://winstall.app/apps/AnyDeskSoftwareGmbH.AnyDesk
 # https://winstall.app/apps/Audacity.Audacity
 //https://winstall.app/apps/Discord.Discord
 # https://winstall.app/apps/Anaconda.Miniconda3
-# https://winstall.app/apps/Git.Git
-# https://winstall.app/apps/Notepad++.Notepad++
 # https://winstall.app/apps/OBSProject.OBSStudio
 # https://winstall.app/apps/Fenrirthviti.obs-virtual-cam
 # https://winstall.app/apps/Opera.Opera
@@ -18,15 +15,14 @@
 # https://winstall.app/apps/Telegram.TelegramDesktop
 //https://winstall.app/apps/Microsoft.VisualStudio.2022.BuildTools
 //https://winstall.app/apps/Microsoft.VisualStudio.2022.Community
-# https://winstall.app/apps/Microsoft.VisualStudioCode
 //https://winstall.app/apps/VMware.WorkstationPlayer
 https://winstall.app/apps/Docker.DockerDesktop
 https://winstall.app/apps/Mozilla.Firefox
-https://winstall.app/apps/OpenVPNTechnologies.OpenVPNConnect
 https://winstall.app/apps/Parsec.Parsec
-https://winstall.app/apps/Nvidia.RTXVoice
+? https://winstall.app/apps/Nvidia.RTXVoice
 https://winstall.app/apps/SandboxiePlus.SandboxieClassic
 https://winstall.app/apps/TorProject.TorBrowser
+https://winstall.app/apps/WireGuard.WireGuard
 # GAMES
 https://winstall.app/apps/Blizzard.BattleNet
 https://winstall.app/apps/DolphinEmulator.Dolphin
