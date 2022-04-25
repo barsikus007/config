@@ -1,10 +1,6 @@
 # CORE APPS
 //https://winstall.app/apps/AnyDeskSoftwareGmbH.AnyDesk
 # https://winstall.app/apps/Audacity.Audacity
-//https://winstall.app/apps/Discord.Discord
-# https://winstall.app/apps/Anaconda.Miniconda3
-# https://winstall.app/apps/OBSProject.OBSStudio
-# https://winstall.app/apps/Fenrirthviti.obs-virtual-cam
 # https://winstall.app/apps/Opera.Opera
 //https://winstall.app/apps/Microsoft.PowerShell
 # https://winstall.app/apps/Microsoft.PowerToys
@@ -21,7 +17,7 @@ https://winstall.app/apps/Mozilla.Firefox
 https://winstall.app/apps/Parsec.Parsec
 ? https://winstall.app/apps/Nvidia.RTXVoice
 https://winstall.app/apps/SandboxiePlus.SandboxieClassic
-https://winstall.app/apps/TorProject.TorBrowser
+# https://winstall.app/apps/TorProject.TorBrowser
 https://winstall.app/apps/WireGuard.WireGuard
 # GAMES
 https://winstall.app/apps/Blizzard.BattleNet
@@ -32,13 +28,11 @@ https://winstall.app/apps/Valve.Steam
 https://winstall.app/apps/Ubisoft.Connect
 # BENCH
 https://winstall.app/apps/CPUID.CPU-Z
-# https://winstall.app/apps/REALiX.HWiNFO
 https://winstall.app/apps/CrystalDewWorld.CrystalDiskInfo
 https://winstall.app/apps/CrystalDewWorld.CrystalDiskMark
 https://winstall.app/apps/TechPowerUp.GPU-Z
 # OTHER
 https://winstall.app/apps/OsirisDevelopment.BatteryBar
-https://winstall.app/apps/ImageMagick.ImageMagick
 https://winstall.app/apps/IrfanSkiljan.IrfanView
 https://winstall.app/apps/Oracle.JavaRuntimeEnvironment
 https://winstall.app/apps/JetBrains.Toolbox

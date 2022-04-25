@@ -1,7 +1,10 @@
+oh-my-posh init pwsh --config D:\projects\config\windows\terminal\own.omp.json | Invoke-Expression
+oh-my-posh completion powershell | Out-String | Invoke-Expression
 Import-Module posh-git
-Import-Module oh-my-posh
-Set-PoshPrompt iterm2
-Import-Module -Name Terminal-Icons
+Import-Module terminal-icons
+
+Invoke-Expression (&scoop-search --hook)
+Import-Module "$($(Get-Item $(Get-Command scoop.ps1).Path).Directory.Parent.FullName)\modules\scoop-completion"
 
 Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
     param($wordToComplete, $commandAst, $cursorPosition)

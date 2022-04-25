@@ -6,6 +6,9 @@ iwr -useb get.scoop.sh | iex; scoop install mingit; scoop bucket add extras; sco
 
 scoop install ds4windows msiafterburner pypy3 ffmpeg
 
+scoop install oh-my-posh posh-git terminal-icons
+scoop install scoop-search scoop-completion
+
 # LAPTOP
 7zip
 adb
@@ -42,21 +45,22 @@ wsa-pacman
 wumgr
 yt-dlp
 
-# PC
+
 brave
-crystaldiskmark
+tor-browser
+
 gifsicle
 imagemagick
-innounp
-mitmproxy
 msys2
+tesseract
+tesseract-languages
+
+crystaldiskmark
+innounp
 openjdk18
 poetry
 pshazz
-putty
-tesseract
-tesseract-languages
-tor-browser
-WinDirStat
 winscp
+
+mitmproxy
 wireshark
