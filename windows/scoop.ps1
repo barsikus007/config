@@ -8,7 +8,7 @@ scoop install oh-my-posh posh-git terminal-icons
 scoop install scoop-search scoop-completion
 
 # scoop install starship
-# scoop install pwsh psreadline fzf psfzf
+# scoop install pwsh? psreadline fzf psfzf
 # scoop install clink clink-completions
 
 
@@ -19,7 +19,7 @@ scoop install scoop-search scoop-completion
 
 
 # scoop install ds4windows msiafterburner pypy3 ffmpeg
-# which touch httptoolkit mitmproxy steamcmd winget? pwsh? curl? windows-terminal? miniconda3?
+# which touch httptoolkit mitmproxy steamcmd winget? curl? windows-terminal? miniconda3?
 
 # # LAPTOP
 # 7zip

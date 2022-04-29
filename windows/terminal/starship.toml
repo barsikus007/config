@@ -1,32 +1,180 @@
-# Get editor completions based on the config schema
 "$schema" = 'https://starship.rs/config-schema.json'
 
-# Inserts a blank line between shell prompts
-add_newline = true
+format = """
+$username\
+${custom.windows}\
+${custom.linux}\
+${custom.macos}\
+$hostname\
+$localip\
+$shlvl\
+$singularity\
+$kubernetes\
+$directory\
+$vcsh\
+${custom.git_host}\
+$git_branch\
+$git_commit\
+$git_state\
+$git_metrics\
+$git_status\
+$hg_branch\
+$docker_context\
+$package\
+$buf\
+$c\
+$cmake\
+$cobol\
+$container\
+$dart\
+$deno\
+$dotnet\
+$elixir\
+$elm\
+$erlang\
+$golang\
+$haskell\
+$helm\
+$java\
+$julia\
+$kotlin\
+$lua\
+$nim\
+$nodejs\
+$ocaml\
+$perl\
+$php\
+$pulumi\
+$purescript\
+$python\
+$rlang\
+$red\
+$ruby\
+$rust\
+$scala\
+$swift\
+$terraform\
+$vlang\
+$vagrant\
+$zig\
+$nix_shell\
+$conda\
+$spack\
+$memory_usage\
+$aws\
+$gcloud\
+$openstack\
+$azure\
+$env_var\
+$crystal\
+$custom\
+$sudo\
+$cmd_duration\
+$line_break\
+$jobs\
+$battery\
+$time\
+$status\
+$shell\
+$character"""
 
-# Replace the "❯" symbol in the prompt with "➜"
-[character] # The name of the module we are configuring is "character"
-success_symbol = "[➜](bold green)" # The "success_symbol" segment is being set to "➜" with the color "bold green"
+[username]
+show_always = true
+format = "[$user]($style) "
+
+[custom.windows]
+when = true
+os = "windows"
+style = "bold blue"
+format = "[者]($style)"
+
+[custom.linux]
+when = true
+os = "linux"
+style = "bold black"
+format = "[]($style) "
+
+[custom.macos]
+when = true
+os = "macos"
+style ="bold white"
+format = "[]($style)"
+
+[hostname]
+ssh_only = false
+format = "[$hostname]($style) at "
+
+[character]
+error_symbol = "[✖](bold red) "
+
+[cmd_duration]
+min_time = 0
+show_milliseconds = true
+min_time_to_notify = 60_000
+show_notifications = true
+
+[battery]
+disabled = false
+
+[[battery.display]]
+threshold = 100
+style = "bold red"
 
 
-
+# TODO colors https://starship.rs/presets/pastel-powerline.html
+# https://gist.github.com/fitrh/f8c70203e3bca142d52a585e34f0248d
+# https://gist.github.com/ryo-ARAKI/48a11585299f9032fa4bda60c9bba593
 [git_state]
 format = '[\($state( $progress_current of $progress_total)\)]($style) '
 
 [git_status]
-conflicted = "⚔️ "
-ahead = "🏎️ 💨 ×${count}"
+conflicted = "⚔️"
+ahead = "🏎️ 💨×${count}"
 behind = "🐢 ×${count}"
-diverged = "🔱 🏎️ 💨 ×${ahead_count} 🐢 ×${behind_count}"
-untracked = "🛤️  ×${count}"
-stashed = "📦 "
-modified = "📝 ×${count}"
-staged = "🗃️  ×${count}"
-renamed = "📛 ×${count}"
-deleted = "🗑️  ×${count}"
+diverged = "🔱 🏎️ 💨×${ahead_count} 🐢×${behind_count}"
+untracked = "🛤️ ×${count}"
+stashed = "📦"
+modified = "📝×${count}"
+staged = "🗃️ ×${count}"
+renamed = "📛×${count}"
+deleted = "🗑️ ×${count}"
 style = "bright-white"
-format = "$all_status$ahead_behind"
+format = '\[$all_status$ahead_behind\] '
 
+[custom.git_host]
+command = """
+URL=$(command git ls-remote --get-url 2> /dev/null)
+if [[ "$URL" =~ "github" ]]; then
+    ICON=" "
+elif [[ "$URL" =~ "gitlab" ]]; then
+    ICON=" "
+elif [[ "$URL" =~ "bitbucket" ]];then
+    ICON=" "
+elif [[ "$URL" =~ "kernel" ]];then
+    ICON=" "
+elif [[ "$URL" =~ "archlinux" ]];then
+    ICON=" "
+elif [[ "$URL" =~ "gnu" ]];then
+    ICON=" "
+elif [[ "$URL" =~ "git" ]];then
+    ICON=" "
+else
+    ICON=" "
+    URL="localhost"
+fi
+for PATTERN in "https" "http" "git" "://" "@"; do
+    [[ "$URL" == "$PATTERN"* ]] && URL="${URL##$PATTERN}"
+done
+for PATTERN in "/" ".git"; do
+    [[ "$URL" == *"$PATTERN" ]] && URL="${URL%%$PATTERN}"
+done
+printf "%s%s" "$ICON" "$URL"
+"""
+directories = [".git"]
+when = 'git rev-parse --is-inside-work-tree 2> /dev/null'
+shell = ["bash","--norc","--noprofile"]
+style = "bright-yellow bold"
+format = "in [$output]($style) "
 
 [aws]
 symbol = "  "
