@@ -1,10 +1,8 @@
 // ==UserScript==
 // @name        Aliexpress No Auto Translate fixed
-// @name:ru     Aliexpress No Auto Translate fixed
 // @description Aliexpress disable auto translate in title and description + tracking fixed
-// @description:ru Отключение автоматического перевода названия и описания товара на Алиэкспресс + tracking fixed
 // @namespace   http://aliexpress.com
-// @author      barsikus07
+// @author      barsikus007
 // @version     2.0
 // @grant       none
 // @include     http://*aliexpress*
