@@ -1,0 +1,98 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Inserts a blank line between shell prompts
+add_newline = true
+
+# Replace the "❯" symbol in the prompt with "➜"
+[character] # The name of the module we are configuring is "character"
+success_symbol = "[➜](bold green)" # The "success_symbol" segment is being set to "➜" with the color "bold green"
+
+
+
+[git_state]
+format = '[\($state( $progress_current of $progress_total)\)]($style) '
+
+[git_status]
+conflicted = "⚔️ "
+ahead = "🏎️ 💨 ×${count}"
+behind = "🐢 ×${count}"
+diverged = "🔱 🏎️ 💨 ×${ahead_count} 🐢 ×${behind_count}"
+untracked = "🛤️  ×${count}"
+stashed = "📦 "
+modified = "📝 ×${count}"
+staged = "🗃️  ×${count}"
+renamed = "📛 ×${count}"
+deleted = "🗑️  ×${count}"
+style = "bright-white"
+format = "$all_status$ahead_behind"
+
+
+[aws]
+symbol = "  "
+
+[buf]
+symbol = " "
+
+[c]
+symbol = " "
+
+[conda]
+symbol = " "
+
+[dart]
+symbol = " "
+
+[directory]
+read_only = " "
+
+[docker_context]
+symbol = " "
+
+[elixir]
+symbol = " "
+
+[elm]
+symbol = " "
+
+[git_branch]
+symbol = " "
+
+[golang]
+symbol = " "
+
+[haskell]
+symbol = " "
+
+[hg_branch]
+symbol = " "
+
+[java]
+symbol = " "
+
+[julia]
+symbol = " "
+
+[memory_usage]
+symbol = " "
+
+[nim]
+symbol = " "
+
+[nix_shell]
+symbol = " "
+
+[nodejs]
+symbol = " "
+
+[package]
+symbol = " "
+
+[python]
+symbol = " "
+
+[spack]
+symbol = "🅢 "
+
+[rust]
+symbol = " "
