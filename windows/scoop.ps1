@@ -10,33 +10,27 @@ scoop install scoop-search scoop-completion
 # scoop install starship
 # scoop install pwsh psreadline fzf psfzf
 # scoop install clink clink-completions
-# scoop install ds4windows msiafterburner pypy3 ffmpeg
 
 
 # scoop bucket add nerd-fonts
 # scoop install sudo
-# sudo scoop install Delugia-Nerd-Font
-# sudo scoop install Delugia-Nerd-Font-Complete
 # sudo scoop install delugia-nerd-font-complete
+# sudo scoop install Delugia-Nerd-Font-Complete
 
 
-# curl which httptoolkit mitmproxy
+# scoop install ds4windows msiafterburner pypy3 ffmpeg
+# which touch httptoolkit mitmproxy steamcmd winget? pwsh? curl? windows-terminal? miniconda3?
 
 # # LAPTOP
 # 7zip
 # adb
 # anydesk
-# aria2
 # audacity
-# dark
 # discord
 # ds4windows
 # ffmpeg
 # hwinfo
 # iperf3
-# lessmsi
-# mingit
-# miniconda3
 # mpv.net
 # neovim
 # nmap

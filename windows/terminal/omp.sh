@@ -1,9 +1,12 @@
 # INSTALL FONT
-https://github.com/adam7/delugia-code/releases/latest/download/delugia-mono-complete.zip
-# TODO windows autoinstall
 # TODO linux autoinstall
+https://github.com/adam7/delugia-code/releases/latest/download/delugia-complete.zip
 
 # WSL
+# https://starship.rs/
+# curl -sS https://starship.rs/install.sh | sh
+# ~/.config/starship.toml
+# omp
 sudo wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64 -O /usr/local/bin/oh-my-posh
 sudo chmod +x /usr/local/bin/oh-my-posh
 
