@@ -7,6 +7,7 @@ iwr -useb get.scoop.sh | iex; scoop install mingit; scoop bucket add extras; sco
 scoop install oh-my-posh posh-git terminal-icons
 scoop install scoop-search scoop-completion
 
+# scoop install z
 # scoop install starship
 # scoop install pwsh? psreadline fzf psfzf
 # scoop install clink clink-completions

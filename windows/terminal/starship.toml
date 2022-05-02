@@ -86,7 +86,7 @@ format = "[$user]($style) "
 when = true
 os = "windows"
 style = "bold blue"
-format = "[者]($style)"
+format = "[]($style) "
 
 [custom.linux]
 when = true
@@ -98,7 +98,7 @@ format = "[]($style) "
 when = true
 os = "macos"
 style ="bold white"
-format = "[]($style)"
+format = "[]($style) "
 
 [hostname]
 ssh_only = false
