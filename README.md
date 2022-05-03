@@ -12,6 +12,7 @@ PowerShell.exe -ExecutionPolicy Bypass -File filename
 - [ ] starship fix character on exit
 - [ ] pwsh aliases
 - [ ] nvim config
+- [ ] git clone https://github.com/NvChad/NvChad ~\.config\nvim --depth 1
 - [ ] fzf
 - [ ] psfzf
 - [ ] z
