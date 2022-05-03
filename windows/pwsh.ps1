@@ -1,5 +1,5 @@
 Set-ExecutionPolicy RemoteSigned -Force
-
+.\scoop\InstallScoop.ps1  # D:\scoop
 touch $PROFILE
 mkdir ~\Documents\WindowsPowerShell
 mkdir ~\Documents\PowerShell
