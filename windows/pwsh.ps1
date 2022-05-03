@@ -2,11 +2,9 @@ echo 'Run as administrator:'
 echo 'Set-ExecutionPolicy RemoteSigned -Force'
 echo ''
 
-echo Executing:
-echo $PSScriptRoot\scoop\InstallScoop.ps1
+echo 'Install scoop:'
+echo "PowerShell.exe -ExecutionPolicy Bypass -File $PSScriptRoot\scoop\InstallScoop.ps1 $args"
 echo ''
-
-# PowerShell.exe -ExecutionPolicy Bypass -File $PSScriptRoot\scoop\InstallScoop.ps1 $args  # D:\scoop
 
 # copy config
 mkdir ~\Documents\WindowsPowerShell -Force | Out-Null
