@@ -1,5 +1,7 @@
 --accept-package-agreements
 --accept-source-agreements
+winget install pwsh -h
+winget install pwsh-preview -h
 # CORE APPS
 //https://winstall.app/apps/AnyDeskSoftwareGmbH.AnyDesk
 //https://winstall.app/apps/Microsoft.PowerShell

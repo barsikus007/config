@@ -69,6 +69,7 @@ $env_var\
 $crystal\
 $custom\
 $sudo\
+$fill\
 $cmd_duration\
 $line_break\
 $jobs\
@@ -77,6 +78,9 @@ $time\
 $status\
 $shell\
 $character"""
+
+[fill]
+symbol = " "
 
 [username]
 show_always = true
@@ -110,8 +114,6 @@ error_symbol = "[✖](bold red) "
 [cmd_duration]
 min_time = 0
 show_milliseconds = true
-min_time_to_notify = 60_000
-show_notifications = true
 
 [battery]
 disabled = false
@@ -143,7 +145,7 @@ format = '\[$all_status$ahead_behind\] '
 
 [custom.git_host]
 command = """
-URL=$(command git ls-remote --get-url 2> /dev/null)
+URL=$(git ls-remote --get-url 2> /dev/null)
 if [[ "$URL" =~ "github" ]]; then
     ICON=" "
 elif [[ "$URL" =~ "gitlab" ]]; then
