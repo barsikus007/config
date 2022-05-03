@@ -1,6 +1,5 @@
 Set-ExecutionPolicy RemoteSigned -Force
-code $PROFILE
 
-# clink info
-cp oh-my-posh.lua ~\AppData\Local\clink
-# ~/.config/starship.toml
+cp windows\terminal\starship.lua ~\AppData\Local\clink\ -Recurse -Force
+cp windows\terminal\Microsoft.PowerShell_profile.ps1 $PROFILE -Recurse -Force
+cp .config\* ~\.config\

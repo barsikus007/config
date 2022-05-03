@@ -1,3 +1,5 @@
+--accept-package-agreements
+--accept-source-agreements
 # CORE APPS
 //https://winstall.app/apps/AnyDeskSoftwareGmbH.AnyDesk
 //https://winstall.app/apps/Microsoft.PowerShell

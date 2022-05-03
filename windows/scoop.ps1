@@ -1,31 +1,33 @@
-# configure installation
-$env:SCOOP='D:\scoop'
-[environment]::setEnvironmentVariable('SCOOP',$env:SCOOP,'User')
 # run the installer
-iwr -useb get.scoop.sh | iex; scoop install mingit; scoop bucket add extras; scoop update; scoop install aria2; scoop config aria2-warning-enabled false
+iwr -useb get.scoop.sh -outfile 'install.ps1'; .\install.ps1 -ScoopDir 'D:\scoop'; rm install.ps1
+iwr -useb get.scoop.sh | iex
+scoop install mingit; scoop bucket add extras; scoop update; scoop install aria2; scoop config aria2-warning-enabled false; scoop install 7zip innounp dark
 
-scoop install oh-my-posh posh-git terminal-icons
+scoop bucket add nerd-fonts
+scoop install sudo
+sudo scoop install delugia-nerd-font-complete
+
+sudo scoop install vcredist-aio
+#? scoop search build_tools
+
 scoop install scoop-search scoop-completion
-
-# scoop install z
-# scoop install starship
-# scoop install pwsh? psreadline fzf psfzf
-# scoop install clink clink-completions
-
-
-# scoop bucket add nerd-fonts
-# scoop install sudo
-# sudo scoop install delugia-nerd-font-complete
-# sudo scoop install Delugia-Nerd-Font-Complete
+scoop install pwsh z starship fzf psfzf
+#! scoop install oh-my-posh posh-git terminal-icons
+#? scoop install clink clink-completions
+#? clink inject; clink autorun install
+scoop install which touch
+#! scoop install curl psreadline
 
 
-# scoop install ds4windows msiafterburner pypy3 ffmpeg
-# which touch httptoolkit mitmproxy steamcmd winget? curl? windows-terminal? miniconda3?
+#? scoop install ds4windows msiafterburner steamcmd
+#? scoop install pypy3 miniconda3
+#? scoop install mitmproxy httptoolkit goodbyedpi
+#? scoop install android-studio pycharm-professional
 
-# # LAPTOP
-# 7zip
-# adb
+# archwsl
 # anydesk
+# # LAPTOP
+# adb
 # audacity
 # discord
 # ds4windows
@@ -35,7 +37,7 @@ scoop install scoop-search scoop-completion
 # mpv.net
 # neovim
 # nmap
-# nodejs-lts
+# nvm
 # notepadplusplus
 # obs-studio
 # opera
@@ -64,11 +66,9 @@ scoop install scoop-search scoop-completion
 # tesseract-languages
 
 # crystaldiskmark
-# innounp
 # openjdk18
 # poetry
 # pshazz
 # winscp
 
-# mitmproxy
 # wireshark
