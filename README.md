@@ -12,3 +12,6 @@ PowerShell.exe -ExecutionPolicy Bypass -File filename
 - [ ] starship fix character on exit
 - [ ] pwsh aliases
 - [ ] nvim config
+- [ ] fzf
+- [ ] psfzf
+- [ ] z

@@ -145,7 +145,7 @@ format = '\[$all_status$ahead_behind\] '
 
 [custom.git_host]
 command = """
-URL=$(git ls-remote --get-url 2> /dev/null)
+URL=$(git ls-remote --get-url)
 if [[ "$URL" =~ "github" ]]; then
     ICON=" "
 elif [[ "$URL" =~ "gitlab" ]]; then
@@ -173,7 +173,7 @@ done
 printf "%s%s" "$ICON" "$URL"
 """
 directories = [".git"]
-when = 'git rev-parse --is-inside-work-tree 2> /dev/null'
+when = 'git rev-parse --is-inside-work-tree'
 shell = ["bash","--norc","--noprofile"]
 style = "bright-yellow bold"
 format = "in [$output]($style) "

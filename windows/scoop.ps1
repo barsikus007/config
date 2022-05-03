@@ -1,6 +1,10 @@
-# run the installer
-iwr -useb get.scoop.sh -outfile 'install.ps1'; .\install.ps1 -ScoopDir 'D:\scoop'; rm install.ps1
-iwr -useb get.scoop.sh | iex
+if ($args[0]) {
+    $ScoopDir = $args[0]
+} else {
+    $ScoopDir = "~\scoop"
+}
+iwr -useb get.scoop.sh -outfile 'install.ps1'; .\install.ps1 -ScoopDir $ScoopDir; rm install.ps1
+# iwr -useb get.scoop.sh | iex
 scoop install mingit; scoop bucket add extras; scoop update; scoop install aria2; scoop config aria2-warning-enabled false; scoop install 7zip innounp dark
 
 scoop bucket add nerd-fonts
