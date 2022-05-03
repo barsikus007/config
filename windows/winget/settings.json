@@ -21,6 +21,7 @@
     },
 
     "experimentalFeatures": {
-        "dependencies": true
+        "dependencies": true,
+        "portableInstall": true
     }
 }
