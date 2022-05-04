@@ -17,92 +17,93 @@ PowerShell.exe -ExecutionPolicy Bypass -File filename
 - [ ] psfzf
 - [ ] z
 
-# WSL
+# other
+## WSL
 wsl --install -d Ubuntu
-# TODO wslg
-# TODO wslg config 120 fps
+### TODO wslg
+### TODO wslg config 120 fps
 
-# WSA
+## WSA
 https://github.com/barsikus007/MagiskOnWSA
 
-# todo msstore
-paint3d minecraft
+## msstore
+##paint3d
+winget install --id=9NBLGGH5FV99 -e --accept-package-agreements
+##minecraft
+winget install --id=9NBLGGH2JHXJ -e --accept-package-agreements
 
-# process hacker
+## process hacker
 https://processhacker.sourceforge.io/nightly.php
 
-# shadow defender
-# VMACN-4MA3W-S4RHY-5HYT4-GZNN4
+## shadow defender
+VMACN-4MA3W-S4RHY-5HYT4-GZNN4
 http://www.shadowdefender.com/download/Setup.exe
 
-# office
+## office
 https://support.microsoft.com/en-us/office/download-and-install-or-reinstall-microsoft-365-or-office-2021-on-a-pc-or-mac-4414eaaf-0478-48be-9c42-23adc4716658?ui=en-us&rs=en-us&ad=us
 https://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/media/en-us/ProPlus2019Retail.img
 https://setup.office.com/
 https://c2rsetup.officeapps.live.com/c2r/download.aspx?ProductreleaseID=languagepack&language=ru-ru&platform=x86&source=O16LAP&version=O16GA
 
-# multimc
+## multimc
 https://multimc.org/#Download
 
-# TODO dotnet 35 5
+## TODO dotnet 35 5
 
-# TODO dxwebinstall
+## TODO dxwebinstall
 
-# TODO drivers
-
+## TODO drivers
 
 
 # winget
---accept-package-agreements
---accept-source-agreements
+https://winstall.app/apps/{id}
+## CORE APPS
+```pwsh
+winget upgrade --accept-source-agreements
 winget install pwsh -h
 winget install pwsh-preview -h
-# CORE APPS
-//https://winstall.app/apps/AnyDeskSoftwareGmbH.AnyDesk
-//https://winstall.app/apps/Microsoft.PowerShell
-//https://winstall.app/apps/Microsoft.VisualStudio.2022.BuildTools
-//https://winstall.app/apps/Microsoft.VisualStudio.2022.Community
-//https://winstall.app/apps/VMware.WorkstationPlayer
-# https://winstall.app/apps/Audacity.Audacity
-# https://winstall.app/apps/Opera.Opera
-# https://winstall.app/apps/Microsoft.PowerToys
-# https://winstall.app/apps/Python.Python.3
-# https://winstall.app/apps/qBittorrent.qBittorrent
-# https://winstall.app/apps/NickeManarin.ScreenToGif
-# https://winstall.app/apps/ShareX.ShareX
-# https://winstall.app/apps/Telegram.TelegramDesktop
-? https://winstall.app/apps/Nvidia.RTXVoice
-# https://winstall.app/apps/TorProject.TorBrowser
-https://winstall.app/apps/Docker.DockerDesktop
-https://winstall.app/apps/Mozilla.Firefox
-https://winstall.app/apps/Parsec.Parsec
-https://winstall.app/apps/SandboxiePlus.SandboxieClassic
-https://winstall.app/apps/WireGuard.WireGuard
+```
+//AnyDeskSoftwareGmbH.AnyDesk
+//Microsoft.PowerShell
+//Microsoft.VisualStudio.2022.BuildTools
+//Microsoft.VisualStudio.2022.Community
+//VMware.WorkstationPlayer
+Mozilla.Firefox
+Opera.Opera
+Microsoft.PowerToys
+Python.Python.3
+qBittorrent.qBittorrent
+NickeManarin.ScreenToGif
+ShareX.ShareX
+Telegram.TelegramDesktop
+TorProject.TorBrowser
 
-# GAMES
-https://winstall.app/apps/Blizzard.BattleNet
-https://winstall.app/apps/DolphinEmulator.Dolphin
-https://winstall.app/apps/EpicGames.EpicGamesLauncher
-https://winstall.app/apps/GOG.Galaxy
-https://winstall.app/apps/Valve.Steam
-https://winstall.app/apps/Ubisoft.Connect
+## GAMES
+```pwsh
+winget install --id=Blizzard.BattleNet -e -h
+winget install --id=EpicGames.EpicGamesLauncher -e -h
+winget install --id=GOG.Galaxy -e -h
+winget install --id=Valve.Steam -e -h
+winget install --id=Ubisoft.Connect -e -h
+```
+DolphinEmulator.Dolphin
 
-# BENCH
-https://winstall.app/apps/CPUID.CPU-Z
-https://winstall.app/apps/CrystalDewWorld.CrystalDiskInfo
-https://winstall.app/apps/CrystalDewWorld.CrystalDiskMark
-https://winstall.app/apps/TechPowerUp.GPU-Z
+## BENCH
+CPUID.CPU-Z
+CrystalDewWorld.CrystalDiskInfo
+CrystalDewWorld.CrystalDiskMark
+TechPowerUp.GPU-Z
 
-# OTHER
-https://winstall.app/apps/OsirisDevelopment.BatteryBar
-https://winstall.app/apps/IrfanSkiljan.IrfanView
-https://winstall.app/apps/Oracle.JavaRuntimeEnvironment
-https://winstall.app/apps/JetBrains.Toolbox
-https://winstall.app/apps/KDE.KDEConnect
-https://winstall.app/apps/Notion.Notion
-https://winstall.app/apps/Nvidia.CUDA
-https://winstall.app/apps/Nvidia.GeForceExperience
-https://winstall.app/apps/PostgreSQL.PostgreSQL
-https://winstall.app/apps/SlackTechnologies.Slack
-https://winstall.app/apps/Termius.Termius
-https://winstall.app/apps/winpython.winpython-pypy
+## OTHER
+```pwsh
+winget install --id=OsirisDevelopment.BatteryBar -e -h
+winget install --id=Nvidia.CUDA -e -h
+winget install --id=Nvidia.GeForceExperience -e -h
+```
+IrfanSkiljan.IrfanView
+Oracle.JavaRuntimeEnvironment
+JetBrains.Toolbox
+KDE.KDEConnect
+Notion.Notion
+Termius.Termius
+SlackTechnologies.Slack
