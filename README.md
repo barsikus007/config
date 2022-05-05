@@ -7,15 +7,18 @@ PowerShell.exe -ExecutionPolicy Bypass -File filename
 - [ ] Tweak windows
 - [ ] clink
 - [ ] autoinstall pwsh script
-- [ ] starship custom git command
+- [ ] starship fix custom git command
 - [ ] starship design
 - [ ] starship fix character on exit
+- [ ] starship Administrator to root
 - [ ] pwsh aliases
 - [ ] nvim config
+- [ ] https://www.youtube.com/watch?v=FW2X1CXrU1w
 - [ ] git clone https://github.com/NvChad/NvChad ~\.config\nvim --depth 1
 - [ ] fzf
 - [ ] psfzf
 - [ ] z
+- [ ] pwsh.exe -NoLogo vscode
 
 # other
 ## WSL
@@ -48,11 +51,23 @@ https://c2rsetup.officeapps.live.com/c2r/download.aspx?ProductreleaseID=language
 ## multimc
 https://multimc.org/#Download
 
+## player
+mpv TODO config
+https://win10tweaker.ru/forum/topic/potplayer-portable
+https://jailbreakvideo.ru/Files/Update%20Portable%20PotPlayer.exe
+
 ## TODO dotnet 35 5
 
 ## TODO dxwebinstall
 
 ## TODO drivers
+
+## torrent
+//VMware.WorkstationPlayer
+//VMware.WorkstationPro
+or other virtual thing
+
+## copy configs for apps
 
 
 # winget
@@ -60,20 +75,33 @@ https://winstall.app/apps/{id}
 ## CORE APPS
 ```pwsh
 winget upgrade --accept-source-agreements
-winget install pwsh -h
-winget install pwsh-preview -h
+# winget install pwsh -h
+# winget install pwsh-preview -h
 ```
-//AnyDeskSoftwareGmbH.AnyDesk
-//Microsoft.PowerShell
-//Microsoft.VisualStudio.2022.BuildTools
-//Microsoft.VisualStudio.2022.Community
-//VMware.WorkstationPlayer
+```pwsh
+winget install --id=Docker.DockerDesktop -e -h
+winget install --id=Mozilla.Firefox -e -h
+winget install --id=Parsec.Parsec -e -h
+winget install --id=Nvidia.RTXVoice -e -h
+winget install --id=SandboxiePlus.SandboxieClassic -e -h
+winget install --id=WireGuard.WireGuard -e -h
+```
+```pwsh
+# dotnet for some apps, 6 is for powertoys, others are for TODO
+# sudo winget install --id=Microsoft.dotnetRuntime.3-x64 -e -h
+# sudo winget install --id=Microsoft.dotnetRuntime.5-x64 -e -h
+sudo winget install --id=Microsoft.dotnetRuntime.6-x64 -e -h
+# Microsoft Visual C++ 14.0 or greater for some python packages
+# quiet argument is optional
+sudo winget install --id=Microsoft.VisualStudio.2022.BuildTools -e --override '--add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --add Microsoft.VisualStudio.Component.Windows10SDK.19041 --quiet'
+```
+// scoop probably broken
+AnyDeskSoftwareGmbH.AnyDesk
 Mozilla.Firefox
 Opera.Opera
 Microsoft.PowerToys
 Python.Python.3
 qBittorrent.qBittorrent
-NickeManarin.ScreenToGif
 ShareX.ShareX
 Telegram.TelegramDesktop
 TorProject.TorBrowser
@@ -89,6 +117,7 @@ winget install --id=Ubisoft.Connect -e -h
 DolphinEmulator.Dolphin
 
 ## BENCH
+// scoop probably broken
 CPUID.CPU-Z
 CrystalDewWorld.CrystalDiskInfo
 CrystalDewWorld.CrystalDiskMark
@@ -100,6 +129,7 @@ winget install --id=OsirisDevelopment.BatteryBar -e -h
 winget install --id=Nvidia.CUDA -e -h
 winget install --id=Nvidia.GeForceExperience -e -h
 ```
+// scoop probably broken
 IrfanSkiljan.IrfanView
 Oracle.JavaRuntimeEnvironment
 JetBrains.Toolbox

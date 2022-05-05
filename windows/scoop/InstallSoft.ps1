@@ -11,9 +11,9 @@ scoop bucket add nerd-fonts
 scoop install sudo
 sudo scoop install delugia-nerd-font-complete
 
-# vcredist
+# vcredist and dotnet
 sudo scoop install vcredist-aio
-#? scoop search build_tools
+# scoop install dotnet-sdk
 
 # terminal things
 scoop install scoop-search scoop-completion
