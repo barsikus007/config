@@ -1,7 +1,9 @@
-# TODO
+# config
 ```pwsh
 PowerShell.exe -ExecutionPolicy Bypass -File filename
 ```
+
+# TODO
 - [ ] WSA
 - [ ] WSLg
 - [ ] Tweak windows
@@ -92,8 +94,7 @@ winget install --id=WireGuard.WireGuard -e -h
 # sudo winget install --id=Microsoft.dotnetRuntime.5-x64 -e -h
 sudo winget install --id=Microsoft.dotnetRuntime.6-x64 -e -h
 # Microsoft Visual C++ 14.0 or greater for some python packages
-# quiet argument is optional
-sudo winget install --id=Microsoft.VisualStudio.2022.BuildTools -e --override '--add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --add Microsoft.VisualStudio.Component.Windows10SDK.19041 --quiet'
+sudo winget install --id=Microsoft.VisualStudio.2022.BuildTools -e --override '--add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --add Microsoft.VisualStudio.Component.Windows10SDK.19041 --quiet --wait'
 ```
 // scoop probably broken
 AnyDeskSoftwareGmbH.AnyDesk
@@ -132,8 +133,8 @@ winget install --id=Nvidia.GeForceExperience -e -h
 // scoop probably broken
 IrfanSkiljan.IrfanView
 Oracle.JavaRuntimeEnvironment
-JetBrains.Toolbox
 KDE.KDEConnect
 Notion.Notion
-Termius.Termius
 SlackTechnologies.Slack
+Termius.Termius
+JetBrains.Toolbox
