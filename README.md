@@ -15,12 +15,18 @@ PowerShell.exe -ExecutionPolicy Bypass -File filename
 - [ ] starship Administrator to root
 - [ ] pwsh aliases
 - [ ] nvim config
+- [ ] https://nvchad.github.io/getting-started/setup
+- [ ] https://jdhao.github.io/nvim-config/
 - [ ] https://www.youtube.com/watch?v=FW2X1CXrU1w
 - [ ] git clone https://github.com/NvChad/NvChad ~\.config\nvim --depth 1
 - [ ] fzf
 - [ ] psfzf
 - [ ] z
 - [ ] pwsh.exe -NoLogo vscode
+- [ ] netlimiter or windowsfirewallcontrol
+- [ ] scoop bucket add dorado https://github.com/chawyehsu/dorado
+- [ ] scoop install lxrunoffline
+- [ ] https://github.com/DDoSolitary/LxRunOffline
 
 # other
 ## WSL
@@ -58,9 +64,9 @@ mpv TODO config
 https://win10tweaker.ru/forum/topic/potplayer-portable
 https://jailbreakvideo.ru/Files/Update%20Portable%20PotPlayer.exe
 
-## TODO dotnet 35 5
-
 ## TODO dxwebinstall
+https://www.microsoft.com/ru-ru/download/details.aspx?id=35
+https://download.microsoft.com/download/1/7/1/1718CCC4-6315-4D8E-9543-8E28A4E18C4C/dxwebsetup.exe
 
 ## TODO drivers
 
