@@ -2,13 +2,7 @@
 Invoke-Expression (&starship init powershell)
 starship completions powershell | Out-String | Invoke-Expression
 
-# https://ohmyposh.dev/ 150 ms slower
-# oh-my-posh init pwsh --config ~\.config\iterm3.omp.json | Invoke-Expression
-# oh-my-posh completion powershell | Out-String | Invoke-Expression
-
-
 # too slow
-# Import-Module posh-git
 # Import-Module terminal-icons
 
 Set-PSReadLineOption -PredictionSource History

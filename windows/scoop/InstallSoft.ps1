@@ -18,7 +18,6 @@ sudo scoop install vcredist-aio
 # terminal things
 scoop install scoop-search scoop-completion
 scoop install pwsh z starship fzf psfzf
-#! scoop install oh-my-posh posh-git terminal-icons
 #? scoop install clink clink-completions
 #? clink inject; clink autorun install
 scoop install which touch

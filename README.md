@@ -16,6 +16,7 @@ PowerShell.exe -ExecutionPolicy Bypass -File filename
 - [ ] pwsh aliases
 - [ ] nvim config
 - [ ] https://nvchad.github.io/getting-started/setup
+- [ ] https://spacevim.org
 - [ ] https://jdhao.github.io/nvim-config/
 - [ ] https://www.youtube.com/watch?v=FW2X1CXrU1w
 - [ ] git clone https://github.com/NvChad/NvChad ~\.config\nvim --depth 1
@@ -27,6 +28,7 @@ PowerShell.exe -ExecutionPolicy Bypass -File filename
 - [ ] scoop bucket add dorado https://github.com/chawyehsu/dorado
 - [ ] scoop install lxrunoffline
 - [ ] https://github.com/DDoSolitary/LxRunOffline
+- [ ] vscode normal ctrl+c ctrl+v linux
 
 # other
 ## WSL
