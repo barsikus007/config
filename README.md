@@ -14,6 +14,7 @@ PowerShell.exe -ExecutionPolicy Bypass -File filename
 - [ ] starship fix character on exit
 - [ ] starship Administrator to root
 - [ ] pwsh aliases
+- [ ] bash aliases
 - [ ] nvim config
 - [ ] https://nvchad.github.io/getting-started/setup
 - [ ] https://spacevim.org

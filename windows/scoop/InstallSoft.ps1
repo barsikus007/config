@@ -41,6 +41,7 @@ scoop install which touch
 # iperf3
 # mpv.net
 # neovim
+# neovide
 # nmap
 # nvm
 # notepadplusplus
