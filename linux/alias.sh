@@ -1,4 +1,4 @@
-cat <<EOT >> greetings.txt
+cat <<EOT >> ~/.bash_aliases
 alias grp='grep -Fin -A 7 -B 7'
 alias c='clear'
 alias h='history'
