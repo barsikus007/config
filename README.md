@@ -4,37 +4,40 @@ PowerShell.exe -ExecutionPolicy Bypass -File filename
 ```
 
 # TODO
-- [ ] WSA
-- [ ] WSLg
-- [ ] Tweak windows
-  - [ ] https://github.com/farag2/Sophia-Script-for-Windows
-  - [ ] https://win10tweaker.ru/twikinarium
-- [ ] clink
-- [ ] autoinstall pwsh script
-- [ ] starship fix custom git command
-- [ ] starship design
-- [ ] starship fix character on exit
-- [ ] starship Administrator to root
-- [ ] pwsh aliases
-- [ ] bash aliases
-- [ ] nvim config
-  - [ ] https://www.reddit.com/r/neovim/comments/oumljd/how_do_you_use_sudo_with_neovim_while_keeping_the/
-  - [ ] https://nvchad.github.io/getting-started/setup
-  - [ ] https://spacevim.org
-  - [ ] https://jdhao.github.io/nvim-config/
-  - [ ] https://www.youtube.com/watch?v=FW2X1CXrU1w
-  - [ ] git clone https://github.com/NvChad/NvChad ~\.config\nvim --depth 1
-  - [ ] https://gist.github.com/alexey-goloburdin/62d5b1b5ec19275d33497b7f3c0b6eec
-  - [ ] https://github.com/alexey-goloburdin/nvim-config/blob/main/init.vim
-- [ ] fzf
-- [ ] psfzf
-- [ ] z
-- [ ] pwsh.exe -NoLogo vscode
-- [ ] netlimiter or windowsfirewallcontrol
-- [ ] scoop bucket add dorado https://github.com/chawyehsu/dorado
-- [ ] scoop install lxrunoffline
-- [ ] https://github.com/DDoSolitary/LxRunOffline
-- [ ] vscode normal ctrl+c ctrl+v linux
+- WSA
+- WSLg
+- Tweak windows
+  - https://github.com/farag2/Sophia-Script-for-Windows
+  - https://win10tweaker.ru/twikinarium
+- clink
+- btop
+- Windows Terminal
+  - https://github.com/Serendipity-Theme/windows-terminal
+- autoinstall pwsh script
+- starship fix custom git command
+- starship design
+- starship fix character on exit
+- starship Administrator to root
+- pwsh aliases
+- bash aliases
+- nvim config
+  - https://www.reddit.com/r/neovim/comments/oumljd/how_do_you_use_sudo_with_neovim_while_keeping_the/
+  - https://nvchad.github.io/getting-started/setup
+  - https://spacevim.org
+  - https://jdhao.github.io/nvim-config/
+  - https://www.youtube.com/watch?v=FW2X1CXrU1w
+  - git clone https://github.com/NvChad/NvChad ~\.config\nvim --depth 1
+  - https://gist.github.com/alexey-goloburdin/62d5b1b5ec19275d33497b7f3c0b6eec
+  - https://github.com/alexey-goloburdin/nvim-config/blob/main/init.vim
+- fzf
+- psfzf
+- z
+- pwsh.exe -NoLogo vscode
+- netlimiter or windowsfirewallcontrol
+- scoop bucket add dorado https://github.com/chawyehsu/dorado
+- scoop install lxrunoffline
+- https://github.com/DDoSolitary/LxRunOffline
+- vscode normal ctrl+c ctrl+v linux
 
 # other
 ## WSL
