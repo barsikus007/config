@@ -37,7 +37,10 @@
     {
         "defaults": 
         {
-            "fontFace": "Delugia",
+            "font": 
+            {
+                "face": "Delugia"
+            },
             "colorScheme": "Frost",
             // "colorScheme": "Campbell",
             "opacity": 70,

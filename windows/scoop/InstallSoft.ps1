@@ -10,6 +10,7 @@ scoop install 7zip innounp dark
 scoop bucket add nerd-fonts
 scoop install sudo
 sudo scoop install delugia-nerd-font-complete
+# TODO sudo scoop install firacode
 
 # vcredist and dotnet
 sudo scoop install vcredist-aio

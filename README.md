@@ -7,6 +7,8 @@ PowerShell.exe -ExecutionPolicy Bypass -File filename
 - [ ] WSA
 - [ ] WSLg
 - [ ] Tweak windows
+  - [ ] https://github.com/farag2/Sophia-Script-for-Windows
+  - [ ] https://win10tweaker.ru/twikinarium
 - [ ] clink
 - [ ] autoinstall pwsh script
 - [ ] starship fix custom git command
@@ -16,11 +18,14 @@ PowerShell.exe -ExecutionPolicy Bypass -File filename
 - [ ] pwsh aliases
 - [ ] bash aliases
 - [ ] nvim config
-- [ ] https://nvchad.github.io/getting-started/setup
-- [ ] https://spacevim.org
-- [ ] https://jdhao.github.io/nvim-config/
-- [ ] https://www.youtube.com/watch?v=FW2X1CXrU1w
-- [ ] git clone https://github.com/NvChad/NvChad ~\.config\nvim --depth 1
+  - [ ] https://www.reddit.com/r/neovim/comments/oumljd/how_do_you_use_sudo_with_neovim_while_keeping_the/
+  - [ ] https://nvchad.github.io/getting-started/setup
+  - [ ] https://spacevim.org
+  - [ ] https://jdhao.github.io/nvim-config/
+  - [ ] https://www.youtube.com/watch?v=FW2X1CXrU1w
+  - [ ] git clone https://github.com/NvChad/NvChad ~\.config\nvim --depth 1
+  - [ ] https://gist.github.com/alexey-goloburdin/62d5b1b5ec19275d33497b7f3c0b6eec
+  - [ ] https://github.com/alexey-goloburdin/nvim-config/blob/main/init.vim
 - [ ] fzf
 - [ ] psfzf
 - [ ] z
@@ -74,9 +79,9 @@ https://download.microsoft.com/download/1/7/1/1718CCC4-6315-4D8E-9543-8E28A4E18C
 ## TODO drivers
 
 ## torrent
-//VMware.WorkstationPlayer
-//VMware.WorkstationPro
-or other virtual thing
+- //VMware.WorkstationPlayer
+- //VMware.WorkstationPro
+- or other virtual thing
 
 ## copy configs for apps
 
@@ -105,16 +110,16 @@ sudo winget install --id=Microsoft.dotnetRuntime.6-x64 -e -h
 # Microsoft Visual C++ 14.0 or greater for some python packages
 sudo winget install --id=Microsoft.VisualStudio.2022.BuildTools -e --override '--add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --add Microsoft.VisualStudio.Component.Windows10SDK.19041 --quiet --wait'
 ```
-// scoop probably broken
-AnyDeskSoftwareGmbH.AnyDesk
-Mozilla.Firefox
-Opera.Opera
-Microsoft.PowerToys
-Python.Python.3
-qBittorrent.qBittorrent
-ShareX.ShareX
-Telegram.TelegramDesktop
-TorProject.TorBrowser
+scoop probably broken
+- AnyDeskSoftwareGmbH.AnyDesk
+- Mozilla.Firefox
+- Opera.Opera
+- Microsoft.PowerToys
+- Python.Python.3
+- qBittorrent.qBittorrent
+- ShareX.ShareX
+- Telegram.TelegramDesktop
+- TorProject.TorBrowser
 
 ## GAMES
 ```pwsh
@@ -128,10 +133,10 @@ DolphinEmulator.Dolphin
 
 ## BENCH
 // scoop probably broken
-CPUID.CPU-Z
-CrystalDewWorld.CrystalDiskInfo
-CrystalDewWorld.CrystalDiskMark
-TechPowerUp.GPU-Z
+- CPUID.CPU-Z
+- CrystalDewWorld.CrystalDiskInfo
+- CrystalDewWorld.CrystalDiskMark
+- TechPowerUp.GPU-Z
 
 ## OTHER
 ```pwsh
@@ -140,10 +145,10 @@ winget install --id=Nvidia.CUDA -e -h
 winget install --id=Nvidia.GeForceExperience -e -h
 ```
 // scoop probably broken
-IrfanSkiljan.IrfanView
-Oracle.JavaRuntimeEnvironment
-KDE.KDEConnect
-Notion.Notion
-SlackTechnologies.Slack
-Termius.Termius
-JetBrains.Toolbox
+- IrfanSkiljan.IrfanView
+- Oracle.JavaRuntimeEnvironment
+- KDE.KDEConnect
+- Notion.Notion
+- SlackTechnologies.Slack
+- Termius.Termius
+- JetBrains.Toolbox
