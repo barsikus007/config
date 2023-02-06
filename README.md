@@ -4,6 +4,8 @@ PowerShell.exe -ExecutionPolicy Bypass -File filename
 ```
 
 # TODO
+- save scoop config?
+- make ru-en utf linux and windows locale
 - WSA
 - WSLg
 - Tweak windows
@@ -14,12 +16,21 @@ PowerShell.exe -ExecutionPolicy Bypass -File filename
 - Windows Terminal
   - https://github.com/Serendipity-Theme/windows-terminal
 - autoinstall pwsh script
-- starship fix custom git command
-- starship design
-- starship fix character on exit
-- starship Administrator to root
-- pwsh aliases
-- bash aliases
+- terminal
+  - !!!FISH!!!
+    - windows (MSYS2) ?
+    - WSL
+    - LINUX
+  - prompt
+    - starship fix custom git command
+    - starship design
+    - starship fix character on exit
+    - starship Administrator to root
+  - aliases
+    - pwsh
+    - bash
+- config system
+  - script remove previous config files
 - nvim config
   - https://www.reddit.com/r/neovim/comments/oumljd/how_do_you_use_sudo_with_neovim_while_keeping_the/
   - https://nvchad.github.io/getting-started/setup
@@ -45,6 +56,9 @@ wsl --install -d Ubuntu
 ### TODO wslg
 ### TODO wslg config 120 fps
 
+
+
+
 ## WSA
 https://github.com/barsikus007/MagiskOnWSA
 
@@ -54,8 +68,8 @@ winget install --id=9NBLGGH5FV99 -e --accept-package-agreements
 ##minecraft
 winget install --id=9NBLGGH2JHXJ -e --accept-package-agreements
 
-## process hacker
-https://processhacker.sourceforge.io/nightly.php
+## system informer (process hacker)
+https://systeminformer.sourceforge.io/nightly.php
 
 ## shadow defender
 VMACN-4MA3W-S4RHY-5HYT4-GZNN4

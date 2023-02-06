@@ -9,6 +9,7 @@ scoop install 7zip innounp dark
 # fonts for terminal
 scoop bucket add nerd-fonts
 scoop install sudo
+# scoop install gsudo
 sudo scoop install delugia-nerd-font-complete
 # TODO sudo scoop install firacode
 

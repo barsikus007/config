@@ -1,8 +1,11 @@
-" ?
 set number relativenumber
 set mouse=a
-" set ruler
+set ruler
 
+set autoindent
+
+
+" russian commands
 " https://gist.github.com/sigsergv/5329458
 " https://www.cs.auckland.ac.nz/references/gnu/vim/russian.html
 set langmap=ёйцукенгшщзхъфывапролджэячсмитьбюЁЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.~QWERTYUIOP{}ASDFGHJKL:\\"ZXCVBNM<>

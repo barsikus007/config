@@ -1,5 +1,6 @@
 if ($args[0]) {
     $ScoopDir = $args[0]
+    iex "& {$(irm get.scoop.sh)} -ScoopDir $ScoopDir"
     echo Run:
     echo "iwr -useb get.scoop.sh -outfile 'install.ps1'; .\install.ps1 -ScoopDir $ScoopDir; rm install.ps1"
     echo Then

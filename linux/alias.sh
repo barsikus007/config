@@ -1,5 +1,5 @@
 cat <<EOT >> ~/.bash_aliases
-alias grp='grep -Fin -A 7 -B 7'
+alias grp='grep -Fin -C 7'
 alias c='clear'
 alias h='history'
 alias hf='h|grp'
