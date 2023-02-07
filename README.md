@@ -6,13 +6,23 @@ PowerShell.exe -ExecutionPolicy Bypass -File filename
 # TODO
 - save scoop config?
 - make ru-en utf linux and windows locale
+  - export LC_CTYPE=ru_RU.UTF-8
 - WSA
 - WSLg
 - Tweak windows
   - https://github.com/farag2/Sophia-Script-for-Windows
   - https://win10tweaker.ru/twikinarium
 - clink
-- btop
+- default editor bashrc
+- autocrlf
+- basic ubuntu software
+  - sudo apt install software-properties-common htop curl wget git build-essential
+- new software
+  - tldr
+  - duf
+  - ncdu
+  - btop
+  - https://github.com/th-ch/youtube-music/releases/latest
 - Windows Terminal
   - https://github.com/Serendipity-Theme/windows-terminal
 - autoinstall pwsh script
@@ -26,6 +36,7 @@ PowerShell.exe -ExecutionPolicy Bypass -File filename
     - starship design
     - starship fix character on exit
     - starship Administrator to root
+    -  starship command continue remove due to copy (?)
   - aliases
     - pwsh
     - bash
