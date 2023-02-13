@@ -1,4 +1,5 @@
-# Linux
+#!/bin/sh
+
 sudo wget https://github.com/adam7/delugia-code/releases/latest/download/delugia-complete.zip -O ~/delugia-complete.zip
 mkdir ~/delugia-complete
 unzip ~/delugia-complete.zip -d ~/delugia-complete

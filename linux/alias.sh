@@ -1,3 +1,5 @@
+#!/bin/sh
+
 cat <<EOT >> ~/.bash_aliases
 alias grp='grep -Fin -C 7'
 alias c='clear'
