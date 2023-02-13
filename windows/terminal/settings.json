@@ -42,7 +42,10 @@
                 "face": "Delugia"
             },
             "colorScheme": "Frost",
-            // "colorScheme": "Campbell",
+            // "colorScheme": {
+            //     "light": "Frost",
+            //     "dark": "Campbell",
+            // },
             "opacity": 70,
             "useAcrylic": true
         },
