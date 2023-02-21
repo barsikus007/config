@@ -1,4 +1,4 @@
-# Termux cheatsheet
+# [Termux](./)
 ```bash
 termux-setup-storage
 yes | pkg up

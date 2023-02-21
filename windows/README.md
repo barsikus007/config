@@ -5,6 +5,7 @@ PowerShell.exe -ExecutionPolicy Bypass -File filename
 ```
 
 ## TODO
+- steam lite `steam -no-browser +open steam://open/minigameslist`
 - WSA
 - WSLg
 - Tweak windows
