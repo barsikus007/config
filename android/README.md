@@ -9,9 +9,11 @@
 - [Kernel Flasher](https://github.com/capntrips/KernelFlasher)
     - [kernel](https://forum.xda-developers.com/t/kernel-19-12-2022-android-13-0-0-stable-kirisakura-1-2-1-for-pixel-7-pro-aka-pantah.4509795/)
     - [kernel settings (test with kernel above)](https://forum.xda-developers.com/t/optimise-stock-kernel-scheduler-governor-setting.4544447/)
+## [YouTube ReVanced](revanced.md)
 ## [Root](root.md)
 ## [Termux](termux.md)
 ## Device related forum threads
+- https://4pda.to/forum/index.php?s=&showtopic=1039682&view=findpost&p=119899326
 - https://4pda.to/forum/index.php?showtopic=1039682&st=8280#entry119468580
 - https://4pda.to/forum/index.php?showtopic=1039682&st=8340
 - https://4pda.to/forum/index.php?act=search&forums%5B%5D=863&topics%5B%5D=1039682&source=pst&username=Temoh%40&noform=1

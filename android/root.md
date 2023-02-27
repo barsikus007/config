@@ -5,6 +5,7 @@
 - [Noto Emoji PLUS](https://forum.xda-developers.com/t/module-emoji-sets-by-rkbdi.4120991/) [[Telegram](https://t.me/rkbdiemoji)]
 ## LSPosed Modules
 - [Flag Secure Hax](https://github.com/Xposed-Modules-Repo/com.varuns2002.disable_flag_secure)
+- [AlfaBank Patch](https://github.com/Xposed-Modules-Repo/ru.bluecat.alfabankpatcher)
 ## Apps
 - [Swift Backup](https://play.google.com/store/apps/details?id=org.swiftapps.swiftbackup)
     - Buy when availible

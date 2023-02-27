@@ -5,6 +5,8 @@ PowerShell.exe -ExecutionPolicy Bypass -File filename
 ```
 
 ## TODO
+- TunnlTo
+  - whitelist `code, copilot-agent-win, opera, EpicGamesLauncher, EpicWebHelper, steam, steamwebhelper`
 - steam lite `steam -no-browser +open steam://open/minigameslist`
 - WSA
 - WSLg

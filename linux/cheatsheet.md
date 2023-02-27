@@ -1,29 +1,17 @@
-# cheatsheet
-## screen todo tmux
-### Connect and detach from screen
-```bash
-screen -ls
-Ctrl+A Ctrl+D
-screen -r
-screen -X -S id quit
-```
-### Enable mouse scrolling and scroll
-```bash
-nano ~/.screenrc
-bar history scrolling
-termcapinfo xterm* ti@:te@
-```
-### and save screen scroll config
-```bash
-screen -c ~/.screenrc
-export SCREENRC="~/.screenrc"
-```
-
+# [cheatsheet](./)
 ## ssh
+### [add git key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent?platform=linux)
+```bash
+ssh-keygen -t ed25519 -C "example@gmail.com"
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+cat ~/.ssh/id_ed25519.pub
+```
 ### Generate and upload SSH
 ```bash
-ssh-keygen -t rsa -P ""
-ssh-copy-id -i pi_rsa.pub username@192.168.0.123
+key_name="pi_rsa"
+ssh-keygen -f $key_name -t ed25519  # -P "password" -C "comment"
+ssh-copy-id -i $key_name.pub username@192.168.0.123
 ssh server
 ```
 ### Allow port forward ssh

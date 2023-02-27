@@ -1,4 +1,7 @@
 # config
+## [Android](android/README.md)
+## [Linux](linux/README.md)
+## TODO
 - make ru-en utf linux and windows locale
   - export LC_CTYPE=ru_RU.UTF-8
 - default editor bashrc
