@@ -1,6 +1,18 @@
-# [Linux](../)
+# [Linux](../README.md)
 ## [Command Cheat Sheet](cheatsheet.md)
 ## TODO
+- [test link](/..)
+- [test link](/)
+- [test link](/../)
+- [test link](/../../)
+- [test link](..)
+- [test link](../)
+- [test link](../../)
+- [test link](../../../)
+- [test link](../../../../)
+- [test link](../../../tree/master/)
+- 2 fedoras at uefi boot menu
+- https://docs.docker.com/desktop/install/linux-install/#generic-installation-steps
 - $XDG_CONFIG_HOME
 - add shell independent alias install
 - add custom file with aliases
@@ -17,4 +29,3 @@
 - 4 fingers gestures
   - https://copr.fedorainfracloud.org/coprs/elxreno/libinput-gestures/
   - https://gitlab.com/cunidev/gestures
-  - fedore gnome language indicator

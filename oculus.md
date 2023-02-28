@@ -19,3 +19,7 @@
 - https://www.youtube.com/watch?v=zcLbFuBSrUQ
 - https://www.youtube.com/channel/UCOpwI0AQotH5iEKSo6SfHnQ/videos
 - https://www.youtube.com/watch?v=M5gx6A5lceo
+
+- waltz of the wizards
+- lofivr
+- https://developer.oculus.com/downloads/package/ovr-metrics-tool/

@@ -1,0 +1,14 @@
+# ASUS GA401IV
+- https://gitlab.com/kirbykevinson/libinput-config
+- https://unix.stackexchange.com/questions/358741/asus-x540s-laptop-internal-microphone-listed-but-not-working
+- https://www.reddit.com/r/ZephyrusG14/comments/jnve6t/microphone_not_working_on_ubuntu/
+-
+- 38. https://www.reddit.com/r/ZephyrusG14/comments/hldxcv/how_to_get_10_hours_battery/
+- 39. https://discord.com/channels/736971456054952027/736971456650412114/784252533886418954
+- 40. https://github.com/aredden/RestartGPU/
+- 41. https://github.com/sammilucia/ASUS-G14-Debloating/
+- 42. https://www.reddit.com/r/ZephyrusG14/comments/isc47y/another_solution_for_missing_pgup_pgdn_home_and/
+- 43. https://drive.google.com/drive/u/0/folders/1_FsWd2CAjAK13t82ZucTlNGabuI3laWF
+- 43.3 https://blog.joshwalsh.me/asus-anime-matrix/
+- https://drive.google.com/file/d/1tsmKRIt1S2AUqp3S2pFVCtBNxXtQC3bE/view
+- https://rog.asus.com/anime-matrix-pixel-editor/?device=DS-Animate#editor

@@ -2,6 +2,7 @@
 ## [Android](android/README.md)
 ## [Linux](linux/README.md)
 ## TODO
+- add bookmarks
 - make ru-en utf linux and windows locale
   - export LC_CTYPE=ru_RU.UTF-8
 - default editor bashrc
@@ -10,9 +11,11 @@
   - sudo apt install software-properties-common htop curl wget git build-essential
 - new software
   - https://github.com/isacikgoz/tldr
+  - bat
   - duf
   - ncdu
   - btop
+  - btop-lcu windows
   - https://github.com/th-ch/youtube-music/releases/latest
 - terminal
   - !!!FISH!!!
@@ -32,6 +35,7 @@
   - script remove previous config files
   - https://stackoverflow.com/questions/600079/how-do-i-clone-a-subdirectory-only-of-a-git-repository/52269934#52269934
 - nvim config
+  - nvim alias
   - https://www.reddit.com/r/neovim/comments/oumljd/how_do_you_use_sudo_with_neovim_while_keeping_the/
   - https://nvchad.github.io/getting-started/setup
   - https://spacevim.org

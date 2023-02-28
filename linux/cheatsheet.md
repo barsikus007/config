@@ -16,17 +16,26 @@ ssh server
 ```
 ### Allow port forward ssh
 ```bash
-nano /etc/ssh/sshd_config
+vim /etc/ssh/sshd_config
+# ---
 AllowTcpForwarding yes
 GatewayPorts yes
+# ---
 sudo systemctl restart ssh.service
 ```
 
 ## commands
+### apt
+```bash
+soft_to_install="mc curl neofetch"
+soft_to_purge="snapd"
+sudo apt install $soft_to_install -y
+sudo apt purge $soft_to_purge -y
+```
 ### Download "whole" site
 ```bash
 wget -r -k -l 7 -p -E -nc http://site.com/
-OR
+# OR
 wget -mpEk -l 7 http://site.com/
 ```
 ### Check folder with size
@@ -34,34 +43,34 @@ wget -mpEk -l 7 http://site.com/
 du . -hcd 1 | sort -hr
 du . -ha | sort -hr
 ```
-### Bleachbit clear
+### [bleachbit clear](https://askubuntu.com/q/671798)
 ```bash
 sudo bleachbit --list | grep -E "[a-z0-9_\-]+\.[a-z0-9_\-]+" | grep -v system.free_disk_space | xargs sudo bleachbit --clean
 ```
-### linux fork bomb
+### [clean running docker containers logs (also there is logs rotating config TODO)](https://stackoverflow.com/q/41091634)
 ```bash
-f(){ f | f& }; f
-yes > no
+sudo sh -c "truncate -s 0 /var/lib/docker/containers/*/*-json.log"
 ```
-### show motd
+### [show motd](https://askubuntu.com/q/319528)
 ```bash
-cat /var/run/motd.dynamic
-#or
-for i in /etc/update-motd.d/*; do if [ "$i" != "/etc/update-motd.d/98-fsck-at-reboot" ]; then $i; fi; done
+run-parts /etc/update-motd.d
 ```
 ### kill died terminals
+unknown source
 ```bash
 ps aux | grep sshd | grep "\w*@pts/.*" | awk {'print $2'} | xargs kill -9
 ```
-### apt
-```bash
-sudo apt install curl mc neofetch -y
-sudo apt purge snapd -y
-```
-### говночистка
+### [cron based autoclean](https://crontab.guru/#0_0_*_*_*)
 ```bash
 sudo crontab -e
-
+# ---
 0 0 * * * sh -c "truncate -s 0 /var/lib/docker/containers/*/*-json.log"
 0 0 * * * bleachbit --list | grep -E "[a-z0-9_\-]+\.[a-z0-9_\-]+" | xargs bleachbit --clean
+```
+### linux fork bombs
+```bash
+# spams f calls
+f(){ f | f& }; f
+# redirect yes output to "no" file
+yes > no
 ```

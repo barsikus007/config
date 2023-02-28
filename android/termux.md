@@ -2,7 +2,7 @@
 ```bash
 termux-setup-storage
 yes | pkg up
-pkg i neovim -y
+pkg i tmux neovim -y
 ## termix additions
 pkg i tsu termux-api -y
 ```

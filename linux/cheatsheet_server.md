@@ -33,11 +33,13 @@ ssh-copy-id -i filename.pub ogurez@192.168.0.228
 ``` bash
 alias vim=nvim
 sudo vim /etc/ssh/sshd_config
-# Port 2222
-# PermitRootLogin no
-# PasswordAuthentication no
-# ChallengeResponseAuthentication no
-# UsePAM no
+# ---
+Port 2222
+PermitRootLogin no
+PasswordAuthentication no
+ChallengeResponseAuthentication no
+UsePAM no
+# ---
 sudo systemctl reload ssh
 ```
 

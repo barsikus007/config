@@ -5,6 +5,11 @@ PowerShell.exe -ExecutionPolicy Bypass -File filename
 ```
 
 ## TODO
+- winget install th-ch.YouTubeMusic
+- winget install laney -s msstore
+- context menu
+  - `reg.exe add “HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32” /f`
+  - `reg.exe delete “HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}” /f`
 - TunnlTo
   - whitelist `code, copilot-agent-win, opera, EpicGamesLauncher, EpicWebHelper, steam, steamwebhelper`
 - steam lite `steam -no-browser +open steam://open/minigameslist`
