@@ -5,11 +5,15 @@ PowerShell.exe -ExecutionPolicy Bypass -File filename
 ```
 
 ## TODO
-- winget install th-ch.YouTubeMusic
+- unlock hidden power functions
+  - unknown source (reddit)
+  - `powercfg.exe -attributes sub_processor perfboostmode -attrib_hide`
+  - `powercfg.exe -attributes sub_disk 0b2d69d7-a2a1-449c-9680-f91c70521c60 -attrib_hide`
+- common linux aliases to windows (like ll)
 - winget install laney -s msstore
-- context menu
-  - `reg.exe add “HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32” /f`
-  - `reg.exe delete “HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}” /f`
+- new context menu
+  - disable `reg.exe add “HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32” /f`
+  - enable `reg.exe delete “HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}” /f`
 - TunnlTo
   - whitelist `code, copilot-agent-win, opera, EpicGamesLauncher, EpicWebHelper, steam, steamwebhelper`
 - steam lite `steam -no-browser +open steam://open/minigameslist`

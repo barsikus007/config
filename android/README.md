@@ -1,4 +1,4 @@
-# [Pixel 7 Pro](../)
+# [Pixel 7 Pro](../README.md)
 ## Instructions
 - [APN fix](https://4pda.to/forum/index.php?showtopic=1030072&st=11920#entry117115914)
 - [root and kernel english](https://forum.xda-developers.com/t/unlock-bootloader-root-pixel-7-pro-cheetah-safetynet.4502805/)
@@ -20,6 +20,7 @@
 - https://4pda.to/forum/index.php?showtopic=1056929&st=520
 - https://4pda.to/forum/index.php?showtopic=1060116&st=80
 ## TODO
+- telegram mods settings
 - Design and Tweak Mods
     - https://github.com/Mahmud0808/Iconify
     - https://github.com/kdrag0n/android12-extensions

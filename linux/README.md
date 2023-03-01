@@ -1,19 +1,19 @@
 # [Linux](../README.md)
 ## [Command Cheat Sheet](cheatsheet.md)
 ## TODO
-- [test link](/..)
-- [test link](/)
-- [test link](/../)
+- [test link+](../README.md)
 - [test link](/../../)
-- [test link](..)
-- [test link](../)
-- [test link](../../)
 - [test link](../../../)
-- [test link](../../../../)
-- [test link](../../../tree/master/)
+- ~/.bash_profile
+- ~/.bash_commands
+- ~/.bashrc could not initialize ~/.bash_aliases
+- one of these .bash files could be ignored (sourse: ubuntu default profiles)
+- alias resolve package manager for u
 - 2 fedoras at uefi boot menu
 - https://docs.docker.com/desktop/install/linux-install/#generic-installation-steps
 - $XDG_CONFIG_HOME
+- HISTSIZE=10000
+- HISTFILESIZE=10000
 - add shell independent alias install
 - add custom file with aliases
 - gnome extensions

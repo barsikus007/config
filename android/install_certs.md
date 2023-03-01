@@ -15,6 +15,8 @@ openssl x509 -inform DER -in $cert_name -out ${FILE%%.*}-conv.crt
 # convert certs
 cert_name=http-toolkit-ca-certificate-conv.crt
 hashed_name=`openssl x509 -inform der -subject_hash_old -in $cert_name | head -1` && cp $cert_name $hashed_name.0
+# or
+hashed_name=`openssl x509 -inform PEM -subject_hash_old -in $cert_name | head -1` && cp $cert_name $hashed_name.0
 
 # change certs dir to your own
 cd ~/certs

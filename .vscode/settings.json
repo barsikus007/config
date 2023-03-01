@@ -1,0 +1,11 @@
+{
+    "[markdown]": {
+        "editor.tabSize": 2
+    },
+    "[javascript]": {
+        "editor.tabSize": 2
+    },
+    "[shellscript]": {
+        "editor.tabSize": 2
+    }
+}

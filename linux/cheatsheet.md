@@ -31,17 +31,50 @@ soft_to_install="mc curl neofetch"
 soft_to_purge="snapd"
 sudo apt install $soft_to_install -y
 sudo apt purge $soft_to_purge -y
+# show installed https://askubuntu.com/q/2389
+apt-mark showmanual
+# or better
+zgrep 'Commandline: apt' /var/log/apt/history.log /var/log/apt/history.log.*.gz
 ```
-### Download "whole" site
+### pacman
 ```bash
+soft_to_install="mc curl neofetch"
+soft_to_purge="snapd"
+sudo pacman -S $soft_to_install -y
+sudo pacman -Rsn $soft_to_purge -y
+```
+### [Download "whole" site](https://pingvinus.ru/note/wget-download-sites) ([alt](https://superuser.com/q/1672776))
+```bash
+# set recursion depth manually
 wget -r -k -l 7 -p -E -nc http://site.com/
-# OR
-wget -mpEk -l 7 http://site.com/
+# OR automatic
+wget -mpEk http://site.com/
 ```
-### Check folder with size
+### Check size of files at folder
 ```bash
+# current folder
 du . -hcd 1 | sort -hr
+# current folder with files (use apparent sizes, rather than disk usage)
+du . -hacd 1 --apparent-size | sort -hr
+# all files in that folder recursively
 du . -ha | sort -hr
+```
+### Grep search in dir recursively
+TODO add find or strings example
+```bash
+grep -rnw 'dir/' -e 'search'
+```
+### [dos2unix4folder](https://stackoverflow.com/a/11929475/15844518)
+```bash
+find . -type f -print0 | xargs -0 dos2unix -ic0 | xargs -0 dos2unix -b
+# or for git repos
+git ls-files | xargs dos2unix -ic0 | xargs dos2unix -b
+```
+```
+### [Get DISPLAY for old WSL (useless now)](https://serverfault.com/q/47915)
+```bash
+ip r l default | awk '{print $3}'
+```
 ```
 ### [bleachbit clear](https://askubuntu.com/q/671798)
 ```bash

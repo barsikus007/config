@@ -2,6 +2,11 @@
 ## [Android](android/README.md)
 ## [Linux](linux/README.md)
 ## TODO
+- chmod +x executables in repo
+- .gitconfig 
+- password manager
+- https://violentmonkey.github.io
+- dos2unix
 - add bookmarks
 - make ru-en utf linux and windows locale
   - export LC_CTYPE=ru_RU.UTF-8
@@ -11,11 +16,17 @@
   - sudo apt install software-properties-common htop curl wget git build-essential
 - new software
   - https://github.com/isacikgoz/tldr
+    - tldr go ?
+    - tldr -u
   - bat
+    - mkdir -p ~/.local/bin
+    - ln -s /usr/bin/batcat ~/.local/bin/bat
+    -
+    - alias to cat
   - duf
   - ncdu
   - btop
-  - btop-lcu windows
+  - btop-lhm windows
   - https://github.com/th-ch/youtube-music/releases/latest
 - terminal
   - !!!FISH!!!
