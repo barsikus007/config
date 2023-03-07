@@ -70,12 +70,7 @@ find . -type f -print0 | xargs -0 dos2unix -ic0 | xargs -0 dos2unix -b
 # or for git repos
 git ls-files | xargs dos2unix -ic0 | xargs dos2unix -b
 ```
-```
-### [Get DISPLAY for old WSL (useless now)](https://serverfault.com/q/47915)
 ```bash
-ip r l default | awk '{print $3}'
-```
-```
 ### [bleachbit clear](https://askubuntu.com/q/671798)
 ```bash
 sudo bleachbit --list | grep -E "[a-z0-9_\-]+\.[a-z0-9_\-]+" | grep -v system.free_disk_space | xargs sudo bleachbit --clean

@@ -10,5 +10,7 @@ rm -rf ~/delugia-complete*
 
 # https://starship.rs/
 curl -sS https://starship.rs/install.sh | sh
-cp ../configs/.config/starship.toml ~/.config/
+# cp ../configs/.config/starship.toml ~/.config/
 echo 'eval "$(starship init bash)"' >> ~/.bashrc
+
+# poetry autocomplete

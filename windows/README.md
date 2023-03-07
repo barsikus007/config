@@ -3,8 +3,16 @@ Powershell lifehack to bypas security policy
 ```pwsh
 PowerShell.exe -ExecutionPolicy Bypass -File filename
 ```
-
 ## TODO
+- shutdown /t 0 /r  # reload now
+- shutdown /s /f /t 0  # full shutdown
+- update wt settings after 1.17 release
+- ROG G14
+  - https://www.reddit.com/r/ZephyrusG14/comments/hldxcv/how_to_get_10_hours_battery/
+  - https://discord.com/channels/736971456054952027/736971456650412114/784252533886418954
+  - https://github.com/aredden/RestartGPU/
+  - https://github.com/sammilucia/ASUS-G14-Debloating/
+  - https://drive.google.com/file/d/1tsmKRIt1S2AUqp3S2pFVCtBNxXtQC3bE/view
 - unlock hidden power functions
   - unknown source (reddit)
   - `powercfg.exe -attributes sub_processor perfboostmode -attrib_hide`
@@ -15,7 +23,7 @@ PowerShell.exe -ExecutionPolicy Bypass -File filename
   - disable `reg.exe add “HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32” /f`
   - enable `reg.exe delete “HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}” /f`
 - TunnlTo
-  - whitelist `code, copilot-agent-win, opera, EpicGamesLauncher, EpicWebHelper, steam, steamwebhelper`
+  - whitelist `code, copilot-agent-win, opera, EpicGamesLauncher, EpicWebHelper, steam, steamwebhelper, mstsc`
 - steam lite `steam -no-browser +open steam://open/minigameslist`
 - WSA
 - WSLg
@@ -32,8 +40,9 @@ PowerShell.exe -ExecutionPolicy Bypass -File filename
 - pwsh.exe -NoLogo vscode
 - netlimiter or windowsfirewallcontrol
 - scoop bucket add dorado https://github.com/chawyehsu/dorado
-- scoop install lxrunoffline
-- https://github.com/DDoSolitary/LxRunOffline
+- powertoys config
+  - pc
+  - laptop (with btns)
 
 ## other
 ## WSL

@@ -11,6 +11,9 @@ alias ll='ls -alF'
 alias u='sudo apt update && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt clean'
 alias dcu='docker compose up -d --build'
 alias cdl='sudo sh -c "truncate -s 0 /var/lib/docker/containers/*/*-json.log"'
+
+alias wgu="wg-quick up ~/wg0.conf"
+alias wgd="wg-quick down ~/wg0.conf"
 EOT
 
 . ~/.bashrc

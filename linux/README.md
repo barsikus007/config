@@ -1,31 +1,45 @@
 # [Linux](../README.md)
 ## [Command Cheat Sheet](cheatsheet.md)
 ## TODO
+- EDITOR=nvim
 - [test link+](../README.md)
 - [test link](/../../)
 - [test link](../../../)
-- ~/.bash_profile
-- ~/.bash_commands
-- ~/.bashrc could not initialize ~/.bash_aliases
-- one of these .bash files could be ignored (sourse: ubuntu default profiles)
+- link things like bat to cat and nvim to vim
 - alias resolve package manager for u
-- 2 fedoras at uefi boot menu
 - https://docs.docker.com/desktop/install/linux-install/#generic-installation-steps
 - $XDG_CONFIG_HOME
-- HISTSIZE=10000
-- HISTFILESIZE=10000
-- add shell independent alias install
-- add custom file with aliases
-- gnome extensions
-  - https://extensions.gnome.org/extension/615/appindicator-support/
-  - https://extensions.gnome.org/extension/2087/desktop-icons-ng-ding/
-  - https://extensions.gnome.org/extension/4245/gesture-improvements/
-  - [Super+V](https://extensions.gnome.org/extension/5278/pano/)
-- gnome tweaks fedora
-- https://www.linuxcapable.com/install-telegram-on-fedora-linux/
 - default software
   - bzip2
   - make
-- 4 fingers gestures
-  - https://copr.fedorainfracloud.org/coprs/elxreno/libinput-gestures/
-  - https://gitlab.com/cunidev/gestures
+- fedora
+  - https://www.linuxcapable.com/install-telegram-on-fedora-linux/
+- flatpak apps
+  - com.parsecgaming.parsec
+  - org.telegram.desktop
+  - ? org.telegram.desktop.webview
+  - com.raggesilver.BlackBox
+- bash (or not only bash..)
+  - ~/.bash_profile
+  - ~/.bash_commands
+  - ~/.bashrc could not initialize ~/.bash_aliases
+  - one of these .bash files could be ignored (source: ubuntu default profiles)
+  - HISTSIZE=10000
+  - HISTFILESIZE=10000
+  - add shell independent alias install (.profile_alias ?)
+    - link those files or smth other ?
+  - add custom file with aliases
+- [Firefox PWA](https://addons.mozilla.org/en-US/firefox/addon/pwas-for-firefox/)
+## GNOME
+  - TODO gnome tweaks
+  - TODO [adwaita for GTK3](https://github.com/lassekongo83/adw-gtk3)
+  - [GNOME Shell Extensions](https://extensions.gnome.org/local)
+    - default
+      - [for telegram and docker desktop badges](https://extensions.gnome.org/extension/615/appindicator-support/)
+      - [fix desktop](https://extensions.gnome.org/extension/2087/desktop-icons-ng-ding/)
+      - [clipboard history](https://extensions.gnome.org/extension/5278/pano/)
+        - change `Global Shortcut` to `Super+V`
+    - laptop
+      - [windows-like gestures](https://extensions.gnome.org/extension/4245/gesture-improvements/)
+      - [Profile badge indicator](https://extensions.gnome.org/extension/5335/power-profile-indicator/)
+      - [GPU in power menu](https://extensions.gnome.org/extension/5344/supergfxctl-gex/)

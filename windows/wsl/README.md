@@ -5,3 +5,7 @@ reg.exe add "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zo
 or 
 Win+S -> `Internet Options` -> Security -> Local intranet -> Sites -> Advanced -> `\\wsl.localhost` -> Add
 ```
+## [Get DISPLAY for old WSL (probably, useless now)](https://serverfault.com/q/47915)
+```bash
+ip r l default | awk '{print $3}'
+```

@@ -2,8 +2,13 @@
 ## [Android](android/README.md)
 ## [Linux](linux/README.md)
 ## TODO
+- ROG G14 AniMe
+  - https://drive.google.com/drive/u/0/folders/1_FsWd2CAjAK13t82ZucTlNGabuI3laWF
+  - https://blog.joshwalsh.me/asus-anime-matrix/
+  - https://rog.asus.com/anime-matrix-pixel-editor/?device=DS-Animate#editor
 - chmod +x executables in repo
 - .gitconfig 
+- where which alias (and omit exe for windows)
 - password manager
 - https://violentmonkey.github.io
 - dos2unix

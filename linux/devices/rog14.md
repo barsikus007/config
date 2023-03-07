@@ -1,29 +1,14 @@
 # ASUS GA401IV
+## TODO
 - https://gitlab.com/kirbykevinson/libinput-config
-- https://unix.stackexchange.com/questions/358741/asus-x540s-laptop-internal-microphone-listed-but-not-working
-- https://www.reddit.com/r/ZephyrusG14/comments/jnve6t/microphone_not_working_on_ubuntu/
--
-- 38. https://www.reddit.com/r/ZephyrusG14/comments/hldxcv/how_to_get_10_hours_battery/
-- 39. https://discord.com/channels/736971456054952027/736971456650412114/784252533886418954
-- 40. https://github.com/aredden/RestartGPU/
-- 41. https://github.com/sammilucia/ASUS-G14-Debloating/
-- 42. https://www.reddit.com/r/ZephyrusG14/comments/isc47y/another_solution_for_missing_pgup_pgdn_home_and/
-- 43. https://drive.google.com/drive/u/0/folders/1_FsWd2CAjAK13t82ZucTlNGabuI3laWF
-- 43.3 https://blog.joshwalsh.me/asus-anime-matrix/
-- https://drive.google.com/file/d/1tsmKRIt1S2AUqp3S2pFVCtBNxXtQC3bE/view
-- https://rog.asus.com/anime-matrix-pixel-editor/?device=DS-Animate#editor
--
-- shortcuts
-- grub autoboot
-- grub check recovery
-- https://fedoramagazine.org/hibernation-in-fedora-36-workstation/
-  - test ```bash
-  zxc 
-  asd
-  qwe
-  ```
-  - script
-## [Hibernate](https://fedoramagazine.org/hibernation-in-fedora-36-workstation/)
+- custom 4 fingers gestures
+  - https://copr.fedorainfracloud.org/coprs/elxreno/libinput-gestures/
+  - https://gitlab.com/cunidev/gestures
+## [Fedora Installation](https://asus-linux.org/wiki/fedora-guide/)
+```bash
+# TODO script
+```
+## [Fedora Hibernate](https://fedoramagazine.org/hibernation-in-fedora-36-workstation/)
 ```bash
 sudo btrfs subvolume create /swap
 swapon
@@ -48,11 +33,12 @@ wget https://raw.githubusercontent.com/osandov/osandov-linux/master/scripts/btrf
 # 100% working commit
 wget https://raw.githubusercontent.com/osandov/osandov-linux/49aec6b85d8457fa25b5d8f6c2afb3dd4592401a/scripts/btrfs_map_physical.c
 gcc -O2 -o btrfs_map_physical btrfs_map_physical.c
-# TODO 1 or 2 calls instead of 3
-sudo ./btrfs_map_physical /swap/swapfile | column -ts $'\t' -o " | "
-physical_offset=$(sudo ./btrfs_map_physical /swap/swapfile | sed -n '2p' | awk '{print $9}')
-page_size=$(sudo ./btrfs_map_physical /swap/swapfile | sed -n '2p' | awk '{print $2}')
+cmd_result="$(sudo ./btrfs_map_physical /swap/swapfile)"
+echo "$cmd_result" | column -ts $'\t' -o " | "
+physical_offset=$(echo "$cmd_result" | sed -n '2p' | awk '{print $9}')
+page_size=$(echo "$cmd_result" | sed -n '2p' | awk '{print $2}')
 resume_offset=$((physical_offset/page_size))
+echo $resume_offset
 cd
 
 sudo grubby --args="resume=UUID=$uuid resume_offset=$resume_offset" --update-kernel=ALL
@@ -140,7 +126,60 @@ sudo rm /swap/swapfile
 # remove the swap subvolume
 sudo btrfs subvolume delete /swap
 ```
-## Shortcuts
+## Shortcuts (Keyboard -> View and Customize Shortcuts)
 - Show the notification list Super+V -> Super+N
-  - Super+N -> None
+  - Super+N -> None?TODO
   - Shift+Super+V -> Super+V in Pano extension
+  - FN+F5 -> `bash -c 'fan'`
+  - ROG key -> `bash -c 'demotoggle'`
+  - Fn+Right-Arrow -> `TODO end`
+  - Fn+Left-Arrow -> `TODO home'`
+  - R-Ctrl+Right-Arrow -> `TODO end`
+  - R-Ctrl+Left-Arrow -> `TODO home'`
+  - R-Ctrl+Up-Arrow -> `TODO PgUp'`
+  - R-Ctrl+Down-Arrow -> `TODO PgDown'`
+## Grub tweak
+```bash
+sudo nvim /etc/default/grub
+# ---
+GRUB_TIMEOUT=1
+GRUB_TIMEOUT_STYLE="hidden"
+# ---
+sudo grub2-mkconfig -o /etc/grub2.cfg
+```
+## Anime Matrix aliases
+```bash
+# TODO attach files
+alias animeclr='asusctl anime -c > /dev/null'
+alias noanime='systemctl --user stop asusd-user && animeclr'
+alias anime='animeclr && systemctl --user start asusd-user'
+alias demosplash='asusctl anime pixel-image -p ~/.config/rog/bad-apple.png'
+alias nodemo='tmux kill-session -t sound 2> /dev/null; noanime'
+alias demo='nodemo && anime && sleep 0.5 && tmux new -s sound -d "play ~/Music/bad-apple.mp3 repeat -"'
+
+# demo toggle function (for dedicated key)
+demotoggle() {
+  (
+    DEMO_FILE=~/.config/.is-demo-working 
+    if [ -f "$DEMO_FILE" ]; then
+      nodemo && rm "$DEMO_FILE"
+    else
+      demo && touch "$DEMO_FILE"
+    fi
+  )
+}
+```
+## fan switch function (for Fn+F5 key)
+```bash
+fan() {
+  (
+    asusctl profile -n
+    FAN_STATE=$(asusctl profile -p)
+    FAN_STATE_LOWER=$(echo "$FAN_STATE" | awk '{print $4}' | tr '[:upper:]' '[:lower:]')
+    [ "$FAN_STATE_LOWER" = quiet ] && FAN_STATE_LOWER=power-saver
+    PREV_ID=$(cat ~/.config/.prev-fan-notification-id)
+    [ -z "$PREV_ID" ] && PREV_ID=0
+    notify-send --hint int:transient:1 "Power Profile" "$FAN_STATE" -t 1 -i power-profile-"$FAN_STATE_LOWER" -p -r "$PREV_ID" > ~/.config/.prev-fan-notification-id
+  )
+}
+```
