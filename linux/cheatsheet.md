@@ -97,8 +97,8 @@ sudo crontab -e
 ```
 ### linux fork bombs
 ```bash
-# spams f calls
-f(){ f | f& }; f
+# spams function calls
+:(){ :|:& };:
 # redirect yes output to "no" file
 yes > no
 ```

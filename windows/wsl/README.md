@@ -9,3 +9,13 @@ Win+S -> `Internet Options` -> Security -> Local intranet -> Sites -> Advanced -
 ```bash
 ip r l default | awk '{print $3}'
 ```
+## Optimize VHD (or https://github.com/microsoft/WSL/issues/4699)
+```bash
+wsl --shutdown
+diskpart
+select vdisk file="C:\Users\Admin\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\ext4.vhdx"
+attach vdisk readonly
+compact vdisk
+detach vdisk
+exit
+```

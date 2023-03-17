@@ -23,3 +23,8 @@
 - waltz of the wizards
 - lofivr
 - https://developer.oculus.com/downloads/package/ovr-metrics-tool/
+
+- LIV
+  - https://www.liv.tv/mixedreality
+    - https://discord.com/channels/344602581735178260/844655165058580500/982360000544510093
+    - https://developer.cloud.unity3d.com/share/share.html?shareId=-J7VwLndVu

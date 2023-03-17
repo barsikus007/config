@@ -58,7 +58,7 @@ scoop install which touch
 # sharex
 # telegram
 # vscode
-# windirstat
+# wiztree
 # wsa-pacman
 # wumgr
 # yt-dlp

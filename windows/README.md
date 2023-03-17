@@ -4,9 +4,26 @@ Powershell lifehack to bypas security policy
 PowerShell.exe -ExecutionPolicy Bypass -File filename
 ```
 ## TODO
+- powertoys to winget
+- https://www.amyuni.com/forum/viewtopic.php?t=3030
+- beyond compare + crack https://gist.github.com/rise-worlds/5a5917780663aada8028f96b15057a67
+```pwsh
+#rm "$env:appdata\Scooter Software\Beyond Compare 4\*.*" -Force -Confirm
+rm "$env:appdata\Scooter Software\Beyond Compare 4\BCState.xml" -Force -Confirm
+rm "$env:appdata\Scooter Software\Beyond Compare 4\BCState.xml.bak" -Force -Confirm
+#rm "$env:appdata\Scooter Software\Beyond Compare 4\BCSessions.xml" -Force -Confirm
+#rm "$env:appdata\Scooter Software\Beyond Compare 4\BCSessions.xml.bak" -Force -Confirm
+reg delete "HKCU\Software\Scooter Software\Beyond Compare 4" /v "CacheID" /f
+
+```
+- gsudo vs sudo
+- https://github.com/gerardog/gsudo#powershell-module
+- notepad.exe -> Delugia 12
 - shutdown /t 0 /r  # reload now
 - shutdown /s /f /t 0  # full shutdown
 - update wt settings after 1.17 release
+  - https://learn.microsoft.com/en-us/windows/terminal/customize-settings/actions#global-commands
+  - themes
 - ROG G14
   - https://www.reddit.com/r/ZephyrusG14/comments/hldxcv/how_to_get_10_hours_battery/
   - https://discord.com/channels/736971456054952027/736971456650412114/784252533886418954
@@ -160,3 +177,13 @@ winget install --id=Nvidia.GeForceExperience -e -h
 - SlackTechnologies.Slack
 - Termius.Termius
 - JetBrains.Toolbox
+## Fix when install
+```pwsh
+# SHIFT + F10
+
+reg add HKLM\System\Setup\LabConfig /v BypassTPMCheck /t reg_dword /d 0x00000001 /f
+reg add HKLM\System\Setup\LabConfig /v BypassSecureBootCheck /t reg_dword /d 0x00000001 /f
+reg add HKLM\System\Setup\LabConfig /v BypassCPUCheck /t reg_dword /d 0x00000001 /f
+reg add HKLM\System\Setup\LabConfig /v BypassRAMCheck /t reg_dword /d 0x00000001 /f
+reg add HKLM\System\Setup\LabConfig /v BypassStorageCheck /t reg_dword /d 0x00000001 /f
+```

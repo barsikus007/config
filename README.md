@@ -2,6 +2,10 @@
 ## [Android](android/README.md)
 ## [Linux](linux/README.md)
 ## TODO
+- hatch config and autocomplete (and same for poetry)
+- python3 -m pip install --upgrade pip setuptools wheel
+- pipx
+- https://prismlauncher.org/download/
 - ROG G14 AniMe
   - https://drive.google.com/drive/u/0/folders/1_FsWd2CAjAK13t82ZucTlNGabuI3laWF
   - https://blog.joshwalsh.me/asus-anime-matrix/

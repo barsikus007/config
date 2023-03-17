@@ -13,12 +13,14 @@
   - bzip2
   - make
 - fedora
+  - https://flatpak.org/setup/Fedora
   - https://www.linuxcapable.com/install-telegram-on-fedora-linux/
 - flatpak apps
   - com.parsecgaming.parsec
   - org.telegram.desktop
   - ? org.telegram.desktop.webview
   - com.raggesilver.BlackBox
+    - https://github.com/dr3mro/blackbox-installer
 - bash (or not only bash..)
   - ~/.bash_profile
   - ~/.bash_commands
@@ -38,7 +40,10 @@
       - [for telegram and docker desktop badges](https://extensions.gnome.org/extension/615/appindicator-support/)
       - [fix desktop](https://extensions.gnome.org/extension/2087/desktop-icons-ng-ding/)
       - [clipboard history](https://extensions.gnome.org/extension/5278/pano/)
-        - change `Global Shortcut` to `Super+V`
+        - change `Global Shortcut` from `Shift+Super+V` to `Super+V`
+        - disable sound
+      - [Gnome Tweaks 2.0](https://extensions.gnome.org/extension/3843/just-perfection/)
+        - Behavior -> Window Demands Attention Focus -> On
     - laptop
       - [windows-like gestures](https://extensions.gnome.org/extension/4245/gesture-improvements/)
       - [Profile badge indicator](https://extensions.gnome.org/extension/5335/power-profile-indicator/)

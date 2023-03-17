@@ -127,17 +127,24 @@ sudo rm /swap/swapfile
 sudo btrfs subvolume delete /swap
 ```
 ## Shortcuts (Keyboard -> View and Customize Shortcuts)
-- Show the notification list Super+V -> Super+N
-  - Super+N -> None?TODO
-  - Shift+Super+V -> Super+V in Pano extension
-  - FN+F5 -> `bash -c 'fan'`
+- ROG G14 2020 specific
   - ROG key -> `bash -c 'demotoggle'`
+  - FN+F5 -> `bash -c 'fan'`
+  - FN+F6 -> `bash -c 'noanime && anime'`
   - Fn+Right-Arrow -> `TODO end`
   - Fn+Left-Arrow -> `TODO home'`
   - R-Ctrl+Right-Arrow -> `TODO end`
   - R-Ctrl+Left-Arrow -> `TODO home'`
   - R-Ctrl+Up-Arrow -> `TODO PgUp'`
   - R-Ctrl+Down-Arrow -> `TODO PgDown'`
+- Show the notification list Super+V -> Super+N
+  - TODO ? Super+N -> None
+- Home folder -> Super+E
+- TODO move windows and workspaces shortcuts
+  - TODO Move to workspace on the left Ctrl+Super_Left
+- fix language change
+  - `gsettings set org.gnome.desktop.wm.keybindings switch-input-source-backward "['<Shift>Alt_L', '<Shift>XF86Keyboard']"`
+  - revert `gsettings set org.gnome.desktop.wm.keybindings switch-input-source-backward "['<Shift><Super>space', '<Shift>XF86Keyboard']"`
 ## Grub tweak
 ```bash
 sudo nvim /etc/default/grub
@@ -158,6 +165,7 @@ alias nodemo='tmux kill-session -t sound 2> /dev/null; noanime'
 alias demo='nodemo && anime && sleep 0.5 && tmux new -s sound -d "play ~/Music/bad-apple.mp3 repeat -"'
 
 # demo toggle function (for dedicated key)
+# sudo sed -i 's/StartLimitInterval=200/StartLimitInterval=2/' /usr/lib/systemd/user/asusd-user.service && systemctl --user daemon-reload
 demotoggle() {
   (
     DEMO_FILE=~/.config/.is-demo-working 
