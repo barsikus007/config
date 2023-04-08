@@ -4,6 +4,10 @@ Powershell lifehack to bypas security policy
 PowerShell.exe -ExecutionPolicy Bypass -File filename
 ```
 ## TODO
+- chrome flag
+  - edge://flags/#enable-parallel-downloading
+  - opera://flags/#enable-parallel-downloading
+- https://massgrave.dev
 - powertoys to winget
 - https://www.amyuni.com/forum/viewtopic.php?t=3030
 - beyond compare + crack https://gist.github.com/rise-worlds/5a5917780663aada8028f96b15057a67
@@ -40,7 +44,7 @@ reg delete "HKCU\Software\Scooter Software\Beyond Compare 4" /v "CacheID" /f
   - disable `reg.exe add “HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32” /f`
   - enable `reg.exe delete “HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}” /f`
 - TunnlTo
-  - whitelist `code, copilot-agent-win, opera, EpicGamesLauncher, EpicWebHelper, steam, steamwebhelper, mstsc`
+  - whitelist `code, copilot-agent-win, msedge, EpicGamesLauncher, EpicWebHelper, steam, steamwebhelper, mstsc`
 - steam lite `steam -no-browser +open steam://open/minigameslist`
 - WSA
 - WSLg

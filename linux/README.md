@@ -31,13 +31,16 @@
   - add shell independent alias install (.profile_alias ?)
     - link those files or smth other ?
   - add custom file with aliases
-- [Firefox PWA](https://addons.mozilla.org/en-US/firefox/addon/pwas-for-firefox/)
+- FireFox moment
+  - [Firefox PWA](https://addons.mozilla.org/en-US/firefox/addon/pwas-for-firefox/)
+  - tree style tab
 ## GNOME
   - TODO gnome tweaks
   - TODO [adwaita for GTK3](https://github.com/lassekongo83/adw-gtk3)
   - [GNOME Shell Extensions](https://extensions.gnome.org/local)
     - default
       - [for telegram and docker desktop badges](https://extensions.gnome.org/extension/615/appindicator-support/)
+      - [emoji](https://extensions.gnome.org/extension/1162/emoji-selector/)
       - [fix desktop](https://extensions.gnome.org/extension/2087/desktop-icons-ng-ding/)
       - [clipboard history](https://extensions.gnome.org/extension/5278/pano/)
         - change `Global Shortcut` from `Shift+Super+V` to `Super+V`

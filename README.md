@@ -2,6 +2,32 @@
 ## [Android](android/README.md)
 ## [Linux](linux/README.md)
 ## TODO
+- YtMusic
+  - adblocker
+  - blur-nav-bar
+  - lyrics-genius
+  - navigation
+  - picture-in-picture
+  - precise-volume
+  - shortcuts
+  - sponsorblock
+  - video-toggle
+- git config TODO (may append if exist when applied)
+  - git config --global --add user.name "barsikus007"
+  - git config --global --add user.email barsikus07@gmail.com
+
+  - git config --global --add core.autocrlf input
+  - git config --global --add core.ignorecase false
+
+  - git config --global --add pull.rebase true
+
+  - git config --global --add push.default current
+
+  - git config --global --add merge.autoStash true
+
+  - git config --global --add rebase.autostash true
+
+  - git config --global init.defaultBranch master
 - hatch config and autocomplete (and same for poetry)
 - python3 -m pip install --upgrade pip setuptools wheel
 - pipx
