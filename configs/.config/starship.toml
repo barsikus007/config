@@ -17,7 +17,6 @@ $git_branch\
 $git_commit\
 $git_state\
 $git_metrics\
-$git_status\
 $hg_branch\
 $docker_context\
 $package\
@@ -78,6 +77,9 @@ $time\
 $status\
 $shell\
 $character"""
+
+# $git_status\ was removed at 20 line due to performance issues
+# command_timeout=1000
 
 [fill]
 symbol = " "
@@ -172,11 +174,99 @@ for PATTERN in "/" ".git"; do
 done
 printf "%s%s" "$ICON" "$URL"
 """
-directories = [".git"]
+detect_folders = [".git"]
 when = 'git rev-parse --is-inside-work-tree'
+os = "linux"
 shell = ["bash","--norc","--noprofile"]
 style = "bright-yellow bold"
 format = "in [$output]($style) "
+
+# [custom.git_host_windows]
+# command = '''
+# $URL = git ls-remote --get-url
+# if ($URL -match "github") {
+#     $ICON = " "}
+# elseif ($URL -match "gitlab") {
+#     $ICON = " "}
+# elseif ($URL -match "bitbucket") {
+#     $ICON = " "}
+# elseif ($URL -match "kernel") {
+#     $ICON = " "}
+# elseif ($URL -match "archlinux") {
+#     $ICON = " "}
+# elseif ($URL -match "gnu") {
+#     $ICON = " "}
+# elseif ($URL -match "git") {
+#     $ICON = " "}
+# else {
+#     $ICON = " "
+#     $URL = "localhost"}
+
+# $patterns = @("https", "http", "git", "://", "@")
+# foreach ($pattern in $patterns) {
+#     if ($URL.StartsWith($pattern)) {
+#         $URL = $URL.Substring($pattern.Length)
+#     }
+# }
+
+# $patterns = @("/", ".git")
+# foreach ($pattern in $patterns) {
+#     if ($URL.EndsWith($pattern)) {
+#         $URL = $URL.Substring(0, $URL.Length - $pattern.Length)
+#     }
+# }
+
+# Write-Output "$ICON $URL"
+# '''
+# # command = '''
+# # @echo off
+# # chcp 65001 > nul
+
+# # setlocal EnableDelayedExpansion
+
+# # for /f "usebackq" %%a in (`git ls-remote --get-url`) do set "URL=%%a"
+
+# # if "%URL:github=%" neq "%URL%" (
+# #     set "ICON= "
+# # ) else if "%URL:gitlab=%" neq "%URL%" (
+# #     set "ICON= "
+# # ) else if "%URL:bitbucket=%" neq "%URL%" (
+# #     set "ICON= "
+# # ) else if "%URL:kernel=%" neq "%URL%" (
+# #     set "ICON= "
+# # ) else if "%URL:archlinux=%" neq "%URL%" (
+# #     set "ICON= "
+# # ) else if "%URL:gnu=%" neq "%URL%" (
+# #     set "ICON= "
+# # ) else if "%URL:git=%" neq "%URL%" (
+# #     set "ICON= "
+# # ) else (
+# #     set "ICON= "
+# #     set "URL=localhost"
+# # )
+
+# # for %%a in ("https", "http", "git", "://", "@") do (
+# #     if "!URL:%%a=!" neq "!URL!" (
+# #         set "URL=!URL:%%a=!"
+# #     )
+# # )
+
+# # for %%a in ("/", ".git") do (
+# #     if "!URL:%%a=!" neq "!URL!" (
+# #         set "URL=!URL:%%a=!"
+# #     )
+# # )
+
+# # echo %ICON% %URL%
+# # '''
+# detect_folders = [".git"]
+# when = false
+# # when = 'git rev-parse --is-inside-work-tree'
+# os = "windows"
+# # shell = ["cmd","/C", "-"]
+# shell = ["PowerShell.exe","-NoLogo","-NoProfile","-Command", "-"]
+# style = "bright-yellow bold"
+# format = "in [$output]($style) "
 
 [aws]
 symbol = "  "

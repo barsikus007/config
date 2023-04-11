@@ -10,7 +10,15 @@ rm -rf ~/delugia-complete*
 
 # https://starship.rs/
 curl -sS https://starship.rs/install.sh | sh
-# cp ../configs/.config/starship.toml ~/.config/
-echo 'eval "$(starship init bash)"' >> ~/.bashrc
 
-# poetry autocomplete
+# python tools
+python3 -m pip install --user pipx
+python3 -m pipx ensurepath
+pipx install hatch
+pipx install poetry
+
+{
+  register-python-argcomplete pipx;
+  poetry completions bash;
+  _HATCH_COMPLETE=bash_source hatch;
+} >> ~/.bash_completion

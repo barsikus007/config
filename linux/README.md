@@ -1,17 +1,30 @@
 # [Linux](../README.md)
 ## [Command Cheat Sheet](cheatsheet.md)
+## Information
+- Default location for wg0 file is user home
 ## TODO
-- EDITOR=nvim
 - [test link+](../README.md)
 - [test link](/../../)
 - [test link](../../../)
-- link things like bat to cat and nvim to vim
-- alias resolve package manager for u
+- shells
+  - adapt config.bash file to other shells
+  - "$XDG_CONFIG_HOME/shell/aliases.sh" for root user
+  - alias resolve package manager for u
+  - ic command to update config
+  - link things like bat to cat and nvim to vim
 - https://docs.docker.com/desktop/install/linux-install/#generic-installation-steps
-- $XDG_CONFIG_HOME
 - default software
-  - bzip2
-  - make
+  - base
+    - bzip2
+    - make
+    - curl
+    - wget
+    - git
+  - advanced
+    - htop/btop
+    - mc
+  - basic ubuntu software
+    - software-properties-common build-essential
 - fedora
   - https://flatpak.org/setup/Fedora
   - https://www.linuxcapable.com/install-telegram-on-fedora-linux/
@@ -21,16 +34,6 @@
   - ? org.telegram.desktop.webview
   - com.raggesilver.BlackBox
     - https://github.com/dr3mro/blackbox-installer
-- bash (or not only bash..)
-  - ~/.bash_profile
-  - ~/.bash_commands
-  - ~/.bashrc could not initialize ~/.bash_aliases
-  - one of these .bash files could be ignored (source: ubuntu default profiles)
-  - HISTSIZE=10000
-  - HISTFILESIZE=10000
-  - add shell independent alias install (.profile_alias ?)
-    - link those files or smth other ?
-  - add custom file with aliases
 - FireFox moment
   - [Firefox PWA](https://addons.mozilla.org/en-US/firefox/addon/pwas-for-firefox/)
   - tree style tab

@@ -1,7 +1,27 @@
 # config
 ## [Android](android/README.md)
 ## [Linux](linux/README.md)
+## Cross-platform
+### Python
+```bash
+# pipx install
+python3 -m pip install --upgrade pip setuptools wheel
+python3 -m pip install --user pipx
+python3 -m pipx ensurepath
+# TODO rm /mnt/c/users/admin/appdata/roaming/python/python311/scripts/register-python-argcomplete
+# hatch install
+pipx install hatch
+# poetry install
+pipx install poetry
+# hatch config
+hatch config set dirs.env.virtual .venv
+hatch config set template.licenses.headers false
+hatch config set terminal.styles.spinner material
+# poetry config
+# TODO
+```
 ## TODO
+- where which alias (and omit exe for windows)
 - YtMusic
   - adblocker
   - blur-nav-bar
@@ -12,7 +32,8 @@
   - shortcuts
   - sponsorblock
   - video-toggle
-- git config TODO (may append if exist when applied)
+- .gitconfig TODO (may append if exist when applied)
+  - autocrlf values
   - git config --global --add user.name "barsikus007"
   - git config --global --add user.email barsikus07@gmail.com
 
@@ -28,28 +49,19 @@
   - git config --global --add rebase.autostash true
 
   - git config --global init.defaultBranch master
-- hatch config and autocomplete (and same for poetry)
-- python3 -m pip install --upgrade pip setuptools wheel
-- pipx
 - https://prismlauncher.org/download/
 - ROG G14 AniMe
   - https://drive.google.com/drive/u/0/folders/1_FsWd2CAjAK13t82ZucTlNGabuI3laWF
   - https://blog.joshwalsh.me/asus-anime-matrix/
   - https://rog.asus.com/anime-matrix-pixel-editor/?device=DS-Animate#editor
 - chmod +x executables in repo
-- .gitconfig 
-- where which alias (and omit exe for windows)
 - password manager
 - https://violentmonkey.github.io
-- dos2unix
-- add bookmarks
+- add browser bookmarks
 - make ru-en utf linux and windows locale
   - export LC_CTYPE=ru_RU.UTF-8
-- default editor bashrc
-- autocrlf
-- basic ubuntu software
-  - sudo apt install software-properties-common htop curl wget git build-essential
 - new software
+  - dos2unix
   - https://github.com/isacikgoz/tldr
     - tldr go ?
     - tldr -u
@@ -69,16 +81,18 @@
     - WSL
     - LINUX
   - prompt
-    - starship fix custom git command
-    - starship design
-    - starship fix character on exit
-    - starship Administrator to root
-    -  starship command continue remove due to copy (?)
+    - starship
+      - fix custom git command
+      - design
+      - fix character on exit
+      - Administrator to root
+      - command continue remove due to copy (?)
+      - fix time broken in pycharm term
   - aliases
     - pwsh
     - bash
 - config system
-  - script remove previous config files
+  - fast installer
   - https://stackoverflow.com/questions/600079/how-do-i-clone-a-subdirectory-only-of-a-git-repository/52269934#52269934
 - nvim config
   - nvim alias
@@ -90,4 +104,4 @@
   - git clone https://github.com/NvChad/NvChad ~\.config\nvim --depth 1
   - https://gist.github.com/alexey-goloburdin/62d5b1b5ec19275d33497b7f3c0b6eec
   - https://github.com/alexey-goloburdin/nvim-config/blob/main/init.vim
-- vscode normal ctrl+c ctrl+v linux
+- vscode export configs

@@ -1,6 +1,5 @@
 #!/bin/sh
 
-cat <<EOT >> ~/.bash_aliases
 alias grp='grep -Fin -C 7'
 alias c='clear'
 alias h='history'
@@ -16,6 +15,11 @@ alias cdl='sudo sh -c "truncate -s 0 /var/lib/docker/containers/*/*-json.log"'
 
 alias wgu="wg-quick up ~/wg0.conf"
 alias wgd="wg-quick down ~/wg0.conf"
-EOT
 
-. ~/.bashrc
+# ROG G14 specific aliases TODO detect if ROG G14
+alias animeclr='asusctl anime -c > /dev/null'
+alias noanime='systemctl --user stop asusd-user && animeclr'
+alias anime='animeclr && systemctl --user start asusd-user'
+alias demosplash='asusctl anime pixel-image -p ~/.config/rog/bad-apple.png'
+alias nodemo='tmux kill-session -t sound 2> /dev/null; noanime'
+alias demo='nodemo && anime && sleep 0.5 && tmux new -s sound -d "play ~/Music/bad-apple.mp3 repeat -"'
