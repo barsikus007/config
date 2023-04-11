@@ -82,12 +82,11 @@ hatch config set terminal.styles.spinner material
     - LINUX
   - prompt
     - starship
-      - fix custom git command
+      - fix custom git command for windows
       - design
       - fix character on exit
       - Administrator to root
       - command continue remove due to copy (?)
-      - fix time broken in pycharm term
   - aliases
     - pwsh
     - bash
