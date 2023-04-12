@@ -80,6 +80,7 @@ $character"""
 
 # $git_status\ was removed at 20 line due to performance issues
 # command_timeout=1000
+continuation_prompt ="[:|](bright-black) "
 
 [fill]
 symbol = " "
@@ -111,7 +112,8 @@ ssh_only = false
 format = "[$hostname]($style) at "
 
 [character]
-error_symbol = "[✖](bold red) "
+error_symbol = '[:\(](bold red)'
+success_symbol = '[:\)](bold green)'
 
 [cmd_duration]
 min_time = 0
@@ -146,34 +148,7 @@ style = "bright-white"
 format = '\[$all_status$ahead_behind\] '
 
 [custom.git_host]
-command = """
-URL=$(git ls-remote --get-url)
-if [[ "$URL" =~ "github" ]]; then
-    ICON=" "
-elif [[ "$URL" =~ "gitlab" ]]; then
-    ICON=" "
-elif [[ "$URL" =~ "bitbucket" ]];then
-    ICON=" "
-elif [[ "$URL" =~ "kernel" ]];then
-    ICON=" "
-elif [[ "$URL" =~ "archlinux" ]];then
-    ICON=" "
-elif [[ "$URL" =~ "gnu" ]];then
-    ICON=" "
-elif [[ "$URL" =~ "git" ]];then
-    ICON=" "
-else
-    ICON=" "
-    URL="localhost"
-fi
-for PATTERN in "https" "http" "git" "://" "@"; do
-    [[ "$URL" == "$PATTERN"* ]] && URL="${URL##$PATTERN}"
-done
-for PATTERN in "/" ".git"; do
-    [[ "$URL" == *"$PATTERN" ]] && URL="${URL%%$PATTERN}"
-done
-printf "%s%s" "$ICON" "$URL"
-"""
+command = '$XDG_CONFIG_HOME/starship/starship.bash'
 detect_folders = [".git"]
 when = 'git rev-parse --is-inside-work-tree'
 os = "linux"
@@ -182,14 +157,11 @@ style = "bright-yellow bold"
 format = "in [$output]($style) "
 
 [custom.git_host_win]
-
-command = '%userprofile%\.config\starship.bat'
+command = '%userprofile%\.config\starship\starship.bat'
 detect_folders = [".git"]
-when = false
-# when = 'git rev-parse --is-inside-work-tree'
+when = 'git rev-parse --is-inside-work-tree'
 os = "windows"
 shell = ["cmd"]
-# shell = ["PowerShell.exe","-NoLogo","-NoProfile","-Command", "-"]
 style = "bright-yellow bold"
 format = "in [$output]($style) "
 

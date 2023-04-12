@@ -1,6 +1,5 @@
 @echo off
 chcp 65001 > nul
-
 setlocal EnableDelayedExpansion
 
 for /f "usebackq" %%a in (`git ls-remote --get-url`) do set "URL=%%a"
@@ -24,15 +23,13 @@ if "%URL:github=%" neq "%URL%" (
     set "URL=localhost"
 )
 
-@REM for %%a in ("https", "http", "git", "://", "@") do (
-@REM     if "!URL:%%a=!" neq "!URL!" (
-@REM         set "URL=!URL:%%a=!"
-@REM     )
-@REM )
+if "!URL:~,5!"=="https" set "URL=!URL:~5!"
+if "!URL:~,4!"=="http" set "URL=!URL:~4!"
+if "!URL:~,3!"=="git" set "URL=!URL:~3!"
+if "!URL:~,3!"=="://" set "URL=!URL:~3!"
+if "!URL:~,1!"=="@" set "URL=!URL:~1!"
 
-@REM for %%a in ("/", ".git") do (
-@REM     if "!URL:%%a=!" neq "!URL!" (
-@REM         set "URL=!URL:%%a=!"
-@REM     )
-@REM )
+if "!URL:~-1!"=="/" set "URL=!URL:~,-1!"
+if "!URL:~-4!"==".git" set "URL=!URL:~,-4!"
+
 echo %ICON%%URL%
