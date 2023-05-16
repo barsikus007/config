@@ -78,9 +78,9 @@ $status\
 $shell\
 $character"""
 
-# $git_status\ was removed at 20 line due to performance issues
-# command_timeout=1000
+# $git_status\ was removed from 20th line due to performance issues
 continuation_prompt ="[:|](bright-black) "
+add_newline = true
 
 [fill]
 symbol = " "

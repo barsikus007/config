@@ -1,11 +1,15 @@
-# AX3600 setup 
-get ssh https://openwrt.org/inbox/toh/xiaomi/xiaomi_ax3600
-custom owrt https://4pda.to/forum/index.php?s=&showtopic=983152&view=findpost&p=111379978
-dualboot https://4pda.to/forum/index.php?s=&showtopic=983152&view=findpost&p=110312962
+# AX3600 setup
+## [OpenWrt](https://openwrt.org/toh/xiaomi/ax3600)
+### Packets
+- luci-app-vpn-policy-routing
+- kmod-nf-nathelper-extra
+- luci-proto-wireguard
+- luci-app-wol
+- luci-app-pbr
+- luci-app-sqm
 
-white IP https://4pda.to/forum/index.php?s=&showtopic=1013678&view=findpost&p=109028697
-https://habr.com/ru/sandbox/99949/
-## `/etc/hotplug.d/iface/26-grey`
+### [White IP](https://4pda.to/forum/index.php?s=&showtopic=1013678&view=findpost&p=109028697) ([alt](https://habr.com/ru/sandbox/99949/))
+#### `/etc/hotplug.d/iface/26-grey`
 ```sh
 #!/bin/sh
 if [ "$ACTION" = "ifup" -a "$INTERFACE" = "wan" ]; then

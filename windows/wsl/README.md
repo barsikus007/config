@@ -19,3 +19,15 @@ compact vdisk
 detach vdisk
 exit
 ```
+## IP address
+```bash
+# wsl host [0]
+hostname -I
+ip a s eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}'
+
+# windows address
+cat /etc/resolv.conf | grep nameserver | cut -d ' ' -f 2
+
+# https://learn.microsoft.com/en-us/windows/wsl/networking#accessing-a-wsl-2-distribution-from-your-local-area-network-lan
+netsh interface portproxy add v4tov4 listenport=5201 listenaddress=0.0.0.0 connectport=5201 connectaddress=$wsl_host
+```

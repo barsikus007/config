@@ -22,7 +22,10 @@
     - git
   - advanced
     - htop/btop
+    - ncdu
+    - fzf
     - mc
+    - z
   - basic ubuntu software
     - software-properties-common build-essential
 - fedora

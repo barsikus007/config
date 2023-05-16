@@ -3,7 +3,15 @@ Powershell lifehack to bypas security policy
 ```pwsh
 PowerShell.exe -ExecutionPolicy Bypass -File filename
 ```
+## Sound Normailsation
+Sound Source Settings -> Enhancements -> Loudness Equalization
 ## TODO
+- ROG14 https://www.reddit.com/r/ZephyrusG14/comments/p63yct/how_do_i_disable_varibright_without_using_radeon/
+- https://android.com/better-together/nearby-share-app/
+- [USB test software](https://www.heise.de/download/product/h2testw-50539/download)
+- linux like ls & ll
+- config fzf (z)
+- winget installBehavior": "portablePackageMachineRoot", "portablePackageUserRoot", "preferences": "scope": "user"
 - chrome flag
   - edge://flags/#enable-parallel-downloading
   - opera://flags/#enable-parallel-downloading
@@ -45,6 +53,12 @@ reg delete "HKCU\Software\Scooter Software\Beyond Compare 4" /v "CacheID" /f
   - enable `reg.exe delete “HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}” /f`
 - TunnlTo
   - whitelist `code, copilot-agent-win, msedge, EpicGamesLauncher, EpicWebHelper, steam, steamwebhelper, mstsc`
+  - AllowedIPs `0.0.0.0/1, 128.0.0.0/1, ::/1, 8000::/1`
+  - DisallowedIPs `192.168.0.0/16`
+  - https://www.procustodibus.com/blog/2021/03/wireguard-allowedips-calculator/ `0.0.0.0/1, 128.0.0.0/2, 192.0.0.0/9, 192.128.0.0/11, 192.160.0.0/13, 192.169.0.0/16, 192.170.0.0/15, 192.172.0.0/14, 192.176.0.0/12, 192.192.0.0/10, 193.0.0.0/8, 194.0.0.0/7, 196.0.0.0/6, 200.0.0.0/5, 208.0.0.0/4, 224.0.0.0/3, ::/1, 8000::/1`
+- wireguard fix to make wg interfaces from public to private
+  - https://raw.githubusercontent.com/krair/cloud-tools/main/wireguard/Win_wg_adapters_to_private.ps1
+  - shorter but less universal version `Set-NetConnectionProfile -InterfaceAlias 'wg0' -NetworkCategory 'Private'`
 - steam lite `steam -no-browser +open steam://open/minigameslist`
 - WSA
 - WSLg
@@ -54,10 +68,6 @@ reg delete "HKCU\Software\Scooter Software\Beyond Compare 4" /v "CacheID" /f
 - clink
 - Windows Terminal
   - https://github.com/Serendipity-Theme/windows-terminal
-- autoinstall pwsh script
-- fzf
-- psfzf
-- z
 - pwsh.exe -NoLogo vscode
 - netlimiter or windowsfirewallcontrol
 - scoop bucket add dorado https://github.com/chawyehsu/dorado

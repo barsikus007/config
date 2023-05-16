@@ -9,7 +9,7 @@ Set-PSReadLineOption -PredictionSource History
 # Set-PSReadlineOption -EditMode Vi
 # Set-PSReadlineOption -EditMode Emacs
 Set-PSReadlineKeyHandler -Key ctrl+d -Function DeleteCharOrExit
-Set-PSReadLineKeyHandler -Key Tab -ScriptBlock { Invoke-FzfTabCompletion }
+# Set-PSReadLineKeyHandler -Key Tab -ScriptBlock { Invoke-FzfTabCompletion }  # TODO bugged
 Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
 
 
@@ -19,6 +19,7 @@ Import-Module "$($(Get-Item $(Get-Command scoop.ps1).Path).Directory.Parent.Full
 
 # aliases
 Function suss {scoop update | scoop status}
+Function ll { ls }
 
 # https://github.com/microsoft/winget-cli/blob/master/doc/Completion.md
 Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {

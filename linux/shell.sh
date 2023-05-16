@@ -21,4 +21,5 @@ pipx install poetry
   register-python-argcomplete pipx;
   poetry completions bash;
   _HATCH_COMPLETE=bash_source hatch;
+  starship completions bash;
 } >> ~/.bash_completion

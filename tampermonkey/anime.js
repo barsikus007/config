@@ -1,12 +1,15 @@
 // ==UserScript==
 // @name         mpd dumper
 // @namespace    https://aniboom.one/
-// @version      1.0
+// @version      1.1
 // @description  mpd dumper from aniboom.one player
 // @author       barsikus007
 // @match        https://aniboom.one/*
 // ==/UserScript==
 
 (function () {
-  console.log(`yt-dlp ${JSON.parse(JSON.parse(document.getElementById('video').getAttribute('data-parameters')).dash).src} --referer='' --no-part`)
+  const url = JSON.parse(JSON.parse(document.getElementById('video')?.getAttribute('data-parameters'))?.dash)?.src
+  if (!url) return
+  console.log(`mpv ${url} --snap-window --no-border --ytdl-raw-options=referer=''`)
+  console.log(`yt-dlp ${url} --referer='' --no-part`)
 })()

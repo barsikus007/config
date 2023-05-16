@@ -21,6 +21,13 @@ hatch config set terminal.styles.spinner material
 # TODO
 ```
 ## TODO
+- PyCharm
+  - terminal pwsh.exe -nol
+  - File | Settings | Appearance & Behavior | File Colors || Non-Project Files -> Use in editor tabs
+- IOS dualboot
+  - https://github.com/MatthewPierson/Divise
+  - https://www.youtube.com/watch?v=_owhlPukE_A
+  - https://dualbootfun.github.io/dualboot/
 - where which alias (and omit exe for windows)
 - YtMusic
   - adblocker
