@@ -11,6 +11,10 @@ rm -rf ~/delugia-complete*
 # https://starship.rs/
 curl -sS https://starship.rs/install.sh | sh
 
+# bat ubuntu workaround
+mkdir -p ~/.local/bin
+ln -s /usr/bin/batcat ~/.local/bin/bat
+
 # python tools
 python3 -m pip install --user pipx
 python3 -m pipx ensurepath

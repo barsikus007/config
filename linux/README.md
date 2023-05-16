@@ -1,5 +1,6 @@
 # [Linux](../README.md)
 ## [Command Cheat Sheet](cheatsheet.md)
+## [Router Setup](devices/ax3600.md)
 ## Information
 - Default location for wg0 file is user home
 ## TODO

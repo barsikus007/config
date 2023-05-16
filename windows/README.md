@@ -12,6 +12,14 @@ Sound Source Settings -> Enhancements -> Loudness Equalization
 - linux like ls & ll
 - config fzf (z)
 - winget installBehavior": "portablePackageMachineRoot", "portablePackageUserRoot", "preferences": "scope": "user"
+- auto wslhostpatcher
+- edge fix "harm exe" notification:
+```reg
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Edge\ExemptDomainFileTypePairsFromFileTypeDownloadWarnings]
+"1"="{\"file_extension\": \"exe\", \"domains\": [\"*\"]}"
+```
 - chrome flag
   - edge://flags/#enable-parallel-downloading
   - opera://flags/#enable-parallel-downloading
@@ -52,7 +60,7 @@ reg delete "HKCU\Software\Scooter Software\Beyond Compare 4" /v "CacheID" /f
   - disable `reg.exe add “HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32” /f`
   - enable `reg.exe delete “HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}” /f`
 - TunnlTo
-  - whitelist `code, copilot-agent-win, msedge, EpicGamesLauncher, EpicWebHelper, steam, steamwebhelper, mstsc`
+  - whitelist `_msedge, _opera, code, copilot-agent-win, EpicGamesLauncher, EpicWebHelper, steam, steamwebhelper, mstsc`
   - AllowedIPs `0.0.0.0/1, 128.0.0.0/1, ::/1, 8000::/1`
   - DisallowedIPs `192.168.0.0/16`
   - https://www.procustodibus.com/blog/2021/03/wireguard-allowedips-calculator/ `0.0.0.0/1, 128.0.0.0/2, 192.0.0.0/9, 192.128.0.0/11, 192.160.0.0/13, 192.169.0.0/16, 192.170.0.0/15, 192.172.0.0/14, 192.176.0.0/12, 192.192.0.0/10, 193.0.0.0/8, 194.0.0.0/7, 196.0.0.0/6, 200.0.0.0/5, 208.0.0.0/4, 224.0.0.0/3, ::/1, 8000::/1`

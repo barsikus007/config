@@ -13,10 +13,18 @@ if hash nvim &> /dev/null; then
   export EDITOR=nvim
 fi
 
+PATH=$PATH:~/.local/bin
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
 # https://starship.rs/guide/#🚀-installation
 if hash starship &> /dev/null; then
   eval "$(starship init bash)"
 fi
+
+# https://github.com/nvm-sh/nvm#install--update-script
+# https://www.shellcheck.net/wiki/SC2155
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 # pipx, poetry, hatch autocomplete
 # TODO autocompletions resolver
