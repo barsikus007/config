@@ -41,12 +41,11 @@
             {
                 "face": "Delugia"
             },
-            "colorScheme": "Frost",
-            // "colorScheme": {
-            //     "light": "Frost",
-            //     "dark": "Campbell",
-            // },
-            "opacity": 70,
+            "colorScheme": {
+                "light": "Frost",
+                "dark": "Campbell"
+            },
+            "opacity": 80,
             "useAcrylic": true
         },
         "list": 
@@ -76,8 +75,6 @@
                 "name": "Ubuntu",
                 "source": "Windows.Terminal.Wsl",
                 "colorScheme": "Raspberry",
-                "opacity": 80,
-                "tabColor": "#3C0315",
                 // "background": "#300A24",
                 "icon": "%USERPROFILE%/Pictures/icons/ubuntu.png"
             }
@@ -337,5 +334,29 @@
             "white": "#C0C0C0",
             "yellow": "#808000"
         }
-    ]
+    ],
+    "theme": "Default",
+    "themes": 
+    [
+        {
+            "name": "Default",
+            "tab": 
+            {
+                "background": "terminalBackground",
+                "showCloseButton": "always",
+                "unfocusedBackground": "#00000000"
+            },
+            "tabRow": 
+            {
+                "background": "terminalBackground",
+                "unfocusedBackground": "#00000000"
+            },
+            "window": 
+            {
+                "applicationTheme": "system",
+                "useMica": true
+            }
+        }
+    ],
+    "useAcrylicInTabRow": true
 }

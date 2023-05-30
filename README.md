@@ -22,7 +22,7 @@ hatch config set terminal.styles.spinner material
 ```
 ## TODO
 - PyCharm
-  - terminal pwsh.exe -nol
+  - terminal pwsh.exe -NoLogo
   - File | Settings | Appearance & Behavior | File Colors || Non-Project Files -> Use in editor tabs
 - IOS dualboot
   - https://github.com/MatthewPierson/Divise
@@ -39,21 +39,21 @@ hatch config set terminal.styles.spinner material
   - shortcuts
   - sponsorblock
   - video-toggle
-- .gitconfig TODO (may append if exist when applied)
+- .gitconfig
   - autocrlf values
-  - git config --global --add user.name "barsikus007"
-  - git config --global --add user.email barsikus07@gmail.com
+  - git config --global user.name "barsikus007"
+  - git config --global user.email barsikus07@gmail.com
 
-  - git config --global --add core.autocrlf input
-  - git config --global --add core.ignorecase false
+  - git config --global core.autocrlf input
+  - git config --global core.ignoreCase false
 
-  - git config --global --add pull.rebase true
+  - git config --global pull.rebase true
 
-  - git config --global --add push.default current
+  - git config --global push.default current
 
-  - git config --global --add merge.autoStash true
+  - git config --global merge.autoStash true
 
-  - git config --global --add rebase.autostash true
+  - git config --global rebase.autoStash true
 
   - git config --global init.defaultBranch master
 - https://prismlauncher.org/download/

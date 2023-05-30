@@ -9,7 +9,6 @@ Sound Source Settings -> Enhancements -> Loudness Equalization
 - ROG14 https://www.reddit.com/r/ZephyrusG14/comments/p63yct/how_do_i_disable_varibright_without_using_radeon/
 - https://android.com/better-together/nearby-share-app/
 - [USB test software](https://www.heise.de/download/product/h2testw-50539/download)
-- linux like ls & ll
 - config fzf (z)
 - winget installBehavior": "portablePackageMachineRoot", "portablePackageUserRoot", "preferences": "scope": "user"
 - auto wslhostpatcher
@@ -41,9 +40,6 @@ reg delete "HKCU\Software\Scooter Software\Beyond Compare 4" /v "CacheID" /f
 - notepad.exe -> Delugia 12
 - shutdown /t 0 /r  # reload now
 - shutdown /s /f /t 0  # full shutdown
-- update wt settings after 1.17 release
-  - https://learn.microsoft.com/en-us/windows/terminal/customize-settings/actions#global-commands
-  - themes
 - ROG G14
   - https://www.reddit.com/r/ZephyrusG14/comments/hldxcv/how_to_get_10_hours_battery/
   - https://discord.com/channels/736971456054952027/736971456650412114/784252533886418954
@@ -74,9 +70,9 @@ reg delete "HKCU\Software\Scooter Software\Beyond Compare 4" /v "CacheID" /f
   - https://github.com/farag2/Sophia-Script-for-Windows
   - https://win10tweaker.ru/twikinarium
 - clink
-- Windows Terminal
+- Consistent theming
   - https://github.com/Serendipity-Theme/windows-terminal
-- pwsh.exe -NoLogo vscode
+  - same theme for vscode
 - netlimiter or windowsfirewallcontrol
 - scoop bucket add dorado https://github.com/chawyehsu/dorado
 - powertoys config
@@ -110,9 +106,6 @@ https://support.microsoft.com/en-us/office/download-and-install-or-reinstall-mic
 https://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/media/en-us/ProPlus2019Retail.img
 https://setup.office.com/
 https://c2rsetup.officeapps.live.com/c2r/download.aspx?ProductreleaseID=languagepack&language=ru-ru&platform=x86&source=O16LAP&version=O16GA
-
-## multimc
-https://multimc.org/#Download
 
 ## player
 mpv TODO config
