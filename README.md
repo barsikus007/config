@@ -21,6 +21,9 @@ hatch config set terminal.styles.spinner material
 # TODO
 ```
 ## TODO
+- TOOL TODO ! (install windows soft with auto update from winget (think about config sync of that apps))
+- ask scoop maintaners about FAQ about tools with autoupdate
+- mkcd alias (mkdir + cd)
 - PyCharm
   - terminal pwsh.exe -NoLogo
   - File | Settings | Appearance & Behavior | File Colors || Non-Project Files -> Use in editor tabs

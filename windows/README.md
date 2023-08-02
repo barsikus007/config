@@ -1,11 +1,13 @@
-# Windows env
+# [Windows](../README.md)
 Powershell lifehack to bypas security policy
 ```pwsh
 PowerShell.exe -ExecutionPolicy Bypass -File filename
 ```
-## Sound Normailsation
-Sound Source Settings -> Enhancements -> Loudness Equalization
+
 ## TODO
+- [WiFiHotspot](https://mypublicwifi.com/publicwifi/en/index.html)
+- pwsh packages (move to 5.0?)
+  - https://github.com/farag2/Windows_Terminal/blob/main/Install_Modules.ps1
 - ROG14 https://www.reddit.com/r/ZephyrusG14/comments/p63yct/how_do_i_disable_varibright_without_using_radeon/
 - https://android.com/better-together/nearby-share-app/
 - [USB test software](https://www.heise.de/download/product/h2testw-50539/download)
@@ -116,8 +118,6 @@ https://jailbreakvideo.ru/Files/Update%20Portable%20PotPlayer.exe
 https://www.microsoft.com/ru-ru/download/details.aspx?id=35
 https://download.microsoft.com/download/1/7/1/1718CCC4-6315-4D8E-9543-8E28A4E18C4C/dxwebsetup.exe
 
-## TODO drivers
-
 ## torrent
 - //VMware.WorkstationPlayer
 - //VMware.WorkstationPro
@@ -126,22 +126,21 @@ https://download.microsoft.com/download/1/7/1/1718CCC4-6315-4D8E-9543-8E28A4E18C
 ## copy configs for apps
 
 
-# winget
+## winget
 https://winstall.app/apps/{id}
-## CORE APPS
+winget install --id={id} -e -h
+### CORE APPS
 ```pwsh
 winget upgrade --accept-source-agreements
 # winget install pwsh -h
 # winget install pwsh-preview -h
 ```
-```pwsh
-winget install --id=Docker.DockerDesktop -e -h
-winget install --id=Mozilla.Firefox -e -h
-winget install --id=Parsec.Parsec -e -h
-winget install --id=Nvidia.RTXVoice -e -h
-winget install --id=SandboxiePlus.SandboxieClassic -e -h
-winget install --id=WireGuard.WireGuard -e -h
-```
+- Docker.DockerDesktop
+- Mozilla.Firefox
+- Parsec.Parsec
+- Nvidia.RTXVoice
+- SandboxiePlus.SandboxieClassic
+- WireGuard.WireGuard
 ```pwsh
 # dotnet for some apps, 6 is for powertoys, others are for TODO
 # sudo winget install --id=Microsoft.dotnetRuntime.3-x64 -e -h
@@ -160,25 +159,25 @@ scoop probably broken
 - ShareX.ShareX
 - Telegram.TelegramDesktop
 - TorProject.TorBrowser
+- powertoys
+- quicklook
 
-## GAMES
-```pwsh
-winget install --id=Blizzard.BattleNet -e -h
-winget install --id=EpicGames.EpicGamesLauncher -e -h
-winget install --id=GOG.Galaxy -e -h
-winget install --id=Valve.Steam -e -h
-winget install --id=Ubisoft.Connect -e -h
-```
-DolphinEmulator.Dolphin
+### GAMES
+- Blizzard.BattleNet
+- EpicGames.EpicGamesLauncher
+- GOG.Galaxy
+- Valve.Steam
+- Ubisoft.Connect
+- DolphinEmulator.Dolphin
 
-## BENCH
-// scoop probably broken
+### BENCH
+scoop probably broken
 - CPUID.CPU-Z
 - CrystalDewWorld.CrystalDiskInfo
 - CrystalDewWorld.CrystalDiskMark
 - TechPowerUp.GPU-Z
 
-## OTHER
+### OTHER
 ```pwsh
 winget install --id=OsirisDevelopment.BatteryBar -e -h
 winget install --id=Nvidia.CUDA -e -h
@@ -192,7 +191,11 @@ winget install --id=Nvidia.GeForceExperience -e -h
 - SlackTechnologies.Slack
 - Termius.Termius
 - JetBrains.Toolbox
-## Fix when install
+
+## Sound Normalisation
+Sound Source Settings -> Enhancements -> Loudness Equalization
+
+## Fix HW checks when install
 ```pwsh
 # SHIFT + F10
 

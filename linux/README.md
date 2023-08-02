@@ -1,5 +1,6 @@
 # [Linux](../README.md)
 ## [Command Cheat Sheet](cheatsheet.md)
+## [WSL Hints](wsl.md)
 ## [Router Setup](devices/ax3600.md)
 ## Information
 - Default location for wg0 file is user home
@@ -8,6 +9,8 @@
 - [test link](/../../)
 - [test link](../../../)
 - shells
+  - todo fix order
+    - [ -f "$XDG_CONFIG_HOME/bash/config.bash" ] && source $XDG_CONFIG_HOME/bash/config.bash fix bashrc
   - adapt config.bash file to other shells
   - "$XDG_CONFIG_HOME/shell/aliases.sh" for root user
   - alias resolve package manager for u
