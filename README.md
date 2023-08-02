@@ -21,6 +21,8 @@ hatch config set terminal.styles.spinner material
 # TODO
 ```
 ## TODO
+- https://volta.sh/
+- mpv config
 - TOOL TODO ! (install windows soft with auto update from winget (think about config sync of that apps))
 - ask scoop maintaners about FAQ about tools with autoupdate
 - mkcd alias (mkdir + cd)

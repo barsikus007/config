@@ -1,4 +1,14 @@
 # WSL
+```pwsh
+wsl --install
+wsl --update
+```
+## [WSLg 120+ fps](https://github.com/microsoft/wslg/wiki/Controlling-WSLg-frame-rate)
+`C:\ProgramData\Microsoft\WSL\.wslgconfig`
+```
+[system-distro-env]
+WESTON_RDP_MONITOR_REFRESH_RATE=120
+```
 ## "These files might be harmful to your computer" fix
 ```pwsh
 reg.exe add "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\wsl.localhost" /f /v file  /t REG_DWORD /d 1
