@@ -19,6 +19,7 @@ New-Item ~\Documents\PowerShell\ -Force -ItemType Directory | Out-Null
 Copy-Item $PSScriptRoot\terminal\Microsoft.PowerShell_profile.ps1 ~\Documents\WindowsPowerShell\
 Copy-Item $PSScriptRoot\terminal\Microsoft.PowerShell_profile.ps1 ~\Documents\PowerShell\
 Write-Output 'WindowsTerminal...'
-Copy-Item $PSScriptRoot\terminal\icons ~\Pictures\icons\ -Recurse -Force
+Copy-Item $PSScriptRoot\terminal\icons\ ~\Pictures\ -Recurse -Force
 Copy-Item $PSScriptRoot\terminal\settings.json ~\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\ -Recurse -Force
+Write-Output 'Winget...'
 Copy-Item $PSScriptRoot\winget\settings.json ~\AppData\Local\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\ -Recurse -Force

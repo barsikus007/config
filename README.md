@@ -49,18 +49,20 @@ hatch config set terminal.styles.spinner material
   - git config --global user.name "barsikus007"
   - git config --global user.email barsikus07@gmail.com
 
+  - git config --global core.editor "code --wait"
   - git config --global core.autocrlf input
   - git config --global core.ignoreCase false
 
-  - git config --global pull.rebase true
+  - git config --global init.defaultBranch master
 
   - git config --global push.default current
+
+  - git config --global pull.rebase true
 
   - git config --global merge.autoStash true
 
   - git config --global rebase.autoStash true
 
-  - git config --global init.defaultBranch master
 - https://prismlauncher.org/download/
 - ROG G14 AniMe
   - https://drive.google.com/drive/u/0/folders/1_FsWd2CAjAK13t82ZucTlNGabuI3laWF

@@ -14,6 +14,10 @@ PowerShell.exe -ExecutionPolicy Bypass -File filename
 - copy scoop/persist configs for apps
 - pwsh packages (move to 5.0?)
   - https://github.com/farag2/Windows_Terminal/blob/main/Install_Modules.ps1
+- mingit cert config
+  - git config --global http.sslCAInfo "C:\\Users\\Admin\\scoop\\apps\\mingit\\current\\mingw64\\etc\\ssl\\certs\\ca-bundle.crt"
+- install python from version repo
+- exclude autoupdate packages from scoop
 - ROG14 https://www.reddit.com/r/ZephyrusG14/comments/p63yct/how_do_i_disable_varibright_without_using_radeon/
 - https://android.com/better-together/nearby-share-app/
 - config fzf (z)
