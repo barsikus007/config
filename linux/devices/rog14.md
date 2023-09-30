@@ -1,5 +1,6 @@
 # ASUS GA401IV
 ## TODO
+- fedora shortcut move window to another monitor
 - https://gitlab.com/kirbykevinson/libinput-config
 - custom 4 fingers gestures
   - https://copr.fedorainfracloud.org/coprs/elxreno/libinput-gestures/

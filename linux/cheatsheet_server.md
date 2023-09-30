@@ -1,7 +1,5 @@
 # set new password for root
-`passwd`
-
-#arch
+## arch
 ```bash
 # change root user passwd
 sudo passwd root
@@ -25,10 +23,10 @@ EDITOR=nvim sudo visudo
 # uncomment wheel lines
 ```
 
-#ubuntu
+## ubuntu
 ```bash
 # change root user passwd
-passwd
+sudo passwd root
 
 # create sudo user
 export username="ogurez"
@@ -46,15 +44,18 @@ ssh-keygen -t rsa -f filename -P ""
 ssh-copy-id -i filename.pub ogurez@192.168.0.228
 ```
 # config sshd_config
+- Port 2222
+- PermitRootLogin no
+- PasswordAuthentication no
+- ChallengeResponseAuthentication no
+- KbdInteractiveAuthentication no
+- UsePAM no
 ``` bash
-sudo nvim /etc/ssh/sshd_config
-# ---
-Port 2222
-PermitRootLogin no
-PasswordAuthentication no
-ChallengeResponseAuthentication no
-UsePAM no
-# ---
+sshd_file=/etc/ssh/sshd_config
+cp $sshd_file ~
+sudo sed -i 's/^#Port/Port/' $sshd_file
+sudo sed -i 's/^Port 22$/Port 2222/' $sshd_file
+for param in {PermitRootLogin,PasswordAuthentication,ChallengeResponseAuthentication,UsePAM,KbdInteractiveAuthentication}; do sudo sed -i "s/^#$param/$param/" $sshd_file && sudo sed -i "s/^$param yes$/$param no/" $sshd_file; done
 sudo systemctl reload sshd
 ```
 
@@ -73,7 +74,7 @@ sudo localectl set-locale LANG=en_US.UTF-8  # desktop ?
 export LC_CTYPE=ru_RU.UTF-8  # https://stackoverflow.com/a/30480596/15844518
 ```
 # tools
-#arch
+## arch
 ```bash
 sudo pacman -S mc git btop ncdu docker docker-compose
 sudo systemctl restart docker
