@@ -8,6 +8,7 @@
 - [test link+](../README.md)
 - [test link](/../../)
 - [test link](../../../)
+- https://github.com/ivan-hc/AM-Application-Manager
 - shells
   - todo fix order
     - [ -f "$XDG_CONFIG_HOME/bash/config.bash" ] && source $XDG_CONFIG_HOME/bash/config.bash fix bashrc

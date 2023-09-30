@@ -10,6 +10,6 @@
 (function () {
   const url = JSON.parse(JSON.parse(document.getElementById('video')?.getAttribute('data-parameters'))?.dash)?.src
   if (!url) return
-  console.log(`mpv ${url} --snap-window --no-border --ytdl-raw-options=referer=''`)
+  console.log(`mpv ${url} --snap-window --no-border --ytdl-raw-options=referer='' --ytdl-format='bestaudio+bestvideo[height<=?1080]'`)
   console.log(`yt-dlp ${url} --referer='' --no-part`)
 })()
