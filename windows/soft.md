@@ -8,6 +8,8 @@ https://github.com/LSPosed/MagiskOnWSALocal
 - [WiFiHotspot](https://mypublicwifi.com/publicwifi/en/index.html)
 - [Shadow Defender](http://www.shadowdefender.com/download/Setup.exe)
   - VMACN-4MA3W-S4RHY-5HYT4-GZNN4
+- [Virtual Monitor](https://www.amyuni.com/forum/viewtopic.php?t=3030)
+- [Nearby Share](https://android.com/better-together/nearby-share-app/)
 
 ## Office
 - https://massgrave.dev/

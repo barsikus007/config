@@ -7,35 +7,37 @@ PowerShell.exe -ExecutionPolicy Bypass -File filename
 ## [Soft](soft.md)
 ## [ROG G14](rog14.md)
 ## TODO
-- WSA
-- WSLg
-- explorer like tabs in wt.exe
-- powertoys pc config (without btns)
-- copy scoop/persist configs for apps
+- winget installBehavior": "portablePackageMachineRoot", "portablePackageUserRoot", "preferences": "scope": "user"
+- config fzf (z)
 - pwsh packages (move to 5.0?)
   - https://github.com/farag2/Windows_Terminal/blob/main/Install_Modules.ps1
 - mingit cert config
   - git config --global http.sslCAInfo "C:\\Users\\Admin\\scoop\\apps\\mingit\\current\\mingw64\\etc\\ssl\\certs\\ca-bundle.crt"
 - install python from version repo
 - exclude autoupdate packages from scoop
-- ROG14 https://www.reddit.com/r/ZephyrusG14/comments/p63yct/how_do_i_disable_varibright_without_using_radeon/
-- https://android.com/better-together/nearby-share-app/
-- config fzf (z)
-- winget installBehavior": "portablePackageMachineRoot", "portablePackageUserRoot", "preferences": "scope": "user"
+- WSA soft
+- explorer like tabs in wt.exe
+- powertoys pc config (without remaps)
+- copy scoop/persist configs for apps
 - auto wslhostpatcher
-- edge fix "harm exe" notification:
-```reg
-Windows Registry Editor Version 5.00
+- notepad.exe -> Delugia 12
+- Test UWP VK client
+  - winget install laney -s msstore -e --accept-package-agreements
+  - https://elorucov.github.io/laney/
+  - 9MSPLCXVN1M5
+- Tweak windows
+  - https://github.com/farag2/Sophia-Script-for-Windows
+  - https://win10tweaker.ru/twikinarium
+- Consistent theming
+  - https://github.com/Serendipity-Theme/windows-terminal
+  - same theme for vscode
+- netlimiter or windowsfirewallcontrol
 
-[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Edge\ExemptDomainFileTypePairsFromFileTypeDownloadWarnings]
-"1"="{\"file_extension\": \"exe\", \"domains\": [\"*\"]}"
-```
-- chrome flag
-  - edge://flags/#enable-parallel-downloading
-  - opera://flags/#enable-parallel-downloading
-- https://massgrave.dev
-- https://www.amyuni.com/forum/viewtopic.php?t=3030
-- beyond compare + crack https://gist.github.com/rise-worlds/5a5917780663aada8028f96b15057a67
+## Toggle new context menu (due to lack of 7zip and notepad++)
+- disable `reg.exe add “HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32” /f`
+- enable `reg.exe delete “HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}” /f`
+
+## Beyond Compare crack https://gist.github.com/rise-worlds/5a5917780663aada8028f96b15057a67
 ```pwsh
 #rm "$env:appdata\Scooter Software\Beyond Compare 4\*.*" -Force -Confirm
 rm "$env:appdata\Scooter Software\Beyond Compare 4\BCState.xml" -Force -Confirm
@@ -44,24 +46,14 @@ rm "$env:appdata\Scooter Software\Beyond Compare 4\BCState.xml.bak" -Force -Conf
 #rm "$env:appdata\Scooter Software\Beyond Compare 4\BCSessions.xml.bak" -Force -Confirm
 reg delete "HKCU\Software\Scooter Software\Beyond Compare 4" /v "CacheID" /f
 ```
-- gsudo vs sudo
-- https://github.com/gerardog/gsudo#powershell-module
-- notepad.exe -> Delugia 12
-- common linux aliases to windows (like ll)
-- winget install laney -s msstore -e --accept-package-agreements
-  - https://elorucov.github.io/laney/
-  - 9MSPLCXVN1M5
-- new context menu
-  - disable `reg.exe add “HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32” /f`
-  - enable `reg.exe delete “HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}” /f`
-- Tweak windows
-  - https://github.com/farag2/Sophia-Script-for-Windows
-  - https://win10tweaker.ru/twikinarium
-- clink
-- Consistent theming
-  - https://github.com/Serendipity-Theme/windows-terminal
-  - same theme for vscode
-- netlimiter or windowsfirewallcontrol
+
+## Edge fix "harm exe" notification
+```reg
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Edge\ExemptDomainFileTypePairsFromFileTypeDownloadWarnings]
+"1"="{\"file_extension\": \"exe\", \"domains\": [\"*\"]}"
+```
 
 ## Shutdown commands
 - `shutdown /t 0 /r`  # reload now
@@ -95,3 +87,5 @@ reg add HKLM\System\Setup\LabConfig /v BypassCPUCheck /t reg_dword /d 0x00000001
 reg add HKLM\System\Setup\LabConfig /v BypassRAMCheck /t reg_dword /d 0x00000001 /f
 reg add HKLM\System\Setup\LabConfig /v BypassStorageCheck /t reg_dword /d 0x00000001 /f
 ```
+
+## [KMS](https://massgrave.dev)

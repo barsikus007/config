@@ -21,6 +21,11 @@ hatch config set terminal.styles.spinner material
 # TODO
 ```
 ## TODO
+- piptool scoop??
+
+- chromium flag for faster downloads
+  - edge://flags/#enable-parallel-downloading
+  - opera://flags/#enable-parallel-downloading
 - https://volta.sh/
 - mpv config
 - TOOL TODO ! (install windows soft with auto update from winget (think about config sync of that apps))
@@ -96,7 +101,6 @@ hatch config set terminal.styles.spinner material
     - LINUX
   - prompt
     - starship
-      - fix custom git command for windows
       - design
       - fix character on exit
       - Administrator to root

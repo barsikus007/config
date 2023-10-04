@@ -1,4 +1,6 @@
 # [ASUS GA401IV](./)
+## TODO
+- https://www.reddit.com/r/ZephyrusG14/comments/p63yct/how_do_i_disable_varibright_without_using_radeon/
 - https://www.reddit.com/r/ZephyrusG14/comments/hldxcv/how_to_get_10_hours_battery/
 - https://discord.com/channels/736971456054952027/736971456650412114/784252533886418954
 - https://github.com/aredden/RestartGPU/
