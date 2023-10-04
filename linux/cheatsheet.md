@@ -27,9 +27,9 @@ sudo systemctl restart ssh.service
 ## commands
 ### apt
 ```bash
-soft_to_install="mc curl neofetch"
+base="mc git btop ncdu tmux tree neovim neofetch"
 soft_to_purge="snapd"
-sudo apt install $soft_to_install -y
+sudo apt install $base -y
 sudo apt purge $soft_to_purge -y
 # show installed https://askubuntu.com/q/2389
 apt-mark showmanual
@@ -38,9 +38,9 @@ zgrep 'Commandline: apt' /var/log/apt/history.log /var/log/apt/history.log.*.gz
 ```
 ### pacman
 ```bash
-soft_to_install="mc curl neofetch"
+base="mc git btop ncdu tmux tree neovim neofetch"
 soft_to_purge="snapd"
-sudo pacman -S $soft_to_install -y
+sudo pacman -S $base -y
 sudo pacman -Rsn $soft_to_purge -y
 ```
 ### [Download "whole" site](https://pingvinus.ru/note/wget-download-sites) ([alt](https://superuser.com/q/1672776))

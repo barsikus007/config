@@ -10,7 +10,6 @@ export username="ogurez"
 sudo useradd -mG wheel $username
 sudo passwd $username
 
-
 # pacman errors workaround
 # https://wiki.archlinux.org/title/Mirrors
 # sudo pacman-key --init
@@ -43,39 +42,40 @@ su $username
 ssh-keygen -t rsa -f filename -P ""
 ssh-copy-id -i filename.pub ogurez@192.168.0.228
 ```
-# config sshd_config
+
+# config sshd_config for security
 - Port 2222
 - PermitRootLogin no
 - PasswordAuthentication no
 - ChallengeResponseAuthentication no
 - KbdInteractiveAuthentication no
-- UsePAM no
 ``` bash
 sshd_file=/etc/ssh/sshd_config
 cp $sshd_file ~
 sudo sed -i 's/^#Port/Port/' $sshd_file
 sudo sed -i 's/^Port 22$/Port 2222/' $sshd_file
-for param in {PermitRootLogin,PasswordAuthentication,ChallengeResponseAuthentication,UsePAM,KbdInteractiveAuthentication}; do sudo sed -i "s/^#$param/$param/" $sshd_file && sudo sed -i "s/^$param yes$/$param no/" $sshd_file; done
+for param in {PermitRootLogin,PasswordAuthentication,ChallengeResponseAuthentication,KbdInteractiveAuthentication}; do sudo sed -i "s/^#$param/$param/" $sshd_file && sudo sed -i "s/^$param yes$/$param no/" $sshd_file; done
 sudo systemctl reload sshd
 ```
 
 # utf-8
 ```bash
+locale
 locale -a
+# if not C.UTF-8 exists
 sudo apt install locales
-# sudo locale-gen ru_RU.UTF-8
-sudo locale-gen en_US.UTF-8
-sudo locale-gen C.UTF-8
-sudo update-locale
-# WHICH ONE I SHOULD CHOOSE ?
-sudo localectl set-locale LANG=C.UTF-8  # server ?
-sudo localectl set-locale LANG=en_US.UTF-8  # desktop ?
-# export LC_TIME=ru_RU.UTF-8
-export LC_CTYPE=ru_RU.UTF-8  # https://stackoverflow.com/a/30480596/15844518
+sudo locale-gen C.UTF-8 en_US.UTF-8
+sudo localectl set-locale C.UTF-8
+# TODO or update-locale?
+# set ru time https://stackoverflow.com/a/30480596/15844518
+# sudo locale-gen ru_RU.UTF-8 && sudo localectl set-locale LC_TIME=ru_RU.UTF-8 
 ```
+
 # tools
 ## arch
 ```bash
-sudo pacman -S mc git btop ncdu docker docker-compose
+base="mc git btop ncdu tmux tree neovim neofetch"
+docker="docker docker-compose"
+sudo pacman -S $base $docker
 sudo systemctl restart docker
 ```
