@@ -21,8 +21,10 @@ hatch config set terminal.styles.spinner material
 # TODO
 ```
 ## TODO
+- linux `zgrep -E "Commandline: apt(|-get)" /var/log/apt/history.log*`
+- create python venv alias (current python installation pyenv.cfg windows)
+- batcat mouse
 - piptool scoop??
-
 - chromium flag for faster downloads
   - edge://flags/#enable-parallel-downloading
   - opera://flags/#enable-parallel-downloading

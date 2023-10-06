@@ -1,4 +1,4 @@
-# [YouTube ReVanced](./)
+# [YouTube ReVanced](./README.md)
 
 ## !important
 

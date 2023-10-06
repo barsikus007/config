@@ -21,6 +21,11 @@ if hash starship &> /dev/null; then
   eval "$(starship init bash)"
 fi
 
+if hash batcat &> /dev/null; then
+  alias bat=batcat
+  alias cat=bat
+fi
+
 # https://github.com/nvm-sh/nvm#install--update-script
 # https://www.shellcheck.net/wiki/SC2155
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
