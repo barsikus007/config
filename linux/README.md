@@ -1,4 +1,6 @@
 # [Linux](../README.md)
+## Install Config
+`cd ~ && git clone https://github.com/barsikus007/config && cd -`
 ## [Command Cheat Sheet](cheatsheet.md)
 ## [WSL Hints](wsl.md)
 ## [Router Setup](devices/ax3600.md)
@@ -10,6 +12,7 @@
 - [test link](../../../)
 - https://github.com/ivan-hc/AM-Application-Manager
 - shells
+  - apply config changes `cu` (assume that it installed in home dir (env variable `$CONFIG_LOCATION?`))
   - todo fix order
     - [ -f "$XDG_CONFIG_HOME/bash/config.bash" ] && source $XDG_CONFIG_HOME/bash/config.bash fix bashrc
   - adapt config.bash file to other shells

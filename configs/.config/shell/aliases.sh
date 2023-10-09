@@ -8,6 +8,9 @@ alias ls='ls --color=auto'
 alias l='ls -CF'
 alias ll='ls -alF'
 alias u='sudo apt update && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt clean'
+
+alias cu='cd ~/config/ && git pull && ./configs/install.sh && cd -'
+
 alias lzd='lazydocker'
 alias dc='docker compose'
 alias dcu='dc up -d --build'
@@ -16,6 +19,7 @@ alias dcs='dc stop'
 alias dcd='dc down'
 alias dcl='dc logs'
 alias dcr='dc restart'
+alias dce='dc exec -it'
 alias cdl='sudo sh -c "truncate -s 0 /var/lib/docker/containers/*/*-json.log"'
 
 alias wgu="wg-quick up ~/wg0.conf"
