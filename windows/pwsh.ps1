@@ -6,6 +6,10 @@ Write-Output ''
 Write-Output 'Install scoop:'
 Write-Output "PowerShell.exe -ExecutionPolicy Bypass -File $PSScriptRoot\scoop\InstallScoop.ps1 $args"
 Write-Output ''
+scoop alias rm purge
+scoop alias rm upgrade
+scoop alias add purge 'scoop uninstall -p $args'
+scoop alias add upgrade 'scoop update *'
 
 Write-Output 'Updating config files...'
 .\$PSScriptRoot\..\configs\install.ps1

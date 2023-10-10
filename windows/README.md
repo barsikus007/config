@@ -1,12 +1,15 @@
 # [Windows](../README.md)
-Powershell lifehack to bypas security policy
+## Powershell lifehack to bypas security policy
 ```pwsh
 PowerShell.exe -ExecutionPolicy Bypass -File filename
 ```
+## Install config (TODO move to install.ps1)
+`.\windows\pwsh.ps1`
 
 ## [Soft](soft.md)
 ## [ROG G14](rog14.md)
 ## TODO
+- history file: `C:\Users\Zephyr\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt`
 - winget installBehavior": "portablePackageMachineRoot", "portablePackageUserRoot", "preferences": "scope": "user"
 - config fzf (z)
 - pwsh packages (move to 5.0?)
