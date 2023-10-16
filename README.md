@@ -21,6 +21,7 @@ hatch config set terminal.styles.spinner material
 # TODO
 ```
 ## TODO
+- vencord
 - linux `zgrep -E "Commandline: apt(|-get)" /var/log/apt/history.log*`
 - create python venv alias (current python installation pyenv.cfg windows)
 - batcat mouse

@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# https://askubuntu.com/a/22043
+alias sudo='sudo '
+
 alias grp='grep -Fin -C 7'
 alias c='clear'
 alias h='history'

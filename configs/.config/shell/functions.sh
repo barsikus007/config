@@ -1,6 +1,12 @@
 #!/bin/sh
 
-dcb() { docker compose exec -it "$1" bash; }
+dcsh() { docker compose exec -it "$1" sh -c 'bash || sh'; }
+
+# export-aliases() {
+#   # export aliases
+#   # alias | awk -F'[ =]' '{print "alias "$2"='\''"$3"'\''"}'
+#   alias | sed -z 's/\n/\&\&/g' | sed -e 's/[^(alias)] /\\\\ /g'
+# }
 
 demotoggle() {
   # demo toggle function (for dedicated key)

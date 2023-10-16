@@ -12,6 +12,7 @@
 - [test link](../../../)
 - https://github.com/ivan-hc/AM-Application-Manager
 - shells
+  - show cached state of sudo in prompt (starship)
   - apply config changes `cu` (assume that it installed in home dir (env variable `$CONFIG_LOCATION?`))
   - todo fix order
     - [ -f "$XDG_CONFIG_HOME/bash/config.bash" ] && source $XDG_CONFIG_HOME/bash/config.bash fix bashrc

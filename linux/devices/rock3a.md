@@ -55,10 +55,10 @@ sudo zpool create -O utf8only=on -O normalization=formD -O compression=lz4 tank 
 sudo zfs create tank/apps
 sudo zfs create tank/storage
 sudo zfs create tank/backup
+sudo zfs create -o com.sun:auto-snapshot=false tank/docker
 
-sudo zfs create tank/docker
 sudo zfs create tank/git?lab
-sudo chown rock:rock /tank/storage/
+sudo chown -R $USER:$USER /tank/storage/
 ```
 #### Add scrub schedule (`0 3 * * 0 /sbin/zpool scrub tank`)
 - `sudo crontab -l | cat - <(echo "0 3 * * 0 /sbin/zpool scrub tank") | sudo crontab -`
