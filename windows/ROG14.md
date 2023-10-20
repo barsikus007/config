@@ -10,3 +10,9 @@
   - unknown source (reddit)
   - `powercfg.exe -attributes sub_processor perfboostmode -attrib_hide`
   - `powercfg.exe -attributes sub_disk 0b2d69d7-a2a1-449c-9680-f91c70521c60 -attrib_hide`
+- ROG G14 AniMe
+  - https://drive.google.com/drive/u/0/folders/1_FsWd2CAjAK13t82ZucTlNGabuI3laWF
+  - https://blog.joshwalsh.me/asus-anime-matrix/
+  - https://rog.asus.com/anime-matrix-pixel-editor/?device=DS-Animate#editor
+- RestartGPU (Run as root)
+  - `$device = Get-PnpDevice | Where-Object { $_.FriendlyName -imatch 'NVIDIA' -and $_.Class -eq 'Display' }; Disable-PnpDevice $device.InstanceId -Confirm:$false; Start-Sleep -Seconds 3; Enable-PnpDevice $device.InstanceId -Confirm:$false`

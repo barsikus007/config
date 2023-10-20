@@ -1,8 +1,6 @@
 # [YouTube ReVanced](./README.md)
 
-## !important
-
-### Correct update sequence
+## Correct update sequence
 
 1. Unpatch app
 2. Reboot
@@ -11,11 +9,12 @@
 
 ## [YouTube](https://revanced.app/patches?pkg=com.google.android.youtube)
 
-### [APKMirror](https://www.apkmirror.com/apk/google-inc/youtube/youtube-18-32-39-release/#downloads:~:text=Android%208.0%2B-,nodpi,-All%20Releases)
+### [APKMirror](https://www.apkmirror.com/apk/google-inc/youtube/youtube-18-38-44-release/#downloads:~:text=Android%208.0%2B-,nodpi,-All%20Releases)
 
-### Patches 20/54
+### Patches 19/56
 
-- 2.191.0
+- 2.195.0
+  - Bypass URL redirects (new?)
   - Alternative Thumbnails ?
   - Client spoof
   - Disable shorts on startup
@@ -24,7 +23,6 @@
   - Hide ads
   - Hide breaking news shell ?
   - Hide email address
-  - Hide get premium
   - Hide watermark
   - Minimized playback
   - Old quality layout menu
@@ -36,6 +34,7 @@
   - SponsorBlock
   - Swipe controls
   - Video ads
+  - Hide get premium (removed)
 
 ### Settings
 
@@ -43,18 +42,21 @@
   - Double-tap to seek
     - 5 seconds
 - Video quality preferences
+  - \*
+    - Higher picture quality
 - ReVanced
 
 ```json
 "disable_resuming_shorts_player": true,
 "external_downloader": true,
+"external_downloader_name": "com.junkfood.seal",
 "hide_email_address": true,
 "hide_player_popup_panels": true,
 "ryd_toast_on_connection_error": false,
 "sb_toast_on_connection_error": false
 ```
 
-## [YouTube Music](https://github.com/revanced/revanced-patches#-comgoogleandroidappsyoutubemusic)
+## [YouTube Music](https://revanced.app/patches?pkg=com.google.android.apps.youtube.music)
 
 ### [APKMirror](https://www.apkmirror.com/apk/google-inc/youtube-music/)
 

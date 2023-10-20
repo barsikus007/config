@@ -24,7 +24,7 @@ hatch config set terminal.styles.spinner material
 - vencord
 - linux `zgrep -E "Commandline: apt(|-get)" /var/log/apt/history.log*`
 - create python venv alias (current python installation pyenv.cfg windows)
-- batcat mouse
+- batcat mouse rock-ssh
 - piptool scoop??
 - chromium flag for faster downloads
   - edge://flags/#enable-parallel-downloading
@@ -72,16 +72,11 @@ hatch config set terminal.styles.spinner material
   - git config --global rebase.autoStash true
 
 - https://prismlauncher.org/download/
-- ROG G14 AniMe
-  - https://drive.google.com/drive/u/0/folders/1_FsWd2CAjAK13t82ZucTlNGabuI3laWF
-  - https://blog.joshwalsh.me/asus-anime-matrix/
-  - https://rog.asus.com/anime-matrix-pixel-editor/?device=DS-Animate#editor
 - chmod +x executables in repo
-- password manager
-- https://violentmonkey.github.io
-- add browser bookmarks
-- make ru-en utf linux and windows locale
-  - export LC_CTYPE=ru_RU.UTF-8
+- browser
+  - password manager
+  - https://violentmonkey.github.io
+  - sync bookmarks
 - new software
   - dos2unix
   - https://github.com/isacikgoz/tldr
