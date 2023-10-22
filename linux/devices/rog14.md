@@ -8,6 +8,9 @@
 ## [Fedora Installation](https://asus-linux.org/wiki/fedora-guide/)
 ```bash
 # TODO script
+# add rpmfusion repo
+sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+sudo rpm -i https://github.com/rpmsphere/noarch/raw/master/r/rpmsphere-release-$(rpm -E %fedora)-1.noarch.rpm
 ```
 ## [Fedora Hibernate](https://fedoramagazine.org/hibernation-in-fedora-36-workstation/)
 ```bash
