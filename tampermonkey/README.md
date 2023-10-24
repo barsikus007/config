@@ -1,7 +1,7 @@
 # TODO TODO
 
 - <https://greasyfork.org/en/scripts/439993-youtube-shorts-redirect>
-- TODO remove si youtube
+- [TODO remove si youtube](https://github.com/Xenorio/YTShareAntiTrack)
 
 ## Extensions
 
