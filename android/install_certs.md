@@ -1,4 +1,5 @@
 # How to install certificates
+
 ```bash
 mitmproxy -p 8081 --set block_global=false
 
@@ -36,7 +37,8 @@ chcon u:object_r:system_file:s0 /system/etc/security/cacerts/*
 # then reboot
 ```
 
-## or use HTTP Toolkit with https://github.com/NVISOsecurity/MagiskTrustUserCerts
+## or use HTTP Toolkit with <https://github.com/NVISOsecurity/MagiskTrustUserCerts>
+
 ```bash
 frida -U --codeshare akabe1/frida-multiple-unpinning -f com.punicapp.whoosh
 
