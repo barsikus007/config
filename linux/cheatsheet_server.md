@@ -1,5 +1,9 @@
-# set new password for root
-## arch
+# [cheatsheet for server](./)
+
+## set new password for root
+
+### arch
+
 ```bash
 # change root user passwd
 sudo passwd root
@@ -22,7 +26,8 @@ EDITOR=nvim sudo visudo
 # uncomment wheel lines
 ```
 
-## ubuntu
+### ubuntu
+
 ```bash
 # change root user passwd
 sudo passwd root
@@ -37,18 +42,23 @@ passwd $username
 su $username
 ```
 
-# generate ssh-key
+## ssh
+
+### generate ssh-key
+
 ```bash
 ssh-keygen -t rsa -f filename -P ""
 ssh-copy-id -i filename.pub ogurez@192.168.0.228
 ```
 
-# config sshd_config for security
+### config sshd_config for security
+
 - Port 2222
 - PermitRootLogin no
 - PasswordAuthentication no
 - ChallengeResponseAuthentication no
 - KbdInteractiveAuthentication no
+
 ``` bash
 sshd_file=/etc/ssh/sshd_config
 cp $sshd_file ~
@@ -58,7 +68,8 @@ for param in {PermitRootLogin,PasswordAuthentication,ChallengeResponseAuthentica
 sudo systemctl reload sshd
 ```
 
-# utf-8
+## utf-8
+
 ```bash
 locale
 locale -a
@@ -68,11 +79,13 @@ sudo locale-gen C.UTF-8 en_US.UTF-8
 sudo localectl set-locale C.UTF-8
 # TODO or update-locale?
 # set ru time https://stackoverflow.com/a/30480596/15844518
-# sudo locale-gen ru_RU.UTF-8 && sudo localectl set-locale LC_TIME=ru_RU.UTF-8 
+# sudo locale-gen ru_RU.UTF-8 && sudo localectl set-locale LC_TIME=ru_RU.UTF-8
 ```
 
-# tools
-## arch
+## tools
+
+### arch
+
 ```bash
 base="mc git btop ncdu tmux tree neovim neofetch"
 docker="docker docker-compose"

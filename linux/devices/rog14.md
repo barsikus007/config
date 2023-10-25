@@ -1,18 +1,24 @@
 # ASUS GA401IV
+
 ## TODO
+
 - fedora shortcut move window to another monitor
-- https://gitlab.com/kirbykevinson/libinput-config
+- <https://gitlab.com/kirbykevinson/libinput-config>
 - custom 4 fingers gestures
-  - https://copr.fedorainfracloud.org/coprs/elxreno/libinput-gestures/
-  - https://gitlab.com/cunidev/gestures
+  - <https://copr.fedorainfracloud.org/coprs/elxreno/libinput-gestures/>
+  - <https://gitlab.com/cunidev/gestures>
+
 ## [Fedora Installation](https://asus-linux.org/wiki/fedora-guide/)
+
 ```bash
 # TODO script
 # add rpmfusion repo
 sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 sudo rpm -i https://github.com/rpmsphere/noarch/raw/master/r/rpmsphere-release-$(rpm -E %fedora)-1.noarch.rpm
 ```
+
 ## [Fedora Hibernate](https://fedoramagazine.org/hibernation-in-fedora-36-workstation/)
+
 ```bash
 sudo btrfs subvolume create /swap
 swapon
@@ -20,7 +26,7 @@ swapon
 sudo touch /swap/swapfile
 sudo chattr +C /swap/swapfile
 sudo fallocate --length 24G /swap/swapfile
-sudo chmod 600 /swap/swapfile 
+sudo chmod 600 /swap/swapfile
 sudo mkswap /swap/swapfile
 
 cat <<-EOF | sudo tee /etc/dracut.conf.d/resume.conf
@@ -104,6 +110,7 @@ systemctl hibernate
 ```
 
 remove
+
 ```bash
 # remove SELinux module via semodule -r systemd_sleep
 # $ semodule -r systemd_sleep
@@ -130,7 +137,9 @@ sudo rm /swap/swapfile
 # remove the swap subvolume
 sudo btrfs subvolume delete /swap
 ```
+
 ## Shortcuts (Keyboard -> View and Customize Shortcuts)
+
 - ROG G14 2020 specific
   - ROG key -> `bash -c 'demotoggle'`
   - FN+F5 -> `bash -c 'fan'`
@@ -149,7 +158,9 @@ sudo btrfs subvolume delete /swap
 - fix language change
   - `gsettings set org.gnome.desktop.wm.keybindings switch-input-source-backward "['<Shift>Alt_L', '<Shift>XF86Keyboard']"`
   - revert `gsettings set org.gnome.desktop.wm.keybindings switch-input-source-backward "['<Shift><Super>space', '<Shift>XF86Keyboard']"`
+
 ## Grub tweak
+
 ```bash
 sudo nvim /etc/default/grub
 # ---

@@ -1,5 +1,7 @@
 # rock-3a
+
 ## Install
+
 ```bash
 tzselect
 # 7 39 2 1
@@ -19,6 +21,7 @@ sudo apt install linux-headers-current-rockchip64 -y
 ```
 
 ## SATA HAT
+
 ```bash
 # curl -sL https://rock.sh/get-rockpi-penta | sudo -E bash -
 sudo apt install software-properties-common -y
@@ -38,12 +41,15 @@ sudo armbian-add-overlay rk3568-pwm8-m0-fan.dts
 ```
 
 ## Other
+
 - OMV
-- https://wiki.omv-extras.org/doku.php?id=omv6:armbian_bullseye_install#install_omv
+- <https://wiki.omv-extras.org/doku.php?id=omv6:armbian_bullseye_install#install_omv>
 - systemctl unmask systemd-networkd.service
 
 ## NAS
+
 ### ZFS
+
 ```bash
 sudo apt install zfsutils-linux zfs-dkms -y
 sudo reboot
@@ -60,19 +66,25 @@ sudo zfs create -o com.sun:auto-snapshot=false tank/docker
 sudo zfs create tank/git?lab
 sudo chown -R $USER:$USER /tank/storage/
 ```
+
 #### Add scrub schedule (`0 3 * * 0 /sbin/zpool scrub tank`)
+
 - `sudo crontab -l | cat - <(echo "0 3 * * 0 /sbin/zpool scrub tank") | sudo crontab -`
 
 #### Add auto snapshot package
+
 - `sudo apt install zfs-auto-snapshot -y`
 
 ### SMART
+
 ```bash
 sudo apt install smartmontools -y
 ```
+
 #### TODO smartd
 
 ## Ubuntu-20.04-linux-4.19
+
 ```bash
 sudo vim /etc/apt/sources.list.d/apt-radxa-com.list
 sudo apt update && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt clean
