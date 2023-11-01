@@ -4,7 +4,9 @@
 
 - [APN fix](https://4pda.to/forum/index.php?showtopic=1030072&view=findpost&p=117115914)
 - [root and kernel english](https://forum.xda-developers.com/t/unlock-bootloader-root-pixel-7-pro-cheetah-safetynet.4502805/)
-- [Pixel Flasher](https://github.com/badabing2005/PixelFlasher)
+- OTA
+  - [Without PC](https://4pda.to/forum/index.php?showtopic=1063306&view=findpost&p=120925739)
+  - [Pixel Flasher](https://github.com/badabing2005/PixelFlasher)
   - [root update russian](https://4pda.to/forum/index.php?s=&showtopic=1063306&view=findpost&p=120901180)
 - [volte](https://4pda.to/forum/index.php?showtopic=1039682&view=findpost&p=118422509)
   - [another volte](https://github.com/swangjang/Pixel-Redbull-Carrier-Patch)

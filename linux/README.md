@@ -2,7 +2,8 @@
 
 ## Install Config
 
-`cd ~ && git clone https://github.com/barsikus007/config && cd -`
+`cd && git clone https://github.com/barsikus007/config && ./configs/install.sh && cd -`
+`cd ~/config/ && git pull && ./configs/install.sh && cd -`
 
 ## [Command Cheat Sheet](cheatsheet.md)
 

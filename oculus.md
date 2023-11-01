@@ -1,31 +1,48 @@
-# My oculus setup (useful and unsorted links from 2021)
+# [Oculus Quest 2](./)
 
-- <http://192.168.31.18:50000/main/mods>
-- <https://bsmg.wiki/quest-modding.html#backup-save-data-using-sidequest>
-- <https://www.google.com/search?q=bmbf+Installing+the+mod+failed%3A+Chain+validation+failed>
-- <https://bsmg.wiki/quest-modding.html#core-mods-don-t-work>
-- <https://sidequestvr.com/app/747/bmbf>
-- <https://computerelite.github.io/tools/Beat_Saber/questmods.html>
+## Oculus software
 
-- <https://vr419.ru/blog/poleznye-fishki-po-rabote-s-oculus-quest-2/>
-- <https://4pda.to/forum/index.php?showtopic=1001499&st=320>
-- <https://vr419.ru/blog/problemy-s-oculus-quest-2-i-sposoby-ix-resheniya/>
-- <https://4pda.to/forum/index.php?showtopic=1004805&st=16560#entry108479971>
-- <https://vr419.ru/blog/razrabotka-prilozhenij-pod-oculus-quest-2/#_OVR_Metrics>
-- <https://vr419.ru/blog/interesnye-igry-i-prilozheniya-iz-sidequest-dlya-oculus-quest-2/#_SideQuest>
-- <https://4pda.to/forum/index.php?showtopic=1004805&st=11980#entry106297100>
-- <https://4pda.to/forum/index.php?forums%5B%5D=1087&topics%5B%5D=1004805&act=search&source=pst&query=%F7%E5%F0%ED%FB%E9+%FD%EA%F0%E0%ED>
-- <https://vr419.ru/blog/luchshie-vr-igry-dlya-pk-svodnyj-post/>
-- <https://www.youtube.com/watch?v=fPLq-WT-g1k>
-- <https://www.youtube.com/watch?v=zcLbFuBSrUQ>
-- <https://www.youtube.com/channel/UCOpwI0AQotH5iEKSo6SfHnQ/videos>
+- PC
+  - [Meta Quest app](https://www.meta.com/quest/setup/#:~:text=SET%2DUP-,Quest%202,-Download%20the%20Oculus)
+  - [SideQuest](https://sidequestvr.com/download#:~:text=Show%20More-,Advanced%20Installer%20Tutorial,-SideQuest%20Official)
+  - [OVR Metrics Tool](https://developer.oculus.com/downloads/package/ovr-metrics-tool/)
+- Standalone
+  - [Launcher](https://github.com/threethan/LightningLauncher)
+  - [Browser](https://wolvic.com/dl/)
+- Paid
+  - [Virtual Desktop](https://www.vrdesktop.net)
+
+### Oculus games
+
+- PC
+  - [Half-Life: Alyx](https://store.steampowered.com/app/546560/HalfLife_Alyx/)
+  - [BONEWORKS](https://store.steampowered.com/app/823500/BONEWORKS/)
+  - [Among Us VR](https://store.steampowered.com/app/1849900/Among_Us_VR/)
+  - [LOW-FI](https://store.steampowered.com/app/395830/LOWFI/)
+  - [VRChat](https://store.steampowered.com/app/438100/VRChat/)
+  - [Beat Saber](https://store.steampowered.com/app/620980/Beat_Saber/)
+- Standalone
+  - [Beat Saber](https://www.meta.com/experiences/2448060205267927/)
+    - [BMBF](https://sidequestvr.com/app/747/bmbf)
+      - [Backup](https://bsmg.wiki/quest-modding.html#backup-save-data-using-sidequest)
+      - [Mods](https://computerelite.github.io/tools/Beat_Saber/questmods.html)
+  - [Waltz of the Wizard](https://www.meta.com/experiences/2280285932034855/)
+
+## Guides
+
+- [Link Setup](https://4pda.to/forum/index.php?showtopic=1025596&view=findpost&p=106966059)
+  - Fix oculus laptop GPU shitcoding
+
+## 360 video
+
+- <https://www.youtube.com/@commoditygames1410/videos>
 - <https://www.youtube.com/watch?v=M5gx6A5lceo>
 
-- waltz of the wizards
-- lofivr
-- <https://developer.oculus.com/downloads/package/ovr-metrics-tool/>
+## [LIV](https://www.liv.tv/mixedreality)
 
-- LIV
-  - <https://www.liv.tv/mixedreality>
-    - <https://discord.com/channels/344602581735178260/844655165058580500/982360000544510093>
-    - <https://developer.cloud.unity3d.com/share/share.html?shareId=-J7VwLndVu>
+- Latest mobile app is archived, PM me if you need it
+- TODO DroidCam + SteamVR
+
+## TODO
+
+- loWvr

@@ -28,6 +28,8 @@ hatch config set terminal.styles.spinner material
 
 ## TODO
 
+- lazydocker
+- Telegram > Settings > Advanced > Experimental settings > Send large photos
 - Vencord
   - `git clone https://github.com/philhk/Vencord`
   - `pnpm i`

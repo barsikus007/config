@@ -8,6 +8,7 @@
 
 - [system informer (process hacker)](https://systeminformer.sourceforge.io/nightly.php)
 - [USB test software](https://www.heise.de/download/product/h2testw-50539/download)
+- [USB Tree View](https://www.uwe-sieber.de/usbtreeview_e.html#download)
 - [WiFiHotspot](https://mypublicwifi.com/publicwifi/en/index.html)
 - [Shadow Defender](http://www.shadowdefender.com/download/Setup.exe)
   - VMACN-4MA3W-S4RHY-5HYT4-GZNN4
