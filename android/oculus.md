@@ -1,4 +1,4 @@
-# [Oculus Quest 2](./)
+# [Oculus Quest 2](./README.md)
 
 ## Oculus software
 
