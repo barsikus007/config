@@ -1,5 +1,7 @@
 # config
 
+## [versus](versus/README.md)
+
 ## [Android](android/README.md)
 
 ## [Linux](linux/README.md)
