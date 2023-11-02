@@ -8,3 +8,8 @@ My opinion to different things
 ## Notes
 
 - [Instagram](pages/instagram.md)
+
+## TODO
+
+- nvim
+- grammar check
