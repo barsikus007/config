@@ -32,6 +32,9 @@
 
 - [Link Setup](https://4pda.to/forum/index.php?showtopic=1025596&view=findpost&p=106966059)
   - Fix oculus laptop GPU shitcoding
+    - [Power Safe](https://4pda.to/forum/index.php?showtopic=1004805&view=findpost&p=116402181)
+    - [Disable](https://4pda.to/forum/index.php?showtopic=1004805&view=findpost&p=113255445)
+    - [Perfomance](https://4pda.to/forum/index.php?showtopic=1025596&view=findpost&p=107113365)
 
 ## 360 video
 

@@ -45,10 +45,12 @@ Import-Module "$($(Get-Item $(Get-Command scoop.ps1).Path).Directory.Parent.Full
 Import-Module "gsudoModule"
 
 # aliases
-Function suss {scoop update | scoop status}
-Function ll { ls }
+Remove-Alias ls
+New-Alias ls eza
+Function ll { ls -la }
 Function c { clear }
 Function h { History }
+Function suss {scoop update | scoop status}
 
 # https://github.com/microsoft/winget-cli/blob/master/doc/Completion.md
 Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {

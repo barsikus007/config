@@ -30,6 +30,10 @@ hatch config set terminal.styles.spinner material
 
 ## TODO
 
+- python notebook cli
+- <https://github.com/ranger/ranger>
+- <https://github.com/sxyazi/yazi>
+- <https://github.com/eza-community/eza>
 - lazydocker
 - Telegram > Settings > Advanced > Experimental settings > Send large photos
 - Vencord
