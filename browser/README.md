@@ -1,4 +1,6 @@
-# TODO TODO
+# [Browser](../README.md)
+
+## Tampermonkey scripts
 
 - <https://greasyfork.org/en/scripts/439993-youtube-shorts-redirect>
 - [TODO remove si youtube](https://github.com/Xenorio/YTShareAntiTrack)

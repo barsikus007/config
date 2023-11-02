@@ -2,6 +2,8 @@
 
 ## [versus](versus/README.md)
 
+## [Browser](browser/README.md)
+
 ## [Android](android/README.md)
 
 ## [Linux](linux/README.md)
