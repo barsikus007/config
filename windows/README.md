@@ -16,7 +16,7 @@ PowerShell.exe -ExecutionPolicy Bypass -File filename
 
 ## TODO
 
-- history file: `C:\Users\Zephyr\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt`
+- history file: `~\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt`
 - winget installBehavior": "portablePackageMachineRoot", "portablePackageUserRoot", "preferences": "scope": "user"
 - config fzf (z)
 - pwsh packages (move to 5.0?)
