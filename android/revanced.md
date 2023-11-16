@@ -60,8 +60,11 @@
 
 ### [APKMirror](https://www.apkmirror.com/apk/google-inc/youtube-music/)
 
-### Patches 11/12
+### Patches 8/12
 
 - !music-microg-support (due to root)
+- !Compact header
+- !Permanent repeat
+- !Permanent shuffle
 
 ## Updated 2023-10-05

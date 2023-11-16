@@ -47,8 +47,9 @@ su $username
 ### generate ssh-key
 
 ```bash
-ssh-keygen -t rsa -f filename -P ""
-ssh-copy-id -i filename.pub ogurez@192.168.0.228
+rsa_file=filename
+ssh-keygen -t rsa -f $rsa_file -P ""
+ssh-copy-id -i $rsa_file.pub fox@foxxed.ru
 ```
 
 ### config sshd_config for security

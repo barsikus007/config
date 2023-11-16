@@ -6,7 +6,7 @@
 tzselect
 # 7 39 2 1
 base="mc git btop ncdu tmux tree neovim neofetch"
-sudo apt install git $base -y
+sudo apt install $base -y
 git clone https://github.com/barsikus007/config.git
 ~/config/configs/install.sh
 bash
@@ -56,7 +56,8 @@ sudo reboot
 
 sudo /sbin/modprobe zfs
 
-sudo zpool create -O utf8only=on -O normalization=formD -O compression=lz4 tank raidz sda sdb sdc sdd
+# check if -O utf8only=on is needed
+sudo zpool create -O normalization=formD -O compression=lz4 tank raidz sda sdb sdc sdd
 
 sudo zfs create tank/apps
 sudo zfs create tank/storage
@@ -67,9 +68,9 @@ sudo zfs create tank/git?lab
 sudo chown -R $USER:$USER /tank/storage/
 ```
 
-#### Add scrub schedule (`0 3 * * 0 /sbin/zpool scrub tank`)
+#### Add scrub schedule (`0 3 * * * /sbin/zpool scrub tank`)
 
-- `sudo crontab -l | cat - <(echo "0 3 * * 0 /sbin/zpool scrub tank") | sudo crontab -`
+- `sudo crontab -l | cat - <(echo "0 3 * * * /sbin/zpool scrub tank") | sudo crontab -`
 
 #### Add auto snapshot package
 

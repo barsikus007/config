@@ -6,11 +6,15 @@
   - [Meta Quest app](https://www.meta.com/quest/setup/#:~:text=SET%2DUP-,Quest%202,-Download%20the%20Oculus)
   - [SideQuest](https://sidequestvr.com/download#:~:text=Show%20More-,Advanced%20Installer%20Tutorial,-SideQuest%20Official)
   - [OVR Metrics Tool](https://developer.oculus.com/downloads/package/ovr-metrics-tool/)
+  - [Quest Developer Hub](https://developer.oculus.com/downloads/native-android/)
 - Standalone
   - [Launcher](https://github.com/threethan/LightningLauncher)
   - [Browser](https://wolvic.com/dl/)
 - Paid
   - [Virtual Desktop](https://www.vrdesktop.net)
+- Piracy
+  - [qLoader](https://developer.oculus.com/downloads/native-android/)
+  - [Rookie](https://wiki.vrpirates.club/en/home)
 
 ### Oculus games
 
