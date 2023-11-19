@@ -44,6 +44,8 @@ sudo apt purge $soft_to_purge -y
 apt-mark showmanual
 # or better
 zgrep 'Commandline: apt' /var/log/apt/history.log /var/log/apt/history.log.*.gz
+# or
+zgrep -E "Commandline: apt(|-get)" /var/log/apt/history.log*
 ```
 
 ### pacman

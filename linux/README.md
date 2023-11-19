@@ -41,7 +41,7 @@
     - wget
     - git
   - advanced
-    - htop/btop
+    - btop
     - ncdu
     - fzf
     - mc

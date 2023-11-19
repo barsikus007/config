@@ -4,16 +4,28 @@
 alias sudo='sudo '
 alias xargs='xargs '
 
+alias bat='batcat'
+alias cat='bat'
+
 alias grp='grep -Fin -C 7'
 alias c='clear'
 alias h='history'
-alias hf='h|grp'
-alias ls='ls --color=auto'
-alias l='ls -CF'
-alias ll='ls -alF'
-alias u='sudo apt update && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt clean'
+alias hf='h | grp'
 
+alias u='sudo apt update && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt clean'
 alias cu='cd ~/config/ && git pull && ./configs/install.sh && cd -'
+alias lzdu='curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash'
+
+alias ezal='eza -FbghM --smart-group --group-directories-first --color=always --color-scale --icons=always --no-quotes --hyperlink'
+alias ezall='eza -laFbghM --smart-group --group-directories-first --color=always --color-scale --icons=always --no-quotes --hyperlink --git --git-repos'
+alias exal='exa -laFbgh --group-directories-first --color=always --icons --color-scale'
+alias exall='exa -laFbgh --group-directories-first --color=always --icons --color-scale'
+alias ls='ls --group-directories-first --color=always --hyperlink'
+alias l='ls -CFbh'
+# alias ll='[[ $(type -p eza &> /dev/null) ]] && ezall || [[ $(type -p exa &> /dev/null) ]] && exall || ls -laFbgh'
+# alias ll='[[ $(hash eza &> /dev/null) ]] && ezall || [[ $(hash exa &> /dev/null) ]] && exall || ls -laFbgh'
+
+# [[ $(hash eza &> /dev/null) ]] && ezall || [[ $(hash exa &> /dev/null) ]] && exall || ll
 
 alias lzd='lazydocker'
 alias dc='docker compose'
@@ -26,8 +38,11 @@ alias dcr='dc restart'
 alias dce='dc exec -it'
 alias cdl='sudo sh -c "truncate -s 0 /var/lib/docker/containers/*/*-json.log"'
 
-alias wgu="wg-quick up ~/wg0.conf"
-alias wgd="wg-quick down ~/wg0.conf"
+alias wgu='wg-quick up ~/wg0.conf'
+alias wgd='wg-quick down ~/wg0.conf'
+
+# https://www.cyberciti.biz/faq/unix-linux-check-if-port-is-in-use-command/
+alias open-ports='sudo lsof -i -P -n | grep LISTEN'
 
 # ROG G14 specific aliases TODO detect if ROG G14
 alias animeclr='asusctl anime -c > /dev/null'

@@ -4,6 +4,8 @@ My opinion to different things
 
 - [VsCode vs PyCharm](pages/vscode-pycharm.md)
 - [Opera vs Other](pages/opera-other.md)
+- yandex vs google
+- english vs russian UI
 
 ## Notes
 

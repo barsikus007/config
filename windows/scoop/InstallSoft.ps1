@@ -1,4 +1,4 @@
-# basic setup for scoop
+Write-Host "Basic setup for scoop"
 scoop install mingit
 scoop bucket add extras
 scoop update
@@ -6,77 +6,14 @@ scoop install aria2
 scoop config aria2-warning-enabled false
 scoop install 7zip innounp dark
 
-# fonts for terminal
+Write-Host "Fonts for terminal"
 scoop bucket add nerd-fonts
 scoop install sudo
 # scoop install gsudo
 sudo scoop install delugia-nerd-font-complete
-# TODO sudo scoop install firacode
 
-# vcredist and dotnet
+Write-Host "System apps"
+# system
+# TODO dotnet check
 sudo scoop install vcredist-aio
-# scoop install dotnet-sdk
-
-# terminal things
-scoop install scoop-search scoop-completion
-scoop install pwsh z starship fzf psfzf
-#? scoop install clink clink-completions
-#? clink inject; clink autorun install
-scoop install which touch
-#! scoop install curl psreadline
-
-# other software
-#? scoop install ds4windows msiafterburner steamcmd
-#? scoop install pypy3 miniconda3
-#? scoop install mitmproxy httptoolkit goodbyedpi
-#? scoop install android-studio pycharm-professional
-
-# archwsl
-# anydesk
-# # LAPTOP
-# adb
-# audacity
-# discord
-# ds4windows
-# ffmpeg
-# hwinfo
-# iperf3
-# mpv.net
-# neovim
-# neovide
-# nmap
-# nvm
-# notepadplusplus
-# obs-studio
-# opera
-# powertoys
-# python
-# qbittorrent
-# rufus
-# scrcpy
-# screentogif
-# sharex
-# telegram
-# vscode
-# wiztree
-# wsa-pacman
-# wumgr
-# yt-dlp
-
-
-# brave
-# tor-browser
-
-# gifsicle
-# imagemagick
-# msys2
-# tesseract
-# tesseract-languages
-
-# crystaldiskmark
-# openjdk18
-# poetry
-# pshazz
-# winscp
-
-# wireshark
+scoop install dotnet-sdk

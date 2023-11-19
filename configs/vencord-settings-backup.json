@@ -299,7 +299,9 @@
                 "enabled": false
             },
             "ShowConnections": {
-                "enabled": true
+                "enabled": true,
+                "iconSpacing": 1,
+                "iconSize": 32
             },
             "ShowHiddenChannels": {
                 "enabled": true,
@@ -353,22 +355,35 @@
                 "stores": {
                     "ScreenshareStore": {
                         "currentProfile": {
-                            "name": "60 FPS",
-                            "framerateEnabled": true,
-                            "framerate": 30,
-                            "videoBitrateEnabled": false,
-                            "videoBitrate": 4977.416671997953,
+                            "name": "2K",
+                            "videoBitrateEnabled": true,
+                            "videoBitrate": 10000,
                             "resolutionEnabled": true,
-                            "width": 1280,
-                            "height": 720
+                            "width": 2560,
+                            "height": 1440,
+                            "framerateEnabled": true,
+                            "framerate": 60,
+                            "videoCodecEnabled": true,
+                            "videoCodec": "VP8"
                         },
                         "profiles": [
                             {
                                 "name": "60 FPS",
-                                "framerateEnabled": false,
+                                "framerateEnabled": true,
                                 "framerate": 60,
                                 "videoBitrateEnabled": false,
-                                "videoBitrate": 4977.416671997953
+                                "videoBitrate": 5000,
+                                "videoCodecEnabled": true,
+                                "videoCodec": "VP8"
+                            },
+                            {
+                                "name": "144 FPS",
+                                "framerateEnabled": true,
+                                "framerate": 144,
+                                "videoBitrateEnabled": false,
+                                "videoBitrate": 7500,
+                                "videoCodecEnabled": true,
+                                "videoCodec": "VP8"
                             },
                             {
                                 "name": "2K",
@@ -378,10 +393,12 @@
                                 "width": 2560,
                                 "height": 1440,
                                 "framerateEnabled": true,
-                                "framerate": 60
+                                "framerate": 60,
+                                "videoCodecEnabled": true,
+                                "videoCodec": "VP8"
                             }
                         ],
-                        "simpleMode": true,
+                        "simpleMode": false,
                         "audioSourceEnabled": false,
                         "audioSource": "window:10622074"
                     },
@@ -527,6 +544,20 @@
                 "enabled": true,
                 "noiseSuppression": true,
                 "echoCancellation": true
+            },
+            "NoMosaic": {
+                "enabled": true
+            },
+            "NoTypingAnimation": {
+                "enabled": false
+            },
+            "OnePingPerDM": {
+                "enabled": false
+            },
+            "PermissionFreeWill": {
+                "enabled": true,
+                "lockout": true,
+                "onboarding": true
             }
         },
         "notifications": {
@@ -536,10 +567,10 @@
             "logLimit": 50
         },
         "cloud": {
-            "authenticated": false,
+            "authenticated": true,
             "url": "https://api.vencord.dev/",
-            "settingsSync": false,
-            "settingsSyncVersion": 1698129524121
+            "settingsSync": true,
+            "settingsSyncVersion": 1700156396872
         },
         "enabledThemes": []
     },

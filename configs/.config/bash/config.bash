@@ -14,7 +14,6 @@ if hash nvim &> /dev/null; then
 fi
 
 PATH=$PATH:~/.local/bin
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 # https://starship.rs/guide/#🚀-installation
 if hash starship &> /dev/null; then
@@ -24,6 +23,16 @@ fi
 if hash batcat &> /dev/null; then
   alias bat=batcat
   alias cat=bat
+  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+fi
+export LESS="--mouse"
+
+if hash eza &> /dev/null; then
+  alias ll=ezall
+  alias l=ezal
+elif hash exa &> /dev/null; then
+  alias ll=exall
+  alias l=exal
 fi
 
 # https://github.com/nvm-sh/nvm#install--update-script
