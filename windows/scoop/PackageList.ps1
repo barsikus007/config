@@ -1,6 +1,6 @@
 $cli=@"
 scoop-search scoop-completion
-eza bat pwsh z starship fzf psfzf
+duf eza bat pwsh z starship fzf psfzf
 clink clink-completions
 lazydocker
 #? curl psreadline

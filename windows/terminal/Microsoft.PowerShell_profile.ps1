@@ -60,20 +60,20 @@ Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory
 
 Debug-Log aliases
 (Measure-Command {
-Set-Alias cat bat
+Set-Alias -Option AllScope cat bat
 Function Get-Full-History { cat (Get-PSReadlineOption).HistorySavePath -l powershell }
-Set-Alias history Get-Full-History
+Set-Alias -Option AllScope history Get-Full-History
 Function suss { scoop update | scoop status }
 
 Function grep { grep.exe --color=auto $args }
 # FUCK PWSH
 Function grp { grep.exe --color=auto -Fin -C 7 $args }
 Function c { clear }
-Set-Alias h history
+Set-Alias -Option AllScope h history
 # FUCK PWSH
 Function hf { h | grep.exe --color=auto -Fin -C 7 $args }
 if (Test-Command eza) {
-    Set-Alias ls eza
+    Set-Alias -Option AllScope ls eza
     # TODO fix command args
     Function ll { eza -laFbghM --smart-group --group-directories-first --color=always --color-scale --icons=always --no-quotes --hyperlink --git --git-repos $args }
     Function l { eza -FbghM --smart-group --group-directories-first --color=always --color-scale --icons=always --no-quotes --hyperlink $args }
@@ -82,7 +82,7 @@ Function l { ls -CF $args }
 Function ll { ls -la $args }
 Function u { suss | scoop update * }
 
-Function cu { cd ~/config/ && git pull && ./configs/install.ps1 && ./windows/pwsh.ps1 && cd - }
+Function cu { (cd ~/config/) -and (git pull) -and (./configs/install.ps1) -and (./windows/pwsh.ps1) -and (cd -) }
 
 Function lzd { lazydocker }
 

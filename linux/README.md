@@ -2,7 +2,7 @@
 
 ## Install Config
 
-`cd && git clone https://github.com/barsikus007/config && ./configs/install.sh && cd -`
+`cd && git clone https://github.com/barsikus007/config`
 `cd ~/config/ && git pull && ./configs/install.sh && cd -`
 
 ## [Command Cheat Sheet](cheatsheet.md)
@@ -22,13 +22,16 @@
 - [test link](/../../)
 - [test link](../../../)
 - <https://github.com/ivan-hc/AM-Application-Manager>
+- HOME END etc hotkeys TODO
+  - `sudo dnf install autokey-qt file-roller-nautilus`
 - shells
+  - change shell to fish `usermod -s /usr/bin/fish $USERNAME`
   - show cached state of sudo in prompt (starship)
   - apply config changes `cd ~/config/ && git pull && ./configs/install.sh && cd -` (assume that it installed in home dir (env variable `$CONFIG_LOCATION?`))
   - todo fix order
     - [ -f "$XDG_CONFIG_HOME/bash/config.bash" ] && source $XDG_CONFIG_HOME/bash/config.bash fix bashrc
   - adapt config.bash file to other shells
-  - "$XDG_CONFIG_HOME/shell/aliases.sh" for root user
+  - `$XDG_CONFIG_HOME/shell/aliases.sh` for root user
   - alias resolve package manager for u
   - ic command to update config
   - link things like bat to cat and nvim to vim

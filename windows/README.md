@@ -14,8 +14,28 @@ PowerShell.exe -ExecutionPolicy Bypass -File filename
 
 ## [ROG G14](rog14.md)
 
+## PWSH cheatsheet
+
+### Convert all mkv to mp4 with ffmpeg
+
+```pwsh
+$oldvids = Get-ChildItem -Filter "*.mkv" -Recurse
+
+foreach ($oldvid in $oldvids) {
+    $newvid = [io.path]::ChangeExtension($oldvid, '.mp4')
+    ffmpeg.exe -i $oldvid-y -s 960x544 -c:v copy -c:a aac $newvid
+}
+```
+
 ## TODO
 
+- <https://camo.studio/>
+- scoop aria2bug
+  - scoop config aria2-options "--check-certificate false"
+  - scoop config rm aria2-options
+  - or
+  - scoop config aria2-enabled false
+  - scoop config rm aria2-enabled
 - history file: `~\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt`
 - winget installBehavior": "portablePackageMachineRoot", "portablePackageUserRoot", "preferences": "scope": "user"
 - config fzf (z)

@@ -15,3 +15,5 @@ My opinion to different things
 
 - nvim
 - grammar check
+- anime "tyanoch'ka" tierlist
+- copypaste tierlist

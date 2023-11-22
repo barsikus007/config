@@ -7,16 +7,16 @@
 ### Instructions
 
 - [APN fix](https://4pda.to/forum/index.php?showtopic=1030072&view=findpost&p=117115914)
-- [root and kernel english](https://forum.xda-developers.com/t/unlock-bootloader-root-pixel-7-pro-cheetah-safetynet.4502805/)
+- [root and kernel english](https://xdaforums.com/t/november-12-2023-up1a-231105-003-a1-for-jp-carriers-unlock-bootloader-root-pixel-7-pro-cheetah-safetynet.4502805/)
 - OTA
-  - [Without PC](https://4pda.to/forum/index.php?showtopic=1063306&view=findpost&p=120925739)
+  - [Without PC](https://github.com/topjohnwu/Magisk/blob/master/docs/ota.md#devices-with-ab-partitions)
   - [Pixel Flasher](https://github.com/badabing2005/PixelFlasher)
   - [root update russian](https://4pda.to/forum/index.php?s=&showtopic=1063306&view=findpost&p=120901180)
 - [volte](https://4pda.to/forum/index.php?showtopic=1039682&view=findpost&p=118422509)
   - [another volte](https://github.com/swangjang/Pixel-Redbull-Carrier-Patch)
 - [Kernel Flasher](https://github.com/capntrips/KernelFlasher)
-  - [kernel](https://forum.xda-developers.com/t/kernel-19-12-2022-android-13-0-0-stable-kirisakura-1-2-1-for-pixel-7-pro-aka-pantah.4509795/)
-  - [kernel settings (test with kernel above)](https://forum.xda-developers.com/t/optimise-stock-kernel-scheduler-governor-setting.4544447/)
+  - [kernel](https://xdaforums.com/t/kernel-08-11-2023-android-14-0-0-stable-kirisakura_raviantah-2-0-2-for-pixel-7-pro-aka-pantah.4509795/)
+  - [kernel settings (test with kernel above)](https://xdaforums.com/t/optimise-stock-kernel-scheduler-governor-setting.4544447/)
 
 ### [YouTube ReVanced](revanced.md)
 

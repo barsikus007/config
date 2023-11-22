@@ -1,13 +1,63 @@
 # RPI
 
-## Kali
+## [Kali](https://www.kali.org/docs/arm/raspberry-pi-zero-w/)
 
-- <https://www.reddit.com/user/Maeky1986/comments/lkb54g/tutorial_raspberry_pi_kali_2021_headless_install/>
-- <https://youtu.be/VXxb_F1Vb7Y>
+### WiFi setup
 
-## Create files
+```bash
+wpa_passphrase "Network 1" >> wpa_supplicant.conf
+wpa_passphrase "Network 2 with lower priority" >> wpa_supplicant.conf
+```
 
-### /wpa_supplicant.conf
+Then edit config values
+
+```conf
+network={
+  ssid="Network 1"
+  #psk="12345678"
+  psk=hex_key
+  priority=2
+}
+network={
+  ssid="Network 2 with lower priority"
+  #psk="12345678"
+  psk=hex_key
+}
+```
+
+### [Bluetooth stealth mode](https://stackoverflow.com/a/67193246/15844518)
+
+```bash
+sudo vim /etc/systemd/system/bluetooth.target.wants/bluetooth.service
+
+ExecStart=/usr/libexec/bluetooth/bluetoothd --noplugin=hostname
+
+
+sudo systemctl daemon-reload && sudo service bluetooth restart
+
+
+sudo hciconfig hci0 name
+sudo hciconfig hci0 name ''
+```
+
+## [Raspberry Pi OS](https://www.raspberrypi.com/software/operating-systems/#raspberry-pi-os-32-bit)
+
+(Probably, outdated)
+
+### setup
+
+```bash
+# Expand filesystem
+sudo raspi-config --expand-rootfs
+# Create password for user pi
+passwd
+```
+
+### Create files
+
+#### /boot/ssh
+
+#### /boot/wpa_supplicant.conf
 
 ```conf
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
@@ -25,15 +75,4 @@ network={
  priority=2
  key_mgmt=WPA-PSK
 }
-```
-
-### /ssh
-
-## Initial setup
-
-```bash
-# Expand filesystem
-sudo raspi-config --expand-rootfs
-# Create password for user pi
-passwd
 ```

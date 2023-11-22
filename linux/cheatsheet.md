@@ -36,7 +36,7 @@ sudo systemctl restart ssh.service
 ### apt
 
 ```bash
-base="mc git btop ncdu tmux tree neovim neofetch"
+base="mc duf git btop ncdu tmux tree neovim neofetch"
 soft_to_purge="snapd"
 sudo apt install $base -y
 sudo apt purge $soft_to_purge -y
