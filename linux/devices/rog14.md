@@ -144,12 +144,12 @@ sudo btrfs subvolume delete /swap
   - ROG key -> `bash -c 'demotoggle'`
   - FN+F5 -> `bash -c 'fan'`
   - FN+F6 -> `bash -c 'noanime && anime'`
-  - Fn+Right-Arrow -> `TODO end`
-  - Fn+Left-Arrow -> `TODO home'`
-  - R-Ctrl+Right-Arrow -> `TODO end`
-  - R-Ctrl+Left-Arrow -> `TODO home'`
-  - R-Ctrl+Up-Arrow -> `TODO PgUp'`
-  - R-Ctrl+Down-Arrow -> `TODO PgDown'`
+  - Fn+Right-Arrow -> End`ydotool key 107:1 107:0`
+  - Fn+Left-Arrow -> Home`ydotool key 102:1 102:0`
+  - R-Ctrl+Right-Arrow -> End`ydotool key 107:1 107:0`
+  - R-Ctrl+Left-Arrow -> Home`ydotool key 102:1 102:0'`
+  - R-Ctrl+Up-Arrow -> PgUp`ydotool key 104:1 104:0'`
+  - R-Ctrl+Down-Arrow -> PgDown`ydotool key 109:1 109:0'`
 - Show the notification list Super+V -> Super+N
   - TODO ? Super+N -> None
 - Home folder -> Super+E
@@ -158,6 +158,22 @@ sudo btrfs subvolume delete /swap
 - fix language change
   - `gsettings set org.gnome.desktop.wm.keybindings switch-input-source-backward "['<Shift>Alt_L', '<Shift>XF86Keyboard']"`
   - revert `gsettings set org.gnome.desktop.wm.keybindings switch-input-source-backward "['<Shift><Super>space', '<Shift>XF86Keyboard']"`
+
+### Get keycodes
+
+```bash
+cat /usr/include/linux/input-event-codes.h | grep -E '_(HOME|END|PAGE(UP|DOWN))\s'
+```
+
+### Allow ydotool as non-root
+
+```bash
+sed -i "s/ydotoold$/ydotoold --socket-path=\/run\/user\/$UID\/.ydotool_socket --socket-own=$(id -u):$(id -g)/g" /usr/lib/systemd/system/ydotool.service
+sudo systemctl daemon-reload
+sudo systemctl enable --all ydotool.service && sudo systemctl status ydotool.service
+# or
+sudo systemctl reload ydotool.service && sudo systemctl status ydotool.service
+```
 
 ## Grub tweak
 

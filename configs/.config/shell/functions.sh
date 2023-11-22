@@ -12,7 +12,7 @@ demotoggle() {
   # demo toggle function (for dedicated key)
   # sudo sed -i 's/StartLimitInterval=200/StartLimitInterval=2/' /usr/lib/systemd/user/asusd-user.service && systemctl --user daemon-reload
   (
-    DEMO_FILE=~/.config/.is-demo-working 
+    DEMO_FILE=~/.config/.is-demo-working
     if [ -f "$DEMO_FILE" ]; then
       nodemo && rm "$DEMO_FILE"
     else

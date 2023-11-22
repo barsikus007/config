@@ -2,7 +2,12 @@
 
 ## Install Config
 
-`cd && git clone https://github.com/barsikus007/config`
+### Clone
+
+`cd && git clone https://github.com/barsikus007/config && cd -`
+
+### Install/Update
+
 `cd ~/config/ && git pull && ./configs/install.sh && cd -`
 
 ## [Command Cheat Sheet](cheatsheet.md)
@@ -17,13 +22,13 @@
 
 ## TODO
 
-- update rpi.md to rpi-zero.md with new info
+- `sudo dnf clean all`
 - [test link+](../README.md)
 - [test link](/../../)
 - [test link](../../../)
 - <https://github.com/ivan-hc/AM-Application-Manager>
 - HOME END etc hotkeys TODO
-  - `sudo dnf install autokey-qt file-roller-nautilus`
+  - `sudo dnf install file-roller-nautilus`
 - shells
   - change shell to fish `usermod -s /usr/bin/fish $USERNAME`
   - show cached state of sudo in prompt (starship)

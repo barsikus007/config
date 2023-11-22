@@ -12,6 +12,7 @@ export HISTFILESIZE=10000
 if hash nvim &> /dev/null; then
   export EDITOR=nvim
 fi
+export SYSTEMD_EDITOR=$EDITOR
 
 PATH=$PATH:~/.local/bin
 
@@ -22,6 +23,10 @@ fi
 
 if hash batcat &> /dev/null; then
   alias bat=batcat
+  alias cat=bat
+  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+fi
+if hash bat &> /dev/null; then
   alias cat=bat
   export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 fi

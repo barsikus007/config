@@ -136,3 +136,19 @@ sudo crontab -e
 # redirect yes output to "no" file
 yes > no
 ```
+
+### wifite on fedora
+
+```bash
+# install old wifite and deps from rpmfusion
+sudo dnf install wifite
+# clone upstream wifite2 fork
+cd ~/projects
+git clone https://github.com/kimocoder/wifite2.git
+```
+
+### Fix of mount password remember checkbox
+
+```bash
+sudo patch /etc/pam.d/login login.patch
+```

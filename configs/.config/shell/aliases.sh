@@ -4,9 +4,6 @@
 alias sudo='sudo '
 alias xargs='xargs '
 
-alias bat='batcat'
-alias cat='bat'
-
 alias grp='grep -Fin -C 7'
 alias c='clear'
 alias h='history'
