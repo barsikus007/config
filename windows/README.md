@@ -2,7 +2,7 @@
 
 ## Powershell lifehack to bypas security policy
 
-```pwsh
+```powershell
 PowerShell.exe -ExecutionPolicy Bypass -File filename
 ```
 
@@ -18,7 +18,7 @@ PowerShell.exe -ExecutionPolicy Bypass -File filename
 
 ### Convert all mkv to mp4 with ffmpeg
 
-```pwsh
+```powershell
 $oldvids = Get-ChildItem -Filter "*.mkv" -Recurse
 
 foreach ($oldvid in $oldvids) {
@@ -70,7 +70,7 @@ foreach ($oldvid in $oldvids) {
 
 ## Beyond Compare crack <https://gist.github.com/rise-worlds/5a5917780663aada8028f96b15057a67>
 
-```pwsh
+```powershell
 #rm "$env:appdata\Scooter Software\Beyond Compare 4\*.*" -Force -Confirm
 rm "$env:appdata\Scooter Software\Beyond Compare 4\BCState.xml" -Force -Confirm
 rm "$env:appdata\Scooter Software\Beyond Compare 4\BCState.xml.bak" -Force -Confirm
@@ -117,7 +117,7 @@ Sound Source Settings -> Enhancements -> Loudness Equalization
 
 ## Fix HW checks when install
 
-```pwsh
+```powershell
 # SHIFT + F10
 
 reg add HKLM\System\Setup\LabConfig /v BypassTPMCheck /t reg_dword /d 0x00000001 /f

@@ -47,7 +47,7 @@ winget install --id={id} -e -h
 
 ### msstore
 
-```pwsh
+```powershell
 # paint3d
 winget install --id=9NBLGGH5FV99 -e --accept-package-agreements
 # minecraft
@@ -56,7 +56,7 @@ winget install --id=9NBLGGH2JHXJ -e --accept-package-agreements
 
 ### CORE APPS
 
-```pwsh
+```powershell
 winget upgrade --accept-source-agreements
 # winget install pwsh -h
 # winget install pwsh-preview -h
@@ -69,7 +69,7 @@ winget upgrade --accept-source-agreements
 - SandboxiePlus.SandboxieClassic
 - WireGuard.WireGuard
 
-```pwsh
+```powershell
 # dotnet for some apps, 6 is for powertoys, others are for TODO
 # sudo winget install --id=Microsoft.dotnetRuntime.3-x64 -e -h
 # sudo winget install --id=Microsoft.dotnetRuntime.5-x64 -e -h
