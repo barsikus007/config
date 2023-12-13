@@ -152,3 +152,9 @@ git clone https://github.com/kimocoder/wifite2.git
 ```bash
 sudo patch /etc/pam.d/login login.patch
 ```
+
+### Ping whole subnet
+
+```bash
+subnet='46.175.145'; for i in {0..255}; do timeout 0.5 ping -c1 $subnet.$i; done
+```

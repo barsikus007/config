@@ -27,8 +27,9 @@
 - [test link](/../../)
 - [test link](../../../)
 - <https://github.com/ivan-hc/AM-Application-Manager>
-- HOME END etc hotkeys TODO
-  - `sudo dnf install file-roller-nautilus`
+- <https://unix.stackexchange.com/questions/408413/change-default-editor-to-vim-for-sudo-systemctl-edit-unit-file>
+- Control_R as modifier in gnome
+- `sudo dnf install file-roller-nautilus`
 - shells
   - change shell to fish `usermod -s /usr/bin/fish $USERNAME`
   - show cached state of sudo in prompt (starship)

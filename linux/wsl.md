@@ -32,9 +32,10 @@ ip r l default | awk '{print $3}'
 
 REPLACE "Admin" WITH YOUR WINDOWS USERNAME
 
-```bash
+```powershell
 wsl --shutdown
 diskpart
+
 select vdisk file="C:\Users\Admin\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\ext4.vhdx"
 attach vdisk readonly
 compact vdisk
