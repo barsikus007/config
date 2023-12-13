@@ -48,4 +48,4 @@ create_bash_profile
 add_to_bash_profile '[ -f ~/.bashrc ] && source ~/.bashrc'
 add_to_bashrc '[ -z "$XDG_CONFIG_HOME" ] && export XDG_CONFIG_HOME="$HOME/.config"'
 add_to_bashrc '[ -f "$XDG_CONFIG_HOME/bash/config.bash" ] && source $XDG_CONFIG_HOME/bash/config.bash'
-. ~/.bash_profile
+source ~/.bash_profile

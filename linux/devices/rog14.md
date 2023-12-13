@@ -147,9 +147,9 @@ sudo btrfs subvolume delete /swap
   - Fn+Right-Arrow -> End`ydotool key 107:1 107:0`
   - Fn+Left-Arrow -> Home`ydotool key 102:1 102:0`
   - R-Ctrl+Right-Arrow -> End`ydotool key 107:1 107:0`
-  - R-Ctrl+Left-Arrow -> Home`ydotool key 102:1 102:0'`
-  - R-Ctrl+Up-Arrow -> PgUp`ydotool key 104:1 104:0'`
-  - R-Ctrl+Down-Arrow -> PgDown`ydotool key 109:1 109:0'`
+  - R-Ctrl+Left-Arrow -> Home`ydotool key 102:1 102:0`
+  - R-Ctrl+Up-Arrow -> PgUp`ydotool key 104:1 104:0`
+  - R-Ctrl+Down-Arrow -> PgDown`ydotool key 109:1 109:0`
 - Show the notification list Super+V -> Super+N
   - TODO ? Super+N -> None
 - Home folder -> Super+E

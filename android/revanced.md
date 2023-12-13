@@ -9,32 +9,38 @@
 
 ## [YouTube](https://revanced.app/patches?pkg=com.google.android.youtube)
 
-### [APKMirror](https://www.apkmirror.com/apk/google-inc/youtube/youtube-18-38-44-release/#downloads:~:text=Android%208.0%2B-,nodpi,-All%20Releases)
+### [APKMirror](https://www.apkmirror.com/apk/google-inc/youtube/youtube-18-45-43-release/#downloads:~:text=Android%208.0%2B-,nodpi,-All%20Releases)
 
-### Patches 19/56
+### Patches 22/56
 
-- 2.195.0
-  - Bypass URL redirects (new?)
-  - Alternative Thumbnails ?
+- 3.0.1
   - Client spoof
-  - Disable shorts on startup
-  - Disable player popup panels ?
+  - Disable resuming Shorts on startup
   - External downloads
   - Hide ads
-  - Hide breaking news shell ?
   - Hide email address
-  - Hide watermark
   - Minimized playback
-  - Old quality layout menu
   - Open links externally
-  - Playback speed ?
   - Premium heading
+  - Restore old video quality menu
   - Return Youtube Dislike
-  - Seekbar tapping ?
   - SponsorBlock
   - Swipe controls
   - Video ads
   - Hide get premium (removed)
+  - Hide watermark (removed)
+  - New
+    - Alternative thumbnails
+    - Bypass URL redirects
+    - Disable player popup panels
+    - Hide breaking news shell
+    - Playback speed
+    - Seekbar tapping
+    - ?
+    - Enable slide to seek
+    - Remove tracking query parameter
+    - Restore old seekbar thumbnails
+
 
 ### Settings
 

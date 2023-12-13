@@ -16,7 +16,7 @@
 - [HideNavBar](https://github.com/Magisk-Modules-Alt-Repo/HideNavBar/releases)
   - Immersive
   - Yes > Hide Pill and keep keyboard height/space
-  - No > Hide keyboard buttons
+  - Yes > Hide keyboard buttons
   - No > Reduce the size of the keyboard bar
   - Low sensitivity
   - No > GCam fix

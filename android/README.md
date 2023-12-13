@@ -15,8 +15,8 @@
 - [volte](https://4pda.to/forum/index.php?showtopic=1039682&view=findpost&p=118422509)
   - [another volte](https://github.com/swangjang/Pixel-Redbull-Carrier-Patch)
 - [Kernel Flasher](https://github.com/capntrips/KernelFlasher)
-  - [kernel](https://xdaforums.com/t/kernel-08-11-2023-android-14-0-0-stable-kirisakura_raviantah-2-0-2-for-pixel-7-pro-aka-pantah.4509795/)
-  - [kernel settings (test with kernel above)](https://xdaforums.com/t/optimise-stock-kernel-scheduler-governor-setting.4544447/)
+  - [Kirisakura](https://xdaforums.com/t/kernel-08-11-2023-android-14-0-0-stable-kirisakura_raviantah-2-0-2-for-pixel-7-pro-aka-pantah.4509795/)
+  - [CleanState companion app](https://xdaforums.com/t/kernel-cleanslate-t1-5-1-u2-5-0-s2s-adblock-vib-batterysvr-oct-5.4509793/)
 
 ### [YouTube ReVanced](revanced.md)
 
