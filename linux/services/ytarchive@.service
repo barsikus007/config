@@ -1,0 +1,12 @@
+[Unit]
+Description=YouTube stream auto recorder for @%i channel
+Requires=zfs-mount.service
+After=zfs-mount.service
+
+[Service]
+ExecStart=/home/rock/go/bin/ytarchive -t -o '/home/user/streams/%(channel_id)s/%(title)s [%(id)s]' -r 900 --add-metadata --monitor-channel https://www.youtube.com/@%i/live best
+
+[Install]
+WantedBy=default.target
+
+# vim /etc/systemd/user/ytarchive@.service
