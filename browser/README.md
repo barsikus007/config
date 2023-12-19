@@ -21,6 +21,7 @@
 - [PiP - Picture in Picture Plus](https://www.oinkandstuff.com/project/pip-picture-in-picture-plus/)
 - [Search by Image](https://github.com/dessant/search-by-image)
 - TODO
+  - <https://extensions.xenorio.xyz/list/tubetweaks>
 
 ## Dev Tools console
 
