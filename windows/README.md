@@ -29,6 +29,12 @@ foreach ($oldvid in $oldvids) {
 
 ## TODO
 
+- winget
+  - `Parsec.Parsec`
+  - `Google.NearbyShare`
+- allow powershell profiles in wt.exe
+- <https://github.com/ionuttbara/windows-defender-remover>
+  - not tested
 - <https://camo.studio/>
 - scoop aria2bug
   - scoop config aria2-options "--check-certificate false"

@@ -22,6 +22,8 @@
 
 ## TODO
 
+- systemctl edit nvim config
+- `zpool status -v` alias
 - `sudo dnf clean all`
 - [test link+](../README.md)
 - [test link](/../../)

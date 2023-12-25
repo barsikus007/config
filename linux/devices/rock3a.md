@@ -50,8 +50,73 @@ sudo armbian-add-overlay rk3568-pwm8-m0-fan.dts
 
 ### ZFS
 
+#### [Install on android based kernels](https://github.com/radxa/kernel/issues/54#issuecomment-1788453183)
+
+```patch
+diff -durN zfs-2.2.2.orig/config/kernel.m4 zfs-2.2.2/config/kernel.m4
+--- zfs-2.2.2.orig/config/kernel.m4	2023-10-13 07:03:31.000000000 +0800
++++ zfs-2.2.2/config/kernel.m4	2023-10-21 17:15:21.214263487 +0800
+@@ -660,6 +660,7 @@
+ MODULE_AUTHOR(ZFS_META_AUTHOR);
+ MODULE_VERSION(ZFS_META_VERSION "-" ZFS_META_RELEASE);
+ MODULE_LICENSE($3);
++MODULE_IMPORT_NS(VFS_internal_I_am_really_a_filesystem_and_am_NOT_a_driver);
+ ])
+
+ dnl #
+diff -durN zfs-2.2.2.orig/module/os/linux/spl/spl-generic.c zfs-2.2.2/module/os/linux/spl/spl-generic.c
+--- zfs-2.2.2.orig/module/os/linux/spl/spl-generic.c	2023-10-13 07:41:34.965111309 +0800
++++ zfs-2.2.2/module/os/linux/spl/spl-generic.c	2023-10-21 17:16:25.231694524 +0800
+@@ -929,3 +929,4 @@
+ MODULE_AUTHOR(ZFS_META_AUTHOR);
+ MODULE_LICENSE("GPL");
+ MODULE_VERSION(ZFS_META_VERSION "-" ZFS_META_RELEASE);
++MODULE_IMPORT_NS(VFS_internal_I_am_really_a_filesystem_and_am_NOT_a_driver);
+diff -durN zfs-2.2.2.orig/module/os/linux/zfs/zfs_ioctl_os.c zfs-2.2.2/module/os/linux/zfs/zfs_ioctl_os.c
+--- zfs-2.2.2.orig/module/os/linux/zfs/zfs_ioctl_os.c	2023-10-13 07:41:34.894111142 +0800
++++ zfs-2.2.2/module/os/linux/zfs/zfs_ioctl_os.c	2023-10-21 17:17:42.042612036 +0800
+@@ -377,3 +377,4 @@
+ MODULE_LICENSE("Dual BSD/GPL"); /* zstd / misc */
+ MODULE_LICENSE(ZFS_META_LICENSE);
+ MODULE_VERSION(ZFS_META_VERSION "-" ZFS_META_RELEASE);
++MODULE_IMPORT_NS(VFS_internal_I_am_really_a_filesystem_and_am_NOT_a_driver);
+```
+
 ```bash
-sudo apt install zfsutils-linux zfs-dkms -y
+# based on https://github.com/openzfs/zfs/issues/15586#issuecomment-1836806381
+# patch
+OPENZFS_VERSION="2.2.2"
+git clone --branch zfs-${OPENZFS_VERSION} https://github.com/openzfs/zfs zfs-${OPENZFS_VERSION}
+cd zfs-${OPENZFS_VERSION}/
+vim zfs.patch
+git apply zfs.patch
+
+# build
+# prepare
+sudo apt install build-essential autoconf automake libtool gawk fakeroot dkms libblkid-dev uuid-dev libudev-dev libssl-dev zlib1g-dev libaio-dev libattr1-dev libelf-dev linux-headers-generic python3 python3-dev python3-setuptools python3-cffi libffi-dev python3-packaging git libcurl4-openssl-dev debhelper-compat dh-python po-debconf python3-all-dev python3-sphinx libpam0g-dev -y
+sh autogen.sh
+./configure
+make -s -j$(nproc)
+
+# install
+mkdir build
+cd build
+make native-deb ..
+# dkms is easier to install than patching modules package with correct kernel package name
+sudo apt install --fix-missing ../openzfs-zfsutils*.deb ../openzfs-lib*.deb ../openzfs-zfs-dkms*.deb -y
+# patch zfs-auto-snapshot
+apt-get download zfs-auto-snapshot
+dpkg -x zfs-auto-snapshot*.deb zfs-auto-snapshot
+dpkg --control zfs-auto-snapshot*.deb zfs-auto-snapshot/DEBIAN
+sed -i "s/zfsutils-linux/openzfs-zfsutils/" zfs-auto-snapshot/DEBIAN/control
+dpkg -b zfs-auto-snapshot openzfs-auto-snapshot.deb
+sudo dpkg -i openzfs-auto-snapshot.deb
+```
+
+### Usual install
+
+```bash
+sudo apt install zfsutils-linux -y
 sudo reboot
 
 sudo /sbin/modprobe zfs
@@ -68,7 +133,11 @@ sudo zfs create tank/git?lab
 sudo chown -R $USER:$USER /tank/storage/
 ```
 
-#### Add scrub schedule (`0 3 * * * /sbin/zpool scrub tank`)
+#### Enable scrub timer
+
+`sudo systemctl enable zfs-scrub-weekly@tank.timer`
+
+##### Cron-based alternative (`0 3 * * * /sbin/zpool scrub tank`)
 
 - `sudo crontab -l | cat - <(echo "0 3 * * * /sbin/zpool scrub tank") | sudo crontab -`
 

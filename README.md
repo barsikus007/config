@@ -8,6 +8,8 @@
 
 ## [Linux](linux/README.md)
 
+## [Windows](windows/README.md)
+
 ## Cross-platform
 
 ### Python
@@ -34,6 +36,8 @@ pipx install ptpython
 
 ## TODO
 
+- pyvenv create alias and patcher
+- pycharm settings sync
 - save config folder somewhere to make it portable
 - obs quick replay
 - python
@@ -124,7 +128,7 @@ pipx install ptpython
   - GUI
     - <https://prismlauncher.org/download/>
     - <https://github.com/th-ch/youtube-music/releases/latest>
-      - ytmdesktop?
+      - scoop install youtube-music
   - ripgrep
   - dos2unix
   - <https://github.com/isacikgoz/tldr>
