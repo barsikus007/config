@@ -1,6 +1,6 @@
 # rock-3a
 
-## Install
+## Armbian install (choose legacy-kernel)
 
 ```bash
 tzselect
@@ -48,9 +48,7 @@ sudo armbian-add-overlay rk3568-pwm8-m0-fan.dts
 
 ## NAS
 
-### ZFS
-
-#### [Install on android based kernels](https://github.com/radxa/kernel/issues/54#issuecomment-1788453183)
+### [ZFS шnstall on android based kernels](https://github.com/radxa/kernel/issues/54#issuecomment-1788453183)
 
 ```patch
 diff -durN zfs-2.2.2.orig/config/kernel.m4 zfs-2.2.2/config/kernel.m4
@@ -113,47 +111,13 @@ dpkg -b zfs-auto-snapshot openzfs-auto-snapshot.deb
 sudo dpkg -i openzfs-auto-snapshot.deb
 ```
 
-### Usual install
-
-```bash
-sudo apt install zfsutils-linux -y
-sudo reboot
-
-sudo /sbin/modprobe zfs
-
-# check if -O utf8only=on is needed
-sudo zpool create -O normalization=formD -O compression=lz4 tank raidz sda sdb sdc sdd
-
-sudo zfs create tank/apps
-sudo zfs create tank/storage
-sudo zfs create tank/backup
-sudo zfs create -o com.sun:auto-snapshot=false tank/docker
-
-sudo zfs create tank/git?lab
-sudo chown -R $USER:$USER /tank/storage/
-```
-
-#### Enable scrub timer
-
-`sudo systemctl enable zfs-scrub-weekly@tank.timer`
-
-##### Cron-based alternative (`0 3 * * * /sbin/zpool scrub tank`)
-
-- `sudo crontab -l | cat - <(echo "0 3 * * * /sbin/zpool scrub tank") | sudo crontab -`
-
-#### Add auto snapshot package
-
-- `sudo apt install zfs-auto-snapshot -y`
-
 ### SMART
 
 ```bash
 sudo apt install smartmontools -y
 ```
 
-#### TODO smartd
-
-## Ubuntu-20.04-linux-4.19
+## Old Ubuntu-20.04-linux-4.19 setup
 
 ```bash
 sudo vim /etc/apt/sources.list.d/apt-radxa-com.list

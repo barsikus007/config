@@ -42,7 +42,7 @@ passwd $username
 su $username
 ```
 
-## ssh
+## SSH
 
 ### generate ssh-key
 
@@ -69,7 +69,7 @@ for param in {PermitRootLogin,PasswordAuthentication,ChallengeResponseAuthentica
 sudo systemctl reload sshd
 ```
 
-## utf-8
+## UTF-8
 
 ```bash
 locale
@@ -82,6 +82,72 @@ sudo localectl set-locale C.UTF-8
 # set ru time https://stackoverflow.com/a/30480596/15844518
 # sudo locale-gen ru_RU.UTF-8 && sudo localectl set-locale LC_TIME=ru_RU.UTF-8
 ```
+
+## ZFS
+
+### Install
+
+```bash
+sudo apt install zfsutils-linux -y
+# sudo apt install zfs-dkms -y
+sudo reboot
+
+sudo /sbin/modprobe zfs
+```
+
+### Zpool setup
+
+```bash
+# check if -O utf8only=on is needed
+sudo zpool create -O normalization=formD -O compression=lz4 tank raidz sda sdb sdc sdd
+
+sudo zfs create tank/apps
+sudo zfs create tank/storage
+sudo zfs create tank/backup
+
+sudo zfs create tank/git?lab
+# TODO idk if it's needed
+sudo chown -R $USER:$USER /tank/storage/
+```
+
+### Add auto snapshot package
+
+`sudo apt install zfs-auto-snapshot -y`
+
+### Enable scrub timer
+
+`sudo systemctl enable zfs-scrub-weekly@tank.timer`
+
+#### Cron-based alternative (`0 3 * * * /sbin/zpool scrub tank`)
+
+```bash
+sudo crontab -l | cat - <(echo "0 3 * * * /sbin/zpool scrub tank") | sudo crontab -
+```
+
+### Docker on ZFS
+
+```bash
+sudo zfs create -o com.sun:auto-snapshot=false tank/docker
+docker compose stop
+sudo service docker stop
+sudoedit /etc/docker/daemon.json
+'add theese lines
+{
+  "storage-driver": "zfs"
+}
+backup necessary docker data and then remove'
+sudo rm -rf /var/lib/docker
+sudo ln -s /tank/docker /var/lib/docker
+sudo service docker start
+```
+
+### TODO
+
+- maybe need to create docker service trigger on ZFS mount?
+  - <https://www.reddit.com/r/docker/comments/my6p90/docker_zfs_storage_driver_vs_storing_docker_data/>
+  - <https://www.reddit.com/r/zfs/comments/10e0rkx/for_anyone_using_zfsol_with_docker/>
+- weekly cron to backup compressed backup of zpool to 5th 2tb disk
+- backup / and /boot volumes disk (emmc)
 
 ## tools
 
