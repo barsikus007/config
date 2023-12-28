@@ -11,23 +11,43 @@ git clone https://github.com/barsikus007/config.git
 ~/config/configs/install.sh
 bash
 u
-sudo apt install linux-headers-current-rockchip64 -y
-# sudo apt install linux-headers-edge-rk35xx
+sudo apt install linux-headers-legacy-rk35xx -y
 
-# armbian-bsp-cli-rock-3a-edge for armbian-add-overlay
-# linux-image-edge-rk35xx
+#for armbian-add-overlay
+sudo apt install armbian-bsp-cli-rock-3a-legacy
+```
 
-# https://radxa-repo.github.io/jammy/
+## RKMPP
+
+```bash
+sudo add-apt-repository ppa:liujianfeng1994/rockchip-multimedia -y
+sudo apt update -y
+sudo apt install rockchip-multimedia-config ffmpeg -y
+```
+
+## NPU
+
+```bash
+curl -L --output rknpu2-rk356x_latest_arm64.deb https://github.com/radxa-pkg/rknn2/releases/latest/download/rknpu2-rk356x_$(curl -L https://github.com/radxa-pkg/rknn2/releases/latest/download/VERSION)_arm64.deb
+sudo dpkg -i rknpu2-rk356x_latest_arm64.deb
+rm rknpu2-rk356x_latest_arm64.deb
+```
+
+### Test
+
+```bash
+git clone https://github.com/rockchip-linux/rknpu2
+cd rknpu2/examples/rknn_yolov5_demo/
+chmod +x build-linux_RK3566_RK3568.sh
+./build-linux_RK3566_RK3568.sh
+cd install/rknn_yolov5_demo_Linux/
+./rknn_yolov5_demo model/RK3566_RK3568/yolov5s-640-640.rknn model/bus.jpg
 ```
 
 ## SATA HAT
 
 ```bash
-# curl -sL https://rock.sh/get-rockpi-penta | sudo -E bash -
-sudo apt install software-properties-common -y
-curl -sL https://rock.sh/get-rockpi-penta | sed -e 's/$ARMBIAN_URL | sudo -E bash -/$ARMBIAN_URL > rockpi-penta-install.sh/' | sudo -E bash -
-sed -i "s/focal/jammy/" rockpi-penta-install.sh
-chmod +x rockpi-penta-install.sh && sudo ./rockpi-penta-install.sh
+curl -sL https://raw.githubusercontent.com/barsikus007/rockpi-penta/master/install.sh | sudo -E bash -
 
 sudo systemctl stop armbian-led-state.service && sudo sed -i 's/trigger=heartbeat/trigger=none/' /etc/armbian-leds.conf && sudo sed -i 's/brightness=0/brightness=1/' /etc/armbian-leds.conf && sudo systemctl start armbian-led-state.service
 
@@ -43,8 +63,8 @@ sudo armbian-add-overlay rk3568-pwm8-m0-fan.dts
 ## Other
 
 - OMV
-- <https://wiki.omv-extras.org/doku.php?id=omv6:armbian_bullseye_install#install_omv>
-- systemctl unmask systemd-networkd.service
+  - <https://wiki.omv-extras.org/doku.php?id=omv6:armbian_bullseye_install#install_omv>
+  - systemctl unmask systemd-networkd.service
 
 ## NAS
 

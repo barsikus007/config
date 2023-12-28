@@ -5,6 +5,15 @@
 - <https://greasyfork.org/en/scripts/439993-youtube-shorts-redirect>
 - [TODO remove si youtube](https://github.com/Xenorio/YTShareAntiTrack)
 
+## uBlock
+
+```css
+! 2023-12-31 https://mail.yandex.ru
+mail.yandex.ru##div.ns-view-left-box > div:nth-of-type(2)
+mail.yandex.ru##div[class^="DisableAdsButton__root"]
+mail.yandex.ru##main.mail-Layout-Content > div:nth-of-type(2)
+```
+
 ## Extensions
 
 - ShitBlockers
