@@ -1,6 +1,6 @@
 # config
 
-## [versus](versus/README.md)
+## [Versus](versus/README.md)
 
 ## [Browser](browser/README.md)
 
@@ -34,7 +34,7 @@ pipx install ptpython
 # pipx inject ptpython ipython
 ```
 
-## TODO
+### TODO
 
 - pyvenv create alias and patcher
   - `alias pyvenv='python3 -m venv .venv && source .venv/bin/activate'`

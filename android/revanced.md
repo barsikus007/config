@@ -3,44 +3,43 @@
 ## Correct update sequence
 
 1. Unpatch app
-2. Reboot
-3. Install new version
-4. Patch and mount
+   1. Better to reboot
+2. Install new version
+3. Patch and mount
 
 ## [YouTube](https://revanced.app/patches?pkg=com.google.android.youtube)
 
 ### [APKMirror](https://www.apkmirror.com/apk/google-inc/youtube/youtube-18-45-43-release/#downloads:~:text=Android%208.0%2B-,nodpi,-All%20Releases)
 
-### Patches 22/56
+### Patches 21/62
 
-- 3.0.1
+- 3.2.0
+  - Alternative thumbnails
+  - Bypass URL redirects
   - Client spoof
+  - Disable player popup panels
   - Disable resuming Shorts on startup
   - External downloads
   - Hide ads
-  - Hide email address
   - Minimized playback
   - Open links externally
   - Premium heading
+  - Remove tracking query parameter
+  - Remove viewer discretion dialog
   - Restore old video quality menu
   - Return Youtube Dislike
   - SponsorBlock
   - Swipe controls
   - Video ads
   - Hide get premium (removed)
+  - Hide email address (removed)
   - Hide watermark (removed)
-  - New
-    - Alternative thumbnails
-    - Bypass URL redirects
-    - Disable player popup panels
-    - Hide breaking news shell
-    - Playback speed
-    - Seekbar tapping
-    - ?
+  - ?
     - Enable slide to seek
-    - Remove tracking query parameter
     - Restore old seekbar thumbnails
-
+    - Seekbar tapping
+  - ? not enabled
+    - Hide breaking news shell
 
 ### Settings
 
@@ -56,9 +55,10 @@
 "disable_resuming_shorts_player": true,
 "external_downloader": true,
 "external_downloader_name": "com.junkfood.seal",
-"hide_email_address": true,
 "hide_player_popup_panels": true,
 "ryd_toast_on_connection_error": false,
+"sb_local_time_saved_milliseconds": 667499,
+"sb_local_time_saved_number_segments": 23,
 "sb_toast_on_connection_error": false
 ```
 
@@ -68,9 +68,10 @@
 
 ### Patches 8/12
 
-- !music-microg-support (due to root)
-- !Compact header
-- !Permanent repeat
-- !Permanent shuffle
+- 3.2.0
+  - !GmsCore support (due to root)
+  - !Compact header
+  - !Permanent repeat
+  - !Permanent shuffle
 
-## Updated 2023-10-05
+## Updated 2024-01-03

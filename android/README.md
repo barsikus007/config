@@ -1,10 +1,20 @@
 # [Android](../README.md)
 
-## [Oculus Quest 2](oculus.md)
+## Instructions
 
-## [Pixel 7 Pro](https://4pda.to/forum/index.php?showtopic=1039682)
+### [YouTube ReVanced](revanced.md)
 
-### Instructions
+### [Termux](termux.md)
+
+### [Root](root.md)
+
+## Devices
+
+### [Oculus Quest 2](oculus.md)
+
+### [Pixel 7 Pro](https://4pda.to/forum/index.php?showtopic=1039682)
+
+#### Useful topics
 
 - [APN fix](https://4pda.to/forum/index.php?showtopic=1030072&view=findpost&p=117115914)
 - [root and kernel english](https://xdaforums.com/t/november-12-2023-up1a-231105-003-a1-for-jp-carriers-unlock-bootloader-root-pixel-7-pro-cheetah-safetynet.4502805/)
@@ -18,13 +28,7 @@
   - [Kirisakura](https://xdaforums.com/t/kernel-08-11-2023-android-14-0-0-stable-kirisakura_raviantah-2-0-2-for-pixel-7-pro-aka-pantah.4509795/)
   - [CleanState companion app](https://xdaforums.com/t/kernel-cleanslate-t1-5-1-u2-5-0-s2s-adblock-vib-batterysvr-oct-5.4509793/)
 
-### [YouTube ReVanced](revanced.md)
-
-### [Root](root.md)
-
-### [Termux](termux.md)
-
-### Device related forum threads
+#### Device related forum threads
 
 - <https://4pda.to/forum/index.php?s=&showtopic=1039682&view=findpost&p=119899326>
 - <https://4pda.to/forum/index.php?showtopic=1039682&st=8280#entry119468580>
@@ -33,7 +37,7 @@
 - <https://4pda.to/forum/index.php?showtopic=1056929&st=520>
 - <https://4pda.to/forum/index.php?showtopic=1060116&st=80>
 
-### TODO
+#### TODO
 
 - telegram mods settings
 - Design and Tweak Mods
@@ -46,7 +50,7 @@
   - [nexus.xml](https://4pda.to/forum/index.php?s=&showtopic=915369&view=findpost&p=112909048)
   - Magisk module
 
-### DEPRECATED
+#### DEPRECATED
 
 - Call recording. Because BCR is better.
   - [GAppsMod](https://github.com/jacopotediosi/GAppsMod)
