@@ -37,6 +37,7 @@ pipx install ptpython
 ## TODO
 
 - pyvenv create alias and patcher
+  - `alias pyvenv='python3 -m venv .venv && source .venv/bin/activate'`
 - pycharm settings sync
 - save config folder somewhere to make it portable
 - obs quick replay

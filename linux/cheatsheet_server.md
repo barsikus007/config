@@ -89,11 +89,23 @@ sudo localectl set-locale C.UTF-8
 
 ```bash
 sudo apt install zfsutils-linux -y
-# sudo apt install zfs-dkms -y
-sudo reboot
 
+# if no prebuilt kernel module
+sudo apt install zfs-dkms -y
+sudo reboot
 sudo /sbin/modprobe zfs
 ```
+
+### Commands
+
+- [Clear arc cache](https://netpoint-dc.com/blog/zfs-caching-arc-l2arc-linux/)
+  - `sudo sh -c 'echo 3 > /proc/sys/vm/drop_caches'`
+- Add auto snapshot package
+  - `sudo apt install zfs-auto-snapshot -y`
+- Enable scrub timer
+  - `sudo systemctl enable zfs-scrub-weekly@tank.timer`
+- Cron-based alternative (`0 3 * * * /sbin/zpool scrub tank`)
+  - `sudo crontab -l | cat - <(echo "0 3 * * * /sbin/zpool scrub tank") | sudo crontab -`
 
 ### Zpool setup
 
@@ -108,20 +120,6 @@ sudo zfs create tank/backup
 sudo zfs create tank/git?lab
 # TODO idk if it's needed
 sudo chown -R $USER:$USER /tank/storage/
-```
-
-### Add auto snapshot package
-
-`sudo apt install zfs-auto-snapshot -y`
-
-### Enable scrub timer
-
-`sudo systemctl enable zfs-scrub-weekly@tank.timer`
-
-#### Cron-based alternative (`0 3 * * * /sbin/zpool scrub tank`)
-
-```bash
-sudo crontab -l | cat - <(echo "0 3 * * * /sbin/zpool scrub tank") | sudo crontab -
 ```
 
 ### Docker on ZFS

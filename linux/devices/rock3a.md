@@ -121,14 +121,20 @@ mkdir build
 cd build
 make native-deb ..
 # dkms is easier to install than patching modules package with correct kernel package name
-sudo apt install --fix-missing ../openzfs-zfsutils*.deb ../openzfs-lib*.deb ../openzfs-zfs-dkms*.deb -y
+cd ..
+mkdir ../zfs-deb
+mv *.deb ../zfs-deb/
+cd ../zfs-deb/
+sudo apt install --fix-missing openzfs-zfsutils*.deb openzfs-lib*.deb openzfs-zfs-dkms*.deb -y
+# sudo apt-mark hold openzfs-zfsutils
 # patch zfs-auto-snapshot
 apt-get download zfs-auto-snapshot
 dpkg -x zfs-auto-snapshot*.deb zfs-auto-snapshot
 dpkg --control zfs-auto-snapshot*.deb zfs-auto-snapshot/DEBIAN
 sed -i "s/zfsutils-linux/openzfs-zfsutils/" zfs-auto-snapshot/DEBIAN/control
 dpkg -b zfs-auto-snapshot openzfs-auto-snapshot.deb
-sudo dpkg -i openzfs-auto-snapshot.deb
+sudo apt install --fix-missing openzfs-auto-snapshot.deb
+sudo apt-mark hold zfs-auto-snapshot
 ```
 
 ### SMART

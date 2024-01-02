@@ -23,7 +23,7 @@ mail.yandex.ru##main.mail-Layout-Content > div:nth-of-type(2)
   - [ClearURLs](https://docs.clearurls.xyz/)
 - Scripts
   - [Tampermonkey](https://www.tampermonkey.net)
-  - [Tampermonkey Editors](https://chrome.google.com/webstore/detail/tampermonkey-editors/lieodnapokbjkkdkhdljlllmgkmdokcm)
+    - [Tampermonkey Editors](https://chrome.google.com/webstore/detail/tampermonkey-editors/lieodnapokbjkkdkhdljlllmgkmdokcm)
 - YouTube
   - [Return YouTube Dislike](https://www.oinkandstuff.com/project/pip-picture-in-picture-plus/)
   - [SponsorBlock for YouTube - Skip Sponsorships](https://sponsor.ajay.app)
@@ -41,4 +41,7 @@ mail.yandex.ru##main.mail-Layout-Content > div:nth-of-type(2)
 
 // player playback speed
 document.querySelector('video').playbackRate = 1.0;
+
+// check if dark theme reported by browser
+console.log(window.matchMedia("(prefers-color-scheme: dark)").matches)
 ```
