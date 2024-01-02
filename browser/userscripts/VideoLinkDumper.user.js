@@ -1,9 +1,12 @@
 // ==UserScript==
-// @name         Video link dumper
+// @name         Video Link Dumper
 // @namespace    https://animego.org/
 // @version      1.2
-// @description  Dumps video links from players on animego.org
 // @author       barsikus007
+// @description  Dumps video links from players on animego.org
+// @icon         https://www.google.com/s2/favicons?sz=64&domain=youtube.com
+// @updateURL    https://raw.githubusercontent.com/barsikus007/config/master/browser/userscripts/VideoLinkDumper.user.js
+// @downloadURL  https://raw.githubusercontent.com/barsikus007/config/master/browser/userscripts/VideoLinkDumper.user.js
 // @match        https://aniboom.one/*
 // @match        https://video.sibnet.ru/*
 // @match        https://kodik.info/*

@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         no popup
-// @version      1.0
+// @version      0.0.1
 // @description  shitcoded popup remover via semantics magic
 // @author       barsikus007
 // @match        https://*/*
