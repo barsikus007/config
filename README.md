@@ -36,7 +36,6 @@ pipx install ptpython
 
 ### TODO
 
-- Tampermonkey to [violentmonkey](https://violentmonkey.github.io/)
 - pyvenv create alias and patcher
   - `alias pyvenv='python3 -m venv .venv && source .venv/bin/activate'`
 - pycharm settings sync
@@ -119,10 +118,7 @@ pipx install ptpython
   - `git config --global rebase.autoStash true`
 
 - chmod +x executables in repo
-- browser
-  - password manager
-  - <https://violentmonkey.github.io>
-  - sync bookmarks
+- browser sync bookmarks
 - new software
   - GUI
     - <https://prismlauncher.org/download/>

@@ -4,7 +4,7 @@
 // @version      1.3
 // @author       barsikus007
 // @description  Dumps video links from players on animego.org
-// @icon         https://www.google.com/s2/favicons?sz=64&domain=youtube.com
+// @icon         https://animego.org/favicon.ico
 // @updateURL    https://raw.githubusercontent.com/barsikus007/config/master/browser/userscripts/VideoLinkDumper.user.js
 // @downloadURL  https://raw.githubusercontent.com/barsikus007/config/master/browser/userscripts/VideoLinkDumper.user.js
 // @match        https://aniboom.one/*

@@ -7,7 +7,7 @@
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=youtube.com
 // @updateURL    https://raw.githubusercontent.com/barsikus007/config/master/browser/userscripts/YouTubeFocusFix.user.js
 // @downloadURL  https://raw.githubusercontent.com/barsikus007/config/master/browser/userscripts/YouTubeFocusFix.user.js
-// @match        *.youtube.com/watch?v=*
+// @match        *://*.youtube.com/watch?v=*
 // ==/UserScript==
 
 const player = document.querySelector('video.video-stream')

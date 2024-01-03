@@ -4,11 +4,13 @@
 
 - <https://greasyfork.org/en/scripts/439993-youtube-shorts-redirect>
 - [TODO remove si youtube](https://github.com/Xenorio/YTShareAntiTrack)
-- [own](./userscript)
+- [own](./userscripts)
 
 ## uBlock
 
-### [My filters](extension://odfafepnkmbhccpbejgmiehpchacaeak/dashboard.html#1p-filters.html)
+### My filters
+
+<extension://odfafepnkmbhccpbejgmiehpchacaeak/dashboard.html#1p-filters.html>
 
 ```css
 ! 2023-12-31 https://mail.yandex.ru
@@ -33,8 +35,6 @@ mail.yandex.ru##main.mail-Layout-Content > div:nth-of-type(2)
   - [ClearURLs](https://docs.clearurls.xyz/)
 - Scripts
   - [Violentmonkey](https://violentmonkey.github.io/)
-  - [Tampermonkey](https://www.tampermonkey.net)
-    - [Tampermonkey Editors](https://chrome.google.com/webstore/detail/tampermonkey-editors/lieodnapokbjkkdkhdljlllmgkmdokcm)
 - YouTube
   - [Return YouTube Dislike](https://www.returnyoutubedislike.com/)
   - [SponsorBlock for YouTube - Skip Sponsorships](https://sponsor.ajay.app)
