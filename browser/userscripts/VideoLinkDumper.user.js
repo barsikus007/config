@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Video Link Dumper
-// @namespace    https://animego.org/
-// @version      1.2
+// @namespace    https://github.com/barsikus007/
+// @version      1.3
 // @author       barsikus007
 // @description  Dumps video links from players on animego.org
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=youtube.com
@@ -18,18 +18,21 @@
   try {
     aniboomURL = JSON.parse(JSON.parse(videoElement?.getAttribute('data-parameters'))?.dash)?.src
   } catch {}
-  const sibnetURL = document.querySelector('video')?.src
+  let sibnetURL = document.querySelector('video')?.src || ''
   const url = aniboomURL || (sibnetURL || undefined)
-  if (!url) { console.log('Failed to extract url'); return }
-  const mpvBase = `mpv '${url}' --snap-window --no-border`
-  console.log('MPV max quality ("_" key for switch quality)')
-  console.log(`${mpvBase} --http-header-fields="Referer: https://video.sibnet.ru"`)
-  console.log('MPV 1080p')
-  console.log(`${mpvBase} --ytdl-raw-options=referer='' --ytdl-format='bestaudio+bestvideo[height<=?1080]'`)
-  console.log('MPV 720p')
-  console.log(`${mpvBase} --ytdl-raw-options=referer='' --ytdl-format='bestaudio+bestvideo[height<=?720]'`)
-  console.log('MPV 480p')
-  console.log(`${mpvBase} --ytdl-raw-options=referer='' --ytdl-format='bestaudio+bestvideo[height<=?480]'`)
+  if (!url) { return console.log('Failed to extract url') }
+  sibnetURL = sibnetURL ? 'https://video.sibnet.ru' : ''
+  let mpvBase = `mpv '${url}' --snap-window --no-border --save-position-on-quit --referrer='${sibnetURL}'`
   console.log('Just download with yt-dlp')
-  console.log(`yt-dlp '${url}' --referer='' --no-part`)
+  // https://github.com/ytdl-org/youtube-dl/issues/15384#issuecomment-359654155
+  console.log(`yt-dlp '${url}' --referer='${sibnetURL}' --no-part -N 16"`)
+  console.log('or with aria2c')
+  console.log(`yt-dlp '${url}' --referer='${sibnetURL}' --no-part --external-downloader aria2c --external-downloader-args "-x 16 -s 16 -k 1M"`)
+  console.log('MPV max quality ("_" key for switch quality)')
+  console.log(mpvBase)
+  if (sibnetURL) { return }
+  [1080, 720, 480].forEach((height) => {
+    console.log(`MPV ${height}p (if available)`)
+    console.log(`${mpvBase} --ytdl-raw-options=referer='' --ytdl-format='bestaudio+bestvideo[height<=?${height}]'`)
+  })
 })()

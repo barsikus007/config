@@ -36,6 +36,7 @@ pipx install ptpython
 
 ### TODO
 
+- Tampermonkey to [violentmonkey](https://violentmonkey.github.io/)
 - pyvenv create alias and patcher
   - `alias pyvenv='python3 -m venv .venv && source .venv/bin/activate'`
 - pycharm settings sync
@@ -75,9 +76,6 @@ pipx install ptpython
 - create python venv alias (current python installation pyenv.cfg windows)
 - batcat mouse rock-ssh
 - piptool scoop??
-- chromium flag for faster downloads
-  - edge://flags/#enable-parallel-downloading
-  - opera://flags/#enable-parallel-downloading
 - <https://volta.sh/>
 - mpv config
 - TOOL TODO ! (install windows soft with auto update from winget (think about config sync of that apps))

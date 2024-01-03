@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         YouTube Focus Fix
-// @namespace    http://tampermonkey.net/
+// @namespace    https://github.com/barsikus007/
 // @version      1.0
 // @author       XpucT
 // @description  Force focus and scroll to player when mouse enters it
