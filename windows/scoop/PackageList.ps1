@@ -30,7 +30,7 @@ brave
 ffmpeg
 hwinfo
 iperf3
-mpv.net
+mpv
 neovim
 neovide
 nmap

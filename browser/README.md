@@ -17,6 +17,10 @@
 mail.yandex.ru##div.ns-view-left-box > div:nth-of-type(2)
 mail.yandex.ru##div[class^="DisableAdsButton__root"]
 mail.yandex.ru##main.mail-Layout-Content > div:nth-of-type(2)
+
+! 2024-01-02 https://www.youtube.com
+||youtube.com^$removeparam=si
+
 ```
 
 ## Flags

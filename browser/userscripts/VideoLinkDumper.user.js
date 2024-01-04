@@ -21,7 +21,7 @@
   let sibnetURL = document.querySelector('video')?.src || ''
   const url = aniboomURL || (sibnetURL || undefined)
   if (!url) { return console.log('Failed to extract url') }
-  sibnetURL = sibnetURL ? 'https://video.sibnet.ru' : ''
+  sibnetURL = sibnetURL ? 'https://video.sibnet.ru' : ' '
   let mpvBase = `mpv '${url}' --snap-window --no-border --save-position-on-quit --referrer='${sibnetURL}'`
   console.log('Just download with yt-dlp')
   // https://github.com/ytdl-org/youtube-dl/issues/15384#issuecomment-359654155

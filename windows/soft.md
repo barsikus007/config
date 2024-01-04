@@ -25,7 +25,7 @@
 
 ## Player
 
-- mpv (TODO)
+- mpv
 - [PotPlayer XpucT](https://win10tweaker.ru/forum/topic/potplayer-portable)
   - [Direct Link](https://jailbreakvideo.ru/Files/Update%20Portable%20PotPlayer.exe)
 
