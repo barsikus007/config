@@ -25,20 +25,14 @@ if hash batcat &> /dev/null; then
   alias bat=batcat
   alias cat=bat
   export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+  export PAGER=bat
 fi
 if hash bat &> /dev/null; then
   alias cat=bat
   export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+  export PAGER=bat
 fi
 export LESS="--mouse"
-
-if hash eza &> /dev/null; then
-  alias ll=ezall
-  alias l=ezal
-elif hash exa &> /dev/null; then
-  alias ll=exall
-  alias l=exal
-fi
 
 # https://github.com/nvm-sh/nvm#install--update-script
 # https://www.shellcheck.net/wiki/SC2155

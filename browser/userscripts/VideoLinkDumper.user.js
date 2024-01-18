@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Video Link Dumper
 // @namespace    https://github.com/barsikus007/
-// @version      1.3
+// @version      1.3.1
 // @author       barsikus007
 // @description  Dumps video links from players on animego.org
 // @icon         https://animego.org/favicon.ico
@@ -13,6 +13,7 @@
 // ==/UserScript==
 
 (async function () {
+  сonsole.log('This script is deprecated. Use https://github.com/vypivshiy/ani-cli-ru instead.')
   let aniboomURL
   const videoElement = document.getElementById('video')
   try {
@@ -22,7 +23,7 @@
   const url = aniboomURL || (sibnetURL || undefined)
   if (!url) { return console.log('Failed to extract url') }
   sibnetURL = sibnetURL ? 'https://video.sibnet.ru' : ' '
-  let mpvBase = `mpv '${url}' --snap-window --no-border --save-position-on-quit --referrer='${sibnetURL}'`
+  let mpvBase = `mpv '${url}' --no-border --snap-window --save-position-on-quit --referrer='${sibnetURL}'`
   console.log('Just download with yt-dlp')
   // https://github.com/ytdl-org/youtube-dl/issues/15384#issuecomment-359654155
   console.log(`yt-dlp '${url}' --referer='${sibnetURL}' --no-part -N 16"`)
@@ -35,4 +36,5 @@
     console.log(`MPV ${height}p (if available)`)
     console.log(`${mpvBase} --ytdl-raw-options=referer='' --ytdl-format='bestaudio+bestvideo[height<=?${height}]'`)
   })
+  сonsole.log('This script is deprecated. Use https://github.com/vypivshiy/ani-cli-ru instead.')
 })()

@@ -46,6 +46,7 @@ mail.yandex.ru##main.mail-Layout-Content > div:nth-of-type(2)
 - [Search by Image](https://github.com/dessant/search-by-image)
 - TODO
   - <https://extensions.xenorio.xyz/list/tubetweaks>
+  - <https://github.com/dessant/ping-blocker>
 
 ## Dev Tools console
 

@@ -36,8 +36,8 @@ pipx install ptpython
 
 ### TODO
 
-- pyvenv create alias and patcher
-  - `alias pyvenv='python3 -m venv .venv && source .venv/bin/activate'`
+- alias to ptpython
+- linux alternative to py
 - pycharm settings sync
 - save config folder somewhere to make it portable
 - obs quick replay
@@ -76,7 +76,6 @@ pipx install ptpython
 - batcat mouse rock-ssh
 - piptool scoop??
 - <https://volta.sh/>
-- mpv config
 - TOOL TODO ! (install windows soft with auto update from winget (think about config sync of that apps))
 - ask scoop maintaners about FAQ about tools with autoupdate
 - mkcd alias (mkdir + cd)

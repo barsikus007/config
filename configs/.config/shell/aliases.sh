@@ -18,11 +18,8 @@ alias ezall='eza -laFbghM --smart-group --group-directories-first --color=always
 alias exal='exa -laFbgh --group-directories-first --color=always --icons --color-scale'
 alias exall='exa -laFbgh --group-directories-first --color=always --icons --color-scale'
 alias ls='ls --group-directories-first --color=always --hyperlink'
-alias l='ls -CFbh'
-# alias ll='[[ $(type -p eza &> /dev/null) ]] && ezall || [[ $(type -p exa &> /dev/null) ]] && exall || ls -laFbgh'
-# alias ll='[[ $(hash eza &> /dev/null) ]] && ezall || [[ $(hash exa &> /dev/null) ]] && exall || ls -laFbgh'
-
-# [[ $(hash eza &> /dev/null) ]] && ezall || [[ $(hash exa &> /dev/null) ]] && exall || ll
+alias ll=lllazy
+alias l=llazy
 
 alias lzd='lazydocker'
 alias dc='docker compose'
@@ -34,6 +31,9 @@ alias dcl='dc logs'
 alias dcr='dc restart'
 alias dce='dc exec -it'
 alias cdl='sudo sh -c "truncate -s 0 /var/lib/docker/containers/*/*-json.log"'
+
+alias pyvcr='python3 -m venv .venv --upgrade-deps && .venv/bin/pip install -r requirements.txt && source .venv/bin/activate'
+alias pyv='source .venv/bin/activate || pyvcr'
 
 alias wgu='wg-quick up ~/wg0.conf'
 alias wgd='wg-quick down ~/wg0.conf'

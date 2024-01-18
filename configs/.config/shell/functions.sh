@@ -1,5 +1,30 @@
 #!/bin/sh
 
+llalias() {
+  if hash eza &> /dev/null; then
+    alias ll=ezall
+    alias l=ezal
+  elif hash exa &> /dev/null; then
+    alias ll=exall
+    alias l=exal
+  else
+    alias ll='ls -laFbgh'
+    alias l='ls -CFbh'
+  fi
+}
+
+lllazy() {
+  llalias
+  alias ll
+  eval ll "$@"
+}
+
+llazy() {
+  llalias
+  alias l
+  eval l "$@"
+}
+
 dcsh() { docker compose exec -it "$1" sh -c 'bash || sh'; }
 
 # export-aliases() {

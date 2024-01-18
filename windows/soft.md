@@ -23,9 +23,8 @@
 - <https://setup.office.com/>
 - <https://c2rsetup.officeapps.live.com/c2r/download.aspx?ProductreleaseID=languagepack&language=ru-ru&platform=x86&source=O16LAP&version=O16GA>
 
-## Player
+## Player alternative to mpv
 
-- mpv
 - [PotPlayer XpucT](https://win10tweaker.ru/forum/topic/potplayer-portable)
   - [Direct Link](https://jailbreakvideo.ru/Files/Update%20Portable%20PotPlayer.exe)
 
