@@ -30,6 +30,7 @@ foreach ($oldvid in $oldvids) {
 ## TODO
 
 - winget
+  - `https://builds.parsec.app/package/parsec-windows.exe`
   - `Parsec.Parsec`
   - `Google.NearbyShare`
 - allow powershell profiles in wt.exe

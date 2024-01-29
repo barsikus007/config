@@ -1,0 +1,185 @@
+{
+    "settingsSync.ignoredSettings": [
+        // "": true,
+    ],
+
+    // linux fixes
+    "window.titleBarStyle": "custom",
+    "editor.selectionClipboard": false,
+    "settingsSync.keybindingsPerPlatform": false,
+
+    // appearence
+    "terminal.integrated.fontFamily": "Delugia",
+    "editor.fontFamily": "Delugia",
+    "editor.fontLigatures": true,
+    "workbench.iconTheme": "vscode-icons",
+    "window.autoDetectColorScheme":true,
+    "workbench.preferredLightColorTheme": "Shades of Purple",
+    "workbench.preferredDarkColorTheme": "Shades of Purple (Super Dark)",
+    "workbench.colorTheme": "Shades of Purple (Super Dark)",
+
+    // behavior
+    // https://stackoverflow.com/a/70899027/15844518
+    "window.openFoldersInNewWindow": "on",
+    "files.autoSave": "afterDelay",
+    "files.associations": {
+        ".env*": "dotenv",
+    },
+    "editor.unicodeHighlight.allowedLocales": {
+        "ru": true
+    },
+    "editor.foldingMaximumRegions": 50000,
+    "terminal.integrated.scrollback": 10000,
+
+    // telemetry
+    "telemetry.telemetryLevel": "off",
+
+    // spam
+    "vsicons.dontShowNewVersionMessage": true,
+
+
+    // language specific
+    // python
+    "python.analysis.completeFunctionParens": true,
+    "python.analysis.typeCheckingMode": "basic",
+    "python.analysis.autoFormatStrings": true,
+    "mypy-type-checker.args": [
+        "--no-redef=false",
+    ],
+    //      uvicorn
+    //      "--ignore-missing-imports",
+    //      vkbottle moment
+    //      warn_no_return = false
+    //      warn_return_any = false
+    //      warn_unused_configs = true
+    //      check_untyped_defs = true
+    // fix run https://stackoverflow.com/a/73567911/15844518
+    // "terminal.integrated.env.windows": { "PYTHONPATH": "${workspaceFolder}" },
+    "python.venvFolders": [
+        "~\\AppData\\Local\\pypoetry\\Cache\\virtualenvs",
+        "~/.cache/pypoetry/virtualenvs"
+    ],
+    "ruff.enable": true,
+    // https://github.com/astral-sh/ruff/issues/970
+    // w8 for too-many-function-args / E1121
+    "pylint.args": [
+        // C0103 - trigger to short names
+        // C0114,C0115,C0116 - idk
+        // C0301 - line too long handled by ruff
+        // W0106 - list comprehension false positive
+        // W0511 - TODO
+        "--disable=C0103,C0114,C0115,C0116,C0301,W0106,W0511",
+        "--extension-pkg-allow-list=pydantic,orjson",
+        "--max-line-length=120"
+    ],
+    "ruff.importStrategy": "useBundled",
+    "ruff.lint.args": [
+        "--line-length=120",
+        // "--select=ALL",
+        // ANN001 - for default=True like vars
+        // ANN101 - for self
+        // ANN102 - for cls
+        // ANN201 - for handlers return
+        // ANN204 - for __init__ return None
+        // ANN401 - for ANN401
+        // EM101,TRY003 - for strings in exceptions
+        // D,TD,FIX - for TODOs
+        // ERA - for commented code
+        // RET502 - for return without None
+        // RET503 - for function without return
+        // RUF001 - for cyrillic
+        "--ignore=ANN001,ANN101,ANN102,ANN201,ANN204,ANN401,EM101,TRY003,D,TD,FIX,ERA,RET502,RET503,RUF001"
+    ],
+    "ruff.format.args": ["--line-length=120"],
+    "[python]": {
+        // "editor.formatOnSave": true,
+        "editor.defaultFormatter": "charliermarsh.ruff",
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit",
+            "source.fixAll": "explicit",
+        },
+    },
+    // TODO code-runner deprecated for me
+    // "code-runner.enableAppInsights": false,
+    // "code-runner.clearPreviousOutput": true,
+    // "code-runner.executorMap": {
+    //     "python": "set PYTHONIOENCODING=utf8 && \"$pythonPath\" -uB $fullFileName",
+    // },
+
+    // javascript
+    "[javascript]": {
+        "editor.tabSize": 2,
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+    },
+    "[javascriptreact]": {
+        "editor.tabSize": 2,
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+    },
+    "[typescript]": {
+        "editor.tabSize": 2,
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+    },
+    "[typescriptreact]": {
+        "editor.tabSize": 2,
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+    },
+    "[json]": {
+        "editor.tabSize": 4,
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+    },
+    "[jsonc]": {
+        "editor.tabSize": 4,
+        "editor.formatOnSave": false,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[graphql]": {
+        "editor.tabSize": 2,
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+    },
+
+    // other
+    "[shellscript]": {
+        "editor.tabSize": 4
+    },
+    "[markdown]": {
+        "editor.tabSize": 2
+    },
+
+
+    // todo
+    // auto
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+
+    // new
+    // "terminal.integrated."
+
+    // other
+    "sqliteViewer.maxFileSize": 0, // remove sqlite limit (2GB is vscode limit idk how to resolve)
+    "git.autofetch": true,
+    // "cSpell.language": "en,ru",
+    "gitlens.mode.active": "zen",
+    // TODO https://github.com/kisstkondoros/gutter-preview limit
+    "gutterpreview.showUnderline": true,
+    "editor.guides.bracketPairs": "active",
+    "editor.inlineSuggest.enabled": true,
+    //
+    "github.copilot.enable": {
+        "*": true,
+        "plaintext": false,
+        "markdown": true,
+        "scminput": false
+    },
+    // "hadolint.hadolintPath": "/usr/bin/hadolint",
+    "markdown-preview-enhanced.liveUpdate": true,
+    "diffEditor.ignoreTrimWhitespace": false, // idk
+    "sourcery.codeLens": false,
+    // "markdownlint.run": "onSave",
+    "markdown.extension.toc.updateOnSave": false,
+}

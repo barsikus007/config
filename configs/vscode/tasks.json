@@ -1,0 +1,23 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Run python file",
+            "type": "process",
+            // https://github.com/microsoft/vscode/issues/160891
+            // "command": "${command:python.interpreterPath}",
+            "command": ".venv/Scripts/python.exe",
+            "args": ["-uB", "${file}"],
+            "presentation": {
+                "clear": true
+            },
+            // "options": {
+            //     "env": {
+            //         "PYTHONIOENCODING": "utf8"
+            //     }
+            // }
+        }
+    ]
+}

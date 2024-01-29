@@ -11,6 +11,8 @@ ssh-add ~/.ssh/id_ed25519
 cat ~/.ssh/id_ed25519.pub
 ```
 
+<https://github.com/settings/keys>
+
 ### Generate and upload SSH
 
 ```bash
@@ -50,12 +52,69 @@ zgrep -E "Commandline: apt(|-get)" /var/log/apt/history.log*
 
 ### pacman
 
+#### Update old enough arch
+
 ```bash
-base="mc git btop ncdu tmux tree neovim neofetch"
+sudo pacman -Sy archlinux-keyring --noconfirm --needed --color always
+sudo pacman -Syu --noconfirm --needed --color always
+```
+
+#### Tune parallel downloads
+
+```bash
+sudo sed -i 's/^#ParallelDownloads = [0-9]\+/ParallelDownloads = 7/' /etc/pacman.conf
+```
+
+##### Revert
+
+```bash
+sudo sed -i 's/^ParallelDownloads = [0-9]\+/#ParallelDownloads = 7/' /etc/pacman.conf
+```
+
+#### AUR
+
+```bash
+sudo pacman -S --noconfirm --needed --color always git base-devel && git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si --noconfirm && cd - && rm -rf yay-bin
+```
+
+#### [Mirrors choose](https://wiki.archlinux.org/title/mirrors#Fetching_and_ranking_a_live_mirror_list)
+
+```bash
+sudo yay -S --color always rate-mirrors-bin
+export TMPFILE="$(mktemp)"; \
+    sudo true; \
+    rate-mirrors --save=$TMPFILE arch --max-delay=43200 \
+      && sudo mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist-backup \
+      && sudo mv $TMPFILE /etc/pacman.d/mirrorlist
+```
+
+#### Install default packages
+
+```bash
+base="mc git eza btop ncdu tmux tree neovim neofetch"
 soft_to_purge="snapd"
 sudo pacman -S $base -y
 sudo pacman -Rsn $soft_to_purge -y
 ```
+
+### rust
+
+#### rustup
+
+##### TODO
+
+- profile
+  - minimal?
+- PATH
+- update sequence
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+
+#### software
+
+- `cargo install eza`
 
 ### [Download "whole" site](https://pingvinus.ru/note/wget-download-sites) ([alt](https://superuser.com/q/1672776))
 
