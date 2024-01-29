@@ -1,11 +1,11 @@
 $debugz = $true
 Function Debug-Log {
     Param(
-        [Parameter(ValueFromPipeline)]
-        $item
+        [Parameter(ValueFromPipeline)]$item,
+        [Parameter(mandatory=$false, ValueFromRemainingArguments=$true)]$args
     )
     if ($debugz) {
-        Write-Host $item$args
+        Write-Host $item $args
     }
 }
 
@@ -31,35 +31,30 @@ function CanUsePredictionSource {
 	return (! [System.Console]::IsOutputRedirected) -and (IsVirtualTerminalProcessingEnabled)
 }
 
-Debug-Log initial
-(Measure-Command {
+Debug-Log initial (Measure-Command {
 if (! (CanUsePredictionSource)) { exit }
-}).Milliseconds | Debug-Log
+}).Milliseconds
 Function Test-Command ($commandName) {
     if (Get-Command $commandName -ErrorAction SilentlyContinue) { return $true }
     return $false
 }
 
 
-Debug-Log starship
-(Measure-Command {
+Debug-Log starship (Measure-Command {
 # https://starship.rs/
 Invoke-Expression (&starship init powershell)
 starship completions powershell | Out-String | Invoke-Expression
-}).Milliseconds | Debug-Log
-
-(Measure-Command {
+}).Milliseconds (Measure-Command {
 Set-PSReadLineOption -PredictionSource History
 # Set-PSReadlineOption -EditMode Vi
 # Set-PSReadlineOption -EditMode Emacs
 Set-PSReadlineKeyHandler -Key ctrl+d -Function DeleteCharOrExit
 # Set-PSReadLineKeyHandler -Key Tab -ScriptBlock { Invoke-FzfTabCompletion }  # TODO bugged
 Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
-}).Milliseconds | Debug-Log
+}).Milliseconds
 
 
-Debug-Log aliases
-(Measure-Command {
+Debug-Log aliases (Measure-Command {
 Set-Alias -Option AllScope cat bat
 Function Get-Full-History { cat (Get-PSReadlineOption).HistorySavePath -l powershell }
 Set-Alias -Option AllScope history Get-Full-History
@@ -72,17 +67,17 @@ Function c { clear }
 Set-Alias -Option AllScope h history
 # FUCK PWSH
 Function hf { h | grep.exe --color=auto -Fin -C 7 $args }
+Function l { ls -CF $args }
+Function ll { ls -la $args }
 if (Test-Command eza) {
     Set-Alias -Option AllScope ls eza
     # TODO fix command args
-    Function ll { eza -laFbghM --smart-group --group-directories-first --color=always --color-scale --icons=always --no-quotes --hyperlink --git --git-repos $args }
-    Function l { eza -FbghM --smart-group --group-directories-first --color=always --color-scale --icons=always --no-quotes --hyperlink $args }
+    Function l { eza -FbghM --smart-group --group-directories-first --color=auto --color-scale --icons=always --no-quotes --hyperlink $args }
+    Function ll { eza -laFbghM --smart-group --group-directories-first --color=auto --color-scale --icons=always --no-quotes --hyperlink --git --git-repos $args }
 }
-Function l { ls -CF $args }
-Function ll { ls -la $args }
 Function u { suss | scoop update * }
 
-Function cu { (cd ~/config/) -and (git pull) -and (./configs/install.ps1) -and (./windows/pwsh.ps1) -and (cd -) }
+Function cu { cd ~/config/ && git pull && ./configs/install.ps1 && ./windows/pwsh.ps1 && cd - }
 
 Function lzd { lazydocker }
 
@@ -93,12 +88,19 @@ Function dcs { dc stop $args }
 Function dcd { dc down $args }
 Function dcl { dc logs $args }
 Function dcr { dc restart $args }
-Function dce { dc exec -it $args }
-}).Milliseconds | Debug-Log
+Function dce { docker compose exec -it $args }
+Function dcsh { dce $args sh -c 'bash || sh' }
+
+Function pyvcr { python3 -m venv .venv --upgrade-deps && .venv/Scripts/python -c "import sys,pathlib;v=sys.version_info;pyv=f'{v.major}.{v.minor}';path=pathlib.Path('.venv/pyvenv.cfg');path.write_text(path.read_text(encoding='utf-8').replace(f'{v.major}.{v.minor}.{v.micro}',pyv).replace(f'{pyv}\\','current\\'),encoding='utf-8')" && .venv/Scripts/Activate.ps1 && .venv/Scripts/pip install -r requirements.txt }
+Function pyv { .venv/Scripts/Activate.ps1 || (pyvcr) }
+Function pyt { ptpython --asyncio }
+Function pypi { python -c "import os;os.environ['VIRTUAL_ENV']" && pip install -r requirements.txt || echo "activate venv to install requirements" }
+
+Function sex { explorer.exe . }
+}).Milliseconds
 
 
-Debug-Log autocompletions
-(Measure-Command {
+Debug-Log autocompletions (Measure-Command {
 Invoke-Expression (&scoop-search --hook)
 Import-Module "$($(Get-Item $(Get-Command scoop.ps1).Path).Directory.Parent.FullName)\modules\scoop-completion"
 Import-Module "gsudoModule"
@@ -112,4 +114,4 @@ Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
             [System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
         }
 }
-}).Milliseconds | Debug-Log
+}).Milliseconds

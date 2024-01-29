@@ -9,7 +9,11 @@ alias c='clear'
 alias h='history'
 alias hf='h | grp'
 
-alias u='sudo apt update && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt clean'
+# package managers and updaters
+# TODO u functions which will resolve all
+alias uu='sudo apt update && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt clean'
+alias u='uu'
+alias pacman='pacman --color always'
 alias cu='cd ~/config/ && git pull && ./configs/install.sh && cd -'
 alias lzdu='curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash'
 
@@ -34,9 +38,15 @@ alias cdl='sudo sh -c "truncate -s 0 /var/lib/docker/containers/*/*-json.log"'
 
 alias pyvcr='python3 -m venv .venv --upgrade-deps && .venv/bin/pip install -r requirements.txt && source .venv/bin/activate'
 alias pyv='source .venv/bin/activate || pyvcr'
+alias pyt='ptpython --asyncio'
+alias pipi='python -c "import os;os.environ[\"VIRTUAL_ENV\"]" && pip install -r requirements.txt || echo "activate venv to install requirements"'
+
+alias zps='zpool status -v'
 
 alias wgu='wg-quick up ~/wg0.conf'
 alias wgd='wg-quick down ~/wg0.conf'
+
+alias sex='explorer.exe .'
 
 # https://www.cyberciti.biz/faq/unix-linux-check-if-port-is-in-use-command/
 alias open-ports='sudo lsof -i -P -n | grep LISTEN'

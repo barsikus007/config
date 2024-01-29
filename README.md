@@ -4,6 +4,8 @@
 
 ## [Browser](browser/README.md)
 
+## [Configs](configs/README.md)
+
 ## [Android](android/README.md)
 
 ## [Linux](linux/README.md)
@@ -14,15 +16,15 @@
 
 ### Python
 
+#### pipx
+
 ```bash
-# pipx install
+# install
 python3 -m pip install --upgrade pip setuptools wheel
 python3 -m pip install --user pipx
 python3 -m pipx ensurepath
-# TODO rm /mnt/c/users/admin/appdata/roaming/python/python311/scripts/register-python-argcomplete
-# hatch install
+# TODO rm /mnt/c/users/admin/appdata/roaming/python/python312/scripts/register-python-argcomplete
 pipx install hatch
-# poetry install
 pipx install poetry
 # hatch config
 hatch config set dirs.env.virtual .venv
@@ -32,6 +34,17 @@ hatch config set terminal.styles.spinner material
 # TODO
 pipx install ptpython
 # pipx inject ptpython ipython
+pipx install git+https://github.com/vypivshiy/ani-cli-ru@dev
+pipx upgrade-all
+```
+
+#### hatch release schedule
+
+```bash
+hatch run test:cov
+hatch version micro
+hatch build
+hatch publish
 ```
 
 ### TODO
@@ -99,7 +112,7 @@ pipx install ptpython
   - video-toggle
 - .gitconfig
   - autocrlf values
-  - `git config --global user.name "barsikus007"`
+  - `git config --global user.name barsikus007`
   - `git config --global user.email barsikus07@gmail.com`
 
   - `git config --global core.editor "code --wait"`
@@ -116,6 +129,11 @@ pipx install ptpython
 
   - `git config --global rebase.autoStash true`
 
+  - [signing](https://docs.github.com/en/authentication/managing-commit-signature-verification/displaying-verification-statuses-for-all-of-your-commits)
+    - `git config --global user.signingKey ~/.ssh/id_ed25519.pub`
+    - `git config --global commit.gpgSign true`
+    - `git config --global gpg.format ssh`
+    - [upload key](https://github.com/settings/ssh/new)
 - chmod +x executables in repo
 - browser sync bookmarks
 - new software

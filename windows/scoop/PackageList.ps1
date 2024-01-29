@@ -14,6 +14,7 @@ busybox
 uutils-coreutils
 which
 grep
+less
 "@
 #? clink inject; clink autorun install
 
