@@ -13,7 +13,6 @@
 const logger = console.log.bind(console, 'Ligma Ballz:');
 
 (function () {
-  // @match        https://www.figma.com/file/*
   'use strict';
 
   new MutationObserver(async (mutations, observer) => {
