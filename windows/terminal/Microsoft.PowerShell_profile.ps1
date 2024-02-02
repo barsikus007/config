@@ -85,8 +85,9 @@ Function cu { cd ~/config/ && git pull && ./configs/install.ps1 && ./windows/pws
 Function lzd { lazydocker }
 
 Function dc { docker compose $args }
-Function dcu { dc up -d --build $args }
-Function dcub { dc up $args }
+Function dcu { dc up -d $args }
+Function dcub { dc up -d --build $args }
+Function dcuo { dc up -d --remove-orphans $args }
 Function dcup { dc -f compose.prod.yaml up -d }
 Function dcp { dc ps $args }
 Function dcs { dc stop $args }
