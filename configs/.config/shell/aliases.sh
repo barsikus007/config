@@ -27,7 +27,9 @@ alias l=llazy
 
 alias lzd='lazydocker'
 alias dc='docker compose'
-alias dcu='dc up -d --build'
+alias dcu='dc up -d'
+alias dcub='dcb --build'
+alias dcup='dc -f compose.prod.yaml up -d'
 alias dcp='dc ps'
 alias dcs='dc stop'
 alias dcd='dc down'

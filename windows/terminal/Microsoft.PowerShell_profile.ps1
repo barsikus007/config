@@ -31,9 +31,12 @@ function CanUsePredictionSource {
 	return (! [System.Console]::IsOutputRedirected) -and (IsVirtualTerminalProcessingEnabled)
 }
 
+
 Debug-Log initial (Measure-Command {
 if (! (CanUsePredictionSource)) { exit }
 }).Milliseconds
+
+
 Function Test-Command ($commandName) {
     if (Get-Command $commandName -ErrorAction SilentlyContinue) { return $true }
     return $false
@@ -83,6 +86,8 @@ Function lzd { lazydocker }
 
 Function dc { docker compose $args }
 Function dcu { dc up -d --build $args }
+Function dcub { dc up $args }
+Function dcup { dc -f compose.prod.yaml up -d }
 Function dcp { dc ps $args }
 Function dcs { dc stop $args }
 Function dcd { dc down $args }

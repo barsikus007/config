@@ -5,7 +5,6 @@
 // @author       barsikus007
 // @description  Dumps video links from players on animego.org
 // @icon         https://animego.org/favicon.ico
-// @updateURL    https://raw.githubusercontent.com/barsikus007/config/master/browser/userscripts/VideoLinkDumper.user.js
 // @downloadURL  https://raw.githubusercontent.com/barsikus007/config/master/browser/userscripts/VideoLinkDumper.user.js
 // @match        https://aniboom.one/*
 // @match        https://video.sibnet.ru/*
