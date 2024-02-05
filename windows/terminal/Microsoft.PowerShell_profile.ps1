@@ -75,8 +75,8 @@ Function ll { ls -la $args }
 if (Test-Command eza) {
     Set-Alias -Option AllScope ls eza
     # TODO fix command args
-    Function l { eza -FbghM --smart-group --group-directories-first --color=auto --color-scale --icons=always --no-quotes --hyperlink $args }
-    Function ll { eza -laFbghM --smart-group --group-directories-first --color=auto --color-scale --icons=always --no-quotes --hyperlink --git --git-repos $args }
+    Function l { eza -F -bghM --smart-group --group-directories-first --color=auto --color-scale --icons=always --no-quotes --hyperlink $args }
+    Function ll { eza -F -labghM --smart-group --group-directories-first --color=auto --color-scale --icons=always --no-quotes --hyperlink --git --git-repos $args }
 }
 Function u { suss | scoop update * }
 
@@ -85,6 +85,8 @@ Function cu { cd ~/config/ && git pull && ./configs/install.ps1 && ./windows/pws
 Function lzd { lazydocker }
 
 Function dc { docker compose $args }
+Function dsp { docker system prune $args }
+Function dspa { dsp --all $args }
 Function dcu { dc up -d $args }
 Function dcub { dc up -d --build $args }
 Function dcuo { dc up -d --remove-orphans $args }

@@ -17,8 +17,8 @@ alias pacman='pacman --color always'
 alias cu='cd ~/config/ && git pull && ./configs/install.sh && cd -'
 alias lzdu='curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash'
 
-alias ezal='eza -FbghM --smart-group --group-directories-first --color=always --color-scale --icons=always --no-quotes --hyperlink'
-alias ezall='eza -laFbghM --smart-group --group-directories-first --color=always --color-scale --icons=always --no-quotes --hyperlink --git --git-repos'
+alias ezal='eza -F -bghM --smart-group --group-directories-first --color=always --color-scale --icons=always --no-quotes --hyperlink'
+alias ezall='eza -F -labghM --smart-group --group-directories-first --color=always --color-scale --icons=always --no-quotes --hyperlink --git --git-repos'
 alias exal='exa -laFbgh --group-directories-first --color=always --icons --color-scale'
 alias exall='exa -laFbgh --group-directories-first --color=always --icons --color-scale'
 alias ls='ls --group-directories-first --color=always --hyperlink'
@@ -26,6 +26,9 @@ alias ll=lllazy
 alias l=llazy
 
 alias lzd='lazydocker'
+alias dsp='docker system prune'
+alias dspa='dsp --all'
+alias dc='docker system prune'
 alias dc='docker compose'
 alias dcu='dc up -d'
 alias dcub='dcu --build'
