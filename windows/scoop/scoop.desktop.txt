@@ -64,7 +64,6 @@ msys2
 neovide
 neovim
 nmap
-nvm
 obsidian
 pe-bear
 powertoys

@@ -29,6 +29,7 @@ foreach ($oldvid in $oldvids) {
 
 ## TODO
 
+- `~/Documents/PowerShell/profile.ps1`
 - winget
   - `https://builds.parsec.app/package/parsec-windows.exe`
   - `Parsec.Parsec`
@@ -78,11 +79,11 @@ foreach ($oldvid in $oldvids) {
 ## Beyond Compare crack <https://gist.github.com/rise-worlds/5a5917780663aada8028f96b15057a67>
 
 ```powershell
-#rm "$env:appdata\Scooter Software\Beyond Compare 4\*.*" -Force -Confirm
-rm "$env:appdata\Scooter Software\Beyond Compare 4\BCState.xml" -Force -Confirm
-rm "$env:appdata\Scooter Software\Beyond Compare 4\BCState.xml.bak" -Force -Confirm
-#rm "$env:appdata\Scooter Software\Beyond Compare 4\BCSessions.xml" -Force -Confirm
-#rm "$env:appdata\Scooter Software\Beyond Compare 4\BCSessions.xml.bak" -Force -Confirm
+#Remove-Item "$env:appdata\Scooter Software\Beyond Compare 4\*.*" -Force -Confirm:$false
+Remove-Item "$env:appdata\Scooter Software\Beyond Compare 4\BCState.xml" -Force -Confirm:$false
+Remove-Item "$env:appdata\Scooter Software\Beyond Compare 4\BCState.xml.bak" -Force -Confirm:$false
+#Remove-Item "$env:appdata\Scooter Software\Beyond Compare 4\BCSessions.xml" -Force -Confirm:$false
+#Remove-Item "$env:appdata\Scooter Software\Beyond Compare 4\BCSessions.xml.bak" -Force -Confirm:$false
 reg delete "HKCU\Software\Scooter Software\Beyond Compare 4" /v "CacheID" /f
 ```
 

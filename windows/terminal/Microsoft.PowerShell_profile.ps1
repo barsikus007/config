@@ -57,6 +57,19 @@ Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory
 }).Milliseconds
 
 
+Debug-Log proto (Measure-Command {
+# proto & go
+$env:PROTO_HOME = Join-Path $HOME ".config" "proto"
+$env:GOBIN = Join-Path $HOME "go" "bin"
+$env:PATH = @(
+    (Join-Path $env:PROTO_HOME "shims"),
+    (Join-Path $env:PROTO_HOME "bin"),
+    $env:GOBIN,
+    $env:PATH
+) -join [IO.PATH]::PathSeparator
+}).Milliseconds
+
+
 Debug-Log aliases (Measure-Command {
 Set-Alias -Option AllScope cat bat
 Function Get-Full-History { cat (Get-PSReadlineOption).HistorySavePath -l powershell }
@@ -112,6 +125,7 @@ Debug-Log autocompletions (Measure-Command {
 Invoke-Expression (&scoop-search --hook)
 Import-Module "$($(Get-Item $(Get-Command scoop.ps1).Path).Directory.Parent.FullName)\modules\scoop-completion"
 Import-Module "gsudoModule"
+# Invoke-Expression (&proto completions)
 # https://github.com/microsoft/winget-cli/blob/master/doc/Completion.md
 Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
     param($wordToComplete, $commandAst, $cursorPosition)

@@ -193,5 +193,45 @@
         "command": "workbench.action.tasks.runTask",
         "args": "Run python file",
         "when": "taskCommandsRegistered"
+    },
+    {
+        "key": "ctrl+shift+l",
+        "command": "extension.python-printf1",
+        "when": "editorTextFocus && editorLangId == 'python'"
+    },
+    {
+        "key": "ctrl+shift+l",
+        "command": "-extension.python-printf1",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+shift+;",
+        "command": "-extension.python-printf2",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+shift+'",
+        "command": "-extension.python-printf3",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+shift+/",
+        "command": "-extension.python-printf5",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+shift+down",
+        "command": "-extension.python-print-commentdown",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+shift+up",
+        "command": "-extension.python-print-commentup",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+shift+alt+/",
+        "command": "-extension.python-print-deleteall",
+        "when": "editorTextFocus"
     }
 ]

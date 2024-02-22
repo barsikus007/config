@@ -14,37 +14,48 @@
     "editor.fontLigatures": true,
     "workbench.iconTheme": "vscode-icons",
     "window.autoDetectColorScheme":true,
+    "window.commandCenter": false,
     "workbench.preferredLightColorTheme": "Shades of Purple",
     "workbench.preferredDarkColorTheme": "Shades of Purple (Super Dark)",
     "workbench.colorTheme": "Shades of Purple (Super Dark)",
 
     // behavior
+    "window.restoreWindows": "preserve",
+    "window.openFilesInNewWindow": "default",
     // https://stackoverflow.com/a/70899027/15844518
     "window.openFoldersInNewWindow": "on",
     "files.autoSave": "afterDelay",
     "files.associations": {
         ".env*": "dotenv",
     },
+    "editor.cursorBlinking": "smooth",
+    "editor.stickyScroll.enabled": true,
     "editor.unicodeHighlight.allowedLocales": {
         "ru": true
     },
     "editor.foldingMaximumRegions": 50000,
-    "terminal.integrated.scrollback": 10000,
+    "terminal.integrated.scrollback": 100000,
 
     // telemetry
     "telemetry.telemetryLevel": "off",
+    "redhat.telemetry.enabled": false,
 
     // spam
     "vsicons.dontShowNewVersionMessage": true,
+    "gitlens.advanced.messages": {
+        "suppressCreatePullRequestPrompt": true
+    },
 
 
     // language specific
     // python
+    "python.analysis.autoFormatStrings": true,
+    "python.analysis.autoImportCompletions": true,
     "python.analysis.completeFunctionParens": true,
     "python.analysis.typeCheckingMode": "basic",
-    "python.analysis.autoFormatStrings": true,
+    "customFString1": "f\"⚡🐍 {variable=}\"",
     "mypy-type-checker.args": [
-        "--no-redef=false",
+        "--no-redef=false"
     ],
     //      uvicorn
     //      "--ignore-missing-imports",
@@ -107,45 +118,74 @@
     // },
 
     // javascript
+    "npm.packageManager": "pnpm",
     "[javascript]": {
         "editor.tabSize": 2,
         "editor.formatOnSave": true,
-        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
     },
     "[javascriptreact]": {
         "editor.tabSize": 2,
         "editor.formatOnSave": true,
-        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
     },
     "[typescript]": {
         "editor.tabSize": 2,
         "editor.formatOnSave": true,
-        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
     },
     "[typescriptreact]": {
         "editor.tabSize": 2,
         "editor.formatOnSave": true,
-        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
     },
     "[json]": {
         "editor.tabSize": 4,
         "editor.formatOnSave": true,
-        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
     },
     "[jsonc]": {
         "editor.tabSize": 4,
         "editor.formatOnSave": false,
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
     },
     "[graphql]": {
         "editor.tabSize": 2,
         "editor.formatOnSave": true,
-        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
     },
 
     // other
+    "[yaml]": {
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "[ignore]": {
+        "editor.defaultFormatter": "foxundermoon.shell-format"
+    },
+    "[properties]": {
+        "editor.defaultFormatter": "foxundermoon.shell-format"
+    },
+    "[jvmoptions]": {
+        "editor.defaultFormatter": "foxundermoon.shell-format"
+    },
+    "[hosts]": {
+        "editor.defaultFormatter": "foxundermoon.shell-format"
+    },
+    "[bat]": {
+        "editor.defaultFormatter": "foxundermoon.shell-format"
+    },
+    "[dockerfile]": {
+        "editor.defaultFormatter": "foxundermoon.shell-format"
+    },
     "[shellscript]": {
-        "editor.tabSize": 4
+        "editor.tabSize": 4,
+        "editor.defaultFormatter": "foxundermoon.shell-format"
+    },
+    "[nginx]": {
+        "editor.defaultFormatter": "raynigon.nginx-formatter"
+    },
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
     },
     "[markdown]": {
         "editor.tabSize": 2
@@ -182,4 +222,10 @@
     "sourcery.codeLens": false,
     // "markdownlint.run": "onSave",
     "markdown.extension.toc.updateOnSave": false,
+    // todo2
+    // default
+    "indentRainbow.ignoreLinePatterns":[
+        "/[ \t]* [*]/g",
+        "/[ \t]+[/]{2}/g"
+    ]
 }

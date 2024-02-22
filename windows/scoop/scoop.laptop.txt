@@ -51,9 +51,7 @@ mpv.net
 neovide
 neovim
 nmap
-nodejs-lts
 notepadplusplus
-nvm
 obs-studio
 posh-git
 powertoys

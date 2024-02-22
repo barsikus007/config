@@ -14,6 +14,42 @@
 
 ## Cross-platform
 
+### [proto](https://moonrepo.dev/proto)
+
+#### Use
+
+```bash
+# TODO test linux (gobin path)
+proto install go
+proto install node lts
+proto install pnpm
+# TODO bun windows
+# scoop bucket add versions
+# scoop install bun-canary
+proto install bun
+# TODO test tools
+# proto install python
+# proto install rust
+```
+
+#### Install
+
+##### Linux
+
+```bash
+curl -fsSL https://moonrepo.dev/install/proto.sh | PROTO_INSTALL_DIR=$XDG_CONFIG_HOME/proto/bin bash --no-profile
+```
+
+##### Windows
+
+```powershell
+$env:PROTO_INSTALL_DIR = "~\.config\proto\bin"
+# irm https://moonrepo.dev/install/proto.ps1 | iex
+& ([scriptblock]::Create((irm https://moonrepo.dev/install/proto.ps1))) --no-profile
+Remove-Item -Recurse ~/.proto
+# TODO add proto to scoop
+```
+
 ### Python
 
 #### pipx
@@ -88,7 +124,6 @@ hatch publish
 - create python venv alias (current python installation pyenv.cfg windows)
 - batcat mouse rock-ssh
 - piptool scoop??
-- <https://volta.sh/>
 - TOOL TODO ! (install windows soft with auto update from winget (think about config sync of that apps))
 - ask scoop maintaners about FAQ about tools with autoupdate
 - mkcd alias (mkdir + cd)

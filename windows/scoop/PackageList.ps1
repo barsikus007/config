@@ -35,7 +35,6 @@ mpv
 neovim
 neovide
 nmap
-nvm
 notepadplusplus
 obs-studio
 powertoys

@@ -34,10 +34,9 @@ if hash bat &> /dev/null; then
 fi
 export LESS="--mouse"
 
-# https://github.com/nvm-sh/nvm#install--update-script
 # https://www.shellcheck.net/wiki/SC2155
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+export PROTO_HOME=$XDG_CONFIG_HOME/proto
+export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH"
 
 # pipx, poetry, hatch autocomplete
 # TODO autocompletions resolver
