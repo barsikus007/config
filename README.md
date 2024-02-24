@@ -14,11 +14,43 @@
 
 ## Cross-platform
 
+### [Git config (`~/.gitconfig`)](https://git-scm.com/docs/git-config)
+
+```bash
+git config --global user.name barsikus007
+git config --global user.email barsikus07@gmail.com
+
+git config --global core.editor "code --wait"
+git config --global core.autocrlf input
+git config --global core.ignoreCase false
+
+git config --global init.defaultBranch master
+
+git config --global push.default current
+
+git config --global pull.rebase true
+
+git config --global merge.autoStash true
+
+git config --global rebase.autoStash true
+```
+
+#### [Signing](https://docs.github.com/en/authentication/managing-commit-signature-verification/displaying-verification-statuses-for-all-of-your-commits)
+
+[Upload key](https://github.com/settings/ssh/new)
+
+```bash
+git config --global user.signingKey ~/.ssh/id_ed25519.pub
+git config --global commit.gpgSign true
+git config --global gpg.format ssh
+```
+
 ### [proto](https://moonrepo.dev/proto)
 
 #### Use
 
 ```bash
+# TODO https://moonrepo.dev/docs/proto/commands/completions
 # TODO test linux (gobin path)
 proto install go
 proto install node lts
@@ -38,6 +70,7 @@ proto install bun
 
 ```bash
 curl -fsSL https://moonrepo.dev/install/proto.sh | PROTO_INSTALL_DIR=$XDG_CONFIG_HOME/proto/bin bash --no-profile
+rm -rf ~/.proto/
 ```
 
 ##### Windows
@@ -46,7 +79,7 @@ curl -fsSL https://moonrepo.dev/install/proto.sh | PROTO_INSTALL_DIR=$XDG_CONFIG
 $env:PROTO_INSTALL_DIR = "~\.config\proto\bin"
 # irm https://moonrepo.dev/install/proto.ps1 | iex
 & ([scriptblock]::Create((irm https://moonrepo.dev/install/proto.ps1))) --no-profile
-Remove-Item -Recurse ~/.proto
+Remove-Item -Recurse ~\.proto\
 # TODO add proto to scoop
 ```
 
@@ -145,30 +178,6 @@ hatch publish
   - shortcuts
   - sponsorblock
   - video-toggle
-- .gitconfig
-  - autocrlf values
-  - `git config --global user.name barsikus007`
-  - `git config --global user.email barsikus07@gmail.com`
-
-  - `git config --global core.editor "code --wait"`
-  - `git config --global core.autocrlf input`
-  - `git config --global core.ignoreCase false`
-
-  - `git config --global init.defaultBranch master`
-
-  - `git config --global push.default current`
-
-  - `git config --global pull.rebase true`
-
-  - `git config --global merge.autoStash true`
-
-  - `git config --global rebase.autoStash true`
-
-  - [signing](https://docs.github.com/en/authentication/managing-commit-signature-verification/displaying-verification-statuses-for-all-of-your-commits)
-    - `git config --global user.signingKey ~/.ssh/id_ed25519.pub`
-    - `git config --global commit.gpgSign true`
-    - `git config --global gpg.format ssh`
-    - [upload key](https://github.com/settings/ssh/new)
 - chmod +x executables in repo
 - browser sync bookmarks
 - new software
