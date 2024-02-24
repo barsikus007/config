@@ -7,7 +7,6 @@ anydesk
 apktool
 armcord
 audacity
-bat
 beyondcompare
 bind
 brave
@@ -28,7 +27,6 @@ ds4windows
 dupeguru
 everything
 exiftool
-eza
 ffmpeg
 firacode
 fzf
@@ -61,8 +59,6 @@ mitmproxy
 mpv
 mpv.net
 msys2
-neovide
-neovim
 nmap
 obsidian
 pe-bear

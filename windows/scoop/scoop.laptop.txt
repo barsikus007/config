@@ -5,7 +5,6 @@ Name
 adb
 anydesk
 audacity
-bat
 battery-care
 beyondcompare
 bind
@@ -25,7 +24,6 @@ dotnet-sdk
 ds4windows
 dupeguru
 everything
-eza
 ffmpeg
 firefox
 fzf
@@ -48,8 +46,6 @@ mendeley
 mingit
 mitmproxy
 mpv.net
-neovide
-neovim
 nmap
 notepadplusplus
 obs-studio

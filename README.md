@@ -185,7 +185,6 @@ hatch publish
     - <https://prismlauncher.org/download/>
     - <https://github.com/th-ch/youtube-music/releases/latest>
       - scoop install youtube-music
-  - ripgrep
   - dos2unix
   - <https://github.com/isacikgoz/tldr>
     - tldr go ?
@@ -212,7 +211,7 @@ hatch publish
       - bash
 - config system
   - fast installer
-  - <https://stackoverflow.com/questions/600079/how-do-i-clone-a-subdirectory-only-of-a-git-repository/52269934#52269934>
+    - <https://stackoverflow.com/questions/600079/how-do-i-clone-a-subdirectory-only-of-a-git-repository/52269934#52269934>
 - nvim config
   - nvim alias
   - <https://www.reddit.com/r/neovim/comments/oumljd/how_do_you_use_sudo_with_neovim_while_keeping_the/>
@@ -225,3 +224,6 @@ hatch publish
   - <https://github.com/alexey-goloburdin/nvim-config/blob/main/init.vim>
   - <https://github.com/LazyVim/LazyVim>
 - vscode export configs
+  - layout
+  - extensions
+  - profiles

@@ -152,8 +152,9 @@ sudo service docker start
 ### arch
 
 ```bash
-base="mc git btop ncdu tmux tree neovim neofetch"
+base="mc bat duf git btop neovim ripgrep"
+add="eza ncdu tmux tree neofetch"
 docker="docker docker-compose"
-sudo pacman -S $base $docker
+sudo pacman -S $base $add $docker
 sudo systemctl restart docker
 ```

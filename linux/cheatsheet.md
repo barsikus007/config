@@ -38,9 +38,10 @@ sudo systemctl restart ssh.service
 ### apt
 
 ```bash
-base="mc duf git btop ncdu tmux tree neovim neofetch"
+base="mc bat duf git btop neovim ripgrep"
+add="eza ncdu tmux tree neofetch"
 soft_to_purge="snapd"
-sudo apt install $base -y
+sudo apt install $base $add -y
 sudo apt purge $soft_to_purge -y
 # show installed https://askubuntu.com/q/2389
 apt-mark showmanual
@@ -91,9 +92,10 @@ export TMPFILE="$(mktemp)"; \
 #### Install default packages
 
 ```bash
-base="mc git eza btop ncdu tmux tree neovim neofetch"
+base="mc bat duf git btop neovim ripgrep"
+add="eza ncdu tmux tree neofetch"
 soft_to_purge="snapd"
-sudo pacman -S $base -y
+sudo pacman -S $base $add -y
 sudo pacman -Rsn $soft_to_purge -y
 ```
 

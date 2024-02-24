@@ -1,16 +1,22 @@
 $cli=@"
+#! scoop addons
 scoop-search scoop-completion
-duf eza bat pwsh z starship fzf psfzf
+
+#! base (git installed as mingit)
+mc bat duf btop neovim ripgrep neofetch
+#? btop-lhm VERY SLOW
+#! add
+eza
+#! pwsh specific
+pwsh z starship fzf psfzf
 clink clink-completions
+
 lazydocker
 #? curl psreadline
-btop
-#? btop-lhm VERY SLOW
 cmake
-ripgrep
 #! unix tools
-#? shim overrides
 busybox
+#? shim overrides
 uutils-coreutils
 which
 grep
@@ -19,7 +25,7 @@ less
 #? clink inject; clink autorun install
 
 $base=@"
-$tools
+$cli
 #? archwsl
 #? mitmproxy httptoolkit goodbyedpi
 #? android-studio pycharm-professional
@@ -32,13 +38,12 @@ ffmpeg
 hwinfo
 iperf3
 mpv
-neovim
 neovide
 nmap
 notepadplusplus
 obs-studio
 powertoys
-python
+python312
 qbittorrent
 rufus
 scrcpy
