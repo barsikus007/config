@@ -35,8 +35,12 @@ fi
 export LESS="--mouse"
 
 # https://www.shellcheck.net/wiki/SC2155
+# proto
 export PROTO_HOME=$XDG_CONFIG_HOME/proto
 export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH"
+# go
+export GOBIN="$HOME/go/bin"
+export PATH="$GOBIN:$PATH"
 
 # pipx, poetry, hatch autocomplete
 # TODO autocompletions resolver

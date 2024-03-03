@@ -51,7 +51,6 @@ git config --global gpg.format ssh
 
 ```bash
 # TODO https://moonrepo.dev/docs/proto/commands/completions
-# TODO test linux (gobin path)
 proto install go
 proto install node lts
 proto install pnpm
@@ -69,7 +68,7 @@ proto install bun
 ##### Linux
 
 ```bash
-curl -fsSL https://moonrepo.dev/install/proto.sh | PROTO_INSTALL_DIR=$XDG_CONFIG_HOME/proto/bin bash --no-profile
+curl -fsSL https://moonrepo.dev/install/proto.sh | PROTO_INSTALL_DIR=$XDG_CONFIG_HOME/proto/bin bash -s -- --no-profile
 rm -rf ~/.proto/
 ```
 
