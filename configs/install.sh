@@ -49,6 +49,7 @@
   add_to_bashrc '[ -z "$XDG_CONFIG_HOME" ] && export XDG_CONFIG_HOME="$HOME/.config"'
   # shellcheck disable=SC2016
   add_to_bashrc '[ -f "$XDG_CONFIG_HOME/bash/config.bash" ] && source $XDG_CONFIG_HOME/bash/config.bash'
+  sed -i 's/^HIST/# HIST/' ~/.bashrc
 )
 # shellcheck source=/dev/null
 source ~/.bashrc

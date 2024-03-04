@@ -29,12 +29,14 @@ fi
 if hash batcat &> /dev/null; then
   alias bat=batcat
   alias cat=bat
+  export MANROFFOPT="-c"
   export MANPAGER="sh -c 'col -bx | batcat -l man -p'"
   export PAGER=batcat
 fi
 if hash bat &> /dev/null; then
   unalias bat &> /dev/null
   alias cat=bat
+  export MANROFFOPT="-c"
   export MANPAGER="sh -c 'col -bx | bat -l man -p'"
   export PAGER=bat
 fi

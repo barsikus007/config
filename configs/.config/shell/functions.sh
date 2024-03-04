@@ -139,8 +139,6 @@ wps_attack() {  # TODO WIP
   )
 }
 
-
-
 demotoggle() {
   # demo toggle function (for dedicated key)
   # sudo sed -i 's/StartLimitInterval=200/StartLimitInterval=2/' /usr/lib/systemd/user/asusd-user.service && systemctl --user daemon-reload
