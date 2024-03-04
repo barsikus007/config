@@ -154,8 +154,8 @@ find . -type f -print0 | xargs -0 dos2unix -ic0 | xargs -0 dos2unix -b
 git ls-files | xargs dos2unix -ic0 | xargs dos2unix -b
 ```
 
-```bash
 ### [bleachbit clear](https://askubuntu.com/q/671798)
+
 ```bash
 sudo bleachbit --list | grep -E "[a-z0-9_\-]+\.[a-z0-9_\-]+" | grep -v system.free_disk_space | xargs sudo bleachbit --clean
 ```

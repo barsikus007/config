@@ -49,7 +49,7 @@ su $username
 ```bash
 rsa_file=filename
 ssh-keygen -t rsa -f $rsa_file -P ""
-ssh-copy-id -i $rsa_file.pub fox@foxxed.ru
+ssh-copy-id -i $rsa_file.pub user@host
 ```
 
 ### config sshd_config for security
@@ -126,7 +126,6 @@ sudo chown -R $USER:$USER /tank/storage/
 
 ```bash
 sudo zfs create -o com.sun:auto-snapshot=false tank/docker
-docker compose stop
 sudo service docker stop
 sudoedit /etc/docker/daemon.json
 'add theese lines
@@ -139,6 +138,16 @@ sudo ln -s /tank/docker /var/lib/docker
 sudo service docker start
 ```
 
+### SMB TODO
+
+```bash
+# sudo zfs get sharesmb tank/storage
+sudo zfs set nbmand=on tank/storage
+# sudo zfs share -o sharesmb=on tank/storage%storage
+sudo zfs share smb tank/storage%storage
+zfs get share.smb.all tank/storage%storage
+```
+
 ### TODO
 
 - maybe need to create docker service trigger on ZFS mount?
@@ -148,6 +157,17 @@ sudo service docker start
 - backup / and /boot volumes disk (emmc)
 
 ## tools
+
+### Docker
+
+```bash
+# install docker
+curl -sSL https://get.docker.com | sh
+# seems like it's not needed
+# sudo groupadd docker
+sudo usermod -aG docker $USER
+newgrp docker; exit
+```
 
 ### arch
 

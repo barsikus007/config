@@ -11,4 +11,7 @@ ExecStart=/home/user/go/bin/ytarchive -t -o '/home/user/streams/%i/%(title)s [%(
 [Install]
 WantedBy=default.target
 
-# vim /etc/systemd/system/ytarchive@.service
+# go install github.com/Kethsar/ytarchive@dev
+# nvim /etc/systemd/system/ytarchive@.service
+# :%s/user/$USER/g
+# sudo systemctl enable --now ytarchive@{channel1,channel2}.service

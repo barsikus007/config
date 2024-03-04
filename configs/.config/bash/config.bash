@@ -7,8 +7,8 @@ case $- in
       *) return;;
 esac
 
-export HISTSIZE=10000
-export HISTFILESIZE=10000
+export HISTSIZE=100000
+export HISTFILESIZE=100000
 if hash nvim &> /dev/null; then
   export EDITOR=nvim
 fi
@@ -24,8 +24,8 @@ fi
 if hash batcat &> /dev/null; then
   alias bat=batcat
   alias cat=bat
-  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-  export PAGER=bat
+  export MANPAGER="sh -c 'col -bx | batcat -l man -p'"
+  export PAGER=batcat
 fi
 if hash bat &> /dev/null; then
   alias cat=bat
