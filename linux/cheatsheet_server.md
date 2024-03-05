@@ -69,12 +69,27 @@ for param in {PermitRootLogin,PasswordAuthentication,ChallengeResponseAuthentica
 sudo systemctl reload sshd
 ```
 
+#### Ubuntu 22.10 or newer
+
+```bash
+# check files in /etc/ssh/sshd_config.d/
+sudo cat /etc/ssh/sshd_config.d/*
+# fix all confilting config in chat files or remove them
+sudo rm -rf /etc/ssh/sshd_config.d/
+# change ssh.socket config or follow `zcat /usr/share/doc/openssh-server/README.Debian.gz`
+sudo sed -i 's/^ListenStream=22$/ListenStream=2222/' /lib/systemd/system/ssh.socket
+sudo systemctl daemon-reload
+sudo systemctl restart ssh.socket
+sudo reboot
+```
+
 ## UTF-8
 
 ```bash
 locale
 locale -a
 # if not C.UTF-8 exists
+# Does C.UTF-8 needs to be generated?
 sudo apt install locales
 sudo locale-gen C.UTF-8 en_US.UTF-8
 sudo localectl set-locale C.UTF-8
@@ -104,8 +119,8 @@ sudo /sbin/modprobe zfs
   - `sudo apt install zfs-auto-snapshot -y`
 - Enable scrub timer
   - `sudo systemctl enable zfs-scrub-weekly@tank.timer`
-- Cron-based alternative (`0 3 * * * /sbin/zpool scrub tank`)
-  - `sudo crontab -l | cat - <(echo "0 3 * * * /sbin/zpool scrub tank") | sudo crontab -`
+  - Cron-based alternative (`0 3 * * * /sbin/zpool scrub tank`)
+    - `sudo crontab -l | cat - <(echo "0 3 * * * /sbin/zpool scrub tank") | sudo crontab -`
 
 ### Zpool setup
 
@@ -138,7 +153,7 @@ sudo ln -s /tank/docker /var/lib/docker
 sudo service docker start
 ```
 
-### SMB TODO
+### SMB TODO (OpenZFS doesn't have all options of vanilla ZFS)
 
 ```bash
 # sudo zfs get sharesmb tank/storage

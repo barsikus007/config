@@ -2,8 +2,8 @@
 
 ## Magisk Modules
 
-- [safetynet-fix](https://github.com/kdrag0n/safetynet-fix/releases)
-  - [safetynet-fix fix? (1.3)](https://github.com/Displax/safetynet-fix/releases)
+- [Play Integrity Fix](https://github.com/chiteroman/PlayIntegrityFix/releases)
+  - [Play Integrity Fork](https://github.com/osm0sis/PlayIntegrityFork/releases)
 - [LSPosed](https://github.com/LSPosed/LSPosed/releases)
 - [Monet Icons](https://github.com/Syoker/extra-themed-icons/releases)
 - [Noto Emoji PLUS](https://www.patreon.com/RKBDI) [[Telegram](https://t.me/rkbdiemoji)]
@@ -13,6 +13,8 @@
   - [Latest version (only RUS)](https://4pda.to/forum/index.php?showtopic=915158&view=findpost&p=121164720)
 - [~~AOSPMods~~ PixelXpert](https://github.com/siavash79/PixelXpert/releases)
   - Generate monet icons for launcher then disble this unstable thing
+    - Fix statusbar clock margins
+    - Can disable camera cutout
 - [HideNavBar](https://github.com/Magisk-Modules-Alt-Repo/HideNavBar/releases)
   - Immersive
   - Yes > Hide Pill and keep keyboard height/space
