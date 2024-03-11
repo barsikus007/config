@@ -20,7 +20,7 @@ if hash nvim &> /dev/null; then
 fi
 export SYSTEMD_EDITOR=$EDITOR
 
-PATH=$PATH:~/.local/bin
+export PATH=~/.local/bin:$PATH
 
 # https://starship.rs/guide/#🚀-installation
 if hash starship &> /dev/null; then

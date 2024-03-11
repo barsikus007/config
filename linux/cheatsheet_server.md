@@ -118,7 +118,7 @@ sudo /sbin/modprobe zfs
 - Add auto snapshot package
   - `sudo apt install zfs-auto-snapshot -y`
 - Enable scrub timer
-  - `sudo systemctl enable zfs-scrub-weekly@tank.timer`
+  - `sudo systemctl enable --now zfs-scrub-weekly@tank.timer`
   - Cron-based alternative (`0 3 * * * /sbin/zpool scrub tank`)
     - `sudo crontab -l | cat - <(echo "0 3 * * * /sbin/zpool scrub tank") | sudo crontab -`
 

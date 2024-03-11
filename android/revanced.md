@@ -9,21 +9,22 @@
 
 ## [YouTube](https://revanced.app/patches?pkg=com.google.android.youtube)
 
-### [APKMirror](https://www.apkmirror.com/apk/google-inc/youtube/youtube-18-45-43-release/#downloads:~:text=Android%208.0%2B-,nodpi,-All%20Releases)
+### [APKMirror](https://www.apkmirror.com/apk/google-inc/youtube/youtube-19.04.37-release/#downloads:~:text=Android%208.0%2B-,nodpi,-All%20Releases)
 
 ### Patches 21/62
 
-- 3.2.0
+- 4.3.0
   - Alternative thumbnails
+  - Always repeat
   - Bypass URL redirects
   - Client spoof
+  - Copy video URL
   - Disable player popup panels
   - Disable resuming Shorts on startup
   - External downloads
   - Hide ads
   - Minimized playback
   - Open links externally
-  - Premium heading
   - Remove tracking query parameter
   - Remove viewer discretion dialog
   - Restore old video quality menu
@@ -34,6 +35,7 @@
   - Hide get premium (removed)
   - Hide email address (removed)
   - Hide watermark (removed)
+  - Premium heading (removed)
   - ?
     - Enable slide to seek
     - Restore old seekbar thumbnails
@@ -68,10 +70,10 @@
 
 ### Patches 8/12
 
-- 3.2.0
+- 4.3.0
   - !GmsCore support (due to root)
   - !Compact header
   - !Permanent repeat
   - !Permanent shuffle
 
-## Updated 2024-01-03
+## Updated 2024-03-07

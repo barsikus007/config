@@ -178,7 +178,7 @@ sudo systemctl reload ydotool.service && sudo systemctl status ydotool.service
 ## Grub tweak
 
 ```bash
-sudo nvim /etc/default/grub
+sudoedit /etc/default/grub
 # ---
 GRUB_TIMEOUT=1
 GRUB_TIMEOUT_STYLE="hidden"
