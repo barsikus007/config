@@ -27,6 +27,12 @@ foreach ($oldvid in $oldvids) {
 }
 ```
 
+## QuickLook
+
+### [Used Plugins](https://github.com/QL-Win/QuickLook/wiki/Available-Plugins)
+
+- [stl](https://github.com/jeremyhart/QuickLook.Plugin.HelixViewer/releases)
+
 ## TODO
 
 - `~/Documents/PowerShell/profile.ps1`

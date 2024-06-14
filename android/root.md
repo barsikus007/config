@@ -3,6 +3,7 @@
 ## Magisk Modules
 
 - [Play Integrity Fix](https://github.com/chiteroman/PlayIntegrityFix/releases)
+  - [playcurl](https://github.com/daboynb/PlayIntegrityNEXT/releases)
   - [Play Integrity Fork](https://github.com/osm0sis/PlayIntegrityFork/releases)
 - [LSPosed](https://github.com/LSPosed/LSPosed/releases)
 - [Monet Icons](https://github.com/Syoker/extra-themed-icons/releases)
@@ -11,7 +12,7 @@
 - [BCR](https://github.com/chenxiaolong/BCR/releases)
 - [DriveDroid](https://github.com/overzero-git/DriveDroid-fix-Magisk-module)
   - [Latest version (only RUS)](https://4pda.to/forum/index.php?showtopic=915158&view=findpost&p=121164720)
-- [~~AOSPMods~~ PixelXpert](https://github.com/siavash79/PixelXpert/releases)
+- [PixelXpert](https://github.com/siavash79/PixelXpert/releases)
   - Generate monet icons for launcher then disble this unstable thing
     - Fix statusbar clock margins
     - Can disable camera cutout

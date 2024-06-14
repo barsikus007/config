@@ -90,6 +90,10 @@ Remove-Item -Recurse ~\.proto\
 # install
 python3 -m pip install --upgrade pip setuptools wheel
 python3 -m pip install --user pipx
+# or
+python3 -m pip install --user pipx-in-pipx
+# or
+# use apt scoop or etc PM
 python3 -m pipx ensurepath
 # TODO rm /mnt/c/users/admin/appdata/roaming/python/python312/scripts/register-python-argcomplete
 pipx install hatch
@@ -115,8 +119,20 @@ hatch build
 hatch publish
 ```
 
+#### [hatch sync env](https://github.com/pypa/hatch/discussions/594#discussioncomment-4377827)
+
+```bash
+hatch run true
+```
+
+### Docker Desktop Extensions
+
+- Ddosify
+- Disk usage
+
 ### TODO
 
+- [check every minor release](https://github.com/astral-sh/uv) (next is 0.2)
 - alias to ptpython
 - linux alternative to py
 - pycharm settings sync

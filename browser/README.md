@@ -27,6 +27,8 @@ mail.yandex.ru##main.mail-Layout-Content > div:nth-of-type(2)
 
 - Flag for faster downloads
   - <edge://flags/#enable-parallel-downloading> -> `Enabled`
+- Flag for QUIC protocol
+  - <edge://flags/#enable-quic> -> `Enabled`
 - [Fix for workspaces sidebar](https://answers.microsoft.com/en-us/microsoftedge/forum/all/how-to-remove-the-edge-sidebar-from-edge-workspace/bde1ede5-12a3-4f99-ac16-50b0f9878054?page=5)
   - <edge://flags/#edge-workspaces-skype-entry-point> -> `Enabled Hub chat icon`
 

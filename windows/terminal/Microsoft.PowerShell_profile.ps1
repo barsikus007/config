@@ -115,7 +115,7 @@ Function dcsh { dce $args sh -c 'bash || sh' }
 Function pyvcr { python3 -m venv .venv --upgrade-deps && .venv/Scripts/python -c "import sys,pathlib;v=sys.version_info;pyv=f'{v.major}.{v.minor}';path=pathlib.Path('.venv/pyvenv.cfg');path.write_text(path.read_text(encoding='utf-8').replace(f'{v.major}.{v.minor}.{v.micro}',pyv).replace(f'{pyv}\\','current\\'),encoding='utf-8')" && .venv/Scripts/Activate.ps1 && .venv/Scripts/pip install -r requirements.txt }
 Function pyv { .venv/Scripts/Activate.ps1 || (pyvcr) }
 Function pyt { ptpython --asyncio }
-Function pypi { python -c "import os;os.environ['VIRTUAL_ENV']" && pip install -r requirements.txt || echo "activate venv to install requirements" }
+Function pipi { python -c "import os;os.environ['VIRTUAL_ENV']" && pip install -r requirements.txt || echo "activate venv to install requirements" }
 
 Function sex { explorer.exe . }
 }).Milliseconds
@@ -137,3 +137,8 @@ Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
         }
 }
 }).Milliseconds
+
+#34de4b3d-13a8-4540-b76d-b9e8d3851756 PowerToys CommandNotFound module
+
+Import-Module "D:\scoop\apps\powertoys\current\WinUI3Apps\..\WinGetCommandNotFound.psd1"
+#34de4b3d-13a8-4540-b76d-b9e8d3851756
