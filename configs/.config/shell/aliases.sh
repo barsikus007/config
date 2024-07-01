@@ -5,15 +5,15 @@ alias sudo='sudo '
 alias xargs='xargs '
 
 alias grp='grep -Fin -C 7'
-alias c='clear'
-alias h='history'
+alias c=clear
+alias h=history
 alias hf='h | grp'
 
 # package managers and updaters
 # TODO u functions which will resolve all
 alias uu='sudo apt update && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt clean'
 alias uuu='sudo nala update && sudo nala upgrade -y && sudo nala autoremove -y && sudo nala clean'
-alias u='uu'
+alias u=uu
 alias pacman='pacman --color always'
 alias cu='cd ~/config/ && git pull && ./configs/install.sh && cd -'
 alias lzdu='curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash'
@@ -26,7 +26,8 @@ alias ls='ls --group-directories-first --color=always --hyperlink'
 alias ll=lllazy
 alias l=llazy
 
-alias lzd='lazydocker'
+# docker
+alias lzd=lazydocker
 alias dsp='docker system prune'
 alias dspa='dsp --all'
 alias dc='docker system prune'

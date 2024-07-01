@@ -106,7 +106,7 @@ diff -durN zfs-2.2.2.orig/module/os/linux/zfs/zfs_ioctl_os.c zfs-2.2.2/module/os
 OPENZFS_VERSION="2.2.2"
 git clone --branch zfs-${OPENZFS_VERSION} https://github.com/openzfs/zfs zfs-${OPENZFS_VERSION}
 cd zfs-${OPENZFS_VERSION}/
-vim zfs.patch
+editor zfs.patch
 git apply zfs.patch
 
 # build
@@ -146,7 +146,7 @@ sudo apt install smartmontools -y
 ## Old Ubuntu-20.04-linux-4.19 setup
 
 ```bash
-sudo vim /etc/apt/sources.list.d/apt-radxa-com.list
+sudoedit /etc/apt/sources.list.d/apt-radxa-com.list
 sudo apt update && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt clean
 sudo cat /sys/class/thermal/thermal_zone*/temp
 sudo apt install linux-4.19-rock-3-latest rockchip-overlay

@@ -10,6 +10,8 @@
 
 `cd ~/config/ && git pull && ./configs/install.sh && cd -`
 
+`setup_ubuntu TODO`
+
 ## [Command Cheat Sheet](cheatsheet.md)
 
 ## [WSL Hints](wsl.md)

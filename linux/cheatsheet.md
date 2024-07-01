@@ -25,7 +25,7 @@ ssh server
 ### Allow port forward ssh
 
 ```bash
-vim /etc/ssh/sshd_config
+editor /etc/ssh/sshd_config
 # ---
 AllowTcpForwarding yes
 GatewayPorts yes
@@ -38,11 +38,6 @@ sudo systemctl restart ssh.service
 ### apt
 
 ```bash
-base="mc bat duf git btop neovim ripgrep"
-add="eza ncdu tmux tree neofetch"
-soft_to_purge="snapd"
-sudo apt install $base $add -y
-sudo apt purge $soft_to_purge -y
 # show installed https://askubuntu.com/q/2389
 apt-mark showmanual
 # or better
@@ -87,16 +82,6 @@ export TMPFILE="$(mktemp)"; \
     rate-mirrors --save=$TMPFILE arch --max-delay=43200 \
       && sudo mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist-backup \
       && sudo mv $TMPFILE /etc/pacman.d/mirrorlist
-```
-
-#### Install default packages
-
-```bash
-base="mc bat duf git btop neovim ripgrep"
-add="eza ncdu tmux tree neofetch"
-soft_to_purge="snapd"
-sudo pacman -S $base $add -y
-sudo pacman -Rsn $soft_to_purge -y
 ```
 
 ### rust

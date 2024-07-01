@@ -28,7 +28,7 @@ network={
 ### [Bluetooth stealth mode](https://stackoverflow.com/a/67193246/15844518)
 
 ```bash
-sudo vim /etc/systemd/system/bluetooth.target.wants/bluetooth.service
+sudoedit /etc/systemd/system/bluetooth.target.wants/bluetooth.service
 
 ExecStart=/usr/libexec/bluetooth/bluetoothd --noplugin=hostname
 

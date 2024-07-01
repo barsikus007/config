@@ -89,13 +89,14 @@ if (Test-Command eza) {
     Set-Alias -Option AllScope ls eza
     # TODO fix command args
     Function l { eza -F -bghM --smart-group --group-directories-first --color=auto --color-scale --icons=always --no-quotes --hyperlink $args }
-    Function ll { eza -F -labghM --smart-group --group-directories-first --color=auto --color-scale --icons=always --no-quotes --hyperlink --git --git-repos $args }
+    Function ll { eza -F -labghM --smart-group --group-directories-first --color=auto --color-scale --icons=always --no-quotes --hyperlink $args }
 }
 Function u { suss | scoop update * }
 
 Function cu { cd ~/config/ && git pull && ./configs/install.ps1 && ./windows/pwsh.ps1 && cd - }
 
 Function lzd { lazydocker }
+Set-Alias -Option AllScope cd z
 
 Function dc { docker compose $args }
 Function dsp { docker system prune $args }
@@ -125,7 +126,8 @@ Debug-Log autocompletions (Measure-Command {
 Invoke-Expression (&scoop-search --hook)
 Import-Module "$($(Get-Item $(Get-Command scoop.ps1).Path).Directory.Parent.FullName)\modules\scoop-completion"
 Import-Module "gsudoModule"
-# Invoke-Expression (&proto completions)
+Invoke-Expression (& { (proto completions | Out-String) })
+Invoke-Expression (& { (zoxide init powershell | Out-String) })
 # https://github.com/microsoft/winget-cli/blob/master/doc/Completion.md
 Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
     param($wordToComplete, $commandAst, $cursorPosition)

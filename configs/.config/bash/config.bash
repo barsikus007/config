@@ -16,6 +16,7 @@ esac
 
 if hash nvim &> /dev/null; then
   export EDITOR=nvim
+  export VISUAL=nvim
   export MANPAGER='nvim +Man!'
 fi
 export SYSTEMD_EDITOR=$EDITOR
@@ -46,6 +47,18 @@ export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH"
 # go
 export GOBIN="$HOME/go/bin"
 export PATH="$GOBIN:$PATH"
+
+# ubuntu 2204 moment
+# eval "$(fzf --bash)"
+source /usr/share/doc/fzf/examples/key-bindings.bash
+# source /usr/share/doc/fzf/examples/completion.bash
+source /usr/share/bash-completion/completions/fzf
+
+if hash zoxide &> /dev/null; then
+  eval "$(zoxide init bash)"
+  alias cd=z
+fi
+
 
 # pipx, poetry, hatch autocomplete
 # TODO autocompletions resolver
