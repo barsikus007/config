@@ -9,7 +9,9 @@ $SCOOP_HOME = $(If (Test-Path env:SCOOP) { $env:SCOOP } Else { $env:GIT_INSTALL_
 Write-Host "Detected scoop home: $SCOOP_HOME"
 
 Write-Host "Installing config files for scoop apps..."
+Write-Host "btop"
 New-Item -ItemType SymbolicLink -Value $HOME\.config\btop\btop.conf -Path $SCOOP_HOME\persist\btop\btop.conf -Force | Out-Null
+Write-Host "mpv"
 New-Item -ItemType SymbolicLink -Value $HOME\.config\mpv\mpv.conf -Path $SCOOP_HOME\persist\mpv\portable_config\mpv.conf -Force | Out-Null
 New-Item -ItemType SymbolicLink -Value $HOME\.config\mpv\input.conf -Path $SCOOP_HOME\persist\mpv\portable_config\input.conf -Force | Out-Null
 New-Item -ItemType SymbolicLink -Value $HOME\.config\mpv\scripts\ -Path $SCOOP_HOME\persist\mpv\portable_config\scripts\ -Force | Out-Null

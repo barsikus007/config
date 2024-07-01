@@ -1,7 +1,7 @@
 input_bindings = """"""  # paste here from https://github.com/mpv-player/mpv/blob/master/etc/input.conf
 
-eng = """QWERTYUIOP{}ASDFGHJKL:"ZXCVBNM<>?qwertyuiop[]asdfghjkl;"zxcvbnm,./"""
-rus = """ЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ,йцукенгшщзхъфывапролджэячсмитьбю."""
+eng = """~QWERTYUIOP{}ASDFGHJKL:"ZXCVBNM<>?`qwertyuiop[]asdfghjkl;"zxcvbnm,./"""
+rus = """ЁЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ,ёйцукенгшщзхъфывапролджэячсмитьбю."""
 for line in input_bindings.splitlines():
     if not line.startswith("#"):
         continue

@@ -6,7 +6,7 @@
   - disable "Umount modules by default"
 - Essential
   - [Zygisk**Next**](https://github.com/Dr-TSNG/ZygiskNext/releases)
-  - [LSPosed](https://github.com/LSPosed/LSPosed/releases)
+  - [LSPosed mod](https://github.com/mywalkb/LSPosed_mod/releases)
     - /data/adb/lspd/config
 - Hiding root
   - [Zygisk-Assistant](https://github.com/snake-4/Zygisk-Assistant/releases)
@@ -28,8 +28,8 @@
     - Then disble this unstable thing
     - Other useful fixes
       - Can disable camera cutout
-    - [canary](https://github.com/siavash79/PixelXpert/releases/tag/canary_builds)
   - [HideNavBar](https://github.com/Magisk-Modules-Alt-Repo/HideNavBar/releases)
+    - !dont used
     - !setup is outdated
     - Immersive
     - Yes > Hide Pill and keep keyboard height/space
