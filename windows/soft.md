@@ -13,7 +13,6 @@
 - [Shadow Defender](http://www.shadowdefender.com/download/Setup.exe)
   - VMACN-4MA3W-S4RHY-5HYT4-GZNN4
 - [Virtual Monitor](https://www.amyuni.com/forum/viewtopic.php?t=3030)
-- [Nearby Share](https://android.com/better-together/nearby-share-app/)
 
 ## Office
 
@@ -62,10 +61,10 @@ winget upgrade --accept-source-agreements
 ```
 
 - Docker.DockerDesktop
-- Mozilla.Firefox
 - Parsec.Parsec
-- Nvidia.RTXVoice
 - SandboxiePlus.SandboxieClassic
+- Jigsaw.OutlineManager
+- Google.QuickShare
 - WireGuard.WireGuard
 
 ```powershell
@@ -80,15 +79,10 @@ sudo winget install --id=Microsoft.VisualStudio.2022.BuildTools -e --override '-
 // scoop probably broken
 
 - AnyDeskSoftwareGmbH.AnyDesk
-- Mozilla.Firefox
-- Opera.Opera
 - Microsoft.PowerToys
-- Python.Python.3
 - qBittorrent.qBittorrent
 - ShareX.ShareX
-- Telegram.TelegramDesktop
 - TorProject.TorBrowser
-- powertoys
 - quicklook
 
 ### GAMES
@@ -114,13 +108,11 @@ sudo winget install --id=Microsoft.VisualStudio.2022.BuildTools -e --override '-
 - OsirisDevelopment.BatteryBar
 - Nvidia.CUDA
 - Nvidia.GeForceExperience
+- Nvidia.RTXVoice
 
 // scoop probably broken
 
 - IrfanSkiljan.IrfanView
 - Oracle.JavaRuntimeEnvironment
 - KDE.KDEConnect
-- Notion.Notion
-- SlackTechnologies.Slack
-- Termius.Termius
 - JetBrains.Toolbox
