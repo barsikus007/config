@@ -3,12 +3,12 @@ $cli=@"
 scoop-search scoop-completion
 
 #! base (git installed as mingit)
-mc bat duf btop neovim ripgrep neofetch
+fd mc bat duf fzf btop neovim zoxide ripgrep
 #? btop-lhm VERY SLOW
 #! add
-eza
-#! pwsh specific
-pwsh z starship fzf psfzf
+eza neofetch
+#! pwsh/cmd specific
+pwsh posh-git psfzf starship
 clink clink-completions
 
 lazydocker
@@ -26,17 +26,25 @@ less
 
 $base=@"
 $cli
+#? armcord
 #? archwsl
+#? mpv.net
 #? mitmproxy httptoolkit goodbyedpi
-#? android-studio pycharm-professional
-adb
+#? jetbrains-toolbox android-studio pycharm-professional
+adb@33.0.3
+adb@34.0.5
 anydesk
 audacity
+ayugram
 beyondcompare
 brave
+dbeaver
+dupeguru
+everything
 ffmpeg
-hwinfo
+handbrake
 iperf3
+keepassxc
 mpv
 neovide
 nmap
@@ -44,12 +52,14 @@ notepadplusplus
 obs-studio
 powertoys
 python312
-qbittorrent
+qbittorrent@4.1.9.1
+qbittorrent@4.3.9
+quicklook
+remove-empty-directories
 rufus
 scrcpy
 screentogif
-sharex
-telegram
+ventoy
 vscode
 winscp
 wiztree
@@ -63,21 +73,66 @@ battery-care
 "@
 
 $gaming=@"
+#? msiafterburner steamcmd
+cheat-engine
 ds4windows
-#? msiafterburner steamcmd cheat-engine
+graalvm
+graalvm-oracle-jdk
+graalvm20-jdk8
+prismlauncher
 "@
 
 
-$other=@"
-
+$bench=@"
+cpu-z
 crystaldiskinfo
 crystaldiskmark
+gpu-z
+hwinfo
+"@
+
+$sort=@"
+#! both
+bind
+ddu
+gimp
+hxd
+irfanview
+lessmsi
+touch
+#! laptop
+cuda
+cura
+firefox
+git-filter-repo
+hashcat
+qemu
+sharex
+sharpkeys
+sophiapp
+tldr
+#! soft
+apktool
+cmake
+curl
+dismplusplus
+exiftool
+gcc
+jd-gui
+jexiftoolgui
+make
+obsidian
+pe-bear
+sysinternals
+tor-browser
+wireshark
+x64dbg
+yazi
 "@
 
 # # UNUSED
 # camo-studio
 # opera
-# openjdk18
 # pshazz
 # poetry
 
@@ -88,8 +143,4 @@ crystaldiskmark
 # tesseract
 # tesseract-languages
 
-# # HELD
-# adb 33.0.3
-# hwinfo 7.42-5030
-# unrar 6.21
 Write-Host $base

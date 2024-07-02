@@ -10,7 +10,7 @@ Write-Host "Fonts for terminal"
 scoop bucket add nerd-fonts
 scoop install sudo
 # scoop install gsudo
-sudo scoop install delugia-nerd-font-complete
+sudo scoop install Delugia-Nerd-Font-Complete
 
 Write-Host "System apps"
 # system

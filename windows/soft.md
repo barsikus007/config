@@ -94,18 +94,8 @@ sudo winget install --id=Microsoft.VisualStudio.2022.BuildTools -e --override '-
 - Ubisoft.Connect
 - DolphinEmulator.Dolphin
 
-### BENCH
-
-// scoop probably broken
-
-- CPUID.CPU-Z
-- CrystalDewWorld.CrystalDiskInfo
-- CrystalDewWorld.CrystalDiskMark
-- TechPowerUp.GPU-Z
-
 ### OTHER
 
-- OsirisDevelopment.BatteryBar
 - Nvidia.CUDA
 - Nvidia.GeForceExperience
 - Nvidia.RTXVoice
@@ -114,5 +104,4 @@ sudo winget install --id=Microsoft.VisualStudio.2022.BuildTools -e --override '-
 
 - IrfanSkiljan.IrfanView
 - Oracle.JavaRuntimeEnvironment
-- KDE.KDEConnect
 - JetBrains.Toolbox
