@@ -49,6 +49,7 @@ mail.yandex.ru##main.mail-Layout-Content > div:nth-of-type(2)
 - TODO
   - <https://extensions.xenorio.xyz/list/tubetweaks>
   - <https://github.com/dessant/ping-blocker>
+  - <https://github.com/BrowserBoost/Extension>
 
 ## Dev Tools console
 

@@ -74,9 +74,9 @@ sudo systemctl reload sshd
 ```bash
 # check files in /etc/ssh/sshd_config.d/
 sudo cat /etc/ssh/sshd_config.d/*
-# fix all confilting config in chat files or remove them
+# fix all confilting config in that files or remove them
 sudo rm -rf /etc/ssh/sshd_config.d/
-# change ssh.socket config or follow `zcat /usr/share/doc/openssh-server/README.Debian.gz`
+# change ssh.socket config or follow `vim /usr/share/doc/openssh-server/README.Debian.gz`
 sudo sed -i 's/^ListenStream=22$/ListenStream=2222/' /lib/systemd/system/ssh.socket
 sudo systemctl daemon-reload
 sudo systemctl restart ssh.socket

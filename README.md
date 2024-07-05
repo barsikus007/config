@@ -176,6 +176,7 @@ hatch run true
   - [check every minor release](https://github.com/astral-sh/uv) (next is 0.2)
   - alias to ptpython
   - linux alternative to py
+  - autoactivate venvs
 - terminal shit
   - batcat mouse rock-ssh
   - where which alias (and omit exe for windows)

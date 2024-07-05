@@ -5,6 +5,45 @@ wsl --install
 wsl --update
 ```
 
+## [config](https://learn.microsoft.com/en-us/windows/wsl/wsl-config#main-wsl-settings)
+
+### Windows `~/.wslconfig`
+
+```conf
+[wsl2]
+##memory=8GB
+networkingMode=mirrored
+dnsTunneling=true
+autoProxy=true
+
+[experimental]
+autoMemoryReclaim=gradual
+sparseVhd=true
+##ignoredPorts=1234,5678
+hostAddressLoopback=true
+```
+
+### `/etc/wsl.conf`
+
+```conf
+[boot]
+systemd=true
+```
+
+#### [systemd fix](https://github.com/microsoft/vscode/issues/157275#issuecomment-1890408573)
+
+`loginctl enable-linger $(whoami)`
+
+### sparse
+
+```pwsh
+wsl --manage Ubuntu --set-sparse true
+
+wsl --manage docker-desktop --set-sparse true
+
+wsl --manage docker-desktop-data --set-sparse true
+```
+
 ## [WSLg 120+ fps](https://github.com/microsoft/wslg/wiki/Controlling-WSLg-frame-rate)
 
 `C:\ProgramData\Microsoft\WSL\.wslgconfig`
