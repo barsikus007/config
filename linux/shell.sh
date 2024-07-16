@@ -19,11 +19,12 @@ ln -s /usr/bin/batcat ~/.local/bin/bat
 python3 -m pip install --user pipx
 python3 -m pipx ensurepath
 pipx install hatch
-pipx install poetry
+pipx install pdm
 
 {
   register-python-argcomplete pipx;
-  poetry completions bash;
+  pdm completion bash;
   _HATCH_COMPLETE=bash_source hatch;
   starship completions bash;
 } >> ~/.bash_completion
+# pdm completion bash > /etc/bash_completion.d/pdm.bash-completion

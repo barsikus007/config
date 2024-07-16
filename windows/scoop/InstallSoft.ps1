@@ -8,8 +8,9 @@ scoop install 7zip innounp dark
 
 Write-Host "Fonts for terminal"
 scoop bucket add nerd-fonts
-scoop install sudo
-# scoop install gsudo
+scoop install gsudo
+#! old one
+# scoop install sudo
 sudo scoop install Delugia-Nerd-Font-Complete
 
 Write-Host "System apps"

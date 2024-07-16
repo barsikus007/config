@@ -134,7 +134,6 @@ yazi
 # camo-studio
 # opera
 # pshazz
-# poetry
 
 # # BOT
 # gifsicle

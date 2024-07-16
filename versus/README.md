@@ -6,6 +6,7 @@ My opinion to different things
 - [Opera vs Other](pages/opera-other.md)
 - yandex vs google
 - english vs russian UI
+- gpt vs copilot
 
 ## Notes
 

@@ -96,14 +96,13 @@ python3 -m pip install --user pipx-in-pipx
 # use apt scoop or etc PM
 python3 -m pipx ensurepath
 # TODO rm /mnt/c/users/admin/appdata/roaming/python/python312/scripts/register-python-argcomplete
+pipx install uv
+pipx install pdm
 pipx install hatch
-pipx install poetry
 # hatch config
 hatch config set dirs.env.virtual .venv
 hatch config set template.licenses.headers false
 hatch config set terminal.styles.spinner material
-# poetry config
-# TODO
 pipx install ptpython
 # pipx inject ptpython ipython
 pipx install git+https://github.com/vypivshiy/ani-cli-ru@dev

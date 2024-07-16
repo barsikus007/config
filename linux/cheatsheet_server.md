@@ -184,6 +184,15 @@ sudo usermod -aG docker $USER
 newgrp docker; exit
 ```
 
+#### Watchtower
+
+```bash
+docker run -d \
+--name watchtower \
+-v /var/run/docker.sock:/var/run/docker.sock \
+containrrr/watchtower --cleanup --remove-volumes
+```
+
 ### arch
 
 ```bash
