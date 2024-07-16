@@ -168,15 +168,14 @@ hatch run true
 - pycharm settings sync
 - obs quick replay (import scenes)
 - python
-  - black conf
   - .editorconfig conf
   - alias pip='pip --require-virtualenv'
   - create python venv alias (current python installation pyenv.cfg windows)
-  - piptool scoop??
-  - [check every minor release](https://github.com/astral-sh/uv) (next is 0.2)
+  - [check every minor release](https://github.com/astral-sh/uv) (next is 0.3)
   - alias to ptpython
   - linux alternative to py
   - autoactivate venvs
+    - zsh and virtualenvwrapper
 - terminal shit
   - batcat mouse rock-ssh
   - where which alias (and omit exe for windows)
@@ -185,7 +184,6 @@ hatch run true
   - <https://github.com/MatthewPierson/Divise>
   - <https://www.youtube.com/watch?v=_owhlPukE_A>
   - <https://dualbootfun.github.io/dualboot/>
-- chmod +x executables in repo
 - find tool
   - browser sync bookmarks and history tool
 - new software

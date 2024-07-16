@@ -15,8 +15,9 @@ confirm() {
 }
 
 soft_envs() {
-  soft_base="fd mc bat duf git fzf btop curl wget neovim zoxide ripgrep"
-  # make bzip2
+  soft_unix="git curl wget"
+  soft_base="mc bat duf fzf btop neovim zoxide ripgrep"
+  # fd make bzip2
   soft_add="eza ncdu tmux tree neofetch"
   soft_add_ubuntu="nala build-essential software-properties-common"
   soft_to_purge="snapd"
@@ -24,6 +25,7 @@ soft_envs() {
 
 setup_linux() {
   (
+    echo "Setting up neovim shims..."
     for role in editor vi vim; do
       sudo update-alternatives --set $role "$(which nvim)"
     done
@@ -37,7 +39,7 @@ setup_linux() {
 setup_ubuntu() {
   (
     soft_envs
-    echo "Installing nala and $soft_base $soft_add $soft_add_ubuntu..."
+    echo "Installing nala and $soft_unix $soft_base $soft_add $soft_add_ubuntu..."
     sudo apt install nala && \
     uuu && \
     sudo nala install $soft_base $soft_add $soft_add_ubuntu -y

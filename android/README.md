@@ -30,10 +30,6 @@
 
 - Design and Tweak Mods
   - <https://github.com/Mahmud0808/Iconify>
-  - <https://github.com/Kingsman44/Pixelify>
-- Pixel 1 infinity photo
-  - [nexus.xml](https://4pda.to/forum/index.php?s=&showtopic=915369&view=findpost&p=112909048)
-  - Magisk module
 
 #### DEPRECATED
 

@@ -47,6 +47,8 @@
   - Silent notifications
 - [DriveDroid](https://github.com/overzero-git/DriveDroid-fix-Magisk-module/releases)
   - [Latest version (only RUS)](https://4pda.to/forum/index.php?showtopic=915158&view=findpost&p=121164720)
+- [Pixelify](https://github.com/Kingsman44/Pixelify)
+  - [Google-Photos-Unlimited-backup Submodule](https://www.pling.com/p/2004615/)
 
 ## LSPosed Modules
 

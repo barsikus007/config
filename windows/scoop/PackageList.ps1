@@ -2,8 +2,9 @@ $cli=@"
 #! scoop addons
 scoop-search scoop-completion
 
-#! base (git installed as mingit)
-fd mc bat duf fzf btop neovim zoxide ripgrep
+#! base
+mc bat duf fzf btop neovim zoxide ripgrep
+#? fd curl wget
 #? btop-lhm VERY SLOW
 #! add
 eza neofetch
