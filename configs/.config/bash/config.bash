@@ -55,18 +55,14 @@ source /usr/share/doc/fzf/examples/key-bindings.bash
 source /usr/share/bash-completion/completions/fzf
 
 if hash zoxide &> /dev/null; then
-  eval "$(zoxide init bash)"
-  alias cd=z
+  eval "$(zoxide init --cmd cd bash)"
 fi
 
 
-# pipx, poetry, hatch autocomplete
+# pipx, pdm, hatch autocomplete
 # TODO autocompletions resolver
 # if hash register-python-argcomplete &> /dev/null; then
 #   eval "$(register-python-argcomplete pipx)"
-# fi
-# if hash poetry &> /dev/null; then
-#   eval "$(poetry completions bash)"
 # fi
 # if hash hatch &> /dev/null; then
 #   eval "$(_HATCH_COMPLETE=bash_source hatch)"
@@ -74,6 +70,6 @@ fi
 # or
 # {
 #   register-python-argcomplete pipx;
-#   poetry completions bash;
+#   pmd completion bash;
 #   _HATCH_COMPLETE=bash_source hatch;
 # } >> ~/.bash_completion

@@ -51,6 +51,15 @@ starship completions powershell | Out-String | Invoke-Expression
 Set-PSReadLineOption -PredictionSource History
 # Set-PSReadlineOption -EditMode Vi
 # Set-PSReadlineOption -EditMode Emacs
+# https://stackoverflow.com/a/62936536/15844518
+Set-PSReadLineOption -AddToHistoryHandler {
+    param($command)
+    if ($command -like ' *') {
+        return $false
+    }
+    # Add any other checks you want
+    return $true
+}
 Set-PSReadlineKeyHandler -Key ctrl+d -Function DeleteCharOrExit
 # Set-PSReadLineKeyHandler -Key Tab -ScriptBlock { Invoke-FzfTabCompletion }  # TODO bugged
 Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
@@ -127,8 +136,7 @@ Import-Module "$($(Get-Item $(Get-Command scoop.ps1).Path).Directory.Parent.Full
 Import-Module "gsudoModule"
 Invoke-Expression (& { (proto completions | Out-String) })
 if (Test-Command zoxide) {
-    Invoke-Expression (& { (zoxide init powershell | Out-String) })
-    Set-Alias -Option AllScope cd z
+    Invoke-Expression (& { (zoxide init --cmd cd powershell | Out-String) })
 }
 # https://github.com/microsoft/winget-cli/blob/master/doc/Completion.md
 Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
@@ -142,7 +150,8 @@ Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
 }
 }).Milliseconds
 
-#34de4b3d-13a8-4540-b76d-b9e8d3851756 PowerToys CommandNotFound module
+#f45873b3-b655-43a6-b217-97c00aa0db58 PowerToys CommandNotFound module
 
-Import-Module "D:\scoop\apps\powertoys\current\WinUI3Apps\..\WinGetCommandNotFound.psd1"
-#34de4b3d-13a8-4540-b76d-b9e8d3851756
+Import-Module -Name Microsoft.WinGet.CommandNotFound
+#f45873b3-b655-43a6-b217-97c00aa0db58
+

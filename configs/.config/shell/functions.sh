@@ -1,5 +1,61 @@
 #!/bin/sh
 
+confirm() {
+  printf "%s [Y/n] " "$1"
+  read -r resp < /dev/tty
+  if [ "$resp" = "" ] || [ "$resp" = "Y" ] || [ "$resp" = "y" ] || [ "$resp" = "yes" ]; then
+    return 0
+  fi
+  if [ "$2" = "abort" ]; then
+    echo "Abort."
+    echo
+    exit 0
+  fi
+  return 1
+}
+
+soft_envs() {
+  soft_base="fd mc bat duf git fzf btop curl wget neovim zoxide ripgrep"
+  # make bzip2
+  soft_add="eza ncdu tmux tree neofetch"
+  soft_add_ubuntu="build-essential software-properties-common"
+  soft_to_purge="snapd"
+}
+
+setup_linux() {
+  (
+    for role in editor vi vim; do
+      sudo update-alternatives --set $role "$(which nvim)"
+    done
+    # /usr/libexec/neovim/ is unstable thing, could broke
+    for role in ex rview rvim view vimdiff; do
+      sudo update-alternatives --set $role /usr/libexec/neovim/$role
+    done
+  )
+}
+
+setup_ubuntu() {
+  (
+    soft_envs
+    echo "Installing nala and $soft_base $soft_add..."
+    sudo apt install nala && \
+    uuu && \
+    sudo nala install $soft_base $soft_add -y
+    confirm "Do you want to remove $soft_to_purge?" && sudo nala purge $soft_to_purge -y
+    setup_linux
+  )
+}
+
+setup_arch() {
+  (
+    soft_envs
+    sudo pacman -S $soft_base $soft_add -y
+    sudo pacman -Rsn $soft_to_purge -y
+  )
+}
+
+mkcd() { mkdir -p "$@" && cd "$@" || exit; }
+
 llalias() {
   if hash eza &> /dev/null; then
     alias ll=ezall

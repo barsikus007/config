@@ -53,7 +53,7 @@ foreach ($oldvid in $oldvids) {
   - scoop config rm aria2-enabled
 - history file: `~\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt`
 - winget installBehavior": "portablePackageMachineRoot", "portablePackageUserRoot", "preferences": "scope": "user"
-- config fzf (z)
+- config fzf
 - pwsh packages (move to 5.0?)
   - <https://github.com/farag2/Windows_Terminal/blob/main/Install_Modules.ps1>
 - mingit cert config

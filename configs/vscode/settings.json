@@ -2,23 +2,20 @@
     "settingsSync.ignoredSettings": [
         // "": true,
     ],
-
     // linux fixes
     "window.titleBarStyle": "custom",
     "editor.selectionClipboard": false,
     "settingsSync.keybindingsPerPlatform": false,
-
     // appearence
     "terminal.integrated.fontFamily": "Delugia",
     "editor.fontFamily": "Delugia",
     "editor.fontLigatures": true,
     "workbench.iconTheme": "vscode-icons",
-    "window.autoDetectColorScheme":true,
+    "window.autoDetectColorScheme": true,
     "window.commandCenter": false,
     "workbench.preferredLightColorTheme": "Shades of Purple",
     "workbench.preferredDarkColorTheme": "Shades of Purple (Super Dark)",
     "workbench.colorTheme": "Shades of Purple (Super Dark)",
-
     // behavior
     "window.restoreWindows": "preserve",
     "window.openFilesInNewWindow": "default",
@@ -35,18 +32,16 @@
     },
     "editor.foldingMaximumRegions": 50000,
     "terminal.integrated.scrollback": 100000,
-
+    // ports
+    "remote.autoForwardPorts": false,
     // telemetry
     "telemetry.telemetryLevel": "off",
     "redhat.telemetry.enabled": false,
-
     // spam
     "vsicons.dontShowNewVersionMessage": true,
     "gitlens.advanced.messages": {
         "suppressCreatePullRequestPrompt": true
     },
-
-
     // language specific
     // python
     "python.analysis.autoFormatStrings": true,
@@ -55,33 +50,15 @@
     "python.analysis.typeCheckingMode": "basic",
     "customFString1": "f\"⚡🐍 {variable=}\"",
     "mypy-type-checker.args": [
-        "--no-redef=false"
-    ],
-    //      uvicorn
-    //      "--ignore-missing-imports",
-    //      vkbottle moment
-    //      warn_no_return = false
-    //      warn_return_any = false
-    //      warn_unused_configs = true
-    //      check_untyped_defs = true
-    // fix run https://stackoverflow.com/a/73567911/15844518
-    // "terminal.integrated.env.windows": { "PYTHONPATH": "${workspaceFolder}" },
-    "python.venvFolders": [
-        "~\\AppData\\Local\\pypoetry\\Cache\\virtualenvs",
-        "~/.cache/pypoetry/virtualenvs"
+        "--no-redef=false",
     ],
     "ruff.enable": true,
-    // https://github.com/astral-sh/ruff/issues/970
-    // w8 for too-many-function-args / E1121
     "pylint.args": [
-        // C0103 - trigger to short names
-        // C0114,C0115,C0116 - idk
-        // C0301 - line too long handled by ruff
-        // W0106 - list comprehension false positive
-        // W0511 - TODO
-        "--disable=C0103,C0114,C0115,C0116,C0301,W0106,W0511",
-        "--extension-pkg-allow-list=pydantic,orjson",
-        "--max-line-length=120"
+        // 2024-07-07
+        // curl https://api.github.com/repos/astral-sh/ruff/issues/970 | jq -r .body | grep -F [x] | cut -d'/' -f 2 | cut -c 3-7 | awk '{printf "%s,", $1}'
+        "--disable=E0237,E1142,E0014,E1300,E0013,E1310,E1307,E2502,E6005,E6004,E0116,E0108,E0241,E1303,E0102,E0100,E0605,E0604,E0304,E0308,E2510,E2513,E2514,E2512,E2515,E0309,E0305,E0303,E1206,E1205,E0704,E1304,E1302,E4703,E0213,E0107,E0115,E0117,E0103,E0711,E0643,E0402,E1132,E0106,E0101,E0104,E1519,E1520,E0001,E1306,E1305,E0112,E1301,E0603,E0602,E0302,E0118,E1700,E0105,W1401,W0129,W0199,W3201,W1302,W1300,W1501,W0211,W0702,W0711,W1502,W0718,W0719,W0640,W0160,W0102,W0705,W0109,W1308,W0130,W1641,W0123,W0122,W0106,W1309,W0511,W1515,W1305,W1310,W0604,W0603,W0602,W1404,W0406,W1405,W1508,W1113,W1202,W1203,W1201,W0150,W1518,W0410,W1303,W0131,W0177,W3301,W2402,W0133,W0104,W0212,W0707,W0622,W2901,W1406,W0404,W0127,W1509,W1510,W0245,W0706,W0012,W0108,W0107,W0301,W1514,W0613,W1304,W1301,W0611,W0612,W0120,W2101,W2601,W0401,C0202,C0198,C1901,C0201,C0501,C0206,C0199,C0112,C0415,C2701,C0103,C0301,C2201,C0115,C0304,C0116,C0114,C0410,C0321,C2403,C2401,C0205,C0121,C0303,C0131,C0105,C0132,C0412,C0123,C3002,C2801,C3001,C0113,C0208,C0414,C0411,C0413,R0133,R0124,R6003,R1701,R6002,R6104,R1717,R1728,R1715,R1714,R1730,R1731,R1718,R1722,R1706,R1732,R5501,R2044,R1710,R0123,R2004,R0202,R1723,R1724,R1720,R1705,R6301,R0203,R0206,R1704,R1719,R1703,R1725,R1260,R0913,R0916,R0912,R0914,R1702,R0904,R0911,R0915,R1707,R1721,R1733,R1736,R1729,R1735,R1734,R6201,R0205,R0022,R1711",
+        // TODO "--extension-pkg-allow-list=pydantic,orjson",
+        // TODO "--max-line-length=120"
     ],
     "ruff.importStrategy": "useBundled",
     "ruff.lint.args": [
@@ -99,11 +76,13 @@
         // RET502 - for return without None
         // RET503 - for function without return
         // RUF001 - for cyrillic
-        "--ignore=ANN001,ANN101,ANN102,ANN201,ANN204,ANN401,EM101,TRY003,D,TD,FIX,ERA,RET502,RET503,RUF001"
+        "--ignore=ANN001,ANN101,ANN102,ANN201,ANN204,ANN401,EM101,TRY003,D,TD,FIX,ERA,RET502,RET503,RUF001",
     ],
-    "ruff.format.args": ["--line-length=120"],
+    "ruff.format.args": [
+        "--line-length=120",
+    ],
     "[python]": {
-        // "editor.formatOnSave": true,
+        "editor.formatOnSave": true,
         "editor.defaultFormatter": "charliermarsh.ruff",
         "editor.codeActionsOnSave": {
             "source.organizeImports": "explicit",
@@ -116,116 +95,125 @@
     // "code-runner.executorMap": {
     //     "python": "set PYTHONIOENCODING=utf8 && \"$pythonPath\" -uB $fullFileName",
     // },
-
     // javascript
     "npm.packageManager": "pnpm",
-    "[javascript]": {
+    "[javascript][typescript]": {
         "editor.tabSize": 2,
         "editor.formatOnSave": true,
-        "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+        // "editor.defaultFormatter": "vscode.typescript-language-features",
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.codeActionsOnSave": {
+            "source.fixAll.eslint": "explicit"
+        }
     },
-    "[javascriptreact]": {
+    "[javascriptreact][typescriptreact]": {
         "editor.tabSize": 2,
         "editor.formatOnSave": true,
-        "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+        // "editor.defaultFormatter": "vscode.typescript-language-features",
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.codeActionsOnSave": {
+            "source.fixAll.eslint": "explicit"
+        }
     },
-    "[typescript]": {
-        "editor.tabSize": 2,
-        "editor.formatOnSave": true,
-        "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
-    },
-    "[typescriptreact]": {
-        "editor.tabSize": 2,
-        "editor.formatOnSave": true,
-        "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
-    },
-    "[json]": {
+    "[json][jsonc]": {
         "editor.tabSize": 4,
         "editor.formatOnSave": true,
-        "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
-    },
-    "[jsonc]": {
-        "editor.tabSize": 4,
-        "editor.formatOnSave": false,
-        "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+        "editor.defaultFormatter": "vscode.json-language-features"
+        // "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "[graphql]": {
         "editor.tabSize": 2,
         "editor.formatOnSave": true,
-        "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-
+    "[css][scss][less]": {
+        // "editor.defaultFormatter": "vscode.css-language-features",
+        // css.format.enable - Enable/disable default CSS formatter.
+        // css.format.newlineBetweenRules - Separate rulesets by a blank line.
+        // css.format.newlineBetweenSelectors - Separate selectors with a new line.
+        // css.format.spaceAroundSelectorSeparator - Ensure a space character around selector separators '>', '+', '~' (for example, a > b).
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
     // other
     "[yaml]": {
+        "editor.tabSize": 2,
+        "editor.formatOnSave": true,
         "editor.defaultFormatter": "redhat.vscode-yaml"
     },
-    "[ignore]": {
-        "editor.defaultFormatter": "foxundermoon.shell-format"
-    },
-    "[properties]": {
-        "editor.defaultFormatter": "foxundermoon.shell-format"
-    },
-    "[jvmoptions]": {
-        "editor.defaultFormatter": "foxundermoon.shell-format"
-    },
-    "[hosts]": {
-        "editor.defaultFormatter": "foxundermoon.shell-format"
-    },
-    "[bat]": {
-        "editor.defaultFormatter": "foxundermoon.shell-format"
-    },
-    "[dockerfile]": {
-        "editor.defaultFormatter": "foxundermoon.shell-format"
-    },
-    "[shellscript]": {
-        "editor.tabSize": 4,
+    "[ignore][properties][jvmoptions][hosts][bat][dockerfile][shellscript]": {
         "editor.defaultFormatter": "foxundermoon.shell-format"
     },
     "[nginx]": {
-        "editor.defaultFormatter": "raynigon.nginx-formatter"
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "ahmadalli.vscode-nginx-conf"
     },
     "[html]": {
+        "editor.formatOnSave": true,
         "editor.defaultFormatter": "vscode.html-language-features"
     },
     "[markdown]": {
-        "editor.tabSize": 2
+        "editor.tabSize": 2,
+        "editor.defaultFormatter": "yzhang.markdown-all-in-one"
     },
-
-
+    "[prisma]": {
+        "editor.formatOnSave": true
+    },
     // todo
     // auto
+    "diffEditor.ignoreTrimWhitespace": false, //! (true is default)
     "editor.suggestSelection": "first",
     "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-
     // new
     // "terminal.integrated."
-
     // other
     "sqliteViewer.maxFileSize": 0, // remove sqlite limit (2GB is vscode limit idk how to resolve)
     "git.autofetch": true,
-    // "cSpell.language": "en,ru",
-    "gitlens.mode.active": "zen",
     // TODO https://github.com/kisstkondoros/gutter-preview limit
     "gutterpreview.showUnderline": true,
     "editor.guides.bracketPairs": "active",
     "editor.inlineSuggest.enabled": true,
     //
     "github.copilot.enable": {
-        "*": true,
-        "plaintext": false,
-        "markdown": true,
-        "scminput": false
+        "*": true
     },
     // "hadolint.hadolintPath": "/usr/bin/hadolint",
     "markdown-preview-enhanced.liveUpdate": true,
-    "diffEditor.ignoreTrimWhitespace": false, // idk
     "sourcery.codeLens": false,
     // "markdownlint.run": "onSave",
     "markdown.extension.toc.updateOnSave": false,
     // todo2
     // default
-    "indentRainbow.ignoreLinePatterns":[
-        "/[ \t]* [*]/g",
-        "/[ \t]+[/]{2}/g"
-    ]
+    // "indentRainbow.ignoreLinePatterns":[
+    //     "/[ \t]* [*]/g",
+    //     "/[ \t]+[/]{2}/g"
+    // ],
+    // "remote.SSH.enableDynamicForwarding": false,
+    // "remote.restoreForwardedPorts": false,
+    // "remote.otherPortsAttributes": {
+    //     "onAutoForward": "ignore"
+    // },
+    "remote.forwardOnOpen": false,
+    "figma.autocompleteBlocks": true,
+    "editor.largeFileOptimizations": false,
+    "github.copilot.editor.enableAutoCompletions": true,
+    "gitlens.fileAnnotations.command": "blame",
+    // sexperimental
+    "workbench.experimental.enableNewProfilesUI": true,
+    "scm.experimental.showHistoryGraph": true,
+    "python.analysis.supportRestructuredText": true,
+    // sexperimental
+    "explorer.fileNesting.patterns": {
+        "*.ts": "${capture}.js",
+        "*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts",
+        "*.jsx": "${capture}.js",
+        "*.tsx": "${capture}.ts",
+        "tsconfig.json": "tsconfig.*.json",
+        "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, bun.lockb",
+        "*.sqlite": "${capture}.${extname}-*",
+        "*.db": "${capture}.${extname}-*",
+        "*.sqlite3": "${capture}.${extname}-*",
+        "*.db3": "${capture}.${extname}-*",
+        "*.sdb": "${capture}.${extname}-*",
+        "*.s3db": "${capture}.${extname}-*"
+    },
 }
