@@ -164,6 +164,7 @@ hatch run true
 
 ### TODO
 
+- move badapple gif and mp3 outsude of git (or genereate them idk)
 - pycharm settings sync
 - obs quick replay (import scenes)
 - python

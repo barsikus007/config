@@ -24,6 +24,8 @@ sudo passwd $username
 sudo pacman -Suy neovim
 EDITOR=nvim sudo visudo
 # uncomment wheel lines
+
+su $username
 ```
 
 ### ubuntu
@@ -34,10 +36,9 @@ sudo passwd root
 
 # create sudo user
 export username="ogurez"
-adduser $username
-
+# apt update && apt install adduser sudo -y
+adduser $username --ingroup sudo
 usermod -aG sudo $username
-passwd $username
 
 su $username
 ```

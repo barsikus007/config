@@ -2,9 +2,14 @@
 
 ## Install Config
 
+### Deps
+
+- git
+  - `sudo apt install git -y`
+
 ### Clone
 
-`cd && git clone https://github.com/barsikus007/config && cd -`
+- `cd && git clone https://github.com/barsikus007/config --depth 1 && cd -`
 
 ### Install/Update
 

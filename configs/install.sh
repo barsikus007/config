@@ -51,5 +51,5 @@
   add_to_bashrc '[ -f "$XDG_CONFIG_HOME/bash/config.bash" ] && source $XDG_CONFIG_HOME/bash/config.bash'
   sed -i 's/^HIST/# HIST/' ~/.bashrc
 )
-# shellcheck source=/dev/null
-source ~/.bashrc
+# https://stackoverflow.com/questions/2518127/how-to-reload-bashrc-settings-without-logging-out-and-back-in-again
+exec "$SHELL"

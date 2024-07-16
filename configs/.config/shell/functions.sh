@@ -18,7 +18,7 @@ soft_envs() {
   soft_base="fd mc bat duf git fzf btop curl wget neovim zoxide ripgrep"
   # make bzip2
   soft_add="eza ncdu tmux tree neofetch"
-  soft_add_ubuntu="build-essential software-properties-common"
+  soft_add_ubuntu="nala build-essential software-properties-common"
   soft_to_purge="snapd"
 }
 
@@ -37,10 +37,10 @@ setup_linux() {
 setup_ubuntu() {
   (
     soft_envs
-    echo "Installing nala and $soft_base $soft_add..."
+    echo "Installing nala and $soft_base $soft_add $soft_add_ubuntu..."
     sudo apt install nala && \
     uuu && \
-    sudo nala install $soft_base $soft_add -y
+    sudo nala install $soft_base $soft_add $soft_add_ubuntu -y
     confirm "Do you want to remove $soft_to_purge?" && sudo nala purge $soft_to_purge -y
     setup_linux
   )
