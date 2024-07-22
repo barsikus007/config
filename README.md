@@ -98,6 +98,7 @@ python3 -m pipx ensurepath
 # TODO rm /mnt/c/users/admin/appdata/roaming/python/python312/scripts/register-python-argcomplete
 pipx install uv
 pipx install pdm
+pipx install ruff
 pipx install hatch
 # hatch config
 hatch config set dirs.env.virtual .venv
@@ -195,8 +196,7 @@ hatch run true
     - tldr go ?
     - tldr -u
   - bat
-    - mkdir -p ~/.local/bin
-    - ln -s /usr/bin/batcat ~/.local/bin/bat
+    - zsh '--help' alias
   - `mc` alternative
     - <https://github.com/ranger/ranger>
     - <https://github.com/sxyazi/yazi>
@@ -223,7 +223,6 @@ hatch run true
     - make changable
 
 - nvim config
-  - nvim alias
   - <https://www.reddit.com/r/neovim/comments/oumljd/how_do_you_use_sudo_with_neovim_while_keeping_the/>
   - IDE
     - <https://nvchad.com/docs/quickstart/install>

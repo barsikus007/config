@@ -23,6 +23,20 @@ soft_envs() {
   soft_to_purge="snapd"
 }
 
+setup_user() {
+  (
+    if ! hash bat; then
+      if hash batcat; then
+        echo "Linking bat..."
+        mkdir -p ~/.local/bin
+        ln -s "$(which batcat)" ~/.local/bin/bat
+      else
+        echo "batcat isn't installed to link"
+      fi
+    fi
+  )
+}
+
 setup_linux() {
   (
     echo "Setting up neovim shims..."
@@ -33,6 +47,11 @@ setup_linux() {
     for role in ex rview rvim view vimdiff; do
       sudo update-alternatives --set $role /usr/libexec/neovim/$role
     done
+    if ! hash starship; then
+      echo "Setting up starship..."
+      curl -sS https://starship.rs/install.sh | sh
+    fi
+    setup_user
   )
 }
 

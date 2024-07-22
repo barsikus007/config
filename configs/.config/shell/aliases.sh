@@ -4,6 +4,7 @@
 alias sudo='sudo '
 alias xargs='xargs '
 
+# base
 alias grp='grep -Fin -C 7'
 alias c=clear
 alias h=history
@@ -11,13 +12,15 @@ alias hf='h | grp'
 
 # package managers and updaters
 # TODO u functions which will resolve all
+alias i='sudo apt install'
+alias ii='sudo nala install'
 alias uu='sudo apt update && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt clean'
 alias uuu='sudo nala update && sudo nala upgrade -y && sudo nala autoremove -y && sudo nala clean'
 alias u=uu
 alias pacman='pacman --color always'
 alias cu='cd ~/config/ && git pull && ./configs/install.sh && cd -'
-alias lzdu='curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash'
 
+# ls
 alias ezal='eza -F -bghM --smart-group --group-directories-first --color=always --color-scale --icons=always --no-quotes --hyperlink'
 alias ezall='eza -F -labghM --smart-group --group-directories-first --color=always --color-scale --icons=always --no-quotes --hyperlink'
 alias exal='exa -laFbgh --group-directories-first --color=always --icons --color-scale'
@@ -28,6 +31,7 @@ alias l=llazy
 
 # docker
 alias lzd=lazydocker
+alias lzdu='curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash'
 alias dsp='docker system prune'
 alias dspa='dsp --all'
 alias dc='docker system prune'
@@ -44,11 +48,13 @@ alias dcr='dc restart'
 alias dce='dc exec -it'
 alias cdl='sudo sh -c "truncate -s 0 /var/lib/docker/containers/*/*-json.log"'
 
-alias pyvcr='python3 -m venv .venv --upgrade-deps && .venv/bin/pip install -r requirements.txt && source .venv/bin/activate'
+# python
+alias pyvcr='python3 -m venv .venv --upgrade-deps && source .venv/bin/activate && .venv/bin/pip install -r requirements.txt'
 alias pyv='source .venv/bin/activate || pyvcr'
 alias pyt='ptpython --asyncio'
 alias pipi='python -c "import os;os.environ[\"VIRTUAL_ENV\"]" && pip install -r requirements.txt || echo "activate venv to install requirements"'
 
+# other
 # remove color after 24.04
 alias ncdu="ncdu --color dark --exclude '/mnt/*'"
 alias zps='zpool status -v'

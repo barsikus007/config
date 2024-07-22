@@ -80,11 +80,14 @@ $env:PATH = @(
 
 
 Debug-Log aliases (Measure-Command {
+# init
+$env:BAT_PAGER="less -rF --mouse"
+$env:BAT_THEME="Coldark-Dark"
 Set-Alias -Option AllScope cat bat
-Function Get-Full-History { cat (Get-PSReadlineOption).HistorySavePath -l powershell }
+Function Get-Full-History { bat (Get-PSReadlineOption).HistorySavePath -l powershell }
 Set-Alias -Option AllScope history Get-Full-History
-Function suss { scoop update | scoop status }
 
+# base
 Function grep { grep.exe --color=auto $args }
 # FUCK PWSH
 Function grp { grep.exe --color=auto -Fin -C 7 $args }
@@ -92,20 +95,27 @@ Function c { clear }
 Set-Alias -Option AllScope h history
 # FUCK PWSH
 Function hf { h | grep.exe --color=auto -Fin -C 7 $args }
+
+# ls
 Function l { ls -CF $args }
 Function ll { ls -la $args }
+# TODO: lazy pwsh: function first time resolver
 if (Test-Command eza) {
     Set-Alias -Option AllScope ls eza
     # TODO fix command args
     Function l { eza -F -bghM --smart-group --group-directories-first --color=auto --color-scale --icons=always --no-quotes --hyperlink $args }
     Function ll { eza -F -labghM --smart-group --group-directories-first --color=auto --color-scale --icons=always --no-quotes --hyperlink $args }
 }
-Function u { suss | scoop update * }
 
+# package managers and updaters
+Function suss { scoop update | scoop status }
+Function i { scoop install }
+Function u { suss | scoop update * }
 Function cu { cd ~/config/ && git pull && ./configs/install.ps1 && ./windows/pwsh.ps1 && cd - }
 
+# docker
 Function lzd { lazydocker }
-
+Function lzdu { scoop update lazydocker }
 Function dc { docker compose $args }
 Function dsp { docker system prune $args }
 Function dspa { dsp --all $args }
@@ -121,11 +131,13 @@ Function dcr { dc restart $args }
 Function dce { docker compose exec -it $args }
 Function dcsh { dce $args sh -c 'bash || sh' }
 
+# python
 Function pyvcr { python3 -m venv .venv --upgrade-deps && .venv/Scripts/python -c "import sys,pathlib;v=sys.version_info;pyv=f'{v.major}.{v.minor}';path=pathlib.Path('.venv/pyvenv.cfg');path.write_text(path.read_text(encoding='utf-8').replace(f'{v.major}.{v.minor}.{v.micro}',pyv).replace(f'{pyv}\\','current\\'),encoding='utf-8')" && .venv/Scripts/Activate.ps1 && .venv/Scripts/pip install -r requirements.txt }
 Function pyv { .venv/Scripts/Activate.ps1 || (pyvcr) }
 Function pyt { ptpython --asyncio }
 Function pipi { python -c "import os;os.environ['VIRTUAL_ENV']" && pip install -r requirements.txt || echo "activate venv to install requirements" }
 
+# other
 Function sex { explorer.exe . }
 }).Milliseconds
 

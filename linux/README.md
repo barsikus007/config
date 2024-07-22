@@ -49,7 +49,7 @@
   - `$XDG_CONFIG_HOME/shell/aliases.sh` for root user
   - alias resolve package manager for u
   - ic command to update config
-  - link things like bat to cat and nvim to vim
+  - correct link things like bat to cat
 - <https://docs.docker.com/desktop/install/linux-install/#generic-installation-steps>
 - fedora
   - <https://flatpak.org/setup/Fedora>
