@@ -9,6 +9,13 @@ alias grp='grep -Fin -C 7'
 alias c=clear
 alias h=history
 alias hf='h | grp'
+alias sshe='editor ~/.ssh/config'
+alias nv='editor $(fzf)'
+alias nvf='editor $(find "/" | fzf)'
+# shellcheck disable=SC2142
+alias nvs='editor $(rg -n . | fzf | awk -F: '\''{print "+"$2,$1}'\'')'
+alias 1ip='wget -qO - icanhazip.com'
+alias 2ip='curl 2ip.ru'
 
 # package managers and updaters
 # TODO u functions which will resolve all

@@ -175,6 +175,7 @@ hatch run true
   - [check every minor release](https://github.com/astral-sh/uv) (next is 0.3)
   - alias to ptpython
   - linux alternative to py
+    - python-is-python3
   - autoactivate venvs
     - zsh and virtualenvwrapper
 - terminal shit

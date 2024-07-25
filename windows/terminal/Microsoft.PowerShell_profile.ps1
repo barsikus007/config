@@ -86,6 +86,7 @@ $env:BAT_THEME="Coldark-Dark"
 Set-Alias -Option AllScope cat bat
 Function Get-Full-History { bat (Get-PSReadlineOption).HistorySavePath -l powershell }
 Set-Alias -Option AllScope history Get-Full-History
+Set-Alias -Option AllScope editor nvim
 
 # base
 Function grep { grep.exe --color=auto $args }
@@ -95,6 +96,12 @@ Function c { clear }
 Set-Alias -Option AllScope h history
 # FUCK PWSH
 Function hf { h | grep.exe --color=auto -Fin -C 7 $args }
+
+Function sshe { editor $HOME\.ssh\config }
+Test-Path Alias:\nv && Remove-Item Alias:\nv
+Function nv { editor $(fzf) }
+Function 1ip { wget -qO - icanhazip.com }
+Function 2ip { curl 2ip.ru }
 
 # ls
 Function l { ls -CF $args }

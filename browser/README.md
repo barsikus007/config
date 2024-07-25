@@ -21,6 +21,9 @@ mail.yandex.ru##main.mail-Layout-Content > div:nth-of-type(2)
 ! 2024-01-02 https://www.youtube.com
 ||youtube.com^$removeparam=si
 
+! 2024-07-18 https://medium.com
+medium.com##div:has(> div:has(> div:has(> div:has(> div:has(> button[data-testid="close-button"])))))
+
 ```
 
 ## Flags
@@ -46,6 +49,7 @@ mail.yandex.ru##main.mail-Layout-Content > div:nth-of-type(2)
   - [SponsorBlock for YouTube - Skip Sponsorships](https://sponsor.ajay.app)
 - [PiP - Picture in Picture Plus](https://www.oinkandstuff.com/project/pip-picture-in-picture-plus/)
 - [Search by Image](https://github.com/dessant/search-by-image)
+- [Refined GitHub](https://github.com/refined-github/refined-github)
 - TODO
   - <https://extensions.xenorio.xyz/list/tubetweaks>
   - <https://github.com/dessant/ping-blocker>

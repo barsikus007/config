@@ -72,6 +72,7 @@ setup_arch() {
     soft_envs
     sudo pacman -S $soft_base $soft_add -y
     sudo pacman -Rsn $soft_to_purge -y
+    setup_linux
   )
 }
 
