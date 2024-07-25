@@ -237,7 +237,47 @@ hatch run true
   - plugin system
     - <https://github.com/folke/lazy.nvim>
     - <https://github.com/junegunn/vim-plug>
-- vscode export configs
-  - layout
-  - extensions
-  - profiles
+- vscode
+  - export configs
+    - layout
+    - extensions
+    - profiles
+  - color logs
+  - python -File activate envs
+  - pycharm like run file
+  - "python.analysis.autoImportCompletions": true
+  - python ruff pep8 funcs 2 tabs or 1
+  - git tree view by default
+- alias
+  - grep config folder for cheatsheet
+  - code=co
+  - clear=cl
+  - dcu not pull
+  - dcup prod
+  - aa = alias fzf
+  - set-alias -name pn -value pnpm
+  - wsl `find / -not -path '/mnt/*'`
+  - `find / -not -path '/mnt/*' -name python -not -path '/home/*'`
+- unsorted dump from TG
+  - pwsh 5 ignore settings or just dont load profile or notice about pwsh 7 (powershell 5 dont execute pwsh7 commands)
+  - pwsh funcs rework? (like alias of alias of alias)
+  - better grep than busybox one windows
+  - disable yt speed remember
+  - config pwsh -nol
+  - corepack prepare & use wtf?
+  - config #!/bin/sh -eux
+  - explain command
+  - vscode ctrl+shift++ in terminal
+  - default ,gitignore
+  - <https://github.com/jesseduffield/lazydocker/blob/master/docs/Config.md>
+  - notepad $profile.AllUsersAllHosts
+  - tmux fix updown buttons
+  - filter nonmarket apps on pixel and backup list
+  - pm list packages -i -3 | grep -v vending
+  - tldr -u
+  - git config core.editor=code -w -n
+  - eza
+    - windows eza ~/pathes
+    - eza --hyperlink | grep
+  - pywindower tg edge discord keepassxc
+    - 1 - Microsoft​ Edge","rect": [-3,4,1047,960]

@@ -5,6 +5,11 @@
 - <https://greasyfork.org/en/scripts/439993-youtube-shorts-redirect>
 - [TODO remove si youtube](https://github.com/Xenorio/YTShareAntiTrack)
 - [own](./userscripts)
+- TODO
+  - yt watch later icon on video card
+  - to resolve currency (select+RCM)
+  - chromium correct ctrl+tab (like in opera and OS)
+  - open in webarchive (RCM)
 
 ## uBlock
 

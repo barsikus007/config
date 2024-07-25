@@ -45,12 +45,17 @@ foreach ($oldvid in $oldvids) {
 - <https://github.com/ionuttbara/windows-defender-remover>
   - not tested
 - <https://camo.studio/>
-- scoop aria2bug
-  - scoop config aria2-options "--check-certificate false"
-  - scoop config rm aria2-options
-  - or
-  - scoop config aria2-enabled false
-  - scoop config rm aria2-enabled
+- scoop
+  - aria2bug
+    - scoop config aria2-options "--check-certificate false"
+    - scoop config rm aria2-options
+    - or
+    - scoop config aria2-enabled false
+    - scoop config rm aria2-enabled
+  - aria2 disable alias
+  - scoop cleanup -a
+  - scoop cache rm -a
+  - scoop alias descripton
 - history file: `~\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt`
 - winget installBehavior": "portablePackageMachineRoot", "portablePackageUserRoot", "preferences": "scope": "user"
 - config fzf

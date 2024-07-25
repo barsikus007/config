@@ -96,7 +96,6 @@ Function c { clear }
 Set-Alias -Option AllScope h history
 # FUCK PWSH
 Function hf { h | grep.exe --color=auto -Fin -C 7 $args }
-
 Function sshe { editor $HOME\.ssh\config }
 Test-Path Alias:\nv && Remove-Item Alias:\nv
 Function nv { editor $(fzf) }
