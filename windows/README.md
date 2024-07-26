@@ -82,6 +82,10 @@ foreach ($oldvid in $oldvids) {
   - <https://github.com/Serendipity-Theme/windows-terminal>
   - same theme for vscode
 - netlimiter or windowsfirewallcontrol
+- pwsh
+  - pwsh 5 dont load profile and notice about pwsh 7
+  - pwsh funcs $args broken?
+  - config pwsh -nol
 - unsorted dump from TG
   - fix cmd on startup
   - fix file associations with vscode or notepad++
@@ -92,6 +96,9 @@ foreach ($oldvid in $oldvids) {
   - winget Jigsaw.OutlineManager
   - windows explorer path fix to old
   - diskpart windows нормальный
+  - notepad $profile.AllUsersAllHosts
+  - pywindower tg edge discord keepassxc
+    - 1 - Microsoft​ Edge","rect": [-3,4,1047,960]
 
 ## Toggle new context menu (due to lack of 7zip and notepad++)
 

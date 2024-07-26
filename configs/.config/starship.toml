@@ -12,58 +12,74 @@ $singularity\
 $kubernetes\
 $directory\
 $vcsh\
-${custom.git_host}\
+$fossil_branch\
+$fossil_metrics\
 $git_branch\
 $git_commit\
 $git_state\
 $git_metrics\
+$git_status\
 $hg_branch\
+$pijul_channel\
 $docker_context\
 $package\
-$buf\
 $c\
 $cmake\
 $cobol\
-$container\
+$daml\
 $dart\
 $deno\
 $dotnet\
 $elixir\
 $elm\
 $erlang\
+$fennel\
+$gleam\
 $golang\
+$guix_shell\
 $haskell\
+$haxe\
 $helm\
 $java\
 $julia\
 $kotlin\
+$gradle\
 $lua\
 $nim\
 $nodejs\
 $ocaml\
+$opa\
 $perl\
 $php\
 $pulumi\
 $purescript\
 $python\
+$quarto\
+$raku\
 $rlang\
 $red\
 $ruby\
 $rust\
 $scala\
+$solidity\
 $swift\
 $terraform\
+$typst\
 $vlang\
 $vagrant\
 $zig\
+$buf\
 $nix_shell\
 $conda\
+$meson\
 $spack\
 $memory_usage\
 $aws\
 $gcloud\
 $openstack\
 $azure\
+$nats\
+$direnv\
 $env_var\
 $crystal\
 $custom\
@@ -75,10 +91,11 @@ $jobs\
 $battery\
 $time\
 $status\
+$os\
+$container\
 $shell\
 $character"""
 
-# $git_status\ was removed from 20th line due to performance issues
 continuation_prompt ="[:|](bright-black) "
 add_newline = true
 
@@ -88,6 +105,7 @@ symbol = " "
 [username]
 show_always = true
 format = "[$user]($style) "
+aliases = { "Administrator" = "root" }
 
 [custom.windows]
 when = true
@@ -128,25 +146,26 @@ style = "bold red"
 
 
 # TODO colors https://starship.rs/presets/pastel-powerline.html
-# https://gist.github.com/fitrh/f8c70203e3bca142d52a585e34f0248d
-# https://gist.github.com/ryo-ARAKI/48a11585299f9032fa4bda60c9bba593
 [git_state]
 format = '[\($state( $progress_current of $progress_total)\)]($style) '
 
+# https://gist.github.com/ryo-ARAKI/48a11585299f9032fa4bda60c9bba593
 [git_status]
 conflicted = "⚔️"
-ahead = "🏎️ 💨×${count}"
-behind = "🐢 ×${count}"
-diverged = "🔱 🏎️ 💨×${ahead_count} 🐢×${behind_count}"
-untracked = "🛤️ ×${count}"
+ahead = "🏎️💨×${count}"
+behind = "🐢×${count}"
+diverged = "🔱🏎️💨×${ahead_count}🐢×${behind_count}"
+untracked = "🛤️×${count}"
 stashed = "📦"
 modified = "📝×${count}"
-staged = "🗃️ ×${count}"
+staged = "🗃️×${count}"
 renamed = "📛×${count}"
-deleted = "🗑️ ×${count}"
+deleted = "🗑️×${count}"
 style = "bright-white"
 format = '\[$all_status$ahead_behind\] '
+windows_starship = "starship.exe"
 
+# https://gist.github.com/fitrh/f8c70203e3bca142d52a585e34f0248d
 [custom.git_host]
 command = '$XDG_CONFIG_HOME/starship/starship.bash'
 detect_folders = [".git"]

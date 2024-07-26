@@ -29,6 +29,8 @@
 
 ## TODO
 
+- config #!/bin/sh -eux
+- explain command
 - systemctl edit nvim config
 - `zpool status -v` alias
 - `sudo dnf clean all`

@@ -133,7 +133,6 @@ yazi
 
 # # UNUSED
 # camo-studio
-# opera
 # pshazz
 
 # # BOT

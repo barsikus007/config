@@ -97,7 +97,7 @@ Set-Alias -Option AllScope h history
 # FUCK PWSH
 Function hf { h | grep.exe --color=auto -Fin -C 7 $args }
 Function sshe { editor $HOME\.ssh\config }
-Test-Path Alias:\nv && Remove-Item Alias:\nv
+Test-Path Alias:\nv && Remove-Item Alias:\nv -Force
 Function nv { editor $(fzf) }
 Function 1ip { wget -qO - icanhazip.com }
 Function 2ip { curl 2ip.ru }

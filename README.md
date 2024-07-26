@@ -2,17 +2,17 @@
 
 - alias and function target is bash
 
-## [Versus](versus/README.md)
-
-## [Browser](browser/README.md)
-
-## [Configs](configs/README.md)
-
 ## [Android](android/README.md)
 
 ## [Linux](linux/README.md)
 
 ## [Windows](windows/README.md)
+
+## [Versus](versus/README.md)
+
+## [Browser](browser/README.md)
+
+## [Configs](configs/README.md)
 
 ## Cross-platform
 
@@ -49,7 +49,7 @@ git config --global gpg.format ssh
 
 ### [proto](https://moonrepo.dev/proto)
 
-#### Use
+#### Usage
 
 ```bash
 # TODO https://moonrepo.dev/docs/proto/commands/completions
@@ -132,7 +132,11 @@ hatch run true
 
 ### Other
 
-- Telegram > Settings > Advanced > Experimental settings > Send large photos
+- Telegram > Settings > Advanced > Experimental settings
+  - Add "View Profile"
+  - Show Peer IDs in Profile
+  - Send large photos
+  - Enable webview inspecting
 - Discord
   - Vencord
     - Install
@@ -173,11 +177,10 @@ hatch run true
   - alias pip='pip --require-virtualenv'
   - create python venv alias (current python installation pyenv.cfg windows)
   - [check every minor release](https://github.com/astral-sh/uv) (next is 0.3)
-  - alias to ptpython
-  - linux alternative to py
-    - python-is-python3
   - autoactivate venvs
     - zsh and virtualenvwrapper
+  - uv install python
+    - or proto
 - terminal shit
   - batcat mouse rock-ssh
   - where which alias (and omit exe for windows)
@@ -186,35 +189,23 @@ hatch run true
   - <https://github.com/MatthewPierson/Divise>
   - <https://www.youtube.com/watch?v=_owhlPukE_A>
   - <https://dualbootfun.github.io/dualboot/>
-- find tool
-  - browser sync bookmarks and history tool
+- find browser sync bookmarks and history tool
 - new software
   - GUI
-    - <https://prismlauncher.org/download/>
     - <https://github.com/th-ch/youtube-music/releases/latest>
       - scoop install youtube-music
   - <https://github.com/isacikgoz/tldr>
     - tldr go ?
     - tldr -u
   - bat
-    - zsh '--help' alias
+    - [zsh '--help' alias](https://github.com/sharkdp/bat#highlighting---help-messages)
   - `mc` alternative
     - <https://github.com/ranger/ranger>
     - <https://github.com/sxyazi/yazi>
-  - terminal
-    - !!!FISH!!!
-      - windows (MSYS2) ?
-      - WSL
-      - LINUX
-    - prompt
-      - starship
-        - design
-        - fix character on exit
-        - Administrator to root
-        - command continue remove due to copy (?)
-    - aliases
-      - pwsh
-      - bash
+  - fish or zsh
+    - windows (MSYS2) ?
+    - WSL
+    - LINUX
 - config system
   - fast installer
     - <https://stackoverflow.com/questions/600079/how-do-i-clone-a-subdirectory-only-of-a-git-repository/52269934#52269934>
@@ -222,7 +213,6 @@ hatch run true
     - use overlays to install this on linux?
   - links or copy
     - make changable
-
 - nvim config
   - <https://www.reddit.com/r/neovim/comments/oumljd/how_do_you_use_sudo_with_neovim_while_keeping_the/>
   - IDE
@@ -246,8 +236,8 @@ hatch run true
   - python -File activate envs
   - pycharm like run file
   - "python.analysis.autoImportCompletions": true
-  - python ruff pep8 funcs 2 tabs or 1
   - git tree view by default
+  - ctrl+shift++ in terminal
 - alias
   - grep config folder for cheatsheet
   - code=co
@@ -258,26 +248,13 @@ hatch run true
   - set-alias -name pn -value pnpm
   - wsl `find / -not -path '/mnt/*'`
   - `find / -not -path '/mnt/*' -name python -not -path '/home/*'`
-- unsorted dump from TG
-  - pwsh 5 ignore settings or just dont load profile or notice about pwsh 7 (powershell 5 dont execute pwsh7 commands)
-  - pwsh funcs rework? (like alias of alias of alias)
-  - better grep than busybox one windows
-  - disable yt speed remember
-  - config pwsh -nol
+  - git config core.editor=code -w -n
+- dump from TG
   - corepack prepare & use wtf?
-  - config #!/bin/sh -eux
-  - explain command
-  - vscode ctrl+shift++ in terminal
-  - default ,gitignore
   - <https://github.com/jesseduffield/lazydocker/blob/master/docs/Config.md>
-  - notepad $profile.AllUsersAllHosts
   - tmux fix updown buttons
   - filter nonmarket apps on pixel and backup list
-  - pm list packages -i -3 | grep -v vending
-  - tldr -u
-  - git config core.editor=code -w -n
+    - pm list packages -i -3 | grep -v vending
   - eza
     - windows eza ~/pathes
     - eza --hyperlink | grep
-  - pywindower tg edge discord keepassxc
-    - 1 - Microsoft​ Edge","rect": [-3,4,1047,960]
