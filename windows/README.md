@@ -82,6 +82,16 @@ foreach ($oldvid in $oldvids) {
   - <https://github.com/Serendipity-Theme/windows-terminal>
   - same theme for vscode
 - netlimiter or windowsfirewallcontrol
+- unsorted dump from TG
+  - fix cmd on startup
+  - fix file associations with vscode or notepad++
+  - fix powertoys rmc
+  - fix dotnet
+  - fix win11 prntscr
+  - winget search nvidia
+  - winget Jigsaw.OutlineManager
+  - windows explorer path fix to old
+  - diskpart windows нормальный
 
 ## Toggle new context menu (due to lack of 7zip and notepad++)
 
