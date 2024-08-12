@@ -37,7 +37,7 @@ sudo passwd root
 # create sudo user
 export username="ogurez"
 # apt update && apt install adduser sudo -y
-adduser $username --ingroup sudo
+adduser $username --gecos ""
 usermod -aG sudo $username
 
 su $username
@@ -48,9 +48,10 @@ su $username
 ### generate ssh-key
 
 ```bash
-rsa_file=filename
-ssh-keygen -t rsa -f $rsa_file -P ""
-ssh-copy-id -i $rsa_file.pub user@host
+key_file=filename
+ssh-keygen -t ed25519 -f $key_file -P ""
+ssh-copy-id -i $key_file.pub user@host
+# or mkdir -p ~/.ssh/ && editor ~/.ssh/authorized_keys
 ```
 
 ### config sshd_config for security
@@ -190,6 +191,7 @@ newgrp docker; exit
 ```bash
 docker run -d \
 --name watchtower \
+--restart always \
 -v /var/run/docker.sock:/var/run/docker.sock \
 containrrr/watchtower --cleanup --remove-volumes
 ```

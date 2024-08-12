@@ -125,15 +125,15 @@ Function lzdu { scoop update lazydocker }
 Function dc { docker compose $args }
 Function dsp { docker system prune $args }
 Function dspa { dsp --all $args }
-Function dcu { dc up -d $args }
-Function dcub { dc up -d --build $args }
-Function dcuo { dc up -d --remove-orphans $args }
-Function dcup { dc -f compose.prod.yaml up -d }
-Function dcp { dc ps $args }
-Function dcs { dc stop $args }
-Function dcd { dc down $args }
-Function dcl { dc logs $args }
-Function dcr { dc restart $args }
+Function dcu { docker compose up -d $args }
+Function dcub { docker compose up -d --build $args }
+Function dcuo { docker compose up -d --remove-orphans $args }
+Function dcup { docker compose -f compose.prod.yaml up -d }
+Function dcp { docker compose ps $args }
+Function dcs { docker compose stop $args }
+Function dcd { docker compose down $args }
+Function dcl { docker compose logs $args }
+Function dcr { docker compose restart $args }
 Function dce { docker compose exec -it $args }
 Function dcsh { dce $args sh -c 'bash || sh' }
 

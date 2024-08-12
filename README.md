@@ -107,6 +107,10 @@ hatch config set terminal.styles.spinner material
 pipx install ptpython
 # pipx inject ptpython ipython
 pipx install git+https://github.com/vypivshiy/ani-cli-ru@dev
+# uvx test
+uv tool --version  # 0.2.34
+uv tool install git+https://github.com/vypivshiy/ani-cli-ru@dev
+uv tool install anicli-ru --upgrade-package anicli-api
 pipx upgrade-all
 ```
 
@@ -197,6 +201,7 @@ hatch run true
   - <https://github.com/isacikgoz/tldr>
     - tldr go ?
     - tldr -u
+    - <https://github.com/denisidoro/navi>
   - bat
     - [zsh '--help' alias](https://github.com/sharkdp/bat#highlighting---help-messages)
   - `mc` alternative
@@ -252,7 +257,6 @@ hatch run true
 - dump from TG
   - corepack prepare & use wtf?
   - <https://github.com/jesseduffield/lazydocker/blob/master/docs/Config.md>
-  - tmux fix updown buttons
   - filter nonmarket apps on pixel and backup list
     - pm list packages -i -3 | grep -v vending
   - eza

@@ -49,11 +49,19 @@ export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH"
 export GOBIN="$HOME/go/bin"
 export PATH="$GOBIN:$PATH"
 
-# ubuntu 2204 moment
-# eval "$(fzf --bash)"
-source /usr/share/doc/fzf/examples/key-bindings.bash
-# source /usr/share/doc/fzf/examples/completion.bash
-source /usr/share/bash-completion/completions/fzf
+if hash fzf &> /dev/null; then
+  FZF_VERSION=$(fzf --version | awk '{print $1}')
+  FZF_VERSION_MAJOR=$(echo $FZF_VERSION | cut -d. -f1)
+  FZF_VERSION_MINOR=$(echo $FZF_VERSION | cut -d. -f1)
+  # ubuntu 2204 and lower moment
+  if [ "$FZF_VERSION_MAJOR" -ge 0 ] && [ "$FZF_VERSION_MINOR" -ge 30 ]; then
+    eval "$(fzf --bash)"
+  else
+    source /usr/share/doc/fzf/examples/key-bindings.bash
+    # source /usr/share/doc/fzf/examples/completion.bash
+    source /usr/share/bash-completion/completions/fzf
+  fi
+fi
 
 if hash zoxide &> /dev/null; then
   eval "$(zoxide init --cmd cd bash)"
