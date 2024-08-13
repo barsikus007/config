@@ -52,7 +52,7 @@ export PATH="$GOBIN:$PATH"
 if hash fzf &> /dev/null; then
   FZF_VERSION=$(fzf --version | awk '{print $1}')
   FZF_VERSION_MAJOR=$(echo $FZF_VERSION | cut -d. -f1)
-  FZF_VERSION_MINOR=$(echo $FZF_VERSION | cut -d. -f1)
+  FZF_VERSION_MINOR=$(echo $FZF_VERSION | cut -d. -f2)
   # ubuntu 2204 and lower moment
   if [ "$FZF_VERSION_MAJOR" -ge 0 ] && [ "$FZF_VERSION_MINOR" -ge 30 ]; then
     eval "$(fzf --bash)"
