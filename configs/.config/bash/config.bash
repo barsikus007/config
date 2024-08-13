@@ -1,3 +1,4 @@
+# shellcheck disable=SC1091
 source "$XDG_CONFIG_HOME/shell/aliases.sh"
 source "$XDG_CONFIG_HOME/shell/functions.sh"
 
@@ -51,15 +52,18 @@ export PATH="$GOBIN:$PATH"
 
 if hash fzf &> /dev/null; then
   FZF_VERSION=$(fzf --version | awk '{print $1}')
-  FZF_VERSION_MAJOR=$(echo $FZF_VERSION | cut -d. -f1)
-  FZF_VERSION_MINOR=$(echo $FZF_VERSION | cut -d. -f2)
+  FZF_VERSION_MAJOR=$(echo "$FZF_VERSION" | cut -d. -f1)
+  FZF_VERSION_MINOR=$(echo "$FZF_VERSION" | cut -d. -f2)
   # ubuntu 2204 and lower moment
-  if [ "$FZF_VERSION_MAJOR" -ge 0 ] && [ "$FZF_VERSION_MINOR" -ge 30 ]; then
-    eval "$(fzf --bash)"
-  else
+  if [ "$FZF_VERSION_MAJOR" == 0 ] && [ "$FZF_VERSION_MINOR" -le 47 ]; then
     source /usr/share/doc/fzf/examples/key-bindings.bash
-    # source /usr/share/doc/fzf/examples/completion.bash
-    source /usr/share/bash-completion/completions/fzf
+    if [ "$FZF_VERSION_MINOR" -ge 21 ]; then
+      source /usr/share/bash-completion/completions/fzf
+    else
+      source /usr/share/doc/fzf/examples/completion.bash
+    fi
+  else
+    eval "$(fzf --bash)"
   fi
 fi
 

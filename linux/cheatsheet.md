@@ -51,8 +51,9 @@ zgrep -E "Commandline: apt(|-get)" /var/log/apt/history.log*
 #### Update old enough arch
 
 ```bash
-sudo pacman -Sy archlinux-keyring --noconfirm --needed --color always
-sudo pacman -Syu --noconfirm --needed --color always
+sudo pacman --noconfirm --needed --color always -Sy archlinux-keyring
+sudo pacman --noconfirm --needed --color always -Syu
+# sudo pacman --needed --color always -Syu
 ```
 
 #### Tune parallel downloads
@@ -70,7 +71,7 @@ sudo sed -i 's/^ParallelDownloads = [0-9]\+/#ParallelDownloads = 7/' /etc/pacman
 #### AUR
 
 ```bash
-sudo pacman -S --noconfirm --needed --color always git base-devel && git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si --noconfirm && cd - && rm -rf yay-bin
+sudo pacman --noconfirm --needed --color always -S git base-devel && git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si --noconfirm && cd - && rm -rf yay-bin
 ```
 
 #### [Mirrors choose](https://wiki.archlinux.org/title/mirrors#Fetching_and_ranking_a_live_mirror_list)
