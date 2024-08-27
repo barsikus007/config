@@ -86,35 +86,40 @@ Remove-Item -Recurse ~\.proto\
 
 ### Python
 
-#### pipx
+```bash
+python3 -m pip install --upgrade pip setuptools wheel
+```
+
+#### uv
+
+TODO - install python via uv
 
 ```bash
-# install
-python3 -m pip install --upgrade pip setuptools wheel
-python3 -m pip install --user pipx-in-pipx
-# or
-# use apt scoop or etc PM
-python3 -m pipx ensurepath
-# TODO rm /mnt/c/users/admin/appdata/roaming/python/python312/scripts/register-python-argcomplete
-pipx install uv
-pipx install pdm
-pipx install ruff
-pipx install hatch
-# hatch config
+# linux
+curl -LsSf https://astral.sh/uv/install.sh | sh
+# windows
+scoop install uv
+
+uv tool --version  # 0.3.4
+uv tool install pdm
+uv tool install ruff
+uv tool install hatch
+uv tool install ptpython
+# uv tool install --with ipython ptpython
+uv tool install git+https://github.com/vypivshiy/ani-cli-ru@dev
+uv tool install anicli-ru --upgrade-package anicli-api
+uv tool upgrade --all
+```
+
+#### hatch
+
+```bash
 hatch config set dirs.env.virtual .venv
 hatch config set template.licenses.headers false
 hatch config set terminal.styles.spinner material
-pipx install ptpython
-# pipx inject ptpython ipython
-pipx install git+https://github.com/vypivshiy/ani-cli-ru@dev
-# uvx test
-uv tool --version  # 0.2.34
-uv tool install git+https://github.com/vypivshiy/ani-cli-ru@dev
-uv tool install anicli-ru --upgrade-package anicli-api
-pipx upgrade-all
 ```
 
-#### hatch release schedule
+##### release schedule
 
 ```bash
 hatch run test:cov
