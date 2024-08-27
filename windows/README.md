@@ -138,11 +138,13 @@ Windows Registry Editor Version 5.00
 - <https://www.procustodibus.com/blog/2021/03/wireguard-allowedips-calculator/>
   - `0.0.0.0/1, 128.0.0.0/2, 192.0.0.0/9, 192.128.0.0/11, 192.160.0.0/13, 192.169.0.0/16, 192.170.0.0/15, 192.172.0.0/14, 192.176.0.0/12, 192.192.0.0/10, 193.0.0.0/8, 194.0.0.0/7, 196.0.0.0/6, 200.0.0.0/5, 208.0.0.0/4, 224.0.0.0/3, ::/1, 8000::/1`
 
-### TunnlTo
+### WireSockUI
 
-- whitelist `_msedge, _opera, code, copilot-agent-win, EpicGamesLauncher, EpicWebHelper, steam, steamwebhelper, mstsc`
-- AllowedIPs `0.0.0.0/1, 128.0.0.0/1, ::/1, 8000::/1`
-- DisallowedIPs `192.168.0.0/16`
+- install
+  - `winget install NTKERNEL.WireSockVPNClient`
+  - <https://github.com/wiresock/WireSockUI/releases>
+- `AllowedApps = _msedge, _opera, code, copilot-agent-win, EpicGamesLauncher, EpicWebHelper, steam, steamwebhelper, mstsc`
+- `AllowedIPs = 0.0.0.0/1, 128.0.0.0/1, ::/1, 8000::/1`
 
 ## Steam Lite
 
