@@ -10,33 +10,33 @@
 // @run-at       document-start
 // ==/UserScript==
 
-const logger = console.log.bind(console, 'Ligma Ballz:');
+const logger = console.log.bind(console, "Ligma Ballz:");
 
 (function () {
-  'use strict';
+  "use strict";
 
   new MutationObserver(async (mutations, observer) => {
-    logger('Loaded Chrome');
+    logger("Loaded Chrome");
     let oldScript = mutations
       .flatMap((e) => [...e.addedNodes])
-      .filter((e) => e.tagName == 'SCRIPT')
+      .filter((e) => e.tagName == "SCRIPT")
       .find((e) => e.src.match(/figma_app\.min\.js\.br/));
 
     if (oldScript) {
-      logger('script found', oldScript);
+      logger("script found", oldScript);
       observer.disconnect();
       oldScript.remove();
 
       let text = await fetch(oldScript.src)
         .then((e) => e.text())
-        .then((e) => e.replace(/[tk_].canAccessFullDevMode/g, 'true'));
+        .then((e) => e.replace(/[tk_].canAccessFullDevMode/g, "true"));
 
-      let newScript = document.createElement('script');
-      newScript.type = 'module';
+      let newScript = document.createElement("script");
+      newScript.type = "module";
       newScript.textContent = text;
-      logger('script patched', newScript);
+      logger("script patched", newScript);
       document.head.appendChild(newScript);
-      logger('script injected', newScript);
+      logger("script injected", newScript);
     }
   }).observe(document, {
     childList: true,

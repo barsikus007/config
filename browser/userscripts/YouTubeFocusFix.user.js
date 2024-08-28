@@ -9,8 +9,8 @@
 // @match        *://*.youtube.com/watch?v=*
 // ==/UserScript==
 
-const player = document.querySelector('video.video-stream')
+const player = document.querySelector("video.video-stream");
 player.onmouseenter = () => {
-  player.focus()
-  scrollTo({ top: 0, behavior: 'smooth' })
-}
+  player.focus();
+  scrollTo({ top: 0, behavior: "smooth" });
+};
