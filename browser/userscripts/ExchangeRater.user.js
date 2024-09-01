@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Exchange Rate converteR
 // @namespace    https://github.com/barsikus007/
-// @version      0.1.0
+// @version      0.1.1
 // @author       barsikus007
 // @description  Exchange rate converter on selection
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=exchangerate-api.com
@@ -38,15 +38,16 @@ const currencyAliases = {
 };
 
 const contextDivId = "exchange-rate-context";
-const refreshRate = 1000 * 60 * 60 * 3; // 3 hours
-const apiEndpoint = "https://api.exchangerate-api.com/v6/latest/";
+const refreshRate = 1000 * 60 * 60 * 24; // 24 hours
+// const apiEndpoint = "https://api.exchangerate-api.com/v6/latest/";
+const apiEndpoint = "https://open.er-api.com/v6/latest/";
 
 GM_registerMenuCommand("Choose Currency", () => {
   GM_setValue("targetCurrency", prompt("Type your Currency (RUB,USD,EUR)", "RUB"));
 });
 
-GM_registerMenuCommand("Update Rates", () => {
-  updateCurrency();
+GM_registerMenuCommand("Update Rates", async () => {
+  await updateCurrency();
   const rates = GM_getValue("rates", defaultRates);
   alert(`Updated:\n${JSON.stringify(rates)}`);
 });
@@ -100,7 +101,7 @@ const renderContext = (e, popupText, textToCopy) => {
   contextDiv.style.left = Math.abs(posX) + "px";
 
   contextDiv.style.color = "white";
-  contextDiv.style.backgroundColor = "#303030";
+  contextDiv.style.backgroundColor = "#363636";
   contextDiv.style.border = "1px solid #636363";
   contextDiv.style.borderRadius = "8px";
   contextDiv.style.padding = "4px";
@@ -113,7 +114,7 @@ const renderContext = (e, popupText, textToCopy) => {
   contextDivText.style.cursor = "default";
 
   contextDivText.onmouseover = () => {
-    contextDivText.style.backgroundColor = "#393939";
+    contextDivText.style.backgroundColor = "#444";
   };
   contextDivText.onmouseout = () => {
     contextDivText.style.backgroundColor = null;
@@ -144,6 +145,9 @@ window.addEventListener("mouseup", async (e) => {
         .replace(/[^\d. ]/g, "")
         .trim();
       const amount = parseFloat(processedSelection);
+      if (isNaN(amount)) {
+        continue;
+      }
       const convertedAmount = await convertCurrency(amount, currencyId);
       const targetCurrency = GM_getValue("targetCurrency", defaultTargetCurrency);
       const popupText = `${amount} ${currencyAliases[currencyId]} ≈ ${convertedAmount} ${currencyAliases[targetCurrency]}`;
@@ -151,4 +155,5 @@ window.addEventListener("mouseup", async (e) => {
       return;
     }
   });
+  document.getElementById(contextDivId)?.remove();
 });
