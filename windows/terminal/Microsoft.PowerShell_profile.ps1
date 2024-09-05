@@ -68,8 +68,8 @@ Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory
 
 Debug-Log proto (Measure-Command {
 # proto & go
-$env:PROTO_HOME = Join-Path $HOME ".config" "proto"
-$env:GOBIN = Join-Path $HOME "go" "bin"
+$env:PROTO_HOME = [IO.Path]::Combine($HOME, ".config", "proto")
+$env:GOBIN = [IO.Path]::Combine($HOME, "go", "bin")
 $env:PATH = @(
     (Join-Path $env:PROTO_HOME "shims"),
     (Join-Path $env:PROTO_HOME "bin"),
@@ -97,8 +97,8 @@ Set-Alias -Option AllScope h history
 # FUCK PWSH
 Function hf { h | grep.exe --color=auto -Fin -C 7 $args }
 Function sshe { editor $HOME\.ssh\config }
-Test-Path Alias:\nv && Remove-Item Alias:\nv -Force
-Function nv { editor $(fzf) }
+#* Test-Path Alias:\nv && Remove-Item Alias:\nv -Force
+#* Function nv { editor $(fzf) }
 Function 1ip { wget -qO - icanhazip.com }
 Function 2ip { curl 2ip.ru }
 
@@ -117,7 +117,7 @@ if (Test-Command eza) {
 Function suss { scoop update | scoop status }
 Function i { scoop install }
 Function u { suss | scoop update * }
-Function cu { cd ~/config/ && git pull && ./configs/install.ps1 && ./windows/pwsh.ps1 && cd - }
+#* Function cu { cd ~/config/ && git pull && ./configs/install.ps1 && ./windows/pwsh.ps1 && cd - }
 
 # docker
 Function lzd { lazydocker }
@@ -138,10 +138,10 @@ Function dce { docker compose exec -it $args }
 Function dcsh { dce $args sh -c 'bash || sh' }
 
 # python
-Function pyvcr { python3 -m venv .venv --upgrade-deps && .venv/Scripts/python -c "import sys,pathlib;v=sys.version_info;pyv=f'{v.major}.{v.minor}';path=pathlib.Path('.venv/pyvenv.cfg');path.write_text(path.read_text(encoding='utf-8').replace(f'{v.major}.{v.minor}.{v.micro}',pyv).replace(f'{pyv}\\','current\\'),encoding='utf-8')" && .venv/Scripts/Activate.ps1 && .venv/Scripts/pip install -r requirements.txt }
-Function pyv { .venv/Scripts/Activate.ps1 || (pyvcr) }
+#* Function pyvcr { python3 -m venv .venv --upgrade-deps && .venv/Scripts/python -c "import sys,pathlib;v=sys.version_info;pyv=f'{v.major}.{v.minor}';path=pathlib.Path('.venv/pyvenv.cfg');path.write_text(path.read_text(encoding='utf-8').replace(f'{v.major}.{v.minor}.{v.micro}',pyv).replace(f'{pyv}\\','current\\'),encoding='utf-8')" && .venv/Scripts/Activate.ps1 && .venv/Scripts/pip install -r requirements.txt }
+#* Function pyv { .venv/Scripts/Activate.ps1 || (pyvcr) }
 Function pyt { ptpython --asyncio }
-Function pipi { python -c "import os;os.environ['VIRTUAL_ENV']" && pip install -r requirements.txt || echo "activate venv to install requirements" }
+#* Function pipi { python -c "import os;os.environ['VIRTUAL_ENV']" && pip install -r requirements.txt || echo "activate venv to install requirements" }
 
 # other
 Function sex { explorer.exe . }
@@ -173,3 +173,13 @@ Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
 Import-Module -Name Microsoft.WinGet.CommandNotFound
 #f45873b3-b655-43a6-b217-97c00aa0db58
 
+
+# terminate if powershell version is less than 7
+if ($PSVersionTable.PSVersion.Major -lt 7) {
+    Write-Host "Limited profile loaded" -ForegroundColor Red
+    Write-Host "PowerShell version 7 or higher is required" -ForegroundColor Red
+    Write-Host "winget install -e --id Microsoft.PowerShell" -ForegroundColor DarkGray
+    exit
+} else {
+    ~\Documents\PowerShell\extend.ps1 | Out-Null
+}

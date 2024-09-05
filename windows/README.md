@@ -63,7 +63,6 @@ foreach ($oldvid in $oldvids) {
   - <https://github.com/farag2/Windows_Terminal/blob/main/Install_Modules.ps1>
 - mingit cert config
   - `git config --global http.sslCAInfo "C:\\Users\\Admin\\scoop\\apps\\mingit\\current\\mingw64\\etc\\ssl\\certs\\ca-bundle.crt"`
-- install python from version repo
 - exclude autoupdate packages from scoop
 - WSA soft
 - explorer like tabs in wt.exe
@@ -80,25 +79,17 @@ foreach ($oldvid in $oldvids) {
   - <https://win10tweaker.ru/twikinarium>
 - Consistent theming
   - <https://github.com/Serendipity-Theme/windows-terminal>
-  - same theme for vscode
+  - [same theme for vscode](https://marketplace.visualstudio.com/items?itemName=wicked-labs.wvsc-serendipity)
 - netlimiter or windowsfirewallcontrol
 - pwsh
   - pwsh 5 dont load profile and notice about pwsh 7
   - pwsh funcs $args broken?
   - config pwsh -nol
 - unsorted dump from TG
-  - fix cmd on startup
-  - fix file associations with vscode or notepad++
   - fix powertoys rmc
   - fix dotnet
-  - fix win11 prntscr
-  - winget search nvidia
-  - winget Jigsaw.OutlineManager
-  - windows explorer path fix to old
+  - windows explorer path bar fix to old
   - diskpart windows нормальный
-  - notepad $profile.AllUsersAllHosts
-  - pywindower tg edge discord keepassxc
-    - 1 - Microsoft​ Edge","rect": [-3,4,1047,960]
 
 ## Toggle new context menu (due to lack of 7zip and notepad++)
 

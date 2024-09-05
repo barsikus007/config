@@ -41,7 +41,8 @@
 ## winget
 
 <https://winstall.app/apps/{id}>
-winget install --id={id} -e -h
+
+`winget install --id={id} -e -h`
 
 ### msstore
 
@@ -56,14 +57,12 @@ winget install --id=9NBLGGH2JHXJ -e --accept-package-agreements
 
 ```powershell
 winget upgrade --accept-source-agreements
-# winget install pwsh -h
-# winget install pwsh-preview -h
+winget install --id Microsoft.PowerShell -e -h
 ```
 
 - Docker.DockerDesktop
 - Parsec.Parsec
 - SandboxiePlus.SandboxieClassic
-- Jigsaw.OutlineManager
 - Google.QuickShare
 - WireGuard.WireGuard
 
@@ -96,9 +95,9 @@ sudo winget install --id=Microsoft.VisualStudio.2022.BuildTools -e --override '-
 
 ### OTHER
 
+- Nvidia.Broadcast
 - Nvidia.CUDA
 - Nvidia.GeForceExperience
-- Nvidia.RTXVoice
 
 // scoop probably broken
 

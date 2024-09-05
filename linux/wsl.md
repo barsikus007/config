@@ -36,7 +36,7 @@ systemd=true
 
 ### sparse
 
-```pwsh
+```powershell
 wsl --manage Ubuntu --set-sparse true
 
 wsl --manage docker-desktop --set-sparse true
