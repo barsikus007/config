@@ -49,6 +49,8 @@ export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH"
 # go
 export GOBIN="$HOME/go/bin"
 export PATH="$GOBIN:$PATH"
+# rust
+source "$HOME/.cargo/env" &> /dev/null
 
 if hash fzf &> /dev/null; then
   FZF_VERSION=$(fzf --version | awk '{print $1}')

@@ -56,13 +56,8 @@ git config --global gpg.format ssh
 proto install go
 proto install node lts
 proto install pnpm
-# TODO bun windows
-# scoop bucket add versions
-# scoop install bun-canary
 proto install bun
-# TODO test tools
-# proto install python
-# proto install rust
+# TODO proto install rust -- --profile minimal
 ```
 
 #### Install
@@ -92,7 +87,11 @@ python3 -m pip install --upgrade pip setuptools wheel
 
 #### uv
 
-TODO - install python via uv
+```bash
+uv python install
+```
+
+[TODO - python available globally](https://docs.astral.sh/uv/guides/install-python/#getting-started)
 
 ```bash
 # linux
