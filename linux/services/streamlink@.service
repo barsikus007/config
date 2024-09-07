@@ -1,0 +1,19 @@
+[Unit]
+Description=Twitch stream auto recorder for @%i channel
+Requires=zfs-mount.service
+After=zfs-mount.service
+
+[Service]
+User=user
+Group=user
+ExecStart=/home/user/.local/bin/streamlink -o '/home/user/streams/%i/{title} [v{id}].mp4' --retry-streams 300 --twitch-disable-ads --twitch-disable-hosting https://www.twitch.tv/%i best
+
+[Install]
+WantedBy=default.target
+
+# uv tool install streamlink
+# mkdir -p /usr/local/lib/systemd/system
+# sudoedit /usr/local/lib/systemd/system/streamlink@.service
+# sudo sed -i "s/user/$USER/g" /usr/local/lib/systemd/system/streamlink@.service
+# sudo systemctl enable --now streamlink@{channel1,channel2}.service
+# systemctl status streamlink@{channel1,channel2}.service

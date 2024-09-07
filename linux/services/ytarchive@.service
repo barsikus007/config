@@ -1,17 +1,22 @@
 [Unit]
 Description=YouTube stream auto recorder for @%i channel
-Requires=zfs-mount.service
+# Requires=zfs-mount.service
+Requires=zfs-mount.service byedpi.service
 After=zfs-mount.service
 
 [Service]
 User=user
 Group=user
-ExecStart=/home/user/go/bin/ytarchive -t -o '/home/user/streams/%i/%(title)s [%(id)s]' -r 900 --add-metadata --monitor-channel https://www.youtube.com/@%i/live best
+ExecStart=/home/user/go/bin/ytarchive \
+    --proxy socks5://127.0.0.1:10801 \
+    -t -o '/home/user/streams/%i/%(title)s [%(id)s]' -r 900 --add-metadata --monitor-channel https://www.youtube.com/@%i/live best
 
 [Install]
 WantedBy=default.target
 
 # go install github.com/Kethsar/ytarchive@dev
-# nvim /etc/systemd/system/ytarchive@.service
-# :%s/user/$USER/g
+# mkdir -p /usr/local/lib/systemd/system
+# sudoedit /usr/local/lib/systemd/system/ytarchive@.service
+# sudo sed -i "s/user/$USER/g" /usr/local/lib/systemd/system/ytarchive@.service
 # sudo systemctl enable --now ytarchive@{channel1,channel2}.service
+# systemctl status ytarchive@{channel1,channel2}.service
