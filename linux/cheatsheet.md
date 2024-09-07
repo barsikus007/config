@@ -91,16 +91,21 @@ export TMPFILE="$(mktemp)"; \
 
 ##### TODO
 
-- profile
+- [profile](https://rust-lang.github.io/rustup/concepts/profiles.html)
   - minimal?
 - PATH
-- update sequence
 
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+# or proto install rust
 ```
 
 #### software
+
+```bash
+cargo install cargo-update
+cargo install-update -a
+```
 
 - `cargo install eza`
 
