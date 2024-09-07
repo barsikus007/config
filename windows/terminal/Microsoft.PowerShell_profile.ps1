@@ -1,10 +1,10 @@
-$debugz = $true
+$debug_load_time = $false
 Function Debug-Log {
     Param(
         [Parameter(ValueFromPipeline)]$item,
         [Parameter(mandatory=$false, ValueFromRemainingArguments=$true)]$args
     )
-    if ($debugz) {
+    if ($debug_load_time) {
         Write-Host $item $args
     }
 }
@@ -101,6 +101,7 @@ Function sshe { editor $HOME\.ssh\config }
 #* Function nv { editor $(fzf) }
 Function 1ip { wget -qO - icanhazip.com }
 Function 2ip { curl 2ip.ru }
+Function mkcd { New-Item $args -ItemType Directory -Force | Select-Object Name | Set-Location }
 
 # ls
 Function l { ls -CF $args }

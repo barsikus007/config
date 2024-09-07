@@ -9,7 +9,7 @@ mc bat duf fzf btop neovim zoxide ripgrep
 #! add
 eza neofetch
 #! pwsh/cmd specific
-pwsh posh-git psfzf starship
+posh-git psfzf starship
 clink clink-completions
 
 lazydocker
