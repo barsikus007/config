@@ -77,9 +77,6 @@ foreach ($oldvid in $oldvids) {
 - Tweak windows
   - <https://github.com/farag2/Sophia-Script-for-Windows>
   - <https://win10tweaker.ru/twikinarium>
-- Consistent theming
-  - <https://github.com/Serendipity-Theme/windows-terminal>
-  - [same theme for vscode](https://marketplace.visualstudio.com/items?itemName=wicked-labs.wvsc-serendipity)
 - netlimiter or windowsfirewallcontrol
 - pwsh
   - pwsh 5 dont load profile and notice about pwsh 7

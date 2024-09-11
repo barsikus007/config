@@ -1,11 +1,9 @@
 {
     "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
-    "actions": 
-    [
+    "actions": [
         {
-            "command": 
-            {
+            "command": {
                 "action": "copy",
                 "singleLine": false
             },
@@ -16,12 +14,7 @@
             "keys": "ctrl+v"
         },
         {
-            "command": "find",
-            "keys": "ctrl+shift+f"
-        },
-        {
-            "command": 
-            {
+            "command": {
                 "action": "splitPane",
                 "split": "auto",
                 "splitMode": "duplicate"
@@ -32,101 +25,91 @@
     "copyFormatting": false,
     "copyOnSelect": false,
     "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
-    "disabledProfileSources": ["Windows.Terminal.Azure", "Windows.Terminal.VisualStudio"],
-    "profiles": 
-    {
-        "defaults": 
+    "disabledProfileSources": [
+        "Windows.Terminal.Azure",
+        "Windows.Terminal.VisualStudio"
+    ],
+    "newTabMenu": [
         {
-            "font": 
-            {
+            "type": "profile",
+            "profile": "pwsh"
+        },
+        {
+            "type": "folder",
+            "name": "WSL",
+            "icon": "ms-appx:///ProfileIcons/{9acb9455-ca41-5af7-950f-6bca1bc9722f}.png",
+            "inline": "auto",
+            "allowEmpty": false,
+            "entries": [
+                {
+                    "type": "matchProfiles",
+                    "source": "Windows.Terminal.Wsl"
+                }
+            ]
+        },
+        {
+            "type": "folder",
+            "name": "SSH",
+            "icon": "ms-appx:///ProfileIcons/{b453ae62-4e3d-5e58-b989-0a998ec441b8}.png",
+            "inline": "auto",
+            "entries": [
+                {
+                    "type": "matchProfiles",
+                    "source": "Windows.Terminal.SSH"
+                }
+            ]
+        },
+        {
+            "type": "remainingProfiles"
+        }
+    ],
+    "profiles": {
+        "defaults": {
+            // TODO "closeOnExit": "graceful",
+            "colorScheme": {
+                "dark": "Campbell",
+                "light": "Frost"
+            },
+            "font": {
                 "face": "Delugia"
             },
-            "colorScheme": {
-                "light": "Frost",
-                "dark": "Campbell"
-            },
-            "opacity": 80,
+            "historySize": 32768,
+            // TODO "experimental.repositionCursorWithMouse": true,
+            // TODO "experimental.retroTerminalEffect": true,
+            // "opacity": 80,
             "useAcrylic": true
         },
-        "list": 
-        [
+        "list": [
             {
-                "commandline": "powershell.exe -NoLogo",
-                "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
-                "hidden": true,
-                "name": "Windows PowerShell"
-            },
-            {
-                "commandline": "cmd.exe",
-                "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
-                "hidden": true,
-                "name": "Command Prompt"
-            },
-            {
+                "colorScheme": "Campbell Powershell",
                 "commandline": "pwsh.exe -NoLogo",
                 "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
                 "hidden": false,
-                "name": "PowerShell",
+                "name": "pwsh",
                 "source": "Windows.Terminal.PowershellCore"
             },
             {
+                "colorScheme": "Raspberry",
+                "background": "#300A24",
                 "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
                 "hidden": false,
+                "icon": "https://assets.ubuntu.com/v1/favicon.ico",
                 "name": "Ubuntu",
-                "source": "Windows.Terminal.Wsl",
-                "colorScheme": "Raspberry",
-                // "background": "#300A24",
-                "icon": "%USERPROFILE%/Pictures/icons/ubuntu.png"
+                "source": "Windows.Terminal.Wsl"
+            },
+            {
+                "colorScheme": "Campbell Powershell",
+                "commandline": "powershell.exe -NoLogo",
+                "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+                "name": "powershell"
+            },
+            {
+                "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+                "name": "cmd"
             }
         ]
     },
-    "schemes": 
-    [
-        {
-            "name": "Frost",
-            "background": "#FFFFFF",
-            "black": "#3C5712",
-            "blue": "#17B2FF",
-            "brightBlack": "#749B36",
-            "brightBlue": "#27B2F6",
-            "brightCyan": "#13A8C0",
-            "brightGreen": "#89AF50",
-            "brightPurple": "#F2A20A",
-            "brightRed": "#F49B36",
-            "brightWhite": "#741274",
-            "brightYellow": "#991070",
-            "cursorColor": "#000000",
-            "cyan": "#3C96A6",
-            "foreground": "#000000",
-            "green": "#6AAE08",
-            "purple": "#991070",
-            "red": "#8D0C0C",
-            "selectionBackground": "#FFFFFF",
-            "white": "#6E386E",
-            "yellow": "#991070"
-        },
-        {
-            "name" : "Raspberry",
-            "background" : "#3C0315",
-            "black" : "#282A2E",
-            "blue" : "#0170C5",
-            "brightBlack" : "#676E7A",
-            "brightBlue" : "#80c8ff",
-            "brightCyan" : "#8ABEB7",
-            "brightGreen" : "#B5D680",
-            "brightPurple" : "#AC79BB",
-            "brightRed" : "#BD6D85",
-            "brightWhite" : "#FFFFFD",
-            "brightYellow" : "#FFFD76",
-            "cursorColor" : "#FFFFFF",
-            "cyan" : "#3F8D83",
-            "foreground" : "#FFFFFD",
-            "green" : "#76AB23",
-            "purple" : "#7D498F",
-            "red" : "#BD0940",
-            "white" : "#FFFFFD",
-            "yellow" : "#E0DE48"
-        },
+    "schemes": [
         {
             "name": "Campbell",
             "background": "#0C0C0C",
@@ -174,6 +157,30 @@
             "yellow": "#C19C00"
         },
         {
+            // https://learn.microsoft.com/en-us/windows/terminal/custom-terminal-gallery/frosted-glass-theme
+            "name": "Frost",
+            "background": "#FFFFFF",
+            "black": "#3C5712",
+            "blue": "#17B2FF",
+            "brightBlack": "#749B36",
+            "brightBlue": "#27B2F6",
+            "brightCyan": "#13A8C0",
+            "brightGreen": "#89AF50",
+            "brightPurple": "#F2A20A",
+            "brightRed": "#F49B36",
+            "brightWhite": "#741274",
+            "brightYellow": "#991070",
+            "cursorColor": "#000000",
+            "cyan": "#3C96A6",
+            "foreground": "#000000",
+            "green": "#6AAE08",
+            "purple": "#991070",
+            "red": "#8D0C0C",
+            "selectionBackground": "#FFFFFF",
+            "white": "#6E386E",
+            "yellow": "#991070"
+        },
+        {
             "name": "One Half Dark",
             "background": "#282C34",
             "black": "#282C34",
@@ -218,6 +225,148 @@
             "selectionBackground": "#FFFFFF",
             "white": "#FAFAFA",
             "yellow": "#C18301"
+        },
+        {
+            // https://learn.microsoft.com/en-us/windows/terminal/custom-terminal-gallery/raspberry-ubuntu
+            "name": "Raspberry",
+            "background": "#3C0315",
+            "black": "#282A2E",
+            "blue": "#0170C5",
+            "brightBlack": "#676E7A",
+            "brightBlue": "#80C8FF",
+            "brightCyan": "#8ABEB7",
+            "brightGreen": "#B5D680",
+            "brightPurple": "#AC79BB",
+            "brightRed": "#BD6D85",
+            "brightWhite": "#FFFFFD",
+            "brightYellow": "#FFFD76",
+            "cursorColor": "#FFFFFF",
+            "cyan": "#3F8D83",
+            "foreground": "#FFFFFD",
+            "green": "#76AB23",
+            "purple": "#7D498F",
+            "red": "#BD0940",
+            "selectionBackground": "#FFFFFF",
+            "white": "#FFFFFD",
+            "yellow": "#E0DE48"
+        },
+        // https://github.com/Serendipity-Theme/windows-terminal/blob/main/schemes.jsonc
+        {
+            "name": "Serendipity Morning",
+            "background": "#FFFAF3",
+            "black": "#F2E9DE",
+            "blue": "#3788BE",
+            "brightBlack": "#6E6A86",
+            "brightBlue": "#3788BE",
+            "brightCyan": "#7397DE",
+            "brightGreen": "#77AAB3",
+            "brightPurple": "#886CDB",
+            "brightRed": "#D26A5D",
+            "brightWhite": "#575279",
+            "brightYellow": "#C8A299",
+            "cursorColor": "#575279",
+            "cyan": "#7397DE",
+            "foreground": "#575279",
+            "green": "#77AAB3",
+            "purple": "#886CDB",
+            "red": "#D26A5D",
+            "selectionBackground": "#F4EFEA",
+            "white": "#575279",
+            "yellow": "#C8A299"
+        },
+        {
+            "name": "Serendipity Sunset",
+            "background": "#272938",
+            "black": "#363847",
+            "blue": "#709BBD",
+            "brightBlack": "#6B6D7C",
+            "brightBlue": "#709BBD",
+            "brightCyan": "#A0B6E8",
+            "brightGreen": "#AAC9D4",
+            "brightPurple": "#A392DC",
+            "brightRed": "#D1918F",
+            "brightWhite": "#DEE0EF",
+            "brightYellow": "#EDD5D6",
+            "cursorColor": "#DEE0EF",
+            "cyan": "#A0B6E8",
+            "foreground": "#DEE0EF",
+            "green": "#AAC9D4",
+            "purple": "#A392DC",
+            "red": "#D1918F",
+            "selectionBackground": "#313342",
+            "white": "#DEE0EF",
+            "yellow": "#EDD5D6"
+        },
+        {
+            "name": "Serendipity Midnight",
+            "background": "#1C1E2D",
+            "black": "#232534",
+            "blue": "#5BA2D0",
+            "brightBlack": "#8D8F9E",
+            "brightBlue": "#5BA2D0",
+            "brightCyan": "#94B8FF",
+            "brightGreen": "#9CCFD8",
+            "brightPurple": "#A78BFA",
+            "brightRed": "#EE8679",
+            "brightWhite": "#DEE0EF",
+            "brightYellow": "#F8D2C9",
+            "cursorColor": "#DEE0EF",
+            "cyan": "#94B8FF",
+            "foreground": "#DEE0EF",
+            "green": "#9CCFD8",
+            "purple": "#A78BFA",
+            "red": "#EE8679",
+            "selectionBackground": "#2C2E3D",
+            "white": "#DEE0EF",
+            "yellow": "#F8D2C9"
+        },
+        {
+            // https://github.com/ahmadawais/shades-of-purple-vscode/blob/master/themes/shades-of-purple-color-theme.json#L291
+            "name": "Shades of Purple",
+            "background": "#1E1E3F",
+            "black": "#000000",
+            "blue": "#7857fe",
+            "brightBlack": "#5C5C61",
+            "brightRed": "#EC3A37",
+            "brightGreen": "#3AD900",
+            "brightYellow": "#FAD000",
+            "brightBlue": "#6943FF",
+            "brightPurple": "#FB94FF",
+            "brightCyan": "#80FCFF",
+            "brightWhite": "#FFFFFF",
+            "cursorColor": "#FAD000",
+            "cyan": "#80FCFF",
+            "foreground": "#FFFFFF",
+            "green": "#3AD900",
+            "purple": "#FF2C70",
+            "red": "#EC3A37",
+            "selectionBackground": "#FFFFFF",
+            "white": "#FFFFFF",
+            "yellow": "#FAD000"
+        },
+        {
+            // https://github.com/ahmadawais/shades-of-purple-vscode/blob/master/themes/shades-of-purple-color-theme-super-dark.json#L291
+            "name": "Shades of Purple (Super Dark)",
+            "background": "#15152b",
+            "black": "#000000",
+            "blue": "#7857fe",
+            "brightBlack": "#5C5C61",
+            "brightRed": "#EC3A37",
+            "brightGreen": "#3AD900",
+            "brightYellow": "#FAD000",
+            "brightBlue": "#6943FF",
+            "brightPurple": "#FB94FF",
+            "brightCyan": "#80FCFF",
+            "brightWhite": "#FFFFFF",
+            "cursorColor": "#FAD000",
+            "cyan": "#80FCFF",
+            "foreground": "#FFFFFF",
+            "green": "#3AD900",
+            "purple": "#FF2C70",
+            "red": "#EC3A37",
+            "selectionBackground": "#FFFFFF",
+            "white": "#FFFFFF",
+            "yellow": "#FAD000"
         },
         {
             "name": "Solarized Dark",
@@ -312,6 +461,29 @@
             "yellow": "#C4A000"
         },
         {
+            "name": "Ubuntu-ColorScheme",
+            "background": "#300A24",
+            "black": "#171421",
+            "blue": "#0037DA",
+            "brightBlack": "#767676",
+            "brightBlue": "#08458F",
+            "brightCyan": "#2C9FB3",
+            "brightGreen": "#26A269",
+            "brightPurple": "#A347BA",
+            "brightRed": "#C01C28",
+            "brightWhite": "#F2F2F2",
+            "brightYellow": "#A2734C",
+            "cursorColor": "#FFFFFF",
+            "cyan": "#3A96DD",
+            "foreground": "#FFFFFF",
+            "green": "#26A269",
+            "purple": "#881798",
+            "red": "#C21A23",
+            "selectionBackground": "#FFFFFF",
+            "white": "#CCCCCC",
+            "yellow": "#A2734C"
+        },
+        {
             "name": "Vintage",
             "background": "#000000",
             "black": "#000000",
@@ -336,24 +508,23 @@
         }
     ],
     "theme": "Default",
-    "themes": 
-    [
+    "themes": [
         {
             "name": "Default",
-            "tab": 
-            {
+            "tab": {
                 "background": "terminalBackground",
-                "showCloseButton": "always",
+                "showCloseButton": "hover",
                 "unfocusedBackground": "#00000000"
             },
-            "tabRow": 
-            {
+            "tabRow": {
                 "background": "terminalBackground",
                 "unfocusedBackground": "#00000000"
             },
-            "window": 
-            {
+            "window": {
                 "applicationTheme": "system",
+                "experimental.rainbowFrame": false,
+                "frame": "accent",
+                "unfocusedFrame": null,
                 "useMica": true
             }
         }
