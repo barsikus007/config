@@ -7,8 +7,6 @@
 - [own](./userscripts)
 - TODO
   - yt watch later icon on video card
-  - to resolve currency (select+RCM)
-  - chromium correct ctrl+tab (like in opera and OS)
   - open in webarchive (RCM)
 
 ## uBlock
@@ -52,6 +50,7 @@ medium.com##div:has(> div:has(> div:has(> div:has(> div:has(> button[data-testid
 - YouTube
   - [Return YouTube Dislike](https://www.returnyoutubedislike.com/)
   - [SponsorBlock for YouTube - Skip Sponsorships](https://sponsor.ajay.app)
+- [QuicKey](https://fwextensions.github.io/QuicKey/)
 - [PiP - Picture in Picture Plus](https://www.oinkandstuff.com/project/pip-picture-in-picture-plus/)
 - [Search by Image](https://github.com/dessant/search-by-image)
 - [Refined GitHub](https://github.com/refined-github/refined-github)

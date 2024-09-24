@@ -65,7 +65,7 @@
     ],
     "profiles": {
         "defaults": {
-            // TODO "closeOnExit": "graceful",
+            "closeOnExit": "never",
             "colorScheme": {
                 "dark": "Campbell",
                 "light": "Frost"
@@ -81,12 +81,13 @@
         },
         "list": [
             {
-                "colorScheme": "Campbell Powershell",
+                "colorScheme": "Campbell",
                 "commandline": "pwsh.exe -NoLogo",
                 "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
                 "hidden": false,
                 "name": "pwsh",
-                "source": "Windows.Terminal.PowershellCore"
+                "source": "Windows.Terminal.PowershellCore",
+                "closeOnExit": "graceful"
             },
             {
                 "colorScheme": "Raspberry",
@@ -95,17 +96,20 @@
                 "hidden": false,
                 "icon": "https://assets.ubuntu.com/v1/favicon.ico",
                 "name": "Ubuntu",
-                "source": "Windows.Terminal.Wsl"
+                "source": "Windows.Terminal.Wsl",
+                "closeOnExit": "graceful"
             },
             {
                 "colorScheme": "Campbell Powershell",
                 "commandline": "powershell.exe -NoLogo",
                 "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
-                "name": "powershell"
+                "name": "powershell",
+                "closeOnExit": "graceful"
             },
             {
                 "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
-                "name": "cmd"
+                "name": "cmd",
+                "closeOnExit": "graceful"
             }
         ]
     },

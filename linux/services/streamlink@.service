@@ -6,7 +6,7 @@ After=zfs-mount.service
 [Service]
 User=user
 Group=user
-ExecStart=/home/user/.local/bin/streamlink -o '/home/user/streams/%i/{title} [v{id}].mp4' --retry-streams 300 --twitch-disable-ads --twitch-disable-hosting https://www.twitch.tv/%i best
+ExecStart=/home/user/.local/bin/streamlink -o '/home/user/streams/%i/{title} [v{id}].mp4' --retry-streams 60 --twitch-disable-ads --twitch-disable-hosting https://www.twitch.tv/%i 720p60,720p,best
 
 [Install]
 WantedBy=default.target
