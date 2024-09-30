@@ -69,7 +69,7 @@ foreach ($oldvid in $oldvids) {
 - powertoys pc config (without remaps)
 - copy scoop/persist configs for apps
 - auto wslhostpatcher
-- notepad.exe -> Delugia 12
+- notepad.exe -> Cascadia Code NF 12
 - Test UWP VK client
   - `winget install laney -s msstore -e --accept-package-agreements`
   - <https://elorucov.github.io/laney/>

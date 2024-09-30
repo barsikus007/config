@@ -23,6 +23,17 @@ soft_envs() {
   soft_to_purge="snapd"
 }
 
+setup_font() {
+  (
+    tmpfile=$(mktemp --suffix .zip)
+    wget https://github.com/microsoft/cascadia-code/releases/latest/download/CascadiaCode-2404.23.zip -O "$tmpfile"
+    # /usr/share/fonts/truetype/cascadia ?
+    sudo unzip -j "$tmpfile" ttf/Cascadia*.ttf -d /usr/share/fonts/cascadia
+    sudo fc-cache -v
+    rm "$tmpfile"
+  )
+}
+
 setup_user() {
   (
     if ! hash bat; then

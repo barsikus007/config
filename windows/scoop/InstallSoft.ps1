@@ -11,7 +11,7 @@ scoop bucket add nerd-fonts
 scoop install gsudo
 #! old one
 # scoop install sudo
-sudo scoop install Delugia-Nerd-Font-Complete
+sudo scoop install Cascadia-Code
 
 Write-Host "System apps"
 # system

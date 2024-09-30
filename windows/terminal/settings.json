@@ -71,7 +71,7 @@
                 "light": "Frost"
             },
             "font": {
-                "face": "Delugia"
+                "face": "Cascadia Code NF"
             },
             "historySize": 32768,
             // TODO "experimental.repositionCursorWithMouse": true,

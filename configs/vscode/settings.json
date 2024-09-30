@@ -7,8 +7,8 @@
     "editor.selectionClipboard": false,
     "settingsSync.keybindingsPerPlatform": false,
     // appearence
-    "terminal.integrated.fontFamily": "Delugia",
-    "editor.fontFamily": "Delugia",
+    "terminal.integrated.fontFamily": "Cascadia Code NF",
+    "editor.fontFamily": "Cascadia Code NF",
     "editor.fontLigatures": true,
     "workbench.iconTheme": "vscode-icons",
     "window.autoDetectColorScheme": true,
