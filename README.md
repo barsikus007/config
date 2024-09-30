@@ -129,6 +129,16 @@ hatch build
 hatch publish
 ```
 
+###### tag based
+
+```bash
+hatch run test:cov
+hatch version micro
+git commit -am "release: $(hatch version)"
+git tag -a $(hatch version) -m
+git push origin --follow-tags
+```
+
 #### [hatch sync env](https://github.com/pypa/hatch/discussions/594#discussioncomment-4377827)
 
 ```bash
