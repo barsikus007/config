@@ -62,8 +62,7 @@ alias pyt='ptpython --asyncio'
 alias pipi='python -c "import os;os.environ[\"VIRTUAL_ENV\"]" && pip install -r requirements.txt || echo "activate venv to install requirements"'
 
 # other
-# remove color after 24.04
-alias ncdu="ncdu --color dark --exclude '/mnt/*'"
+alias gdu="gdu -I ^/mnt"
 alias zps='zpool status -v'
 
 alias wgu='wg-quick up ~/wg0.conf'

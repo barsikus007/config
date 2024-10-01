@@ -3,7 +3,7 @@ $cli=@"
 scoop-search scoop-completion
 
 #! base
-mc bat duf fzf btop neovim zoxide ripgrep
+mc bat duf gdu fzf btop neovim zoxide ripgrep
 #? fd curl wget
 #? btop-lhm VERY SLOW
 #! add

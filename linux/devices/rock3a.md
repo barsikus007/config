@@ -5,12 +5,13 @@
 ```bash
 tzselect
 # 7 39 2 1
-base="mc git btop ncdu tmux tree neovim neofetch"
-sudo apt install $base -y
-git clone https://github.com/barsikus007/config.git
-~/config/configs/install.sh
-bash
+# install config
+sudo apt install git -y
+cd && git clone https://github.com/barsikus007/config --depth 1 && cd -
+cd ~/config/ && git pull && ./configs/install.sh && cd -
 u
+soft_envs
+sudo apt install $soft_base $soft_add -y
 sudo apt install linux-headers-legacy-rk35xx -y
 
 #for armbian-add-overlay

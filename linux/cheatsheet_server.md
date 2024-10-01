@@ -199,9 +199,12 @@ containrrr/watchtower --cleanup --remove-volumes
 ### arch
 
 ```bash
-base="mc bat duf git btop neovim ripgrep"
-add="eza ncdu tmux tree neofetch"
+# install config
+sudo pacman -S git
+cd && git clone https://github.com/barsikus007/config --depth 1 && cd -
+cd ~/config/ && git pull && ./configs/install.sh && cd -
+soft_envs
 docker="docker docker-compose"
-sudo pacman -S $base $add $docker
+sudo pacman -S $soft_base $soft_add $docker
 sudo systemctl restart docker
 ```
