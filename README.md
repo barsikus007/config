@@ -102,7 +102,6 @@ scoop install uv
 # powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 
 uv tool --version  # 0.3.4
-uv tool install pdm
 uv tool install ruff
 uv tool install hatch
 uv tool install ptpython

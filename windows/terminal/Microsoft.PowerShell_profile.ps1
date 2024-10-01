@@ -153,9 +153,14 @@ Debug-Log autocompletions (Measure-Command {
 Invoke-Expression (&scoop-search --hook)
 Import-Module "$($(Get-Item $(Get-Command scoop.ps1).Path).Directory.Parent.FullName)\modules\scoop-completion"
 Import-Module "gsudoModule"
-Invoke-Expression (& { (proto completions | Out-String) })
+if (Test-Command proto) {
+    Invoke-Expression (& { (proto completions | Out-String) })
+}
 if (Test-Command zoxide) {
     Invoke-Expression (& { (zoxide init --cmd cd powershell | Out-String) })
+}
+if (Test-Command uv) {
+    Invoke-Expression (& { (uv generate-shell-completion powershell | Out-String) })
 }
 # https://github.com/microsoft/winget-cli/blob/master/doc/Completion.md
 Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {

@@ -74,17 +74,22 @@ if hash zoxide &> /dev/null; then
 fi
 
 
-# pipx, pdm, hatch autocomplete
+# uv, hatch autocomplete
 # TODO autocompletions resolver
-# if hash register-python-argcomplete &> /dev/null; then
-#   eval "$(register-python-argcomplete pipx)"
+# TODO move to setup_completions
+# TODO file or folder?
+# uv generate-shell-completion bash > /etc/bash_completion.d/uv.bash-completion
+# https://python-poetry.org/docs/#bash
+# https://github.com/BurntSushi/ripgrep/blob/master/FAQ.md#complete
+# if hash uv &> /dev/null; then
+#   eval "$(uv generate-shell-completion bash)"
 # fi
 # if hash hatch &> /dev/null; then
 #   eval "$(_HATCH_COMPLETE=bash_source hatch)"
 # fi
 # or
 # {
-#   register-python-argcomplete pipx;
-#   pmd completion bash;
+#   uv generate-shell-completion bash;
 #   _HATCH_COMPLETE=bash_source hatch;
+#   starship completions bash;
 # } >> ~/.bash_completion
