@@ -29,6 +29,7 @@
 
 ## TODO
 
+- py python alias
 - config #!/bin/sh -eux
 - explain command
 - systemctl edit nvim config
