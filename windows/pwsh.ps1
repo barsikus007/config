@@ -11,11 +11,11 @@ scoop alias rm up | Out-Null
 scoop alias rm un | Out-Null
 scoop alias rm purge | Out-Null
 scoop alias rm upgrade | Out-Null
-scoop alias add purge 'scoop uninstall -p $args'
-scoop alias add upgrade 'scoop update *'
-scoop alias add i 'scoop install $args'
-scoop alias add up 'scoop update $args'
-scoop alias add un 'scoop uninstall $args'
+scoop alias add purge 'scoop uninstall -p $args' 'Uninstall an app with purge'
+scoop alias add upgrade 'scoop update *' 'Update all apps, just like "brew" or "apt"'
+scoop alias add i 'scoop install $args' 'Alias to install'
+scoop alias add up 'scoop update $args' 'Alias to update'
+scoop alias add un 'scoop uninstall $args' 'Alias to uninstall'
 
 Write-Host "Updating config files..." -ForegroundColor Green
 .\$PSScriptRoot\..\configs\install.ps1
