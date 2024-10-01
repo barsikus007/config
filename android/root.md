@@ -67,3 +67,26 @@
 - [KernelFlasher](https://github.com/capntrips/KernelFlasher/releases)
   - [KernelSU fix](https://github.com/capntrips/KernelFlasher/releases/tag/v1.0.0-alpha20%2Ballow-errors)
 - [TODO](https://github.com/stars/barsikus007/lists/neckbeard-android)
+
+## HBM
+
+```su
+echo 2 >> /sys/class/backlight/panel0-backlight/hbm_mode
+```
+
+- `/sys/class/backlight/panel0-backlight/`
+  - `hbm_mode`
+    - 0 - off
+    - 1 - hdr
+    - 2 - sun
+  - `brightness`
+    - up to 2047 for hbm 0
+    - up to 4095 for hbm 2
+  - `local_hbm_mode` ? 0
+  - `local_hbm_max_timeout` ? 300
+
+### References
+
+- <https://www.xda-developers.com/google-pixel-4-high-brightness-mode-fix/>
+- <https://xdaforums.com/t/hbm.4356189/>
+- <https://play.google.com/store/apps/details?id=com.franco.kernel>

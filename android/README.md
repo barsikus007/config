@@ -26,6 +26,23 @@
 - [Kernel Flasher](https://github.com/capntrips/KernelFlasher/releases)
   - [Kirisakura](https://xdaforums.com/t/kernel-12-06-2024-android-14-0-0-stable-kirisakura_raviantah-2-3-0-for-pixel-7-pro-aka-pantah.4509795/)
 
+#### backup apps list
+
+`adb shell` script:
+
+```sh
+folder="/sdcard/Download/APKs/app_lists/`date +%Y-%m-%d`"
+mkdir -p $folder
+for i in null com.google.android.packageinstaller com.android.vending dev.imranr.obtainium ru.vk.store; do
+  pm list packages -i -3 | grep installer=$i | cut -d':' -f2 | awk '{printf "%s\n", $1}' > $folder/$i.txt
+done
+```
+
+`adb pull /sdcard/Download/APKs/app_lists/`
+
+- show other
+  - `pm list packages -i -3 | grep -v installer=null | grep -v installer=com.google.android.packageinstaller | grep -v installer=com.android.vending | grep -v installer=dev.imranr.obtainium | grep -v installer=ru.vk.store`
+
 #### TODO
 
 - Design and Tweak Mods

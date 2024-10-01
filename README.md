@@ -271,8 +271,6 @@ hatch run true
 - dump from TG
   - corepack prepare & use wtf?
   - <https://github.com/jesseduffield/lazydocker/blob/master/docs/Config.md>
-  - filter nonmarket apps on pixel and backup list
-    - pm list packages -i -3 | grep -v vending
   - eza
     - windows eza ~/pathes
     - eza --hyperlink | grep
