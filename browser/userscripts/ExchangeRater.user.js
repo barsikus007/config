@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Exchange Rate converteR
 // @namespace    https://github.com/barsikus007/
-// @version      0.1.1
+// @version      0.1.2
 // @author       barsikus007
 // @description  Exchange rate converter on selection
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=exchangerate-api.com
@@ -96,25 +96,26 @@ const renderContext = (e, popupText, textToCopy) => {
   const contextDiv = document.createElement("div");
   const contextDivText = document.createElement("div");
   contextDiv.id = contextDivId;
-  contextDiv.style.position = "absolute";
-  contextDiv.style.top = posY + "px";
-  contextDiv.style.left = Math.abs(posX) + "px";
+  // TODO use stylesheet with !important instead ?
+  contextDiv.style.position = "absolute !important";
+  contextDiv.style.top = posY + "px !important";
+  contextDiv.style.left = Math.abs(posX) + "px !important";
 
-  contextDiv.style.color = "white";
-  contextDiv.style.backgroundColor = "#363636";
-  contextDiv.style.border = "1px solid #636363";
-  contextDiv.style.borderRadius = "8px";
-  contextDiv.style.padding = "4px";
+  contextDiv.style.color = "white !important";
+  contextDiv.style.backgroundColor = "#363636 !important";
+  contextDiv.style.border = "1px solid #636363 !important";
+  contextDiv.style.borderRadius = "8px !important";
+  contextDiv.style.padding = "4px !important";
 
   contextDivText.innerHTML = popupText;
-  contextDivText.style.borderRadius = "4px";
-  contextDivText.style.padding = "4px";
-  contextDivText.style.lineHeight = "20px";
-  contextDivText.style.fontFamily = "Segoe UI, sans-serif";
-  contextDivText.style.cursor = "default";
+  contextDivText.style.borderRadius = "4px !important";
+  contextDivText.style.padding = "4px !important";
+  contextDivText.style.lineHeight = "20px !important";
+  contextDivText.style.fontFamily = "Segoe UI, sans-serif !important";
+  contextDivText.style.cursor = "default !important";
 
   contextDivText.onmouseover = () => {
-    contextDivText.style.backgroundColor = "#444";
+    contextDivText.style.backgroundColor = "#444 !important";
   };
   contextDivText.onmouseout = () => {
     contextDivText.style.backgroundColor = null;
