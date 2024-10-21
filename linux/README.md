@@ -6,6 +6,7 @@
 
 - git
   - `sudo apt install git -y`
+- `chsh -s /bin/bash`
 
 ### Clone
 
@@ -13,9 +14,8 @@
 
 ### Install/Update
 
-`cd ~/config/ && git pull && ./configs/install.sh && cd -`
-
-`setup_ubuntu TODO`
+- `cd ~/config/ && git pull && ./configs/install.sh && cd -`
+- TODO `setup_ubuntu`
 
 ## [Command Cheat Sheet](cheatsheet.md)
 

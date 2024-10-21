@@ -48,6 +48,7 @@ su $username
 ### generate ssh-key
 
 ```bash
+#! local machine
 key_file=filename
 ssh-keygen -t ed25519 -f $key_file -P ""
 ssh-copy-id -i $key_file.pub user@host
@@ -56,12 +57,21 @@ ssh-copy-id -i $key_file.pub user@host
 
 ### config sshd_config for security
 
-- Port 2222
-- PermitRootLogin no
-- PasswordAuthentication no
-- ChallengeResponseAuthentication no
-- KbdInteractiveAuthentication no
+```bash
+cat <<-EOF | sudo tee /etc/ssh/sshd_config.d/99-security.conf >/dev/null
+Port 2222
+PermitRootLogin no
+PasswordAuthentication no
+ChallengeResponseAuthentication no
+KbdInteractiveAuthentication no
+EOF
 
+sudo systemctl reload sshd
+```
+
+#### old method
+
+```bash
 ``` bash
 sshd_file=/etc/ssh/sshd_config
 cp $sshd_file ~
@@ -71,7 +81,7 @@ for param in {PermitRootLogin,PasswordAuthentication,ChallengeResponseAuthentica
 sudo systemctl reload sshd
 ```
 
-#### Ubuntu 22.10 or newer
+#### old method for ubuntu 22.10 or newer
 
 ```bash
 # check files in /etc/ssh/sshd_config.d/
@@ -196,15 +206,15 @@ docker run -d \
 containrrr/watchtower --cleanup --remove-volumes
 ```
 
-### arch
+### arch soft
 
 ```bash
 # install config
 sudo pacman -S git
 cd && git clone https://github.com/barsikus007/config --depth 1 && cd -
 cd ~/config/ && git pull && ./configs/install.sh && cd -
-soft_envs
-docker="docker docker-compose"
-sudo pacman -S $soft_base $soft_add $docker
+setup_arch
+
+sudo pacman -S docker docker-compose
 sudo systemctl restart docker
 ```

@@ -34,6 +34,16 @@ setup_font() {
   )
 }
 
+setup_docker() {
+  (
+    curl -sSL https://get.docker.com | sh
+    # seems like it's not needed
+    # sudo groupadd docker
+    sudo usermod -aG docker "$USER"
+    newgrp docker; exit
+  )
+}
+
 setup_user() {
   (
     if ! hash bat; then
@@ -67,21 +77,24 @@ setup_linux() {
 }
 
 setup_ubuntu() {
+  # shellcheck disable=SC2086
   (
     soft_envs
     echo "Installing nala and $soft_unix $soft_base $soft_add $soft_add_ubuntu..."
     sudo apt install nala && \
+    sudo nala fetch --auto && \
     uuu && \
-    sudo nala install $soft_base $soft_add $soft_add_ubuntu -y
+    sudo nala install $soft_unix $soft_base $soft_add $soft_add_ubuntu -y
     confirm "Do you want to remove $soft_to_purge?" && sudo nala purge $soft_to_purge -y
     setup_linux
   )
 }
 
 setup_arch() {
+  # shellcheck disable=SC2086
   (
     soft_envs
-    sudo pacman -S $soft_base $soft_add -y
+    sudo pacman -S $soft_unix $soft_base $soft_add -y
     sudo pacman -Rsn $soft_to_purge -y
     setup_linux
   )
