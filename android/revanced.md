@@ -8,14 +8,16 @@
 
 ## [YouTube](https://revanced.app/patches?pkg=com.google.android.youtube)
 
-### [APKMirror](https://www.apkmirror.com/apk/google-inc/youtube/youtube-19.16.39-release/#downloads:~:text=Android%208.0%2B-,nodpi,-All%20Releases)
+### [APKMirror](https://www.apkmirror.com/apk/google-inc/youtube/youtube-19.17.42-release/#downloads:~:text=Android%208.0%2B-,nodpi,-All%20Releases)
 
-### Patches 22/61
+### Patches 25/63
 
-- 4.10.0
+- 4.17.0
   - Alternative thumbnails
   - Always repeat
   - Bypass URL redirects
+  - Bypass image region restrictions
+  - Check watch history domain name resolution
   - Copy video URL
   - Disable player popup panels
   - Disable resuming Shorts on startup
@@ -28,13 +30,16 @@
   - Restore old video quality menu
   - Return Youtube Dislike
   - SponsorBlock
-  - Spoof client
+  - Spoof video streams
   - Swipe controls
   - Video ads
-  - ?
+  - ! new
+    - Miniplayer
+  - ? test
+    - Seekbar tapping
+  - X broken
     - Enable slide to seek
     - Restore old seekbar thumbnails
-    - Seekbar tapping
 
 ### Settings
 
@@ -63,10 +68,10 @@
 
 ### Patches 6/10
 
-- 4.10.0
+- 4.17.0
   - !GmsCore support (due to root)
   - !Hide category bar
   - !Permanent repeat
   - !Permanent shuffle
 
-## Updated 2024-07-0
+## Updated 2024-10-21

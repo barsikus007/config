@@ -1,19 +1,19 @@
 # [Root](./)
 
-## ~~Magisk~~ [KernelSU](https://github.com/tiann/KernelSU/releases) Modules
+## ~~Magisk~~ ~~[KernelSU](https://github.com/tiann/KernelSU/releases)~~ [APatch](https://github.com/bmax121/APatch/releases) Modules
 
-- Settings
-  - disable "Umount modules by default"
 - Essential
   - [Zygisk**Next**](https://github.com/Dr-TSNG/ZygiskNext/releases)
-  - [LSPosed mod](https://github.com/mywalkb/LSPosed_mod/releases)
+  - [LSPosed](https://github.com/JingMatrix/LSPosed/releases)
     - /data/adb/lspd/config
 - Hiding root
   - [Zygisk-Assistant](https://github.com/snake-4/Zygisk-Assistant/releases)
   - [Shamiko](https://github.com/LSPosed/LSPosed.github.io/releases)
   - [Play Integrity Fix](https://github.com/chiteroman/PlayIntegrityFix/releases)
     - [playcurl](https://github.com/daboynb/PlayIntegrityNEXT/releases)
+      - !dont used
     - [Play Integrity Fork](https://github.com/osm0sis/PlayIntegrityFork/releases)
+      - !dont used
 - Fixes
   - [volte](https://xdaforums.com/t/mod-magisk-root-volte-enabler.4372705/)
   - [pixel-mdm-patch](https://github.com/andrewz1/pixel-mdm-patch/releases)
@@ -24,7 +24,8 @@
     - TeamFiles Icons
   - [PixelXpert](https://github.com/siavash79/PixelXpert/releases)
     - Miscellaneous
-      - Auto-generate missing themed icons
+      - Launcher options
+        - Auto-generate missing themed icons
     - Then disble this unstable thing
     - Other useful fixes
       - Can disable camera cutout
