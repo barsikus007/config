@@ -52,10 +52,11 @@ foreach ($oldvid in $oldvids) {
     - or
     - scoop config aria2-enabled false
     - scoop config rm aria2-enabled
-  - aria2 disable alias
+    - or/and
+    - aria2 disable alias
+    - aria2 scoop tune params
   - scoop cleanup -a
   - scoop cache rm -a
-  - scoop alias descripton
 - history file: `~\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt`
 - winget installBehavior": "portablePackageMachineRoot", "portablePackageUserRoot", "preferences": "scope": "user"
 - config fzf
