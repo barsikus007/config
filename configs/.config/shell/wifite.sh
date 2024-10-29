@@ -1,10 +1,10 @@
 #!/bin/sh
 
-alias get_first_iface="\command ls /sys/class/ieee80211/*/device/net/ | cut -d' ' -f1"
+alias get_first_iface="\command ls /sys/class/ieee80211/*/device/net/ | cut -d' ' -f1 | head -n 1"
 
 restore_wifi() {
   (
-    iface=${1:-$(get_first_iface)}
+    iface=${1:-wlp2s0}
     old_region=${2:-RU}
     sudo airmon-ng stop "$iface"mon
     sudo ip link set "$iface" down
@@ -27,9 +27,10 @@ prepare_wifi() {  # TODO WIP
     # can be also AM, BZ, GR, GY, NZ, VE, CN, RU
     # codes were taken from https://git.kernel.org/pub/scm/linux/kernel/git/sforshee/wireless-regdb.git/tree/db.txt
     # clear  # TODO WIP
+    # stop if any
     sudo airmon-ng stop "$iface"mon
     sudo ip link set "$iface" down
-    echo "Old region was $(iw reg get)"
+    echo "Old region was $(iw reg get)"  # TODO WIP
     sudo iw reg set "$new_region"
     echo "New region is $(iw reg get)"  # TODO WIP
     # sudo iw phy $iface_iw reg set $new_region  # TODO https://hackware.ru/?p=4125
