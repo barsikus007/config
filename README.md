@@ -54,6 +54,7 @@ git config --global gpg.format ssh
 ```bash
 # TODO https://moonrepo.dev/docs/proto/commands/completions
 proto install go
+# then clean ~/.bashrc
 proto install node lts
 proto install pnpm
 proto install bun

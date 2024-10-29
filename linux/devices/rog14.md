@@ -1,23 +1,77 @@
 # ASUS GA401IV
 
-## TODO
+## [asus-linux](https://asus-linux.org/)
 
+## Fedora
+
+### [Fedora Installation](https://asus-linux.org/guides/fedora-guide/)
+
+- Enabling Secure Boot
+- Switching from Nvidia GPU to AMD Integrated
+- Hide an Unnecessary Boot Message
+- Desktop Wigdets
+- [Keyboard -> Can I re-map the arrow keys?](https://asus-linux.org/faq/)
+
+### Asus specific soft
+
+```bash
+sudo dnf copr enable lukenukem/asus-linux
+sudo dnf update
+sudo dnf install asusctl supergfxctl asusctl-rog-gui
+sudo systemctl enable --now supergfxd.service
+```
+
+### repos
+
+```bash
+sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+#! https://rpmsphere.github.io/ says, that 38th is latest
+# sudo dnf install https://github.com/rpmsphere/noarch/raw/master/r/rpmsphere-release-$(rpm -E %fedora)-1.noarch.rpm
+sudo dnf install https://github.com/rpmsphere/noarch/raw/master/r/rpmsphere-release-38-1.noarch.rpm
+sudo dnf update -y
+```
+
+### nvidia
+
+```bash
+sudo dnf install kernel-devel
+sudo dnf install akmod-nvidia xorg-x11-drv-nvidia-cuda
+sudo systemctl enable nvidia-{suspend,resume,hibernate,powerd}
+systemctl mask nvidia-fallback.service
+```
+
+### vscode
+
+```bash
+sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
+```
+
+### microsoft-edge
+
+```bash
+TODO
+```
+
+### other
+
+- TODO `sudo dnf copr enable phracek/PyCharm`
+
+### TODO
+
+- migrate to KDE (or nixos w/KDE)
 - fedora shortcut move window to another monitor
 - <https://gitlab.com/kirbykevinson/libinput-config>
 - custom 4 fingers gestures
   - <https://copr.fedorainfracloud.org/coprs/elxreno/libinput-gestures/>
   - <https://gitlab.com/cunidev/gestures>
 
-## [Fedora Installation](https://asus-linux.org/wiki/fedora-guide/)
+### [Fedora Hibernate](https://fedoramagazine.org/hibernation-in-fedora-36-workstation/)
 
-```bash
-# TODO script
-# add rpmfusion repo
-sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-sudo rpm -i https://github.com/rpmsphere/noarch/raw/master/r/rpmsphere-release-$(rpm -E %fedora)-1.noarch.rpm
-```
+- Conflicts with Secure Boot
+  - `CONFIG_LOCK_DOWN_IN_EFI_SECURE_BOOT=n` could help
 
-## [Fedora Hibernate](https://fedoramagazine.org/hibernation-in-fedora-36-workstation/)
+#### install
 
 ```bash
 sudo btrfs subvolume create /swap
@@ -109,7 +163,7 @@ systemctl hibernate
 # $ semodule -i systemd_sleep.pp
 ```
 
-remove
+#### rollback
 
 ```bash
 # remove SELinux module via semodule -r systemd_sleep
@@ -138,18 +192,12 @@ sudo rm /swap/swapfile
 sudo btrfs subvolume delete /swap
 ```
 
-## Shortcuts (Keyboard -> View and Customize Shortcuts)
+## Gnome shortcuts (Keyboard -> View and Customize Shortcuts)
 
 - ROG G14 2020 specific
   - ROG key -> `bash -c 'demotoggle'`
   - FN+F5 -> `bash -c 'fan'`
   - FN+F6 -> `bash -c 'noanime && anime'`
-  - Fn+Right-Arrow -> End`ydotool key 107:1 107:0`
-  - Fn+Left-Arrow -> Home`ydotool key 102:1 102:0`
-  - R-Ctrl+Right-Arrow -> End`ydotool key 107:1 107:0`
-  - R-Ctrl+Left-Arrow -> Home`ydotool key 102:1 102:0`
-  - R-Ctrl+Up-Arrow -> PgUp`ydotool key 104:1 104:0`
-  - R-Ctrl+Down-Arrow -> PgDown`ydotool key 109:1 109:0`
 - Show the notification list Super+V -> Super+N
   - TODO ? Super+N -> None
 - Home folder -> Super+E
@@ -176,6 +224,10 @@ sudo systemctl reload ydotool.service && sudo systemctl status ydotool.service
 ```
 
 ## Grub tweak
+
+- Spam ESC key to open menu
+- Check for `GRUB_CMDLINE_LINUX` duplicates
+  - Also emove `nomodeset` if any
 
 ```bash
 sudoedit /etc/default/grub

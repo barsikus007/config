@@ -19,20 +19,21 @@ alias 2ip='curl 2ip.ru'
 
 # package managers and updaters
 # TODO u functions which will resolve all
+# TODO pacman color=auto ?
 alias i='sudo apt install'
 alias ii='sudo nala install'
 alias uu='sudo apt update && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt clean'
 alias uuu='sudo nala update && sudo nala upgrade -y && sudo nala autoremove -y && sudo nala clean'
 alias u=uu
-alias pacman='pacman --color always'
+alias pacman='pacman --color=always'
 alias cu='cd ~/config/ && git pull && ./configs/install.sh && cd -'
 
 # ls
-alias ezal='eza -F -bghM --smart-group --group-directories-first --color=always --color-scale --icons=always --no-quotes --hyperlink'
-alias ezall='eza -F -labghM --smart-group --group-directories-first --color=always --color-scale --icons=always --no-quotes --hyperlink'
-alias exal='exa -laFbgh --group-directories-first --color=always --icons --color-scale'
-alias exall='exa -laFbgh --group-directories-first --color=always --icons --color-scale'
-alias ls='ls --group-directories-first --color=always --hyperlink'
+alias ezal='eza -F -bghM --smart-group --group-directories-first --color=auto --color-scale --icons=always --no-quotes --hyperlink'
+alias ezall='eza -F -labghM --smart-group --group-directories-first --color=auto --color-scale --icons=always --no-quotes --hyperlink'
+alias exal='exa -laFbgh --group-directories-first --color=auto --icons --color-scale'
+alias exall='exa -laFbgh --group-directories-first --color=auto --icons --color-scale'
+alias ls='ls --group-directories-first --color=auto --hyperlink'
 alias ll=lllazy
 alias l=llazy
 
@@ -74,8 +75,8 @@ alias sex='explorer.exe .'
 # https://www.cyberciti.biz/faq/unix-linux-check-if-port-is-in-use-command/
 alias open-ports='sudo lsof -i -P -n | grep LISTEN'
 
-# ROG G14 specific aliases TODO detect if ROG G14
-alias animeclr='asusctl anime -c > /dev/null'
+# ROG G14 specific aliases TODO detect if ROG G14 TODO install media and conf file
+alias animeclr='asusctl anime -E false > /dev/null'
 alias noanime='systemctl --user stop asusd-user && animeclr'
 alias anime='animeclr && systemctl --user start asusd-user'
 alias demosplash='asusctl anime pixel-image -p ~/.config/rog/bad-apple.png'
