@@ -45,16 +45,6 @@ su $username
 
 ## SSH
 
-### generate ssh-key
-
-```bash
-#! local machine
-key_file=filename
-ssh-keygen -t ed25519 -f $key_file -P ""
-ssh-copy-id -i $key_file.pub user@host
-# or mkdir -p ~/.ssh/ && editor ~/.ssh/authorized_keys
-```
-
 ### config sshd_config for security
 
 ```bash
@@ -69,7 +59,7 @@ EOF
 sudo systemctl reload sshd
 ```
 
-#### old method
+#### old (bad) method
 
 ```bash
 ``` bash
@@ -81,7 +71,7 @@ for param in {PermitRootLogin,PasswordAuthentication,ChallengeResponseAuthentica
 sudo systemctl reload sshd
 ```
 
-#### old method for ubuntu 22.10 or newer
+##### for ubuntu 22.10 or newer
 
 ```bash
 # check files in /etc/ssh/sshd_config.d/
@@ -93,6 +83,17 @@ sudo sed -i 's/^ListenStream=22$/ListenStream=2222/' /lib/systemd/system/ssh.soc
 sudo systemctl daemon-reload
 sudo systemctl restart ssh.socket
 sudo reboot
+```
+
+### allow port forward ssh (used for minecraft a long time ago..)
+
+```bash
+cat <<-EOF | sudo tee /etc/ssh/sshd_config.d/10-port-forward.conf >/dev/null
+AllowTcpForwarding yes
+GatewayPorts yes
+EOF
+
+sudo systemctl reload sshd
 ```
 
 ## UTF-8

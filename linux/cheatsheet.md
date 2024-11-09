@@ -16,21 +16,10 @@ cat ~/.ssh/id_ed25519.pub
 ### Generate and upload SSH
 
 ```bash
-key_name="pi_rsa"
-ssh-keygen -f $key_name -t ed25519  # -P "password" -C "comment"
-ssh-copy-id -i $key_name.pub username@192.168.0.123
-ssh server
-```
-
-### Allow port forward ssh
-
-```bash
-editor /etc/ssh/sshd_config
-# ---
-AllowTcpForwarding yes
-GatewayPorts yes
-# ---
-sudo systemctl restart ssh.service
+key_file=filename
+ssh-keygen -t ed25519 -f $key_file  # -P "password" -C "comment"
+ssh-copy-id -i $key_file.pub user@host
+# or mkdir -p ~/.ssh/ && editor ~/.ssh/authorized_keys
 ```
 
 ## commands
