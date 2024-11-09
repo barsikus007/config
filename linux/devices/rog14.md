@@ -226,14 +226,15 @@ sudo systemctl reload ydotool && systemctl status ydotool
 ## Grub tweak
 
 - Spam ESC key to open menu
-- Check for `GRUB_CMDLINE_LINUX` duplicates
-  - Also emove `nomodeset` if any
+- `/etc/default/grub`
+  - Check for `GRUB_CMDLINE_LINUX` duplicates
+    - Also emove `nomodeset` if any
 
 ```bash
-sudoedit /etc/default/grub
-# ---
+cat <<-EOF | sudo tee /etc/default/grub.d/99-hide-timeout >/dev/null
 GRUB_TIMEOUT=1
-GRUB_TIMEOUT_STYLE="hidden"
-# ---
+GRUB_TIMEOUT_STYLE=hidden
+EOF
+# or edit /etc/default/grub (or maybe try /etc/grub.d/ then) if doesn't work, then
 sudo grub2-mkconfig -o /etc/grub2.cfg
 ```
