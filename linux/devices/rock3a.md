@@ -50,7 +50,7 @@ cd install/rknn_yolov5_demo_Linux/
 ```bash
 curl -sL https://raw.githubusercontent.com/barsikus007/rockpi-penta/master/install.sh | sudo -E bash -
 
-sudo systemctl stop armbian-led-state.service && sudo sed -i 's/trigger=heartbeat/trigger=none/' /etc/armbian-leds.conf && sudo sed -i 's/brightness=0/brightness=1/' /etc/armbian-leds.conf && sudo systemctl start armbian-led-state.service
+sudo systemctl stop armbian-led-state && sudo sed -i 's/trigger=heartbeat/trigger=none/' /etc/armbian-leds.conf && sudo sed -i 's/brightness=0/brightness=1/' /etc/armbian-leds.conf && sudo systemctl start armbian-led-state
 
 
 # overlay fix
@@ -65,7 +65,7 @@ sudo armbian-add-overlay rk3568-pwm8-m0-fan.dts
 
 - OMV
   - <https://wiki.omv-extras.org/doku.php?id=omv6:armbian_bullseye_install#install_omv>
-  - systemctl unmask systemd-networkd.service
+  - systemctl unmask systemd-networkd
 
 ## NAS
 

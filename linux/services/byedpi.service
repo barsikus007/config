@@ -14,5 +14,5 @@ WantedBy=default.target
 # mkdir -p /usr/local/lib/systemd/system
 # sudoedit /usr/local/lib/systemd/system/byedpi.service
 # sudo sed -i "s/user/$USER/g" /usr/local/lib/systemd/system/byedpi.service
-# sudo systemctl enable --now byedpi.service
-# systemctl status byedpi.service
+# sudo systemctl enable --now byedpi
+# systemctl status byedpi

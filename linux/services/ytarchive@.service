@@ -18,5 +18,5 @@ WantedBy=default.target
 # mkdir -p /usr/local/lib/systemd/system
 # sudoedit /usr/local/lib/systemd/system/ytarchive@.service
 # sudo sed -i "s/user/$USER/g" /usr/local/lib/systemd/system/ytarchive@.service
-# sudo systemctl enable --now ytarchive@{channel1,channel2}.service
-# systemctl status ytarchive@{channel1,channel2}.service
+# sudo systemctl enable --now ytarchive@{channel1,channel2}
+# systemctl status ytarchive@{channel1,channel2} -a

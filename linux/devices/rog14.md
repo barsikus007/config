@@ -18,7 +18,7 @@
 sudo dnf copr enable lukenukem/asus-linux
 sudo dnf update
 sudo dnf install asusctl supergfxctl asusctl-rog-gui
-sudo systemctl enable --now supergfxd.service
+sudo systemctl enable --now supergfxd
 ```
 
 ### repos
@@ -37,7 +37,7 @@ sudo dnf update -y
 sudo dnf install kernel-devel
 sudo dnf install akmod-nvidia xorg-x11-drv-nvidia-cuda
 sudo systemctl enable nvidia-{suspend,resume,hibernate,powerd}
-systemctl mask nvidia-fallback.service
+systemctl mask nvidia-fallback
 ```
 
 ### vscode
@@ -121,7 +121,7 @@ ExecStart=/bin/bash -c "/usr/sbin/swapon /swap/swapfile && /usr/sbin/swapoff /de
 [Install]
 WantedBy=systemd-hibernate.service
 EOF
-sudo systemctl enable hibernate-preparation.service
+sudo systemctl enable hibernate-preparation
 
 cat <<-EOF | sudo tee /etc/systemd/system/hibernate-resume.service
 [Unit]
@@ -136,7 +136,7 @@ ExecStart=/usr/sbin/swapoff /swap/swapfile
 [Install]
 WantedBy=hibernate.target
 EOF
-sudo systemctl enable hibernate-resume.service
+sudo systemctl enable hibernate-resume
 
 sudo mkdir -p /etc/systemd/system/systemd-logind.service.d/
 cat <<-EOF | sudo tee /etc/systemd/system/systemd-logind.service.d/override.conf
@@ -174,8 +174,8 @@ sudo rm -rf /etc/systemd/system/systemd-hibernate.service.d/
 sudo rm -rf /etc/systemd/system/systemd-logind.service.d/
 
 # disable and remove hibernation preparation and resume services
-sudo systemctl disable hibernate-resume.service
-sudo systemctl disable hibernate-preparation.service
+sudo systemctl disable hibernate-resume
+sudo systemctl disable hibernate-preparation
 sudo rm /etc/systemd/system/hibernate-resume.service
 sudo rm /etc/systemd/system/hibernate-preparation.service
 
@@ -218,9 +218,9 @@ cat /usr/include/linux/input-event-codes.h | grep -E '_(HOME|END|PAGE(UP|DOWN))\
 ```bash
 sed -i "s/ydotoold$/ydotoold --socket-path=\/run\/user\/$UID\/.ydotool_socket --socket-own=$(id -u):$(id -g)/g" /usr/lib/systemd/system/ydotool.service
 sudo systemctl daemon-reload
-sudo systemctl enable --all ydotool.service && sudo systemctl status ydotool.service
+sudo systemctl enable --all ydotool && systemctl status ydotool
 # or
-sudo systemctl reload ydotool.service && sudo systemctl status ydotool.service
+sudo systemctl reload ydotool && systemctl status ydotool
 ```
 
 ## Grub tweak
