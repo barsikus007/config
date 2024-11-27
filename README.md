@@ -90,7 +90,7 @@ python3 -m pip install --upgrade pip setuptools wheel
 
 ```bash
 uv python install
-# uv python install 3.10 3.11 3.12
+# uv python install 3.10 3.11 3.12 3.13t pypy
 ```
 
 [TODO - python available globally](https://docs.astral.sh/uv/guides/install-python/#getting-started)
@@ -102,7 +102,7 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 scoop install uv
 # powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 
-uv tool --version  # 0.4.17
+uv tool --version  # 0.5.6
 uv tool install ruff
 uv tool install hatch
 uv tool install --with ipython ptpython

@@ -23,8 +23,6 @@
   - [Without PC](https://github.com/topjohnwu/Magisk/blob/master/docs/ota.md#devices-with-ab-partitions)
   - [Pixel Flasher](https://github.com/badabing2005/PixelFlasher/releases)
   - [root update russian](https://4pda.to/forum/index.php?s=&showtopic=1063306&view=findpost&p=120901180)
-- [Kernel Flasher](https://github.com/capntrips/KernelFlasher/releases)
-  - [Kirisakura](https://xdaforums.com/t/kernel-12-06-2024-android-14-0-0-stable-kirisakura_raviantah-2-3-0-for-pixel-7-pro-aka-pantah.4509795/)
 
 #### backup apps list
 

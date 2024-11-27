@@ -24,6 +24,7 @@ sudo apt install armbian-bsp-cli-rock-3a-legacy
 sudo add-apt-repository ppa:liujianfeng1994/rockchip-multimedia -y
 sudo apt update -y
 sudo apt install rockchip-multimedia-config ffmpeg -y
+# also NEXTCLOUD_ENABLE_DRI_DEVICE
 ```
 
 ## NPU
@@ -66,6 +67,19 @@ sudo armbian-add-overlay rk3568-pwm8-m0-fan.dts
 - OMV
   - <https://wiki.omv-extras.org/doku.php?id=omv6:armbian_bullseye_install#install_omv>
   - systemctl unmask systemd-networkd
+- hardware
+  - [rockpi-penta soft](https://github.com/barsikus007/rockpi-penta)
+  - button
+    - <https://github.com/barsikus007/rockpi-penta/blob/ac1a4a20e224f1166b28bf155eb1cf322610d2f8/usr/bin/rockpi-penta/misc.py#L183>
+  - top PWM fan 5V 40x10mm 3-pin RYB and cut upper ring
+  - heatsink or microfan on cpu
+    - height ~15mm
+      - 19x19mm cpu
+      - 15x10mm ram
+    - <https://shop.allnetchina.cn/products/heat-sink-for-rock-3a>
+    - <https://www.ozon.ru/search/?text=raspberry+pi+радиатор&from_global=true>
+  - RTC battery
+    - <https://shop.allnetchina.cn/products/rtc-battery-for-rock-pi-4>
 
 ## NAS
 

@@ -1,9 +1,9 @@
 #!/bin/sh
 
 # https://askubuntu.com/a/22043
-# alias sudo='sudo '
 # https://superuser.com/a/1655578
-alias sudop='sudo env PATH=$PATH'
+alias sudo='sudo env PATH=$PATH '
+# alias sudo='sudo -E env PATH=$PATH '
 alias xargs='xargs '
 
 # base

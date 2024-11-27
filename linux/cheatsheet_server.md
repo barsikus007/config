@@ -111,6 +111,10 @@ sudo localectl set-locale C.UTF-8
 # sudo locale-gen ru_RU.UTF-8 && sudo localectl set-locale LC_TIME=ru_RU.UTF-8
 ```
 
+## Set timezone
+
+`sudo timedatectl set-timezone Europe/Moscow`
+
 ## ZFS
 
 ### Install
