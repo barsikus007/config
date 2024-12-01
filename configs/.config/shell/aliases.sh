@@ -59,11 +59,11 @@ alias dce='dc exec -it'
 alias cdl='sudo sh -c "truncate -s 0 /var/lib/docker/containers/*/*-json.log"'
 
 # python
-alias pyvcr='python3 -m venv .venv --upgrade-deps && source .venv/bin/activate && .venv/bin/pip install -r requirements.txt'
+alias pipi='uv pip install -r requirements.txt || uv pip install -r pyproject.toml'
+alias pyvcr='uv venv --allow-existing && source .venv/bin/activate && pipi'
 alias pyv='source .venv/bin/activate || pyvcr'
 alias pyt='ptpython'
 alias pyta='pyt --asyncio'
-alias pipi='python -c "import os;os.environ[\"VIRTUAL_ENV\"]" && pip install -r requirements.txt || echo "activate venv to install requirements"'
 
 # other
 alias gdu="gdu -I ^/mnt"
