@@ -4,8 +4,10 @@
 
 - <https://greasyfork.org/en/scripts/439993-youtube-shorts-redirect>
 - [TODO remove si youtube](https://github.com/Xenorio/YTShareAntiTrack)
+- [VK](http://greasyfork.org/scripts/518509)
 - [own](./userscripts)
 - TODO
+  - ExchangeRater.user imperial units converter
   - yt watch later icon on video card
   - open in webarchive (RCM)
 
@@ -27,7 +29,11 @@ mail.yandex.ru##main.mail-Layout-Content > div:nth-of-type(2)
 ! 2024-07-18 https://medium.com
 medium.com##div:has(> div:has(> div:has(> div:has(> div:has(> button[data-testid="close-button"])))))
 
+! 2024-12-01 https://lurkmore.media
+lurkmore.media##.sitenotice
 ```
+
+[VK](https://github.com/vtosters/adblock)
 
 ## Flags
 
@@ -54,6 +60,8 @@ medium.com##div:has(> div:has(> div:has(> div:has(> div:has(> button[data-testid
 - [PiP - Picture in Picture Plus](https://www.oinkandstuff.com/project/pip-picture-in-picture-plus/)
 - [Search by Image](https://github.com/dessant/search-by-image)
 - [Refined GitHub](https://github.com/refined-github/refined-github)
+- [Ruffle](https://ruffle.rs/)
+- [Dark Reader](https://darkreader.org/)
 - TODO
   - <https://extensions.xenorio.xyz/list/tubetweaks>
   - <https://github.com/dessant/ping-blocker>
