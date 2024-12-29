@@ -10,8 +10,6 @@
   - [Zygisk-Assistant](https://github.com/snake-4/Zygisk-Assistant/releases)
   - [Shamiko](https://github.com/LSPosed/LSPosed.github.io/releases)
   - [Play Integrity Fix](https://github.com/chiteroman/PlayIntegrityFix/releases)
-    - [playcurl](https://github.com/daboynb/PlayIntegrityNEXT/releases)
-      - !dont used
     - [Play Integrity Fork](https://github.com/osm0sis/PlayIntegrityFork/releases)
       - !dont used
 - Fixes

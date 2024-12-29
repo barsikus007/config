@@ -19,10 +19,10 @@
 #### Useful topics
 
 - [root and kernel english](https://xdaforums.com/t/november-12-2023-up1a-231105-003-a1-for-jp-carriers-unlock-bootloader-root-pixel-7-pro-cheetah-safetynet.4502805/)
-- OTA
-  - [Without PC](https://github.com/topjohnwu/Magisk/blob/master/docs/ota.md#devices-with-ab-partitions)
+- [OTA](https://apatch.dev/update.html#ota-update-with-apatch-retention)
   - [Pixel Flasher](https://github.com/badabing2005/PixelFlasher/releases)
   - [root update russian](https://4pda.to/forum/index.php?s=&showtopic=1063306&view=findpost&p=120901180)
+- [App Manager interceptor](https://www.reddit.com/r/fossdroid/comments/1g0lsit/app_manager_issue_it_automatically_options)
 
 #### backup apps list
 
