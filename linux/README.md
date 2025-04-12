@@ -2,6 +2,9 @@
 
 ## Install Config
 
+> [!WARNING]
+> DEPRECATION WARNING!!! I USE NIX NOW
+
 ### Deps
 
 - git
