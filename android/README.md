@@ -41,8 +41,28 @@ done
 - show other
   - `pm list packages -i -3 | grep -v installer=null | grep -v installer=com.google.android.packageinstaller | grep -v installer=com.android.vending | grep -v installer=dev.imranr.obtainium | grep -v installer=ru.vk.store`
 
+#### Persist WiFi ADB
+
+- shizuku
+  - Phone TODO
+    - [1](https://www.reddit.com/r/tasker/comments/1j7n1em/project_silently_start_adb_on_boot_without_root/?utm_medium=web3x&utm_term=1)
+    - [2](https://www.reddit.com/r/tasker/comments/re8k68/howto_enable_adb_wifi_after_reboot_using_ladb_app/)
+    - [3](https://www.reddit.com/r/tasker/comments/rceljk/enable_adb_wifi_on_device_boot_android_11/)
+  - PC
+    - `IP=192.168.1.7`
+    - `adb connect $IP:$(nmap $IP -p 33000-46000 | awk "/\/tcp/" | cut -d/ -f1)`
+      - [credits](https://stackoverflow.com/a/70878705)
+- root
+  - Phone
+    - enable `setprop persist.adb.tcp.port 5555 && stop adbd && start adbd`
+    - disable `resetprop -d persist.adb.tcp.port && stop adbd && start adbd`
+  - PC `adb connect 192.168.1.7:5555`
+
 #### TODO
 
+- `ADB_DELAYED_ACK=1` [when adb is used for large files transfer](https://developer.android.com/tools/adb#burstMode)
+- root detectors
+  - [momo](https://t.me/s/magiskalpha/529)
 - Design and Tweak Mods
   - <https://github.com/Mahmud0808/Iconify>
 

@@ -6,13 +6,20 @@
 2. Install new version
 3. Patch and mount
 
+## Correct fix sequence
+
+If phone crashes, it causes base.apk of default apps reset their version
+
+1. Install same version
+2. Reboot/relaunch mount scripts
+
 ## [YouTube](https://revanced.app/patches?pkg=com.google.android.youtube)
 
-### Patches 51/52 in Default
+### Patches 56/57 of Default
 
-- 5.2.0
+- 5.18.0
   - Theme
-    - Monet
+    - Material You
   - !GmsCore support (due to root)
 
 ### Settings
@@ -43,9 +50,11 @@
 
 ## [YouTube Music](https://revanced.app/patches?pkg=com.google.android.apps.youtube.music)
 
-### Patches 6/7 in Default
+### Patches 5/8 of Default
 
-- 5.2.0
+- 5.18.0
+  - !Bypass certificate check (due to root)
   - !GmsCore support (due to root)
+  - !Spoof client (due to root)
 
-## Updated 2024-12-03
+## Updated 2025-04-09
