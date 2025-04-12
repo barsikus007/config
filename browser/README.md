@@ -13,22 +13,15 @@
 
 ## uBlock
 
+### Enable `AdGuard,ru` filters
+
+<extension://odfafepnkmbhccpbejgmiehpchacaeak/dashboard.html#3p-filters.html>
+
 ### My filters
 
 <extension://odfafepnkmbhccpbejgmiehpchacaeak/dashboard.html#1p-filters.html>
 
 ```css
-! 2023-12-31 https://mail.yandex.ru
-mail.yandex.ru##div.ns-view-left-box > div:nth-of-type(2)
-mail.yandex.ru##div[class^="DisableAdsButton__root"]
-mail.yandex.ru##main.mail-Layout-Content > div:nth-of-type(2)
-
-! 2024-01-02 https://www.youtube.com
-||youtube.com^$removeparam=si
-
-! 2024-07-18 https://medium.com
-medium.com##div:has(> div:has(> div:has(> div:has(> div:has(> button[data-testid="close-button"])))))
-
 ! 2024-12-01 https://lurkmore.media
 lurkmore.media##.sitenotice
 ```

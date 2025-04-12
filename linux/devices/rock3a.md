@@ -83,7 +83,7 @@ sudo armbian-add-overlay rk3568-pwm8-m0-fan.dts
 
 ## NAS
 
-### [ZFS шnstall on android based kernels](https://github.com/radxa/kernel/issues/54#issuecomment-1788453183)
+### [ZFS install on android based kernels](https://github.com/radxa/kernel/issues/54#issuecomment-1788453183)
 
 ```patch
 diff -durN zfs-2.2.2.orig/config/kernel.m4 zfs-2.2.2/config/kernel.m4

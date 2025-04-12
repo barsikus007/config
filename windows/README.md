@@ -75,6 +75,7 @@ foreach ($oldvid in $oldvids) {
   - `winget install laney -s msstore -e --accept-package-agreements`
   - <https://elorucov.github.io/laney/>
   - `9MSPLCXVN1M5`
+  - <https://github.com/Elorucov/Laney-Avalonia/releases>
 - Tweak windows
   - <https://github.com/farag2/Sophia-Script-for-Windows>
   - <https://win10tweaker.ru/twikinarium>

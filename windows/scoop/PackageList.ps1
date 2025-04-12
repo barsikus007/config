@@ -97,7 +97,6 @@ $sort=@"
 bind
 ddu
 gimp
-hxd
 irfanview
 lessmsi
 touch

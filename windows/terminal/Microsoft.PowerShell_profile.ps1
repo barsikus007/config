@@ -97,6 +97,7 @@ Set-Alias -Option AllScope h history
 # FUCK PWSH
 Function hf { h | grep.exe --color=auto -Fin -C 7 $args }
 Function sshe { editor $HOME\.ssh\config }
+Function ssht { ssh $args -t "tmux new -As0 || bash || sh" }
 #* Test-Path Alias:\nv && Remove-Item Alias:\nv -Force
 #* Function nv { editor $(fzf) }
 Function 1ip { wget -qO - icanhazip.com }
@@ -121,6 +122,7 @@ Function u { suss | scoop update * }
 #* Function cu { cd ~/config/ && git pull && ./configs/install.ps1 && ./windows/pwsh.ps1 && cd - }
 
 # docker
+$env:COMPOSE_BAKE=true
 Function lzd { lazydocker }
 Function lzdu { scoop update lazydocker }
 Function dc { docker compose $args }
@@ -139,6 +141,8 @@ Function dce { docker compose exec -it $args }
 Function dcsh { dce $args sh -c 'bash || sh' }
 
 # python
+# TODO uv install alias?
+# TODO uv resolve python version and write to PATH
 #* Function pipi { uv pip install -r requirements.txt || uv pip install -r pyproject.toml }
 #* Function pyvcr { uv venv --allow-existing && .venv\Scripts\activate && (pipi) }
 #* Function pyv { .venv/Scripts/activate || (pyvcr) }

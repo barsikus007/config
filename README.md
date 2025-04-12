@@ -117,6 +117,8 @@ uv tool upgrade --all
 hatch config set dirs.env.virtual .venv
 hatch config set template.licenses.headers false
 hatch config set terminal.styles.spinner material
+# TODO or use uv for python projects
+# https://hatch.pypa.io/latest/how-to/environment/select-installer/#enabling-uv
 ```
 
 ##### release schedule

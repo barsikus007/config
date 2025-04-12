@@ -101,6 +101,7 @@ setup_arch() {
 }
 
 mkcd() { (mkdir -p "$@" && cd "$@" || exit;) }
+ssht() { (ssh "$@" -t "tmux new -As0 || bash || sh") }
 
 llalias() {
   if hash eza &> /dev/null; then
