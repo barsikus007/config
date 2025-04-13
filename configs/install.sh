@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
+echo "DEPRECATION WARNING!!! I USE NIX NOW"
 (
-  set -Eeuo pipefail
+  set -euo pipefail
 
   script_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd -P)
 

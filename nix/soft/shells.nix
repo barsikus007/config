@@ -59,7 +59,7 @@ let
     editor = "nvim";
     nv = "nvim +'Telescope find_files hidden=true'";
     nvf = "nvim +'Telescope find_files hidden=true cwd=/'";
-    nvs = "nvim +'Telescope live_grep' hidden=true'";
+    nvs = "nvim +'Telescope live_grep hidden=true'";
   };
   nixAliases =
     let
@@ -69,7 +69,7 @@ let
       iusenixbtw = "fastfetch";
       n = "home-manager switch --flake ${flakePath};";
       nn = "sudo nixos-rebuild switch --flake ${flakePath}";
-      nnn = "nn & nn";
+      nnn = "nn && n";
       nd = "nix-collect-garbage -d";
       ne = "editor ${flakePath}";
     };
@@ -86,11 +86,6 @@ let
   };
 in
 {
-  programs.bash = {
-    enable = true;
-    historySize = 100000;
-    historyControl = "ignoreboth";
-  };
   programs.zsh = {
     enable = true;
     shellAliases = sharedAliases // fisn'tAliases;
@@ -103,6 +98,11 @@ in
       bindkey "^[[1;5D" backward-word
       bindkey "^[[1;5C" forward-word
     '';
+  };
+  programs.bash = {
+    enable = true;
+    historySize = 100000;
+    historyControl = [ "ignoreboth" ];
   };
   programs.fish = {
     enable = true;

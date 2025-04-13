@@ -74,6 +74,14 @@ export TMPFILE="$(mktemp)"; \
       && sudo mv $TMPFILE /etc/pacman.d/mirrorlist
 ```
 
+### dnf
+
+#### clean
+
+```bash
+sudo dnf clean all
+```
+
 ### rust
 
 #### rustup

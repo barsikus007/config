@@ -56,6 +56,17 @@ TODO
 ### other
 
 - TODO `sudo dnf copr enable phracek/PyCharm`
+- Apply gnome workarounds if used
+- flatpak
+  - <https://flatpak.org/setup/Fedora>
+  - <https://www.linuxcapable.com/install-telegram-on-fedora-linux/>
+  - apps
+    - com.parsecgaming.parsec
+    - org.telegram.desktop
+    - ? org.telegram.desktop.webview
+    - com.raggesilver.BlackBox
+      - <https://github.com/dr3mro/blackbox-installer>
+- <https://docs.docker.com/desktop/install/linux-install/#generic-installation-steps>
 
 ### TODO
 
