@@ -23,6 +23,7 @@
 - FireFox moment
   - [Firefox PWA](https://addons.mozilla.org/en-US/firefox/addon/pwas-for-firefox/)
   - tree style tab
+    - Sideberry?
 
 ## Archive
 

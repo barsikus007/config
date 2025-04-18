@@ -102,3 +102,9 @@ netsh.exe interface portproxy delete v4tov4 listenport=19000 listenaddress=0.0.0
 ```
 
 ## [Mount external drive to WSL](https://learn.microsoft.com/en-us/windows/wsl/wsl2-mount-disk)
+
+## TODO fix broken PATH
+
+```bash
+export PATH=`echo $PATH | tr ':' '\n' | awk '($0!~/mnt\/c/) {print} ' | tr '\n' ':'`
+```

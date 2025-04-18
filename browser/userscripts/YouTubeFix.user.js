@@ -20,6 +20,7 @@ player.onmouseenter = () => {
 };
 
 // Credits: https://greasyfork.org/en/scripts/377506-youtube-video-paused-continue-watching-auto-confirmer
+//! TODO add music.youtube.com
 const texts = [
   "Video paused. Continue watching?",
   "Воспроизведение приостановлено. Продолжить?",

@@ -11,6 +11,18 @@
   - yt watch later icon on video card
   - open in webarchive (RCM)
 
+## Favorites
+
+- WebArchive
+  - `javascript:window.open(location.href.replace(/^(https?:\/\/)/i, "https://web.archive.org/web/0/$1"), "_blank")`
+- Reddit undelete
+  - `javascript:window.open(location.href.replace(/:\/\/([\w-]+.)?(reddit\.com\/r|reveddit\.com\/v)\//i, "://undelete.pullpush.io/r/"), "_blank")`
+- Shikimori to `yummy-anime.ru`
+  - `javascript:window.open(location.href.replace(/https:\/\/shikimori\.one\/animes\/\w?\d*-/i, "https://yummy-anime.ru/search?word="), "_blank")`
+- NixOS wiki
+  - `javascript:window.open(location.href.replace(/https:\/\/nixos\.wiki\//i, "https://wiki.nixos.org/"), "_blank")`
+  - or better `https://gist.githubusercontent.com/pokedim13/469a4fc6a3c5b419fe337886e1e3be10/raw/nixos-wiki.js`
+
 ## uBlock
 
 ### Enable `AdGuard,ru` filters
@@ -59,6 +71,10 @@ lurkmore.media##.sitenotice
   - <https://extensions.xenorio.xyz/list/tubetweaks>
   - <https://github.com/dessant/ping-blocker>
   - <https://github.com/BrowserBoost/Extension>
+  - <https://github.com/vknext/vk-classic-feed>
+  - <https://github.com/zero-peak/ZeroOmega>
+  - <https://selectorgadget.com/>
+    - <https://github.com/hermit-crab/ScrapeMate>
 
 ## Dev Tools console
 

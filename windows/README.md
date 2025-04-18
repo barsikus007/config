@@ -149,11 +149,11 @@ Sound Source Settings -> Enhancements -> Loudness Equalization
 ```powershell
 # SHIFT + F10
 
-reg add HKLM\System\Setup\LabConfig /v BypassTPMCheck /t reg_dword /d 0x00000001 /f
-reg add HKLM\System\Setup\LabConfig /v BypassSecureBootCheck /t reg_dword /d 0x00000001 /f
-reg add HKLM\System\Setup\LabConfig /v BypassCPUCheck /t reg_dword /d 0x00000001 /f
-reg add HKLM\System\Setup\LabConfig /v BypassRAMCheck /t reg_dword /d 0x00000001 /f
-reg add HKLM\System\Setup\LabConfig /v BypassStorageCheck /t reg_dword /d 0x00000001 /f
+reg add HKLM\System\Setup\LabConfig /t reg_dword /d 0x00000001 /f /v BypassTPMCheck
+reg add HKLM\System\Setup\LabConfig /t reg_dword /d 0x00000001 /f /v BypassSecureBootCheck
+reg add HKLM\System\Setup\LabConfig /t reg_dword /d 0x00000001 /f /v BypassCPUCheck
+reg add HKLM\System\Setup\LabConfig /t reg_dword /d 0x00000001 /f /v BypassRAMCheck
+reg add HKLM\System\Setup\LabConfig /t reg_dword /d 0x00000001 /f /v BypassStorageCheck
 ```
 
 ## [KMS](https://massgrave.dev)

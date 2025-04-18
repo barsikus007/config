@@ -104,8 +104,6 @@ cargo install cargo-update
 cargo install-update -a
 ```
 
-- `cargo install eza`
-
 ### [Download "whole" site](https://pingvinus.ru/note/wget-download-sites) ([alt](https://superuser.com/q/1672776))
 
 ```bash
