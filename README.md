@@ -70,6 +70,7 @@ curl -fsSL https://moonrepo.dev/install/proto.sh | PROTO_INSTALL_DIR=$XDG_CONFIG
 rm -rf ~/.proto/
 ```
 
+*
 ##### Windows
 
 ```powershell
@@ -90,7 +91,9 @@ python3 -m pip install --upgrade pip setuptools wheel
 
 ```bash
 uv python install
+uv python install --preview
 # uv python install 3.10 3.11 3.12 3.13t pypy
+# uv python install --preview 3.10 3.11 3.12 3.13t pypy3.11
 ```
 
 [TODO - python available globally](https://docs.astral.sh/uv/guides/install-python/#getting-started)
@@ -229,26 +232,9 @@ hatch run true
     - WSL
     - LINUX
 - config system
-  - fast installer
+  - clone single dir
     - <https://stackoverflow.com/questions/600079/how-do-i-clone-a-subdirectory-only-of-a-git-repository/52269934#52269934>
-  - save config folder somewhere to make it portable
-    - use overlays to install this on linux?
-  - links or copy
-    - make changable
-- nvim config
-  - <https://www.reddit.com/r/neovim/comments/oumljd/how_do_you_use_sudo_with_neovim_while_keeping_the/>
-  - IDE
-    - <https://nvchad.com/docs/quickstart/install>
-    - <https://spacevim.org>
-    - <https://jdhao.github.io/nvim-config/>
-    - <https://github.com/LazyVim/LazyVim>
-  - example
-    - <https://www.youtube.com/watch?v=FW2X1CXrU1w>
-    - <https://gist.github.com/alexey-goloburdin/62d5b1b5ec19275d33497b7f3c0b6eec>
-    - <https://github.com/alexey-goloburdin/nvim-config/blob/main/init.vim>
-  - plugin system
-    - <https://github.com/folke/lazy.nvim>
-    - <https://github.com/junegunn/vim-plug>
+  - know overlays
 - vscode
   - export configs
     - layout
