@@ -1,6 +1,8 @@
 # config
 
 - alias and function target is bash
+  - zsh someday maybe
+  - also nix
 
 ## [Android](android/README.md)
 
@@ -70,7 +72,6 @@ curl -fsSL https://moonrepo.dev/install/proto.sh | PROTO_INSTALL_DIR=$XDG_CONFIG
 rm -rf ~/.proto/
 ```
 
-*
 ##### Windows
 
 ```powershell
@@ -193,73 +194,61 @@ hatch run true
 
 ### TODO
 
-- move badapple gif and mp3 outsude of git (or genereate them idk)
-- pycharm settings sync
-- obs quick replay (import scenes)
-- python
-  - .editorconfig conf
-  - alias pip='pip --require-virtualenv'
-  - create python venv alias (current python installation pyenv.cfg windows)
-  - [check every minor release](https://github.com/astral-sh/uv) (next is 0.3)
-  - autoactivate venvs
-    - zsh and virtualenvwrapper
-  - uv install python
-    - or proto
-- terminal shit
-  - batcat mouse rock-ssh
-  - where which alias (and omit exe for windows)
-- check all *.md sections with shellcheck
-- IOS dualboot
-  - <https://github.com/MatthewPierson/Divise>
-  - <https://www.youtube.com/watch?v=_owhlPukE_A>
-  - <https://dualbootfun.github.io/dualboot/>
-- find browser sync bookmarks and history tool
-- new software
-  - GUI
-    - <https://github.com/th-ch/youtube-music/releases/latest>
-      - scoop install youtube-music
+- TUI
+  - new software
+    - `mc` alternative
+      - <https://github.com/ranger/ranger>
+      - <https://github.com/sxyazi/yazi>
+    - fish or zsh (or bash lol)
+  - alias
+    - grep config folder for cheatsheet
+    - code=co
+    - clear=cl
+    - dcu not pull
+    - dcup prod
+    - aa = alias fzf
+    - set-alias -name pn -value pnpm
+    - wsl `find / -not -path '/mnt/*'`
+    - `find / -not -path '/mnt/*' -name python -not -path '/home/*'`
+    - git config core.editor=code -w -n
+  - function
+    - `awk '{print $1*10^-6 " W"}' /sys/class/power_supply/BAT0/power_now`
   - <https://github.com/isacikgoz/tldr>
     - tldr go ?
     - tldr -u
     - <https://github.com/denisidoro/navi>
   - bat
     - [zsh '--help' alias](https://github.com/sharkdp/bat#highlighting---help-messages)
-  - `mc` alternative
-    - <https://github.com/ranger/ranger>
-    - <https://github.com/sxyazi/yazi>
-  - fish or zsh
-    - windows (MSYS2) ?
-    - WSL
-    - LINUX
-- config system
+  - .editorconfig conf
+    - make it global ?
+- GUI
+  - new software
+    - <https://github.com/th-ch/youtube-music/releases/latest>
+      - scoop install youtube-music
+  - move badapple gif and mp3 outsude of git (or genereate them idk)
+  - vscode
+    - export configs
+      - layout
+      - extensions
+      - profiles
+    - color logs
+    - python -File activate envs
+    - pycharm like run file
+    - "python.analysis.autoImportCompletions": true
+    - git tree view by default
+    - ctrl+shift++ in terminal
+  - obs
+    - quick replay (import scenes)
+    - battery-based auto-replay
+  - find browser sync bookmarks and history tool
+- meta
+  - check all *.md code sections with shellcheck
   - clone single dir
     - <https://stackoverflow.com/questions/600079/how-do-i-clone-a-subdirectory-only-of-a-git-repository/52269934#52269934>
-  - know overlays
-- vscode
-  - export configs
-    - layout
-    - extensions
-    - profiles
-  - color logs
-  - python -File activate envs
-  - pycharm like run file
-  - "python.analysis.autoImportCompletions": true
-  - git tree view by default
-  - ctrl+shift++ in terminal
-- alias
-  - grep config folder for cheatsheet
-  - code=co
-  - clear=cl
-  - dcu not pull
-  - dcup prod
-  - aa = alias fzf
-  - set-alias -name pn -value pnpm
-  - wsl `find / -not -path '/mnt/*'`
-  - `find / -not -path '/mnt/*' -name python -not -path '/home/*'`
-  - git config core.editor=code -w -n
-- dump from TG
-  - corepack prepare & use wtf?
-  - <https://github.com/jesseduffield/lazydocker/blob/master/docs/Config.md>
-  - eza
-    - windows eza ~/pathes
-    - eza --hyperlink | grep
+  - learn overlays
+- archive
+  - pycharm settings sync
+  - IOS dualboot
+    - <https://github.com/MatthewPierson/Divise>
+    - <https://www.youtube.com/watch?v=_owhlPukE_A>
+    - <https://dualbootfun.github.io/dualboot/>
