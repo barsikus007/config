@@ -44,17 +44,20 @@ home-manager switch --flake .
   - <https://github.com/Andrey0189/nixos-config>
   - <https://github.com/hlissner/dotfiles>
   - <https://github.com/MatthewCroughan/nixcfg>
+  - <https://mynixos.com/>
 - left
+  - G14 anime
   - KDE
     - <https://wiki.nixos.org/wiki/KDE#Configuration>
   - root
     - sudo alias
     - passwd
   - systemd editor path ?
+  - [amnezia modprobe secure boot](https://www.reddit.com/r/AmneziaVPN/comments/1e8fwih/amneziawg_on_nixos/)
   -
     - `[ -f "$XDG_CONFIG_HOME/bash/config.bash" ] && source $XDG_CONFIG_HOME/bash/config.bash`
     - `. "$HOME/.cargo/env"`
-  - functuions.sh
+  - `functuions.sh`
     - setup_font
       - <https://wiki.nixos.org/wiki/Fonts>
     - setup_docker ?
@@ -83,3 +86,5 @@ home-manager switch --flake .
   - python
     - direnv
     - uv2nix
+  - <https://wiki.nixos.org/wiki/Linux_kernel>
+    - xanmod

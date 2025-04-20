@@ -23,6 +23,13 @@ sparseVhd=true
 hostAddressLoopback=true
 ```
 
+#### [cgroups v2 for docker](https://github.com/spurin/wsl-cgroupsv2?tab=readme-ov-file#configure-wsl-to-use-cgroupsv2)
+
+```conf
+[wsl2]
+kernelCommandLine = cgroup_no_v1=all systemd.unified_cgroup_hierarchy=1
+```
+
 ### `/etc/wsl.conf`
 
 ```conf
@@ -103,8 +110,16 @@ netsh.exe interface portproxy delete v4tov4 listenport=19000 listenaddress=0.0.0
 
 ## [Mount external drive to WSL](https://learn.microsoft.com/en-us/windows/wsl/wsl2-mount-disk)
 
-## TODO fix broken PATH
+## [xanmod](https://github.com/Locietta/xanmod-kernel-WSL2)
+
+## [fix broken PATH cause windows paths mapping](https://github.com/microsoft/WSL/issues/1426#issuecomment-442155686)
 
 ```bash
 export PATH=`echo $PATH | tr ':' '\n' | awk '($0!~/mnt\/c/) {print} ' | tr '\n' ':'`
+```
+
+### or maybe edit `/etc/wsl.conf`
+
+```bash
+appendWindowsPath=False
 ```
