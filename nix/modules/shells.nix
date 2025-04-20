@@ -112,6 +112,19 @@ in
     PAGER = "bat";
     LESS = "--mouse";
   };
+  xdg.configFile."shell/functions.sh" = {
+    source = ../.config/shell/functions.sh;
+  };
+  # TODO: finer way to do it
+  xdg.configFile."shell/wifite.sh" = {
+    source = ../.config/shell/wifite.sh;
+  };
+  xdg.configFile."shell/g14.sh" = {
+    source = ../.config/shell/g14.sh;
+  };
+  xdg.configFile."shell/setup.sh" = {
+    source = ../.config/shell/setup.sh;
+  };
   programs.zsh = {
     enable = true;
     shellAliases = sharedAliases // fisn'tAliases;
@@ -121,15 +134,37 @@ in
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
     initExtra = ''
-      bindkey "^[[1;5D" backward-word
-      bindkey "^[[1;5C" forward-word
+      bindkey -e
+      # home
+      #bindkey "^[[H"    beginning-of-line
+      bindkey "^[OH"    beginning-of-line
+
+      # end
+      #bindkey "^[[F"    end-of-line
+      bindkey "^[OF"    end-of-line
+      # page up/down
       bindkey "^[[5~"   beginning-of-history
       bindkey "^[[6~"   end-of-history
-      # bindkey -e
-      # bindkey "^[[H"    beginning-of-line
-      # bindkey "^[[F"    end-of-line
-      # bindkey "^[[3~"   delete-char
-      # source $(./functions.sh)
+
+      # alt + left/right
+      bindkey "^[[1;3D" backward-word
+      bindkey "^[[1;3C" forward-word
+      # ctrl + left/right
+      bindkey "^[[1;5D" backward-word
+      bindkey "^[[1;5C" forward-word
+
+      # delete
+      bindkey "^[[3~"   delete-char
+      # ctrl + backspace
+      bindkey "^H"      backward-kill-word
+      # ctrl + delete
+      bindkey "^[[3;5~" delete-word
+      # alt + backspace
+      bindkey "^[^H"    backward-kill-word
+      # alt + delete
+      bindkey "^[[3;3~" delete-word
+
+      source "$XDG_CONFIG_HOME"/shell/functions.sh
     '';
   };
   programs.bash = {

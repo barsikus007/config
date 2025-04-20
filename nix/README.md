@@ -19,7 +19,7 @@ home-manager switch --flake .
 
 - `curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install`
   - enable systemd if wsl
-  
+
 ## [mpv](.config/mpv/)
 
 - mpv.conf
@@ -137,3 +137,6 @@ home-manager switch --flake .
     - uv2nix
   - <https://wiki.nixos.org/wiki/Linux_kernel>
     - xanmod
+  - repl
+    - `nixos-rebuild repl --flake ~/config/nix`
+    - `nh os repl`
