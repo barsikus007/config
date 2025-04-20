@@ -16,6 +16,8 @@ let
     nvs = "editor $(rg -n . | fzf | awk -F: '{print \"+\"$2,$1}')";
     "1ip" = "wget -qO - icanhazip.com";
     "2ip" = "curl 2ip.ru";
+    # https://www.cyberciti.biz/faq/unix-linux-check-if-port-is-in-use-command/
+    open-ports = "sudo lsof -i -P -n | grep LISTEN";
   };
   # TODO: non ported
   dockerAliases = {
@@ -61,16 +63,34 @@ let
     nvf = "nvim +'Telescope find_files hidden=true cwd=/'";
     nvs = "nvim +'Telescope live_grep hidden=true'";
   };
+  batAliases = {
+    cat = "bat";
+  };
+  # ROG G14 specific aliases
+  # TODO detect if ROG G14
+  # TODO install media and conf file
+  # TODO: non ported
+  rogG14Aliases = {
+    animeclr="asusctl anime -E false > /dev/null";
+    noanime="systemctl --user stop asusd-user && animeclr";
+    anime="animeclr && systemctl --user start asusd-user";
+    demosplash="asusctl anime pixel-image -p ~/.config/rog/bad-apple.png";
+    nodemo="tmux kill-session -t sound 2> /dev/null; noanime";
+    demo="nodemo && anime && sleep 0.5 && tmux new -s sound -d 'play ~/Music/bad-apple.mp3 repeat -'";
+  };
   nixAliases =
     let
       flakePath = "~/nix";
     in
     {
       iusenixbtw = "fastfetch";
-      n = "home-manager switch --flake ${flakePath};";
-      nn = "sudo nixos-rebuild switch --flake ${flakePath}";
+      # n = "home-manager switch --flake ${flakePath}";
+      n = "nh home switch ${flakePath}";
+      # nn = "nixos-rebuild switch --flake ${flakePath}";
+      nn = "nh os switch ${flakePath}";
       nnn = "nn && n";
-      nd = "nix-collect-garbage -d";
+      # nd = "nix-collect-garbage -d";
+      nd = "nh clean all";
       ne = "editor ${flakePath}";
     };
   sharedAliases =
@@ -80,12 +100,18 @@ let
     // otherAliases
     // ezaAliases
     // nvimAliases
+    // batAliases
+    // rogG14Aliases
     // nixAliases;
   fisn'tAliases = {
     "?" = "type";
   };
 in
 {
+  home.sessionVariables = {
+    PAGER = "bat";
+    LESS = "--mouse";
+  };
   programs.zsh = {
     enable = true;
     shellAliases = sharedAliases // fisn'tAliases;
@@ -97,6 +123,11 @@ in
     initExtra = ''
       bindkey "^[[1;5D" backward-word
       bindkey "^[[1;5C" forward-word
+      # bindkey -e
+      # bindkey "^[[H"    beginning-of-line
+      # bindkey "^[[F"    end-of-line
+      # bindkey "^[[3~"   delete-char
+      # source $(./functions.sh)
     '';
   };
   programs.bash = {
@@ -124,5 +155,13 @@ in
     config = {
       theme = "TwoDark";
     };
+    # TODO: batman, batpipe and check other extra stuff
+    extraPackages = with pkgs.bat-extras; [ batdiff batman batpipe batgrep batwatch ];
+  };
+  programs.tmux = {
+    enable = true;
+    extraConfig = ''
+      set -g mouse on
+    '';
   };
 }

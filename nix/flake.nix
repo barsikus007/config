@@ -1,22 +1,36 @@
 {
-  description = "System configuration";
+  description = "https://никспобеда.рф";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-24.11";
     # nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-    nixos-wsl.url = "github:nix-community/NixOS-WSL?ref=main";
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL?ref=main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager?ref=release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nvf.url = "github:notashelf/nvf";
+    nvf = {
+      url = "github:notashelf/nvf";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
-    { self, nixpkgs, nixos-wsl, home-manager, nvf, ... }:
+    {
+      self,
+      nixpkgs,
+      nixos-wsl,
+      home-manager,
+      nvf,
+      ...
+    }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
+      username = "nixos";
     in
     {
       nixosConfigurations."ROG14-WSL" = nixpkgs.lib.nixosSystem {
@@ -30,38 +44,30 @@
         modules = [
           # include NixOS-WSL modules
           nixos-wsl.nixosModules.default
+          home-manager.nixosModules.home-manager
+          ./hosts
+          ./hosts/ROG14-WSL/configuration.nix
           {
-            # This value determines the NixOS release from which the default
-            # settings for stateful data, like file locations and database versions
-            # on your system were taken. It's perfectly fine and recommended to leave
-            # this value at the release version of the first install of this system.
-            # Before changing this value read the documentation for this option
-            # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-            system.stateVersion = "24.11"; # Did you read the comment?
-            networking.hostName = "ROG14-WSL"; # Define your hostname
-
-            wsl.enable = true;
-            wsl.defaultUser = "nixos";
-            wsl.docker-desktop.enable = true;
-            wsl.startMenuLaunchers = true;
-            wsl.usbip.enable = true;
-
-            # https://nix-community.github.io/NixOS-WSL/how-to/vscode.html
-            programs.nix-ld = {
-              enable = true;
-            };
+            home-manager.useGlobalPkgs = true;
           }
-          ./configuration.nix
         ];
       };
-      homeConfigurations."nixos" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
+      nixosConfigurations."ROG14" = nixpkgs.lib.nixosSystem {
+        inherit system;
         modules = [
-          # nvf.homeManagerModules.nix
+          home-manager.nixosModules.home-manager
+          ./hosts
+          ./hosts/ROG14/configuration.nix
+        ];
+      };
+      homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        extraSpecialArgs = { inherit username; };
+        modules = [
           nvf.homeManagerModules.default # <- this imports the home-manager module that provides the options
           ./home.nix
-          ./soft/shells.nix
-          ./soft/editors.nix
+          ./modules/shells.nix
+          ./modules/editors.nix
         ];
       };
     };
