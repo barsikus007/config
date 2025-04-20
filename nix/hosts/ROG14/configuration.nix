@@ -16,6 +16,8 @@
 
   environment.systemPackages = (import ../../packages { inherit pkgs; });
 
+  boot.kernelPackages = [ pkgs.linuxPackages_xanmod_stable ];
+
   # services.xserver.enable = true; # optional
   services.displayManager.sddm.enable = true;
   services.displayManager.sddm.wayland.enable = true;
@@ -39,4 +41,16 @@
   #   # krdp
   #   # xwaylandvideobridge # exposes Wayland windows to X11 screen capture
   # ];
+
+  # https://asus-linux.org/guides/nixos/
+  services.supergfxd.enable = true;
+  # try with supergfxctl -S
+  # systemd.services.supergfxd.path = [ pkgs.pciutils ];
+  services = {
+    asusd = {
+      enable = true;
+      enableUserService = true;
+    };
+  };
+
 }

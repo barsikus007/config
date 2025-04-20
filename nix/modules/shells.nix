@@ -138,10 +138,10 @@ in
       # home
       #bindkey "^[[H"    beginning-of-line
       bindkey "^[OH"    beginning-of-line
-
       # end
       #bindkey "^[[F"    end-of-line
       bindkey "^[OF"    end-of-line
+
       # page up/down
       bindkey "^[[5~"   beginning-of-history
       bindkey "^[[6~"   end-of-history

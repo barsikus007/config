@@ -7,3 +7,36 @@ indent_style = space
 max_line_length = 120
 insert_final_newline = true
 trim_trailing_whitespace = true
+
+[*.md]
+indent_size = 2
+
+[*.{sh,bash,zsh}]
+indent_size = 2
+
+[*.py]
+indent_size = 4
+
+[*.{json,code-workspace}]
+indent_size = 4
+
+[*.{cjs,js,jsx,ts,tsx}]
+indent_size = 2
+max_line_length = 80
+quote_type = single
+trailingComma = all  # wont work
+trailing_comma = all  # wont work
+# "arrowParens": "always",
+# "bracketSpacing": true,
+# "htmlWhitespaceSensitivity": "css",
+# "insertPragma": false,
+# "singleAttributePerLine": false,
+# "bracketSameLine": false,
+# "jsxBracketSameLine": false,
+# "proseWrap": "preserve",
+# "quoteProps": "as-needed",
+# "requirePragma": false,
+# "semi": true,
+# "singleQuote": false,
+# "trailingComma": "all",
+# "vueIndentScriptAndStyle": false,
