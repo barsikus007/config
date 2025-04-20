@@ -4,6 +4,8 @@
   - zsh someday maybe
   - also nix
 
+## [NixOS](nix/README.md)
+
 ## [Android](android/README.md)
 
 ## [Linux](linux/README.md)
@@ -246,6 +248,8 @@ hatch run true
   - starship
     - sudo session time
     - remove versions
+    - dynamic battery icon
+    - change default (fish looks like fine)
   - bat
     - [zsh '--help' alias](https://github.com/sharkdp/bat#highlighting---help-messages)
   - .editorconfig conf

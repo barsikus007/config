@@ -21,34 +21,17 @@
       # https://github.com/NotAShelf/nvf/blob/main/configuration.nix
       viAlias = true;
       vimAlias = true;
-      luaConfigRC.basic = ''
-        -- russian commands
-        -- https://neovim.io/doc/user/russian.html
-        -- https://gist.github.com/sigsergv/5329458
-        -- TODO https://habr.com/ru/articles/726400/
-        local function escape(str)
-          -- Эти символы должны быть экранированы, если встречаются в langmap
-          local escape_chars = [[;,."|\]]
-          return vim.fn.escape(str, escape_chars)
-        end
-
-        local ru = [[ЁЙЦУКЕНГШЩЗХЪ/ФЫВАПРОЛДЖЭЯЧСМИТЬБЮ,ёйцукенгшщзхъфывапролджэячсмитьбю.]]
-        local en = [[~QWERTYUIOP{}|ASDFGHJKL:"ZXCVBNM<>?`qwertyuiop[]asdfghjkl;'zxcvbnm,./]]
-        vim.opt.langmap = escape(ru) .. ";" .. escape(en)
-
-        local map = vim.keymap.set
-        local function nmap(shortcut, command)
-          map('n', shortcut, command)
-        end
-        nmap("Ж",":")
-        -- yank
-        nmap("Н","Y")
-        nmap("з","p")
-        nmap("ф","a")
-        nmap("щ","o")
-        nmap("г","u")
-        nmap("З","P")
-      '';
+      options = {
+        # fix indents
+        autoindent = true;
+        smartindent = true;
+        smarttab = true;
+        expandtab = true;
+        tabstop = 2;
+        softtabstop = 2;
+        shiftwidth = 2;
+      };
+      luaConfigRC.basic = builtins.readFile ../.config/nvim/init.lua;
       debugMode = {
         enable = false;
         level = 16;
@@ -57,9 +40,10 @@
 
       lsp = {
         formatOnSave = true;
+        # https://github.com/onsails/lspkind.nvim
         lspkind.enable = false;
+        # https://github.com/kosayoda/nvim-lightbulb
         lightbulb.enable = true;
-        lspsaga.enable = false;
         trouble.enable = true;
         lspSignature.enable = true;
       };
@@ -142,28 +126,17 @@
         nvim-notify.enable = true;
       };
 
-      projects = {
-      };
-
       utility = {
         ccc.enable = false;
-        vim-wakatime.enable = false;
         diffview-nvim.enable = true;
-        yanky-nvim.enable = false;
 
         motion = {
           hop.enable = true;
           leap.enable = true;
         };
-        images = {
-          image-nvim.enable = false;
-        };
       };
 
       notes = {
-        # obsidian.enable = false; # FIXME: neovim fails to build if obsidian is enabled
-        # neorg.enable = false;
-        # orgmode.enable = false;
         todo-comments.enable = true;
       };
 
@@ -193,14 +166,7 @@
         fastaction.enable = true;
       };
 
-      session = {
-        nvim-session-manager.enable = false;
-      };
-
-      gestures = {
-        gesture-nvim.enable = false;
-      };
-
+      # https://github.com/numToStr/Comment.nvim
       comments = {
         comment-nvim.enable = true;
       };

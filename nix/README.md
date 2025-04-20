@@ -1,4 +1,4 @@
-# Nix/OS
+# Worst Nix/OS config ever
 
 ## Installation
 
@@ -19,11 +19,60 @@ home-manager switch --flake .
 
 - `curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install`
   - enable systemd if wsl
+  
+## [mpv](.config/mpv/)
+
+- mpv.conf
+  - no-border
+  - snap-window
+  - save-position-on-quit
+  - screenshot-directory is desktop
+  - ontop only when playing
+  - profiles
+    - playlist
+      - move window to right down corner
+      - resize to 25% of screen width
+    - online (http)
+      - same as playlist
+    - music (mp3)
+      - always show window
+      - don't save position
+  - TODO
+    - headers based on link profile
+    - additional track settings
+      - sub/aud folder search
+      - #Audio language priority
+      - alang=ru,rus,en,eng,ja,jp,jpn
+      - #Subtitle language priority
+      - slang=ru,rus,en,eng,ja,jp,jpn
+- input.conf
+  - patched ru keybinds
+  - middle mouse button to pin window on top
+  - _/- to cycle video tracks
+  - =/+ to cycle window sizes
+  - Alt+[0-6] keys to change window size
+  - k shuffle playlist
+  - Alt+k unshuffle playlist
+  - K loop/unloop playlist
+  - n show file tags
+  - [crop/encode](https://github.com/occivink/mpv-scripts/blob/master/input.conf)
+    - crop
+      - c for crop
+      - Alt+c for soft crop
+      - C for toggle crop (remove filter and crop)
+      - l blur logo
+      - d remove crop filter
+      - D remove soft crop
+    - encode
+      - e for webm no audio
+      - E for source
+      - Alt+e for mp4 no audio
+- [crop/encode scripts](https://github.com/occivink/mpv-scripts)
+  - [crop fix](https://github.com/occivink/mpv-scripts/pull/77/files)
 
 ## TODO
 
 - [vscode LSP](https://github.com/nix-community/vscode-nix-ide/tree/main?tab=readme-ov-file#lsp-plugin-support)
-- way to compile nixos to files for non nix distros
 - [no internet](https://www.reddit.com/r/NixOS/comments/mu7ryg/comment/gv4kmsk/)
   - [LiveCD](https://wiki.nixos.org/wiki/Creating_a_NixOS_live_CD)
 - [flake-parts](https://nix-community.github.io/home-manager/index.xhtml#sec-flakes-flake-parts-module)
@@ -40,6 +89,8 @@ home-manager switch --flake .
   -
     - go to definition
     - indent
+  - init.lua vim types
+- [mpv](https://wiki.nixos.org/wiki/MPV#Where_to_get_scripts)
 - refs
   - <https://github.com/Andrey0189/nixos-config>
   - <https://github.com/hlissner/dotfiles>
@@ -62,7 +113,6 @@ home-manager switch --flake .
       - <https://wiki.nixos.org/wiki/Fonts>
     - setup_docker ?
     - root passwd ?
-    - starship ?
     -
       - mkcd() { (mkdir -p "$@" && cd "$@" || exit;) }
       - ssht() { (ssh "$@" -t "tmux new -As0 || bash || sh") }
@@ -74,7 +124,6 @@ home-manager switch --flake .
   - `https://wiki.nixos.org/wiki/Git#Using_your_public_SSH_key_as_a_signing_key`
   - <https://github.com/jesseduffield/lazydocker/blob/master/docs/Config.md>
   -
-    - mpv
     - mkcd
     - ssht
     - dcsh

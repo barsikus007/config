@@ -71,16 +71,16 @@ let
   # TODO install media and conf file
   # TODO: non ported
   rogG14Aliases = {
-    animeclr="asusctl anime -E false > /dev/null";
-    noanime="systemctl --user stop asusd-user && animeclr";
-    anime="animeclr && systemctl --user start asusd-user";
-    demosplash="asusctl anime pixel-image -p ~/.config/rog/bad-apple.png";
-    nodemo="tmux kill-session -t sound 2> /dev/null; noanime";
-    demo="nodemo && anime && sleep 0.5 && tmux new -s sound -d 'play ~/Music/bad-apple.mp3 repeat -'";
+    animeclr = "asusctl anime -E false > /dev/null";
+    noanime = "systemctl --user stop asusd-user && animeclr";
+    anime = "animeclr && systemctl --user start asusd-user";
+    demosplash = "asusctl anime pixel-image -p ~/.config/rog/bad-apple.png";
+    nodemo = "tmux kill-session -t sound 2> /dev/null; noanime";
+    demo = "nodemo && anime && sleep 0.5 && tmux new -s sound -d 'play ~/Music/bad-apple.mp3 repeat -'";
   };
   nixAliases =
     let
-      flakePath = "~/nix";
+      flakePath = "~/config/nix";
     in
     {
       iusenixbtw = "fastfetch";
@@ -123,6 +123,8 @@ in
     initExtra = ''
       bindkey "^[[1;5D" backward-word
       bindkey "^[[1;5C" forward-word
+      bindkey "^[[5~"   beginning-of-history
+      bindkey "^[[6~"   end-of-history
       # bindkey -e
       # bindkey "^[[H"    beginning-of-line
       # bindkey "^[[F"    end-of-line
@@ -156,12 +158,25 @@ in
       theme = "TwoDark";
     };
     # TODO: batman, batpipe and check other extra stuff
-    extraPackages = with pkgs.bat-extras; [ batdiff batman batpipe batgrep batwatch ];
+    extraPackages = with pkgs.bat-extras; [
+      batdiff
+      batman
+      batpipe
+      batgrep
+      batwatch
+    ];
   };
   programs.tmux = {
     enable = true;
     extraConfig = ''
       set -g mouse on
     '';
+  };
+  programs.starship = {
+    enable = true;
+    settings = builtins.fromTOML (builtins.readFile ../.config/starship.toml);
+  };
+  xdg.configFile."starship/starship.bash" = {
+    source = ../.config/starship/starship.bash;
   };
 }

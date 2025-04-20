@@ -68,6 +68,8 @@
           ./home.nix
           ./modules/shells.nix
           ./modules/editors.nix
+
+          ./modules/mpv.nix
         ];
       };
     };

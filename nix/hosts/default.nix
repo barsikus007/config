@@ -41,6 +41,6 @@
     clean.dates = "daily";
     clean.extraArgs = "--keep 3 --keep-since 4d";
     # TODO "nixos"
-    flake = "/home/nixos/nix";
+    flake = "/home/nixos/config/nix";
   };
 }

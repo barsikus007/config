@@ -1,5 +1,7 @@
 {
     "recommendations": [
+        "sumneko.lua",
+        "editorconfig.editorconfig",
         "jnoortheen.nix-ide",
         "christian-kohler.path-intellisense"
     ]

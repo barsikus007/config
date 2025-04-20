@@ -7,6 +7,8 @@ echo "DEPRECATION WARNING!!! I USE NIX NOW"
   script_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd -P)
 
   cp -r "$script_dir/".[!.]* ~/
+  cp -r "$script_dir/"../nix/.config/ ~/
+
   ln -sf ~/.config/nvim/init.vim ~/.vimrc
 
   touch_file_if_not_exist() {
