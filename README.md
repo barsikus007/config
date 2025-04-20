@@ -200,7 +200,9 @@ hatch run true
   - new software
     - `mc` alternative
       - <https://github.com/ranger/ranger>
+        - atool for arch
       - <https://github.com/sxyazi/yazi>
+      - nnn
     - fish or zsh (or bash lol)
     - du
       - command -v dust > /dev/null && alias du='dust'

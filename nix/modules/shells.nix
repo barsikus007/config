@@ -88,7 +88,7 @@ let
       n = "nh home switch ${flakePath}";
       # nn = "nixos-rebuild switch --flake ${flakePath}";
       nn = "nh os switch ${flakePath}";
-      nnn = "nn && n";
+      # nnn = "nn && n";
       # nd = "nix-collect-garbage -d";
       nd = "nh clean all";
       ne = "editor ${flakePath}";

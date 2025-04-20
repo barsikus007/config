@@ -26,5 +26,7 @@
   };
 
   # environment.systemPackages = (import ../../packages { inherit pkgs; });
-  environment.systemPackages = (import ../../packages/base.nix { inherit pkgs; });
+  environment.systemPackages =
+    (import ../../packages/base.nix { inherit pkgs; })
+    ++ (import ../../packages/test.nix { inherit pkgs; });
 }

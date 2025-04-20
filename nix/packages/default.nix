@@ -9,14 +9,6 @@ with pkgs;
   # tldr
   yt-dlp
 
-  # new
-  fd
-  dust
-  dive
-  tre
-  dfrs
-  serpl
-
   # GUI
   mpv
   neovide
