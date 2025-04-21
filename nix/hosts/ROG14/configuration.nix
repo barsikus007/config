@@ -17,6 +17,9 @@
   environment.systemPackages = (import ../../packages { inherit pkgs; });
 
   boot.kernelPackages = [ pkgs.linuxPackages_xanmod_stable ];
+  fonts.packages = with pkgs; [
+    cascadia-code
+  ];
 
   # services.xserver.enable = true; # optional
   services.displayManager.sddm.enable = true;
@@ -52,5 +55,4 @@
       enableUserService = true;
     };
   };
-
 }

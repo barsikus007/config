@@ -112,6 +112,8 @@ netsh.exe interface portproxy delete v4tov4 listenport=19000 listenaddress=0.0.0
 
 ## [xanmod](https://github.com/Locietta/xanmod-kernel-WSL2)
 
+## [USB](https://learn.microsoft.com/en-us/windows/wsl/connect-usb)
+
 ## [fix broken PATH cause windows paths mapping](https://github.com/microsoft/WSL/issues/1426#issuecomment-442155686)
 
 ```bash
@@ -123,3 +125,5 @@ export PATH=`echo $PATH | tr ':' '\n' | awk '($0!~/mnt\/c/) {print} ' | tr '\n' 
 ```bash
 appendWindowsPath=False
 ```
+
+## [fix exe launch](https://github.com/sakai135/wsl-vpnkit/issues/239)

@@ -26,7 +26,7 @@ soft_envs() {
 setup_font() {
   (
     tmpfile=$(mktemp --suffix .zip)
-    wget https://github.com/microsoft/cascadia-code/releases/latest/download/CascadiaCode-2404.23.zip -O "$tmpfile"
+    wget https://github.com/microsoft/cascadia-code/releases/download/v2407.24/CascadiaCode-2407.24.zip -O "$tmpfile"
     # /usr/share/fonts/truetype/cascadia ?
     sudo unzip -j "$tmpfile" ttf/Cascadia*.ttf -d /usr/share/fonts/cascadia
     sudo fc-cache -v

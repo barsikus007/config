@@ -70,6 +70,7 @@ TODO
 
 ### TODO
 
+- `sudo dnf install cascadia-code-nf-fonts`
 - migrate to KDE (or nixos w/KDE)
 - fedora shortcut move window to another monitor
 - <https://gitlab.com/kirbykevinson/libinput-config>

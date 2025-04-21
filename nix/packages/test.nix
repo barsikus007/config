@@ -1,19 +1,22 @@
-# packages I want to test
+# packages I want to test before adding
 { pkgs, ... }:
 
 with pkgs;
 [
-  # new
-  fd
+  # new base
   dust
   dive
-  tre
   dfrs
   serpl
 
-  # fm
-  nnn
+  # new base filemanagers
+  #  yazi is the best rn
   yazi
+  nnn
   ranger
+  # for tar opening maybe?
   # atool
+
+  # new add
+  rustscan
 ]

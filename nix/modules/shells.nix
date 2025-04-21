@@ -214,4 +214,7 @@ in
   xdg.configFile."starship/starship.bash" = {
     source = ../.config/starship/starship.bash;
   };
+  programs.yazi = {
+    enable = true;
+  };
 }

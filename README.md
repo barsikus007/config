@@ -203,17 +203,19 @@ hatch run true
         - atool for arch
       - <https://github.com/sxyazi/yazi>
       - nnn
-    - fish or zsh (or bash lol)
-    - du
-      - command -v dust > /dev/null && alias du='dust'
-    - find
-      - command -v fd > /dev/null && alias find='fd'
+    - zsh or fish (or bash lol)
+    - not drop-in
+      - du
+        - command -v dust > /dev/null && alias du='dust'
+      - find
+        - command -v fd > /dev/null && alias find='fd'
+      - df
+        - [dfrs](https://github.com/anthraxx/dfrs)
     - uv tool
       - isd
+    - nmap to rustscan
     - [dive](https://github.com/wagoodman/dive)
-    - [dduan/tre: Tree command, improved.](https://github.com/dduan/tre)
     - [Mosh: the mobile shell](https://mosh.org/)
-    - dfrs
     - <https://github.com/pojntfx/octarchive>
     - [yassinebridi/serpl: A simple terminal UI for search and replace, ala VS Code.](https://github.com/yassinebridi/serpl)
   - alias

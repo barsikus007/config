@@ -19,9 +19,10 @@ with pkgs;
   zoxide
   ripgrep
 
-  # add (historicaly, this is packages was unavailable in ubuntu/scoop base repos)
+  # add (historicaly, this is packages was unavailable in ubuntu/scoop base repos or have different name)
   zsh
   fish
+  fd
   eza
   lsof
   mosh
@@ -30,6 +31,7 @@ with pkgs;
   starship
   babelfish
   fastfetch
+  lazygit
   lazydocker
 
   # nix
