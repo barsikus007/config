@@ -77,5 +77,6 @@
     };
   };
 
-  # programs.lazygit
+  # TODO: alias gg/lg/lzg
+  # programs.lazygit.enable = true;
 }

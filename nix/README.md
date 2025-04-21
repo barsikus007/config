@@ -88,6 +88,7 @@ home-manager switch --flake .
   - init.lua vim types
 - [mpv](https://wiki.nixos.org/wiki/MPV#Where_to_get_scripts)
 - <https://www.scootersoftware.com/kb/linux_install>
+- nix repl get packages to install
 - refs
   - <https://github.com/Andrey0189/nixos-config>
   - <https://github.com/hlissner/dotfiles>
@@ -100,6 +101,10 @@ home-manager switch --flake .
   - root
     - sudo alias
     - passwd
+  - <https://wiki.nixos.org/wiki/Dual_Booting_NixOS_and_Windows>
+    - <https://wiki.nixos.org/wiki/Secure_Boot>
+  - <https://wiki.nixos.org/wiki/ZFS>
+    - <https://discourse.nixos.org/t/how-good-is-zfs-on-root-on-nixos/40512>
   - systemd editor path ?
   - [amnezia modprobe secure boot](https://www.reddit.com/r/AmneziaVPN/comments/1e8fwih/amneziawg_on_nixos/)
   -
