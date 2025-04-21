@@ -81,16 +81,13 @@ home-manager switch --flake .
   - [firejail](https://github.com/netblue30/firejail)
 - [bat extras](https://github.com/eth-p/bat-extras)
 - nvim
-  - <https://github.com/BirdeeHub/nixCats-nvim>
-  - <https://github.com/nix-community/nixvim>
-  - <https://github.com/NotAShelf/nvf>
-    - show hidden
   - nvimpager
-  -
-    - go to definition
-    - indent
+    - enable syntax hightlighting
+    - disable all other
+    - batman ?
   - init.lua vim types
 - [mpv](https://wiki.nixos.org/wiki/MPV#Where_to_get_scripts)
+- <https://www.scootersoftware.com/kb/linux_install>
 - refs
   - <https://github.com/Andrey0189/nixos-config>
   - <https://github.com/hlissner/dotfiles>

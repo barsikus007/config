@@ -12,4 +12,5 @@ with pkgs;
   # GUI
   mpv
   neovide
+  # unstable.vscode-fhs
 ]

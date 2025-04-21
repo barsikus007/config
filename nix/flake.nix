@@ -31,6 +31,7 @@
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
       username = "nixos";
+      # TODO: flake path
     in
     {
       nixosConfigurations."ROG14-WSL" = nixpkgs.lib.nixosSystem {

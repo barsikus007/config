@@ -18,5 +18,16 @@ with pkgs;
   # atool
 
   # new add
+  # tldr
+  # tldr-hs
+  tlrc
+  # tealdeer
+
+  # new add security scanners
+  nikto
+  # ffuf
+  # seclists
+  # frida-tools
+  zmap
   rustscan
 ]

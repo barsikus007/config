@@ -31,6 +31,14 @@
         softtabstop = 2;
         shiftwidth = 2;
       };
+      keymaps = [
+        {
+          key = "<leader>?";
+          mode = "n";
+          silent = true;
+          action = ":Cheatsheet<CR>";
+        }
+      ];
       luaConfigRC.basic = builtins.readFile ../.config/nvim/init.lua;
       debugMode = {
         enable = false;
@@ -44,20 +52,27 @@
         lspkind.enable = false;
         # https://github.com/kosayoda/nvim-lightbulb
         lightbulb.enable = true;
+        # https://github.com/folke/trouble.nvim
         trouble.enable = true;
+        # https://github.com/ray-x/lsp_signature.nvim
         lspSignature.enable = true;
       };
 
       # This section does not include a comprehensive list of available language modules.
       # To list all available language module options, please visit the nvf manual.
       languages = {
-        enableLSP = true;
+        enableLSP = false;
         enableFormat = true;
         enableTreesitter = true;
         enableExtraDiagnostics = true;
 
         # Languages that will be supported in default and maximal configurations.
         nix.enable = true;
+        python = {
+          enable = true;
+          format.type = "ruff";
+        };
+        ts.enable = true;
       };
 
       visuals = {
@@ -96,6 +111,7 @@
       };
 
       tabline = {
+        # https://github.com/akinsho/bufferline.nvim
         nvimBufferline.enable = true;
       };
 
@@ -103,6 +119,8 @@
 
       binds = {
         whichKey.enable = true;
+        # https://github.com/sudormrfbin/cheatsheet.nvim
+        # <leader>?
         cheatsheet.enable = true;
       };
 
@@ -114,12 +132,8 @@
         gitsigns.codeActions.enable = false; # throws an annoying debug message
       };
 
-      minimap = {
-        minimap-vim.enable = false;
-      };
-
       dashboard = {
-        dashboard-nvim.enable = false;
+        dashboard-nvim.enable = true;
       };
 
       notify = {
@@ -127,13 +141,7 @@
       };
 
       utility = {
-        ccc.enable = false;
         diffview-nvim.enable = true;
-
-        motion = {
-          hop.enable = true;
-          leap.enable = true;
-        };
       };
 
       notes = {
@@ -142,7 +150,10 @@
 
       terminal = {
         toggleterm = {
+          # https://github.com/akinsho/toggleterm.nvim
+          # <c-t>
           enable = true;
+          # <leader>gg
           lazygit.enable = true;
         };
       };
@@ -151,23 +162,18 @@
         borders.enable = true;
         noice.enable = true;
         colorizer.enable = true;
-        modes-nvim.enable = false; # the theme looks terrible with catppuccin
         illuminate.enable = true;
         smartcolumn = {
           enable = true;
-          setupOpts.custom_colorcolumn = {
-            # this is a freeform module, it's `buftype = int;` for configuring column position
-            nix = "110";
-            ruby = "120";
-            java = "130";
-            go = ["90" "130"];
-          };
         };
+        # https://github.com/Chaitanyabsprip/fastaction.nvim
         fastaction.enable = true;
       };
 
-      # https://github.com/numToStr/Comment.nvim
       comments = {
+        # https://github.com/numToStr/Comment.nvim
+        # gcc
+        # gbc
         comment-nvim.enable = true;
       };
     };
