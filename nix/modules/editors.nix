@@ -1,5 +1,4 @@
-{ config, pkgs, ... }:
-
+{ pkgs, ... }:
 {
   home = {
     sessionVariables = {
@@ -177,5 +176,8 @@
         comment-nvim.enable = true;
       };
     };
+  };
+  programs.helix = {
+    enable = true;
   };
 }

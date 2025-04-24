@@ -1,5 +1,4 @@
-{ config, pkgs, username, ... }:
-
+{ config, pkgs, libs, username, ... }:
 {
   home = {
     # Home Manager needs a bit of information about you and the
@@ -70,10 +69,10 @@
 
       rebase.autoStash = "true";
 
-      # TODO
-      # user.signingKey = "~/.ssh/id_ed25519.pub";
-      # commit.gpgSign = true;
-      # gpg.format = "ssh";
+      # TODO: secrets
+      user.signingKey = "~/.ssh/id_ed25519.pub";
+      commit.gpgSign = true;
+      gpg.format = "ssh";
     };
   };
 

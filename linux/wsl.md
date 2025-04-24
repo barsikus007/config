@@ -127,3 +127,5 @@ appendWindowsPath=False
 ```
 
 ## [fix exe launch](https://github.com/sakai135/wsl-vpnkit/issues/239)
+
+## [random systemd warning](https://isd-project.github.io/isd/#:~:text=WSL)

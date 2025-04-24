@@ -137,8 +137,7 @@ home-manager switch --flake .
   - python
     - direnv
     - uv2nix
-  - <https://wiki.nixos.org/wiki/Linux_kernel>
-    - xanmod
-  - repl
-    - `nixos-rebuild repl --flake ~/config/nix`
+  - 25.05
+    - awg
+    - mesa
     - `nh os repl`

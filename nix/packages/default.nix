@@ -1,7 +1,10 @@
-{ pkgs, ... }:
-
+{
+  pkgs,
+  unstable,
+  ...
+}:
 with pkgs;
-./base.nix
+(import ./base.nix { inherit pkgs; })
 ++ [
   # other (specific cli tools)
   uv
@@ -11,6 +14,25 @@ with pkgs;
 
   # GUI
   mpv
+  vesktop
+  unstable.ayugram-desktop
+  nekoray
   neovide
-  # unstable.vscode-fhs
+  microsoft-edge
+  firefox
+  keepassxc
+  keepassxc-go
+  obsidian
+  # unstable.amneziawg-tools
+  syncthingtray-qt6
+  unstable.vscode-fhs
+  unstable.isd
+  ghostty
+  helix
+
+  # TODO: will it be available due to steam pkg?
+  steam-run
+
+  unstable.graalvmPackages.graalvm-oracle
+  prismlauncher
 ]

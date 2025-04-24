@@ -34,7 +34,7 @@
 <extension://odfafepnkmbhccpbejgmiehpchacaeak/dashboard.html#1p-filters.html>
 
 ```css
-! 2024-12-01 https://lurkmore.media
+! 2022-02-22 https://lurkmore.media
 lurkmore.media##.sitenotice
 ```
 
@@ -62,6 +62,9 @@ lurkmore.media##.sitenotice
   - [Return YouTube Dislike](https://www.returnyoutubedislike.com/)
   - [SponsorBlock for YouTube - Skip Sponsorships](https://sponsor.ajay.app)
 - [QuicKey](https://fwextensions.github.io/QuicKey/)
+  - [C+Tab](https://fwextensions.github.io/QuicKey/ctrl-tab/)
+    - <edge://extensions/shortcuts>
+      - `chrome.developerPrivate.updateExtensionCommand({extensionId: "mcjciddpjefdpndgllejgcekmajmehnd", commandName: "30-toggle-recent-tabs", keybinding: "Ctrl+Tab"});`
 - [PiP - Picture in Picture Plus](https://www.oinkandstuff.com/project/pip-picture-in-picture-plus/)
 - [Search by Image](https://github.com/dessant/search-by-image)
 - [Refined GitHub](https://github.com/refined-github/refined-github)

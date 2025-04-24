@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  flakePath,
   ...
 }:
 {
@@ -12,6 +13,39 @@
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
+  ];
+
+  # Set your time zone.
+  time.timeZone = "Europe/Moscow";
+
+  # Select internationalisation properties.
+  i18n.defaultLocale = "en_US.UTF-8";
+
+  i18n.supportedLocales = [
+    "C.UTF-8/UTF-8"
+    "en_US.UTF-8/UTF-8"
+    "ru_RU.UTF-8/UTF-8"
+  ];
+
+  # Optionally
+  i18n.extraLocaleSettings = {
+    # LC_ALL = "C.UTF-8"; # This overrides all other LC_* settings.
+    LC_CTYPE = "en_US.UTF8";
+    LC_ADDRESS = "ru_RU.UTF-8";
+    LC_MEASUREMENT = "ru_RU.UTF-8";
+    LC_MESSAGES = "en_US.UTF-8";
+    LC_MONETARY = "ru_RU.UTF-8";
+    LC_NAME = "ru_RU.UTF-8";
+    LC_NUMERIC = "ru_RU.UTF-8";
+    LC_PAPER = "ru_RU.UTF-8";
+    LC_TELEPHONE = "ru_RU.UTF-8"; # en_US.UTF-8
+    LC_TIME = "C.UTF-8";
+    LC_COLLATE = "ru_RU.UTF-8"; # en_US.UTF-8
+    LC_IDENTIFICATION = "ru_RU.UTF-8"; # en_US.UTF-8
+  };
+
+  fonts.packages = with pkgs; [
+    cascadia-code
   ];
 
   users.defaultUserShell = pkgs.zsh;
@@ -39,8 +73,7 @@
     clean.enable = true;
     # clean.dates = "weekly";
     clean.dates = "daily";
-    clean.extraArgs = "--keep 3 --keep-since 4d";
-    # TODO "nixos"
-    flake = "/home/nixos/config/nix";
+    clean.extraArgs = "--keep 5 --keep-since 4d";
+    flake = flakePath;
   };
 }

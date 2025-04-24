@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, flakePath, ... }:
 
 let
   baseAliases = {
@@ -80,7 +80,7 @@ let
   };
   nixAliases =
     let
-      flakePath = "~/config/nix";
+      inherit flakePath;
     in
     {
       iusenixbtw = "fastfetch";
@@ -90,7 +90,9 @@ let
       nn = "nh os switch ${flakePath}";
       # nnn = "nn && n";
       # nd = "nix-collect-garbage -d";
-      nd = "nh clean all";
+      nd = "nh clean all --keep 5 --keep-since 4d";
+      nr = "nixos-rebuild repl --flake ${flakePath}";
+      # nr = "nh os repl ${flakePath}";
       ne = "editor ${flakePath}";
     };
   sharedAliases =
