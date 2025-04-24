@@ -133,9 +133,9 @@
       };
       modules = [
         nvf.homeManagerModules.default # <- this imports the home-manager module that provides the options
-        ./home.nix
-        ./modules/shells.nix
-        ./modules/editors.nix
+        ./home
+        ./home/shells.nix
+        ./home/editors.nix
       ];
     };
     homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
@@ -144,13 +144,16 @@
       modules = [
         nvf.homeManagerModules.default # <- this imports the home-manager module that provides the options
         plasma-manager.homeManagerModules.plasma-manager
-        ./home.nix
-        ./modules/shells.nix
-        ./modules/editors.nix
+        ./home
+        ./home/shells.nix
+        ./home/editors.nix
 
         ./home/gui/terminal.nix
         ./home/gui/plasma.nix
         ./home/gui/mpv.nix
+        {
+          programs.nvf.settings.vim.languages.enableLSP = nixpkgs.lib.mkForce true;
+        }
       ];
     };
   };
