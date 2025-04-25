@@ -18,11 +18,9 @@ with pkgs;
   unstable.ayugram-desktop
   nekoray
   neovide
-  microsoft-edge
   firefox
   keepassxc
   keepassxc-go
-  obsidian
   # unstable.amneziawg-tools
   syncthingtray-qt6
   unstable.vscode-fhs
@@ -30,8 +28,9 @@ with pkgs;
   ghostty
   helix
 
-  # TODO: will it be available due to steam pkg?
-  steam-run
+  # GUI unfree
+  microsoft-edge
+  obsidian
 
   unstable.graalvmPackages.graalvm-oracle
   prismlauncher

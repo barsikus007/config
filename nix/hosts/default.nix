@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  username,
   flakePath,
   ...
 }:
@@ -47,6 +48,15 @@
   fonts.packages = with pkgs; [
     cascadia-code
   ];
+
+  home-manager.useGlobalPkgs = true;
+  home-manager.useUserPackages = true;
+
+  # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.users.${username} = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+  };
 
   users.defaultUserShell = pkgs.zsh;
   programs.bash = {

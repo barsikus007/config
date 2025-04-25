@@ -44,18 +44,20 @@
   let
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
-    # pkgsUnstable = nixpkgs-unstable.legacyPackages.${system};
     pkgsUnstable = import nixpkgs-unstable {
       inherit system;
       config.allowUnfree = true;
     };
+
     username = "ogurez";
     flakePath = "/home/${username}/config/nix";
+
     defaultSpecialArgs = {
       inherit username flakePath;
     };
     specialArgs = defaultSpecialArgs // {
       unstable = pkgsUnstable;
+      nixpkgs-unstable = nixpkgs-unstable;
     };
   in
   {
@@ -88,40 +90,35 @@
         stylix.nixosModules.stylix
         ./hosts
         ./hosts/ROG14/configuration.nix
-        ./modules/gui/vm.nix
-        {
-          # Override networking.wg-quick to use unstable's module
-          disabledModules = [ "services/networking/wg-quick.nix" ];
-          imports = [
-            "${nixpkgs-unstable}/nixos/modules/services/networking/wg-quick.nix"
-          ];
-          # Overlay to include amneziawg-tools
-          nixpkgs.overlays = [
-            (self: super: {
-              amneziawg-tools = nixpkgs-unstable.legacyPackages.${system}.amneziawg-tools;
-            })
-          ];
 
+        ./modules/gui/vm.nix
+        ./modules/gui/steam.nix
+        ./modules/gui/wireguard.nix
+        {
           # hardware.graphics.package = nixpkgs-unstable.legacyPackages.${system}.mesa;
 
-          # Include amneziawg package from unstable
-          environment.systemPackages =
-            with nixpkgs-unstable.legacyPackages.x86_64-linux;
-            [
-              wireguard-tools # Contains amneziawg support
-              amneziawg-tools
-            ]
-            ++ (import packages/test.nix {
-              inherit pkgs;
-            });
+          # харам, платные приложения
+          nixpkgs.config.allowUnfreePredicate =
+            pkg:
+            builtins.elem (nixpkgs.lib.getName pkg) [
+              "nvidia-x11"
+              "nvidia-settings"
+              "nvidia-persistenced"
 
-          # Define a user account. Don't forget to set a password with ‘passwd’.
-          users.users.${username} = {
-            isNormalUser = true;
-            extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-          };
-          home-manager.useGlobalPkgs = true;
-          # home-manager.useUserPackages = true;
+              "steam"
+              "steam-unwrapped"
+              "steam-original"
+              "steam-run"
+
+              "microsoft-edge"
+              "obsidian"
+            ];
+
+          environment.defaultPackages = (
+            import packages/test.nix {
+              inherit pkgs;
+            }
+          );
         }
       ];
     };
@@ -140,7 +137,7 @@
     };
     homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
-      extraSpecialArgs = defaultSpecialArgs;
+      extraSpecialArgs = specialArgs;
       modules = [
         nvf.homeManagerModules.default # <- this imports the home-manager module that provides the options
         plasma-manager.homeManagerModules.plasma-manager
@@ -151,6 +148,7 @@
         ./home/gui/terminal.nix
         ./home/gui/plasma.nix
         ./home/gui/mpv.nix
+        ./home/gui/minecraft.nix
         {
           programs.nvf.settings.vim.languages.enableLSP = nixpkgs.lib.mkForce true;
         }
