@@ -37,7 +37,7 @@
     LC_MESSAGES = "en_US.UTF-8";
     LC_MONETARY = "ru_RU.UTF-8";
     LC_NAME = "ru_RU.UTF-8";
-    LC_NUMERIC = "ru_RU.UTF-8";
+    LC_NUMERIC = "en_US.UTF-8";
     LC_PAPER = "ru_RU.UTF-8";
     LC_TELEPHONE = "ru_RU.UTF-8"; # en_US.UTF-8
     LC_TIME = "C.UTF-8";
@@ -56,34 +56,21 @@
   users.users.${username} = {
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    # extraGroups = [ "wheel" "networkmanager" "docker" ];
+    # hashedPassword = "hashedPassword";
   };
 
   users.defaultUserShell = pkgs.zsh;
-  programs.bash = {
-    interactiveShellInit = ''
-      if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
-      then
-        shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
-        exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
-      fi
-    '';
-  };
   programs.zsh.enable = true;
-  programs.fish = {
-    enable = true;
-    useBabelfish = true;
-  };
-  # users.users.
-  # isNormalUser = true;
-  # extraGroups = [ "wheel" "networkmanager" "docker" ];
-  # hashedPassword = "hashedPassword";
 
   programs.nh = {
     enable = true;
     clean.enable = true;
-    # clean.dates = "weekly";
     clean.dates = "daily";
     clean.extraArgs = "--keep 5 --keep-since 4d";
     flake = flakePath;
   };
+  imports = [
+    # ../modules/shell/fish.nix
+  ];
 }

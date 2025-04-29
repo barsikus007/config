@@ -6,9 +6,8 @@
     package = (
       pkgs.mpv-unwrapped.wrapper {
         scripts = with pkgs.mpvScripts; [
-          # uosc
+          uosc
           thumbfast
-          # thumbnail
         ];
 
         mpv = pkgs.mpv-unwrapped.override {

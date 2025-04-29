@@ -1,4 +1,11 @@
-{ config, pkgs, libs, username, ... }:
+{
+  config,
+  pkgs,
+  libs,
+  username,
+  flakePath,
+  ...
+}:
 {
   home = {
     # Home Manager needs a bit of information about you and the
@@ -38,10 +45,7 @@
 
   programs.nh = {
     enable = true;
-    # clean.enable = true;
-    # clean.dates = "weekly";
-    # clean.extraArgs = "--keep-since 4d --keep 3";
-    flake = "${config.home.homeDirectory}/config/nix";
+    flake = flakePath;
   };
 
   programs.git = {
@@ -73,6 +77,14 @@
       user.signingKey = "~/.ssh/id_ed25519.pub";
       commit.gpgSign = true;
       gpg.format = "ssh";
+    };
+  };
+
+  #! https://github.com/nix-community/home-manager/issues/2064
+  systemd.user.targets.tray = {
+    Unit = {
+      Description = "Home Manager System Tray";
+      Requires = [ "graphical-session-pre.target" ];
     };
   };
 

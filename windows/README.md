@@ -140,7 +140,7 @@ Windows Registry Editor Version 5.00
 
 `steam -no-browser +open steam://open/minigameslist`
 
-## Sound Normalisation
+## Sound Normalization
 
 Sound Source Settings -> Enhancements -> Loudness Equalization
 

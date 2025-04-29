@@ -1,6 +1,7 @@
-{ ... }:
+{ pkgs, ... }:
 {
-  # TODO: KDE https://wiki.nixos.org/wiki/KDE#GNOME_desktop_integration
+  # TODO: if asus
+  home.packages = with pkgs; [ supergfxctl-plasmoid ];
   # https://github.com/nix-community/plasma-manager
   # https://nix-community.github.io/plasma-manager/options.xhtml
   programs.plasma = {
@@ -12,11 +13,19 @@
     #   key = "Meta+Alt+T";
     #   command = "ghostty";
     # };
-    # kscreenlocker = {
-    #   lockOnResume = true;
-    #   timeout = 10;
-    # };
-    # powerdevil.battery.whenLaptopLidClosed = "hibernate";
+    kscreenlocker.timeout = 10;
+    powerdevil = {
+      batteryLevels = {
+        lowLevel = 30;
+        criticalLevel = 5;
+      };
+      AC.autoSuspend.action = "nothing";
+      AC.displayBrightness = 100; # TODO: will it fix low brightness after sleep or idk when?
+      # battery.whenLaptopLidClosed = "hibernate";
+      # lowBattery.whenLaptopLidClosed = "hibernate"; #?
+      lowBattery.powerProfile = "powerSaving";
+    };
+    session.sessionRestore.restoreOpenApplicationsOnLogin = "whenSessionWasManuallySaved";
 
     workspace = {
       # clickItemTo = "open"; # breaks type to search func in dolphin
@@ -38,8 +47,9 @@
     panels = [
       # Windows-like panel at the bottom
       {
-        # location = "bottom";
+        location = "bottom";
         floating = true;
+        height = 44;
         widgets = [
           # }
           # Or you can configure the widgets by adding the widget-specific options for it.
@@ -59,16 +69,17 @@
                 "applications:org.kde.dolphin.desktop"
                 "applications:com.mitchellh.ghostty.desktop"
                 "applications:microsoft-edge.desktop"
-                "applications:code.desktop"
+                # WHYYYY
+                # "applications:code.desktop"
+                "applications:code-url-handler.desktop"
                 "applications:com.ayugram.desktop.desktop"
                 "applications:vesktop.desktop"
-                # todo autolaunch
-                "applications:nekoray.desktop"
+                "applications:obsidian.desktop"
+                # autolaunched
+                # "applications:nekoray.desktop"
               ];
             };
           }
-          # If no configuration is needed, specifying only the name of the
-          # widget will add them with the default configuration.
           "org.kde.plasma.marginsseparator"
           {
             plasmusicToolbar = {
@@ -90,60 +101,53 @@
           }
           {
             systemMonitor = {
-              title = "Memory Usage";
+              title = "RAM Usage";
               displayStyle = "org.kde.ksysguard.linechart";
               sensors = [
                 {
-                  name = "memory/physical/used";
-                  color = "61,174,233";
+                  name = "memory/physical/usedPercent";
+                  color = "0,255,0";
                   label = "RAM %";
                 }
-              ];
-              totalSensors = [ "memory/physical/usedPercent" ];
-              textOnlySensors = [ "memory/physical/total" ];
-            };
-          }
-          {
-            systemMonitor = {
-              title = "CPU Usage";
-              displayStyle = "org.kde.ksysguard.linechart";
-              sensors = [
                 {
-                  name = "cpu/all/used";
-                  color = "233,120,61";
+                  name = "cpu/all/usage";
+                  color = "255,0,0";
                   label = "CPU %";
                 }
               ];
-              totalSensors = [ "cpu/all/usage" ];
-              textOnlySensors = [ "memory/physical/total" ];
+              totalSensors = [
+                "memory/physical/used"
+                "memory/physical/usedPercent"
+              ];
+              textOnlySensors = [
+                "memory/physical/used"
+                "memory/physical/total"
+                "cpu/all/coreCount"
+              ];
             };
           }
-          # If you need configuration for your widget, instead of specifying the
-          # the keys and values directly using the config attribute as shown
-          # above, plasma-manager also provides some higher-level interfaces for
-          # configuring the widgets. See modules/widgets for supported widgets
-          # and options for these widgets. The widgets below shows two examples
-          # of usage, one where we add a digital clock, setting 12h time and
-          # first day of the week to Sunday and another adding a systray with
-          # some modifications in which entries to show.
           {
-            systemTray.items = {
-              shown = [
-                "org.kde.plasma.volume"
-                "org.kde.plasma.battery"
-                "org.kde.plasma.brightness"
-                "org.kde.plasma.bluetooth"
-                "org.kde.plasma.networkmanagement"
-                "org.kde.plasma.keyboardlayout"
-              ];
-              # org.kde.plasma.cameraindicator,    org.kde.plasma.devicenotifier
-              # org.kde.plasma.manage-inputmethod, org.kde.plasma.notifications, org.kde.plasma.keyboardindicator
-              hidden = [
-                "org.kde.kscreen"
-                "org.kde.plasma.clipboard"
-                "org.kde.plasma.mediacontroller"
-                "org.kde.plasma.keyboardindicator"
-              ];
+            systemTray = {
+              icons.spacing = "small";
+              items = {
+                shown = [
+                  "dev.jhyub.supergfxctl"
+                  "org.kde.plasma.volume"
+                  "org.kde.plasma.battery"
+                  "org.kde.plasma.brightness"
+                  "org.kde.plasma.bluetooth"
+                  "org.kde.plasma.networkmanagement"
+                  "org.kde.plasma.keyboardlayout"
+                ];
+                # org.kde.plasma.cameraindicator,    org.kde.plasma.devicenotifier
+                # org.kde.plasma.manage-inputmethod, org.kde.plasma.notifications, org.kde.plasma.keyboardindicator
+                hidden = [
+                  "org.kde.kscreen"
+                  "org.kde.plasma.clipboard"
+                  "org.kde.plasma.mediacontroller"
+                  "org.kde.plasma.keyboardindicator"
+                ];
+              };
             };
           }
           {
@@ -161,10 +165,13 @@
     # ETO PIZDA
     input.touchpads = [
       {
-        vendorId = "1267";
-        productId = "12440";
+        vendorId = "04F3";
+        productId = "3098";
         name = "ELAN1201:00 04F3:3098 Touchpad";
         naturalScroll = true;
+        # scrollSpeed = 0.5;
+        scrollSpeed = 0.3;
+        # scrollSpeed = 0.1;
       }
     ];
 
@@ -218,7 +225,8 @@
       "kdeglobals"."General"."TerminalApplication" = "ghostty";
       "kdeglobals"."General"."TerminalService" = "com.mitchellh.ghostty.desktop";
 
-      "kwinrc"."Windows"."FocusStealingPreventionLevel" = 2;
+      #! workspace.enableMiddleClickPaste = false; don't work
+      "kwinrc"."Wayland"."EnablePrimarySelection" = false;
       # "kwinrc"."Windows"."FocusStealingPreventionLevel" = 3;
       # "kwinrc"."Windows"."FocusStealingPreventionLevel" = 4;
       # "kwinrc"."Windows"."FocusStealingPreventionLevel" = 5;
@@ -273,5 +281,8 @@
   home.file.".face.icon".source = builtins.fetchurl {
     url = "https://github.com/barsikus007.png";
     sha256 = "0ffhgshb652pcq35jc9gqzp576ss0kbz031rxylp6k8gvz213yc9";
+  };
+  dconf.settings."org/gnome/desktop/interface" = {
+    gtk-enable-primary-paste = false;
   };
 }

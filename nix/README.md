@@ -139,5 +139,10 @@ home-manager switch --flake .
     - uv2nix
   - 25.05
     - awg
-    - mesa
+    - isd
     - `nh os repl`
+    - services.syncthing.tray.command
+    - vscode.profiles
+    - mesa 25
+      - plasma-desktop 6.3
+        - cursors?

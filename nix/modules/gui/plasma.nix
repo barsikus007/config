@@ -30,6 +30,7 @@
   #   # xwaylandvideobridge # exposes Wayland windows to X11 screen capture
   # ];
   environment.defaultPackages = with pkgs; [
+    kdePackages.filelight
     wl-clipboard
   ];
 }

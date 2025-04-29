@@ -36,8 +36,8 @@ with pkgs;
 
   # nix
   nh
+  nvd
   nixfmt-rfc-style
   nixd
   nil
-  nix-diff  # TODO: is needed?
 ]

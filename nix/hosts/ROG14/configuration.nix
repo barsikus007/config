@@ -1,6 +1,5 @@
 {
   config,
-  lib,
   pkgs,
   unstable,
   ...
@@ -19,7 +18,7 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     # https://wiki.nixos.org/wiki/AMD_GPU#System_Hang_with_Vega_Graphics_(and_select_GPUs)
-    # ./amd-fix.nix
+    ../../packages/fixes/amd-fix.nix
     ../../modules/gui/plasma.nix
   ];
 
@@ -35,8 +34,8 @@
         enable = true;
         editor = false;
         configurationLimit = 5;
-        # TODO: https://search.nixos.org/options?channel=24.11&show=boot.loader.systemd-boot.rebootForBitlocker
-        # rebootForBitlocker = false;
+        # https://search.nixos.org/options?channel=24.11&show=boot.loader.systemd-boot.rebootForBitlocker
+        rebootForBitlocker = false;
         extraEntries = {
           "fedora.conf" = ''
             title Fedora's grub

@@ -85,6 +85,7 @@
       inherit system;
       inherit specialArgs;
       modules = [
+        # https://github.com/NixOS/nixos-hardware/blob/master/asus/zephyrus/ga401/default.nix
         nixos-hardware.nixosModules.asus-zephyrus-ga401
         home-manager.nixosModules.home-manager
         stylix.nixosModules.stylix
@@ -94,8 +95,15 @@
         ./modules/gui/vm.nix
         ./modules/gui/steam.nix
         ./modules/gui/wireguard.nix
+        ./modules/gui/video-edit.nix
+        ./modules/hardware/logi-mx3.nix
+
+        ./packages/fixes/security.nix
         {
           # hardware.graphics.package = nixpkgs-unstable.legacyPackages.${system}.mesa;
+
+          # харам, fhs
+          services.envfs.enable = true;
 
           # харам, платные приложения
           nixpkgs.config.allowUnfreePredicate =
@@ -112,11 +120,14 @@
 
               "microsoft-edge"
               "obsidian"
+              "bcompare"
+              "davinci-resolve-studio"
             ];
 
           environment.defaultPackages = (
             import packages/test.nix {
               inherit pkgs;
+              unstable = pkgsUnstable;
             }
           );
         }
@@ -145,10 +156,14 @@
         ./home/shells.nix
         ./home/editors.nix
 
+        ./home/gui/autostart.nix
+        ./home/gui/sound.nix
+        ./home/gui/syncthing.nix
         ./home/gui/terminal.nix
         ./home/gui/plasma.nix
         ./home/gui/mpv.nix
         ./home/gui/minecraft.nix
+        ./home/gui/vscode.nix
         {
           programs.nvf.settings.vim.languages.enableLSP = nixpkgs.lib.mkForce true;
         }

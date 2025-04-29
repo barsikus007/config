@@ -1,4 +1,4 @@
-{ unstable, nixpkgs-unstable, ... }:
+{ unstable, nixpkgs-unstable, username, ... }:
 {
   # Override networking.wg-quick to use unstable's module
   disabledModules = [ "services/networking/wg-quick.nix" ];
@@ -12,9 +12,17 @@
     })
   ];
 
-  # Include amneziawg package from unstable
+  networking.wg-quick.interfaces = {
+    awg0 = {
+      autostart = false;
+      type = "amneziawg"; # Provided by unstable
+      # TODO: secrets
+      configFile = "/home/${username}/awg0.conf";
+    };
+  };
+
   environment.systemPackages = with unstable; [
-    wireguard-tools # Contains amneziawg support
+    wireguard-tools
     amneziawg-tools
   ];
 }

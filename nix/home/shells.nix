@@ -1,4 +1,4 @@
-{ config, pkgs, flakePath, ... }:
+{ pkgs, flakePath, ... }:
 
 let
   baseAliases = {
@@ -10,7 +10,7 @@ let
     ls = "ls --group-directories-first --color=auto --hyperlink";
     l = "ls -CFbh";
     ll = "ls -laFbgh";
-    # TODO: sshe = "editor ~/.ssh/config";
+    sshe = "editor ~/.ssh/config";
     nv = "editor $(fzf)";
     nvf = "editor $(find \"/\" | fzf)";
     nvs = "editor $(rg -n . | fzf | awk -F: '{print \"+\"$2,$1}')";
@@ -45,12 +45,14 @@ let
     pyt = "ptpython";
     pyta = "pyt --asyncio";
   };
-  # TODO: non ported
+  wgAliases = {
+    wgu = "sudo systemctl start wg-quick-awg0";
+    wgs = "systemctl status wg-quick-awg0";
+    wgd = "sudo systemctl stop wg-quick-awg0";
+  };
   otherAliases = {
-    gdu = "gdu -I ^/mnt";
+    gdu = "gdu -I ^/nix";
     zps = "zpool status -v";
-    wgu = "wg-quick up ~/wg0.conf";
-    wgd = "wg-quick down ~/wg0.conf";
     sex = "explorer.exe .";
   };
   ezaAliases = {
@@ -94,11 +96,15 @@ let
       nr = "nixos-rebuild repl --flake ${flakePath}";
       # nr = "nh os repl ${flakePath}";
       ne = "editor ${flakePath}";
+      ndiff = "nvd diff ~/.local/state/nix/profiles/home-manager ~/.local/state/nix/profiles/$(command ls -t ~/.local/state/nix/profiles | fzf)";
+      nndiff = "nvd diff /nix/var/nix/profiles/system /nix/var/nix/profiles/$(command ls -t /nix/var/nix/profiles/ | fzf)";
+      nix-shell = "nix-shell --run fish";
     };
   sharedAliases =
     baseAliases
     // dockerAliases
     // pythonAliases
+    // wgAliases
     // otherAliases
     // ezaAliases
     // nvimAliases

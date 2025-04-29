@@ -1,5 +1,5 @@
 # packages I want to test before adding
-{ pkgs, ... }:
+{ pkgs, unstable, ... }:
 
 with pkgs;
 [
@@ -8,6 +8,8 @@ with pkgs;
   dive
   dfrs
   serpl
+  busybox
+  lshw-gui
 
   # new base filemanagers
   #  yazi is the best rn
@@ -28,6 +30,14 @@ with pkgs;
   # ffuf
   # seclists
   # frida-tools
+  # wifite2
   zmap
   rustscan
+
+  helix
+  unstable.isd
+
+  # test 2
+  wezterm
+  cosmic-term
 ]

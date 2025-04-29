@@ -7,31 +7,33 @@ with pkgs;
 (import ./base.nix { inherit pkgs; })
 ++ [
   # other (specific cli tools)
-  uv
   # aria2
   # tldr
   yt-dlp
 
+  # CLI python
+  unstable.uv
+  hatch
+
   # GUI
   mpv
-  vesktop
-  unstable.ayugram-desktop
   nekoray
   neovide
   firefox
-  keepassxc
-  keepassxc-go
-  # unstable.amneziawg-tools
-  syncthingtray-qt6
-  unstable.vscode-fhs
-  unstable.isd
   ghostty
-  helix
+  unstable.vscode-fhs
+  keepassxc
+  qbittorrent
+
+  # GUI social
+  vesktop
+  unstable.ayugram-desktop
+  element-desktop
+
+  # https://www.reddit.com/r/software/comments/t5n3cm/everything_for_linux/
+  fsearch
 
   # GUI unfree
   microsoft-edge
   obsidian
-
-  unstable.graalvmPackages.graalvm-oracle
-  prismlauncher
 ]

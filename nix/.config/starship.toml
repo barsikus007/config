@@ -141,9 +141,11 @@ show_milliseconds = true
 disabled = false
 
 [[battery.display]]
-threshold = 100
+threshold = 90
 style = "bold red"
 
+[sudo]
+disabled = false
 
 # TODO colors https://starship.rs/presets/pastel-powerline.html
 [git_state]

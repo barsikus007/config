@@ -135,15 +135,6 @@
         "command": "eslint.executeAutofix"
     },
     {
-        "key": "ctrl+l",
-        "command": "editor.action.insertSnippet",
-        "when": "editorTextFocus",
-        "args": {
-            "langId": "python",
-            "name": "print(|)"
-        }
-    },
-    {
         "key": "ctrl+alt+u",
         "command": "vscode-docker.compose.up"
     },
@@ -233,5 +224,15 @@
         "key": "ctrl+shift+alt+/",
         "command": "-extension.python-print-deleteall",
         "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+[Slash]",
+        "command": "editor.action.commentLine",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+/",
+        "command": "-editor.action.commentLine",
+        "when": "editorTextFocus && !editorReadonly"
     }
 ]
