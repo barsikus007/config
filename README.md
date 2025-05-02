@@ -262,7 +262,6 @@ hatch run true
   - new software
     - <https://github.com/th-ch/youtube-music/releases/latest>
       - scoop install youtube-music
-    - [Ghostty 👻 – Mitchell Hashimoto](https://mitchellh.com/ghostty)
     - <https://github.com/omegaui/cliptopia>
     - <https://github.com/Martichou/rquickshare>
     - [Install Varia on Linux | Flathub](https://flathub.org/apps/io.github.giantpinkrobots.varia)

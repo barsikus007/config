@@ -38,6 +38,5 @@ with pkgs;
   unstable.isd
 
   # test 2
-  wezterm
   cosmic-term
 ]

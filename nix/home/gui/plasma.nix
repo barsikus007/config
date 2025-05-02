@@ -2,6 +2,7 @@
 {
   # TODO: if asus
   home.packages = with pkgs; [ supergfxctl-plasmoid ];
+
   # https://github.com/nix-community/plasma-manager
   # https://nix-community.github.io/plasma-manager/options.xhtml
   programs.plasma = {
@@ -9,9 +10,9 @@
     overrideConfig = true;
 
     # hotkeys.commands."launch-konsole" = {
-    #   name = "Launch Ghostty";
+    #   name = "Launch WezTerm";
     #   key = "Meta+Alt+T";
-    #   command = "ghostty";
+    #   command = "wezterm";
     # };
     kscreenlocker.timeout = 10;
     powerdevil = {
@@ -67,7 +68,7 @@
               launchers = [
                 # TODO not linked to anything
                 "applications:org.kde.dolphin.desktop"
-                "applications:com.mitchellh.ghostty.desktop"
+                "applications:org.wezfurlong.wezterm.desktop"
                 "applications:microsoft-edge.desktop"
                 # WHYYYY
                 # "applications:code.desktop"
@@ -198,7 +199,7 @@
       "services/org.kde.konsole.desktop" = {
         "_launch" = "none";
       };
-      "services/com.mitchellh.ghostty.desktop" = {
+      "services/org.wezfurlong.wezterm.desktop" = {
         "_launch" = "Ctrl+Alt+T";
       };
       "org_kde_powerdevil" = {
@@ -222,8 +223,8 @@
     };
 
     configFile = {
-      "kdeglobals"."General"."TerminalApplication" = "ghostty";
-      "kdeglobals"."General"."TerminalService" = "com.mitchellh.ghostty.desktop";
+      "kdeglobals"."General"."TerminalApplication" = "wezterm";
+      "kdeglobals"."General"."TerminalService" = "org.wezfurlong.wezterm.desktop";
 
       #! workspace.enableMiddleClickPaste = false; don't work
       "kwinrc"."Wayland"."EnablePrimarySelection" = false;

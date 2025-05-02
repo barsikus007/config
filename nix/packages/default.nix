@@ -20,7 +20,6 @@ with pkgs;
   nekoray
   neovide
   firefox
-  ghostty
   unstable.vscode-fhs
   keepassxc
   qbittorrent
