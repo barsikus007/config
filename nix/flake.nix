@@ -128,7 +128,9 @@
             import packages/test.nix {
               inherit pkgs;
               unstable = pkgsUnstable;
-            }
+            } ++ [
+              (pkgs.libsForQt5.callPackage ./packages/bcompare.nix {})
+            ]
           );
         }
       ];
