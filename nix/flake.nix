@@ -29,18 +29,7 @@
     };
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    nixpkgs-unstable,
-    nixos-wsl,
-    nixos-hardware,
-    home-manager,
-    plasma-manager,
-    stylix,
-    nvf,
-    ...
-  }:
+  outputs = { self, nixpkgs, nixpkgs-unstable, ... }@inputs:
   let
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
@@ -53,7 +42,7 @@
     flakePath = "/home/${username}/config/nix";
 
     defaultSpecialArgs = {
-      inherit username flakePath;
+      inherit inputs username flakePath;
     };
     specialArgs = defaultSpecialArgs // {
       unstable = pkgsUnstable;
@@ -72,8 +61,8 @@
       # https://github.com/nix-community/NixOS-WSL
       modules = [
         # include NixOS-WSL modules
-        nixos-wsl.nixosModules.default
-        home-manager.nixosModules.home-manager
+        inputs.nixos-wsl.nixosModules.default
+        inputs.home-manager.nixosModules.home-manager
         ./hosts
         ./hosts/ROG14-WSL/configuration.nix
         {
@@ -86,9 +75,9 @@
       inherit specialArgs;
       modules = [
         # https://github.com/NixOS/nixos-hardware/blob/master/asus/zephyrus/ga401/default.nix
-        nixos-hardware.nixosModules.asus-zephyrus-ga401
-        home-manager.nixosModules.home-manager
-        stylix.nixosModules.stylix
+        inputs.nixos-hardware.nixosModules.asus-zephyrus-ga401
+        inputs.home-manager.nixosModules.home-manager
+        inputs.stylix.nixosModules.stylix
         ./hosts
         ./hosts/ROG14/configuration.nix
 
@@ -135,25 +124,25 @@
         }
       ];
     };
-    homeConfigurations."nixos" = home-manager.lib.homeManagerConfiguration {
+    homeConfigurations."nixos" = inputs.home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
       extraSpecialArgs = {
         username = "nixos";
         flakePath = "/home/nixos/config/nix";
       };
       modules = [
-        nvf.homeManagerModules.default # <- this imports the home-manager module that provides the options
+        inputs.nvf.homeManagerModules.default # <- this imports the home-manager module that provides the options
         ./home
         ./home/shells.nix
         ./home/editors.nix
       ];
     };
-    homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
+    homeConfigurations.${username} = inputs.home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
       extraSpecialArgs = specialArgs;
       modules = [
-        nvf.homeManagerModules.default # <- this imports the home-manager module that provides the options
-        plasma-manager.homeManagerModules.plasma-manager
+        inputs.nvf.homeManagerModules.default # <- this imports the home-manager module that provides the options
+        inputs.plasma-manager.homeManagerModules.plasma-manager
         ./home
         ./home/shells.nix
         ./home/editors.nix

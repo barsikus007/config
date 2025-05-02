@@ -1,9 +1,9 @@
-{ unstable, nixpkgs-unstable, username, ... }:
+{ inputs, unstable, username, ... }:
 {
   # Override networking.wg-quick to use unstable's module
   disabledModules = [ "services/networking/wg-quick.nix" ];
   imports = [
-    "${nixpkgs-unstable}/nixos/modules/services/networking/wg-quick.nix"
+    "${inputs.nixpkgs-unstable}/nixos/modules/services/networking/wg-quick.nix"
   ];
   # Overlay to include amneziawg-tools
   nixpkgs.overlays = [
