@@ -86,6 +86,8 @@
         ./modules/gui/wireguard.nix
         ./modules/gui/video-edit.nix
         ./modules/hardware/logi-mx3.nix
+        ./modules/docker.nix
+        ./modules/stylix.nix
 
         ./packages/fixes/security.nix
         {
@@ -106,6 +108,10 @@
               "steam-unwrapped"
               "steam-original"
               "steam-run"
+
+              "parsec-bin"
+
+              "unrar"
 
               "microsoft-edge"
               "obsidian"
@@ -143,9 +149,11 @@
       modules = [
         inputs.nvf.homeManagerModules.default # <- this imports the home-manager module that provides the options
         inputs.plasma-manager.homeManagerModules.plasma-manager
+        inputs.stylix.homeManagerModules.stylix
         ./home
         ./home/shells.nix
         ./home/editors.nix
+        ./modules/stylix.nix
 
         ./home/gui/autostart.nix
         ./home/gui/sound.nix

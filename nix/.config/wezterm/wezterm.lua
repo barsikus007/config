@@ -2,32 +2,39 @@ local wezterm = require 'wezterm'
 local act = wezterm.action
 
 return {
-    font = wezterm.font("Cascadia Code NF"),
+    -- font = wezterm.font("Cascadia Code NF"),
+    -- TODO
+    warn_about_missing_glyphs=false,
     -- font_size = 12.0,
-    color_scheme = "Catppuccin Mocha",
-    hide_tab_bar_if_only_one_tab = true,
+
+    -- color_scheme = "Catppuccin Mocha",
+
     use_resize_increments = true,
-    enable_scroll_bar = true,
     initial_cols = 120,
     initial_rows = 30,
-    window_decorations = "INTEGRATED_BUTTONS|NONE",
-    -- this draws strange header on wayland
-    -- window_decorations = "INTEGRATED_BUTTONS|RESIZE",
-    -- enable_wayland = false,
+    enable_scroll_bar = true,
+
+    --! wayland have fullscreen (fixed) and titlebar issues at 2025.01 version
+    enable_wayland = false,
+    window_decorations = "INTEGRATED_BUTTONS|RESIZE",
+    -- this draws default header on wayland
+    -- window_decorations = "INTEGRATED_BUTTONS|NONE",
+    hide_tab_bar_if_only_one_tab = true,
     window_padding = {
         left = 0,
         right = 0,
         top = 0,
         bottom = 0,
     },
+
     keys = {
         { key = "F11", action = "ToggleFullScreen" },
         {
             key = 'c',
             mods = 'CTRL',
             action = wezterm.action_callback(function(window, pane)
-                selection_text = window:get_selection_text_for_pane(pane)
-                is_selection_active = string.len(selection_text) ~= 0
+                local selection_text = window:get_selection_text_for_pane(pane)
+                local is_selection_active = string.len(selection_text) ~= 0
                 if is_selection_active then
                     window:perform_action(wezterm.action.CopyTo('ClipboardAndPrimarySelection'), pane)
                 else

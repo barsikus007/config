@@ -25,3 +25,19 @@ fan() {
     notify-send --hint int:transient:1 "Power Profile" "$FAN_STATE" -t 1 -i power-profile-"$FAN_STATE_LOWER" -p -r "$PREV_ID" > ~/.config/.prev-fan-notification-id
   )
 }
+
+boost() {
+  # https://www.reddit.com/r/linuxmint/comments/12n8qfe/comment/jge3kys/
+  if grep -q 0 /sys/devices/system/cpu/cpufreq/boost; then
+    echo "1" | sudo tee /sys/devices/system/cpu/cpufreq/boost
+    echo "CPU boost enabled"
+  else
+    echo "0" | sudo tee /sys/devices/system/cpu/cpufreq/boost
+    echo "CPU boost disabled"
+  fi
+}
+
+battery() {
+  awk '{print $1*10^-6 " W"}' /sys/class/power_supply/BAT0/power_now
+  # TODO watch -n 5 battery
+}

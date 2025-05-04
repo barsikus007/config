@@ -37,6 +37,8 @@ with pkgs;
   # nix
   nh
   nvd
+  nix-tree
+
   nixfmt-rfc-style
   nixd
   nil

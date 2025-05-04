@@ -3,6 +3,8 @@
   # TODO: if asus
   home.packages = with pkgs; [ supergfxctl-plasmoid ];
 
+  programs.zsh.initExtra = ''explorer.exe() {dolphin --new-window "$@" 1>/dev/null 2>/dev/null & disown}'';
+
   # https://github.com/nix-community/plasma-manager
   # https://nix-community.github.io/plasma-manager/options.xhtml
   programs.plasma = {
@@ -225,6 +227,7 @@
     configFile = {
       "kdeglobals"."General"."TerminalApplication" = "wezterm";
       "kdeglobals"."General"."TerminalService" = "org.wezfurlong.wezterm.desktop";
+      "kdeglobals"."Shortcuts"."Redo" = "Ctrl+Y";
 
       #! workspace.enableMiddleClickPaste = false; don't work
       "kwinrc"."Wayland"."EnablePrimarySelection" = false;

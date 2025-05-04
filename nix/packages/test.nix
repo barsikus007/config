@@ -38,5 +38,5 @@ with pkgs;
   unstable.isd
 
   # test 2
-  cosmic-term
+  meld
 ]

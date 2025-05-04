@@ -139,6 +139,7 @@ in
     history = {
       size = 100000;
     };
+    autocd = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
     initExtra = ''
@@ -197,9 +198,9 @@ in
   };
   programs.bat = {
     enable = true;
-    config = {
-      theme = "TwoDark";
-    };
+    # config = {
+    #   theme = "TwoDark";
+    # };
     # TODO: batman, batpipe and check other extra stuff
     extraPackages = with pkgs.bat-extras; [
       batdiff

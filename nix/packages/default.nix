@@ -10,6 +10,7 @@ with pkgs;
   # aria2
   # tldr
   yt-dlp
+  unrar
 
   # CLI python
   unstable.uv
