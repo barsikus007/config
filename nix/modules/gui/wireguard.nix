@@ -1,4 +1,4 @@
-{ inputs, unstable, username, ... }:
+{ inputs, pkgs, username, ... }:
 {
   # Override networking.wg-quick to use unstable's module
   disabledModules = [ "services/networking/wg-quick.nix" ];
@@ -8,7 +8,7 @@
   # Overlay to include amneziawg-tools
   nixpkgs.overlays = [
     (self: super: {
-      amneziawg-tools = unstable.amneziawg-tools;
+      amneziawg-tools = pkgs.unstable.amneziawg-tools;
     })
   ];
 
@@ -21,7 +21,7 @@
     };
   };
 
-  environment.systemPackages = with unstable; [
+  environment.systemPackages = with pkgs.unstable; [
     wireguard-tools
     amneziawg-tools
   ];

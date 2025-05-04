@@ -29,14 +29,10 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, ... }@inputs:
+  outputs = { self, nixpkgs, ... }@inputs:
   let
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
-    pkgsUnstable = import nixpkgs-unstable {
-      inherit system;
-      config.allowUnfree = true;
-    };
 
     username = "ogurez";
     flakePath = "/home/${username}/config/nix";
@@ -45,8 +41,6 @@
       inherit inputs username flakePath;
     };
     specialArgs = defaultSpecialArgs // {
-      unstable = pkgsUnstable;
-      nixpkgs-unstable = nixpkgs-unstable;
     };
   in
   {
@@ -91,7 +85,18 @@
 
         ./packages/fixes/security.nix
         {
-          # hardware.graphics.package = nixpkgs-unstable.legacyPackages.${system}.mesa;
+          nixpkgs.overlays = [
+            (final: prev: {
+              # use this variant if unfree packages are needed:
+              unstable = import inputs.nixpkgs-unstable {
+                inherit prev;
+                system = prev.system;
+                config.allowUnfree = true;
+              };
+            })
+          ];
+
+          # hardware.graphics.package = inputs.nixpkgs-unstable.legacyPackages.${system}.mesa;
 
           # харам, fhs
           services.envfs.enable = true;
@@ -119,14 +124,9 @@
               "davinci-resolve-studio"
             ];
 
-          environment.defaultPackages = (
-            import packages/test.nix {
-              inherit pkgs;
-              unstable = pkgsUnstable;
-            } ++ [
-              (pkgs.libsForQt5.callPackage ./packages/bcompare.nix {})
-            ]
-          );
+          environment.defaultPackages = with pkgs; [
+            (libsForQt5.callPackage ./packages/bcompare.nix { })
+          ];
         }
       ];
     };

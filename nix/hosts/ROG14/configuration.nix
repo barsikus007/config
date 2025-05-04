@@ -1,16 +1,13 @@
-{
-  config,
-  pkgs,
-  unstable,
-  ...
-}:
+{ config, pkgs, ... }:
 {
   networking.hostName = "ROG14"; # Define your hostname
 
   environment.systemPackages = (
     import ../../packages {
       inherit pkgs;
-      inherit unstable;
+    }
+    ++ import ../../packages/test.nix {
+      inherit pkgs;
     }
   );
 

@@ -1,8 +1,4 @@
-{
-  pkgs,
-  unstable,
-  ...
-}:
+{ pkgs, ... }:
 with pkgs;
 (import ./base.nix { inherit pkgs; })
 ++ [

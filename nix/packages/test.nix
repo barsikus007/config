@@ -1,5 +1,5 @@
 # packages I want to test before adding
-{ pkgs, unstable, ... }:
+{ pkgs, ... }:
 
 with pkgs;
 [
