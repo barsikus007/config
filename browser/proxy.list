@@ -1,0 +1,36 @@
+; https://github.com/FelisCatus/SwitchyOmega/wiki/SwitchyOmega-conditions-format#result-profile
+[SwitchyOmega Conditions]
+@with result
+
+; captcha
+*.google.com +proxy
+
+; torrents/piracy
+*.rutracker.org +proxy
+*.rutracker.cc +proxy
+*.nnmstatic.win +proxy
+*.nnmclub.to +proxy
+*.flibusta.is +proxy
+
+; anime
+*.anilibria.top +proxy
+
+; idk
+*.medium.com +proxy
+*.matrix.org +proxy
+*.kernel.org +proxy
+*.grok.com +proxy
+*.doubleclick.net +proxy
+*.primepayments.io +proxy
+*.gosuslugi.ru +direct
+
+; rkn
+*.youtu.be +proxy
+*.youtube.com +proxy
+*.ytimg.com +proxy
+*.ggpht.com +proxy
+*.googlevideo.com +proxy
+*.instagram.com +proxy
+*.cdninstagram.com +proxy
+
+* +direct
