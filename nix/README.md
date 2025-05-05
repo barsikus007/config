@@ -1,15 +1,19 @@
-# Worst Nix/OS config ever
+# [Worst Nix/OS config ever](../README.md)
+
+Goal is to provide modular close to windows-godlike desktop experience
 
 ## Installation
 
 ```bash
 cd
 git clone https://github.com/barsikus007/config
-cp config/nix/ ~/
-cd ~/nix/
+# cp config/nix/ ~/ && cd nix/
+cd ~/config/nix/
 sudo nixos-rebuild switch --flake .
 home-manager switch --flake .
 ```
+
+Set user password and TODO other steps from [NixOS installation manual](https://nixos.org/manual/nixos/stable/#ch-installation)
 
 ## Nix itself
 
@@ -20,8 +24,12 @@ home-manager switch --flake .
 - `curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install`
   - enable systemd if wsl
 
-## [mpv](.config/mpv/)
+## Config reference
 
+### [mpv](.config/mpv/)
+
+- uosc skin
+  - with thumbfast
 - mpv.conf
   - no-border
   - snap-window
@@ -72,7 +80,6 @@ home-manager switch --flake .
 
 ## TODO
 
-- [vscode LSP](https://github.com/nix-community/vscode-nix-ide/tree/main?tab=readme-ov-file#lsp-plugin-support)
 - [no internet](https://www.reddit.com/r/NixOS/comments/mu7ryg/comment/gv4kmsk/)
   - [LiveCD](https://wiki.nixos.org/wiki/Creating_a_NixOS_live_CD)
 - [flake-parts](https://nix-community.github.io/home-manager/index.xhtml#sec-flakes-flake-parts-module)
@@ -80,69 +87,33 @@ home-manager switch --flake .
   - [containter](https://wiki.nixos.org/wiki/NixOS_Containers)
   - [firejail](https://github.com/netblue30/firejail)
 - [bat extras](https://github.com/eth-p/bat-extras)
+  - programs.bat.extraPackages
+    - batdiff?
+    - batman ?
 - nvim
   - nvimpager
     - enable syntax hightlighting
     - disable all other
     - batman ?
   - init.lua vim types
-- [mpv](https://wiki.nixos.org/wiki/MPV#Where_to_get_scripts)
-- <https://www.scootersoftware.com/kb/linux_install>
-- nix repl get packages to install
-- refs
-  - <https://github.com/Andrey0189/nixos-config>
-  - <https://github.com/hlissner/dotfiles>
-  - <https://github.com/MatthewCroughan/nixcfg>
-  - <https://mynixos.com/>
-- left
-  - G14 anime
-  - KDE
-    - <https://wiki.nixos.org/wiki/KDE#Configuration>
-  - root
-    - sudo alias
-    - passwd
-  - <https://wiki.nixos.org/wiki/Dual_Booting_NixOS_and_Windows>
-    - <https://wiki.nixos.org/wiki/Secure_Boot>
-  - <https://wiki.nixos.org/wiki/ZFS>
-    - <https://discourse.nixos.org/t/how-good-is-zfs-on-root-on-nixos/40512>
-  - systemd editor path ?
-  - [amnezia modprobe secure boot](https://www.reddit.com/r/AmneziaVPN/comments/1e8fwih/amneziawg_on_nixos/)
-  -
-    - `[ -f "$XDG_CONFIG_HOME/bash/config.bash" ] && source $XDG_CONFIG_HOME/bash/config.bash`
-    - `. "$HOME/.cargo/env"`
-  - `functuions.sh`
-    - setup_font
-      - <https://wiki.nixos.org/wiki/Fonts>
-    - setup_docker ?
-    - root passwd ?
-    -
-      - mkcd() { (mkdir -p "$@" && cd "$@" || exit;) }
-      - ssht() { (ssh "$@" -t "tmux new -As0 || bash || sh") }
-      - dcsh() { docker compose exec -it "$1" sh -c 'bash || sh'; }
-  - programs.bat.extraPackages
-    - batdiff?
-    - batman ?
-  - `nix-store --query --graph result`
-  - `https://wiki.nixos.org/wiki/Git#Using_your_public_SSH_key_as_a_signing_key`
-  - <https://github.com/jesseduffield/lazydocker/blob/master/docs/Config.md>
-  -
-    - mkcd
-    - ssht
-    - dcsh
-    - cu
-    - pipi
-    - ?
-      - pyvcr
-      - pyv
-  - python
-    - direnv
-    - uv2nix
-  - 25.05
-    - awg
-    - isd
-    - `nh os repl`
-    - services.syncthing.tray.command
-    - vscode.profiles
-    - mesa 25
-      - plasma-desktop 6.3
-        - cursors?
+- parse nix files for pkgs (or do it via nix script)
+- alias
+  - 'sudo '
+  - pipi
+  - pyvcr
+  - pyv
+- python
+  - direnv
+  - uv2nix
+- 25.05
+  - awg
+  - isd
+  - `nh os repl`
+  - services.syncthing.tray.command
+  - vscode.profiles
+  - stylix
+    - nvf
+    - cursor fix
+  - mesa 25
+    - plasma-desktop 6.3
+      - cursors?

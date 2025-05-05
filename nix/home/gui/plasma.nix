@@ -11,10 +11,21 @@
     enable = true;
     overrideConfig = true;
 
-    # hotkeys.commands."launch-konsole" = {
+    # TODO: if asus
+    # hotkeys.commands."laptop-button-rog" = {
     #   name = "Launch WezTerm";
-    #   key = "Meta+Alt+T";
-    #   command = "wezterm";
+    #   key = "Launch (1)";
+    #   command = "bash -c ${"demotoggle"}";
+    # };
+    # hotkeys.commands."laptop-button-f5" = {
+    #   name = "Switch Power Profile";
+    #   key = "Launch (4)";
+    #   command = "bash -c ${"fan"}";
+    # };
+    # hotkeys.commands."laptop-button-f6" = {
+    #   name = "Launch WezTerm";
+    #   key = "Meta+Shift+S";
+    #   command = "bash -c ${"noanime && anime"}";
     # };
     kscreenlocker.timeout = 10;
     powerdevil = {
@@ -47,24 +58,75 @@
       };
     };
 
+    # add appMenu(N) and keepAbove(F) to the left
+    kwin.titlebarButtons.left = [
+      # MNSF
+      "more-window-actions"
+      "application-menu"
+      "on-all-desktops"
+      "keep-above-windows"
+    ];
+
+    window-rules = [
+      {
+        description = "Telegram PiP above others";
+        match = {
+          window-class = {
+            value = "ayugram-desktop com.ayugram.desktop";
+            type = "exact";
+            match-whole = true;
+          };
+          title = {
+            value = "AyuGramDesktop";
+            type = "exact";
+          };
+          window-types = [ "normal" ];
+        };
+        apply = {
+          above = {
+            value = true;
+            apply = "force";
+          };
+        };
+      }
+      {
+        description = "Edge PiP above others";
+        match = {
+          window-class = {
+            value = "msedge msedge";
+            type = "exact";
+            match-whole = true;
+          };
+          title = {
+            value = "Picture in picture";
+            type = "exact";
+          };
+          window-types = [ "normal" ];
+        };
+        apply = {
+          above = {
+            value = true;
+            apply = "force";
+          };
+        };
+      }
+    ];
+
     panels = [
       # Windows-like panel at the bottom
       {
         location = "bottom";
         floating = true;
         height = 44;
+        # screen = 0;
+        screen = "all";
         widgets = [
-          # }
-          # Or you can configure the widgets by adding the widget-specific options for it.
-          # See modules/widgets for supported widgets and options for these widgets.
-          # For example:
           {
             kickoff.icon = "nix-snowflake";
           }
-          "org.kde.plasma.pager"
-          # Adding configuration to the widgets can also for example be used to
-          # pin apps to the task-manager, which this example illustrates by
-          # pinning dolphin and konsole to the task-manager by default with widget-specific options.
+          {
+            pager.general.showApplicationIconsOnWindowOutlines = true;
+          }
           {
             iconTasks = {
               launchers = [
@@ -72,8 +134,8 @@
                 "applications:org.kde.dolphin.desktop"
                 "applications:org.wezfurlong.wezterm.desktop"
                 "applications:microsoft-edge.desktop"
-                # WHYYYY
-                # "applications:code.desktop"
+                # TODO WHYYYY https://github.com/VSCodium/vscodium/issues/1414
+                "applications:code.desktop"
                 "applications:code-url-handler.desktop"
                 "applications:com.ayugram.desktop.desktop"
                 "applications:vesktop.desktop"
@@ -197,10 +259,21 @@
       };
       "kwin" = {
         "Overview" = "Meta+Tab";
+        "Window Above Other Windows" = "Meta+Ctrl+T";
       };
       "services/org.kde.konsole.desktop" = {
         "_launch" = "none";
       };
+      "services/org.kde.spectacle.desktop" = {
+        "_launch" = "Print";
+      };
+      "services/org.kde.plasma-systemmonitor.desktop" = {
+        "_launch" = [
+          "Meta+Esc"
+          "Ctrl+Shift+Esc"
+        ];
+      };
+
       "services/org.wezfurlong.wezterm.desktop" = {
         "_launch" = "Ctrl+Alt+T";
       };
@@ -275,6 +348,7 @@
       # "kiorc"."Confirmations"."ConfirmDelete" = true;
       # "kiorc"."Executable scripts"."behaviourOnLaunch" = "execute";
 
+      # "bluedevilglobalrc"."General"."launchState" = "enable";
     };
     dataFile = {
       # "dolphin/view_properties/global/.directory"."Dolphin"."ViewMode" = 1;

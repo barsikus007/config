@@ -4,16 +4,16 @@
 . "$XDG_CONFIG_HOME/shell/wifite.sh"
 . "$XDG_CONFIG_HOME/shell/g14.sh"
 
-mkcd() { (mkdir -p "$@" && cd "$@" || exit;) }
+mkcd() { mkdir -p "$@" && cd "$@" || exit; }
 ssht() { (ssh "$@" -t "tmux new -As0 || bash || sh") }
 
 dcsh() { docker compose exec -it "$1" sh -c 'bash || sh'; }
 
-# export-aliases() {
-#   # export aliases
-#   # alias | awk -F'[ =]' '{print "alias "$2"='\''"$3"'\''"}'
-#   alias | sed -z 's/\n/\&\&/g' | sed -e 's/[^(alias)] /\\\\ /g'
-# }
+export_aliases() {  # TODO WIP
+  # export aliases
+  # alias | awk -F'[ =]' '{print "alias "$2"='\''"$3"'\''"}'
+  alias | sed -z 's/\n/\&\&/g' | sed -e 's/[^(alias)] /\\\\ /g'
+}
 
 # ripgrep->fzf->vim [QUERY]
 rfv() (

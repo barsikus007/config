@@ -1,5 +1,24 @@
 {
+    // #region nix
+    "nix.enableLanguageServer": true,
+    "nix.serverPath": "nixd", // or "nil"
+    // LSP config can be passed via the ``nix.serverSettings.{lsp}`` as shown below.
+    // check https://github.com/nix-community/nixd/blob/main/nixd/docs/configuration.md for all nixd config
+    "nix.serverSettings": {
+        "nixd": {
+            "options": {
+                "home-manager": {
+                    "expr": "(builtins.getFlake \"${workspaceFolder}/nix\").homeConfigurations.ogurez.options",
+                },
+                "nixos": {
+                    "expr": "(builtins.getFlake \"${workspaceFolder}/nix\").nixosConfigurations.ROG14.options",
+                },
+            },
+        }
+    },
     "[nix]": {
-        "editor.wordBasedSuggestions": "off"
-    }
+        "editor.formatOnSave": true,
+        "editor.wordBasedSuggestions": "off",
+    },
+    // #endregion nix
 }

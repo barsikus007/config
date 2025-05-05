@@ -6,11 +6,17 @@ with pkgs;
   # aria2
   # tldr
   yt-dlp
+  ffmpeg
   unrar
 
   # CLI python
   unstable.uv
   hatch
+
+  # CLI renders for yazi
+  poppler
+  resvg
+  imagemagick
 
   # GUI
   mpv
@@ -30,6 +36,13 @@ with pkgs;
   fsearch
 
   # GUI unfree
-  microsoft-edge
+  (microsoft-edge.override {
+    # https://wiki.nixos.org/wiki/Chromium#Accelerated_video_playback
+    commandLineArgs = [
+      "--enable-features=AcceleratedVideoEncoder"
+      "--ignore-gpu-blocklist"
+      "--enable-zero-copy"
+    ];
+  })
   obsidian
 ]

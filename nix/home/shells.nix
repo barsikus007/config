@@ -16,7 +16,8 @@ let
     nvs = "editor $(rg -n . | fzf | awk -F: '{print \"+\"$2,$1}')";
     "1ip" = "wget -qO - icanhazip.com";
     "2ip" = "curl 2ip.ru";
-    # https://www.cyberciti.biz/faq/unix-linux-check-if-port-is-in-use-command/
+    cu="cd ${flakePath} && git pull && cd -";
+    #? https://www.cyberciti.biz/faq/unix-linux-check-if-port-is-in-use-command/
     open-ports = "sudo lsof -i -P -n | grep LISTEN";
   };
   # TODO: non ported
@@ -54,6 +55,7 @@ let
     gdu = "gdu -I ^/nix";
     zps = "zpool status -v";
     sex = "explorer.exe .";
+    lzg = "lazygit";
   };
   ezaAliases = {
     l = "eza -F -bghM --smart-group --group-directories-first --color=auto --color-scale --icons=always --no-quotes --hyperlink";
@@ -69,7 +71,7 @@ let
     cat = "bat";
   };
   # ROG G14 specific aliases
-  # TODO detect if ROG G14
+  # TODO: if asus
   # TODO install media and conf file
   # TODO: non ported
   rogG14Aliases = {
@@ -225,5 +227,12 @@ in
   };
   programs.yazi = {
     enable = true;
+  };
+  programs.lazygit.enable = true;
+  programs.btop = {
+    enable = true;
+    settings = {
+      proc_tree = true;
+    };
   };
 }

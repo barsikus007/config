@@ -198,17 +198,10 @@ hatch run true
 
 - TUI
   - new software
-    - `mc` alternative
-      - <https://github.com/ranger/ranger>
-        - atool for arch
-      - <https://github.com/sxyazi/yazi>
-      - nnn
     - zsh or fish (or bash lol)
     - not drop-in
       - du
         - command -v dust > /dev/null && alias du='dust'
-      - find
-        - command -v fd > /dev/null && alias find='fd'
       - df
         - [dfrs](https://github.com/anthraxx/dfrs)
     - uv tool

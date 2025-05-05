@@ -9,6 +9,7 @@ return {
 
     -- color_scheme = "Catppuccin Mocha",
 
+    --! x have issues with this
     use_resize_increments = true,
     initial_cols = 120,
     initial_rows = 30,

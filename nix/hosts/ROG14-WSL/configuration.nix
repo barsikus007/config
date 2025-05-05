@@ -13,10 +13,11 @@
     enable = true;
   };
 
-  # environment.systemPackages = (import ../../packages { inherit pkgs; });
-  environment.systemPackages =
-    (import ../../packages/base.nix { inherit pkgs; })
-    ++ (import ../../packages/test.nix { inherit pkgs; });
+  environment.systemPackages = (import ../../packages/base.nix { inherit pkgs; })
+  # ++ (import ../../packages/default.nix { inherit pkgs; })
+  # ++ (import ../../packages/test.nix { inherit pkgs; })
+  #
+  ;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

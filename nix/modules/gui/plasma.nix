@@ -32,5 +32,6 @@
   environment.defaultPackages = with pkgs; [
     kdePackages.filelight
     wl-clipboard
+    libnotify
   ];
 }

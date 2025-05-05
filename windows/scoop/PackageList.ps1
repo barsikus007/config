@@ -4,10 +4,10 @@ scoop-search scoop-completion
 
 #! base
 mc bat duf gdu fzf btop neovim zoxide ripgrep
-#? fd curl dust wget yazi
+#? fd curl dust wget
 #? btop-lhm VERY SLOW
 #! add
-eza neofetch
+eza yazi neofetch
 #! pwsh/cmd specific
 posh-git psfzf starship
 clink clink-completions
@@ -127,7 +127,6 @@ sysinternals
 tor-browser
 wireshark
 x64dbg
-yazi
 "@
 
 # # UNUSED

@@ -73,6 +73,7 @@
       rebase.autoStash = "true";
 
       # TODO: secrets
+      # TODO: https://wiki.nixos.org/wiki/Git#Using_your_public_SSH_key_as_a_signing_key
       user.signingKey = "~/.ssh/id_ed25519.pub";
       commit.gpgSign = true;
       gpg.format = "ssh";

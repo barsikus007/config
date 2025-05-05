@@ -11,14 +11,6 @@ with pkgs;
   busybox
   lshw-gui
 
-  # new base filemanagers
-  #  yazi is the best rn
-  yazi
-  nnn
-  ranger
-  # for tar opening maybe?
-  # atool
-
   # new add
   # tldr
   # tldr-hs
@@ -39,4 +31,11 @@ with pkgs;
 
   # test 2
   meld
+  (chromium.override {
+    commandLineArgs = [
+      "--enable-features=AcceleratedVideoEncoder"
+      "--ignore-gpu-blocklist"
+      "--enable-zero-copy"
+    ];
+  })
 ]

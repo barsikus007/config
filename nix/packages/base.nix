@@ -9,7 +9,7 @@ with pkgs;
   wget
 
   # base
-  mc
+  jq
   bat
   duf
   gdu
@@ -28,6 +28,7 @@ with pkgs;
   mosh
   tmux
   tree
+  yazi
   starship
   babelfish
   fastfetch

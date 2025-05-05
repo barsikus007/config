@@ -32,8 +32,40 @@
   outputs = { self, nixpkgs, ... }@inputs:
   let
     system = "x86_64-linux";
-    pkgs = nixpkgs.legacyPackages.${system};
+    pkgs = import nixpkgs {
+      inherit system;
+      overlays = [
+        (final: prev: {
+          unstable = import inputs.nixpkgs-unstable {
+            inherit prev;
+            system = prev.system;
+            config.allowUnfree = true;
+          };
+        })
+      ];
+      # харам, платные приложения
+      config.allowUnfreePredicate =
+        pkg:
+        builtins.elem (nixpkgs.lib.getName pkg) [
+          "nvidia-x11"
+          "nvidia-settings"
+          "nvidia-persistenced"
 
+          "steam"
+          "steam-unwrapped"
+          "steam-original"
+          "steam-run"
+
+          "parsec-bin"
+
+          "unrar"
+
+          "microsoft-edge"
+          "obsidian"
+          "bcompare"
+          "davinci-resolve-studio"
+        ];
+    };
     username = "ogurez";
     flakePath = "/home/${username}/config/nix";
 
@@ -59,21 +91,20 @@
         inputs.home-manager.nixosModules.home-manager
         ./hosts
         ./hosts/ROG14-WSL/configuration.nix
-        {
-          home-manager.useGlobalPkgs = true;
-        }
       ];
     };
     nixosConfigurations."ROG14" = nixpkgs.lib.nixosSystem {
       inherit system;
       inherit specialArgs;
+      inherit pkgs;
       modules = [
-        # https://github.com/NixOS/nixos-hardware/blob/master/asus/zephyrus/ga401/default.nix
+        #? https://github.com/NixOS/nixos-hardware/blob/master/asus/zephyrus/ga401/default.nix
         inputs.nixos-hardware.nixosModules.asus-zephyrus-ga401
         inputs.home-manager.nixosModules.home-manager
-        inputs.stylix.nixosModules.stylix
         ./hosts
         ./hosts/ROG14/configuration.nix
+
+        inputs.stylix.nixosModules.stylix
 
         ./modules/gui/vm.nix
         ./modules/gui/steam.nix
@@ -81,48 +112,25 @@
         ./modules/gui/video-edit.nix
         ./modules/hardware/logi-mx3.nix
         ./modules/docker.nix
-        ./modules/stylix.nix
+        # ./modules/stylix.nix
 
         ./packages/fixes/security.nix
         {
-          nixpkgs.overlays = [
-            (final: prev: {
-              # use this variant if unfree packages are needed:
-              unstable = import inputs.nixpkgs-unstable {
-                inherit prev;
-                system = prev.system;
-                config.allowUnfree = true;
-              };
-            })
-          ];
+          # services.pipewire.extraConfig.pipewire."92-low-latency" = {
+          #   "context.properties" = {
+          #     #? https://github.com/wwmm/easyeffects/issues/1514
+          #     "default.clock.force-quantum" = 1024;
+          #     # "default.clock.rate" = 48000;
+          #     # "default.clock.quantum" = 32;
+          #     # "default.clock.min-quantum" = 32;
+          #     # "default.clock.max-quantum" = 32;
+          #   };
+          # };
 
-          # hardware.graphics.package = inputs.nixpkgs-unstable.legacyPackages.${system}.mesa;
+          # hardware.graphics.package = pkgs.unstable.mesa;
 
           # харам, fhs
           services.envfs.enable = true;
-
-          # харам, платные приложения
-          nixpkgs.config.allowUnfreePredicate =
-            pkg:
-            builtins.elem (nixpkgs.lib.getName pkg) [
-              "nvidia-x11"
-              "nvidia-settings"
-              "nvidia-persistenced"
-
-              "steam"
-              "steam-unwrapped"
-              "steam-original"
-              "steam-run"
-
-              "parsec-bin"
-
-              "unrar"
-
-              "microsoft-edge"
-              "obsidian"
-              "bcompare"
-              "davinci-resolve-studio"
-            ];
 
           environment.defaultPackages = with pkgs; [
             (libsForQt5.callPackage ./packages/bcompare.nix { })
