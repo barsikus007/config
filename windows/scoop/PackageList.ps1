@@ -4,7 +4,7 @@ scoop-search scoop-completion
 
 #! base
 mc bat duf gdu fzf btop neovim zoxide ripgrep
-#? fd curl dust wget
+#? fd curl wget
 #? btop-lhm VERY SLOW
 #! add
 eza yazi neofetch

@@ -26,6 +26,7 @@ fan() {
   )
 }
 
+# TODO this is laptop specific, not G14
 boost() {
   # https://www.reddit.com/r/linuxmint/comments/12n8qfe/comment/jge3kys/
   if grep -q 0 /sys/devices/system/cpu/cpufreq/boost; then

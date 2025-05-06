@@ -88,6 +88,7 @@ let
     in
     {
       iusenixbtw = "fastfetch";
+      nu = "nix flake update ${flakePath}";
       # n = "home-manager switch --flake ${flakePath}";
       n = "nh home switch ${flakePath}";
       # nn = "nixos-rebuild switch --flake ${flakePath}";
@@ -100,7 +101,7 @@ let
       ne = "editor ${flakePath}";
       ndiff = "nvd diff ~/.local/state/nix/profiles/home-manager ~/.local/state/nix/profiles/$(command ls -t ~/.local/state/nix/profiles | fzf)";
       nndiff = "nvd diff /nix/var/nix/profiles/system /nix/var/nix/profiles/$(command ls -t /nix/var/nix/profiles/ | fzf)";
-      nix-shell = "nix-shell --run fish";
+      nix-shell = "nix-shell --run zsh";
     };
   sharedAliases =
     baseAliases
@@ -144,7 +145,7 @@ in
     autocd = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
-    initExtra = ''
+    initExtra = /* shell */ ''
       bindkey -e
       # home
       #bindkey "^[[H"    beginning-of-line
@@ -200,9 +201,9 @@ in
   };
   programs.bat = {
     enable = true;
-    # config = {
-    #   theme = "TwoDark";
-    # };
+    config = {
+      theme = "Coldark-Dark";
+    };
     # TODO: batman, batpipe and check other extra stuff
     extraPackages = with pkgs.bat-extras; [
       batdiff

@@ -4,9 +4,7 @@
 with pkgs;
 [
   # new base
-  dust
   dive
-  dfrs
   serpl
   busybox
   lshw-gui

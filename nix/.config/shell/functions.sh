@@ -9,6 +9,16 @@ ssht() { (ssh "$@" -t "tmux new -As0 || bash || sh") }
 
 dcsh() { docker compose exec -it "$1" sh -c 'bash || sh'; }
 
+a() {
+  # shellcheck disable=SC2046
+  print -z -- $(
+    alias | awk -F= '{print $1}' |
+    fzf --height 40% --border --prompt="Alias: " \
+        --preview "zsh  -c 'source ~/.zshrc && alias {} | cut -d= -f2-' | tr -d \' | bat -l sh --style=plain --color=always" \
+        --preview-window 80%
+  )
+}
+
 export_aliases() {  # TODO WIP
   # export aliases
   # alias | awk -F'[ =]' '{print "alias "$2"='\''"$3"'\''"}'

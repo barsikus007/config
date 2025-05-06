@@ -28,6 +28,7 @@ return {
         bottom = 0,
     },
 
+    -- https://wezterm.org/config/default-keys.html
     keys = {
         { key = "F11", action = "ToggleFullScreen" },
         {

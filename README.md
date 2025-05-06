@@ -109,6 +109,7 @@ scoop install uv
 # powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 
 uv tool --version  # 0.5.6
+uv tool install isd
 uv tool install ruff
 uv tool install hatch
 uv tool install --with ipython ptpython
@@ -159,27 +160,15 @@ hatch run true
 
 ### Other
 
-- Telegram > Settings > Advanced > Experimental settings
-  - Add "View Profile"
-  - Show Peer IDs in Profile
-  - Send large photos
-  - Enable webview inspecting
-- Discord
-  - Vencord
-    - Install
-      - `winget install Discord.Discord`
-      - `git clone https://github.com/philhk/Vencord`
-      - `pnpm i`
-      - `pnpm build`
-      - `pnpm inject`
-      - Import `configs/vencord-settings-backup.json`
-    - Update
-      - `cd Vencord`
-      - `git pull`
-      - `pnpm build`
-      - Refresh client
-    - [Vesktop](https://github.com/Vencord/Vesktop/releases/latest)
-      - [scoop](https://github.com/ScoopInstaller/Extras/pull/11935)
+- Telegram > Settings > Advanced
+  - Automatic media download > * > !Files
+  - Window title bar > Use * window frame
+  - Spell checker >
+  - Experimental settings
+    - Add "View Profile"
+    - Show Peer IDs in Profile
+    - Send large photos
+    - Enable webview inspecting
 - PyCharm
   - terminal pwsh.exe -NoLogo
   - File | Settings | Appearance & Behavior | File Colors || Non-Project Files -> Use in editor tabs
@@ -199,13 +188,6 @@ hatch run true
 - TUI
   - new software
     - zsh or fish (or bash lol)
-    - not drop-in
-      - du
-        - command -v dust > /dev/null && alias du='dust'
-      - df
-        - [dfrs](https://github.com/anthraxx/dfrs)
-    - uv tool
-      - isd
     - nmap to rustscan
     - [dive](https://github.com/wagoodman/dive)
     - [Mosh: the mobile shell](https://mosh.org/)
@@ -217,7 +199,6 @@ hatch run true
     - clear=cl
     - dcu not pull
     - dcup prod
-    - aa = alias fzf
     - set-alias -name pn -value pnpm
     - wsl `find / -not -path '/mnt/*'`
     - `find / -not -path '/mnt/*' -name python -not -path '/home/*'`
@@ -230,14 +211,11 @@ hatch run true
     - nvf current dir or sudo or ignore /proc etc
     - llt ls tree
       - or lll
-    - ?=type
     - uv run --python 3.13t -- python
     - py
     - docker compose fzf command
     - alias ip='ip --color=auto'
     - proto outdated --update
-  - function
-    - `awk '{print $1*10^-6 " W"}' /sys/class/power_supply/BAT0/power_now`
   - <https://github.com/isacikgoz/tldr>
     - tldr go ?
     - tldr -u
@@ -246,7 +224,6 @@ hatch run true
     - sudo session time
     - remove versions
     - dynamic battery icon
-    - change default (fish looks like fine)
   - bat
     - [zsh '--help' alias](https://github.com/sharkdp/bat#highlighting---help-messages)
   - .editorconfig conf
