@@ -13,9 +13,9 @@
     enable = true;
   };
 
-  environment.systemPackages = (import ../../packages/base.nix { inherit pkgs; })
-  # ++ (import ../../packages/default.nix { inherit pkgs; })
-  # ++ (import ../../packages/test.nix { inherit pkgs; })
+  environment.systemPackages = (import ../../shared/lists/base.nix { inherit pkgs; })
+  # ++ (import ../../shared/lists/default.nix { inherit pkgs; })
+  # ++ (import ../../shared/lists/test.nix { inherit pkgs; })
   #
   ;
 

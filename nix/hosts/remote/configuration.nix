@@ -14,5 +14,5 @@
   system.stateVersion = "24.11"; # Did you read the comment?
   networking.hostName = "remote"; # Define your hostname
 
-  environment.systemPackages = (import ../../packages/base.nix { inherit pkgs; });
+  environment.systemPackages = (import ../../shared/lists/base.nix { inherit pkgs; });
 }

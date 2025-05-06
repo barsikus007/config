@@ -3,10 +3,10 @@
   networking.hostName = "ROG14"; # Define your hostname
 
   environment.systemPackages = (
-    import ../../packages {
+    import ../../shared/lists {
       inherit pkgs;
     }
-    ++ import ../../packages/test.nix {
+    ++ import ../../shared/lists/test.nix {
       inherit pkgs;
     }
   );

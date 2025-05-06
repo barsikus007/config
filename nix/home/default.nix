@@ -22,8 +22,8 @@
     # changes in each release.
     stateVersion = "24.11";
 
-    # packages = import ./packages { inherit pkgs; };
-    # packages = import ./packages/base.nix { inherit pkgs; };
+    # packages = import ./shared/lists { inherit pkgs; };
+    # packages = import ./shared/lists/base.nix { inherit pkgs; };
 
     # # https://wiki.nixos.org/wiki/Environment_variables
     # # This is using a rec (recursive) expression to set and access XDG_BIN_HOME within the expression
@@ -87,7 +87,4 @@
       Requires = [ "graphical-session-pre.target" ];
     };
   };
-
-  # TODO: alias gg/lg/lzg
-  # programs.lazygit.enable = true;
 }

@@ -52,6 +52,9 @@
     cascadia-code
   ];
 
+  # харам, fhs
+  services.envfs.enable = true;
+
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
 

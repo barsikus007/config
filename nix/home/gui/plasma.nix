@@ -1,5 +1,6 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
+  imports = [ inputs.plasma-manager.homeManagerModules.plasma-manager ];
   # TODO: if asus
   home.packages = with pkgs; [ supergfxctl-plasmoid ];
 

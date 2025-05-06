@@ -1,8 +1,14 @@
-{ pkgs, config, ... }:
+{
+  pkgs,
+  config,
+  inputs,
+  ...
+}:
 let
   inherit (config.lib.stylix) colors;
 in
 {
+  imports = [ inputs.nvf.homeManagerModules.default ];
   home = {
     sessionVariables = {
       MANPAGER = "${pkgs.neovim}/bin/nvim +Man!";
@@ -32,6 +38,10 @@ in
         tabstop = 2;
         softtabstop = 2;
         shiftwidth = 2;
+        # search behaviour
+        ignorecase = true;
+        smartcase = true;
+        incsearch = true;
       };
       keymaps = [
         {

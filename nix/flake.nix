@@ -104,15 +104,14 @@
         ./hosts
         ./hosts/ROG14/configuration.nix
 
-        inputs.stylix.nixosModules.stylix
+        ./modules/stylix.nix
+        ./modules/docker.nix
 
         ./modules/gui/vm.nix
         ./modules/gui/steam.nix
         ./modules/gui/wireguard.nix
         ./modules/gui/video-edit.nix
         ./modules/hardware/logi-mx3.nix
-        ./modules/docker.nix
-        # ./modules/stylix.nix
 
         ./packages/fixes/security.nix
         {
@@ -127,11 +126,6 @@
           #   };
           # };
 
-          # hardware.graphics.package = pkgs.unstable.mesa;
-
-          # харам, fhs
-          services.envfs.enable = true;
-
           environment.defaultPackages = with pkgs; [
             (libsForQt5.callPackage ./packages/bcompare.nix { })
           ];
@@ -145,7 +139,6 @@
         flakePath = "/home/nixos/config/nix";
       };
       modules = [
-        inputs.nvf.homeManagerModules.default # <- this imports the home-manager module that provides the options
         ./home
         ./home/shells.nix
         ./home/editors.nix
@@ -155,13 +148,11 @@
       inherit pkgs;
       extraSpecialArgs = specialArgs;
       modules = [
-        inputs.nvf.homeManagerModules.default # <- this imports the home-manager module that provides the options
-        inputs.plasma-manager.homeManagerModules.plasma-manager
-        inputs.stylix.homeManagerModules.stylix
         ./home
         ./home/shells.nix
         ./home/editors.nix
-        ./modules/stylix.nix
+
+        ./home/stylix.nix
 
         ./home/gui/autostart.nix
         ./home/gui/sound.nix
