@@ -70,18 +70,6 @@ let
   batAliases = {
     cat = "bat";
   };
-  # ROG G14 specific aliases
-  # TODO: if asus
-  # TODO install media and conf file
-  # TODO: non ported
-  rogG14Aliases = {
-    animeclr = "asusctl anime -E false > /dev/null";
-    noanime = "systemctl --user stop asusd-user && animeclr";
-    anime = "animeclr && systemctl --user start asusd-user";
-    demosplash = "asusctl anime pixel-image -p ~/.config/rog/bad-apple.png";
-    nodemo = "tmux kill-session -t sound 2> /dev/null; noanime";
-    demo = "nodemo && anime && sleep 0.5 && tmux new -s sound -d 'play ~/Music/bad-apple.mp3 repeat -'";
-  };
   nixAliases =
     let
       inherit flakePath;
@@ -112,7 +100,6 @@ let
     // ezaAliases
     // nvimAliases
     // batAliases
-    // rogG14Aliases
     // nixAliases;
   fisn'tAliases = {
     "?" = "type";
@@ -123,19 +110,11 @@ in
     PAGER = "bat";
     LESS = "--mouse";
   };
-  xdg.configFile."shell/functions.sh" = {
-    source = ../.config/shell/functions.sh;
-  };
+  xdg.configFile."shell/functions.sh".source = ../.config/shell/functions.sh;
   # TODO: finer way to do it
-  xdg.configFile."shell/wifite.sh" = {
-    source = ../.config/shell/wifite.sh;
-  };
-  xdg.configFile."shell/g14.sh" = {
-    source = ../.config/shell/g14.sh;
-  };
-  xdg.configFile."shell/setup.sh" = {
-    source = ../.config/shell/setup.sh;
-  };
+  xdg.configFile."shell/wifite.sh".source = ../.config/shell/wifite.sh;
+  xdg.configFile."shell/g14.sh".source = ../.config/shell/g14.sh;
+  xdg.configFile."shell/setup.sh".source = ../.config/shell/setup.sh;
   programs.zsh = {
     enable = true;
     shellAliases = sharedAliases // fisn'tAliases;
@@ -145,6 +124,10 @@ in
     autocd = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
+    envExtra = ''
+      source "$XDG_CONFIG_HOME"/shell/g14.sh
+      # source ~/.zshrc
+    '';
     initExtra = /* shell */ ''
       bindkey -e
       # home
@@ -181,6 +164,7 @@ in
   };
   programs.bash = {
     enable = true;
+    shellAliases = sharedAliases // fisn'tAliases;
     historySize = 100000;
     historyControl = [ "ignoreboth" ];
   };
@@ -223,9 +207,7 @@ in
     enable = true;
     settings = builtins.fromTOML (builtins.readFile ../.config/starship.toml);
   };
-  xdg.configFile."starship/starship.bash" = {
-    source = ../.config/starship/starship.bash;
-  };
+  xdg.configFile."starship/starship.bash" .source = ../.config/starship/starship.bash;
   programs.yazi = {
     enable = true;
   };

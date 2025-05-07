@@ -50,6 +50,10 @@ set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 " keymaps
 let mapleader = " "
 
+" ^C to copy
+nnoremap <C-c> "+y
+vnoremap <C-c> "+y
+
 " russian commands
 " https://neovim.io/doc/user/russian.html
 " https://gist.github.com/sigsergv/5329458

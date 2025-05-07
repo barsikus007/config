@@ -16,7 +16,5 @@
       }
     );
   };
-  xdg.configFile."mpv" = {
-    source = ../../.config/mpv;
-  };
+  xdg.configFile."mpv".source = ../../.config/mpv;
 }

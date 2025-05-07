@@ -162,6 +162,7 @@
         ./home/gui/mpv.nix
         ./home/gui/minecraft.nix
         ./home/gui/vscode.nix
+        ./home/hardware/anime.nix
         {
           programs.nvf.settings.vim.languages.enableLSP = nixpkgs.lib.mkForce true;
         }

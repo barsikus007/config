@@ -97,6 +97,7 @@ Set user password and TODO other steps from [NixOS installation manual](https://
     - batman ?
   - init.lua vim types
 - parse nix files for pkgs (or do it via nix script)
+- better way to work with functions
 - alias
   - 'sudo '
   - pipi

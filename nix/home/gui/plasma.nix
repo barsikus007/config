@@ -13,21 +13,21 @@
     overrideConfig = true;
 
     # TODO: if asus
-    # hotkeys.commands."laptop-button-rog" = {
-    #   name = "Launch WezTerm";
-    #   key = "Launch (1)";
-    #   command = "bash -c ${"demotoggle"}";
-    # };
+    hotkeys.commands."laptop-button-rog" = {
+      name = "Laptop ROG Button";
+      key = "Launch (1)";
+      command = "zsh -c demotoggle";
+    };
     # hotkeys.commands."laptop-button-f5" = {
-    #   name = "Switch Power Profile";
+    #   name = "Laptop F5 Button";
     #   key = "Launch (4)";
-    #   command = "bash -c ${"fan"}";
+    #   command = "zsh -c fan";
     # };
-    # hotkeys.commands."laptop-button-f6" = {
-    #   name = "Launch WezTerm";
-    #   key = "Meta+Shift+S";
-    #   command = "bash -c ${"noanime && anime"}";
-    # };
+    hotkeys.commands."laptop-button-f6" = {
+      name = "Laptop F6 Button";
+      key = "Meta+Shift+S";
+      command = "zsh -c \"noanime && anime\"";
+    };
     kscreenlocker.timeout = 10;
     powerdevil = {
       batteryLevels = {

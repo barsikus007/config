@@ -18,6 +18,10 @@ with pkgs;
   resvg
   imagemagick
 
+  # sound
+  # for play command for asus
+  sox
+
   # GUI
   mpv
   nekoray
