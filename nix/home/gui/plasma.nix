@@ -261,6 +261,7 @@
       "kwin" = {
         "Overview" = "Meta+Tab";
         "Window Above Other Windows" = "Meta+Ctrl+T";
+        "Window Fullscreen" = "F11";
       };
       "services/org.kde.konsole.desktop" = {
         "_launch" = "none";
@@ -324,6 +325,7 @@
       # "klipperrc"."General"."SelectionTextOnly" = false;
       # "klipperrc"."General"."SyncClipboards" = true;
 
+      "dolphinrc"."General"."ShowFullPath" = true;
       # "dolphinrc"."DetailsMode"."PreviewSize" = 16;
       # "dolphinrc"."KFileDialog Settings"."Places Icons Auto-resize" = false;
       # "dolphinrc"."KFileDialog Settings"."Places Icons Static Size" = 22;
@@ -361,7 +363,8 @@
     url = "https://github.com/barsikus007.png";
     sha256 = "0ffhgshb652pcq35jc9gqzp576ss0kbz031rxylp6k8gvz213yc9";
   };
-  dconf.settings."org/gnome/desktop/interface" = {
-    gtk-enable-primary-paste = false;
-  };
+  # NIXOS_OZONE_WL=1 fixes that
+  # dconf.settings."org/gnome/desktop/interface" = {
+  #   gtk-enable-primary-paste = false;
+  # };
 }

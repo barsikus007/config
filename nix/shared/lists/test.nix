@@ -9,12 +9,6 @@ with pkgs;
   busybox
   lshw-gui
 
-  # new add
-  # tldr
-  # tldr-hs
-  tlrc
-  # tealdeer
-
   # new add security scanners
   nikto
   # ffuf
@@ -25,6 +19,7 @@ with pkgs;
   rustscan
 
   helix
+  # TODO: unstable 25.05
   unstable.isd
 
   # test 2

@@ -9,10 +9,12 @@
     home-manager
   ];
 
-  # For PAM
-  environment.sessionVariables = {
-    NIXOS_OZONE_WL = "1";
+  environment.variables = rec {
+    EDITOR = "nvim";
+    VISUAL = EDITOR;
   };
+  # For PAM
+  # environment.sessionVariables = {};
 
   nix.settings.experimental-features = [
     "nix-command"

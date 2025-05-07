@@ -7,8 +7,11 @@
       url = "https://www.pixelstalk.net/wp-content/uploads/2016/05/Epic-Anime-Awesome-Wallpapers.jpg";
       sha256 = "enQo3wqhgf0FEPHj2coOCvo7DuZv+x5rL/WIo4qPI50=";
     };
-    # TODO: unstable 25.05 https://github.com/danth/stylix/pull/943
-    # cursor = {};
+    cursor = {
+      size = 24;
+      package = pkgs.kdePackages.breeze;
+      name = "breeze_cursors";
+    };
     polarity = "dark";
     fonts.monospace = {
       package = pkgs.cascadia-code;

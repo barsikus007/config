@@ -1,5 +1,11 @@
 { pkgs, ... }:
 {
+  environment.sessionVariables = {
+    # https://wiki.nixos.org/wiki/Wayland#Electron_and_Chromium
+    NIXOS_OZONE_WL = "1";
+    # use KDE filepicker in GTK apps
+    GTK_USE_PORTAL = "1";
+  };
   # services.xserver.enable = true; # optional for sddm
   services.displayManager = {
     sddm = {

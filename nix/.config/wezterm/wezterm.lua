@@ -3,9 +3,9 @@ local act = wezterm.action
 
 return {
     -- font = wezterm.font("Cascadia Code NF"),
+    -- font_size = 12.0,
     -- TODO
     warn_about_missing_glyphs=false,
-    -- font_size = 12.0,
 
     -- color_scheme = "Catppuccin Mocha",
 
@@ -15,11 +15,12 @@ return {
     initial_rows = 30,
     enable_scroll_bar = true,
 
-    --! wayland have fullscreen (fixed) and titlebar issues at 2025.01 version
-    enable_wayland = false,
-    window_decorations = "INTEGRATED_BUTTONS|RESIZE",
+    --! wayland have titlebar issues
+    -- enable_wayland = false,
+    -- window_decorations = "INTEGRATED_BUTTONS|RESIZE",
     -- this draws default header on wayland
     -- window_decorations = "INTEGRATED_BUTTONS|NONE",
+    -- window_decorations = "NONE",
     hide_tab_bar_if_only_one_tab = true,
     window_padding = {
         left = 0,

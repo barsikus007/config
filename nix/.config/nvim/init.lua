@@ -1,3 +1,7 @@
+-- ^C to copy
+vim.keymap.set('n', '<C-c>', '"+y', { noremap = true })
+vim.keymap.set('v', '<C-c>', '"+y', { noremap = true })
+
 -- russian commands
 -- https://neovim.io/doc/user/russian.html
 -- https://gist.github.com/sigsergv/5329458

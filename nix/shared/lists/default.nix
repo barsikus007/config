@@ -4,7 +4,7 @@ with pkgs;
 ++ [
   # other (specific cli tools)
   # aria2
-  # tldr
+  tlrc
   yt-dlp
   ffmpeg
   unrar

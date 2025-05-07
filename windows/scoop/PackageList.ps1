@@ -7,7 +7,7 @@ mc bat duf gdu fzf btop neovim zoxide ripgrep
 #? fd curl wget
 #? btop-lhm VERY SLOW
 #! add
-eza yazi neofetch
+eza tlrc yazi neofetch
 #! pwsh/cmd specific
 posh-git psfzf starship
 clink clink-completions
@@ -27,10 +27,7 @@ less
 
 $base=@"
 $cli
-#? armcord
-#? archwsl
-#? mpv.net
-#? mitmproxy httptoolkit goodbyedpi
+#? mitmproxy httptoolkit goodbyedpi zapret
 #? jetbrains-toolbox android-studio pycharm-professional
 adb@33.0.3
 adb@34.0.5
@@ -110,7 +107,6 @@ qemu
 sharex
 sharpkeys
 sophiapp
-tldr
 #! soft
 apktool
 cmake
