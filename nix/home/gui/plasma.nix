@@ -44,6 +44,10 @@
 
     workspace = {
       # clickItemTo = "open"; # breaks type to search func in dolphin
+      # theme = "breeze-dark";
+      # colorScheme = "BreezeDark";
+      # cursor.theme = "Breeze_Dark";
+      # cursor.size = 24;
       lookAndFeel = "org.kde.breezedark.desktop";
     };
 
@@ -69,6 +73,13 @@
     ];
 
     window-rules = [
+      #! https://github.com/NixOS/nixpkgs/issues/344035#issuecomment-2453113223
+      #! https://github.com/VSCodium/vscodium/issues/1414
+      {
+        description = "code-url-handler fix";
+        match.window-class = "code code";
+        apply.desktopfile = "${pkgs.unstable.vscode-fhs}/share/applications/code.desktop";
+      }
       {
         description = "Telegram PiP above others";
         match = {
@@ -135,9 +146,7 @@
                 "applications:org.kde.dolphin.desktop"
                 "applications:org.wezfurlong.wezterm.desktop"
                 "applications:microsoft-edge.desktop"
-                # TODO WHYYYY https://github.com/VSCodium/vscodium/issues/1414
                 "applications:code.desktop"
-                "applications:code-url-handler.desktop"
                 "applications:com.ayugram.desktop.desktop"
                 "applications:vesktop.desktop"
                 "applications:obsidian.desktop"

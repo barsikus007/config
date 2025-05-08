@@ -25,6 +25,57 @@
             super.buildFHSEnv (
               fhs
               // {
+                targetPkgs =
+                  pkgs: with pkgs; [
+                    alsa-lib
+                    aprutil
+                    bzip2
+                    davinci #! override davinci to reduce duplication
+                    dbus
+                    expat
+                    fontconfig
+                    freetype
+                    glib
+                    libGL
+                    libGLU
+                    libarchive
+                    libcap
+                    librsvg
+                    libtool
+                    libuuid
+                    libxcrypt # provides libcrypt.so.1
+                    libxkbcommon
+                    nspr
+                    ocl-icd
+                    opencl-headers
+                    python3
+                    python3.pkgs.numpy
+                    udev
+                    xdg-utils # xdg-open needed to open URLs
+                    xorg.libICE
+                    xorg.libSM
+                    xorg.libX11
+                    xorg.libXcomposite
+                    xorg.libXcursor
+                    xorg.libXdamage
+                    xorg.libXext
+                    xorg.libXfixes
+                    xorg.libXi
+                    xorg.libXinerama
+                    xorg.libXrandr
+                    xorg.libXrender
+                    xorg.libXt
+                    xorg.libXtst
+                    xorg.libXxf86vm
+                    xorg.libxcb
+                    xorg.xcbutil
+                    xorg.xcbutilimage
+                    xorg.xcbutilkeysyms
+                    xorg.xcbutilrenderutil
+                    xorg.xcbutilwm
+                    xorg.xkeyboardconfig
+                    zlib
+                  ];
                 extraBwrapArgs = [
                   "--bind \"$HOME\"/.local/share/DaVinciResolve/license ${davinci}/.license"
                   #! Added from https://discourse.nixos.org/t/davinci-resolve-studio-install-issues/37699/44

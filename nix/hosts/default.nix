@@ -53,6 +53,9 @@
   fonts.packages = with pkgs; [
     cascadia-code
   ];
+  fonts.fontconfig.defaultFonts.monospace = [
+    "Cascadia Code NF"
+  ];
 
   # харам, fhs
   services.envfs.enable = true;
