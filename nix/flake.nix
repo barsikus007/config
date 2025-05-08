@@ -32,40 +32,7 @@
   outputs = { self, nixpkgs, ... }@inputs:
   let
     system = "x86_64-linux";
-    pkgs = import nixpkgs {
-      inherit system;
-      overlays = [
-        (final: prev: {
-          unstable = import inputs.nixpkgs-unstable {
-            inherit prev;
-            system = prev.system;
-            config.allowUnfree = true;
-          };
-        })
-      ];
-      # харам, платные приложения
-      config.allowUnfreePredicate =
-        pkg:
-        builtins.elem (nixpkgs.lib.getName pkg) [
-          "nvidia-x11"
-          "nvidia-settings"
-          "nvidia-persistenced"
-
-          "steam"
-          "steam-unwrapped"
-          "steam-original"
-          "steam-run"
-
-          "parsec-bin"
-
-          "unrar"
-
-          "microsoft-edge"
-          "obsidian"
-          "bcompare"
-          "davinci-resolve-studio"
-        ];
-    };
+    pkgs = import ./nixpkgs.nix { inherit system inputs; };
     username = "ogurez";
     flakePath = "/home/${username}/config/nix";
 
@@ -77,8 +44,7 @@
   in
   {
     nixosConfigurations."ROG14-WSL" = nixpkgs.lib.nixosSystem {
-      inherit system;
-      inherit specialArgs;
+      inherit system specialArgs;
       # Edit this configuration file to define what should be installed on
       # your system. Help is available in the configuration.nix(5) man page, on
       # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
@@ -94,9 +60,7 @@
       ];
     };
     nixosConfigurations."ROG14" = nixpkgs.lib.nixosSystem {
-      inherit system;
-      inherit specialArgs;
-      inherit pkgs;
+      inherit system specialArgs pkgs;
       modules = [
         #? https://github.com/NixOS/nixos-hardware/blob/master/asus/zephyrus/ga401/default.nix
         inputs.nixos-hardware.nixosModules.asus-zephyrus-ga401
@@ -134,7 +98,7 @@
     };
     homeConfigurations."nixos" = inputs.home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
-      extraSpecialArgs = {
+      extraSpecialArgs = specialArgs // {
         username = "nixos";
         flakePath = "/home/nixos/config/nix";
       };
