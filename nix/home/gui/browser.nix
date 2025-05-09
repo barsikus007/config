@@ -1,7 +1,7 @@
 { pkgs, config, ... }:
 {
   home.packages = with pkgs; [
-    # firefoxpwa
+    # TODO firefoxpwa
     (microsoft-edge.override {
       # https://wiki.nixos.org/wiki/Chromium#Accelerated_video_playback
       commandLineArgs = [
@@ -33,7 +33,7 @@
   };
   programs.firefox = {
     enable = true;
-    # nativeMessagingHosts = [ pkgs.firefoxpwa ];
+    nativeMessagingHosts = [ pkgs.firefoxpwa ];
     # https://github.com/tupakkatapa/mozid
     # nix run github:tupakkatapa/mozid -- <url>
     policies.ExtensionSettings =
@@ -47,6 +47,7 @@
         };
       in
       builtins.listToAttrs [
+        (extension "pwas-for-firefox" "firefoxpwa@filips.si")
         (extension "sidebery" "{3c078156-979c-498b-8990-85f7987dd929}")
         (extension "ublock-origin" "uBlock0@raymondhill.net")
         (extension "keepassxc-browser" "keepassxc-browser@keepassxc.org")
@@ -65,6 +66,7 @@
           "general.autoScroll" = true;
           "browser.ctrlTab.sortByRecentlyUsed" = true; # mru ^Tab
           "browser.startup.page" = 3; # Resume previous session on startup
+          "browser.translations.neverTranslateLanguages" = "ru";
           # "devtools.chrome.enabled" = true; # Allow executing JS in the dev console
           # "browser.uitour.enabled" = false; # no tutorial please
           # https://github.com/FirefoxCSS-Store/FirefoxCSS-Store.github.io/blob/main/README.md#generic-installation
@@ -76,8 +78,32 @@
           "svg.context-properties.content.enabled" = true;
         };
         # Hide tab bar because we have tree style tabs
-        # https://github.com/mbnuqw/sidebery/wiki/Firefox-Styles-Snippets-(via-userChrome.css)#dynamic-native-tabs-for-hiding-native-horizontal-tabs
+        #! https://github.com/mbnuqw/sidebery/wiki/Firefox-Styles-Snippets-(via-userChrome.css)#dynamic-native-tabs-for-hiding-native-horizontal-tabs
         userChrome = /* css */ ''
+          /**
+           * Decrease size of the sidebar header
+           */
+          #sidebar-header {
+            font-size: 1.2em !important;
+            padding: 2px 6px 2px 3px !important;
+          }
+          #sidebar-header #sidebar-close {
+            padding: 3px !important;
+          }
+          #sidebar-header #sidebar-close .toolbarbutton-icon {
+            width: 14px !important;
+            height: 14px !important;
+            opacity: 0.6 !important;
+          }
+
+          // same as below but without conditions
+          #TabsToolbar {
+            visibility: collapse !important;
+          }
+          #titlebar-buttonbox {
+            height: 32px !important;
+          }
+
           /**
            * Dynamic Horizontal Tabs Toolbar (with animations)
            * sidebar.verticalTabs: false (with native horizontal tabs)

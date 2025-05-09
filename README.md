@@ -171,9 +171,6 @@ hatch run true
     - Enable webview inspecting
 - Steam
   - Top left steam logo > Settings > Compatibility > Enable steam play for all titles
-- PyCharm
-  - terminal pwsh.exe -NoLogo
-  - File | Settings | Appearance & Behavior | File Colors || Non-Project Files -> Use in editor tabs
 - YtMusic
   - adblocker
   - blur-nav-bar
@@ -280,7 +277,10 @@ hatch run true
     - <https://stackoverflow.com/questions/600079/how-do-i-clone-a-subdirectory-only-of-a-git-repository/52269934#52269934>
   - info about CH340
 - archive
-  - pycharm settings sync
+  - PyCharm
+    - Settings Sync
+    - Serminal | pwsh.exe -NoLogo
+    - File > Settings > Appearance & Behavior > File Colors >> Non-Project Files -> Use in editor tabs
   - IOS dualboot
     - <https://github.com/MatthewPierson/Divise>
     - <https://www.youtube.com/watch?v=_owhlPukE_A>

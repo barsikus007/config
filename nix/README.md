@@ -80,9 +80,25 @@ Set user password and TODO other steps from [NixOS installation manual](https://
 
 ## TODO
 
-- [no internet](https://www.reddit.com/r/NixOS/comments/mu7ryg/comment/gv4kmsk/)
-  - [LiveCD](https://wiki.nixos.org/wiki/Creating_a_NixOS_live_CD)
 - [flake-parts](https://nix-community.github.io/home-manager/index.xhtml#sec-flakes-flake-parts-module)
+- parse nix files for pkgs (or do it via nix script)
+- better way to work with functions in shell.nix
+
+### Shell
+
+#### Alias
+
+- 'sudo '
+- pipi
+- pyvcr
+- pyv
+- py
+- wgu fzf selector
+  - best location for config files
+    - agenix secrets?
+
+#### Other
+
 - [guix environment like](https://github.com/NixOS/nix/issues/8207)
   - [containter](https://wiki.nixos.org/wiki/NixOS_Containers)
   - [firejail](https://github.com/netblue30/firejail)
@@ -96,28 +112,21 @@ Set user password and TODO other steps from [NixOS installation manual](https://
     - disable all other
     - batman ?
   - init.lua vim types
-- parse nix files for pkgs (or do it via nix script)
-- better way to work with functions
-- shell
-  - [explain command](https://github.com/learnbyexample/command_help)
-  - alias
-    - 'sudo '
-    - pipi
-    - pyvcr
-    - pyv
-    - py
-  - python
-    - direnv
-    - uv2nix
-- 25.05
-  - awg
-  - isd
-  - `nh os repl`
-  - services.syncthing.tray.command
-  - vscode.profiles
-  - stylix
-    - nvf
-    - cursor fix
-  - mesa 25
-    - plasma-desktop 6.3
-      - cursors?
+- [explain command](https://github.com/learnbyexample/command_help)
+- python
+  - direnv
+  - uv2nix
+
+### 25.05
+
+- awg
+- isd
+- `nh os repl`
+- services.syncthing.tray.command
+- vscode.profiles
+- stylix
+  - nvf
+  - cursor fix
+- mesa 25
+  - plasma-desktop 6.3
+    - cursors?

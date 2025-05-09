@@ -2,15 +2,11 @@
 
 ## [Command Cheat Sheet](cheatsheet.md)
 
+### [Server](cheatsheet_server.md)
+
 ## [WSL Hints](wsl.md)
 
 ## [Router Setup](devices/ax3600.md)
-
-## Information
-
-- Default location for wg0 file is user home
-  - TODO find fzf chooser for that
-  - TODO find proper location for that
 
 ## Archive
 

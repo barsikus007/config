@@ -1,4 +1,4 @@
-# [cheatsheet for server](./)
+# [cheatsheet for server](./README.md)
 
 ## set new password for root
 
