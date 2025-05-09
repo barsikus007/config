@@ -81,6 +81,11 @@
         apply.desktopfile = "${pkgs.unstable.vscode-fhs}/share/applications/code.desktop";
       }
       {
+        description = "daninci-resolve titlebar fix";
+        match.window-class = "resolve resolve";
+        apply.noborderrule = 2;
+      }
+      {
         description = "Telegram PiP above others";
         match = {
           window-class = {
@@ -94,12 +99,7 @@
           };
           window-types = [ "normal" ];
         };
-        apply = {
-          above = {
-            value = true;
-            apply = "force";
-          };
-        };
+        apply.above = true;
       }
       {
         description = "Edge PiP above others";
@@ -115,12 +115,7 @@
           };
           window-types = [ "normal" ];
         };
-        apply = {
-          above = {
-            value = true;
-            apply = "force";
-          };
-        };
+        apply.above = true;
       }
     ];
 

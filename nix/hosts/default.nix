@@ -2,6 +2,7 @@
   pkgs,
   username,
   flakePath,
+  inputs,
   ...
 }:
 {
@@ -82,6 +83,7 @@
     flake = flakePath;
   };
   imports = [
+    inputs.home-manager.nixosModules.home-manager
     # ../modules/shell/fish.nix
   ];
 }

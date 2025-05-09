@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 {
   networking.hostName = "ROG14"; # Define your hostname
 
@@ -12,6 +17,8 @@
   );
 
   imports = [
+    #? https://github.com/NixOS/nixos-hardware/blob/master/asus/zephyrus/ga401/default.nix
+    inputs.nixos-hardware.nixosModules.asus-zephyrus-ga401
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     # https://wiki.nixos.org/wiki/AMD_GPU#System_Hang_with_Vega_Graphics_(and_select_GPUs)

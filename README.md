@@ -169,6 +169,8 @@ hatch run true
     - Show Peer IDs in Profile
     - Send large photos
     - Enable webview inspecting
+- Steam
+  - Top left steam logo > Settings > Compatibility > Enable steam play for all titles
 - PyCharm
   - terminal pwsh.exe -NoLogo
   - File | Settings | Appearance & Behavior | File Colors || Non-Project Files -> Use in editor tabs
@@ -268,6 +270,7 @@ hatch run true
   - find browser sync bookmarks and history tool
   - mpv screenshots folder
 - meta
+  - Syncthing Tray/service setup info (isn't declarative)
   - learn
     - overlays
     - linux networks

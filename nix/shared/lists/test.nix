@@ -8,6 +8,7 @@ with pkgs;
   serpl
   busybox
   lshw-gui
+  lf
 
   # new add security scanners
   nikto

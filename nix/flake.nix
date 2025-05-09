@@ -44,17 +44,8 @@
   in
   {
     nixosConfigurations."ROG14-WSL" = nixpkgs.lib.nixosSystem {
-      inherit system specialArgs;
-      # Edit this configuration file to define what should be installed on
-      # your system. Help is available in the configuration.nix(5) man page, on
-      # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
-      # NixOS-WSL specific options are documented on the NixOS-WSL repository:
-      # https://github.com/nix-community/NixOS-WSL
+      inherit system specialArgs pkgs;
       modules = [
-        # include NixOS-WSL modules
-        inputs.nixos-wsl.nixosModules.default
-        inputs.home-manager.nixosModules.home-manager
         ./hosts
         ./hosts/ROG14-WSL/configuration.nix
       ];
@@ -62,9 +53,6 @@
     nixosConfigurations."ROG14" = nixpkgs.lib.nixosSystem {
       inherit system specialArgs pkgs;
       modules = [
-        #? https://github.com/NixOS/nixos-hardware/blob/master/asus/zephyrus/ga401/default.nix
-        inputs.nixos-hardware.nixosModules.asus-zephyrus-ga401
-        inputs.home-manager.nixosModules.home-manager
         ./hosts
         ./hosts/ROG14/configuration.nix
 
