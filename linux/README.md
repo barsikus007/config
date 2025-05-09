@@ -12,19 +12,6 @@
   - TODO find fzf chooser for that
   - TODO find proper location for that
 
-## TODO
-
-- shells(.nix)
-  - py python alias
-  - explain command
-    - <https://github.com/learnbyexample/command_help>
-  - starship
-    - show cached state of sudo in prompt
-- FireFox moment
-  - [Firefox PWA](https://addons.mozilla.org/en-US/firefox/addon/pwas-for-firefox/)
-  - tree style tab
-    - Sideberry?
-
 ## Archive
 
 ### Install Config
@@ -34,8 +21,7 @@
 
 #### Deps
 
-- git
-  - `sudo apt install git -y`
+- `sudo apt install git -y`
 - `chsh -s /bin/bash`
 
 #### Clone

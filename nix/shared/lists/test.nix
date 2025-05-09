@@ -8,7 +8,6 @@ with pkgs;
   serpl
   busybox
   lshw-gui
-  lf
 
   # new add security scanners
   nikto
@@ -25,11 +24,4 @@ with pkgs;
 
   # test 2
   meld
-  (chromium.override {
-    commandLineArgs = [
-      "--enable-features=AcceleratedVideoEncoder"
-      "--ignore-gpu-blocklist"
-      "--enable-zero-copy"
-    ];
-  })
 ]

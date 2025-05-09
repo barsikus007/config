@@ -49,6 +49,7 @@
       # cursor.theme = "Breeze_Dark";
       # cursor.size = 24;
       lookAndFeel = "org.kde.breezedark.desktop";
+      tooltipDelay = 1;
     };
 
     fonts = {
@@ -148,6 +149,7 @@
                 # autolaunched
                 # "applications:nekoray.desktop"
               ];
+              behavior.grouping.clickAction = "showTooltips";
             };
           }
           "org.kde.plasma.marginsseparator"

@@ -26,7 +26,6 @@ with pkgs;
   mpv
   nekoray
   neovide
-  firefox
   unstable.vscode-fhs
   keepassxc
   qbittorrent

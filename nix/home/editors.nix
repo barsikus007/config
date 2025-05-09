@@ -85,6 +85,7 @@ in
           format.type = "ruff";
         };
         ts.enable = true;
+        css.enable = true;
       };
 
       visuals = {

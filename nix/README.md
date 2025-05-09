@@ -98,14 +98,17 @@ Set user password and TODO other steps from [NixOS installation manual](https://
   - init.lua vim types
 - parse nix files for pkgs (or do it via nix script)
 - better way to work with functions
-- alias
-  - 'sudo '
-  - pipi
-  - pyvcr
-  - pyv
-- python
-  - direnv
-  - uv2nix
+- shell
+  - [explain command](https://github.com/learnbyexample/command_help)
+  - alias
+    - 'sudo '
+    - pipi
+    - pyvcr
+    - pyv
+    - py
+  - python
+    - direnv
+    - uv2nix
 - 25.05
   - awg
   - isd

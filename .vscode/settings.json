@@ -20,5 +20,8 @@
         "editor.formatOnSave": true,
         "editor.wordBasedSuggestions": "off",
     },
+    "nix.hiddenLanguageServerErrors": [
+        "textDocument/definition",
+    ],
     // #endregion nix
 }
