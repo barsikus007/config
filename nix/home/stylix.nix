@@ -13,6 +13,7 @@
       kde.enable = false;
       bat.enable = false;
       # wezterm.enable = true;
+      vscode.enable = false;
     };
   };
 }

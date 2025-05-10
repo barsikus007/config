@@ -173,7 +173,7 @@
                     "args": "terminateAll"
                 },
                 {
-                    "command": "workbench.action.tasks.build",
+                    "command": "workbench.action.tasks.build"
                 }
             ]
         },
