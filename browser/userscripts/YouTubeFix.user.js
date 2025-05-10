@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         YouTube Fix
 // @namespace    https://github.com/barsikus007/
-// @version      2.0.1
+// @version      2.0.2
 // @author       XpucT & AngusWR
 // @description  Force focus and scroll to player when mouse enters it & 'Video paused. Continue watching?' auto confirmer
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=youtube.com
 // @downloadURL  https://raw.githubusercontent.com/barsikus007/config/master/browser/userscripts/YouTubeFix.user.js
-// @match        *://*.youtube.com/watch?v=*
+// @match        *://*.youtube.com/*
 // ==/UserScript==
 
 "use strict";
