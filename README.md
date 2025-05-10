@@ -16,8 +16,6 @@
 
 ## [Browser](browser/README.md)
 
-## [Configs](configs/README.md)
-
 ## Cross-platform
 
 ### [Git config (`~/.gitconfig`)](https://git-scm.com/docs/git-config)

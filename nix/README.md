@@ -26,6 +26,42 @@ Set user password and TODO other steps from [NixOS installation manual](https://
 
 ## Config reference
 
+## [vscode](.config/Code/User/)
+
+- REMOVED from `settings.json`
+  - remote.SSH.remotePlatform
+  - sourcery.token
+- TODO
+  - export configs
+    - layout
+    - extensions
+    - profiles
+  - color logs
+  - python -File activate envs
+  - pycharm like run file
+  - "python.analysis.autoImportCompletions": true
+  - git tree view by default
+  - ctrl+shift++ in terminal
+  -
+  - [test open](vscode://file/D:\sync\notes)
+  - restart extension hosts workaround for copilot
+  - debug inside python container
+  - disable parenthesis when apply auto-import
+  - PR settings.openFilesInProfile
+  - remove/sort plugins
+    - use profiles
+      - make own profiles system with minimal overhead
+        - nixos?
+  - windows tab in terminal WTF
+  -
+    - compound logs check
+    - cssho.vscode-svgviewer is needed?
+    - jock.svg is needed?
+  - shift+enter WTF
+  - <https://code.visualstudio.com/docs/copilot/copilot-customization#_reusable-prompt-files-experimental>
+  - <https://code.visualstudio.com/docs/copilot/copilot-customization>
+  - <https://code.visualstudio.com/updates/v1_98#_task-rerun-action>
+
 ### [mpv](.config/mpv/)
 
 - uosc skin
@@ -85,36 +121,6 @@ Set user password and TODO other steps from [NixOS installation manual](https://
 - better way to work with functions in shell.nix
 - GUI
   - move badapple gif and mp3 outsude of git (or genereate them idk)
-  - vscode
-    - export configs
-      - layout
-      - extensions
-      - profiles
-    - color logs
-    - python -File activate envs
-    - pycharm like run file
-    - "python.analysis.autoImportCompletions": true
-    - git tree view by default
-    - ctrl+shift++ in terminal
-    -
-    - [test open](vscode://file/D:\sync\notes)
-    - restart extension hosts workaround for copilot
-    - debug inside python container
-    - disable parenthesis when apply auto-import
-    - PR settings.openFilesInProfile
-    - remove/sort plugins
-      - use profiles
-        - make own profiles system with minimal overhead
-          - nixos?
-    - windows tab in terminal WTF
-    -
-      - compound logs check
-      - cssho.vscode-svgviewer is needed?
-      - jock.svg is needed?
-    - shift+enter WTF
-    - <https://code.visualstudio.com/docs/copilot/copilot-customization#_reusable-prompt-files-experimental>
-    - <https://code.visualstudio.com/docs/copilot/copilot-customization>
-    - <https://code.visualstudio.com/updates/v1_98#_task-rerun-action>
   - obs
     - quick replay (import scenes)
       - battery/ac based quality

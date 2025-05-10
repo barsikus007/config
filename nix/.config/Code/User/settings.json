@@ -1,4 +1,5 @@
 {
+    "$schema": "vscode://schemas/settings/user",
     "settingsSync.ignoredSettings": [
         // "": true,
     ],
@@ -227,6 +228,7 @@
     // other
     "sqliteViewer.maxFileSize": 0, // remove sqlite limit (2GB is vscode limit idk how to resolve)
     "scm.defaultViewMode": "tree",
+    "search.defaultViewMode": "tree",
     "git.autofetch": true,
     // TODO https://github.com/kisstkondoros/gutter-preview limit
     "gutterpreview.showUnderline": true,

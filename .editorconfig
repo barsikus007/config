@@ -11,6 +11,9 @@ trim_trailing_whitespace = true
 [*.md]
 indent_size = 2
 
+[*.nix]
+indent_size = 2
+
 [*.{sh,bash,zsh}]
 indent_size = 2
 
