@@ -81,6 +81,7 @@
 
           environment.defaultPackages = with pkgs; [
             (libsForQt5.callPackage ./packages/bcompare.nix { })
+            (callPackage ./packages/anicli-ru { pkgs = unstable; })
           ];
         }
       ];
