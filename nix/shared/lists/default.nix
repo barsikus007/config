@@ -53,13 +53,5 @@ with pkgs;
   fsearch
 
   # GUI unfree
-  (microsoft-edge.override {
-    # https://wiki.nixos.org/wiki/Chromium#Accelerated_video_playback
-    commandLineArgs = [
-      "--enable-features=AcceleratedVideoEncoder"
-      "--ignore-gpu-blocklist"
-      "--enable-zero-copy"
-    ];
-  })
   obsidian
 ]

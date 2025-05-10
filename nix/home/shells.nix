@@ -76,7 +76,7 @@ let
     in
     {
       iusenixbtw = "fastfetch";
-      nu = "nix flake update ${flakePath}";
+      nu = "nix flake update --flake ${flakePath}";
       # n = "home-manager switch --flake ${flakePath}";
       n = "nh home switch ${flakePath}";
       # nn = "nixos-rebuild switch --flake ${flakePath}";

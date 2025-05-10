@@ -23,12 +23,13 @@ import inputs.nixpkgs {
       "steam-original"
       "steam-run"
 
-      "parsec-bin"
-
       "unrar"
 
-      "microsoft-edge"
+      "discord"
       "obsidian"
+      "parsec-bin"
+      "microsoft-edge"
+
       "bcompare"
       "davinci-resolve-studio"
     ];

@@ -26,7 +26,7 @@ Set user password and TODO other steps from [NixOS installation manual](https://
 
 ## Config reference
 
-## [vscode](.config/Code/User/)
+### [vscode](.config/Code/User/)
 
 - REMOVED from `settings.json`
   - remote.SSH.remotePlatform
