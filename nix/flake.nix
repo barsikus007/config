@@ -58,10 +58,11 @@
 
         ./modules/stylix.nix
         ./modules/docker.nix
+        ./modules/wireguard.nix
+        ./modules/zapret.nix
 
         ./modules/gui/vm.nix
         ./modules/gui/steam.nix
-        ./modules/gui/wireguard.nix
         ./modules/gui/video-edit.nix
         ./modules/hardware/logi-mx3.nix
 
