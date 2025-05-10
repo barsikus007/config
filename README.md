@@ -108,11 +108,13 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 scoop install uv
 # powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 
-uv tool --version  # 0.5.6
-uv tool install isd
-uv tool install ruff
-uv tool install hatch
-uv tool install --with ipython ptpython
+uv tool --version  # 0.6.14
+# uv tool install isd
+# uv tool install ruff
+# uv tool install hatch
+# uv tool install pgcli
+# uv tool install litecli
+# uv tool install --with ipython ptpython
 uv tool install anicli-ru
 # uv tool install anicli-ru --upgrade-package anicli-api
 uv tool upgrade --all

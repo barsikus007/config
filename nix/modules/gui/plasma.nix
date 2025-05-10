@@ -40,6 +40,7 @@
     kdePackages.kcalc
     kdePackages.kclock
     kdePackages.kdeconnect-kde
+    kdePackages.kdialog
     wl-clipboard
     libnotify
   ];

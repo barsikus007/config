@@ -84,8 +84,6 @@ Set user password and TODO other steps from [NixOS installation manual](https://
 - parse nix files for pkgs (or do it via nix script)
 - better way to work with functions in shell.nix
 - GUI
-  - new software
-    - <https://github.com/omegaui/cliptopia>
   - move badapple gif and mp3 outsude of git (or genereate them idk)
   - vscode
     - export configs
@@ -119,9 +117,7 @@ Set user password and TODO other steps from [NixOS installation manual](https://
     - <https://code.visualstudio.com/updates/v1_98#_task-rerun-action>
   - obs
     - quick replay (import scenes)
-    - battery-based auto-replay
-  - find browser sync bookmarks and history tool
-  - mpv screenshots folder
+      - battery/ac based quality
 
 ### Shell
 
@@ -208,8 +204,7 @@ Set user password and TODO other steps from [NixOS installation manual](https://
 
 ### 25.05
 
-- awg
-- isd
+- `unstable.` search
 - `nh os repl`
 - services.syncthing.tray.command
 - vscode.profiles

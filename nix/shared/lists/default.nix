@@ -8,12 +8,22 @@ with pkgs;
   yt-dlp
   ffmpeg
   unrar
-  # TODO: unstable 25.05
   unstable.isd
 
   # CLI python
+  (unstable.python313.withPackages (
+    python-pkgs: with python-pkgs; [
+      ptpython
+      ipython
+    ]
+  ))
   unstable.uv
-  hatch
+  unstable.hatch
+  unstable.ruff
+
+  # CLI db
+  pgcli
+  litecli
 
   # CLI renders for yazi
   poppler
@@ -33,7 +43,6 @@ with pkgs;
   qbittorrent
   # TODO fix && env WEBKIT_DISABLE_COMPOSITING_MODE=1
   unstable.rquickshare-legacy
-  unstable.varia
 
   # GUI social
   vesktop
