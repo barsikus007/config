@@ -14,8 +14,7 @@
   programs.vscode = {
     enable = true;
     package = pkgs.unstable.vscodium;
-    # enableUpdateCheck = false;
-    # keybindings = builtins.fromJSON (builtins.replaceStrings ["//.*\n"] [""] (builtins.readFile ../../.config/Code/User/keybindings.json));
+    enableUpdateCheck = false;
     keybindings = builtins.fromJSON (
       builtins.readFile (
         pkgs.runCommand "clean-json" { } ''

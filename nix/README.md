@@ -30,37 +30,32 @@ Set user password and TODO other steps from [NixOS installation manual](https://
 
 - REMOVED from `settings.json`
   - remote.SSH.remotePlatform
-  - sourcery.token
 - TODO
   - export configs
     - layout
     - extensions
+      - remove/sort
+        - use profiles
+          - make own profiles system with minimal overhead
+            - nixos?
     - profiles
-  - color logs
-  - python -File activate envs
-  - pycharm like run file
-  - "python.analysis.autoImportCompletions": true
-  - git tree view by default
-  - ctrl+shift++ in terminal
-  -
-  - [test open](vscode://file/D:\sync\notes)
-  - restart extension hosts workaround for copilot
-  - debug inside python container
-  - disable parenthesis when apply auto-import
-  - PR settings.openFilesInProfile
-  - remove/sort plugins
-    - use profiles
-      - make own profiles system with minimal overhead
-        - nixos?
-  - windows tab in terminal WTF
-  -
+  - python
+    - -File activate envs
+    - pycharm like run file
+    - "python.analysis.autoImportCompletions": true
+      - could stop work for no reason
+    - debug inside python container
+    - disable parenthesis when apply auto-import
+    - color logs
+      - in debug console ?
+      - not python specific ?
+  - new things
     - compound logs check
     - cssho.vscode-svgviewer is needed?
     - jock.svg is needed?
-  - shift+enter WTF
-  - <https://code.visualstudio.com/docs/copilot/copilot-customization#_reusable-prompt-files-experimental>
-  - <https://code.visualstudio.com/docs/copilot/copilot-customization>
-  - <https://code.visualstudio.com/updates/v1_98#_task-rerun-action>
+    - <https://code.visualstudio.com/docs/copilot/copilot-customization#_reusable-prompt-files-experimental>
+    - <https://code.visualstudio.com/docs/copilot/copilot-customization>
+    - <https://code.visualstudio.com/updates/v1_98#_task-rerun-action>
 
 ### [mpv](.config/mpv/)
 
