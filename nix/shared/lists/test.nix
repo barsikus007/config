@@ -8,6 +8,7 @@ with pkgs;
   serpl
   busybox
   lshw-gui
+  helix
 
   # new add security scanners
   nikto
@@ -17,11 +18,4 @@ with pkgs;
   # wifite2
   zmap
   rustscan
-
-  helix
-  # TODO: unstable 25.05
-  unstable.isd
-
-  # test 2
-  meld
 ]

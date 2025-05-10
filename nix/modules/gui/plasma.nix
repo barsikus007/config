@@ -37,6 +37,9 @@
   # ];
   environment.defaultPackages = with pkgs; [
     kdePackages.filelight
+    kdePackages.kcalc
+    kdePackages.kclock
+    kdePackages.kdeconnect-kde
     wl-clipboard
     libnotify
   ];

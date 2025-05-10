@@ -8,6 +8,8 @@ with pkgs;
   yt-dlp
   ffmpeg
   unrar
+  # TODO: unstable 25.05
+  unstable.isd
 
   # CLI python
   unstable.uv
@@ -29,6 +31,9 @@ with pkgs;
   unstable.vscode-fhs
   keepassxc
   qbittorrent
+  # TODO fix && env WEBKIT_DISABLE_COMPOSITING_MODE=1
+  unstable.rquickshare-legacy
+  unstable.varia
 
   # GUI social
   vesktop

