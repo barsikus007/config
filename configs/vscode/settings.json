@@ -6,7 +6,8 @@
     "window.titleBarStyle": "custom",
     "editor.selectionClipboard": false,
     "settingsSync.keybindingsPerPlatform": false,
-    // appearence
+    "update.mode": "manual",
+    // #region appearence
     "terminal.integrated.fontFamily": "Cascadia Code NF",
     "editor.fontFamily": "Cascadia Code NF",
     "editor.fontLigatures": true,
@@ -14,9 +15,33 @@
     "window.autoDetectColorScheme": true,
     "window.commandCenter": false,
     "workbench.preferredLightColorTheme": "Shades of Purple",
+    // "workbench.preferredDarkColorTheme": "Shades of Purple",
     "workbench.preferredDarkColorTheme": "Shades of Purple (Super Dark)",
     "workbench.colorTheme": "Shades of Purple (Super Dark)",
-    // behavior
+    "workbench.sideBar.location": "right",
+    // https://github.com/ahmadawais/shades-of-purple-vscode/issues/37
+    // "indentRainbow.colors": [
+    //     "rgba(165, 153, 233, 0.5)",
+    //     "rgba(165, 153, 233, 0.4)",
+    //     "rgba(165, 153, 233, 0.3)",
+    //     "rgba(165, 153, 233, 0.2)",
+    //     "rgba(165, 153, 233, 0.1)"
+    // ],
+    // https://github.com/ahmadawais/shades-of-purple-vscode/issues/37#issuecomment-2354045877
+    "indentRainbow.colors": [
+        "rgba(92, 85, 132 ,0.5)",
+        "rgba(92, 85, 132 ,0.4)",
+        "rgba(92, 85, 132 ,0.3)",
+        "rgba(92, 85, 132 ,0.2)",
+        "rgba(92, 85, 132 ,0.1)"
+    ],
+    // #endregion appearence
+    // #region behavior
+    // nekoray proxy, mainly for copilot
+    "http.proxy": "socks://127.0.0.1:2080",
+    // "http.proxy": "http://127.0.0.1:2081",
+    // singbox
+    // "http.proxy": "http://127.0.0.1:2080",
     "window.restoreWindows": "preserve",
     "window.openFilesInNewWindow": "default",
     // https://stackoverflow.com/a/70899027/15844518
@@ -31,7 +56,10 @@
         "ru": true
     },
     "editor.foldingMaximumRegions": 50000,
-    "terminal.integrated.scrollback": 100000,
+    "terminal.integrated.scrollback": 50000,
+    // "editor.maxTokenizationLineLength": 200000,
+    // #endregion behavior
+    // #region misc
     // ports
     "remote.autoForwardPorts": false,
     // telemetry
@@ -41,45 +69,73 @@
     "vsicons.dontShowNewVersionMessage": true,
     "gitlens.advanced.messages": {
         "suppressCreatePullRequestPrompt": true
+        // tool specific
     },
-    // language specific
-    // python
+    // docker
+    "docker.commands.composeUp": [
+        {
+            "label": "dev",
+            "template": "docker-compose up -d --build"
+        },
+        {
+            "label": "prod",
+            "template": "docker-compose -f compose.yaml -f compose.prod.yaml up -d --build"
+        },
+        {
+            "label": "debug",
+            "template": "docker-compose -f compose.yaml -f compose.debug.yaml up -d --build"
+        },
+    ],
+    // javascript
+    "npm.packageManager": "bun",
+    // #endregion misc
+    // #region nix
+    "nix.enableLanguageServer": true,
+    "nix.serverPath": "nixd", // or "nil"
+    "[nix]": {
+        "editor.formatOnSave": true,
+    },
+    "nix.hiddenLanguageServerErrors": [
+        "textDocument/definition",
+    ],
+    // #endregion nix
+    // #region python
     "python.analysis.autoFormatStrings": true,
     "python.analysis.autoImportCompletions": true,
-    "python.analysis.completeFunctionParens": true,
+    // TODO "python.analysis.completeFunctionParens": true,
     "python.analysis.typeCheckingMode": "basic",
+    "debugpy.debugJustMyCode": false,
     "customFString1": "f\"⚡🐍 {variable=}\"",
     "mypy-type-checker.args": [
         "--no-redef=false",
     ],
-    "ruff.enable": true,
     "pylint.args": [
         // 2024-07-07
-        // curl https://api.github.com/repos/astral-sh/ruff/issues/970 | jq -r .body | grep -F [x] | cut -d'/' -f 2 | cut -c 3-7 | awk '{printf "%s,", $1}'
+        // curl https://api.github.com/repos/astral-sh/ruff/issues/970 | jq -r .body | grep -F '[x]' | cut -d'/' -f 2 | cut -c 3-7 | awk '{printf "%s,", $1}'
         "--disable=E0237,E1142,E0014,E1300,E0013,E1310,E1307,E2502,E6005,E6004,E0116,E0108,E0241,E1303,E0102,E0100,E0605,E0604,E0304,E0308,E2510,E2513,E2514,E2512,E2515,E0309,E0305,E0303,E1206,E1205,E0704,E1304,E1302,E4703,E0213,E0107,E0115,E0117,E0103,E0711,E0643,E0402,E1132,E0106,E0101,E0104,E1519,E1520,E0001,E1306,E1305,E0112,E1301,E0603,E0602,E0302,E0118,E1700,E0105,W1401,W0129,W0199,W3201,W1302,W1300,W1501,W0211,W0702,W0711,W1502,W0718,W0719,W0640,W0160,W0102,W0705,W0109,W1308,W0130,W1641,W0123,W0122,W0106,W1309,W0511,W1515,W1305,W1310,W0604,W0603,W0602,W1404,W0406,W1405,W1508,W1113,W1202,W1203,W1201,W0150,W1518,W0410,W1303,W0131,W0177,W3301,W2402,W0133,W0104,W0212,W0707,W0622,W2901,W1406,W0404,W0127,W1509,W1510,W0245,W0706,W0012,W0108,W0107,W0301,W1514,W0613,W1304,W1301,W0611,W0612,W0120,W2101,W2601,W0401,C0202,C0198,C1901,C0201,C0501,C0206,C0199,C0112,C0415,C2701,C0103,C0301,C2201,C0115,C0304,C0116,C0114,C0410,C0321,C2403,C2401,C0205,C0121,C0303,C0131,C0105,C0132,C0412,C0123,C3002,C2801,C3001,C0113,C0208,C0414,C0411,C0413,R0133,R0124,R6003,R1701,R6002,R6104,R1717,R1728,R1715,R1714,R1730,R1731,R1718,R1722,R1706,R1732,R5501,R2044,R1710,R0123,R2004,R0202,R1723,R1724,R1720,R1705,R6301,R0203,R0206,R1704,R1719,R1703,R1725,R1260,R0913,R0916,R0912,R0914,R1702,R0904,R0911,R0915,R1707,R1721,R1733,R1736,R1729,R1735,R1734,R6201,R0205,R0022,R1711",
-        // TODO "--extension-pkg-allow-list=pydantic,orjson",
+        "--extension-pkg-allow-list=orjson",
         // TODO "--max-line-length=120"
     ],
-    "ruff.importStrategy": "useBundled",
-    "ruff.lint.args": [
-        "--line-length=120",
-        // "--select=ALL",
-        // ANN001 - for default=True like vars
-        // ANN101 - for self
-        // ANN102 - for cls
-        // ANN201 - for handlers return
-        // ANN204 - for __init__ return None
-        // ANN401 - for ANN401
-        // EM101,TRY003 - for strings in exceptions
-        // D,TD,FIX - for TODOs
-        // ERA - for commented code
-        // RET502 - for return without None
-        // RET503 - for function without return
-        // RUF001 - for cyrillic
-        "--ignore=ANN001,ANN101,ANN102,ANN201,ANN204,ANN401,EM101,TRY003,D,TD,FIX,ERA,RET502,RET503,RUF001",
-    ],
-    "ruff.format.args": [
-        "--line-length=120",
+    "ruff.lineLength": 120,
+    // "ruff.lint.select": ["ALL"],
+    "ruff.lint.ignore": [
+        "COM812",
+        "ISC001", // for ruff formatter
+        "ANN001", // for default=True like vars
+        "ANN101", // for self
+        "ANN102", // for cls
+        "ANN201", // for handlers return
+        "ANN204", // for __init__ return None
+        "ANN401", // for ANN401
+        "EM101",
+        "TRY003", // for strings in exceptions
+        "D",
+        "TD",
+        "FIX", // for TODOs
+        "ERA", // for commented code
+        "RET502", // for return without None
+        "RET503", // for function without return
+        "RUF001", // for cyrillic
     ],
     "[python]": {
         "editor.formatOnSave": true,
@@ -88,6 +144,7 @@
             "source.organizeImports": "explicit",
             "source.fixAll": "explicit",
         },
+        "diffEditor.ignoreTrimWhitespace": true,
     },
     // TODO code-runner deprecated for me
     // "code-runner.enableAppInsights": false,
@@ -95,8 +152,8 @@
     // "code-runner.executorMap": {
     //     "python": "set PYTHONIOENCODING=utf8 && \"$pythonPath\" -uB $fullFileName",
     // },
-    // javascript
-    "npm.packageManager": "pnpm",
+    // #endregion python
+    // #region javascript
     "[javascript][typescript]": {
         "editor.tabSize": 2,
         "editor.formatOnSave": true,
@@ -134,7 +191,12 @@
         // css.format.spaceAroundSelectorSeparator - Ensure a space character around selector separators '>', '+', '~' (for example, a > b).
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-    // other
+    // #endregion javascript
+    // #region other
+    "[lua]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "sumneko.lua"
+    },
     "[yaml]": {
         "editor.tabSize": 2,
         "editor.formatOnSave": true,
@@ -158,15 +220,13 @@
     "[prisma]": {
         "editor.formatOnSave": true
     },
-    // todo
-    // auto
-    "diffEditor.ignoreTrimWhitespace": false, //! (true is default)
-    "editor.suggestSelection": "first",
-    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    // #endregion other
+    // #region todo
     // new
     // "terminal.integrated."
     // other
     "sqliteViewer.maxFileSize": 0, // remove sqlite limit (2GB is vscode limit idk how to resolve)
+    "scm.defaultViewMode": "tree",
     "git.autofetch": true,
     // TODO https://github.com/kisstkondoros/gutter-preview limit
     "gutterpreview.showUnderline": true,
@@ -181,7 +241,8 @@
     "sourcery.codeLens": false,
     // "markdownlint.run": "onSave",
     "markdown.extension.toc.updateOnSave": false,
-    // todo2
+    // #endregion todo
+    // #region todo2
     // default
     // "indentRainbow.ignoreLinePatterns":[
     //     "/[ \t]* [*]/g",
@@ -195,13 +256,23 @@
     "remote.forwardOnOpen": false,
     "figma.autocompleteBlocks": true,
     "editor.largeFileOptimizations": false,
-    "github.copilot.editor.enableAutoCompletions": true,
     "gitlens.fileAnnotations.command": "blame",
-    // sexperimental
-    "workbench.experimental.enableNewProfilesUI": true,
-    "scm.experimental.showHistoryGraph": true,
+    // gitlens blame
+    // "git.blame.editorDecoration.enabled": true,
+    // "gitlens.mode.active": "zen",
+    // gitlens blame
+    // #endregion todo2
+    // #region sexperimental
     "python.analysis.supportRestructuredText": true,
-    // sexperimental
+    "terminal.integrated.suggest.enabled": true,
+    "debugpy.showPythonInlineValues": true,
+    "python.terminal.shellIntegration.enabled": true,
+    "python.analysis.usePullDiagnostics": true,
+    // #endregion sexperimental
+    // #region auto
+    "diffEditor.ignoreTrimWhitespace": false, //! (true is default)
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
     "explorer.fileNesting.patterns": {
         "*.ts": "${capture}.js",
         "*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts",
@@ -216,4 +287,30 @@
         "*.sdb": "${capture}.${extname}-*",
         "*.s3db": "${capture}.${extname}-*"
     },
+    "gitlens.views.commitDetails.files.layout": "tree",
+    "svg.preview.mode": "svg",
+    "hadolint.hadolintPath": "/usr/bin/hadolint",
+    "hexeditor.columnWidth": 16,
+    "hexeditor.showDecodedText": true,
+    "hexeditor.defaultEndianness": "little",
+    "hexeditor.inspectorType": "aside",
+    "files.exclude": {
+        "**/.trunk/*actions/": true,
+        "**/.trunk/*logs/": true,
+        "**/.trunk/*notifications/": true,
+        "**/.trunk/*out/": true,
+        "**/.trunk/*plugins/": true
+    },
+    "files.watcherExclude": {
+        "**/.trunk/*actions/": true,
+        "**/.trunk/*logs/": true,
+        "**/.trunk/*notifications/": true,
+        "**/.trunk/*out/": true,
+        "**/.trunk/*plugins/": true
+    },
+    "security.promptForLocalFileProtocolHandling": false,
+    "diffEditor.renderSideBySide": true,
+    "chat.agent.enabled": true,
+    "diffEditor.hideUnchangedRegions.enabled": true,
+    // #endregion auto
 }

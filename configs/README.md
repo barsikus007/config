@@ -2,7 +2,7 @@
 
 This section deprecated
 
-## [vscode](.config/vscode/)
+## [vscode](vscode/)
 
 - REMOVED from `settings.json`
   - remote.SSH.remotePlatform

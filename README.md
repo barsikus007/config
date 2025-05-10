@@ -115,7 +115,7 @@ uv tool --version  # 0.6.14
 # uv tool install pgcli
 # uv tool install litecli
 # uv tool install --with ipython ptpython
-uv tool install anicli-ru
+# uv tool install anicli-ru
 # uv tool install anicli-ru --upgrade-package anicli-api
 uv tool upgrade --all
 ```

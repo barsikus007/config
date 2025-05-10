@@ -7,9 +7,14 @@
             "label": "Run python file",
             "type": "process",
             // https://github.com/microsoft/vscode/issues/160891
-            // "command": "${command:python.interpreterPath}",
-            "command": ".venv/Scripts/python.exe",
-            "args": ["-uB", "${file}"],
+            "windows": {
+                "command": ".venv/Scripts/python.exe",
+            },
+            "command": "${command:python.interpreterPath}",
+            "args": [
+                "-uB",
+                "${file}"
+            ],
             "presentation": {
                 "clear": true
             },
