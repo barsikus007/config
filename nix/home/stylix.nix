@@ -1,4 +1,4 @@
-{ inputs, config, ... }:
+{ lib, inputs, config, ... }:
 {
   imports = [
     inputs.stylix.homeManagerModules.stylix
@@ -18,7 +18,7 @@
   };
 
   # TODO: unstable 25.05
-  programs.nvf.settings.vim = {
+  programs.nvf.settings.vim = lib.mkForce {
     statusline.lualine.theme = "base16";
     theme = {
       enable = true;

@@ -16,7 +16,7 @@ let
     nvs = "editor $(rg -n . | fzf | awk -F: '{print \"+\"$2,$1}')";
     "1ip" = "wget -qO - icanhazip.com";
     "2ip" = "curl 2ip.ru";
-    cu="cd ${flakePath} && git pull && cd -";
+    cu = "cd ${flakePath} && git pull && cd -";
     #? https://www.cyberciti.biz/faq/unix-linux-check-if-port-is-in-use-command/
     open-ports = "sudo lsof -i -P -n | grep LISTEN";
   };
@@ -128,39 +128,40 @@ in
       source "$XDG_CONFIG_HOME"/shell/g14.sh
       # source ~/.zshrc
     '';
-    initExtra = /* shell */ ''
-      bindkey -e
-      # home
-      #bindkey "^[[H"    beginning-of-line
-      bindkey "^[OH"    beginning-of-line
-      # end
-      #bindkey "^[[F"    end-of-line
-      bindkey "^[OF"    end-of-line
+    initExtra = # shell
+      ''
+        bindkey -e
+        # home
+        #bindkey "^[[H"    beginning-of-line
+        bindkey "^[OH"    beginning-of-line
+        # end
+        #bindkey "^[[F"    end-of-line
+        bindkey "^[OF"    end-of-line
 
-      # page up/down
-      bindkey "^[[5~"   beginning-of-history
-      bindkey "^[[6~"   end-of-history
+        # page up/down
+        bindkey "^[[5~"   beginning-of-history
+        bindkey "^[[6~"   end-of-history
 
-      # alt + left/right
-      bindkey "^[[1;3D" backward-word
-      bindkey "^[[1;3C" forward-word
-      # ctrl + left/right
-      bindkey "^[[1;5D" backward-word
-      bindkey "^[[1;5C" forward-word
+        # alt + left/right
+        bindkey "^[[1;3D" backward-word
+        bindkey "^[[1;3C" forward-word
+        # ctrl + left/right
+        bindkey "^[[1;5D" backward-word
+        bindkey "^[[1;5C" forward-word
 
-      # delete
-      bindkey "^[[3~"   delete-char
-      # ctrl + backspace
-      bindkey "^H"      backward-kill-word
-      # ctrl + delete
-      bindkey "^[[3;5~" delete-word
-      # alt + backspace
-      bindkey "^[^H"    backward-kill-word
-      # alt + delete
-      bindkey "^[[3;3~" delete-word
+        # delete
+        bindkey "^[[3~"   delete-char
+        # ctrl + backspace
+        bindkey "^H"      backward-kill-word
+        # ctrl + delete
+        bindkey "^[[3;5~" delete-word
+        # alt + backspace
+        bindkey "^[^H"    backward-kill-word
+        # alt + delete
+        bindkey "^[[3;3~" delete-word
 
-      source "$XDG_CONFIG_HOME"/shell/functions.sh
-    '';
+        source "$XDG_CONFIG_HOME"/shell/functions.sh
+      '';
   };
   programs.bash = {
     enable = true;
@@ -207,9 +208,28 @@ in
     enable = true;
     settings = builtins.fromTOML (builtins.readFile ../.config/starship.toml);
   };
-  xdg.configFile."starship/starship.bash" .source = ../.config/starship/starship.bash;
+  xdg.configFile."starship/starship.bash".source = ../.config/starship/starship.bash;
   programs.yazi = {
     enable = true;
+    keymap = {
+      open = {
+        prepend_rules = [
+          {
+            name = "*.sh";
+            use = "run-script";
+          }
+        ];
+      };
+      opener = {
+        add = [
+          {
+            name = "run-script";
+            run = ''shell "bash $0" --block'';
+            desc = "Run shell script";
+          }
+        ];
+      };
+    };
   };
   programs.lazygit.enable = true;
   programs.btop = {

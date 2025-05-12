@@ -153,11 +153,6 @@ git push origin --follow-tags
 hatch run true
 ```
 
-### Docker Desktop Extensions
-
-- Ddosify
-- Disk usage
-
 ### Other
 
 - Telegram > Settings > Advanced
@@ -184,22 +179,27 @@ hatch run true
   - clone single dir
     - <https://stackoverflow.com/questions/600079/how-do-i-clone-a-subdirectory-only-of-a-git-repository/52269934#52269934>
   - info about CH340
-- archive
-  - PyCharm
-    - Settings Sync
-    - Serminal | pwsh.exe -NoLogo
-    - File > Settings > Appearance & Behavior > File Colors >> Non-Project Files -> Use in editor tabs
-  - YtMusic
-    - adblocker
-    - blur-nav-bar
-    - lyrics-genius
-    - navigation
-    - picture-in-picture
-    - precise-volume
-    - shortcuts
-    - sponsorblock
-    - video-toggle
-  - IOS dualboot
-    - <https://github.com/MatthewPierson/Divise>
-    - <https://www.youtube.com/watch?v=_owhlPukE_A>
-    - <https://dualbootfun.github.io/dualboot/>
+
+### Archive
+
+- Docker Desktop Extensions
+  - Ddosify
+  - Disk usage
+- PyCharm
+  - Settings Sync
+  - Serminal | pwsh.exe -NoLogo
+  - File > Settings > Appearance & Behavior > File Colors >> Non-Project Files -> Use in editor tabs
+- YtMusic
+  - adblocker
+  - blur-nav-bar
+  - lyrics-genius
+  - navigation
+  - picture-in-picture
+  - precise-volume
+  - shortcuts
+  - sponsorblock
+  - video-toggle
+- IOS dualboot
+  - <https://github.com/MatthewPierson/Divise>
+  - <https://www.youtube.com/watch?v=_owhlPukE_A>
+  - <https://dualbootfun.github.io/dualboot/>

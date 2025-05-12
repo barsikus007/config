@@ -80,6 +80,11 @@
     };
   };
 
+  xdg.mimeApps.defaultApplications = {
+    "application/x-shellscript" = [ "WezTerm.desktop" ];
+  }
+  ;
+
   #! https://github.com/nix-community/home-manager/issues/2064
   systemd.user.targets.tray = {
     Unit = {

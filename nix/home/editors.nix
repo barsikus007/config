@@ -59,6 +59,7 @@ in
       };
 
       lsp = {
+        enable = false;
         formatOnSave = true;
         # https://github.com/onsails/lspkind.nvim
         lspkind.enable = false;
@@ -73,7 +74,6 @@ in
       # This section does not include a comprehensive list of available language modules.
       # To list all available language module options, please visit the nvf manual.
       languages = {
-        enableLSP = false;
         enableFormat = true;
         enableTreesitter = true;
         enableExtraDiagnostics = true;

@@ -49,7 +49,7 @@
       # cursor.theme = "Breeze_Dark";
       # cursor.size = 24;
       lookAndFeel = "org.kde.breezedark.desktop";
-      tooltipDelay = 1;
+      tooltipDelay = 500;
     };
 
     fonts = {

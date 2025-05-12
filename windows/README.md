@@ -115,6 +115,8 @@ Windows Registry Editor Version 5.00
 "1"="{\"file_extension\": \"exe\", \"domains\": [\"*\"]}"
 ```
 
+### [Another shitty edge warning disabler](https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies#disable-download-file-type-extension-based-warnings-for-specified-file-types-on-domains)
+
 ## Shutdown commands
 
 - `shutdown /t 0 /r`  # reload now
