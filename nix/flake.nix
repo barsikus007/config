@@ -44,7 +44,11 @@
   in
   {
     nixosConfigurations."ROG14-WSL" = nixpkgs.lib.nixosSystem {
-      inherit system specialArgs pkgs;
+      inherit system pkgs;
+      specialArgs = specialArgs // {
+        username = "nixos";
+        flakePath = "/home/nixos/config/nix";
+      };
       modules = [
         ./hosts
         ./hosts/ROG14-WSL/configuration.nix
