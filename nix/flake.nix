@@ -124,7 +124,7 @@
         ./home/gui/social.nix
         ./home/hardware/anime.nix
         {
-          programs.nvf.settings.vim.languages.enableLSP = nixpkgs.lib.mkForce true;
+          programs.nvf.settings.vim.lsp.enable = nixpkgs.lib.mkForce true;
         }
       ];
     };
