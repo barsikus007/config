@@ -16,6 +16,19 @@ home-manager switch --flake .
 
 Set user password and TODO other steps from [NixOS installation manual](https://nixos.org/manual/nixos/stable/#ch-installation)
 
+### G14
+
+#### [Fingerprint scanner](https://github.com/knauth/goodix-521d-explanation)
+
+Too lazy to write this on nix
+
+<https://github.com/goodix-fp-linux-dev/goodix-fp-dump/blob/master/README.md>
+
+1. `git clone --recurse-submodules https://github.com/goodix-fp-linux-dev/goodix-fp-dump.git && cd goodix-fp-dump`
+2. create shell.nix xD
+3. `sudo python3 run_521d.py`
+   1. Catch "Invalid OTP" and cry ;-;
+
 ## Nix itself
 
 ### [WSL distro](https://nix-community.github.io/NixOS-WSL/)
@@ -133,8 +146,8 @@ Set user password and TODO other steps from [NixOS installation manual](https://
 - [Mosh: the mobile shell](https://mosh.org/)
 - <https://github.com/pojntfx/octarchive>
 - [yassinebridi/serpl: A simple terminal UI for search and replace, ala VS Code.](https://github.com/yassinebridi/serpl)
+  - <https://ast-grep.github.io/>
 - test.nix
-  - busybox
   - lshw-gui
   - new add security scanners
     - nikto

@@ -6,7 +6,6 @@ with pkgs;
   # new base
   dive
   serpl
-  busybox
   lshw-gui
   helix
 

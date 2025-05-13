@@ -3,6 +3,7 @@ with pkgs;
 (import ./base.nix { inherit pkgs; })
 ++ [
   # other (specific cli tools)
+  gcc
   git-lfs
   # aria2
   tlrc
@@ -10,6 +11,8 @@ with pkgs;
   ffmpeg
   unrar
   unstable.isd
+  pciutils # lspci
+  usbutils # lssub
 
   # CLI python
   (unstable.python313.withPackages (
