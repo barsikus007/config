@@ -2,6 +2,8 @@
   pkgs,
   config,
   inputs,
+  username,
+  flakePath,
   ...
 }:
 let
@@ -26,6 +28,7 @@ in
     enable = true;
     defaultEditor = true;
     settings.vim = {
+      package = pkgs.unstable.neovim-unwrapped;
       # https://github.com/NotAShelf/nvf/blob/main/configuration.nix
       viAlias = true;
       vimAlias = true;
@@ -79,7 +82,16 @@ in
         enableExtraDiagnostics = true;
 
         # Languages that will be supported in default and maximal configurations.
-        nix.enable = true;
+        nix = {
+          enable = true;
+          lsp = {
+            server = "nixd";
+            options = {
+              home-manager.expr = "(builtins.getFlake \"${flakePath}\").homeConfigurations.${username}.options";
+              nixos.expr = "(builtins.getFlake \"${flakePath}\").nixosConfigurations.ROG14.options";
+            };
+          };
+        };
         python = {
           enable = true;
           format.type = "ruff";
