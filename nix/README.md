@@ -57,6 +57,8 @@ Set user password and TODO other steps from [NixOS installation manual](https://
     - <https://code.visualstudio.com/docs/copilot/copilot-customization#_reusable-prompt-files-experimental>
     - <https://code.visualstudio.com/docs/copilot/copilot-customization>
     - <https://code.visualstudio.com/updates/v1_98#_task-rerun-action>
+      - VERY new things
+        - <https://github.com/microsoft/vscode/pull/248747>
 
 ### [mpv](.config/mpv/)
 

@@ -5,7 +5,7 @@ return {
     -- font = wezterm.font("Cascadia Code NF"),
     -- font_size = 12.0,
     -- TODO
-    warn_about_missing_glyphs=false,
+    warn_about_missing_glyphs = false,
 
     -- color_scheme = "Catppuccin Mocha",
 
@@ -40,6 +40,8 @@ return {
                 local is_selection_active = string.len(selection_text) ~= 0
                 if is_selection_active then
                     window:perform_action(wezterm.action.CopyTo('ClipboardAndPrimarySelection'), pane)
+                    -- https://wezterm.org/config/lua/keyassignment/ClearSelection.html
+                    window:perform_action(act.ClearSelection, pane)
                 else
                     window:perform_action(wezterm.action.SendKey { key = 'c', mods = 'CTRL' }, pane)
                 end
@@ -50,27 +52,84 @@ return {
             mods = 'CTRL',
             action = wezterm.action.PasteFrom('Clipboard')
         },
+        {
+            key = 'v',
+            mods = 'CTRL|SHIFT',
+            action = wezterm.action.SendKey { key = 'v', mods = 'CTRL' }
+        },
     },
-    -- key_tables = {
-    --     search_mode = {
-    --         { key = 'Enter',  mods = 'NONE', action = act.CopyMode 'PriorMatch' },
-    --         { key = 'Escape', mods = 'NONE', action = act.CopyMode 'Close' },
-    --         { key = 'n',      mods = 'CTRL', action = act.CopyMode 'NextMatch' },
-    --         { key = 'p',      mods = 'CTRL', action = act.CopyMode 'PriorMatch' },
-    --         { key = 'r',      mods = 'CTRL', action = act.CopyMode 'CycleMatchType' },
-    --         { key = 'u',      mods = 'CTRL', action = act.CopyMode 'ClearPattern' },
-    --         {
-    --             key = 'F3',
-    --             mods = 'SHIFT',
-    --             action = act.CopyMode 'PriorMatchPage',
-    --         },
-    --         {
-    --             key = 'F3',
-    --             mods = 'NONE',
-    --             action = act.CopyMode 'NextMatchPage',
-    --         },
-    --         { key = 'UpArrow', mods = 'NONE', action = act.CopyMode 'PriorMatch' },
-    --         { key = 'DownArrow', mods = 'NONE', action = act.CopyMode 'NextMatch' },
-    --     },
-    -- },
+    key_tables = {
+        search_mode = {
+            -- default
+            { key = 'Enter',     mods = 'NONE', action = act.CopyMode 'PriorMatch' },
+            { key = 'Escape',    mods = 'NONE', action = act.CopyMode 'Close' },
+            { key = 'n',         mods = 'CTRL', action = act.CopyMode 'NextMatch' },
+            { key = 'p',         mods = 'CTRL', action = act.CopyMode 'PriorMatch' },
+            { key = 'r',         mods = 'CTRL', action = act.CopyMode 'CycleMatchType' },
+            { key = 'u',         mods = 'CTRL', action = act.CopyMode 'ClearPattern' },
+            { key = 'PageUp',    mods = 'NONE', action = act.CopyMode 'PriorMatchPage' },
+            { key = 'PageDown',  mods = 'NONE', action = act.CopyMode 'NextMatchPage' },
+            { key = 'UpArrow',   mods = 'NONE', action = act.CopyMode 'PriorMatch' },
+            { key = 'DownArrow', mods = 'NONE', action = act.CopyMode 'NextMatch' },
+            {
+                key = 'F3',
+                mods = 'NONE',
+                action = act.CopyMode 'NextMatchPage',
+            },
+            {
+                key = 'F3',
+                mods = 'SHIFT',
+                action = act.CopyMode 'PriorMatchPage',
+            },
+        },
+    },
+    mouse_bindings = {
+        -- Right click behaves like windows
+        {
+            event = { Down = { streak = 1, button = 'Right' } },
+            mods = 'NONE',
+            action = wezterm.action_callback(function(window, pane)
+                local selection_text = window:get_selection_text_for_pane(pane)
+                local is_selection_active = string.len(selection_text) ~= 0
+                if is_selection_active then
+                    window:perform_action(wezterm.action.CopyTo('ClipboardAndPrimarySelection'), pane)
+                    -- https://wezterm.org/config/lua/keyassignment/ClearSelection.html
+                    window:perform_action(act.ClearSelection, pane)
+                else
+                    window:perform_action(wezterm.action.PasteFrom('Clipboard'), pane)
+                end
+            end),
+        },
+        -- https://wezterm.org/recipes/hyperlinks.html#optional-configuration
+        {
+            event = { Up = { streak = 1, button = 'Left' } },
+            mods = 'CTRL',
+            action = act.OpenLinkAtMouseCursor,
+        },
+        -- Disable the 'Down' event of CTRL-Click to avoid weird program behaviors
+        {
+            event = { Down = { streak = 1, button = 'Left' } },
+            mods = 'CTRL',
+            action = act.Nop,
+        },
+        -- https://wezterm.org/config/mouse.html#configuring-mouse-assignments
+        {
+            event = { Up = { streak = 1, button = 'Left' } },
+            mods = 'NONE',
+            action = act.CompleteSelection 'ClipboardAndPrimarySelection',
+        },
+        -- Scrolling up while holding CTRL increases the font size
+        {
+            event = { Down = { streak = 1, button = { WheelUp = 1 } } },
+            mods = 'CTRL',
+            action = act.IncreaseFontSize,
+        },
+
+        -- Scrolling down while holding CTRL decreases the font size
+        {
+            event = { Down = { streak = 1, button = { WheelDown = 1 } } },
+            mods = 'CTRL',
+            action = act.DecreaseFontSize,
+        },
+    }
 }

@@ -1,4 +1,9 @@
-{ lib, inputs, config, ... }:
+{
+  lib,
+  inputs,
+  config,
+  ...
+}:
 {
   imports = [
     inputs.stylix.homeManagerModules.stylix
@@ -15,6 +20,11 @@
       # wezterm.enable = true;
       vscode.enable = false;
     };
+  };
+
+  programs.neovide.settings.font = {
+    normal = [ config.stylix.fonts.monospace.name ];
+    size = config.stylix.fonts.sizes.terminal;
   };
 
   # TODO: unstable 25.05
