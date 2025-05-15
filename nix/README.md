@@ -25,9 +25,34 @@ Too lazy to write this on nix
 <https://github.com/goodix-fp-linux-dev/goodix-fp-dump/blob/master/README.md>
 
 1. `git clone --recurse-submodules https://github.com/goodix-fp-linux-dev/goodix-fp-dump.git && cd goodix-fp-dump`
-2. create shell.nix xD
+2. Create `shell.nix`
 3. `sudo python3 run_521d.py`
    1. Catch "Invalid OTP" and cry ;-;
+   2. I kidding, comment that checking at L133:L134
+
+`shell.nix`
+
+```nix
+{
+  pkgs ? import <nixpkgs> { },
+}:
+
+pkgs.mkShell {
+  buildInputs = with pkgs; [
+    openssl
+    (python3.withPackages (
+      ps: with ps; [
+        pyusb
+        crcmod
+        python-periphery
+        spidev
+        pycryptodome
+        crccheck
+      ]
+    ))
+  ];
+}
+```
 
 ## Nix itself
 
