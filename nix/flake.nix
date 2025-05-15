@@ -124,6 +124,7 @@
         ./home/gui/vscode.nix
         ./home/gui/browser.nix
         ./home/gui/social.nix
+        ./home/gui/office.nix
         ./home/hardware/anime.nix
         {
           programs.nvf.settings.vim.lsp.enable = nixpkgs.lib.mkForce true;

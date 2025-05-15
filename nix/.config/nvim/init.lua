@@ -2,6 +2,18 @@
 vim.keymap.set('n', '<C-c>', '"+y', { noremap = true })
 vim.keymap.set('v', '<C-c>', '"+y', { noremap = true })
 
+-- https://github.com/neovide/neovide/issues/1282#issuecomment-2496204257
+-- TODO make it global?
+if vim.g.neovide then
+	vim.api.nvim_set_keymap('n', '<C-v>', 'l"+P', {noremap = true})
+	vim.api.nvim_set_keymap('v', '<C-v>', '"+P', {noremap = true})
+	vim.api.nvim_set_keymap('c', '<C-v>', '<C-o>l<C-o>"+<C-o>P<C-o>l', {noremap = true})
+	vim.api.nvim_set_keymap('i', '<C-v>', '<ESC>l"+Pli', {noremap = true})
+	vim.api.nvim_set_keymap('t', '<C-v>', '<C-\\><C-n>"+Pi', {noremap = true})
+    vim.api.nvim_set_keymap("i", "<C-v>", '<ESC>"+p', { noremap = true }) -- Paste in insert mode (CTRL+C)
+    vim.api.nvim_set_keymap("n", "<C-v>", '"+p', { noremap = true }) -- Paste in normal mode (CTRL+C)
+end
+
 -- russian commands
 -- https://neovim.io/doc/user/russian.html
 -- https://gist.github.com/sigsergv/5329458
