@@ -23,7 +23,6 @@
     ./hardware-configuration.nix
     # https://wiki.nixos.org/wiki/AMD_GPU#System_Hang_with_Vega_Graphics_(and_select_GPUs)
     ../../packages/fixes/amd-fix.nix
-    ../../modules/gui/plasma.nix
   ];
 
   time.hardwareClockInLocalTime = true; # cause windows

@@ -27,6 +27,10 @@
       url = "github:notashelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixcord = {
+      url = "github:kaylorben/nixcord";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs = { self, nixpkgs, ... }@inputs:
@@ -68,6 +72,7 @@
         ./modules/wireguard.nix
         ./modules/zapret.nix
 
+        ./modules/gui/plasma.nix
         ./modules/gui/vm.nix
         ./modules/gui/steam.nix
         ./modules/gui/video-edit.nix

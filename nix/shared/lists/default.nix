@@ -13,6 +13,7 @@ with pkgs;
   unstable.isd
   pciutils # lspci
   usbutils # lssub
+  android-tools
 
   # CLI python
   (unstable.python313.withPackages (
@@ -40,6 +41,7 @@ with pkgs;
 
   # GUI
   mpv
+  scrcpy
   nekoray
   neovide
   qdirstat
@@ -50,7 +52,6 @@ with pkgs;
   unstable.rquickshare-legacy
 
   # GUI social
-  vesktop
   unstable.ayugram-desktop
   element-desktop
 
