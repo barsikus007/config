@@ -72,6 +72,7 @@
 
         ./modules/stylix.nix
         ./modules/docker.nix
+        ./modules/security.nix
         ./modules/wireguard.nix
         ./modules/zapret.nix
 
@@ -81,7 +82,6 @@
         # TODO if this will not help, move to package
         (import ./modules/gui/video-edit.nix { pkgs = pkgs.previous; })
 
-        ./packages/fixes/security.nix
         {
           # services.pipewire.extraConfig.pipewire."92-low-latency" = {
           #   "context.properties" = {

@@ -81,11 +81,10 @@ let
       n = "nh home switch ${flakePath}";
       # nn = "nixos-rebuild switch --flake ${flakePath}";
       nn = "nh os switch ${flakePath}";
-      # nnn = "nn && n";
       # nd = "nix-collect-garbage -d";
       nd = "nh clean all --keep 5 --keep-since 4d";
       nr = "nixos-rebuild repl --flake ${flakePath}";
-      # nr = "nh os repl ${flakePath}";
+      nrr = "nh os repl ${flakePath}";
       ne = "editor ${flakePath}";
       ndiff = "nvd diff ~/.local/state/nix/profiles/home-manager ~/.local/state/nix/profiles/$(command ls -t ~/.local/state/nix/profiles | fzf)";
       nndiff = "nvd diff /nix/var/nix/profiles/system /nix/var/nix/profiles/$(command ls -t /nix/var/nix/profiles/ | fzf)";

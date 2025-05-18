@@ -1,4 +1,3 @@
-{ ... }:
 {
   services.easyeffects.enable = true;
   # https://github.com/Digitalone1/EasyEffects-Presets

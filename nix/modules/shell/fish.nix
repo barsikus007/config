@@ -1,6 +1,5 @@
-{ pkgs, ... }:
 {
-  users.defaultUserShell = pkgs.zsh;
+  # users.defaultUserShell = pkgs.fish;
 
   # programs.bash = {
   #   interactiveShellInit = ''

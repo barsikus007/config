@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  inputs,
-  ...
-}:
+{ pkgs, inputs, ... }:
 {
   networking.hostName = "ROG14"; # Define your hostname
 
@@ -23,7 +18,7 @@
     ./hardware-configuration.nix
   ];
 
-  time.hardwareClockInLocalTime = true; #! cause windows
+  time.hardwareClockInLocalTime = true; # ! cause windows
   boot = {
     #? Blazing fast https://xanmod.org/
     kernelPackages = pkgs.linuxPackages_xanmod_stable;
