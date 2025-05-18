@@ -8,5 +8,5 @@
       libfprint = pkgs.previous.callPackage ../../packages/libfprint-27c6-521d.nix { };
     };
   };
-  # security.pam.services.login.fprintAuth = true;
+  security.pam.services.login.fprintAuth = true;
 }

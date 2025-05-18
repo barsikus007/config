@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 # studio crack cause fuck h264/h265 license
 # davinci-resolve-studio: 19.1
 # thx https://github.com/WJC5197/nixos-config/blob/ac2fdac2026e67cf1c744b67a224b63493bcc886/pkgs/davinci-resolve-custom/default.nix
@@ -30,7 +30,7 @@
                     alsa-lib
                     aprutil
                     bzip2
-                    davinci #! override davinci to reduce duplication
+                    davinci # ! override davinci to reduce duplication
                     dbus
                     expat
                     fontconfig
@@ -102,8 +102,7 @@
     })
   ];
 
-  #! TODO previous
-  # environment.systemPackages = with pkgs; [
-  #   davinci-resolve-studio
-  # ];
+  environment.systemPackages = with pkgs; [
+    davinci-resolve-studio
+  ];
 }

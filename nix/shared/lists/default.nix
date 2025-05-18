@@ -42,7 +42,7 @@ with pkgs;
   # GUI
   mpv
   scrcpy
-  nekoray
+  previous.nekoray
   neovide
   qdirstat
   unstable.vscode-fhs

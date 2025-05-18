@@ -20,9 +20,9 @@
       inputs.home-manager.follows = "home-manager";
     };
     stylix = {
-      #! still no release at https://github.com/danth/stylix
-      # url = "github:danth/stylix?ref=release-25.05";
-      url = "github:danth/stylix";
+      #! still no release at https://github.com/nix-community/stylix
+      # url = "github:nix-community/stylix?ref=release-25.05";
+      url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
@@ -78,7 +78,8 @@
         ./modules/gui/plasma.nix
         ./modules/gui/vm.nix
         ./modules/gui/steam.nix
-        ./modules/gui/video-edit.nix
+        # TODO if this will not help, move to package
+        (import ./modules/gui/video-edit.nix { pkgs = pkgs.previous; })
 
         ./packages/fixes/security.nix
         {
