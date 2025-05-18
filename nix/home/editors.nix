@@ -1,14 +1,11 @@
 {
+  lib,
   pkgs,
-  config,
   inputs,
   username,
   flakePath,
   ...
 }:
-let
-  inherit (config.lib.stylix) colors;
-in
 {
   imports = [ inputs.nvf.homeManagerModules.default ];
   home = {
@@ -28,7 +25,6 @@ in
     enable = true;
     defaultEditor = true;
     settings.vim = {
-      package = pkgs.unstable.neovim-unwrapped;
       # https://github.com/NotAShelf/nvf/blob/main/configuration.nix
       viAlias = true;
       vimAlias = true;
@@ -113,14 +109,15 @@ in
       statusline = {
         lualine = {
           enable = true;
-          theme = "catppuccin";
+          theme = lib.mkDefault "catppuccin";
         };
       };
 
       theme = {
         enable = true;
-        name = "catppuccin";
-        style = "mocha";
+        # TODO remove it at all ?
+        name = lib.mkDefault "catppuccin";
+        style = lib.mkDefault "mocha";
         transparent = false;
       };
 

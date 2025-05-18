@@ -25,7 +25,7 @@
   environment.systemPackages = with pkgs; [
     protonup-qt
 
-    unstable.r2modman
+    r2modman
 
     mangohud
 

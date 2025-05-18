@@ -128,7 +128,7 @@ in
       source "$XDG_CONFIG_HOME"/shell/g14.sh
       # source ~/.zshrc
     '';
-    initExtra = # shell
+    initContent = # /* shell */ comment for tree-sitter
       ''
         bindkey -e
         # home

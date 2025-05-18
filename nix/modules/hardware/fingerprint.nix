@@ -4,8 +4,8 @@
 {
   services.fprintd = {
     enable = true;
-    package = pkgs.fprintd.override {
-      libfprint = pkgs.callPackage ../../packages/libfprint-27c6-521d.nix { };
+    package = pkgs.previous.fprintd.override {
+      libfprint = pkgs.previous.callPackage ../../packages/libfprint-27c6-521d.nix { };
     };
   };
   # security.pam.services.login.fprintAuth = true;

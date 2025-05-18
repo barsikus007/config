@@ -1,12 +1,8 @@
-{ pkgs, inputs, ... }:
 #? 🙏 https://github.com/ViZiD/dotfiles/blob/master/modules/shared/zapret.nix
 #? https://github.com/Flowseal/zapret-discord-youtube/blob/main/general.bat
 {
-  disabledModules = [ "services/networking/zapret.nix" ];
-  imports = [ "${inputs.nixpkgs-unstable}/nixos/modules/services/networking/zapret.nix" ];
   services.zapret = {
     enable = true;
-    package = pkgs.unstable.zapret;
     udpSupport = true;
     udpPorts = [
       "443"

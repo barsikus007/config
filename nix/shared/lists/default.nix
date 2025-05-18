@@ -5,12 +5,12 @@ with pkgs;
   # other (specific cli tools)
   gcc
   git-lfs
+  isd
   # aria2
   tlrc
+  unrar
   yt-dlp
   ffmpeg
-  unrar
-  unstable.isd
   pciutils # lspci
   usbutils # lssub
   android-tools
@@ -60,4 +60,7 @@ with pkgs;
 
   # GUI unfree
   obsidian
+
+  # GUI cheats
+  xclicker
 ]

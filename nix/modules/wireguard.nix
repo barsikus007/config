@@ -1,17 +1,5 @@
-{ inputs, pkgs, username, ... }:
+{ pkgs, username, ... }:
 {
-  # Override networking.wg-quick to use unstable's module
-  disabledModules = [ "services/networking/wg-quick.nix" ];
-  imports = [
-    "${inputs.nixpkgs-unstable}/nixos/modules/services/networking/wg-quick.nix"
-  ];
-  # Overlay to include amneziawg-tools
-  nixpkgs.overlays = [
-    (self: super: {
-      amneziawg-tools = pkgs.unstable.amneziawg-tools;
-    })
-  ];
-
   networking.wg-quick.interfaces = {
     awg0 = {
       autostart = false;

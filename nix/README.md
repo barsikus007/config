@@ -245,12 +245,8 @@ pkgs.mkShell {
 
 ### 25.05
 
-- `unstable.` search
 - `nh os repl`
-- services.syncthing.tray.command
-- vscode.profiles
 - stylix
-  - nvf
   - cursor fix
 - mesa 25
   - plasma-desktop 6.3

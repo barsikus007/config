@@ -102,7 +102,8 @@
     })
   ];
 
-  environment.systemPackages = with pkgs; [
-    davinci-resolve-studio
-  ];
+  #! TODO previous
+  # environment.systemPackages = with pkgs; [
+  #   davinci-resolve-studio
+  # ];
 }

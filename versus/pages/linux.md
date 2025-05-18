@@ -34,7 +34,10 @@
   - most stable (reproducible)
   - best packages
   - best way to configure
+  - VERY agile
 - Cons
   - hardest to learn ?
+  - takes a lot space
+  - non FHS
 
 ## Updated 2025-04-13

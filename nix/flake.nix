@@ -2,7 +2,8 @@
   description = "https://никспобеда.рф";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-24.11";
+    nixpkgs-previous.url = "github:nixos/nixpkgs?ref=nixos-24.11";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-25.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     nixos-hardware.url = "github:nixos/nixos-hardware?ref=master";
     nixos-wsl = {
@@ -10,7 +11,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:nix-community/home-manager?ref=release-24.11";
+      url = "github:nix-community/home-manager?ref=release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     plasma-manager = {
@@ -19,7 +20,9 @@
       inputs.home-manager.follows = "home-manager";
     };
     stylix = {
-      url = "github:danth/stylix?ref=release-24.11";
+      #! still no release at https://github.com/danth/stylix
+      # url = "github:danth/stylix?ref=release-25.05";
+      url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
@@ -29,7 +32,7 @@
     };
     nixcord = {
       url = "github:kaylorben/nixcord";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -92,7 +95,7 @@
 
           environment.defaultPackages = with pkgs; [
             (libsForQt5.callPackage ./packages/bcompare.nix { })
-            (callPackage ./packages/anicli-ru { pkgs = unstable; })
+            (callPackage ./packages/anicli-ru { })
           ];
         }
       ];

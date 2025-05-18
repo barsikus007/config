@@ -4,7 +4,7 @@
   # TODO: if asus
   home.packages = with pkgs; [ supergfxctl-plasmoid ];
 
-  programs.zsh.initExtra = ''explorer.exe() {dolphin --new-window "$@" 1>/dev/null 2>/dev/null & disown}'';
+  programs.zsh.initContent = ''explorer.exe() {dolphin --new-window "$@" 1>/dev/null 2>/dev/null & disown}'';
 
   # https://github.com/nix-community/plasma-manager
   # https://nix-community.github.io/plasma-manager/options.xhtml
@@ -348,6 +348,7 @@
       # "klipperrc"."General"."SyncClipboards" = true;
 
       "dolphinrc"."General"."ShowFullPath" = true;
+      "dolphinrc"."General"."BrowseThroughArchives" = true;
       # "dolphinrc"."DetailsMode"."PreviewSize" = 16;
       # "dolphinrc"."KFileDialog Settings"."Places Icons Auto-resize" = false;
       # "dolphinrc"."KFileDialog Settings"."Places Icons Static Size" = 22;

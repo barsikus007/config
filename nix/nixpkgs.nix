@@ -8,6 +8,11 @@ import inputs.nixpkgs {
         system = prev.system;
         config.allowUnfree = true;
       };
+      previous = import inputs.nixpkgs-previous {
+        inherit prev;
+        system = prev.system;
+        config.allowUnfree = true;
+      };
     })
   ];
   # харам, платные приложения
@@ -24,6 +29,7 @@ import inputs.nixpkgs {
       "steam-run"
 
       "unrar"
+      "graalvm-oracle"
 
       "discord"
       "obsidian"

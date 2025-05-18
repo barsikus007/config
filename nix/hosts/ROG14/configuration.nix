@@ -21,13 +21,11 @@
     inputs.nixos-hardware.nixosModules.asus-zephyrus-ga401
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    # https://wiki.nixos.org/wiki/AMD_GPU#System_Hang_with_Vega_Graphics_(and_select_GPUs)
-    ../../packages/fixes/amd-fix.nix
   ];
 
-  time.hardwareClockInLocalTime = true; # cause windows
+  time.hardwareClockInLocalTime = true; #! cause windows
   boot = {
-    # Blazing fast https://xanmod.org/
+    #? Blazing fast https://xanmod.org/
     kernelPackages = pkgs.linuxPackages_xanmod_stable;
 
     # Use the systemd-boot EFI boot loader.
@@ -37,8 +35,7 @@
         enable = true;
         editor = false;
         configurationLimit = 5;
-        # https://search.nixos.org/options?channel=24.11&show=boot.loader.systemd-boot.rebootForBitlocker
-        rebootForBitlocker = false;
+        # rebootForBitlocker = true;
         extraEntries = {
           "fedora.conf" = ''
             title Fedora's grub
@@ -69,18 +66,8 @@
   };
 
   hardware = {
-    # https://discourse.nixos.org/t/nvidia-565-77-wont-work-in-kernel-6-13/59234/10
-    nvidia = {
-      package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-        version = "570.86.16"; # use new 570 drivers
-        sha256_64bit = "sha256-RWPqS7ZUJH9JEAWlfHLGdqrNlavhaR1xMyzs8lJhy9U=";
-        openSha256 = "sha256-DuVNA63+pJ8IB7Tw2gM4HbwlOh1bcDg2AN2mbEU9VPE=";
-        settingsSha256 = "sha256-9rtqh64TyhDF5fFAYiWl3oDHzKJqyOW3abpcf2iNRT8=";
-        usePersistenced = false;
-      };
-      # https://github.com/NixOS/nixos-hardware/issues/1450
-      dynamicBoost.enable = false;
-    };
+    #? https://github.com/NixOS/nixos-hardware/issues/1450
+    nvidia.dynamicBoost.enable = false;
 
     bluetooth.enable = true;
   };

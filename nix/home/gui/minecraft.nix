@@ -2,7 +2,7 @@
 {
   programs.java = {
     enable = true;
-    package = pkgs.unstable.graalvmPackages.graalvm-oracle;
+    package = pkgs.graalvmPackages.graalvm-oracle;
   };
   home.packages = with pkgs; [ prismlauncher ];
 }
