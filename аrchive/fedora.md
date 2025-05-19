@@ -1,4 +1,4 @@
-# ASUS GA401IV
+# [ASUS GA401IV](./README.md)
 
 ## [asus-linux](https://asus-linux.org/)
 
