@@ -1,9 +1,4 @@
-{
-  lib,
-  inputs,
-  config,
-  ...
-}:
+{ inputs, config, ... }:
 {
   imports = [
     inputs.stylix.homeModules.stylix
@@ -17,15 +12,13 @@
       # qt.enable = false;
       kde.enable = false;
       bat.enable = false;
-      # wezterm.enable = true;
       vscode.enable = false;
+      nixcord.enable = false;
 
       firefox.profileNames = [ "default" ];
-      starship.enable = false;
       mpv.enable = false;
     };
   };
-
 
   programs.neovide.settings.font = {
     normal = [ config.stylix.fonts.monospace.name ];

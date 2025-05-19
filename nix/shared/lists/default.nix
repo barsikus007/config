@@ -9,8 +9,8 @@ with pkgs;
   # aria2
   tlrc
   unrar
-  yt-dlp
   ffmpeg
+  yt-dlp
   pciutils # lspci
   usbutils # lssub
   android-tools
@@ -61,6 +61,6 @@ with pkgs;
   # GUI unfree
   obsidian
 
-  # GUI cheats
+  # GUI automation
   xclicker
 ]

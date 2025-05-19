@@ -15,6 +15,16 @@ with pkgs;
   # seclists
   # frida-tools
   # wifite2
+  # openvas-scanner
+  # burpsuite
   zmap
   rustscan
+
+  # new other
+  devenv
+
+  # new GUI automation
+  autokey
+  # ahk_x11
+  # ydotool
 ]

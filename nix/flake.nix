@@ -79,7 +79,8 @@
         ./modules/gui/plasma.nix
         ./modules/gui/vm.nix
         ./modules/gui/steam.nix
-        # TODO if this will not help, move to package
+        ./modules/gui/remote.nix
+        # TODO if this will not help, move to package or flake
         (import ./modules/gui/video-edit.nix { pkgs = pkgs.previous; })
 
         {

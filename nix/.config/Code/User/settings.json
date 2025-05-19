@@ -236,7 +236,10 @@
     "editor.inlineSuggest.enabled": true,
     //
     "github.copilot.enable": {
-        "*": true
+        "*": true,
+        "plaintext": false,
+        "markdown": true,
+        "scminput": false
     },
     // "hadolint.hadolintPath": "/usr/bin/hadolint",
     "markdown-preview-enhanced.liveUpdate": true,
