@@ -2,8 +2,9 @@
 
 # TODO: if asus
 # TODO install media and conf file
-# ~/Music/bad-apple.mp3
-# ~/.config/rog/bad-apple.gif
+# yt-dlp UkgK8eUdpAo
+# ffmpeg -i *.webm -filter_complex "[0:v]fps=30,scale=66:-1,setpts=0.645*PTS[v]" -map '[v]' -loop 0 bad-apple.gif -y && cp -rf bad-apple.gif ~/.config/rog/
+# ffmpeg -i *.webm bad-apple.mp3 -y && cp -rf bad-apple.mp3 ~/Music/
 # ROG G14 specific aliases
 # TODO: non ported
 #! https://gitlab.com/asus-linux/asusctl/-/issues/530#note_2101255275

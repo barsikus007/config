@@ -77,6 +77,33 @@ git clone https://github.com/kimocoder/wifite2.git
     - wezterm
 - <https://docs.docker.com/desktop/install/linux-install/#generic-installation-steps>
 
+#### pam fix of mount password remember checkbox
+
+```bash
+sudo patch /etc/pam.d/login login.patch
+```
+
+```diff
+--- /etc/pam.d/login
++++ /etc/pam.d/login
+@@ -1,6 +1,8 @@
+ #%PAM-1.0
+ auth       substack     system-auth
+ auth       include      postlogin
++# added manually next line
++auth       optional     pam_gnome_keyring.so
+ account    required     pam_nologin.so
+ account    include      system-auth
+ password   include      system-auth
+@@ -13,5 +15,7 @@
+ session    optional     pam_keyinit.so force revoke
+ session    include      system-auth
+ session    include      postlogin
++# added manually next line
++session    optional     pam_gnome_keyring.so auto_start
+ -session   optional     pam_ck_connector.so
+```
+
 ### TODO
 
 - `sudo dnf install cascadia-code-nf-fonts`

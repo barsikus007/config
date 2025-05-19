@@ -2,23 +2,24 @@ $cli=@"
 #! scoop addons
 scoop-search scoop-completion
 
+#! essential
+#? curl wget
 #! base
-mc bat duf gdu fzf btop neovim zoxide ripgrep
-#? fd curl wget
+jq fd mc bat duf gdu fzf btop neovim zoxide ripgrep
 #? btop-lhm VERY SLOW
 #! add
-eza tlrc yazi neofetch
+eza tlrc yazi fastfetch
 #! pwsh/cmd specific
 posh-git psfzf starship
 clink clink-completions
 
 lazydocker
-#? curl psreadline
-cmake
+#? psreadline
 #! unix tools
+#? cmake
 busybox
-#? shim overrides
-uutils-coreutils
+#! shim overrides
+#? uutils-coreutils
 which
 grep
 less
@@ -27,7 +28,7 @@ less
 
 $base=@"
 $cli
-#? mitmproxy httptoolkit goodbyedpi zapret
+#? mitmproxy httptoolkit
 #? jetbrains-toolbox android-studio pycharm-professional
 adb@33.0.3
 adb@34.0.5
@@ -49,7 +50,6 @@ nmap
 notepadplusplus
 obs-studio
 powertoys
-python312
 qbittorrent@4.1.9.1
 qbittorrent@4.3.9
 quicklook
@@ -57,6 +57,7 @@ remove-empty-directories
 rufus
 scrcpy
 screentogif
+uv
 ventoy
 vscode
 winscp
@@ -71,13 +72,17 @@ battery-care
 "@
 
 $gaming=@"
-#? msiafterburner steamcmd
+#? msiafterburner steamcmd goggalaxy epic-games-launcher
+autoclicker
 cheat-engine
 ds4windows
+
 graalvm
 graalvm-oracle-jdk
 graalvm20-jdk8
+graalvm21-jdk21
 prismlauncher
+amulet-map-editor
 "@
 
 
@@ -123,6 +128,51 @@ sysinternals
 tor-browser
 wireshark
 x64dbg
+#! new
+ani-cli
+avidemux
+bind
+blender
+bulk-crap-uninstaller
+cinny
+cuda
+cursor
+ddu
+dotnet7-sdk
+ds4windows
+element
+f3d
+ffuf
+git-lfs
+httptoolkit
+hxd
+jetbrains-toolbox
+lua
+mitmproxy
+mosh-client
+mpv
+msiafterburner
+nbtexplorer
+nekoray
+nu
+ollama
+posh-git
+qbittorrent
+qemu
+qtifw
+reqable
+simplex-chat
+streamlink
+superfile
+syncthingtray
+systeminformer-nightly
+terminal-icons
+universal-android-debloater
+uv
+vencord-installer
+wezterm
+winmtr
+winscp
 "@
 
 # # UNUSED

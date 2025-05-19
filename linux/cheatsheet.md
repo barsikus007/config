@@ -184,12 +184,6 @@ sudo crontab -e
 yes > no
 ```
 
-### Fix of mount password remember checkbox
-
-```bash
-sudo patch /etc/pam.d/login login.patch
-```
-
 ### Ping whole subnet
 
 ```bash

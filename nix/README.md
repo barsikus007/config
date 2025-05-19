@@ -9,7 +9,7 @@ cd
 git clone https://github.com/barsikus007/config
 # cp config/nix/ ~/ && cd nix/
 cd ~/config/nix/
-sed -i 's/ogurez/YOUR_USERNAME/'
+sed -i 's/ogurez/YOUR_USERNAME/' flake.nix
 sudo nixos-rebuild switch --flake .
 home-manager switch --flake .
 ```

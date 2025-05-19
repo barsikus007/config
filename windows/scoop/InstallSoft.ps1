@@ -15,6 +15,6 @@ sudo scoop install Cascadia-Code
 
 Write-Host "System apps"
 # system
-# TODO dotnet check
+#! TODO dotnet check
 sudo scoop install vcredist-aio
 scoop install dotnet-sdk
