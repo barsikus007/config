@@ -35,9 +35,16 @@
   - best packages
   - best way to configure
   - VERY agile
+  - best experience with
+    - ZFS
+    - AWG
+    - hibernation
+    - grub/systemd-boot/etc
 - Cons
   - hardest to learn ?
   - takes a lot space
   - non FHS
+    - fast developing is slower
+      - at least now for me
 
 ## Updated 2025-04-13

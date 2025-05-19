@@ -55,6 +55,16 @@ TODO
 
 ### other
 
+#### wifite
+
+```bash
+# install old wifite and deps from rpmfusion
+sudo dnf install wifite
+# clone upstream wifite2 fork
+cd ~/projects
+git clone https://github.com/kimocoder/wifite2.git
+```
+
 - TODO `sudo dnf copr enable phracek/PyCharm`
 - Apply gnome workarounds if used
 - flatpak
@@ -64,22 +74,24 @@ TODO
     - com.parsecgaming.parsec
     - org.telegram.desktop
     - ? org.telegram.desktop.webview
-    - com.raggesilver.BlackBox
-      - <https://github.com/dr3mro/blackbox-installer>
+    - wezterm
 - <https://docs.docker.com/desktop/install/linux-install/#generic-installation-steps>
 
 ### TODO
 
 - `sudo dnf install cascadia-code-nf-fonts`
-- migrate to KDE (or nixos w/KDE)
-- fedora shortcut move window to another monitor
-- <https://gitlab.com/kirbykevinson/libinput-config>
-- custom 4 fingers gestures
-  - <https://copr.fedorainfracloud.org/coprs/elxreno/libinput-gestures/>
-  - <https://gitlab.com/cunidev/gestures>
+- fuck gnomes all my homies use KDE
+  - shortcut move window to another monitor
+  - <https://gitlab.com/kirbykevinson/libinput-config>
+  - custom 4 fingers gestures
+    - <https://copr.fedorainfracloud.org/coprs/elxreno/libinput-gestures/>
+    - <https://gitlab.com/cunidev/gestures>
 
 ### [Fedora Hibernate](https://fedoramagazine.org/hibernation-in-fedora-36-workstation/)
 
+- [New version](https://fedoramagazine.org/update-on-hibernation-in-fedora-workstation/)
+  - no need to determine offset
+  - a MUCH easier
 - Conflicts with Secure Boot
   - `CONFIG_LOCK_DOWN_IN_EFI_SECURE_BOOT=n` could help
 

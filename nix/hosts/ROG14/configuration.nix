@@ -31,13 +31,6 @@
         editor = false;
         configurationLimit = 5;
         # rebootForBitlocker = true;
-        extraEntries = {
-          "fedora.conf" = ''
-            title Fedora's grub
-            efi /efi/fedora/shimx64.efi
-            sort-key z_fedora
-          '';
-        };
       };
       efi.canTouchEfiVariables = true;
     };
