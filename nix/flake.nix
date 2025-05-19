@@ -20,7 +20,7 @@
       inputs.home-manager.follows = "home-manager";
     };
     stylix = {
-      #! still no release at https://github.com/nix-community/stylix
+      #! https://github.com/nix-community/stylix/issues/1277
       # url = "github:nix-community/stylix?ref=release-25.05";
       url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -52,7 +52,7 @@ let
     wgd = "sudo systemctl stop wg-quick-awg0";
   };
   otherAliases = {
-    gdu = "gdu -I ^/nix";
+    gdu = "gdu -I ^/mnt";
     zps = "zpool status -v";
     sex = "explorer.exe .";
     lzg = "lazygit";
@@ -210,21 +210,26 @@ in
   xdg.configFile."starship/starship.bash".source = ../.config/starship/starship.bash;
   programs.yazi = {
     enable = true;
+    settings = {
+      manager.show_hidden = true;
+    };
+    plugins = {
+      smart-enter = pkgs.yaziPlugins.smart-enter;
+    };
+    #? https://github.com/sxyazi/yazi/tree/shipped/yazi-config/preset
     keymap = {
-      open = {
-        prepend_rules = [
+      manager = {
+        prepend_keymap = [
           {
-            name = "*.sh";
-            use = "run-script";
+            on = "<F2>";
+            run = "rename";
+            desc = "Rename file or folder";
           }
-        ];
-      };
-      opener = {
-        add = [
+          #? https://github.com/sxyazi/yazi/issues/1758#issuecomment-2407103834
           {
-            name = "run-script";
-            run = ''shell "bash $0" --block'';
-            desc = "Run shell script";
+            on = "<Enter>";
+            run = "plugin --sync smart-enter";
+            desc = "Enter the child directory, or open the file";
           }
         ];
       };
