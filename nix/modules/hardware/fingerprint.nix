@@ -8,5 +8,6 @@
       libfprint = pkgs.previous.callPackage ../../packages/libfprint-27c6-521d.nix { };
     };
   };
-  security.pam.services.login.fprintAuth = true;
+  #! cause it breaks SDDM wallet and password auth
+  security.pam.services.login.fprintAuth = false;
 }

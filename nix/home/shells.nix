@@ -56,6 +56,7 @@ let
     zps = "zpool status -v";
     sex = "explorer.exe .";
     lzg = "lazygit";
+    yt-dlpa = "yt-dlp -N 16 -R inf";
   };
   ezaAliases = {
     l = "eza -F -bghM --smart-group --group-directories-first --color=auto --color-scale --icons=always --no-quotes --hyperlink";

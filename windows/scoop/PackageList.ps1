@@ -79,8 +79,9 @@ ds4windows
 
 graalvm
 graalvm-oracle-jdk
+graalvm-oracle-17
 graalvm20-jdk8
-graalvm21-jdk21
+# graalvm21-jdk21
 prismlauncher
 amulet-map-editor
 "@

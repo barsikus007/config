@@ -22,8 +22,9 @@
     fonts.sizes.terminal = 12;
 
     targets = {
-      gtk.enable = false;
-      gnome.enable = false;
+      # qt.enable = false;
+      # gtk.enable = false;
+      # gnome.enable = false;
     };
   };
 }

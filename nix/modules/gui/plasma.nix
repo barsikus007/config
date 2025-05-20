@@ -37,11 +37,14 @@
   # ];
   environment.defaultPackages = with pkgs; [
     kdePackages.filelight
-    kdePackages.kcalc
     kdePackages.kclock
-    kdePackages.kdeconnect-kde
+    kdePackages.kcalc
+
+    #? for KDE Connect ?
     kdePackages.kdialog
+
     wl-clipboard
     libnotify
   ];
+  programs.kdeconnect.enable = true;
 }

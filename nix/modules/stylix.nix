@@ -7,7 +7,6 @@
   stylix = {
     enable = true;
     # autoEnable = false;
-    # targets.qt.enable = false;
     targets = {
       plymouth.enable = false;
     };

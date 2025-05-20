@@ -353,6 +353,9 @@
       # "dolphinrc"."KFileDialog Settings"."Places Icons Auto-resize" = false;
       # "dolphinrc"."KFileDialog Settings"."Places Icons Static Size" = 22;
 
+      #? https://github.com/nix-community/stylix/issues/267#issuecomment-2314636091
+      "kded5rc"."Module-gtkconfig"."autoload" = false;
+
       # "kdeglobals"."KFileDialog Settings"."Allow Expansion" = false;
       # "kdeglobals"."KFileDialog Settings"."Automatically select filename extension" = true;
       # "kdeglobals"."KFileDialog Settings"."Breadcrumb Navigation" = true;
@@ -374,7 +377,7 @@
       # "kiorc"."Confirmations"."ConfirmDelete" = true;
       # "kiorc"."Executable scripts"."behaviourOnLaunch" = "execute";
 
-      # "bluedevilglobalrc"."General"."launchState" = "enable";
+      "bluedevilglobalrc"."General"."launchState" = "enable";
     };
     dataFile = {
       # "dolphin/view_properties/global/.directory"."Dolphin"."ViewMode" = 1;
