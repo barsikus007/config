@@ -2,7 +2,8 @@
 
 ## WSA
 
-<https://github.com/LSPosed/MagiskOnWSALocal>
+- <https://github.com/LSPosed/MagiskOnWSALocal>
+- `scoop install wsa-pacman`
 
 ## Other soft
 

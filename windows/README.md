@@ -65,7 +65,6 @@ foreach ($oldvid in $oldvids) {
 - mingit cert config
   - `git config --global http.sslCAInfo "C:\\Users\\Admin\\scoop\\apps\\mingit\\current\\mingw64\\etc\\ssl\\certs\\ca-bundle.crt"`
 - exclude autoupdate packages from scoop
-- WSA soft
 - explorer like tabs in wt.exe
 - powertoys pc config (without remaps)
 - copy scoop/persist configs for apps

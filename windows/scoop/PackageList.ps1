@@ -62,7 +62,6 @@ ventoy
 vscode
 winscp
 wiztree
-wsa-pacman
 wumgr
 yt-dlp
 "@

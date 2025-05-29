@@ -1,21 +1,44 @@
 # [Root](./)
 
-## ~~Magisk~~ ~~[KernelSU](https://github.com/tiann/KernelSU/releases)~~ [APatch](https://github.com/bmax121/APatch/releases) Modules
+## ~~Magisk~~ ~~[KernelSU](https://github.com/tiann/KernelSU/releases)~~ ~~[APatch](https://github.com/bmax121/APatch/releases)~~ ~~[Kitsune Magisk](https://github.com/1q23lyc45/KitsuneMagisk/releases)~~ [KernelSU Next](https://github.com/KernelSU-Next/KernelSU-Next/releases)
+
+### ඞ installation
+
+1. Kernel Flasher fork
+2. [ඞ kernel](https://github.com/WildKernels/GKI_KernelSU_SUSFS/releases)
+   - P7 A15 is `android14-6.1.99`
+3. [ඞ module](https://github.com/sidex15/susfs4ksu-module)
+
+### Modules
 
 - Essential
-  - [Zygisk**Next**](https://github.com/Dr-TSNG/ZygiskNext/releases)
+  - ~~[Zygisk**Next**](https://github.com/Dr-TSNG/ZygiskNext/releases)~~ [ReZygisk](https://github.com/PerformanC/ReZygisk/releases)
   - [LSPosed](https://github.com/JingMatrix/LSPosed/releases)
     - /data/adb/lspd/config
 - Hiding root
   - [Zygisk-Assistant](https://github.com/snake-4/Zygisk-Assistant/releases)
+    - !dont used
   - [Shamiko](https://github.com/LSPosed/LSPosed.github.io/releases)
-  - [Play Integrity Fix](https://github.com/chiteroman/PlayIntegrityFix/releases)
-    - [Play Integrity Fork](https://github.com/osm0sis/PlayIntegrityFork/releases)
+    - !dont used
+  - Integrity
+    - [Play Integrity Fix](https://github.com/chiteroman/PlayIntegrityFix/releases)
+      - Fetch pif.json
+      - [alt - Play Integrity Fork](https://github.com/osm0sis/PlayIntegrityFork/releases)
+        - !dont used
+    - [Tricky Store](https://github.com/5ec1cff/TrickyStore)
+    - [Tricky Addon - Update Target List](https://github.com/KOWX712/Tricky-Addon-Update-Target-List)
+      - Menu
+        - Select All
+        - Deselect Unnecessary
+        - Set Valid Keybox
+        - Set Security Patch
+      - Save
+    - [TSupport](https://github.com/citra-standalone/Citra-Standalone)
       - !dont used
 - Fixes
   - [volte](https://xdaforums.com/t/mod-magisk-root-volte-enabler.4372705/)
   - [pixel-mdm-patch](https://github.com/andrewz1/pixel-mdm-patch/releases)
-    - don't work on latest firmware/kernelsu
+    - !don't work on latest firmware/kernelsu
 - Interface
   - [Noto Emoji PLUS](https://www.patreon.com/RKBDI) [[Telegram](https://t.me/rkbdiemoji)]
   - [Monet Icons](https://github.com/Syoker/extra-themed-icons/releases)
@@ -45,9 +68,9 @@
       - Android/media/bcr
   - Silent notifications
 - [DriveDroid](https://github.com/overzero-git/DriveDroid-fix-Magisk-module/releases)
-  - [Latest version (only RUS)](https://4pda.to/forum/index.php?showtopic=915158&view=findpost&p=121164720)
-- [Pixelify](https://github.com/Kingsman44/Pixelify)
+- ~~[Pixelify](https://github.com/Kingsman44/Pixelify/releases)~~
   - [Google-Photos-Unlimited-backup Submodule](https://www.pling.com/p/2004615/)
+    - !was removed from pling
 
 ## LSPosed Modules
 
@@ -60,12 +83,17 @@
 
 - [Swift Backup](https://play.google.com/store/apps/details?id=org.swiftapps.swiftbackup)
 - [Card emulation](https://play.google.com/store/apps/details?id=com.yuanwofei.cardemulator.pro)
-- [VPN Hotspot](https://play.google.com/store/apps/details?id=be.mygod.vpnhotspot) [[GitHub](https://github.com/Mygod/VPNHotspot/releases)]
-- [Classic Power Menu](https://github.com/KieronQuinn/ClassicPowerMenu/releases)
-- [DPI](https://github.com/nomoresat/DPITunnel-android/releases)
-- [KernelFlasher](https://github.com/capntrips/KernelFlasher/releases)
-  - [KernelSU fix](https://github.com/capntrips/KernelFlasher/releases/tag/v1.0.0-alpha20%2Ballow-errors)
+- [VPN Hotspot](https://play.google.com/store/apps/details?id=be.mygod.vpnhotspot)  - `https://github.com/Mygod/VPNHotspot`
+- Classic Power Menu - `https://github.com/KieronQuinn/ClassicPowerMenu`
+  - !broken on ksu/apatch
+- Kernel Flasher fork - `https://github.com/fatalcoder524/KernelFlasher`
+- Root Detector - `https://github.com/reveny/Android-Native-Root-Detector`
+  - [another one - momo](https://t.me/magiskalpha/529)
+- Hide Applists - `https://github.com/pumPCin/HMAL`
+  - Checker - `https://github.com/Dr-TSNG/ApplistDetector`
 - [TODO](https://github.com/stars/barsikus007/lists/neckbeard-android)
+  - [cool boot animation](https://github.com/Chainfire/liveboot)
+    - I prefer Pixel's stock one
 
 ## HBM
 
