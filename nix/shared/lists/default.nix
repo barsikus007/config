@@ -13,7 +13,6 @@ with pkgs;
   yt-dlp
   pciutils # lspci
   usbutils # lssub
-  android-tools
 
   # CLI python
   (unstable.python313.withPackages (

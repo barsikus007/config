@@ -1,4 +1,28 @@
 { system, inputs }:
+let
+  # харам, платные приложения
+  paidApps = [
+    "nvidia-x11"
+    "nvidia-settings"
+    "nvidia-persistenced"
+
+    "steam"
+    "steam-unwrapped"
+    "steam-original"
+    "steam-run"
+
+    "unrar"
+    "graalvm-oracle"
+
+    "discord"
+    "obsidian"
+    "parsec-bin"
+    "microsoft-edge"
+
+    "bcompare"
+    "davinci-resolve-studio"
+  ];
+in
 import inputs.nixpkgs {
   inherit system;
   overlays = [
@@ -6,37 +30,14 @@ import inputs.nixpkgs {
       unstable = import inputs.nixpkgs-unstable {
         inherit prev;
         system = prev.system;
-        config.allowUnfree = true;
+        config.allowUnfreePredicate = pkg: builtins.elem (inputs.nixpkgs-unstable.lib.getName pkg) paidApps;
       };
       previous = import inputs.nixpkgs-previous {
         inherit prev;
         system = prev.system;
-        config.allowUnfree = true;
+        config.allowUnfreePredicate = pkg: builtins.elem (inputs.nixpkgs-previous.lib.getName pkg) paidApps;
       };
     })
   ];
-  # харам, платные приложения
-  config.allowUnfreePredicate =
-    pkg:
-    builtins.elem (inputs.nixpkgs.lib.getName pkg) [
-      "nvidia-x11"
-      "nvidia-settings"
-      "nvidia-persistenced"
-
-      "steam"
-      "steam-unwrapped"
-      "steam-original"
-      "steam-run"
-
-      "unrar"
-      "graalvm-oracle"
-
-      "discord"
-      "obsidian"
-      "parsec-bin"
-      "microsoft-edge"
-
-      "bcompare"
-      "davinci-resolve-studio"
-    ];
+  config.allowUnfreePredicate = pkg: builtins.elem (inputs.nixpkgs.lib.getName pkg) paidApps;
 }

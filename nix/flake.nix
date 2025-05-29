@@ -20,9 +20,7 @@
       inputs.home-manager.follows = "home-manager";
     };
     stylix = {
-      #! https://github.com/nix-community/stylix/issues/1277
-      # url = "github:nix-community/stylix?ref=release-25.05";
-      url = "github:nix-community/stylix";
+      url = "github:nix-community/stylix?ref=release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
@@ -70,11 +68,13 @@
         ./modules/hardware/logi-mx3.nix
         ./modules/hardware/fingerprint.nix
 
+        ./modules/swap.nix
         ./modules/stylix.nix
         ./modules/docker.nix
         ./modules/security.nix
         ./modules/wireguard.nix
         ./modules/zapret.nix
+        ./modules/android.nix
 
         ./modules/gui/plasma.nix
         ./modules/gui/vm.nix
