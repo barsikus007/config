@@ -14,6 +14,8 @@ let
     "unrar"
     "graalvm-oracle"
 
+    "code"
+    "vscode"
     "discord"
     "obsidian"
     "parsec-bin"

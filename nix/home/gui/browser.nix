@@ -2,7 +2,8 @@
 {
   home.packages = with pkgs; [
     # TODO firefoxpwa
-    (microsoft-edge.override {
+    #! https://github.com/NixOS/nixpkgs/pull/411663
+    (previous.microsoft-edge.override {
       # https://wiki.nixos.org/wiki/Chromium#Accelerated_video_playback
       commandLineArgs = [
         "--enable-features=AcceleratedVideoEncoder"

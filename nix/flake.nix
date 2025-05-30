@@ -80,7 +80,6 @@
         ./modules/gui/vm.nix
         ./modules/gui/steam.nix
         ./modules/gui/remote.nix
-        # TODO if this will not help, move to package or flake
         (import ./modules/gui/video-edit.nix { pkgs = pkgs.previous; })
 
         {
@@ -122,6 +121,8 @@
         ./home/shells.nix
         ./home/editors.nix
 
+        ./home/hardware/anime.nix
+
         ./home/stylix.nix
 
         ./home/gui/autostart.nix
@@ -135,7 +136,6 @@
         ./home/gui/browser.nix
         ./home/gui/social.nix
         ./home/gui/office.nix
-        ./home/hardware/anime.nix
         {
           programs.nvf.settings.vim.lsp.enable = nixpkgs.lib.mkForce true;
         }
