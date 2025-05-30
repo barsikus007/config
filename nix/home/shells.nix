@@ -17,6 +17,7 @@ let
     "1ip" = "wget -qO - icanhazip.com";
     "2ip" = "curl 2ip.ru";
     cu = "cd ${flakePath} && git pull && cd -";
+    diff = "diff --color";
     #? https://www.cyberciti.biz/faq/unix-linux-check-if-port-is-in-use-command/
     open-ports = "sudo lsof -i -P -n | grep LISTEN";
   };

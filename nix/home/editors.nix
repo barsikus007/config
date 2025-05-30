@@ -116,8 +116,8 @@
       theme = {
         enable = true;
         # TODO remove it at all ?
-        name = lib.mkDefault "catppuccin";
-        style = lib.mkDefault "mocha";
+        name = lib.mkOverride 999 "catppuccin";
+        style = lib.mkOverride 999 "mocha";
         transparent = false;
       };
 

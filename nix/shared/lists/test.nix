@@ -8,6 +8,7 @@ with pkgs;
   serpl
   lshw-gui
   helix
+  zellij
 
   # new add security scanners
   nikto
@@ -22,6 +23,10 @@ with pkgs;
 
   # new other
   devenv
+  mtr-gui
+  dig
+  pixelflasher
+  qtscrcpy
 
   # new GUI automation
   autokey

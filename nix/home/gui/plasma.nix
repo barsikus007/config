@@ -40,7 +40,7 @@
       # lowBattery.whenLaptopLidClosed = "hibernate"; #?
       lowBattery.powerProfile = "powerSaving";
     };
-    session.sessionRestore.restoreOpenApplicationsOnLogin = "whenSessionWasManuallySaved";
+    # session.sessionRestore.restoreOpenApplicationsOnLogin = "whenSessionWasManuallySaved";
 
     workspace = {
       # clickItemTo = "open"; # breaks type to search func in dolphin
@@ -328,7 +328,7 @@
 
       #! workspace.enableMiddleClickPaste = false; don't work
       "kwinrc"."Wayland"."EnablePrimarySelection" = false;
-      # "kwinrc"."Windows"."FocusStealingPreventionLevel" = 3;
+      "kwinrc"."Windows"."FocusStealingPreventionLevel" = 3;
       # "kwinrc"."Windows"."FocusStealingPreventionLevel" = 4;
       # "kwinrc"."Windows"."FocusStealingPreventionLevel" = 5;
       "plasmaparc"."General"."RaiseMaximumVolume" = true;

@@ -44,7 +44,6 @@ with pkgs;
   previous.nekoray
   neovide
   qdirstat
-  unstable.vscode-fhs
   keepassxc
   qbittorrent
   # TODO fix && env WEBKIT_DISABLE_COMPOSITING_MODE=1
