@@ -77,7 +77,7 @@
 - [Flag Secure Hax](https://github.com/Xposed-Modules-Repo/com.varuns2002.disable_flag_secure)
 - [AlfaBank Patcher](https://github.com/Xposed-Modules-Repo/ru.bluecat.alfabankpatcher)
 - [SberBank Patcher](https://github.com/Xposed-Modules-Repo/ru.bluecat.sberbankpatcher)
-- [MirPay Patcher](https://github.com/Xposed-Modules-Repo/ru.bluecat.mirpaysecurity)
+- ~~[MirPay Patcher](https://github.com/Xposed-Modules-Repo/ru.bluecat.mirpaysecurity)~~ [PaySecurityBypass](https://github.com/vova7878-modules/PaySecurityBypass)
 
 ## Apps
 
