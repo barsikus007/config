@@ -23,13 +23,13 @@ with pkgs;
 
   # new other
   devenv
-  mtr-gui
+  devbox
   dig
   pixelflasher
   qtscrcpy
+  blender
 
   # new GUI automation
   autokey
   # ahk_x11
-  # ydotool
 ]

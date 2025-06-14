@@ -47,4 +47,7 @@
     libnotify
   ];
   programs.kdeconnect.enable = true;
+
+  programs.ydotool.enable = true;
+  users.users.${username}.extraGroups = [ "ydotool" ];
 }

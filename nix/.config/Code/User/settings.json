@@ -30,11 +30,11 @@
     // ],
     // https://github.com/ahmadawais/shades-of-purple-vscode/issues/37#issuecomment-2354045877
     "indentRainbow.colors": [
-        "rgba(92, 85, 132 ,0.5)",
-        "rgba(92, 85, 132 ,0.4)",
-        "rgba(92, 85, 132 ,0.3)",
-        "rgba(92, 85, 132 ,0.2)",
-        "rgba(92, 85, 132 ,0.1)"
+        "rgba(92, 85, 132, 0.5)",
+        "rgba(92, 85, 132, 0.4)",
+        "rgba(92, 85, 132, 0.3)",
+        "rgba(92, 85, 132, 0.2)",
+        "rgba(92, 85, 132, 0.1)"
     ],
     // #endregion appearence
     // #region behavior

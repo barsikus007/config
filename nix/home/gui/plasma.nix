@@ -40,7 +40,8 @@
       # lowBattery.whenLaptopLidClosed = "hibernate"; #?
       lowBattery.powerProfile = "powerSaving";
     };
-    # session.sessionRestore.restoreOpenApplicationsOnLogin = "whenSessionWasManuallySaved";
+    #! broken logout session.sessionRestore.restoreOpenApplicationsOnLogin = "whenSessionWasManuallySaved";
+    session.sessionRestore.restoreOpenApplicationsOnLogin = "startWithEmptySession";
 
     workspace = {
       # clickItemTo = "open"; # breaks type to search func in dolphin

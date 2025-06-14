@@ -14,8 +14,6 @@
         ]
       );
     };
-    # additional steam settings...
-    # e.g. remotePlay.openFirewall = true;
   };
 
   # https://medium.com/@notquitethereyet_/gaming-on-nixos-%EF%B8%8F-f98506351a24
@@ -45,4 +43,10 @@
 
     parsec-bin
   ];
+
+  programs.gpu-screen-recorder.enable = true;
+  programs.obs-studio = {
+    enable = true;
+    enableVirtualCamera = true;
+  };
 }

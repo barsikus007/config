@@ -65,8 +65,9 @@
         ./hosts
         ./hosts/ROG14/configuration.nix
 
-        ./modules/hardware/logi-mx3.nix
         ./modules/hardware/fingerprint.nix
+        ./modules/hardware/logi-mx3.nix
+        ./modules/hardware/xbox.nix
 
         ./modules/swap.nix
         ./modules/stylix.nix
@@ -75,10 +76,12 @@
         ./modules/wireguard.nix
         ./modules/zapret.nix
         ./modules/android.nix
+        ./modules/diagnostic.nix
 
         ./modules/gui/plasma.nix
         ./modules/gui/vm.nix
-        ./modules/gui/steam.nix
+        ./modules/gui/games.nix
+        ./modules/gui/nekoray.nix
         ./modules/gui/remote.nix
         (import ./modules/gui/video-edit.nix { pkgs = pkgs.previous; })
 
@@ -130,6 +133,7 @@
         ./home/gui/syncthing.nix
         ./home/gui/terminal.nix
         ./home/gui/plasma.nix
+        ./home/gui/rofi.nix
         ./home/gui/mpv.nix
         ./home/gui/minecraft.nix
         ./home/gui/vscode.nix

@@ -152,14 +152,14 @@ in
 
         # delete
         bindkey "^[[3~"   delete-char
-        # ctrl + backspace
-        bindkey "^H"      backward-kill-word
-        # ctrl + delete
-        bindkey "^[[3;5~" delete-word
         # alt + backspace
         bindkey "^[^H"    backward-kill-word
         # alt + delete
         bindkey "^[[3;3~" delete-word
+        # ctrl + backspace
+        bindkey "^H"      backward-kill-word
+        # ctrl + delete
+        bindkey "^[[3;5~" delete-word
 
         source "$XDG_CONFIG_HOME"/shell/functions.sh
       '';

@@ -1,10 +1,12 @@
 { lib, pkgs, ... }:
 {
   xdg.configFile = {
+    # TODO    osConfig.programs.nekoray.package
+    # TODO if osConfig.programs.nekoray.enabled
     "autostart/nekoray.desktop".text = ''
       [Desktop Entry]
       Name=nekoray
-      Exec=${lib.getExe pkgs.previous.nekoray} -tray -appdata
+      Exec=${lib.getExe pkgs.unstable.nekoray} -tray -appdata
       Terminal=false
       Categories=Network
       Type=Application

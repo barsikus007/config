@@ -41,7 +41,6 @@ with pkgs;
   # GUI
   mpv
   scrcpy
-  previous.nekoray
   neovide
   qdirstat
   keepassxc

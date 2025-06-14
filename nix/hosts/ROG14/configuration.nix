@@ -80,8 +80,6 @@
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-  # TODO nekoray fixes https://t.me/ru_nixos/300840
-  networking.firewall.checkReversePath = false;
 
   # List services that you want to enable:
 
@@ -90,7 +88,6 @@
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
-  # programs.mtr.enable = true;
   # programs.gnupg.agent = {
   #   enable = true;
   #   enableSSHSupport = true;
