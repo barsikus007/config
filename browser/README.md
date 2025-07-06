@@ -19,9 +19,6 @@
   - `javascript:window.open(location.href.replace(/:\/\/([\w-]+.)?(reddit\.com\/r|reveddit\.com\/v)\//i, "://undelete.pullpush.io/r/"), "_blank")`
 - Shikimori to `yummy-anime.ru`
   - `javascript:window.open(location.href.replace(/https:\/\/shikimori\.one\/animes\/\w?\d*-/i, "https://yummy-anime.ru/search?word="), "_blank")`
-- NixOS wiki
-  - `javascript:window.open(location.href.replace(/https:\/\/nixos\.wiki\//i, "https://wiki.nixos.org/"), "_blank")`
-  - or better `https://gist.githubusercontent.com/pokedim13/469a4fc6a3c5b419fe337886e1e3be10/raw/nixos-wiki.js`
 
 ## uBlock
 

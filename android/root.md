@@ -7,12 +7,21 @@
 1. Kernel Flasher fork
 2. [ඞ kernel](https://github.com/WildKernels/GKI_KernelSU_SUSFS/releases)
    - P7 A15 is `android14-6.1.99`
+   - P7 A16 is `android14-6.1.124`
 3. [ඞ module](https://github.com/sidex15/susfs4ksu-module)
+
+#### OTA
+
+1. Start system update
+2. Wait until "Restart Now" button
+3. Flash AnyKernel.zip to inactive slot from above repo with Kernel Flasher
+   1. Check inactive slot's kernel version
+4. Press "Restart Now" button
 
 ### Modules
 
 - Essential
-  - ~~[Zygisk**Next**](https://github.com/Dr-TSNG/ZygiskNext/releases)~~ [ReZygisk](https://github.com/PerformanC/ReZygisk/releases)
+  - ~~[Zygisk**Next**](https://github.com/Dr-TSNG/ZygiskNext/releases)~~ ~~[ReZygisk](https://github.com/PerformanC/ReZygisk/releases)~~ [NeoZygisk](https://github.com/JingMatrix/NeoZygisk/actions)
   - [LSPosed](https://github.com/JingMatrix/LSPosed/releases)
     - /data/adb/lspd/config
 - Hiding root
@@ -21,10 +30,8 @@
   - [Shamiko](https://github.com/LSPosed/LSPosed.github.io/releases)
     - !dont used
   - Integrity
-    - [Play Integrity Fix](https://github.com/chiteroman/PlayIntegrityFix/releases)
-      - Fetch pif.json
-      - [alt - Play Integrity Fork](https://github.com/osm0sis/PlayIntegrityFork/releases)
-        - !dont used
+    - ~~[Play Integrity Fix](https://github.com/chiteroman/PlayIntegrityFix/releases)~~ [Fork](https://github.com/osm0sis/PlayIntegrityFork/releases)
+      - Action
     - [Tricky Store](https://github.com/5ec1cff/TrickyStore)
     - [Tricky Addon - Update Target List](https://github.com/KOWX712/Tricky-Addon-Update-Target-List)
       - Menu
@@ -90,6 +97,7 @@
 - Root Detector - `https://github.com/reveny/Android-Native-Root-Detector`
   - [another one - momo](https://t.me/magiskalpha/529)
 - Hide Applists - `https://github.com/pumPCin/HMAL`
+  - alt - `https://github.com/Dr-TSNG/Hide-My-Applist`
   - Checker - `https://github.com/Dr-TSNG/ApplistDetector`
 - [TODO](https://github.com/stars/barsikus007/lists/neckbeard-android)
   - [cool boot animation](https://github.com/Chainfire/liveboot)
