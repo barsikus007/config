@@ -23,6 +23,8 @@ let
 
     "bcompare"
     "davinci-resolve-studio"
+
+    "xow_dongle-firmware"
   ];
 in
 import inputs.nixpkgs {
