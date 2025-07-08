@@ -71,6 +71,7 @@
     # extraGroups = [ "wheel" "networkmanager" "docker" ];
     # hashedPassword = "hashedPassword";
   };
+  nix.settings.trusted-users = [ username ];
 
   users.defaultUserShell = pkgs.zsh;
   programs.zsh.enable = true;
