@@ -39,10 +39,8 @@
     // #endregion appearence
     // #region behavior
     // nekoray proxy, mainly for copilot
-    "http.proxy": "socks://127.0.0.1:2080",
-    // "http.proxy": "http://127.0.0.1:2081",
-    // singbox
-    // "http.proxy": "http://127.0.0.1:2080",
+    // "http.proxy": "socks://127.0.0.1:2080",
+    "http.proxy": "http://127.0.0.1:2080",
     "window.restoreWindows": "preserve",
     "window.openFilesInNewWindow": "default",
     // https://stackoverflow.com/a/70899027/15844518
@@ -52,6 +50,8 @@
         ".env*": "dotenv",
     },
     "editor.cursorBlinking": "smooth",
+    "editor.cursorSmoothCaretAnimation": "on",
+    "editor.smoothScrolling": true,
     "editor.stickyScroll.enabled": true,
     "editor.unicodeHighlight.allowedLocales": {
         "ru": true

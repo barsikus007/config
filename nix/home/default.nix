@@ -48,6 +48,8 @@
 
   programs.git = {
     enable = true;
+    lfs.enable = true;
+    # TODO
     # aliases = {
     #   ci = "commit";
     #   co = "checkout";

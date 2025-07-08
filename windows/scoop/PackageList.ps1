@@ -80,7 +80,7 @@ graalvm
 graalvm-oracle-jdk
 graalvm-oracle-17
 graalvm20-jdk8
-# graalvm21-jdk21
+graalvm-oracle-21jdk
 prismlauncher
 amulet-map-editor
 "@
@@ -150,7 +150,6 @@ jetbrains-toolbox
 lua
 mitmproxy
 mosh-client
-mpv
 msiafterburner
 nbtexplorer
 nekoray

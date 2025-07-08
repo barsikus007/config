@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ pkgs, inputs, ... }:
 # Да.
 {
   imports = [
@@ -9,6 +9,7 @@
     discord = {
       # enable = false;
       autoscroll.enable = true;
+      openASAR.enable = false;
     };
     vesktop = {
       enable = true;
@@ -61,4 +62,9 @@
       };
     };
   };
+
+  home.packages = with pkgs; [
+    unstable.ayugram-desktop
+    element-desktop
+  ];
 }

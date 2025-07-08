@@ -39,18 +39,12 @@ with pkgs;
   sox
 
   # GUI
-  mpv
   scrcpy
   neovide
   qdirstat
-  keepassxc
   qbittorrent
   # TODO fix && env WEBKIT_DISABLE_COMPOSITING_MODE=1
   unstable.rquickshare-legacy
-
-  # GUI social
-  unstable.ayugram-desktop
-  element-desktop
 
   # https://www.reddit.com/r/software/comments/t5n3cm/everything_for_linux/
   fsearch

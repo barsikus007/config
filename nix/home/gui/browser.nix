@@ -54,6 +54,9 @@
         (extension "keepassxc-browser" "keepassxc-browser@keepassxc.org")
         (extension "zeroomega" "suziwen1@gmail.com")
         (extension "darkreader" "addon@darkreader.org")
+        (extension "violentmonkey" "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}")
+        (extension "sponsorblock" "sponsorBlocker@ajay.app")
+        (extension "return-youtube-dislikes" "{762f9885-5a13-4abd-9c77-433dcd38b8fd}")
         # (extension "bitwarden-password-manager" "{446900e4-71c2-419f-a6a7-df9c091e268b}")
         # (extension "umatrix" "uMatrix@raymondhill.net")
         # (extension "libredirect" "7esoorv3@alefvanoon.anonaddy.me")
@@ -79,6 +82,19 @@
           "gfx.webrender.enabled" = true;
           "layout.css.backdrop-filter.enabled" = true;
           "svg.context-properties.content.enabled" = true;
+
+          # disable ads and telemetry for privacy reasons
+          "browser.newtabpage.activity-stream.showSponsored" = false;
+          "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
+          "toolkit.telemetry.archive.enabled" = false;
+          "toolkit.telemetry.enabled" = false; # enforced by nixos
+          "toolkit.telemetry.server" = "";
+          "toolkit.telemetry.unified" = false;
+          "extensions.webcompat-reporter.enabled" = false; # don't report compability problems to mozilla
+          "datareporting.policy.dataSubmissionEnabled" = false;
+          "datareporting.healthreport.uploadEnabled" = false;
+          "browser.ping-centre.telemetry" = false;
+          "browser.urlbar.eventTelemetry.enabled" = false; # (default)
         };
         # Hide tab bar because we have tree style tabs
         #! https://github.com/mbnuqw/sidebery/wiki/Firefox-Styles-Snippets-(via-userChrome.css)#dynamic-native-tabs-for-hiding-native-horizontal-tabs
