@@ -18,13 +18,22 @@ with pkgs;
   # wifite2
   # openvas-scanner
   # burpsuite
+
+  # networking tools
   zmap
+  iperf
   rustscan
+  bind
+  ldns # drill like dig
 
   # new other
+  iotop
+  psmisc # killall pstree
+  fatrace
+
+  bruno
   devenv
   devbox
-  dig
   pixelflasher
   qtscrcpy
   blender

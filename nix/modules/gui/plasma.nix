@@ -42,12 +42,6 @@
 
     #? for KDE Connect ?
     kdePackages.kdialog
-
-    wl-clipboard
-    libnotify
   ];
   programs.kdeconnect.enable = true;
-
-  programs.ydotool.enable = true;
-  users.users.${username}.extraGroups = [ "ydotool" ];
 }

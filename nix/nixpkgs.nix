@@ -12,6 +12,7 @@ let
     "steam-run"
 
     "unrar"
+    "corefonts"
     "graalvm-oracle"
 
     "code"

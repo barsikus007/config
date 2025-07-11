@@ -92,6 +92,7 @@
         ./modules/android.nix
         ./modules/diagnostic.nix
 
+        ./modules/gui
         ./modules/gui/plasma.nix
         ./modules/gui/vm.nix
         ./modules/gui/games.nix

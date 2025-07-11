@@ -131,6 +131,9 @@ in
     '';
     initContent = # /* shell */ comment for tree-sitter
       ''
+        autoload -Uz select-word-style
+        select-word-style bash
+
         bindkey -e
         # home
         #bindkey "^[[H"    beginning-of-line
@@ -213,14 +216,14 @@ in
   programs.yazi = {
     enable = true;
     settings = {
-      manager.show_hidden = true;
+      mgr.show_hidden = true;
     };
     plugins = {
       smart-enter = pkgs.yaziPlugins.smart-enter;
     };
     #? https://github.com/sxyazi/yazi/tree/shipped/yazi-config/preset
     keymap = {
-      manager = {
+      mgr = {
         prepend_keymap = [
           {
             on = "<F2>";

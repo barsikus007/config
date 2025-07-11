@@ -2,8 +2,10 @@
   programs.keepassxc = {
     enable = true;
     settings = {
-      Browser.Enabled = true;
-      # Browser.AlwaysAllowAccess = true;
+      Browser = {
+        Enabled = true;
+        AlwaysAllowAccess = true;
+      };
       GUI = {
         # AdvancedSettings = true;
         # ApplicationTheme = "dark";
