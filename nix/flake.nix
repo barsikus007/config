@@ -16,7 +16,8 @@
   };
 
   inputs = {
-    nixpkgs-previous.url = "github:nixos/nixpkgs?ref=nixos-24.11";
+    #? nixpkgs-previous.url = "github:nixos/nixpkgs?ref=nixos-24.11";
+    nixpkgs-previous.url = "github:nixos/nixpkgs?ref=9b5ac7ad45298d58640540d0323ca217f32a6762";
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-25.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     nixos-hardware.url = "github:nixos/nixos-hardware?ref=master";
