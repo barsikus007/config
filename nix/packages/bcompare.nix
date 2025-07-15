@@ -59,78 +59,78 @@ let
         )
       );
     in
-  stdenv.mkDerivation {
-    inherit
-      pname
-      version
-      src
-      meta
-      ;
-    unpackPhase = ''
-      ar x $src
-      tar xfz data.tar.gz
-    '';
+    stdenv.mkDerivation {
+      inherit
+        pname
+        version
+        src
+        meta
+        ;
+      unpackPhase = ''
+        ar x $src
+        tar xfz data.tar.gz
+      '';
 
-    installPhase = ''
-      mkdir -p $out/{bin,lib,share}
+      installPhase = ''
+        mkdir -p $out/{bin,lib,share}
 
-      cp -R usr/{bin,lib,share} $out/
+        cp -R usr/{bin,lib,share} $out/
 
-      # Remove library that refuses to be autoPatchelf'ed
-      rm $out/lib/beyondcompare/ext/bcompare_ext_kde.amd64.so
-      rm $out/lib/beyondcompare/ext/bcompare_ext_kde6.amd64.so
+        # Remove library that refuses to be autoPatchelf'ed
+        rm $out/lib/beyondcompare/ext/bcompare_ext_kde.amd64.so
+        rm $out/lib/beyondcompare/ext/bcompare_ext_kde6.amd64.so
 
-      substituteInPlace $out/bin/${pname} \
-        --replace "/usr/lib/beyondcompare" "$out/lib/beyondcompare" \
-        --replace "ldd" "${glibc.bin}/bin/ldd" \
-        --replace "/bin/bash" "${runtimeShell}"
+        substituteInPlace $out/bin/${pname} \
+          --replace "/usr/lib/beyondcompare" "$out/lib/beyondcompare" \
+          --replace "ldd" "${glibc.bin}/bin/ldd" \
+          --replace "/bin/bash" "${runtimeShell}"
 
-      # Create symlink bzip2 library
-      ln -s ${bzip2.out}/lib/libbz2.so.1 $out/lib/beyondcompare/libbz2.so.1.0
+        # Create symlink bzip2 library
+        ln -s ${bzip2.out}/lib/libbz2.so.1 $out/lib/beyondcompare/libbz2.so.1.0
 
 
-      substituteInPlace $out/lib/beyondcompare/bcmount.sh \
-        --replace "python3" "${python.interpreter}"
+        substituteInPlace $out/lib/beyondcompare/bcmount.sh \
+          --replace "python3" "${python.interpreter}"
 
-      wrapQtApp $out/bin/bcompare
-    '';
+        wrapQtApp $out/bin/bcompare
+      '';
 
-    #? sorry, I can't buy this software right now (and trial don't work)
-    #? https://gist.github.com/rise-worlds/5a5917780663aada8028f96b15057a67?permalink_comment_id=5168755#gistcomment-5168755
-    postFixup = ''
-      sed -i "s/AlPAc7Np1/AlPAc7Npn/g" $out/lib/beyondcompare/BCompare
-    '';
+      #? sorry, I can't buy this software right now (and trial don't work)
+      #? https://gist.github.com/rise-worlds/5a5917780663aada8028f96b15057a67?permalink_comment_id=5168755#gistcomment-5168755
+      postFixup = ''
+        sed -i "s/AlPAc7Np1/AlPAc7Npn/g" $out/lib/beyondcompare/BCompare
+      '';
 
-    nativeBuildInputs = [
-      autoPatchelfHook
-      wrapQtAppsHook
-      gobject-introspection
-    ];
+      nativeBuildInputs = [
+        autoPatchelfHook
+        wrapQtAppsHook
+        gobject-introspection
+      ];
 
-    buildInputs = [
-      stdenv.cc.cc.lib
-      gtk3
-      python
-      pango
-      cairo
-      kio
-      kservice
-      ki18n
-      kcoreaddons
-      gdk-pixbuf
-      bzip2
+      buildInputs = [
+        stdenv.cc.cc.lib
+        gtk3
+        python
+        pango
+        cairo
+        kio
+        kservice
+        ki18n
+        kcoreaddons
+        gdk-pixbuf
+        bzip2
 
-      qtbase
-      poppler
-      poppler_utils
-      gvfs
-      bzip2
-    ];
+        qtbase
+        poppler
+        poppler_utils
+        gvfs
+        bzip2
+      ];
 
-    dontBuild = true;
-    dontConfigure = true;
-    dontWrapQtApps = false;
-  };
+      dontBuild = true;
+      dontConfigure = true;
+      dontWrapQtApps = false;
+    };
 
   darwin = stdenv.mkDerivation {
     inherit
