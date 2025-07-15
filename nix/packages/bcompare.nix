@@ -7,7 +7,9 @@
   gdk-pixbuf,
   glibc,
   pango,
-  gtk2,
+  gtk3,
+  python3,
+  gobject-introspection,
   kcoreaddons,
   ki18n,
   kio,
@@ -27,14 +29,14 @@
 
 let
   pname = "bcompare";
-  version = "5.0.7.30840";
+  version = "5.1.0.31016";
 
   throwSystem = throw "Unsupported system: ${stdenv.hostPlatform.system}";
 
   srcs = {
     x86_64-linux = fetchurl {
       url = "https://www.scootersoftware.com/files/${pname}-${version}_amd64.deb";
-      sha256 = "1xgdghhc6qn4b9kfgfma5vzhn5l3x2c7m14rmj08rp9gbmw44j11";
+      sha256 = "sha256-LpvxeOfQGAFs1CshRxfrYuOK/4d7QiAWXojsJMtVFy0=";
     };
 
     # x86_64-darwin = fetchurl {
@@ -47,7 +49,17 @@ let
 
   src = srcs.${stdenv.hostPlatform.system} or throwSystem;
 
-  linux = stdenv.mkDerivation {
+  linux =
+    let
+      python = (
+        python3.withPackages (
+          pp: with pp; [
+            pygobject3
+          ]
+        )
+      );
+    in
+  stdenv.mkDerivation {
     inherit
       pname
       version
@@ -76,9 +88,14 @@ let
       # Create symlink bzip2 library
       ln -s ${bzip2.out}/lib/libbz2.so.1 $out/lib/beyondcompare/libbz2.so.1.0
 
+
+      substituteInPlace $out/lib/beyondcompare/bcmount.sh \
+        --replace "python3" "${python.interpreter}"
+
       wrapQtApp $out/bin/bcompare
     '';
 
+    #? sorry, I can't buy this software right now (and trial don't work)
     #? https://gist.github.com/rise-worlds/5a5917780663aada8028f96b15057a67?permalink_comment_id=5168755#gistcomment-5168755
     postFixup = ''
       sed -i "s/AlPAc7Np1/AlPAc7Npn/g" $out/lib/beyondcompare/BCompare
@@ -87,11 +104,13 @@ let
     nativeBuildInputs = [
       autoPatchelfHook
       wrapQtAppsHook
+      gobject-introspection
     ];
 
     buildInputs = [
       stdenv.cc.cc.lib
-      gtk2
+      gtk3
+      python
       pango
       cairo
       kio
