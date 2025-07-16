@@ -15,6 +15,11 @@
   programs.ydotool.enable = true;
   users.users.${username}.extraGroups = [ "ydotool" ];
 
-  fonts.enableDefaultPackages = true;
-  fonts.packages = [ pkgs.corefonts ];
+  fonts = {
+    # fix furryfox fonts
+    enableDefaultPackages = true;
+    fontconfig.useEmbeddedBitmaps = true;
+    # office fonts
+    packages = [ pkgs.corefonts ];
+  };
 }

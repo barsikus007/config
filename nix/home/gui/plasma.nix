@@ -158,10 +158,12 @@
                 # TODO not linked to anything
                 "applications:org.kde.dolphin.desktop"
                 "applications:org.wezfurlong.wezterm.desktop"
-                "applications:microsoft-edge.desktop"
+                "applications:firefox.desktop"
+                # "applications:microsoft-edge.desktop"
                 "applications:code.desktop"
                 "applications:com.ayugram.desktop.desktop"
-                "applications:vesktop.desktop"
+                "applications:discord.desktop"
+                # "applications:vesktop.desktop"
                 "applications:obsidian.desktop"
                 # autolaunched
                 # "applications:nekoray.desktop"
@@ -326,6 +328,8 @@
       "kdeglobals"."General"."TerminalApplication" = "wezterm";
       "kdeglobals"."General"."TerminalService" = "org.wezfurlong.wezterm.desktop";
       "kdeglobals"."Shortcuts"."Redo" = "Ctrl+Y";
+      # "kdeglobals"."PreviewSettings"."EnableRemoteFolderThumbnail" = true;
+      "kdeglobals"."PreviewSettings"."MaximumRemoteSize" = 1073741824; # 1 GiB
 
       #! workspace.enableMiddleClickPaste = false; don't work
       "kwinrc"."Wayland"."EnablePrimarySelection" = false;

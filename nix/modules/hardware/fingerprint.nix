@@ -9,5 +9,6 @@
     };
   };
   #! cause it breaks SDDM wallet and password auth
+  #? https://wiki.nixos.org/wiki/Fingerprint_scanner#Login
   security.pam.services.login.fprintAuth = false;
 }

@@ -2,6 +2,8 @@
 
 Goal is to provide modular close to windows-godlike desktop experience
 
+(IT IS FUCKING IMPOSSIBLE)
+
 ## Installation
 
 ```bash
@@ -157,6 +159,7 @@ pkgs.mkShell {
 - better way to work with functions in shell.nix
 - GUI
   - move badapple gif and mp3 outsude of git (or genereate them idk)
+  - `GDK_GL=disable ayugram-desktop` for webapps
   - obs
     - quick replay (import scenes)
       - battery/ac based quality
@@ -248,6 +251,7 @@ pkgs.mkShell {
 - `nh os repl`
 - stylix
   - cursor fix
+  - fonts fix
 - mesa 25
   - plasma-desktop 6.3
     - cursors?

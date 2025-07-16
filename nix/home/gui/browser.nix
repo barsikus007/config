@@ -23,6 +23,7 @@
       "oboonakemofpalcgghocfoadofidjkkk"
     ];
     package = (
+      #? no thorium? https://github.com/NixOS/nixpkgs/pull/336138#issuecomment-2299603455
       pkgs.chromium.override {
         commandLineArgs = [
           "--enable-features=AcceleratedVideoEncoder"
@@ -69,7 +70,7 @@
         # https://github.com/oddlama/nix-config/blob/main/users/myuser/graphical/firefox.nix
         settings = {
           "widget.use-xdg-desktop-portal.file-picker" = 1;
-          "general.autoScroll" = true;
+          "general.autoScroll" = true; # middle click scroll
           "browser.ctrlTab.sortByRecentlyUsed" = true; # mru ^Tab
           "browser.startup.page" = 3; # Resume previous session on startup
           "browser.translations.neverTranslateLanguages" = "ru";
@@ -159,6 +160,8 @@
           default = "google";
           privateDefault = "google";
           engines = {
+            google.metaData.alias = "g";
+            bing.metaData.hidden = true;
             "Nix Packages" = {
               urls = [
                 {
@@ -166,6 +169,7 @@
                   params = [
                     {
                       name = "channel";
+                      # TODO should be system version
                       value = config.home.stateVersion;
                     }
                     {
@@ -186,6 +190,7 @@
                   params = [
                     {
                       name = "channel";
+                      # TODO should be system version
                       value = config.home.stateVersion;
                     }
                     {
