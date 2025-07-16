@@ -22,8 +22,8 @@ pkgs.python3Packages.buildPythonApplication rec {
 
   dependencies = with pkgs; [
     (callPackage ./anicli-api.nix {
-      version = "0.7.14";
-      hash = "sha256-zmB2U4jyDPCLuykUc6PyrlcTULaXDxQ8ZvyTmJfOI0s=";
+      version = "0.7.17";
+      hash = "sha256-nrv3JQaYSjZTCDbwBc/7/oYurJcJKFyVlzTfO9xz1qg=";
     })
     (callPackage ./eggella.nix {
       version = "0.1.7";
