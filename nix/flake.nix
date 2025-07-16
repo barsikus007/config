@@ -114,7 +114,6 @@
           # };
 
           environment.defaultPackages = with pkgs; [
-            (libsForQt5.callPackage ./packages/bcompare.nix { })
             (callPackage ./packages/anicli-ru { })
           ];
         }
@@ -145,8 +144,8 @@
         ./home/stylix.nix
 
         ./home/gui
-        ./home/gui/autostart.nix
         ./home/gui/sound.nix
+        ./home/gui/autostart.nix
         ./home/gui/syncthing.nix
         ./home/gui/terminal.nix
         ./home/gui/plasma.nix
@@ -157,6 +156,7 @@
         ./home/gui/browser.nix
         ./home/gui/social.nix
         ./home/gui/office.nix
+        ./home/gui/bcompare.nix
         {
           programs.nvf.settings.vim.lsp.enable = nixpkgs.lib.mkForce true;
         }

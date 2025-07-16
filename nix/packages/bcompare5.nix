@@ -21,7 +21,7 @@
   qtbase,
   stdenv,
   runtimeShell,
-  unzip,
+  # unzip,
 }:
 
 # thx https://github.com/erahhal/nixcfg/blob/93d251e25f6901e585f0941d2accbd6e315f778b/pkgs/bcompare-beta/default.nix
@@ -95,12 +95,6 @@ let
         wrapQtApp $out/bin/bcompare
       '';
 
-      #? sorry, I can't buy this software right now (and trial don't work)
-      #? https://gist.github.com/rise-worlds/5a5917780663aada8028f96b15057a67?permalink_comment_id=5168755#gistcomment-5168755
-      postFixup = ''
-        sed -i "s/AlPAc7Np1/AlPAc7Npn/g" $out/lib/beyondcompare/BCompare
-      '';
-
       nativeBuildInputs = [
         autoPatchelfHook
         wrapQtAppsHook
@@ -132,20 +126,20 @@ let
       dontWrapQtApps = false;
     };
 
-  darwin = stdenv.mkDerivation {
-    inherit
-      pname
-      version
-      src
-      meta
-      ;
-    nativeBuildInputs = [ unzip ];
+  # darwin = stdenv.mkDerivation {
+  #   inherit
+  #     pname
+  #     version
+  #     src
+  #     meta
+  #     ;
+  #   nativeBuildInputs = [ unzip ];
 
-    installPhase = ''
-      mkdir -p $out/Applications/BCompare.app
-      cp -R . $out/Applications/BCompare.app
-    '';
-  };
+  #   installPhase = ''
+  #     mkdir -p $out/Applications/BCompare.app
+  #     cp -R . $out/Applications/BCompare.app
+  #   '';
+  # };
 
   meta = with lib; {
     description = "GUI application that allows to quickly and easily compare files and folders";
@@ -165,4 +159,5 @@ let
     mainProgram = "bcompare";
   };
 in
-if stdenv.hostPlatform.isDarwin then darwin else linux
+# if stdenv.hostPlatform.isDarwin then darwin else linux
+linux
