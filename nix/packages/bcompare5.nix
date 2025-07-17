@@ -8,12 +8,16 @@
   glibc,
   pango,
   gtk3,
-  python3,
+
+  wrapGAppsHook3,
   gobject-introspection,
+  python3,
+
   kcoreaddons,
   ki18n,
   kio,
   kservice,
+
   poppler,
   poppler_utils,
   gvfs,
@@ -51,12 +55,10 @@ let
 
   linux =
     let
-      python = (
-        python3.withPackages (
-          pp: with pp; [
-            pygobject3
-          ]
-        )
+      python = python3.withPackages (
+        pp: with pp; [
+          pygobject3
+        ]
       );
     in
     stdenv.mkDerivation {
@@ -78,6 +80,7 @@ let
 
         # Remove library that refuses to be autoPatchelf'ed
         rm $out/lib/beyondcompare/ext/bcompare_ext_kde.amd64.so
+        # rm $out/lib/beyondcompare/ext/bcompare_ext_kde5.amd64.so
         rm $out/lib/beyondcompare/ext/bcompare_ext_kde6.amd64.so
 
         substituteInPlace $out/bin/${pname} \
@@ -98,6 +101,7 @@ let
       nativeBuildInputs = [
         autoPatchelfHook
         wrapQtAppsHook
+        wrapGAppsHook3
         gobject-introspection
       ];
 
@@ -107,10 +111,12 @@ let
         python
         pango
         cairo
+
+        kcoreaddons
+        ki18n
         kio
         kservice
-        ki18n
-        kcoreaddons
+
         gdk-pixbuf
         bzip2
 
@@ -123,7 +129,7 @@ let
 
       dontBuild = true;
       dontConfigure = true;
-      dontWrapQtApps = false;
+      # dontWrapQtApps = true;
     };
 
   # darwin = stdenv.mkDerivation {
