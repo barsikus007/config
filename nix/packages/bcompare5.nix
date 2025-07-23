@@ -84,16 +84,16 @@ let
         rm $out/lib/beyondcompare/ext/bcompare_ext_kde6.amd64.so
 
         substituteInPlace $out/bin/${pname} \
-          --replace "/usr/lib/beyondcompare" "$out/lib/beyondcompare" \
-          --replace "ldd" "${glibc.bin}/bin/ldd" \
-          --replace "/bin/bash" "${runtimeShell}"
+          --replace-fail "/usr/lib/beyondcompare" "$out/lib/beyondcompare" \
+          --replace-fail "ldd" "${glibc.bin}/bin/ldd" \
+          --replace-fail "/bin/bash" "${runtimeShell}"
 
         # Create symlink bzip2 library
         ln -s ${bzip2.out}/lib/libbz2.so.1 $out/lib/beyondcompare/libbz2.so.1.0
 
 
         substituteInPlace $out/lib/beyondcompare/bcmount.sh \
-          --replace "python3" "${python.interpreter}"
+          --replace-fail "python3" "${python.interpreter}"
 
         wrapQtApp $out/bin/bcompare
       '';
@@ -129,7 +129,7 @@ let
 
       dontBuild = true;
       dontConfigure = true;
-      # dontWrapQtApps = true;
+      dontWrapQtApps = true;
     };
 
   # darwin = stdenv.mkDerivation {
