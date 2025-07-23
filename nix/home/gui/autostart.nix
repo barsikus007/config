@@ -15,6 +15,16 @@
 
       X-KDE-autostart-after=panel
     '';
+    "autostart/RQuickShare.desktop".text = ''
+      [Desktop Entry]
+      Type=Application
+      Version=1.0
+      Name=RQuickShare
+      Comment=RQuickSharestartup script
+      Exec=${pkgs.rquickshare-legacy}/bin/.r-quick-share-wrapped
+      StartupNotify=false
+      Terminal=false
+    '';
     # ".config/autostart/vesktop.desktop".text = ''
     #   [Desktop Entry]
     #   Type=Application

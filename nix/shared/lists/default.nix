@@ -7,12 +7,14 @@ with pkgs;
   git-lfs
   isd
   # aria2
+  file
   tlrc
   unrar
   ffmpeg
   yt-dlp
   pciutils # lspci
   usbutils # lssub
+  inotify-tools # files monitoring
 
   # CLI python
   (unstable.python313.withPackages (
@@ -43,8 +45,15 @@ with pkgs;
   neovide
   qdirstat
   qbittorrent
-  # TODO fix && env WEBKIT_DISABLE_COMPOSITING_MODE=1
-  unstable.rquickshare-legacy
+  rquickshare-legacy
+  # todo ports & ~/.local/share/dev.mandre.rquickshare/.settings.json
+  #   {
+  #   "realclose": false,
+  #   "autostart": true,
+  #   "visibility": 0,
+  #   "startminimized": true,
+  #   "port": 12345
+  # }
 
   # https://www.reddit.com/r/software/comments/t5n3cm/everything_for_linux/
   fsearch
