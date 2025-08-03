@@ -85,6 +85,7 @@
         ./modules/hardware/xbox.nix
 
         ./modules/swap.nix
+        ./modules/java.nix
         ./modules/stylix.nix
         ./modules/docker.nix
         ./modules/security.nix
