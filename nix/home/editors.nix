@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   inputs,
   username,
   flakePath,
@@ -10,16 +9,8 @@
   imports = [ inputs.nvf.homeManagerModules.default ];
   home = {
     sessionVariables = {
-      MANPAGER = "${pkgs.neovim}/bin/nvim +Man!";
-      # TODO: until nvf became light
-      # MANPAGER = "nvim --clean +Man!";
+      MANPAGER = "nvim +Man!";
     };
-  };
-  programs.neovim = {
-    enable = false;
-    defaultEditor = false;
-    viAlias = false;
-    vimAlias = false;
   };
   programs.nvf = {
     enable = true;
@@ -197,28 +188,6 @@
         # gcc
         # gbc
         comment-nvim.enable = true;
-      };
-    };
-  };
-  programs.helix = {
-    enable = true;
-    settings = {
-      # theme = "base16";
-      editor = {
-        # line-number = "relative";
-        # lsp.display-messages = true;
-      };
-      keys.normal = {
-        # space.space = "file_picker";
-        # space.w = ":w";
-        # space.q = ":q";
-        # esc = [
-        #   "collapse_selection"
-        #   "keep_primary_selection"
-        # ];
-        Z.Q = ":q!";
-        # Z.Z = ":x!";
-        Z.Z = ":wq";
       };
     };
   };

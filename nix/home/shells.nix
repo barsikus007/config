@@ -1,4 +1,9 @@
-{ pkgs, flakePath, ... }:
+{
+  pkgs,
+  config,
+  flakePath,
+  ...
+}:
 
 let
   baseAliases = {
@@ -102,8 +107,9 @@ let
     // nvimAliases
     // batAliases
     // nixAliases;
-  fisn'tAliases = {
-    "?" = "type";
+  zshAliases = {
+    "?" = "type_colored_and_nix_truncate";
+    "??" = "type_colored";
   };
 in
 {
@@ -111,14 +117,18 @@ in
     PAGER = "bat";
     LESS = "--mouse";
   };
-  xdg.configFile."shell/functions.sh".source = ../.config/shell/functions.sh;
+  xdg.configFile."shell/functions.sh".source =
+    config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/shell/functions.sh";
   # TODO: finer way to do it
-  xdg.configFile."shell/wifite.sh".source = ../.config/shell/wifite.sh;
-  xdg.configFile."shell/g14.sh".source = ../.config/shell/g14.sh;
-  xdg.configFile."shell/setup.sh".source = ../.config/shell/setup.sh;
+  xdg.configFile."shell/wifite.sh".source =
+    config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/shell/wifite.sh";
+  xdg.configFile."shell/g14.sh".source =
+    config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/shell/g14.sh";
+  xdg.configFile."shell/setup.sh".source =
+    config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/shell/setup.sh";
   programs.zsh = {
     enable = true;
-    shellAliases = sharedAliases // fisn'tAliases;
+    shellAliases = sharedAliases // zshAliases;
     history = {
       size = 100000;
     };
@@ -169,9 +179,12 @@ in
   };
   programs.bash = {
     enable = true;
-    shellAliases = sharedAliases // fisn'tAliases;
+    shellAliases = sharedAliases;
     historySize = 100000;
     historyControl = [ "ignoreboth" ];
+    initExtra = ''
+      source "$XDG_CONFIG_HOME"/shell/functions.sh
+    '';
   };
   programs.fish = {
     enable = true;
@@ -207,6 +220,13 @@ in
     extraConfig = ''
       set -g mouse on
     '';
+  };
+  programs.zellij = {
+    enable = true;
+    settings = {
+      scroll_buffer_size = 100000;
+      default_mode = "locked";
+    };
   };
   programs.starship = {
     enable = true;

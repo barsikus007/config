@@ -1,11 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 
 . "$XDG_CONFIG_HOME/shell/setup.sh"
 . "$XDG_CONFIG_HOME/shell/wifite.sh"
 . "$XDG_CONFIG_HOME/shell/g14.sh"
 
 mkcd() { mkdir -p "$@" && cd "$@" || exit; }
-ssht() { (ssh "$@" -t "tmux new -As0 || bash || sh") }
+ssht() { (ssh "$@" -t "zellij attach -c 0 options --default-mode locked --session-serialization false || tmux new -As0 || bash || sh") }
 
 dcsh() { docker compose exec -it "$1" sh -c 'bash || sh'; }
 
@@ -16,6 +16,28 @@ a() {
     fzf --height 40% --border --prompt="Alias: " \
         --preview "zsh  -c 'source ~/.zshrc && alias {} | cut -d= -f2-' | tr -d \' | bat -l sh --style=plain --color=always" \
         --preview-window 80%
+  )
+}
+
+type_colored() {
+  type -afs "$@" | sed 's/is an alias for/is an alias for:\n/' | bat -l sh --style=plain --color=always
+}
+
+type_colored_and_nix_truncate() {
+  type_colored "$@" | nix_truncate
+}
+
+nix_truncate() {
+  (
+    # nix_store_regex='\(\/nix\/store\/[a-z0-9]\{32\}-\([^[:space:]]*\)\)'
+    nix_store_regex='\(\/nix\/store\/[a-z0-9]\{32\}-\([^\/]*\)\)'
+    underline=$(tput smul)
+    reset=$(tput sgr0)
+    osc8_start=$'\e]8;;file://'
+    osc8_mid=$'\e\\\\'
+    osc8_end=$'\e]8;;\e\\'
+    # sed "s|${nix_store_regex}|${underline}\2${reset}|g"
+    sed "s|${nix_store_regex}|${underline}${osc8_start}\1${osc8_mid}\2${osc8_end}${reset}|g"
   )
 }
 

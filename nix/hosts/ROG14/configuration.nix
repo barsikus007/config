@@ -65,7 +65,7 @@
   services = {
     asusd = {
       enable = true;
-      package = pkgs.unstable.asusctl;
+      # package = pkgs.unstable.asusctl;
       #! https://gitlab.com/asus-linux/asusctl/-/issues/530#note_2101255275
       # enableUserService = true;
       #? https://asus-linux.org/manual/asusctl-manual/

@@ -26,9 +26,9 @@ soft_envs() {
 setup_font() {
   (
     tmpfile=$(mktemp --suffix .zip)
-    wget https://github.com/microsoft/cascadia-code/releases/download/v2407.24/CascadiaCode-2407.24.zip -O "$tmpfile"
+    curl -sSL https://github.com/microsoft/cascadia-code/releases/download/v2407.24/CascadiaCode-2407.24.zip -o "$tmpfile"
     # /usr/share/fonts/truetype/cascadia ?
-    sudo unzip -j "$tmpfile" ttf/Cascadia*.ttf -d /usr/share/fonts/cascadia
+    sudo unzip -j "$tmpfile" 'ttf/Cascadia*.ttf' -d /usr/share/fonts/cascadia
     sudo fc-cache -v
     rm "$tmpfile"
   )
@@ -49,11 +49,28 @@ setup_user() {
     if ! hash bat; then
       if hash batcat; then
         echo "Linking bat..."
-        mkdir -p ~/.local/bin
+        mkdir -p ~/.local/bin/
         ln -s "$(which batcat)" ~/.local/bin/bat
       else
         echo "batcat isn't installed to link"
       fi
+    fi
+    if ! hash zellij; then
+      echo "Setting up zellij..."
+      sudo mkdir -p /usr/local/bin/
+      curl -sSL https://github.com/zellij-org/zellij/releases/latest/download/zellij-"$(uname -m)"-unknown-linux-musl.tar.gz | sudo tar -xz --no-same-owner -C /usr/local/bin/
+      # sudo chmod +x /usr/local/bin/zellij
+    fi
+    if ! hash yazi; then
+      echo "Setting up yazi..."
+      sudo mkdir -p ~/.local/bin/
+
+      # TODO move zip installs to function
+      tmpfile=$(mktemp --suffix .zip)
+      curl -sSL https://github.com/sxyazi/yazi/releases/latest/download/yazi-"$(uname -m)"-unknown-linux-musl.zip -o "$tmpfile"
+      unzip -j "$tmpfile" '*/yazi' -d ~/.local/bin/
+      rm "$tmpfile"
+      # sudo chmod +x ~/.local/bin/yazi
     fi
   )
 }
