@@ -37,7 +37,10 @@ return {
         { key = 'Tab', mods = 'CTRL', action = wezterm.action.ActivateTabRelative(1) },
         { key = 'Tab', mods = 'CTRL|SHIFT', action = wezterm.action.ActivateTabRelative(-1) },
 
-        { key = "F11", action = "ToggleFullScreen" },
+        --! intersects with yazi
+        -- { key = "F1", action = "ActivateCommandPalette" },
+        --! should be handled by system
+        -- { key = "F11", action = "ToggleFullScreen" },
         {
             key = 'c',
             mods = 'CTRL',

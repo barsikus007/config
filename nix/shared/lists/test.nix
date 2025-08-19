@@ -22,9 +22,9 @@ with pkgs;
   # networking tools
   zmap
   iperf
-  rustscan
+  rustscan # nmap
   bind
-  ldns # drill like dig
+  ldns # have drill like dig
 
   # new other
   iotop

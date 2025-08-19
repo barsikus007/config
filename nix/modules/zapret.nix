@@ -3,7 +3,8 @@
 #? https://github.com/Flowseal/zapret-discord-youtube/blob/main/general.bat
 let
   list-general = pkgs.fetchurl {
-    url = "https://raw.githubusercontent.com/Flowseal/zapret-discord-youtube/87ee1785469625a1a72c5b93d5eb249ff04b14e5/lists/list-general.txt";
+    # https://github.com/Flowseal/zapret-discord-youtube/blob/main/lists/list-general.txt
+    url = "https://raw.githubusercontent.com/Flowseal/zapret-discord-youtube/779853740f9c957551685bdebf59ad3a788b5004/lists/list-general.txt";
     sha256 = "sha256-/9dYk5fiVLfN+bY0STlqutnRQQoInS9NBGg9fWHZedk=";
   };
 in
