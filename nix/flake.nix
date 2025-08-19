@@ -163,20 +163,33 @@
         }
       ];
     };
-    devShells.${system}.python = pkgs.mkShell {
-      # nix develop ~/config/nix#python
-      packages = with pkgs; [
-        (unstable.python313.withPackages (
-          python-pkgs: with python-pkgs; [
-            uv
-            hatch
-            ruff
-          ]
-        ))
-      ];
-      shellHook = ''
-        echo "Welcome to the Python ${pkgs.unstable.python313.version} devShell!"
-      '';
+    devShells.${system} = {
+      default = pkgs.mkShell {
+        # nix develop ~/config/nix
+        # packages = with pkgs; [
+        #   unstable.
+        # ];
+        shellHook = ''
+          echo "Welcome to the test ${pkgs.unstable.lib.version} devShell!"
+          zsh
+        '';
+      };
+      python = pkgs.mkShell {
+        # nix develop ~/config/nix#python
+        packages = with pkgs; [
+          (unstable.python313.withPackages (
+            python-pkgs: with python-pkgs; [
+              uv
+              hatch
+              ruff
+            ]
+          ))
+        ];
+        shellHook = ''
+          echo "Welcome to the Python ${pkgs.unstable.python313.version} devShell!"
+          zsh
+        '';
+      };
     };
   };
 }
