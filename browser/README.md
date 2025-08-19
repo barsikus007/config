@@ -2,7 +2,7 @@
 
 ## Userscripts
 
-- <https://greasyfork.org/en/scripts/439993-youtube-shorts-redirect>
+- [longs](https://greasyfork.org/en/scripts/439993-youtube-shorts-redirect)
 - [TODO remove si youtube](https://github.com/Xenorio/YTShareAntiTrack)
 - [VK](http://greasyfork.org/scripts/518509)
 - [own](./userscripts)
@@ -43,6 +43,8 @@ lurkmore.media##.sitenotice
   - <edge://flags/#enable-parallel-downloading> -> `Enabled`
 - Flag for QUIC protocol
   - <edge://flags/#enable-quic> -> `Enabled`
+- Flag for passkeys Bluetooth in <https://passkeys-debugger.io>
+  - <edge://flags/#enable-experimental-web-platform-features> -> `Enabled`
 - [Fix for workspaces sidebar](https://answers.microsoft.com/en-us/microsoftedge/forum/all/how-to-remove-the-edge-sidebar-from-edge-workspace/bde1ede5-12a3-4f99-ac16-50b0f9878054?page=5)
   - <edge://flags/#edge-workspaces-skype-entry-point> -> `Enabled Hub chat icon`
 
@@ -58,6 +60,7 @@ lurkmore.media##.sitenotice
 - YouTube
   - [Return YouTube Dislike](https://www.returnyoutubedislike.com/)
   - [SponsorBlock for YouTube - Skip Sponsorships](https://sponsor.ajay.app)
+  - [Disable Stopping Popup](https://github.com/lawfx/YoutubeNonStop)
 - [QuicKey](https://fwextensions.github.io/QuicKey/)
   - [C+Tab](https://fwextensions.github.io/QuicKey/ctrl-tab/)
     - <edge://extensions/shortcuts>
