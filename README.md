@@ -189,7 +189,7 @@ hatch run true
   - Disk usage
 - PyCharm
   - Settings Sync
-  - Serminal | pwsh.exe -NoLogo
+  - Terminal | pwsh.exe -NoLogo
   - File > Settings > Appearance & Behavior > File Colors >> Non-Project Files -> Use in editor tabs
 - YtMusic
   - adblocker
