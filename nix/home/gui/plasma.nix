@@ -87,55 +87,47 @@
         match.window-class = "resolve resolve";
         apply.noborderrule = 2;
       }
-      {
-        description = "Telegram PiP above others";
+      # {
+      #   description = "syncthing-tray placement fix";
+      #   match.window-class = "syncthingtray";
+      #   apply.placement = 7;
+      # }
+    ]
+    ++ (map
+      (app: {
+        description = "${app.name} PiP above others";
         match = {
           window-class = {
-            value = "ayugram-desktop com.ayugram.desktop";
+            value = app.class;
             type = "exact";
             match-whole = true;
           };
           title = {
-            value = "AyuGramDesktop";
+            value = app.title;
             type = "exact";
           };
           window-types = [ "normal" ];
         };
         apply.above = true;
-      }
-      {
-        description = "Edge PiP above others";
-        match = {
-          window-class = {
-            value = "msedge msedge";
-            type = "exact";
-            match-whole = true;
-          };
-          title = {
-            value = "Picture in picture";
-            type = "exact";
-          };
-          window-types = [ "normal" ];
-        };
-        apply.above = true;
-      }
-      {
-        description = "Firefox PiP above others";
-        match = {
-          window-class = {
-            value = "firefox firefox";
-            type = "exact";
-            match-whole = true;
-          };
-          title = {
-            value = "Picture-in-Picture";
-            type = "exact";
-          };
-          window-types = [ "normal" ];
-        };
-        apply.above = true;
-      }
-    ];
+      })
+      [
+        {
+          name = "Telegram";
+          class = "ayugram-desktop com.ayugram.desktop";
+          title = "AyuGramDesktop";
+        }
+        {
+          name = "Edge";
+          class = "msedge msedge";
+          title = "Picture in picture";
+        }
+        {
+          name = "Firefox";
+          class = "firefox firefox";
+          title = "Picture-in-Picture";
+        }
+      ]
+    );
 
     panels = [
       # Windows-like panel at the bottom
@@ -164,6 +156,7 @@
                 "applications:com.ayugram.desktop.desktop"
                 "applications:discord.desktop"
                 # "applications:vesktop.desktop"
+                # "applications:dorion.desktop"
                 "applications:obsidian.desktop"
                 # autolaunched
                 # "applications:nekoray.desktop"

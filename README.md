@@ -133,7 +133,7 @@ hatch config set terminal.styles.spinner material
 ##### release schedule
 
 ```bash
-hatch run test:cov
+hatch test -ac
 hatch version micro
 hatch build
 hatch publish
@@ -142,7 +142,7 @@ hatch publish
 ###### tag based
 
 ```bash
-hatch run test:cov
+hatch test -ac
 hatch version micro
 git commit -am "release: $(hatch version)"
 git tag -a $(hatch version) -m

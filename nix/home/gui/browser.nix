@@ -98,62 +98,11 @@
           "browser.urlbar.eventTelemetry.enabled" = false; # (default)
         };
         # Hide tab bar because we have tree style tabs
-        #! https://github.com/mbnuqw/sidebery/wiki/Firefox-Styles-Snippets-(via-userChrome.css)#dynamic-native-tabs-for-hiding-native-horizontal-tabs
-        userChrome = /* css */ ''
-          /**
-           * Decrease size of the sidebar header
-           */
-          #sidebar-header {
-            font-size: 1.2em !important;
-            padding: 2px 6px 2px 3px !important;
-          }
-          #sidebar-header #sidebar-close {
-            padding: 3px !important;
-          }
-          #sidebar-header #sidebar-close .toolbarbutton-icon {
-            width: 14px !important;
-            height: 14px !important;
-            opacity: 0.6 !important;
-          }
-
-          // same as below but without conditions
-          #TabsToolbar {
-            visibility: collapse !important;
-          }
-          #titlebar-buttonbox {
-            height: 32px !important;
-          }
-
-          /**
-           * Dynamic Horizontal Tabs Toolbar (with animations)
-           * sidebar.verticalTabs: false (with native horizontal tabs)
-           */
-          #main-window #TabsToolbar > .toolbar-items {
-            overflow: hidden;
-            transition: height 0.3s 0.3s !important;
-          }
-          /* Default state: Set initial height to enable animation */
-          #main-window #TabsToolbar > .toolbar-items { height: 3em !important; }
-          #main-window[uidensity="touch"] #TabsToolbar > .toolbar-items { height: 3.35em !important; }
-          #main-window[uidensity="compact"] #TabsToolbar > .toolbar-items { height: 2.7em !important; }
-          /* Hidden state: Hide native tabs strip */
-          #main-window[titlepreface*="[Sidebery]"] #TabsToolbar > .toolbar-items { height: 0 !important; }
-          /* Hidden state: Fix z-index of active pinned tabs */
-          #main-window[titlepreface*="[Sidebery]"] #tabbrowser-tabs { z-index: 0 !important; }
-          /* Hidden state: Hide window buttons in tabs-toolbar */
-          #main-window[titlepreface*="[Sidebery]"] #TabsToolbar .titlebar-spacer,
-          #main-window[titlepreface*="[Sidebery]"] #TabsToolbar .titlebar-buttonbox-container {
-            display: none !important;
-          }
-          /* [Optional] Uncomment block below to show window buttons in nav-bar (maybe, I didn't test it on non-linux-i3wm env) */
-          #main-window[titlepreface*="[Sidebery]"] #nav-bar > .titlebar-buttonbox-container,
-          #main-window[titlepreface*="[Sidebery]"] #nav-bar > .titlebar-buttonbox-container > .titlebar-buttonbox {
-            display: flex !important;
-          }
-          /* [Optional] Uncomment one of the line below if you need space near window buttons */
-          #main-window[titlepreface*="[Sidebery]"] #nav-bar > .titlebar-spacer[type="pre-tabs"] { display: flex !important; } */
-          #main-window[titlepreface*="[Sidebery]"] #nav-bar > .titlebar-spacer[type="post-tabs"] { display: flex !important; } */
-        '';
+        #! https://mrotherguy.github.io/firefox-csshacks/?file=hide_tabs_toolbar_v2.css
+        userChrome = pkgs.fetchurl {
+          url = "https://raw.githubusercontent.com/MrOtherGuy/firefox-csshacks/9bb5b59e3ad2b42483731203d51f6cb758fa6cb5/chrome/hide_tabs_toolbar_v2.css";
+          sha256 = "sha256-xP2UqInVthDB67/hU9/rY1jEYXJs+R+i1qDn3LVts6Y=";
+        };
 
         search = {
           force = true;
@@ -239,6 +188,22 @@
 
               icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
               definedAliases = [ "wik" ];
+            };
+            "anime" = {
+              urls = [
+                {
+                  template = "https://site.yummyani.me/search";
+                  params = [
+                    {
+                      name = "word";
+                      value = "{searchTerms}";
+                    }
+                  ];
+                }
+              ];
+
+              # icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+              definedAliases = [ "a" ];
             };
           };
         };

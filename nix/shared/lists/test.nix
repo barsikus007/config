@@ -7,8 +7,6 @@ with pkgs;
   dive
   serpl
   lshw-gui
-  helix
-  zellij
 
   # new add security scanners
   nikto

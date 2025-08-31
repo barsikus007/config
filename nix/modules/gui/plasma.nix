@@ -42,6 +42,8 @@
 
     #? for KDE Connect ?
     kdePackages.kdialog
+
+    kdotool
   ];
   programs.kdeconnect.enable = true;
 }

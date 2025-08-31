@@ -1,5 +1,8 @@
 {
   services.easyeffects.enable = true;
+  dconf.settings."com/github/wwmm/easyeffects" = {
+    process-all-inputs = true;
+  };
   # https://github.com/Digitalone1/EasyEffects-Presets
   services.easyeffects.preset = "LoudnessEqualizer";
   xdg.configFile."easyeffects/output/LoudnessEqualizer.json".source = builtins.fetchurl {

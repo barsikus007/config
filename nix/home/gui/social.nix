@@ -8,6 +8,7 @@
     enable = true;
     discord = {
       # enable = false;
+      # branch = "canary";
       autoscroll.enable = true;
       openASAR.enable = false;
     };
@@ -21,6 +22,18 @@
         splashColor = "rgb(239, 239, 240)";
         splashBackground = "rgb(32, 32, 36)";
       };
+    };
+    dorion = {
+      # enable = true;
+      #! parameters untested, waiting for dorion to have voice chat support
+
+      # blur = "acrylic";
+      # cacheCss = true;
+
+      # blurCss = true;
+      updateNotify = false;
+      # useNativeTitlebar = true;
+      # disableHardwareAccel = true;
     };
     config = {
       disableMinSize = true;

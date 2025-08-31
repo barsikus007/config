@@ -27,6 +27,7 @@ with pkgs;
   lsof
   mosh
   tmux
+  zellij
   tree
   yazi
   starship
