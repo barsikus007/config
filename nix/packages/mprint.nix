@@ -53,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.free;
     # license = licenses.unfree;
-    platforms = lib.platforms.linux;
+    platforms = platforms.linux;
     maintainers = with maintainers; [
       barsikus007
     ];

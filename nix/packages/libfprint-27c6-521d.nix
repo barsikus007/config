@@ -14,7 +14,6 @@
   gobject-introspection,
 
   pixman,
-  nss,
   openssl,
   libgudev,
   libfprint,
@@ -30,12 +29,17 @@ stdenv.mkDerivation {
   pname = "libfprint-27c6-521d";
   version = "uwu-0";
 
+  #? https://github.com/Infinytum/libfprint/tree/driver/goodix-521d
+  #? https://github.com/barsikus007/libfprint/tree/merge/upstream-1.94.9
   src = fetchFromGitHub {
-    owner = "infinytum";
+    owner = "barsikus007";
     repo = "libfprint";
-    rev = "driver/goodix-521d";
-    hash = "sha256-XQ4jsgILvwc/HqT2ZmnIMpTezu5VedJ1RjuY0B6gcSk=";
+    rev = "merge/upstream-1.94.9";
+    hash = "sha256-Zov/PfvKBfnoRUyUGsOsofrTt80kHq0eKCKlRXyvnio=";
   };
+
+  #? https://gcc.gnu.org/gcc-14/porting_to.html#incompatible-pointer-types
+  env.NIX_CFLAGS_COMPILE = "-Wno-error=incompatible-pointer-types";
 
   patchPhase = ''
     # sed -i "4c       value: 'all')" ./meson_options.txt
@@ -43,7 +47,7 @@ stdenv.mkDerivation {
     sed -i "16c       value: '$out/lib/udev')" ./meson_options.txt
     sed -i "24c       value: '$out/lib/udev')" ./meson_options.txt
     sed -i "32c       value: false)" ./meson_options.txt
-    sed -i "36c       value: false)" ./meson_options.txt
+    # sed -i "36c       value: false)" ./meson_options.txt
     cat ./meson_options.txt
   '';
 
@@ -55,21 +59,19 @@ stdenv.mkDerivation {
     gtk-doc
     doctest
   ];
-  buildInputs =
-    [
-      glib
-      gusb
-      gobject-introspection
+  buildInputs = [
+    glib
+    gusb
+    gobject-introspection
 
-      pixman
-      nss
-      openssl
-      libgudev
-      libfprint
-    ]
-    ++ lib.optionals withTests [
-      cairo
-    ];
+    pixman
+    openssl
+    libgudev
+    libfprint
+  ]
+  ++ lib.optionals withTests [
+    cairo
+  ];
   mesonBuildType = "release";
 
   passthru.driverPath = "/lib";

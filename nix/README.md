@@ -27,8 +27,9 @@ Too lazy to write this on nix
 <https://github.com/goodix-fp-linux-dev/goodix-fp-dump/blob/master/README.md>
 
 1. `git clone --recurse-submodules https://github.com/goodix-fp-linux-dev/goodix-fp-dump.git && cd goodix-fp-dump`
-2. Create `shell.nix`
-3. `sudo python3 run_521d.py`
+2. Create `shell.nix` with content below
+3. Enter nix shell `nix-shell`
+4. `sudo python3 run_521d.py`
    1. Catch "Invalid OTP" and cry ;-;
    2. I kidding, comment that checking at L133:L134
 
@@ -252,6 +253,3 @@ pkgs.mkShell {
 - stylix
   - cursor fix
   - fonts fix
-- mesa 25
-  - plasma-desktop 6.3
-    - cursors?
