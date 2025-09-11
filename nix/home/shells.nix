@@ -93,9 +93,10 @@ let
       nr = "nixos-rebuild repl --flake ${flakePath}";
       nrr = "nh os repl ${flakePath}";
       ne = "editor ${flakePath}";
-      ndiff = "nvd diff ~/.local/state/nix/profiles/home-manager ~/.local/state/nix/profiles/$(command ls -t ~/.local/state/nix/profiles | fzf)";
-      nndiff = "nvd diff /nix/var/nix/profiles/system /nix/var/nix/profiles/$(command ls -t /nix/var/nix/profiles/ | fzf)";
+      ndiff = "nvd diff ~/.local/state/nix/profiles/$(command ls -t ~/.local/state/nix/profiles | fzf) ~/.local/state/nix/profiles/home-manager";
+      nndiff = "nvd diff /nix/var/nix/profiles/$(command ls -t /nix/var/nix/profiles/ | fzf) /nix/var/nix/profiles/system";
       nix-shell = "nix-shell --run zsh";
+      ns = "nix-shell -p";
     };
   sharedAliases =
     baseAliases
@@ -133,8 +134,16 @@ in
       size = 100000;
     };
     autocd = true;
+    enableCompletion = true; # true by default
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
+    plugins = [
+      {
+        name = "zsh-fzf-tab";
+        src = pkgs.zsh-fzf-tab;
+        file = "share/fzf-tab/fzf-tab.plugin.zsh";
+      }
+    ];
     envExtra = ''
       source "$XDG_CONFIG_HOME"/shell/g14.sh
       # source ~/.zshrc
