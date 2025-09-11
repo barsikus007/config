@@ -3,10 +3,12 @@
   xdg.configFile = {
     # TODO    osConfig.programs.nekoray.package
     # TODO if osConfig.programs.nekoray.enabled
-    "autostart/nekoray.desktop".text = ''
+    # TODO makeDesktopItem ?
+    # Exec=${lib.getExe pkgs.throne} -tray -appdata
+    "autostart/Throne.desktop".text = ''
       [Desktop Entry]
-      Name=nekoray
-      Exec=${lib.getExe pkgs.nekoray} -tray -appdata
+      Name=Throne
+      Exec=Throne -tray -appdata
       Terminal=false
       Categories=Network
       Type=Application
