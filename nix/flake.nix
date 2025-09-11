@@ -174,10 +174,14 @@
           zsh
         '';
       };
-      python = pkgs.mkShell {
+      python =
+      let
+        pythonPkg = pkgs.python313;
+      in
+      pkgs.mkShell {
         # nix develop ~/config/nix#python
-        packages = with pkgs; [
-          (unstable.python313.withPackages (
+        packages = [
+          (pythonPkg.withPackages (
             python-pkgs: with python-pkgs; [
               uv
               hatch
@@ -186,7 +190,7 @@
           ))
         ];
         shellHook = ''
-          echo "Welcome to the Python ${pkgs.unstable.python313.version} devShell!"
+          echo "Welcome to the Python ${pythonPkg.version} devShell!"
           zsh
         '';
       };

@@ -109,6 +109,7 @@
           default = "google";
           privateDefault = "google";
           engines = {
+            # TODO make icon for every new search engine
             google.metaData.alias = "g";
             bing.metaData.hidden = true;
             "Nix Packages" = {
@@ -202,9 +203,55 @@
                 }
               ];
 
-              # icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
               definedAliases = [ "a" ];
             };
+            "shikimori" = {
+              urls = [
+                {
+                  template = "https://shikimori.one/animes";
+                  params = [
+                    {
+                      name = "search";
+                      value = "{searchTerms}";
+                    }
+                  ];
+                }
+              ];
+
+              definedAliases = [ "aa" ];
+            };
+            "youtube" = {
+              urls = [
+                {
+                  template = "https://www.youtube.com/results";
+                  params = [
+                    {
+                      name = "search_query";
+                      value = "{searchTerms}";
+                    }
+                  ];
+                }
+              ];
+
+              definedAliases = [ "y" ];
+            };
+
+            #? it wont work for some strange google reason
+            # "YouTube History" = {
+            #   urls = [
+            #     {
+            #       template = "https://www.youtube.com/feed/history";
+            #       params = [
+            #         {
+            #           name = "query";
+            #           value = "{searchTerms}";
+            #         }
+            #       ];
+            #     }
+            #   ];
+
+            #   definedAliases = [ "yh" ];
+            # };
           };
         };
       };

@@ -4,6 +4,7 @@
   # TODO: if asus
   home.packages = with pkgs; [ supergfxctl-plasmoid ];
 
+  # TODO if plasma
   programs.zsh.initContent = ''explorer.exe() {dolphin --new-window "$@" 1>/dev/null 2>/dev/null & disown}'';
 
   # https://github.com/nix-community/plasma-manager
@@ -158,8 +159,6 @@
                 # "applications:vesktop.desktop"
                 # "applications:dorion.desktop"
                 "applications:obsidian.desktop"
-                # autolaunched
-                # "applications:nekoray.desktop"
               ];
               behavior.grouping.clickAction = "showTooltips";
             };
