@@ -116,6 +116,7 @@
 
           environment.defaultPackages = with pkgs; [
             (callPackage ./packages/anicli-ru { })
+            (callPackage ./packages/libspeedhack { })
           ];
         }
       ];
