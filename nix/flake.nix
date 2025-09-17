@@ -84,6 +84,7 @@
         ./modules/hardware/logi-mx3.nix
         ./modules/hardware/xbox.nix
 
+        ./modules/network.nix
         ./modules/swap.nix
         ./modules/java.nix
         ./modules/stylix.nix
