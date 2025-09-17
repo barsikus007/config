@@ -81,7 +81,7 @@
       {
         description = "code-url-handler fix";
         match.window-class = "code code";
-        apply.desktopfile = "${pkgs.unstable.vscode-fhs}/share/applications/code.desktop";
+        apply.desktopfile = "${pkgs.unstable.vscode}/share/applications/code.desktop";
       }
       {
         description = "daninci-resolve titlebar fix";

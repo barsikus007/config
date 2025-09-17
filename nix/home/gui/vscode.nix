@@ -12,7 +12,7 @@
       config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/Code/User/keybindings.json";
   };
   programs.vscode = {
-    enable = true;
+    enable = false;
     package = pkgs.unstable.vscodium;
     profiles.default = {
       enableUpdateCheck = false;
@@ -36,7 +36,9 @@
       ];
     };
   };
-  home.packages = with pkgs;[
-    unstable.vscode-fhs
+  home.packages = with pkgs; [
+    unstable.vscode
+    #! https://github.com/NixOS/nixpkgs/blob/c23193b943c6c689d70ee98ce3128239ed9e32d1/pkgs/applications/editors/vscode/generic.nix#L82
+    # unstable.vscode-fhs
   ];
 }

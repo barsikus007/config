@@ -15,6 +15,11 @@ let
     "corefonts"
     "graalvm-oracle"
 
+    "blender"
+    "cuda_cudart"
+    "cuda_nvcc"
+    "cuda_cccl"
+
     "code"
     "vscode"
     "discord"

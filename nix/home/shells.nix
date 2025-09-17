@@ -21,7 +21,10 @@ let
     nvs = "editor $(rg -n . | fzf | awk -F: '{print \"+\"$2,$1}')";
     "1ip" = "wget -qO - icanhazip.com";
     "2ip" = "curl 2ip.ru";
+    "3ip" = "curl -so- ipinfo.io";
     cu = "cd ${flakePath} && git pull && cd -";
+    #? nix have ip with prebuilt color, alias brokes autocmpletion
+    # ip = "ip --color";
     diff = "diff --color";
     #? https://www.cyberciti.biz/faq/unix-linux-check-if-port-is-in-use-command/
     open-ports = "sudo lsof -i -P -n | grep LISTEN";
@@ -56,6 +59,8 @@ let
     wgu = "sudo systemctl start wg-quick-awg0";
     wgs = "systemctl status wg-quick-awg0";
     wgd = "sudo systemctl stop wg-quick-awg0";
+    wgr = "sudo systemctl restart wg-quick-awg0";
+    wgw = "sudo watch -c script -q -c awg show";
   };
   otherAliases = {
     gdu = "gdu -I ^/mnt";
