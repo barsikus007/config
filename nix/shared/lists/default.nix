@@ -17,6 +17,7 @@ with pkgs;
   inotify-tools # files monitoring
 
   # CLI python
+  python-launcher
   (unstable.python313.withPackages (
     python-pkgs: with python-pkgs; [
       ptpython

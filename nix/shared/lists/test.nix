@@ -28,6 +28,7 @@ with pkgs;
   iotop
   psmisc # killall pstree
   fatrace
+  systemctl-tui
 
   bruno
   devenv
