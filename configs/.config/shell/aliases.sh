@@ -44,7 +44,6 @@ alias lzd=lazydocker
 alias lzdu='curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash'
 alias dsp='docker system prune'
 alias dspa='dsp --all'
-alias dc='docker system prune'
 alias dc='docker compose'
 alias dcu='dc up -d'
 alias dcub='dcu --build'
