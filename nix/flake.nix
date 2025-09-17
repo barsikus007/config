@@ -105,6 +105,8 @@
 
         {
           programs.nix-ld.libraries = with pkgs; [
+            #? nix-index
+            #? nix-locate -- lib/libgobject-2.0.so.0
             # stdenv.cc.cc
             # zlib
             # curl
@@ -153,6 +155,7 @@
         ./home/hardware/anime.nix
 
         ./home/stylix.nix
+        ./home/shell/404.nix
 
         ./home/gui
         ./home/gui/sound.nix
