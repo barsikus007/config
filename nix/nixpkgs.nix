@@ -27,6 +27,7 @@ let
     "parsec-bin"
     "microsoft-edge"
 
+    "mprint"
     "bcompare"
     "davinci-resolve-studio"
 

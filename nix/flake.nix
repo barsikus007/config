@@ -94,6 +94,7 @@
         ./modules/zapret.nix
         ./modules/android.nix
         ./modules/diagnostic.nix
+        ./modules/printer.nix
 
         ./modules/gui
         ./modules/gui/plasma.nix
@@ -107,6 +108,7 @@
           programs.nix-ld.libraries = with pkgs; [
             #? nix-index
             #? nix-locate -- lib/libgobject-2.0.so.0
+            #? https://unix.stackexchange.com/a/522823
             # stdenv.cc.cc
             # zlib
             # curl

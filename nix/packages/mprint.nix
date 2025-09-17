@@ -1,14 +1,17 @@
 {
   lib,
   stdenv,
-  patchPpdFilesHook,
-
-  # cups,
-  # glibc,
-  # gcc-unwrapped,
 
   fetchzip,
   unrar,
+
+  patchPpdFilesHook,
+  autoPatchelfHook,
+
+  cups,
+  krb5,
+  e2fsprogs,
+  libxcrypt-legacy,
 }:
 let
   installationPath = if stdenv.hostPlatform.system == "x86_64-linux" then "x64" else "x86";
@@ -23,16 +26,20 @@ stdenv.mkDerivation (finalAttrs: {
     nativeBuildInputs = [ unrar ];
   };
 
-  nativeBuildInputs = [ patchPpdFilesHook ];
+  nativeBuildInputs = [
+    patchPpdFilesHook
+    autoPatchelfHook
+  ];
 
-  # buildInputs = [
-  #   cups
-  #   glibc
-  #   gcc-unwrapped
-  # ];
+  buildInputs = [
+    cups
+    krb5
+    e2fsprogs
+    libxcrypt-legacy
+  ];
 
   installPhase = ''
-    # runHook preInstall
+    runHook preInstall
 
     cd v${finalAttrs.version}/
     mkdir -p $out/lib/cups/filter/
@@ -40,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
     install -m 644 ppd/*.ppd $out/share/cups/model/hprt/
     install -m 755 -D filter/${installationPath}/* $out/lib/cups/filter/
 
-    # runHook postInstall
+    runHook postInstall
   '';
 
   ppdFileCommands = [
@@ -49,10 +56,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = with lib; {
     description = "MPrint drivers for label printers";
-    homepage = "https://help.mertech.ru/label_printers/%D0%9E%D0%B1%D1%89%D0%B5%D0%B5/%D0%A3%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0_%D0%BF%D0%B0%D0%BA%D0%B5%D1%82%D0%B0_%D0%B4%D1%80%D0%B0%D0%B9%D0%B2%D0%B5%D1%80%D0%BE%D0%B2_%D0%B4%D0%BB%D1%8F_%D0%BF%D1%80%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%BE%D0%B2.html";
+    homepage = "https://help.mertech.ru/label_printers/Общее/Установка_пакета_драйверов_для_принтеров.html";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.free;
-    # license = licenses.unfree;
+    license = licenses.unfree;
     platforms = platforms.linux;
     maintainers = with maintainers; [
       barsikus007
