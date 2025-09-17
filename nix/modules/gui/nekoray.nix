@@ -26,6 +26,7 @@ in
     );
     tunMode = {
       enable = true;
+      # TODO is this needed? reboot autostart related?
       # setuid = true;
     };
   };

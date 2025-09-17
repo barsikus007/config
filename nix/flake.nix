@@ -103,16 +103,24 @@
         (import ./modules/gui/video-edit.nix { pkgs = pkgs.previous; })
 
         {
-          # services.pipewire.extraConfig.pipewire."92-low-latency" = {
-          #   "context.properties" = {
-          #     #? https://github.com/wwmm/easyeffects/issues/1514
-          #     "default.clock.force-quantum" = 1024;
-          #     # "default.clock.rate" = 48000;
-          #     # "default.clock.quantum" = 32;
-          #     # "default.clock.min-quantum" = 32;
-          #     # "default.clock.max-quantum" = 32;
-          #   };
-          # };
+          programs.nix-ld.libraries = with pkgs; [
+            # stdenv.cc.cc
+            # zlib
+            # curl
+            # openssl
+
+            # fuse3
+            # icu
+            # nss
+            # expat
+            xorg.libX11
+            # vulkan-headers
+            # vulkan-loader
+            # vulkan-tools
+
+            glib
+            freetype
+          ];
 
           environment.defaultPackages = with pkgs; [
             (callPackage ./packages/anicli-ru { })
