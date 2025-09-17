@@ -2,7 +2,6 @@
   lib,
   appimageTools,
   fetchurl,
-  copyDesktopItems,
   makeDesktopItem,
 }:
 
@@ -16,22 +15,21 @@ appimageTools.wrapType2 rec {
   };
 
   # GDK_BACKEND=x11
-  nativeBuildInputs = [ copyDesktopItems ];
-
-  desktopItems = [
-    (makeDesktopItem {
+  extraInstallCommands = ''
+    cp -r ${(makeDesktopItem {
       name = pname;
       exec = pname;
       icon = pname;
       desktopName = pname;
-      type = "Applications";
+      type = "Application";
       comment = meta.description;
       categories = [
+        "AudioVideo"
         "Video"
         "Network"
       ];
-    })
-  ];
+    })}/* $out
+  '';
 
   meta = with lib; {
     description = "Unofficial Android and Windows (and Linux) application for Shikimori";
