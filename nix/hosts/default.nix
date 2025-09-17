@@ -90,4 +90,9 @@
     inputs.home-manager.nixosModules.home-manager
     # ../modules/shell/fish.nix
   ];
+
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
+  };
 }
