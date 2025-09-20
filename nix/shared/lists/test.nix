@@ -4,7 +4,7 @@
 with pkgs;
 [
   # new base
-  dive
+  ##dive
   serpl
   lshw-gui
 

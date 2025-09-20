@@ -84,11 +84,11 @@
         ./modules/hardware/logi-mx3.nix
         ./modules/hardware/xbox.nix
 
+        ./modules/containers
         ./modules/network.nix
         ./modules/swap.nix
         ./modules/java.nix
         ./modules/stylix.nix
-        ./modules/docker.nix
         ./modules/security.nix
         ./modules/wireguard.nix
         ./modules/zapret.nix

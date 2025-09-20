@@ -34,7 +34,7 @@ with pkgs;
   babelfish
   fastfetch
   lazygit
-  lazydocker
+  ##lazydocker
 
   # nix
   nh
