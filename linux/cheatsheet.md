@@ -13,7 +13,7 @@ cat ~/.ssh/id_ed25519.pub
 
 <https://github.com/settings/keys>
 
-### Generate and upload SSH
+### generate and upload SSH
 
 ```bash
 key_file=filename
@@ -45,13 +45,13 @@ sudo pacman --noconfirm --needed --color always -Syu
 # sudo pacman --needed --color always -Syu
 ```
 
-#### Tune parallel downloads
+#### tune parallel downloads
 
 ```bash
 sudo sed -i 's/^#ParallelDownloads = [0-9]\+/ParallelDownloads = 7/' /etc/pacman.conf
 ```
 
-##### Revert
+##### revert
 
 ```bash
 sudo sed -i 's/^ParallelDownloads = [0-9]\+/#ParallelDownloads = 7/' /etc/pacman.conf
@@ -63,7 +63,7 @@ sudo sed -i 's/^ParallelDownloads = [0-9]\+/#ParallelDownloads = 7/' /etc/pacman
 sudo pacman --noconfirm --needed --color always -S git base-devel && git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si --noconfirm && cd - && rm -rf yay-bin
 ```
 
-#### [Mirrors choose](https://wiki.archlinux.org/title/mirrors#Fetching_and_ranking_a_live_mirror_list)
+#### [mirrors choose](https://wiki.archlinux.org/title/mirrors#Fetching_and_ranking_a_live_mirror_list)
 
 ```bash
 sudo yay -S --color always rate-mirrors-bin
@@ -104,7 +104,7 @@ cargo install cargo-update
 cargo install-update -a
 ```
 
-### [Download "whole" site](https://pingvinus.ru/note/wget-download-sites) ([alt](https://superuser.com/q/1672776))
+### [download "whole" site](https://pingvinus.ru/note/wget-download-sites) ([alt](https://superuser.com/q/1672776))
 
 ```bash
 # set recursion depth manually
@@ -113,7 +113,7 @@ wget -r -k -l 7 -p -E -nc http://site.com/
 wget -mpEk http://site.com/
 ```
 
-### Check size of files at folder
+### check size of files at folder
 
 ```bash
 # current folder
@@ -124,7 +124,7 @@ du . -hacd 1 --apparent-size | sort -hr
 du . -ha | sort -hr
 ```
 
-### Grep search in dir recursively
+### grep search in dir recursively
 
 TODO add find or strings example
 
@@ -189,3 +189,16 @@ yes > no
 ```bash
 subnet='46.175.145'; for i in {0..255}; do timeout 0.5 ping -c1 $subnet.$i; done
 ```
+
+### send nc/netcat/croc etc
+
+- `nc` reverse shell
+  - `exec command 2>&1 | nc SERVER_IP SERVER_PORT`
+  - `nc -l -p SERVER_PORT 2>&1 | tee -a FILE_NAME?`
+- [`nc` send file](https://superuser.com/a/98323)
+  - `cat FILE_NAME | netcat SERVER_IP SERVER_PORT`
+  - `nc -l -p SERVER_PORT -q 1 > FILE_NAME < /dev/null`
+- [croc](https://github.com/schollz/croc)
+  - `curl https://getcroc.schollz.com | bash`
+    - alt with `wget -O- https://getcroc.schollz.com | bash`
+    - if install is [failed](https://github.com/schollz/croc/issues/765), use unpacked binary from `/tmp/` folder (it is not deleted after failed install)
