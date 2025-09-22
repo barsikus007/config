@@ -80,7 +80,6 @@
         ./hosts
         ./hosts/ROG14/configuration.nix
 
-        ./modules/hardware/fingerprint.nix
         ./modules/hardware/logi-mx3.nix
         ./modules/hardware/xbox.nix
 
@@ -109,6 +108,7 @@
             #? nix-index
             #? nix-locate -- lib/libgobject-2.0.so.0
             #? https://unix.stackexchange.com/a/522823
+            #? https://wiki.nixos.org/wiki/Nix-ld
             # stdenv.cc.cc
             # zlib
             # curl
@@ -195,14 +195,14 @@
       in
       pkgs.mkShell {
         # nix develop ~/config/nix#python
-        packages = [
+        packages = with pkgs; [
           (pythonPkg.withPackages (
             python-pkgs: with python-pkgs; [
               uv
-              hatch
               ruff
             ]
           ))
+          hatch
         ];
         shellHook = ''
           echo "Welcome to the Python ${pythonPkg.version} devShell!"
