@@ -19,6 +19,16 @@ a() {
   )
 }
 
+s () {
+  #? https://dev.to/kaeruct/fzf-ssh-config-hosts-23dj
+  (
+    server=$(grep -E '^Host ' ~/.ssh/config | awk '{print $2}' | fzf --height 40%)
+    if [[ -n $server ]]; then
+      ssht "$server" "$@"
+    fi
+  )
+}
+
 type_colored() {
   type -afs "$@" | sed 's/is an alias for/is an alias for:\n/' | bat -l sh --style=plain --color=always
 }
@@ -39,6 +49,10 @@ nix_truncate() {
     # sed "s|${nix_store_regex}|${underline}\2${reset}|g"
     sed "s|${nix_store_regex}|${underline}${osc8_start}\1${osc8_mid}\2${osc8_end}${reset}|g"
   )
+}
+
+nix_shell_exec() {
+  nix-shell -p "$1" --run "$*"
 }
 
 export_aliases() {  # TODO WIP

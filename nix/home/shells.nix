@@ -21,7 +21,7 @@ let
     nvs = "editor $(rg -n . | fzf | awk -F: '{print \"+\"$2,$1}')";
     "1ip" = "wget -qO - icanhazip.com";
     "2ip" = "curl 2ip.ru";
-    "3ip" = "curl -so- ipinfo.io";
+    "3ip" = "curl -so- ipinfo.io | jq";
     cu = "cd ${flakePath} && git pull && cd -";
     #? nix have ip with prebuilt color, alias brokes autocmpletion
     # ip = "ip --color";
@@ -102,6 +102,7 @@ let
       nndiff = "nvd diff /nix/var/nix/profiles/$(command ls -t /nix/var/nix/profiles/ | fzf) /nix/var/nix/profiles/system";
       nix-shell = "nix-shell --run zsh";
       ns = "nix-shell -p";
+      nss = "nix_shell_exec";
     };
   sharedAliases =
     baseAliases
