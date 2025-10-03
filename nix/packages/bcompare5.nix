@@ -28,19 +28,19 @@
   # unzip,
 }:
 
-# thx https://github.com/erahhal/nixcfg/blob/93d251e25f6901e585f0941d2accbd6e315f778b/pkgs/bcompare-beta/default.nix
-# og https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/version-management/bcompare/default.nix
+#? thx https://github.com/erahhal/nixcfg/blob/93d251e25f6901e585f0941d2accbd6e315f778b/pkgs/bcompare-beta/default.nix
+#? og https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/version-management/bcompare/default.nix
 
 let
   pname = "bcompare";
-  version = "5.1.0.31016";
+  version = "5.1.5.31310";
 
   throwSystem = throw "Unsupported system: ${stdenv.hostPlatform.system}";
 
   srcs = {
     x86_64-linux = fetchurl {
       url = "https://www.scootersoftware.com/files/${pname}-${version}_amd64.deb";
-      sha256 = "sha256-LpvxeOfQGAFs1CshRxfrYuOK/4d7QiAWXojsJMtVFy0=";
+      sha256 = "sha256-8o8rOmB/GGOk532kg3dlEMarzIdvvmVmB12coRlW334=";
     };
 
     # x86_64-darwin = fetchurl {
@@ -95,7 +95,7 @@ let
         substituteInPlace $out/lib/beyondcompare/bcmount.sh \
           --replace-fail "python3" "${python.interpreter}"
 
-        wrapQtApp $out/bin/bcompare
+        wrapQtApp $out/bin/bcompare --set XDG_SESSION_TYPE x11
       '';
 
       nativeBuildInputs = [
@@ -158,8 +158,7 @@ let
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.free;
     maintainers = with maintainers; [
-      ktor
-      arkivm
+      barsikus007
     ];
     platforms = builtins.attrNames srcs;
     mainProgram = "bcompare";
