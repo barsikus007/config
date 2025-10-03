@@ -1,0 +1,195 @@
+{
+  stdenv,
+  fetchurl,
+  dpkg,
+  patchelf,
+  lib,
+  qt6,
+  xorg,
+  xcb-util-cursor,
+  libgcc,
+  util-linux,
+  llvmPackages,
+  cups,
+  libGLU,
+}:
+
+let
+  version = "24.1.0.64";
+  pkgsList = [
+    {
+      name = "ascon-kompas3d-v24-full";
+      sha256 = "sha256-iaSeDzShGJdwtsUL+BtzlvAYIIadxqpIr3kue5AZk/0=";
+    }
+    {
+      name = "ascon-kompas-common-v24";
+      sha256 = "sha256-e1bd2FN5Xbuwq2jvfxU230RpBRSur/WhkJ4jPpQNJwE=";
+    }
+    {
+      name = "ascon-kompas3d-v24";
+      sha256 = "sha256-M//vJ+lfRKj86cYW0ZUXTlg3rnBr0BBZ1qJJn5fZuNQ=";
+    }
+    {
+      name = "ascon-kompas-graphic-v24";
+      sha256 = "sha256-bOX0T64RZHxqGpGfN8U2hHA2kWxeoy+xIiz+gjqreJE=";
+    }
+    {
+      name = "ascon-kompas-plugins-v24";
+      sha256 = "sha256-V6hVRkv8KgDq2P0x+IV0Zowngy6iYaDULwpr6tAHVFI=";
+    }
+    {
+      name = "ascon-kompas-nesting-v24";
+      sha256 = "sha256-SiR8zTHiJD2IB5WdVvGpC0BEtrDbXJLjjTC8xY5N1XY=";
+    }
+    {
+      name = "ascon-kompas-servicetools-v24";
+      sha256 = "sha256-G3+Sqq5WJ7Xgdb0xGulFczPqGPsVGlghhCrNj68K1t8=";
+    }
+    {
+      name = "ascon-kompas-featurekompas-v24";
+      sha256 = "sha256-FSM848+wTOA7Ol84LPzFLI6WP+eY7taSKMRFUT5NROE=";
+    }
+    {
+      name = "ascon-kompas-sdk-v24";
+      sha256 = "sha256-D14LgHtqe+BsIBeCkaJdyrNj2UxyvU1WL/bhcTW7QGo=";
+    }
+    {
+      name = "ascon-kompas-libsamples-v24";
+      sha256 = "sha256-+pSovwz3i9eo3jfudiIOVJU78Rb6Dqomil6vWPvKD28=";
+    }
+    {
+      name = "ascon-kompas-coupling-v24";
+      sha256 = "sha256-BVbcZHo8aDgHxopkxk0SlFBRckjw5+HrPW3BURm5vjA=";
+    }
+    {
+      name = "ascon-kompas-help-v24";
+      sha256 = "sha256-Ws4RCDlGKfS0bNrct5i4pLOtkeiPaYflRmLbGHVNbXE=";
+    }
+    {
+      name = "ascon-kompas-checker-v24";
+      sha256 = "sha256-JuGhlKmlfZbDxI/2uzdSK/wH6BBUSKsS9Wxp9/6U2uE=";
+    }
+    {
+      name = "ascon-kompas-dimchain-v24";
+      sha256 = "sha256-G2YvDq6IIuRG6NOCGbjQC31lZFNXjVdvEusxGnzJs8Q=";
+    }
+  ];
+
+  fetchDebs =
+    package:
+    fetchurl {
+      url = "https://repo.ascon.ru/beta/deb/pool/main/a/${package.name}/${package.name}_${version}_amd64.deb";
+      sha256 = package.sha256;
+    };
+
+  srcs = (map fetchDebs pkgsList) ++ [
+    (fetchurl {
+      url = "https://repo.ascon.ru/beta/deb/pool/main/a/ascon-kompas-fonts/ascon-kompas-fonts_1.0.0.4_amd64.deb";
+      sha256 = "sha256-lNPCNrkoz62+LCka7A6cj1Lsgj5jFVfk9AgAqjU0s7w=";
+    })
+  ];
+
+in
+stdenv.mkDerivation rec {
+  pname = "kompas3d-v24-full";
+  inherit version srcs;
+
+  nativeBuildInputs = [
+    dpkg
+    patchelf
+  ];
+
+  propagatedBuildInputs = [
+    libgcc.lib
+    qt6.full
+    util-linux.lib
+    cups
+    libGLU
+    xcb-util-cursor
+    xorg.libSM
+    xorg.libXxf86vm
+    xorg.libXv
+    xorg.libXres
+    xorg.libXpm
+    xorg.libXmu
+    xorg.libxkbfile
+    xorg.libXinerama
+    xorg.libXdamage
+    xorg.libXfixes
+    xorg.libXcursor
+    xorg.libXcomposite
+    xorg.libXaw
+    xorg.libXt
+    xorg.libXtst
+    xorg.libICE
+    xorg.libfontenc
+    xorg.libxcb
+    xorg.libX11
+    xorg.libXext
+    xorg.libXrender
+    xorg.libXrandr
+    xorg.libXScrnSaver
+    xorg.libXi
+    xorg.xcbutil
+    xorg.xcbutilwm
+    xorg.xcbutilrenderutil
+    xorg.xcbutilkeysyms
+    xorg.xcbutilimage
+    xorg.libXdmcp
+    xorg.libXau
+    llvmPackages.libcxx
+    llvmPackages.libunwind
+    llvmPackages.openmp
+  ];
+
+  unpackPhase = ''
+    for src in $srcs; do
+      dpkg-deb -x $src $out
+    done
+  '';
+
+  installPhase = ''
+    mkdir -p $out/lib $out/bin
+    progdir="$out/opt/ascon/kompas3d-v24"
+    bindir="$progdir/Bin"
+    for f in "$bindir"/*; do
+      if [[ "$f" == *.so* ]]; then
+        ln -s "$f" $out/lib/
+      fi
+      ln -s "$f" $out/bin/
+    done
+    # ln -s $out/opt/ascon/kompas3d-v24/Libs/* $out/lib/ 2>/dev/null || true
+  '';
+
+  postFixup = ''
+    exe="$out/bin/kKompas"
+    libdir="$out/lib"
+    progdir="$out/opt/ascon/kompas3d-v24"
+    plugdir="$progdir/Libs"
+    patchelf --set-rpath "${lib.makeLibraryPath propagatedBuildInputs}:$libdir:$plugdir:${qt6.qtbase}/lib/qt6/plugins/platforms" "$exe"
+  '';
+
+  dontBuild = true;
+
+  meta = with lib; {
+    description = ''
+      КОМПАС-3D для машиностроения и приборостроения
+        Данный пакет предназначен для установки КОМПАС-3D для машиностроения и приборостроения в составе:
+        * КОМПАС-График
+        * КОМПАС-3D
+        * Локальная справка для КОМПАС-3D
+        * Шрифты чертежные
+        * Средства разработки приложений
+        * Каталог: Муфты
+        * Размерные цепи
+        * Сервисные инструменты
+        * Проверка документов
+        * Распознавание 3D-моделей
+        * Раскрой
+        * Примеры библиотек фрагментов и моделей
+        * Стандартные Изделия для КОМПАС
+    '';
+    platforms = platforms.linux;
+    # license = licenses.unfree;
+  };
+}
