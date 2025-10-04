@@ -243,7 +243,9 @@ sudo rm /swap/swapfile
 sudo btrfs subvolume delete /swap
 ```
 
-## Gnome shortcuts (Keyboard -> View and Customize Shortcuts)
+## Gnome
+
+### shortcuts (Keyboard -> View and Customize Shortcuts)
 
 - ROG G14 2020 specific
   - ROG key -> `bash -c 'demotoggle'`
@@ -258,13 +260,13 @@ sudo btrfs subvolume delete /swap
   - `gsettings set org.gnome.desktop.wm.keybindings switch-input-source-backward "['<Shift>Alt_L', '<Shift>XF86Keyboard']"`
   - revert `gsettings set org.gnome.desktop.wm.keybindings switch-input-source-backward "['<Shift><Super>space', '<Shift>XF86Keyboard']"`
 
-### Get keycodes
+#### Get keycodes
 
 ```bash
 cat /usr/include/linux/input-event-codes.h | grep -E '_(HOME|END|PAGE(UP|DOWN))\s'
 ```
 
-### Allow ydotool as non-root
+#### Allow ydotool as non-root
 
 ```bash
 sed -i "s/ydotoold$/ydotoold --socket-path=\/run\/user\/$UID\/.ydotool_socket --socket-own=$(id -u):$(id -g)/g" /usr/lib/systemd/system/ydotool.service
@@ -273,6 +275,36 @@ sudo systemctl enable --all ydotool && systemctl status ydotool
 # or
 sudo systemctl reload ydotool && systemctl status ydotool
 ```
+
+### GNOME 46/47 workarounds
+
+- TODO Control_R as modifier in gnome
+- file-roller-nautilus
+  - `sudo dnf install file-roller-nautilus`
+- [GNOME moment fix](https://dausruddin.com/how-to-update-gnome-extension-properly-get-rid-of-error/)
+  - wtf, no way to restart under wayland...
+- [Extension Manager](https://github.com/mjakeman/extension-manager)
+- TODO gnome tweaks
+- TODO [adwaita for GTK3](https://github.com/lassekongo83/adw-gtk3)
+- [GNOME Shell Extensions](https://extensions.gnome.org/local)
+  - default
+    - [for telegram and docker desktop badges](https://extensions.gnome.org/extension/615/appindicator-support/)
+    - [emoji](https://extensions.gnome.org/extension/6242/emoji-copy/)
+    - [fix desktop](https://extensions.gnome.org/extension/2087/desktop-icons-ng-ding/)
+    - [clipboard history](https://extensions.gnome.org/extension/5278/pano/)
+      - install [v23](https://github.com/oae/gnome-shell-pano/releases) for GNOME 46/47
+        - unzip to `~/.local/share/gnome-shell/extensions`
+        - or `gnome-extensions install -f  pano@elhan.io.zip`
+      - change `Global Shortcut` from `Shift+Super+V` to `Super+V`
+      - disable sound
+    - [Gnome Tweaks 2.0](https://extensions.gnome.org/extension/3843/just-perfection/)
+      - Behavior -> Window Demands Attention Focus -> On
+  - laptop
+    - [windows-like gestures](https://extensions.gnome.org/extension/4245/gesture-improvements/)
+      - [GNOME moment](https://github.com/sidevesh/gnome-gesture-improvements--transpiled)
+    - [Profile badge indicator](https://extensions.gnome.org/extension/5335/power-profile-indicator/)
+    - [GPU in power menu](https://extensions.gnome.org/extension/5344/supergfxctl-gex/)
+      - [GNOME moment](https://extensions.gnome.org/extension/7018/gpu-supergfxctl-switch/)
 
 ## Grub tweak
 
