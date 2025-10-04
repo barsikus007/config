@@ -1,35 +1,62 @@
 {
   lib,
+  acl,
+  attr,
   autoPatchelfHook,
+  brotli,
   bzip2,
-  cairo,
+  dbus,
+  expat,
   fetchurl,
-  gdk-pixbuf,
+  fontconfig,
+  freetype,
   glibc,
-  pango,
-  gtk3,
-
-  wrapGAppsHook3,
   gobject-introspection,
-  python3,
-
+  graphite2,
+  harfbuzz,
+  icu,
+  karchive,
+  kauth,
+  kcodecs,
+  kcompletion,
+  kconfig,
+  kconfigwidgets,
   kcoreaddons,
+  kcrash,
+  kdbusaddons,
+  keyutils,
+  kguiaddons,
   ki18n,
+  kiconthemes,
   kio,
+  kjobwidgets,
+  krb5,
   kservice,
-
-  poppler,
-  poppler_utils,
-  gvfs,
-  wrapQtAppsHook,
-  qtbase,
-  stdenv,
+  kwidgetsaddons,
+  kwindowsystem,
+  libcap,
+  libffi,
+  libGL,
+  libpng,
+  libXext,
+  libxkbcommon,
+  openssl,
+  pcre2,
+  python3,
+  qt5,
+  qtwayland,
   runtimeShell,
-  # unzip,
+  solid,
+  stdenv,
+  unzip,
+  util-linux,
+  wayland,
+  wrapGAppsHook3,
+  xorg,
+  xz,
+  zlib,
+  zstd,
 }:
-
-#? thx https://github.com/erahhal/nixcfg/blob/93d251e25f6901e585f0941d2accbd6e315f778b/pkgs/bcompare-beta/default.nix
-#? og https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/version-management/bcompare/default.nix
 
 let
   pname = "bcompare";
@@ -39,16 +66,16 @@ let
 
   srcs = {
     x86_64-linux = fetchurl {
-      url = "https://www.scootersoftware.com/files/${pname}-${version}_amd64.deb";
+      url = "https://www.scootersoftware.com/${pname}-${version}_amd64.deb";
       sha256 = "sha256-8o8rOmB/GGOk532kg3dlEMarzIdvvmVmB12coRlW334=";
     };
 
-    # x86_64-darwin = fetchurl {
-    #   url = "https://www.scootersoftware.com/BCompareOSX-${version}.zip";
-    #   sha256 = "sha256-hUzJfUgfCuvB6ADHbsgmEXXgntm01hPnfSjwl7jI70c=";
-    # };
+    x86_64-darwin = fetchurl {
+      url = "https://www.scootersoftware.com/BCompareOSX-${version}.zip";
+      sha256 = "sha256-jmRBwpH2UIN3zvL/LPMwcw2N2fc4IACKho8EnfYIMQg=";
+    };
 
-    # aarch64-darwin = srcs.x86_64-darwin;
+    aarch64-darwin = srcs.x86_64-darwin;
   };
 
   src = srcs.${stdenv.hostPlatform.system} or throwSystem;
@@ -78,9 +105,8 @@ let
 
         cp -R usr/{bin,lib,share} $out/
 
-        # Remove library that refuses to be autoPatchelf'ed
+        # Remove libraries that refuse to be autoPatchelf'ed
         rm $out/lib/beyondcompare/ext/bcompare_ext_kde.amd64.so
-        # rm $out/lib/beyondcompare/ext/bcompare_ext_kde5.amd64.so
         rm $out/lib/beyondcompare/ext/bcompare_ext_kde6.amd64.so
 
         substituteInPlace $out/bin/${pname} \
@@ -88,43 +114,78 @@ let
           --replace-fail "ldd" "${glibc.bin}/bin/ldd" \
           --replace-fail "/bin/bash" "${runtimeShell}"
 
-        # Create symlink bzip2 library
-        ln -s ${bzip2.out}/lib/libbz2.so.1 $out/lib/beyondcompare/libbz2.so.1.0
-
-
         substituteInPlace $out/lib/beyondcompare/bcmount.sh \
           --replace-fail "python3" "${python.interpreter}"
 
-        wrapQtApp $out/bin/bcompare --set XDG_SESSION_TYPE x11
+        # $out/bin/bcompare is already a Qt wrapper
+        # Instead of creating another Qt wrapper to export QT_QPA_PLATFORM_PLUGIN_PATH,
+        # just add the export to the existing one
+        QT_PLUGIN_PATH="export QT_QPA_PLATFORM_PLUGIN_PATH=\"${qt5.qtbase}/${qt5.qtbase.qtPluginPrefix}/platforms\""
+        sed -i "/QT_QPA_PLATFORM/a $QT_PLUGIN_PATH" "$out/bin/bcompare"
       '';
 
       nativeBuildInputs = [
         autoPatchelfHook
-        wrapQtAppsHook
-        wrapGAppsHook3
         gobject-introspection
+        wrapGAppsHook3
       ];
 
       buildInputs = [
-        stdenv.cc.cc.lib
-        gtk3
-        python
-        pango
-        cairo
-
+        (lib.getLib stdenv.cc.cc)
+        acl
+        attr
+        brotli
+        bzip2
+        dbus
+        expat
+        fontconfig
+        freetype
+        graphite2
+        harfbuzz
+        icu
+        karchive
+        kauth
+        kcodecs
+        kcompletion
+        kconfig
+        kconfigwidgets
         kcoreaddons
+        kcrash
+        kdbusaddons
+        keyutils
+        kguiaddons
         ki18n
+        kiconthemes
         kio
+        kjobwidgets
+        krb5
         kservice
-
-        gdk-pixbuf
-        bzip2
-
-        qtbase
-        poppler
-        poppler_utils
-        gvfs
-        bzip2
+        kwidgetsaddons
+        kwindowsystem
+        libcap
+        libffi
+        libGL
+        libpng
+        libXext
+        libxkbcommon
+        openssl
+        pcre2
+        qt5.qtbase
+        qt5.qtsvg
+        qt5.qtx11extras
+        qtwayland
+        solid
+        util-linux
+        wayland
+        xorg.libX11
+        xorg.libXau
+        xorg.libxcb
+        xorg.libXdmcp
+        xorg.libXfixes
+        xorg.xcbutilkeysyms
+        xz
+        zlib
+        zstd
       ];
 
       dontBuild = true;
@@ -132,20 +193,20 @@ let
       dontWrapQtApps = true;
     };
 
-  # darwin = stdenv.mkDerivation {
-  #   inherit
-  #     pname
-  #     version
-  #     src
-  #     meta
-  #     ;
-  #   nativeBuildInputs = [ unzip ];
+  darwin = stdenv.mkDerivation {
+    inherit
+      pname
+      version
+      src
+      meta
+      ;
+    nativeBuildInputs = [ unzip ];
 
-  #   installPhase = ''
-  #     mkdir -p $out/Applications/BCompare.app
-  #     cp -R . $out/Applications/BCompare.app
-  #   '';
-  # };
+    installPhase = ''
+      mkdir -p $out/Applications/BCompare.app
+      cp -R . $out/Applications/BCompare.app
+    '';
+  };
 
   meta = with lib; {
     description = "GUI application that allows to quickly and easily compare files and folders";
@@ -158,11 +219,11 @@ let
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.free;
     maintainers = with maintainers; [
-      barsikus007
+      ktor
+      arkivm
     ];
     platforms = builtins.attrNames srcs;
     mainProgram = "bcompare";
   };
 in
-# if stdenv.hostPlatform.isDarwin then darwin else linux
-linux
+if stdenv.hostPlatform.isDarwin then darwin else linux
