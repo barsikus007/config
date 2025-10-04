@@ -16,7 +16,7 @@ cat ~/.ssh/id_ed25519.pub
 ### generate and upload SSH
 
 ```bash
-key_file=filename
+key_file=~/.ssh/filename
 ssh-keygen -t ed25519 -f $key_file  # -P "password" -C "comment"
 ssh-copy-id -i $key_file.pub user@host
 # or mkdir -p ~/.ssh/ && editor ~/.ssh/authorized_keys

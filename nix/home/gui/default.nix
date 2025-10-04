@@ -4,6 +4,7 @@
     settings = {
       Browser = {
         Enabled = true;
+        BestMatchOnly = true;
         AlwaysAllowAccess = true;
       };
       GUI = {

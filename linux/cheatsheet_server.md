@@ -62,7 +62,6 @@ sudo systemctl reload sshd
 #### old (bad) method
 
 ```bash
-``` bash
 sshd_file=/etc/ssh/sshd_config
 cp $sshd_file ~
 sudo sed -i 's/^#Port/Port/' $sshd_file

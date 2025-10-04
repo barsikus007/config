@@ -195,7 +195,6 @@ pkgs.mkShell {
     - best location for config files
       - agenix secrets?
   - [docker compose](https://www.reddit.com/r/docker/comments/vovo2b/dockerfzf_exec_bash_if_found_otherwise_sh/)
-  - ssh
   - fzc alias=fzf ~/config
 - grep config folder for cheatsheet
 - code=co

@@ -61,9 +61,9 @@
     bluetooth.enable = true;
   };
 
-  # https://asus-linux.org/guides/nixos/
-  services.supergfxd.enable = true;
   services = {
+    #? https://asus-linux.org/guides/nixos/
+    supergfxd.enable = true;
     asusd = {
       enable = true;
       # package = pkgs.unstable.asusctl;

@@ -25,6 +25,7 @@ with pkgs;
   ldns # have drill like dig
 
   # new other
+  shfmt
   iotop
   psmisc # killall pstree
   fatrace

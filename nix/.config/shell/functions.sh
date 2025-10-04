@@ -5,7 +5,14 @@
 . "$XDG_CONFIG_HOME/shell/g14.sh"
 
 mkcd() { mkdir -p "$@" && cd "$@" || exit; }
-ssht() { (ssh "$@" -t "zellij attach -c 0 options --default-mode locked --session-serialization false || tmux new -As0 || bash || sh") }
+ssht() {
+  (
+    case "$1" in
+      -*) echo "Specify hostname first"; return 1 ;;
+    esac
+    ssh "$@" -t "zellij attach -c $1 options --default-mode locked --session-serialization false || tmux new -As$1 || bash || sh"
+  )
+}
 
 dcsh() { docker compose exec -it "$1" sh -c 'bash || sh'; }
 
@@ -24,6 +31,7 @@ s () {
   (
     server=$(grep -E '^Host ' ~/.ssh/config | awk '{print $2}' | fzf --height 40%)
     if [[ -n $server ]]; then
+      echo "Connecting to $server..."
       ssht "$server" "$@"
     fi
   )

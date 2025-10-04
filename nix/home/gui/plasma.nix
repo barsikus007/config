@@ -59,7 +59,7 @@
       # colorScheme = "BreezeDark";
       # cursor.theme = "Breeze_Dark";
       # cursor.size = 24;
-      lookAndFeel = "org.kde.breezedark.desktop";
+      lookAndFeel = if (config.stylix.polarity == "light") then "org.kde.breeze.desktop" else "org.kde.breezedark.desktop";
       tooltipDelay = 500;
     };
 
