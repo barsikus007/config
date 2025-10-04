@@ -17,7 +17,7 @@
 
   inputs = {
     #? nixpkgs-previous.url = "github:nixos/nixpkgs?ref=nixos-25.05";
-    nixpkgs-previous.url = "github:nixos/nixpkgs?ref=ad7196ae55c295f53a7d1ec39e4a06d922f3b899";
+    nixpkgs-previous.url = "github:nixos/nixpkgs?ref=879bd460b3d3e8571354ce172128fbcbac1ed633";
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-25.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     nixos-hardware.url = "github:nixos/nixos-hardware?ref=master";

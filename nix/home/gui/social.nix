@@ -7,14 +7,14 @@
 # Да.
 let
   patchesRepo = pkgs.fetchFromGitHub {
-    # https://github.com/desktop-app/patches/raw/e15b5d87c565e516aad5bcafdfe40315f84e5459
+    #? https://github.com/desktop-app/patches/tree/a25a212644a8e42d9a5b1c7ba6489e11e92df813
     owner = "desktop-app";
     repo = "patches";
-    rev = "e15b5d87c565e516aad5bcafdfe40315f84e5459";
-    sha256 = "sha256-p2MQ2V0JQ8QoTb4syd0aFXYBE7MUJdeNmgJHV+Cy1GQ=";
+    rev = "a25a212644a8e42d9a5b1c7ba6489e11e92df813";
+    sha256 = "sha256-PpLfoZcWV6aK7R1VYbYfJI7VNgFijirdvWt9NeFUEhg=";
   };
-  qtbasePatches = pkgs.lib.filesystem.listFilesRecursive "${patchesRepo}/qtbase_6.9.1";
-  qtwaylandPatches = pkgs.lib.filesystem.listFilesRecursive "${patchesRepo}/qtwayland_6.9.1";
+  qtbasePatches = pkgs.lib.filesystem.listFilesRecursive "${patchesRepo}/qtbase_6.9.2";
+  qtwaylandPatches = pkgs.lib.filesystem.listFilesRecursive "${patchesRepo}/qtwayland_6.9.2";
 in
 let
   qtbasePatched = pkgs.qt6.qtbase.overrideAttrs (oldAttrs: {
