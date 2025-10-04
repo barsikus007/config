@@ -1,6 +1,6 @@
 # [Root](./)
 
-## ~~Magisk~~ ~~[KernelSU](https://github.com/tiann/KernelSU/releases)~~ ~~[APatch](https://github.com/bmax121/APatch/releases)~~ ~~[Kitsune Magisk](https://github.com/1q23lyc45/KitsuneMagisk/releases)~~ [KernelSU Next](https://github.com/KernelSU-Next/KernelSU-Next/releases)
+## ~~Magisk~~ ~~[KernelSU](https://github.com/tiann/KernelSU)~~ ~~[APatch](https://github.com/bmax121/APatch)~~ ~~[Kitsune Magisk](https://github.com/1q23lyc45/KitsuneMagisk)~~ [KernelSU Next](https://github.com/KernelSU-Next/KernelSU-Next)
 
 ### ඞ installation
 
@@ -8,7 +8,8 @@
 2. [ඞ kernel](https://github.com/WildKernels/GKI_KernelSU_SUSFS/releases)
    - P7 A15 is `android14-6.1.99`
    - P7 A16 is `android14-6.1.124`
-3. [ඞ module](https://github.com/sidex15/susfs4ksu-module)
+   - P7 A16 is `android14-6.1.134`
+3. [ඞ module](https://github.com/sidex15/susfs4ksu-module/releases)
 
 #### OTA
 
@@ -21,9 +22,10 @@
 ### Modules
 
 - Essential
-  - ~~[Zygisk**Next**](https://github.com/Dr-TSNG/ZygiskNext/releases)~~ ~~[ReZygisk](https://github.com/PerformanC/ReZygisk/releases)~~ [NeoZygisk](https://github.com/JingMatrix/NeoZygisk/actions)
+  - ~~[Zygisk**Next**](https://github.com/Dr-TSNG/ZygiskNext/releases)~~ ~~[ReZygisk](https://github.com/PerformanC/ReZygisk/releases)~~ [NeoZygisk](https://github.com/JingMatrix/NeoZygisk/releases)
   - [LSPosed](https://github.com/JingMatrix/LSPosed/releases)
-    - /data/adb/lspd/config
+    - [temp fix](https://github.com/JingMatrix/LSPosed/actions/runs/17713071813)
+    - `/data/adb/lspd/config`
 - Hiding root
   - [Zygisk-Assistant](https://github.com/snake-4/Zygisk-Assistant/releases)
     - !dont used
