@@ -4,7 +4,7 @@
         // "": true,
     ],
     // linux fixes
-    "window.titleBarStyle": "custom",
+    "window.dialogStyle": "custom",
     "editor.selectionClipboard": false,
     "settingsSync.keybindingsPerPlatform": false,
     "update.mode": "manual",

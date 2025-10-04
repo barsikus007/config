@@ -1,12 +1,17 @@
 { pkgs, ... }:
 {
   environment.sessionVariables = {
-    # https://wiki.nixos.org/wiki/Wayland#Electron_and_Chromium
+    #? https://wiki.nixos.org/wiki/Wayland#Electron_and_Chromium
     NIXOS_OZONE_WL = "1";
-    # use KDE filepicker in GTK apps
+    #? use KDE filepicker in GTK apps
     GTK_USE_PORTAL = "1";
   };
-  # services.xserver.enable = true; # optional for sddm
+  #? use KDE filepicker in GTK apps
+  xdg.portal.xdgOpenUsePortal = true;
+
+  # TODO: 25.11: https://github.com/nix-community/stylix/issues/1865
+  qt.style = pkgs.lib.mkForce "breeze";
+
   services.displayManager = {
     sddm = {
       enable = true;
@@ -17,7 +22,7 @@
   };
   services.desktopManager.plasma6.enable = true;
   # environment.plasma6.excludePackages = with pkgs.kdePackages; [
-  #   # https://github.com/NixOS/nixpkgs/blob/nixos-25.05/nixos/modules/services/desktop-managers/plasma6.nix#L159-L174
+  #   #? https://github.com/NixOS/nixpkgs/blob/nixos-25.05/nixos/modules/services/desktop-managers/plasma6.nix#L159-L174
   #   # plasma-browser-integration
   #   # konsole
   #   # (lib.getBin qttools) # Expose qdbus in PATH

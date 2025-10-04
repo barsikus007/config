@@ -9,6 +9,7 @@
     # autoEnable = false;
     targets = {
       # kde.enable = false;
+      # gtk.enable = false;
       bat.enable = false;
       vscode.enable = false;
       nixcord.enable = false;

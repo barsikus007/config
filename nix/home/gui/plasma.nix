@@ -1,14 +1,23 @@
-{ pkgs, inputs, ... }:
+{
+  pkgs,
+  inputs,
+  config,
+  ...
+}:
 {
   imports = [ inputs.plasma-manager.homeManagerModules.plasma-manager ];
   # TODO: if asus
   home.packages = with pkgs; [ supergfxctl-plasmoid ];
 
-  # TODO if plasma
   programs.zsh.initContent = ''explorer.exe() {dolphin --new-window "$@" 1>/dev/null 2>/dev/null & disown}'';
 
-  # https://github.com/nix-community/plasma-manager
-  # https://nix-community.github.io/plasma-manager/options.xhtml
+  gtk.theme.package = pkgs.lib.mkForce pkgs.kdePackages.breeze-gtk;
+  gtk.theme.name = pkgs.lib.mkForce (
+    if (config.stylix.polarity == "light") then "Breeze" else "Breeze-Dark"
+  );
+
+  #? https://github.com/nix-community/plasma-manager
+  #? https://nix-community.github.io/plasma-manager/options.xhtml
   programs.plasma = {
     enable = true;
     overrideConfig = true;
@@ -159,6 +168,7 @@
                 # "applications:vesktop.desktop"
                 # "applications:dorion.desktop"
                 "applications:obsidian.desktop"
+                "applications:bcompare.desktop"
               ];
               behavior.grouping.clickAction = "showTooltips";
             };
