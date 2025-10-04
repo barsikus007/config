@@ -219,8 +219,8 @@ let
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.free;
     maintainers = with maintainers; [
-      ktor
-      arkivm
+      barsikus007
+      blemouzy
     ];
     platforms = builtins.attrNames srcs;
     mainProgram = "bcompare";
