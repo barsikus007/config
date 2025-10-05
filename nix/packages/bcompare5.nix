@@ -217,7 +217,7 @@ let
     '';
     homepage = "https://www.scootersoftware.com";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.free;
+    # license = licenses.unfree;
     maintainers = with maintainers; [
       barsikus007
       blemouzy

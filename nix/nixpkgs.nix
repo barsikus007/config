@@ -29,6 +29,7 @@ let
 
     "mprint"
     "bcompare"
+    "kompas3d-v24-full"
     "davinci-resolve-studio"
 
     "xow_dongle-firmware"

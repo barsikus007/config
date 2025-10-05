@@ -2,7 +2,7 @@
   stdenv,
   fetchurl,
   dpkg,
-  patchelf,
+  autoPatchelfHook,
   lib,
   qt6,
   xorg,
@@ -12,6 +12,7 @@
   llvmPackages,
   cups,
   libGLU,
+  gtk2,
 }:
 
 let
@@ -90,16 +91,19 @@ let
   ];
 
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "kompas3d-v24-full";
   inherit version srcs;
 
   nativeBuildInputs = [
     dpkg
-    patchelf
+    autoPatchelfHook
   ];
 
+  autoPatchelfIgnoreMissingDeps = [ "*" ];
+
   propagatedBuildInputs = [
+    gtk2
     libgcc.lib
     qt6.full
     util-linux.lib
@@ -149,30 +153,25 @@ stdenv.mkDerivation rec {
   '';
 
   installPhase = ''
-    mkdir -p $out/lib $out/bin
-    progdir="$out/opt/ascon/kompas3d-v24"
-    bindir="$progdir/Bin"
-    for f in "$bindir"/*; do
-      if [[ "$f" == *.so* ]]; then
-        ln -s "$f" $out/lib/
-      fi
-      ln -s "$f" $out/bin/
-    done
-    # ln -s $out/opt/ascon/kompas3d-v24/Libs/* $out/lib/ 2>/dev/null || true
-  '';
+    runHook preInstall
 
-  postFixup = ''
-    exe="$out/bin/kKompas"
-    libdir="$out/lib"
-    progdir="$out/opt/ascon/kompas3d-v24"
-    plugdir="$progdir/Libs"
-    patchelf --set-rpath "${lib.makeLibraryPath propagatedBuildInputs}:$libdir:$plugdir:${qt6.qtbase}/lib/qt6/plugins/platforms" "$exe"
+    mkdir -p $out/bin
+    ln -s "$out/opt/ascon/kompas3d-v24/Bin/kKompas" $out/bin/
+
+    examplesfile=$out/opt/ascon/kompas3d-v24/Bin/UIConfig/Examples.xml
+    iconv -f UTF-16LE -t UTF-8 $examplesfile -o $examplesfile
+    substituteInPlace $examplesfile \
+      --replace-fail '..\Samples\' "$out\opt\ascon\kompas3d-v24\Samples\\"
+    iconv -f UTF-8 -t UTF-16LE $examplesfile -o $examplesfile
+
+    runHook postInstall
   '';
 
   dontBuild = true;
 
   meta = with lib; {
-    description = ''
+    description = "КОМПАС-3D для машиностроения и приборостроения";
+    longDescription = ''
       КОМПАС-3D для машиностроения и приборостроения
         Данный пакет предназначен для установки КОМПАС-3D для машиностроения и приборостроения в составе:
         * КОМПАС-График
@@ -189,7 +188,11 @@ stdenv.mkDerivation rec {
         * Примеры библиотек фрагментов и моделей
         * Стандартные Изделия для КОМПАС
     '';
+    homepage = "https://ascon.ru/products/kompas-3d/";
     platforms = platforms.linux;
-    # license = licenses.unfree;
+    license = licenses.unfree;
+    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    maintainers = with maintainers; [ barsikus007 ];
+    mainProgram = "kKompas";
   };
 }
