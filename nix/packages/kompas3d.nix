@@ -88,6 +88,10 @@ let
       url = "https://repo.ascon.ru/beta/deb/pool/main/a/ascon-kompas-fonts/ascon-kompas-fonts_1.0.0.4_amd64.deb";
       sha256 = "sha256-lNPCNrkoz62+LCka7A6cj1Lsgj5jFVfk9AgAqjU0s7w=";
     })
+    (fetchurl {
+      url = "https://repo.ascon.ru/beta/deb/pool/main/a/ascon/ascon-polynom-library-23.3-23.3.0.25091905-amd64.deb";
+      sha256 = "sha256-TBQQGnignLxUn4Tadzv9a6xa1UarjtMW1MD4wBGq3Bs=";
+    })
   ];
 
 in
@@ -103,6 +107,7 @@ stdenv.mkDerivation {
   autoPatchelfIgnoreMissingDeps = [ "*" ];
 
   propagatedBuildInputs = [
+    # icu is needed for dotnet based Bin/Ascon.HelpCall, but idk how to pass it
     gtk2
     libgcc.lib
     qt6.full
@@ -148,17 +153,29 @@ stdenv.mkDerivation {
 
   unpackPhase = ''
     for src in $srcs; do
-      dpkg-deb -x $src $out
+      dpkg-deb -x $src ./
     done
   '';
 
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/bin
-    ln -s "$out/opt/ascon/kompas3d-v24/Bin/kKompas" $out/bin/
+    mkdir -p $out/{bin,opt,share}
+    cp -R {etc,opt} $out/
+    cp -R usr/{bin,share} $out/
 
-    examplesfile=$out/opt/ascon/kompas3d-v24/Bin/UIConfig/Examples.xml
+    basepath=$out/opt/ascon/kompas3d-v24
+
+    ln -s $basepath/Bin/kKompas $out/bin/kompas-v24
+    ln -s $basepath/License/kactivation $out/bin/kompas-kactivation-v24
+    ln -s $out/opt/ascon/PolynomLibrary $basepath/Libs/PolynomLibrary
+
+    mv $out/share/applications/flystartmenu/kompas3d-24/* $out/share/applications/
+    rm -rf $out/share/applications/flystartmenu
+    substituteInPlace $out/share/applications/* \
+      --replace-quiet "/opt/ascon/kompas3d-v24" "$basepath"
+
+    examplesfile=$basepath/Bin/UIConfig/Examples.xml
     iconv -f UTF-16LE -t UTF-8 $examplesfile -o $examplesfile
     substituteInPlace $examplesfile \
       --replace-fail '..\Samples\' "$out\opt\ascon\kompas3d-v24\Samples\\"
@@ -193,6 +210,6 @@ stdenv.mkDerivation {
     license = licenses.unfree;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     maintainers = with maintainers; [ barsikus007 ];
-    mainProgram = "kKompas";
+    mainProgram = "kompas-v24";
   };
 }
