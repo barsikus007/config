@@ -212,7 +212,7 @@
       };
     };
     packages.${system} = {
-      # nix run github:barsikus007/config#<packageName>
+      #? nix run --inputs-from nixpkgs github:barsikus007/config?dir=nix#<packageName>
       bcompare5 = (pkgs.libsForQt5.callPackage ./packages/bcompare5.nix { });
       # nix build ./nix#bcompare5 && ./result/bin/bcompare
       mprint = pkgs.callPackage ./packages/mprint.nix { };

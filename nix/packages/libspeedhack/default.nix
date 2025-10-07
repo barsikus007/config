@@ -20,7 +20,7 @@ multiStdenv.mkDerivation rec {
   ];
 
   postPatch = ''
-    substituteInPlace speedhack --replace-fail %OUT% $out
+    substituteInPlace ${meta.mainProgram} --replace-fail %OUT% $out
   '';
 
   buildPhase = ''
@@ -31,7 +31,7 @@ multiStdenv.mkDerivation rec {
     mkdir -p $out/lib/64 $out/lib/32 $out/bin
     cp lib64/* $out/lib/64
     cp lib32/* $out/lib/32
-    cp speedhack $out/bin
+    cp ${meta.mainProgram} $out/bin
   '';
 
   meta = with lib; {
@@ -43,5 +43,6 @@ multiStdenv.mkDerivation rec {
       barsikus007
     ];
     platforms = platforms.x86_64;
+    mainProgram = "speedhack";
   };
 }
