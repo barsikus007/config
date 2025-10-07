@@ -211,5 +211,17 @@
         '';
       };
     };
+    packages.${system} = {
+      # nix run github:barsikus007/config#<packageName>
+      bcompare5 = (pkgs.libsForQt5.callPackage ./packages/bcompare5.nix { });
+      # nix build ./nix#bcompare5 && ./result/bin/bcompare
+      mprint = pkgs.callPackage ./packages/mprint.nix { };
+      libspeedhack = pkgs.callPackage ./packages/libspeedhack { };
+      shikiwatch-appimage = pkgs.callPackage ./packages/shikiwatch-appimage.nix { };
+      shikiwatch-native = pkgs.callPackage ./packages/shikiwatch-native.nix { };
+      # nix build ./nix#shikiwatch-appimage && ./result/bin/ShikiWatch
+      kompas3d = pkgs.callPackage ./packages/kompas3d.nix { };
+      # nix build ./nix#kompas3d && ./result/bin/kompas-v24
+    };
   };
 }
