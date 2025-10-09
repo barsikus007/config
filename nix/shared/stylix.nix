@@ -13,12 +13,25 @@
     # };
     polarity = "dark";
 
-    fonts.serif.name = "Noto Sans";
-    fonts.monospace = {
-      package = pkgs.cascadia-code;
-      name = "Cascadia Code NF";
+    fonts = with pkgs; {
+      serif = {
+        package = noto-fonts;
+        name = "Noto Serif";
+      };
+      sansSerif = {
+        package = cascadia-code;
+        name = "Noto Sans";
+      };
+      monospace = {
+        package = cascadia-code;
+        name = "Cascadia Code NF";
+      };
+      # TODO: 25.11: 🫪
+      emoji.package = unstable.noto-fonts-color-emoji;
+      sizes = {
+        applications = 10;
+        terminal = 12;
+      };
     };
-    fonts.sizes.applications = 10;
-    fonts.sizes.terminal = 12;
   };
 }
