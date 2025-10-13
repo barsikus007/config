@@ -1,4 +1,4 @@
-# rock-3a
+# [rock-3a](./README.md)
 
 ## Armbian install (choose legacy-kernel)
 
