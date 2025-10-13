@@ -16,9 +16,9 @@ confirm() {
 
 soft_envs() {
   soft_unix="git curl wget"
-  soft_base="mc bat duf gdu fzf btop neovim zoxide ripgrep"
+  soft_base="bat duf gdu fzf btop neovim zoxide ripgrep"
   # fd make bzip2
-  soft_add="eza tmux tree neofetch"
+  soft_add="eza tmux tree"
   soft_add_ubuntu="nala build-essential software-properties-common"
   soft_to_purge="snapd"
 }

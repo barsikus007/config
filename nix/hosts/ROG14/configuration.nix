@@ -24,7 +24,8 @@
     ../../modules/hardware/fingerprint.nix
   ];
 
-  time.hardwareClockInLocalTime = true; # ! cause windows
+  # TODO: cause windows but wtill messes sometimes
+  time.hardwareClockInLocalTime = true;
   boot = {
     #? Blazing fast https://xanmod.org/
     # kernelPackages = pkgs.linuxPackages_latest;

@@ -20,6 +20,7 @@
     "workbench.preferredDarkColorTheme": "Shades of Purple (Super Dark)",
     "workbench.colorTheme": "Shades of Purple (Super Dark)",
     "workbench.sideBar.location": "right",
+    "workbench.secondarySideBar.defaultVisibility": "hidden",
     // https://github.com/ahmadawais/shades-of-purple-vscode/issues/37
     // "indentRainbow.colors": [
     //     "rgba(165, 153, 233, 0.5)",

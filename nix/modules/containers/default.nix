@@ -7,6 +7,8 @@
   ];
 
   environment.systemPackages = with pkgs; [
+    distrobox
+
     lazydocker
     dive
   ];

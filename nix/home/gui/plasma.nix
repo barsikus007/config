@@ -5,11 +5,13 @@
   ...
 }:
 {
-  imports = [ inputs.plasma-manager.homeManagerModules.plasma-manager ];
+  imports = [ inputs.plasma-manager.homeModules.plasma-manager ];
   # TODO: if asus
   home.packages = with pkgs; [ supergfxctl-plasmoid ];
 
   programs.zsh.initContent = ''explorer.exe() {dolphin --new-window "$@" 1>/dev/null 2>/dev/null & disown}'';
+  #? have issues with focus, it should focus to explorer every time
+  # programs.zsh.initContent = "alias explorer.exe='kioclient exec'";
 
   gtk.theme.package = pkgs.lib.mkForce pkgs.kdePackages.breeze-gtk;
   gtk.theme.name = pkgs.lib.mkForce (
@@ -75,11 +77,11 @@
       };
     };
 
-    # add appMenu(N) and keepAbove(F) to the left
+    # add keepAbove(F) to the left
     kwin.titlebarButtons.left = [
-      # MNSF
+      # MSF
       "more-window-actions"
-      "application-menu"
+      #? M(N)SF "application-menu"
       "on-all-desktops"
       "keep-above-windows"
     ];

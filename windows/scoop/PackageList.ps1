@@ -5,7 +5,7 @@ scoop-search scoop-completion
 #! essential
 #? curl wget
 #! base
-jq fd mc bat duf gdu fzf btop neovim zoxide ripgrep
+jq fd bat duf gdu fzf btop neovim zoxide ripgrep
 #? btop-lhm VERY SLOW
 #! add
 eza tlrc yazi fastfetch

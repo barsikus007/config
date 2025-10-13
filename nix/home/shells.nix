@@ -252,9 +252,32 @@ in
     enable = true;
     settings = {
       mgr.show_hidden = true;
+      plugin.prepend_previewers = [
+        {
+          name = "*.csv";
+          run = "rich-preview";
+        } # for csv files
+        {
+          name = "*.md";
+          run = "rich-preview";
+        } # for markdown (.md) files
+        {
+          name = "*.rst";
+          run = "rich-preview";
+        } # for restructured text (.rst) files
+        {
+          name = "*.ipynb";
+          run = "rich-preview";
+        } # for jupyter notebooks (.ipynb)
+        {
+          name = "*.json";
+          run = "rich-preview";
+        } # for json (.json) files
+      ];
     };
-    plugins = {
-      smart-enter = pkgs.yaziPlugins.smart-enter;
+    plugins = with pkgs.yaziPlugins; {
+      smart-enter = smart-enter;
+      rich-preview = rich-preview;
     };
     #? https://github.com/sxyazi/yazi/tree/shipped/yazi-config/preset
     keymap = {

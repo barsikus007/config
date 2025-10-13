@@ -1,4 +1,6 @@
 {
+  programs.ssh.startAgent = true;
+
   security.polkit.debug = true;
   security.polkit.extraConfig = ''
     /* Allow members of the wheel group to execute the defined actions

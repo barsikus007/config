@@ -37,7 +37,7 @@
     enable = true;
     nativeMessagingHosts = [ pkgs.firefoxpwa ];
     # https://github.com/tupakkatapa/mozid
-    # nix run github:tupakkatapa/mozid -- <url>
+    # nix run github:tupakkatapa/mozid -- '<url>'
     policies.ExtensionSettings =
       let
         extension = shortId: uuid: {
@@ -58,6 +58,7 @@
         (extension "violentmonkey" "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}")
         (extension "sponsorblock" "sponsorBlocker@ajay.app")
         (extension "return-youtube-dislikes" "{762f9885-5a13-4abd-9c77-433dcd38b8fd}")
+        (extension "search_by_image" "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}")
         # (extension "bitwarden-password-manager" "{446900e4-71c2-419f-a6a7-df9c091e268b}")
         # (extension "umatrix" "uMatrix@raymondhill.net")
         # (extension "libredirect" "7esoorv3@alefvanoon.anonaddy.me")

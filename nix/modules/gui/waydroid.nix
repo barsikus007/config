@@ -2,7 +2,7 @@
 {
   virtualisation.waydroid.enable = true;
 
-  environment.systemPackages = [ pkgs.waydroid-helper ];
+  environment.systemPackages = [ pkgs.unstable.waydroid-helper ];
 
   systemd = {
     packages = [ pkgs.unstable.waydroid-helper ];
