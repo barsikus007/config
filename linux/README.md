@@ -4,6 +4,8 @@
 
 ### [Server](cheatsheet_server.md)
 
+### [Desktop](cheatsheet_desktop.md)
+
 ## [WSL Hints](wsl.md)
 
 ## [Router Setup](devices/ax3600.md)
