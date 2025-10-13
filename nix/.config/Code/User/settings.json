@@ -51,6 +51,7 @@
         "*.env*": "dotenv",
         "flake.lock": "json",
     },
+    "editor.linkedEditing": true,
     "editor.cursorBlinking": "smooth",
     "editor.cursorSmoothCaretAnimation": "on",
     "editor.smoothScrolling": true,

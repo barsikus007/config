@@ -1,29 +1,70 @@
-{ pkgs, ... }:
-# thx https://github.com/NixOS/nixpkgs/issues/226575#issuecomment-2709010764
+{ config, pkgs, ... }:
+#? https://github.com/NixOS/nixpkgs/pull/287399
+let
+  cfg.package = pkgs.logiops_0_2_3;
+in
 {
-  # Create systemd service
-  # https://github.com/PixlOne/logiops/blob/5547f52cadd2322261b9fbdf445e954b49dfbe21/src/logid/logid.service.in
   systemd.services.logiops = {
     description = "Logitech Configuration Daemon";
+    documentation = [ "https://github.com/PixlOne/logiops" ];
+
+    wantedBy = [ "multi-user.target" ];
+
     startLimitIntervalSec = 0;
-    after = [ "graphical.target" ];
-    wantedBy = [ "graphical.target" ];
+    after = [ "multi-user.target" ];
+    wants = [ "multi-user.target" ];
     serviceConfig = {
-      Type = "simple";
-      ExecStart = "${pkgs.logiops_0_2_3}/bin/logid";
+      ExecStart = "${cfg.package}/bin/logid";
+      Restart = "always";
       User = "root";
+
+      RuntimeDirectory = "logiops";
+
+      CapabilityBoundingSet = [ "CAP_SYS_NICE" ];
+      DeviceAllow = [
+        "/dev/uinput rw"
+        "char-hidraw rw"
+      ];
+      ProtectClock = true;
+      PrivateNetwork = true;
+      ProtectHome = true;
+      ProtectHostname = true;
+      PrivateUsers = true;
+      PrivateMounts = true;
+      PrivateTmp = true;
+      RestrictNamespaces = true;
+      ProtectKernelLogs = true;
+      ProtectKernelModules = true;
+      ProtectKernelTunables = true;
+      ProtectControlGroups = true;
+      MemoryDenyWriteExecute = true;
+      RestrictRealtime = true;
+      LockPersonality = true;
+      ProtectProc = "invisible";
+      SystemCallFilter = [
+        "nice"
+        "@system-service"
+        "~@privileged"
+      ];
+      RestrictAddressFamilies = [
+        "AF_NETLINK"
+        "AF_UNIX"
+      ];
+      RestrictSUIDSGID = true;
+      NoNewPrivileges = true;
+      ProtectSystem = "strict";
+      ProcSubset = "pid";
+      UMask = "0077";
     };
   };
-  environment.defaultPackages = with pkgs; [ logiops_0_2_3 ];
 
   # Add a `udev` rule to restart `logiops` when the mouse is connected
   # https://github.com/PixlOne/logiops/issues/239#issuecomment-1044122412
   services.udev.extraRules = ''
-    ACTION=="change", SUBSYSTEM=="power_supply", ATTRS{manufacturer}=="Logitech", ATTRS{model_name}=="Wireless Mouse MX Master 3", RUN{program}="${pkgs.systemd}/bin/systemctl --no-block try-restart logiops.service"
+    ACTION=="add", SUBSYSTEM=="input", ATTRS{id/vendor}=="046d", RUN{program}="${config.systemd.package}/bin/systemctl --no-block try-restart logiops.service"
   '';
 
-  # Configuration for logiops
-  # https://wiki.archlinux.org/title/Logitech_MX_Master#Logiops
+  #? https://wiki.archlinux.org/title/Logitech_MX_Master#Logiops
   environment.etc."logid.cfg".text = ''
     devices: ({
       name: "Wireless Mouse MX Master 3";

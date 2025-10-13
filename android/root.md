@@ -131,6 +131,7 @@ echo 2 >> /sys/class/backlight/panel0-backlight/hbm_mode
 ## adb shell sudo bash
 
 ```sh
+adb shell -t su
 adb shell -t "su -c 'sh'"
 
 adb shell -t "su -c 'cd /data/data/com.termux/files/ && usr/bin/bash'"
