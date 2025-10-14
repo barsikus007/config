@@ -396,7 +396,7 @@
   };
   home.file.".face.icon".source = builtins.fetchurl {
     url = "https://github.com/barsikus007.png";
-    sha256 = "0ffhgshb652pcq35jc9gqzp576ss0kbz031rxylp6k8gvz213yc9";
+    sha256 = "sha256-ifkRxN8PTXOp7zkM8NcEWptT7scvMVkGZlcUs6B+0Dk=";
   };
   # NIXOS_OZONE_WL=1 fixes that
   # dconf.settings."org/gnome/desktop/interface" = {

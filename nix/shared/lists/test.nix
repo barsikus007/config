@@ -16,6 +16,7 @@ with pkgs;
   # wifite2
   # openvas-scanner
   # burpsuite
+  wireshark
 
   # networking tools
   zmap

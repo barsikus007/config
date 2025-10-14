@@ -14,6 +14,7 @@ with pkgs;
   yt-dlp
   pciutils # lspci
   usbutils # lssub
+  strace # files monitoring
   inotify-tools # files monitoring
 
   # CLI python

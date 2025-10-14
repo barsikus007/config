@@ -221,8 +221,16 @@
       shikiwatch-native = pkgs.callPackage ./packages/shikiwatch-native.nix { };
       # nix build ./nix#shikiwatch-appimage && ./result/bin/ShikiWatch
       kompas3d = pkgs.callPackage ./packages/kompas3d.nix { };
+      kompas3d-fhs = pkgs.buildFHSEnv {
+        name = "kompas3d-fhs";
+        targetPkgs = pkgs: with pkgs; [
+          (callPackage ./packages/kompas3d.nix { })
+        ];
+        runScript = "kompas-v24";
+      };
       # nix build ./nix#kompas3d && ./result/bin/kompas-v24
       # nix --extra-experimental-features "nix-command flakes" run --impure github:nix-community/nixGL -- NIXPKGS_ALLOW_UNFREE=1 nix run --impure --inputs-from nixpkgs ./nix#kompas3d
+      #? also try ./nix#kompas3d-fhs
       grdcontrol = pkgs.callPackage ./packages/grdcontrol.nix { };
       # nix build ./nix#grdcontrol && ./result/opt/guardant/grdcontrol/grdcontrold
       #? computer with enough system parts lol
