@@ -5,7 +5,7 @@ let
   list-general = pkgs.fetchurl {
     # https://github.com/Flowseal/zapret-discord-youtube/blob/main/lists/list-general.txt
     url = "https://raw.githubusercontent.com/Flowseal/zapret-discord-youtube/779853740f9c957551685bdebf59ad3a788b5004/lists/list-general.txt";
-    sha256 = "sha256-/9dYk5fiVLfN+bY0STlqutnRQQoInS9NBGg9fWHZedk=";
+    hash = "sha256-/9dYk5fiVLfN+bY0STlqutnRQQoInS9NBGg9fWHZedk=";
   };
 in
 {

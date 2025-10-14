@@ -57,11 +57,9 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "MPrint drivers for label printers";
     homepage = "https://help.mertech.ru/label_printers/Общее/Установка_пакета_драйверов_для_принтеров.html";
+    platforms = with platforms; lists.intersectLists x86_64 linux;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
-    platforms = platforms.linux;
-    maintainers = with maintainers; [
-      barsikus007
-    ];
+    maintainers = with maintainers; [ barsikus007 ];
   };
 })

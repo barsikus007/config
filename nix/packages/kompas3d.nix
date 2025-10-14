@@ -157,10 +157,7 @@ stdenv.mkDerivation {
     llvmPackages.openmp
   ];
 
-  # TODO: шрифты /usr/{,local/}share/fonts; мбграфика; icu для дотнета
-  # readlink -f $(which kompas-v24)
-  # sudo ln -s /nix/store/paththatwillbeoutputedabove-kompas3d-v24-full-24.1.0.64/opt/ascon /opt/ascon
-  # https://wiki.nixos.org/wiki/Packaging/Binaries#Wrong_file_paths
+  # TODO: icu for dotnet in ascon-kompas-help-v24
   installPhase = ''
     runHook preInstall
 
@@ -210,7 +207,7 @@ stdenv.mkDerivation {
         * Стандартные Изделия для КОМПАС
     '';
     homepage = "https://ascon.ru/products/kompas-3d/";
-    platforms = platforms.linux;
+    platforms = with platforms; lists.intersectLists x86_64 linux ;
     license = licenses.unfree;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     maintainers = with maintainers; [ barsikus007 ];

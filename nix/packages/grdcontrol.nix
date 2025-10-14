@@ -38,7 +38,6 @@ stdenv.mkDerivation {
     # don't copy etc cause it contain only legacy init.d script
     cp -R opt $out/
 
-    # mkdir -p $out/lib/systemd/user/
     mkdir -p $out/lib/systemd/system/
     cp $out/opt/guardant/grdcontrol/grdcontrol.service $out/lib/systemd/system/
     substituteInPlace $out/opt/guardant/grdcontrol/grdcontrol.service \
@@ -52,7 +51,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Professional solutions for software monetization and protection";
     homepage = "https://www.guardant.com/support/users/control-center/";
-    platforms = platforms.linux;
+    platforms = with platforms; lists.intersectLists x86_64 linux ;
     license = licenses.unfree;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     maintainers = with maintainers; [ barsikus007 ];

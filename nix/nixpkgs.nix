@@ -29,6 +29,7 @@ let
 
     "mprint"
     "bcompare"
+    "grdcontrol"
     "kompas3d-v24-full"
     "davinci-resolve-studio"
 

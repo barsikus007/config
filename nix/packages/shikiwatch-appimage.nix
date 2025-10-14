@@ -35,9 +35,9 @@ appimageTools.wrapType2 rec {
     description = "Unofficial Android and Windows (and Linux) application for Shikimori";
     homepage = "https://github.com/wheremyfiji/ShikiWatch";
     downloadPage = "https://github.com/wheremyfiji/ShikiWatch/releases";
+    platforms = with platforms; lists.intersectLists x86_64 linux ;
     license = licenses.mit;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     maintainers = with maintainers; [ barsikus007 ];
-    platforms = [ "x86_64-linux" ];
   };
 }
