@@ -222,7 +222,13 @@
       # nix build ./nix#shikiwatch-appimage && ./result/bin/ShikiWatch
       kompas3d = pkgs.callPackage ./packages/kompas3d.nix { };
       # nix build ./nix#kompas3d && ./result/bin/kompas-v24
+      # nix --extra-experimental-features "nix-command flakes" run --impure github:nix-community/nixGL -- NIXPKGS_ALLOW_UNFREE=1 nix run --impure --inputs-from nixpkgs ./nix#kompas3d
       grdcontrol = pkgs.callPackage ./packages/grdcontrol.nix { };
+      # nix build ./nix#grdcontrol && ./result/opt/guardant/grdcontrol/grdcontrold
+      #? computer with enough system parts lol
+      # sudo NIXPKGS_ALLOW_UNFREE=1 nix run --impure --inputs-from nixpkgs ./nix#grdcontrol
+      #? client with kompas
+      # socat TCP-LISTEN:3189,bind=127.0.0.1,fork TCP:<remote_ip>:3189
     };
   };
 }

@@ -56,6 +56,6 @@ stdenv.mkDerivation {
     license = licenses.unfree;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     maintainers = with maintainers; [ barsikus007 ];
-    mainProgram = "grdcontrold";
+    mainProgram = "../opt/guardant/grdcontrol/grdcontrold";
   };
 }
