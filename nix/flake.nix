@@ -222,6 +222,7 @@
       # nix build ./nix#shikiwatch-appimage && ./result/bin/ShikiWatch
       kompas3d = pkgs.callPackage ./packages/kompas3d.nix { };
       # nix build ./nix#kompas3d && ./result/bin/kompas-v24
+      grdcontrol = pkgs.callPackage ./packages/grdcontrol.nix { };
     };
   };
 }
