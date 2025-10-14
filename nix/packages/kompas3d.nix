@@ -109,7 +109,11 @@ stdenv.mkDerivation {
     makeWrapper
   ];
 
-  autoPatchelfIgnoreMissingDeps = [ "*.tx" "*.txv" "liboless.so" ];
+  autoPatchelfIgnoreMissingDeps = [
+    "*.tx"
+    "*.txv"
+    "liboless.so"
+  ];
 
   propagatedBuildInputs = [
     # icu is needed for dotnet based Bin/Ascon.HelpCall, but idk how to pass it
@@ -207,7 +211,7 @@ stdenv.mkDerivation {
         * Стандартные Изделия для КОМПАС
     '';
     homepage = "https://ascon.ru/products/kompas-3d/";
-    platforms = with platforms; lists.intersectLists x86_64 linux ;
+    platforms = with platforms; lists.intersectLists x86_64 linux;
     license = licenses.unfree;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     maintainers = with maintainers; [ barsikus007 ];

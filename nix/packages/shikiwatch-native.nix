@@ -50,7 +50,7 @@ flutter329.buildFlutterApplication rec {
     description = "Unofficial Android and Windows application for Shikimori";
     homepage = "https://github.com/wheremyfiji/ShikiWatch";
     downloadPage = "https://github.com/wheremyfiji/ShikiWatch/releases";
-    platforms = with platforms; lists.intersectLists x86_64 linux ;
+    platforms = with platforms; lists.intersectLists x86_64 linux;
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ barsikus007 ];
   };

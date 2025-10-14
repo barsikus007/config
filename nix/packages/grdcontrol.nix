@@ -51,7 +51,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Professional solutions for software monetization and protection";
     homepage = "https://www.guardant.com/support/users/control-center/";
-    platforms = with platforms; lists.intersectLists x86_64 linux ;
+    platforms = with platforms; lists.intersectLists x86_64 linux;
     license = licenses.unfree;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     maintainers = with maintainers; [ barsikus007 ];

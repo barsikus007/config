@@ -37,7 +37,7 @@ multiStdenv.mkDerivation rec {
   meta = with lib; {
     description = "A simple dynamic library to slowdown or speedup games on Linux Resources";
     homepage = "https://github.com/evg-zhabotinsky/libspeedhack";
-    platforms = with platforms; lists.intersectLists x86_64 linux ;
+    platforms = with platforms; lists.intersectLists x86_64 linux;
     license = licenses.mit;
     maintainers = with maintainers; [
       tilcreator
