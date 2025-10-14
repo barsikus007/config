@@ -107,6 +107,7 @@ in
   };
 
   home.packages = with pkgs; [
+    # TODO: 25.11: mesa 25.2.0
     (unstable.ayugram-desktop.overrideAttrs (oldAttrs: {
       qtWrapperArgs = (oldAttrs.qtWrapperArgs or [ ]) ++ [
         "--prefix"

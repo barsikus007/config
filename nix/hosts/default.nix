@@ -81,6 +81,8 @@
 
   programs.nh = {
     enable = true;
+    # TODO: 25.11
+    package = pkgs.unstable.nh;
     clean.enable = true;
     clean.dates = "daily";
     clean.extraArgs = "--keep 5 --keep-since 4d";

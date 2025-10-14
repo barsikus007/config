@@ -28,8 +28,7 @@ with pkgs;
   # new other
   shfmt
   iotop
-  psmisc # killall pstree
-  fatrace
+  fatrace  # sudo fatrace . 2>&1 | grep firefox
   systemctl-tui
 
   bruno

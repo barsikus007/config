@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   config,
   flakePath,
@@ -89,17 +90,15 @@ let
     {
       iusenixbtw = "fastfetch";
       nu = "nix flake update --flake ${flakePath}";
-      # n = "home-manager switch --flake ${flakePath}";
       n = "nh home switch ${flakePath}";
-      # nn = "nixos-rebuild switch --flake ${flakePath}";
       nn = "nh os switch ${flakePath}";
-      # nd = "nix-collect-garbage -d";
-      nd = "nh clean all --keep 5 --keep-since 4d";
-      nr = "nixos-rebuild repl --flake ${flakePath}";
-      nrr = "nh os repl ${flakePath}";
+      nd = "nh clean all";
+      nr = "nh os repl ${flakePath}";
+      nrr = "nh os home ${flakePath}";
+      nrrr = "${lib.getExe pkgs.nixos-rebuild-ng} repl --flake ${flakePath}";
       ne = "editor ${flakePath}";
-      ndiff = "nvd diff ~/.local/state/nix/profiles/$(command ls -t ~/.local/state/nix/profiles | fzf) ~/.local/state/nix/profiles/home-manager";
-      nndiff = "nvd diff /nix/var/nix/profiles/$(command ls -t /nix/var/nix/profiles/ | fzf) /nix/var/nix/profiles/system";
+      ndiff = "${lib.getExe pkgs.nvd} diff ~/.local/state/nix/profiles/$(command ls -t ~/.local/state/nix/profiles | fzf) ~/.local/state/nix/profiles/home-manager";
+      nndiff = "${lib.getExe pkgs.nvd} diff /nix/var/nix/profiles/$(command ls -t /nix/var/nix/profiles/ | fzf) /nix/var/nix/profiles/system";
       nix-shell = "nix-shell --run zsh";
       ns = "nix-shell -p";
       nss = "nix_shell_exec";
@@ -222,6 +221,7 @@ in
       theme = "Coldark-Dark";
     };
     # TODO: batman, batpipe and check other extra stuff
+    #? https://github.com/eth-p/bat-extras
     extraPackages = with pkgs.bat-extras; [
       batdiff
       batman

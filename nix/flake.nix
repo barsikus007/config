@@ -241,5 +241,6 @@
         #? client with kompas
         # socat TCP-LISTEN:3189,bind=127.0.0.1,fork TCP:<remote_ip>:3189
       };
+      formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-tree;
     };
 }

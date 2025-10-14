@@ -5,6 +5,12 @@
 . "$XDG_CONFIG_HOME/shell/g14.sh"
 
 mkcd() { mkdir -p "$@" && cd "$@" || exit; }
+
+batman() {
+    BAT_THEME="Solarized (dark)" \command batman "$@"
+    return $?
+}
+
 ssht() {
   (
     case "$1" in

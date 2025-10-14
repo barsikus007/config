@@ -2,6 +2,7 @@
   config,
   username,
   flakePath,
+  pkgs,
   ...
 }:
 {
@@ -43,6 +44,8 @@
 
   programs.nh = {
     enable = true;
+    # TODO: 25.11
+    package = pkgs.unstable.nh;
     flake = flakePath;
   };
 
