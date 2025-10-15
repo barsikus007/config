@@ -1,26 +1,26 @@
 # [YouTube ReVanced](./README.md)
 
-## Correct update sequence
+## correct update sequence
 
-1. Unmount app
-2. Install new version
-3. Patch and mount
+1. unmount app
+2. install new version
+3. patch and mount
 
-## Correct fix sequence
+## correct fix sequence
 
-If phone crashes, it causes base.apk of default apps reset their version
+if phone crashes, it causes base.apk of default apps reset their version
 
-1. Install same version
-2. Reboot/relaunch mount scripts
+1. install same version
+2. reboot/relaunch mount scripts
 
 ## [YouTube](https://revanced.app/patches?pkg=com.google.android.youtube)
 
-- 5.24.0
+- 5.41.0
   - Theme
     - Material You
   - !GmsCore support (due to root)
 
-### Settings
+### settings
 
 - General
   - Double-tap to seek
@@ -29,14 +29,15 @@ If phone crashes, it causes base.apk of default apps reset their version
   - \*
     - Higher picture quality
 - ReVanced
-  - Misc
+  - Miscellaneous
     - Import / Export
 
 ```json
+"custom_speed_menu": false,
 "disable_precise_seeking_gesture": true,
 "disable_resuming_shorts_player": true,
 "external_downloader": true,
-"external_downloader_name": "com.deniscerri.ytdl",
+"force_original_audio": true,
 "hide_player_popup_panels": true,
 "miniplayer_type": "minimal",
 "ryd_toast_on_connection_error": false,
@@ -47,16 +48,27 @@ If phone crashes, it causes base.apk of default apps reset their version
 "swipe_lowest_value_enable_auto_brightness": true,
 "swipe_text_overlay_size": 22,
 "swipe_volume": true,
-"sb_local_time_saved_milliseconds": 3218098,
-"sb_local_time_saved_number_segments": 80,
+"sb_local_time_saved_milliseconds": 3959055,
+"sb_local_time_saved_number_segments": 111,
 "sb_toast_on_connection_error": false
 ```
 
 ## [YouTube Music](https://revanced.app/patches?pkg=com.google.android.apps.youtube.music)
 
-- 5.24.0
+- 5.41.0
   - !Bypass certificate check (due to root)
   - !GmsCore support (due to root)
   - !Spoof client (due to root)
 
-## Updated 2025-05-27
+### settings
+
+- ReVanced
+  - Miscellaneous
+    - Import / Export
+
+```json
+"music_hide_navigation_bar_explore_button": true,
+"music_hide_navigation_bar_samples_button": true
+```
+
+## updated 2025-08-29

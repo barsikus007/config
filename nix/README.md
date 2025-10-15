@@ -2,7 +2,7 @@
 
 Goal is to provide modular close to windows-godlike desktop experience
 
-(IT IS FUCKING IMPOSSIBLE)
+## [Command Cheat Sheet](cheatsheet.md)
 
 ## Installation
 
@@ -70,8 +70,6 @@ pkgs.mkShell {
 
 ### [vscode](.config/Code/User/)
 
-- REMOVED from `settings.json`
-  - remote.SSH.remotePlatform
 - TODO
   - export configs
     - layout
@@ -100,6 +98,10 @@ pkgs.mkShell {
     - <https://code.visualstudio.com/updates/v1_98#_task-rerun-action>
       - VERY new things
         - <https://github.com/microsoft/vscode/pull/248747>
+  - [comment to specify syntax highlight language (inline syntax highlight)](https://nixtips.ru/home-manager/introduction#пример-конфигурации-абстрактного-пакета)
+  - stage selected button
+    - also buttons to switch file generations disappearing
+  - <https://github.com/kahole/edamagit>
 
 ### [mpv](.config/mpv/)
 
@@ -159,6 +161,8 @@ pkgs.mkShell {
 
 - Steam
   - Top left steam logo > Settings > Compatibility > Enable steam play for all titles
+  - [NTFS library fix](https://github.com/ValveSoftware/Proton/wiki/Using-a-NTFS-disk-with-Linux-and-Windows#preventing-ntfs-read-errors)
+  - `nvidia-offload gamemoderun mangohud %command%`
 
 ## TODO
 

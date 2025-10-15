@@ -22,7 +22,7 @@ ssh-copy-id -i $key_file.pub user@host
 # or mkdir -p ~/.ssh/ && editor ~/.ssh/authorized_keys
 ```
 
-## commands
+## package managers
 
 ### apt
 
@@ -103,6 +103,24 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 cargo install cargo-update
 cargo install-update -a
 ```
+
+## btrfs
+
+```bash
+sudo btrfs fi usage /
+
+sudo btrfs balance start --full-balance --bg /
+sudo btrfs balance status /
+```
+
+## distrobox
+
+```bash
+# astra linux
+distrobox create --name astra --image registry.astralinux.ru/astra/ubi18:latest
+```
+
+## commands
 
 ### [download "whole" site](https://pingvinus.ru/note/wget-download-sites) ([alt](https://superuser.com/q/1672776))
 

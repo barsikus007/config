@@ -1,4 +1,7 @@
 {
+    "search.exclude": {
+        "аrchive/": true,
+    },
     // #region nix
     "nix.enableLanguageServer": true,
     "nix.serverPath": "nixd", // or "nil"
