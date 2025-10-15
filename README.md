@@ -20,36 +20,24 @@
 
 ## Cross-platform
 
-### [Git config (`~/.gitconfig`)](https://git-scm.com/docs/git-config)
+### [Git config (`~/.config/git/config`)](https://git-scm.com/docs/git-config)
 
-```bash
-git config --global user.name barsikus007
-git config --global user.email barsikus07@gmail.com
+[nix code to fill](nix/home/default.nix#L61-L84):
 
-git config --global core.editor "code --wait"
-git config --global core.autocrlf input
-git config --global core.ignoreCase false
-
-git config --global init.defaultBranch master
-
-git config --global push.default current
-
-git config --global pull.rebase true
-
-git config --global merge.autoStash true
-
-git config --global rebase.autoStash true
+```sh
+mkdir -p ~/.config/git/
+nix eval --impure --raw --expr '
+  with import <nixpkgs> {};
+  pkgs.lib.generators.toGitINI
+    ((builtins.getFlake "github:barsikus007/config?dir=nix")
+      .homeConfigurations.ogurez.config.programs.git.iniContent)
+' > ~/.config/git/config
 ```
 
 #### [Signing](https://docs.github.com/en/authentication/managing-commit-signature-verification/displaying-verification-statuses-for-all-of-your-commits)
 
-[Upload key](https://github.com/settings/ssh/new)
-
-```bash
-git config --global user.signingKey ~/.ssh/id_ed25519.pub
-git config --global commit.gpgSign true
-git config --global gpg.format ssh
-```
+1. [Upload key](https://github.com/settings/ssh/new)
+2. Configure git (code above fills values)
 
 ### [proto](https://moonrepo.dev/proto)
 
@@ -166,18 +154,12 @@ hatch run true
     - Show Peer IDs in Profile
     - Send large photos
     - Enable webview inspecting
-- Steam
-  - Top left steam logo > Settings > Compatibility > Enable steam play for all titles
 
 ### TODO
 
 - meta
   - Syncthing Tray/service setup info (isn't declarative)
-  - learn
-    - overlays
-    - linux networks
-    - apt dpkg and dnf
-  - check all *.md code sections with shellcheck
+  - check all `*.md` and `*.nix` code sections with `shellcheck`
   - clone single dir
     - <https://stackoverflow.com/questions/600079/how-do-i-clone-a-subdirectory-only-of-a-git-repository/52269934#52269934>
   - info about CH340

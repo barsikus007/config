@@ -94,7 +94,7 @@ let
       nn = "nh os switch ${flakePath}";
       nd = "nh clean all";
       nr = "nh os repl ${flakePath}";
-      nrr = "nh os home ${flakePath}";
+      nrr = "nh home repl ${flakePath}";
       nrrr = "${lib.getExe pkgs.nixos-rebuild-ng} repl --flake ${flakePath}";
       ne = "editor ${flakePath}";
       ndiff = "${lib.getExe pkgs.nvd} diff ~/.local/state/nix/profiles/$(command ls -t ~/.local/state/nix/profiles | fzf) ~/.local/state/nix/profiles/home-manager";

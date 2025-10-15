@@ -90,15 +90,15 @@
       # TODO fanCurvesConfig = '''';
     };
   };
-  # TODO
-  # powerManagement = {
-  #   cpuFreqGovernor = "schedutil";
+
+  # disable 4.2 GHz boost
+  systemd.tmpfiles.rules = [
+    "w /sys/devices/system/cpu/cpufreq/boost - - - - 0"
+  ];
+  # TODO: 25.11
+  # boot.kernel.sysfs = {
+  #   devices.system.cpu.cpufreq.boost = 0;
   # };
-  system.activationScripts = {
-    cpuboobs.text = ''
-      echo 0 > /sys/devices/system/cpu/cpufreq/boost
-    '';
-  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

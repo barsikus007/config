@@ -153,6 +153,13 @@ pkgs.mkShell {
 - [crop/encode scripts](https://github.com/occivink/mpv-scripts)
   - [crop fix](https://github.com/occivink/mpv-scripts/pull/77/files)
 
+## Imperative
+
+### GUI
+
+- Steam
+  - Top left steam logo > Settings > Compatibility > Enable steam play for all titles
+
 ## TODO
 
 - [flake-parts](https://nix-community.github.io/home-manager/index.xhtml#sec-flakes-flake-parts-module)
@@ -214,14 +221,11 @@ pkgs.mkShell {
 
 - [guix environment like](https://github.com/NixOS/nix/issues/8207)
   - [containter](https://wiki.nixos.org/wiki/NixOS_Containers)
+    - [nixpak](https://github.com/nixpak/nixpak)
   - [firejail](https://github.com/netblue30/firejail)
 - bat
   - [zsh '--help' alias](https://github.com/sharkdp/bat#highlighting---help-messages)
     - [explain command](https://github.com/learnbyexample/command_help)
-  - [bat extras](https://github.com/eth-p/bat-extras)
-    - programs.bat.extraPackages
-      - batdiff?
-      - batman ?
 - nvim
   - nvimpager
     - enable syntax hightlighting
