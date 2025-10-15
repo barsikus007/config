@@ -5,7 +5,6 @@
   fetchurl,
   dpkg,
   autoPatchelfHook,
-  makeWrapper,
 
   qt6,
   xorg,
@@ -106,7 +105,6 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     dpkg
     autoPatchelfHook
-    makeWrapper
   ];
 
   autoPatchelfIgnoreMissingDeps = [
@@ -116,7 +114,6 @@ stdenv.mkDerivation {
   ];
 
   propagatedBuildInputs = [
-    # icu is needed for dotnet based Bin/Ascon.HelpCall, but idk how to pass it
     gtk2
     libgcc.lib
     qt6.full
@@ -159,9 +156,9 @@ stdenv.mkDerivation {
     llvmPackages.libcxx
     llvmPackages.libunwind
     llvmPackages.openmp
+    # icu  #? is needed for dotnet based Bin/Ascon.HelpCall, but idk how to pass it
   ];
 
-  # TODO: icu for dotnet in ascon-kompas-help-v24
   installPhase = ''
     runHook preInstall
 
@@ -179,6 +176,8 @@ stdenv.mkDerivation {
     rm -rf $out/share/applications/flystartmenu
     substituteInPlace $out/share/applications/* \
       --replace-quiet "/opt/ascon/kompas3d-v24" "$basepath"
+    substituteInPlace $out/share/applications/*help* \
+      --replace-fail "$basepath" "env DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1 $basepath"
 
     examplesfile=$basepath/Bin/UIConfig/Examples.xml
     iconv -f UTF-16LE -t UTF-8 $examplesfile -o $examplesfile

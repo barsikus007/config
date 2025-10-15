@@ -6,6 +6,19 @@
 
 ## [NixOS](nix/README.md)
 
+### [Packages](nix/flake.nix)
+
+```shell
+#? generic with system nixpkgs usaage
+nix run --inputs-from nixpkgs github:barsikus007/config?dir=nix#<packageName>
+#? kompas on non-NixOS
+nix --extra-experimental-features "nix-command flakes" run --impure --inputs-from nixpkgs github:nix-community/nixGL -- NIXPKGS_ALLOW_UNFREE=1 nix run --impure --inputs-from nixpkgs github:barsikus007/config?dir=nix#kompas3d-fhs
+#? launch on computer with enough system parts (remote) lol
+sudo NIXPKGS_ALLOW_UNFREE=1 nix --extra-experimental-features "nix-command flakes" run --impure --inputs-from nixpkgs github:barsikus007/config?dir=nix#grdcontrol
+#? launch on computer with kompas (client)
+socat TCP-LISTEN:3189,bind=127.0.0.1,fork TCP:<remote_ip>:3189
+```
+
 ## [Android](android/README.md)
 
 ## [Linux](linux/README.md)

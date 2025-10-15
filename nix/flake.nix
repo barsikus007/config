@@ -132,7 +132,7 @@
             environment.defaultPackages = with pkgs; [
               (callPackage ./packages/anicli-ru { })
               (callPackage ./packages/libspeedhack { })
-              (previous.callPackage ./packages/kompas3d.nix { })
+              (import ./packages/kompas3d/fhs.nix { pkgs = previous; })
             ];
           }
         ];
@@ -213,33 +213,21 @@
             '';
           };
       };
-      packages.${system} = {
+      packages.${system} = with pkgs; {
         #? nix run --inputs-from nixpkgs github:barsikus007/config?dir=nix#<packageName>
-        bcompare5 = (pkgs.libsForQt5.callPackage ./packages/bcompare5.nix { });
+        bcompare5 = (libsForQt5.callPackage ./packages/bcompare5.nix { });
         # nix build ./nix#bcompare5 && ./result/bin/bcompare
-        mprint = pkgs.callPackage ./packages/mprint.nix { };
-        libspeedhack = pkgs.callPackage ./packages/libspeedhack { };
-        shikiwatch-appimage = pkgs.callPackage ./packages/shikiwatch-appimage.nix { };
-        shikiwatch-native = pkgs.callPackage ./packages/shikiwatch-native.nix { };
+        mprint = callPackage ./packages/mprint.nix { };
+        libspeedhack = callPackage ./packages/libspeedhack { };
+        shikiwatch-appimage = callPackage ./packages/shikiwatch-appimage.nix { };
+        shikiwatch-native = callPackage ./packages/shikiwatch-native.nix { };
         # nix build ./nix#shikiwatch-appimage && ./result/bin/ShikiWatch
-        kompas3d = pkgs.callPackage ./packages/kompas3d.nix { };
-        kompas3d-fhs = pkgs.buildFHSEnv {
-          name = "kompas3d-fhs";
-          targetPkgs =
-            pkgs: with pkgs; [
-              (callPackage ./packages/kompas3d.nix { })
-            ];
-          runScript = "kompas-v24";
-        };
+        kompas3d = callPackage ./packages/kompas3d { };
         # nix build ./nix#kompas3d && ./result/bin/kompas-v24
-        # nix --extra-experimental-features "nix-command flakes" run --impure github:nix-community/nixGL -- NIXPKGS_ALLOW_UNFREE=1 nix run --impure --inputs-from nixpkgs ./nix#kompas3d
-        #? also try ./nix#kompas3d-fhs
-        grdcontrol = pkgs.callPackage ./packages/grdcontrol.nix { };
+        kompas3d-fhs = (import ./packages/kompas3d/fhs.nix { inherit pkgs; });
+        # nix run ./nix#kompas3d-fhs
+        grdcontrol = callPackage ./packages/grdcontrol.nix { };
         # nix build ./nix#grdcontrol && ./result/opt/guardant/grdcontrol/grdcontrold
-        #? computer with enough system parts lol
-        # sudo NIXPKGS_ALLOW_UNFREE=1 nix run --impure --inputs-from nixpkgs ./nix#grdcontrol
-        #? client with kompas
-        # socat TCP-LISTEN:3189,bind=127.0.0.1,fork TCP:<remote_ip>:3189
       };
       formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-tree;
     };
