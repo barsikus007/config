@@ -16,6 +16,7 @@ with pkgs;
   # wifite2
   # openvas-scanner
   # burpsuite
+  # caido
   wireshark
 
   # networking tools

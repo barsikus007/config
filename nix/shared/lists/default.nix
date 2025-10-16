@@ -6,10 +6,10 @@ with pkgs;
   gcc
   git-lfs
   isd
-  # aria2
   file
   tlrc
   unrar
+  aria2
   ffmpeg
   yt-dlp
   pciutils # lspci

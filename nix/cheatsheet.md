@@ -1,5 +1,10 @@
 # [cheatsheet](./README.md)
 
+## nixpkgs
+
+- [index](https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/all-packages.nix)
+  - `code $(nix eval -f '<nixpkgs>' path)/pkgs/top-level/all-packages.nix`
+
 ## nixos-rebuild
 
 ```bash
@@ -109,7 +114,7 @@ It's not perfect, you still need to make some edits to the uv2nix flake (e.g. wh
 
 Unlike poetry2nix & co, it uses a full database to map out pip packages, and is pretty good in just making things work without packaging them IME.
 
-### Last Resort Python
+### last resort python
 
 #### [devshell](https://numtide.github.io/devshell/getting_started.html)
 

@@ -217,6 +217,13 @@
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "vscode.html-language-features"
     },
+    "markdown.extension.toc.updateOnSave": false,
+    "markdownlint.config": {
+        "no-duplicate-heading": {
+            "siblings_only": true,
+        },
+    },
+    "markdown-preview-enhanced.liveUpdate": true,
     "[markdown]": {
         "editor.tabSize": 2,
         "editor.defaultFormatter": "yzhang.markdown-all-in-one"
@@ -245,10 +252,7 @@
         "scminput": false
     },
     // "hadolint.hadolintPath": "/usr/bin/hadolint",
-    "markdown-preview-enhanced.liveUpdate": true,
     "sourcery.codeLens": false,
-    // "markdownlint.run": "onSave",
-    "markdown.extension.toc.updateOnSave": false,
     // #endregion todo
     // #region todo2
     // default

@@ -1,18 +1,30 @@
 { pkgs, ... }:
 with pkgs;
-buildFHSEnv {
-  name = "kompas3d-fhs";
+let
+  kompas = (callPackage ./default.nix { });
+in
+buildFHSEnv rec {
+  pname = "kompas3d-fhs";
+  inherit (kompas) version;
+
   targetPkgs = pkgs: [
-    (callPackage ./default.nix { })
+    kompas
     open-sans
   ];
   extraBuildCommands = ''
     mkdir -p $out/usr/local/
   '';
   extraBwrapArgs = [
-    "--tmpfs"
-    "/usr/local"
+    "--tmpfs /usr/local"
+    "--bind-try /etc/nixos/ /etc/nixos/"
   ];
+
+  # symlink shared assets, including icons and desktop entries
+  extraInstallCommands = ''
+    ln -s "${kompas}/share" "$out/"
+    ln -s "$out/bin/${pname}" "$out/bin/${kompas.meta.mainProgram}"
+  '';
+
   profile = ''
     (
       custom_font_dir="/usr/local/share/fonts"
@@ -31,9 +43,9 @@ buildFHSEnv {
       done
     )
   '';
-  # runScript = "kompas-v24";
-  # runScript = "QT_QPA_PLATFORM=xcb kompas-v24";
-  # runScript = "QT_STYLE_OVERRIDE=Windows kompas-v24";
-  # runScript = "QT_STYLE_OVERRIDE=Fusion kompas-v24";
-  runScript = "env QT_QPA_PLATFORM=xcb QT_STYLE_OVERRIDE=Fusion kompas-v24";
+  # runScript = "${kompas}/bin/${kompas.meta.mainProgram}";
+  # runScript = "QT_QPA_PLATFORM=xcb ${kompas}/bin/${kompas.meta.mainProgram}";
+  # runScript = "QT_STYLE_OVERRIDE=Windows ${kompas}/bin/${kompas.meta.mainProgram}";
+  # runScript = "QT_STYLE_OVERRIDE=Fusion ${kompas}/bin/${kompas.meta.mainProgram}";
+  runScript = "env QT_QPA_PLATFORM=xcb QT_STYLE_OVERRIDE=Fusion ${kompas}/bin/${kompas.meta.mainProgram}";
 }
