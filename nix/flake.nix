@@ -83,6 +83,7 @@
 
           ./modules/hardware/logi-mx3.nix
           ./modules/hardware/xbox.nix
+          ./modules/hardware/wifi-unlimited.nix
 
           ./modules/containers
           ./modules/network.nix
@@ -189,7 +190,7 @@
           # ];
           shellHook = ''
             echo "Welcome to the test ${pkgs.unstable.lib.version} devShell!"
-            zsh
+            zsh; exit
           '';
         };
         python =
