@@ -1,17 +1,5 @@
 { pkgs, config, ... }:
 {
-  home.packages = with pkgs; [
-    # TODO firefoxpwa
-    #! https://github.com/NixOS/nixpkgs/pull/411663
-    (microsoft-edge.override {
-      # https://wiki.nixos.org/wiki/Chromium#Accelerated_video_playback
-      commandLineArgs = [
-        "--enable-features=AcceleratedVideoEncoder"
-        "--ignore-gpu-blocklist"
-        "--enable-zero-copy"
-      ];
-    })
-  ];
   programs.chromium = {
     enable = true;
     extensions = [
@@ -24,7 +12,8 @@
     ];
     package = (
       #? no thorium? https://github.com/NixOS/nixpkgs/pull/336138#issuecomment-2299603455
-      pkgs.chromium.override {
+      pkgs.microsoft-edge.override {
+        # https://wiki.nixos.org/wiki/Chromium#Accelerated_video_playback
         commandLineArgs = [
           "--enable-features=AcceleratedVideoEncoder"
           "--ignore-gpu-blocklist"
@@ -59,6 +48,7 @@
         (extension "sponsorblock" "sponsorBlocker@ajay.app")
         (extension "return-youtube-dislikes" "{762f9885-5a13-4abd-9c77-433dcd38b8fd}")
         (extension "search_by_image" "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}")
+        (extension "text-fragment" "text-fragment@example.com")
         # (extension "bitwarden-password-manager" "{446900e4-71c2-419f-a6a7-df9c091e268b}")
         # (extension "umatrix" "uMatrix@raymondhill.net")
         # (extension "libredirect" "7esoorv3@alefvanoon.anonaddy.me")
@@ -109,10 +99,29 @@
           force = true;
           default = "google";
           privateDefault = "google";
+          # TODO: steal: https://github.com/Bwc9876/nix-conf/blob/8caed4590cd7981933a0833d59d0dac1c9ab90d5/home/firefox.nix#L84
           engines = {
-            # TODO make icon for every new search engine
+            # builtins only supports adding alias or hiding
             google.metaData.alias = "g";
+            # tabs.metaData.alias = "t"; #! tabs doesnt work for some reason!!!
             bing.metaData.hidden = true;
+            #? Search engines are now referenced by id instead of by name, use 'youtube' instead of 'YouTube' -_-
+            youtube = {
+              urls = [
+                {
+                  template = "https://www.youtube.com/results";
+                  params = [
+                    {
+                      name = "search_query";
+                      value = "{searchTerms}";
+                    }
+                  ];
+                }
+              ];
+
+              iconMapObj."32" = "https://www.google.com/s2/favicons?sz=32&domain=youtube.com";
+              definedAliases = [ "y" ];
+            };
             "Nix Packages" = {
               urls = [
                 {
@@ -191,7 +200,7 @@
               icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
               definedAliases = [ "wik" ];
             };
-            "anime" = {
+            "Anime" = {
               urls = [
                 {
                   template = "https://site.yummyani.me/search";
@@ -204,9 +213,10 @@
                 }
               ];
 
+              iconMapObj."32" = "https://site.yummyani.me/favicon.ico";
               definedAliases = [ "a" ];
             };
-            "shikimori" = {
+            "Shikimori" = {
               urls = [
                 {
                   template = "https://shikimori.one/animes";
@@ -219,22 +229,69 @@
                 }
               ];
 
+              iconMapObj."32" = "https://shikimori.one/favicon.ico";
               definedAliases = [ "aa" ];
             };
-            "youtube" = {
+            "Web Archive" = {
+              urls = [ { template = "https://web.archive.org/web/20250000000000*/{searchTerms}"; } ];
+              iconMapObj."32" = "https://web-static.archive.org/_static/images/archive.ico";
+              definedAliases = [ "ar" ];
+            };
+            "Grok" = {
               urls = [
                 {
-                  template = "https://www.youtube.com/results";
+                  template = "https://grok.com";
                   params = [
                     {
-                      name = "search_query";
+                      name = "q";
                       value = "{searchTerms}";
                     }
                   ];
                 }
               ];
 
-              definedAliases = [ "y" ];
+              iconMapObj."32" = "https://grok.com/images/favicon-dark.png";
+              definedAliases = [ "gr" ];
+            };
+            "GitHub" = {
+              urls = [
+                {
+                  template = "https://github.com/search";
+                  params = [
+                    {
+                      name = "q";
+                      value = "{searchTerms}";
+                    }
+                    {
+                      name = "type";
+                      value = "code";
+                    }
+                  ];
+                }
+              ];
+
+              iconMapObj."32" = "https://github.githubassets.com/favicons/favicon.svg";
+              definedAliases = [ "gi" ];
+            };
+            "GitHub Nix" = {
+              urls = [
+                {
+                  template = "https://github.com/search";
+                  params = [
+                    {
+                      name = "q";
+                      value = "lang:nix {searchTerms}";
+                    }
+                    {
+                      name = "type";
+                      value = "code";
+                    }
+                  ];
+                }
+              ];
+
+              iconMapObj."32" = "https://github.githubassets.com/favicons/favicon.svg";
+              definedAliases = [ "gin" ];
             };
 
             #? it wont work for some strange google reason
