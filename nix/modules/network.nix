@@ -12,4 +12,5 @@
   };
 
   # networking.firewall.enable = false;
+  networking.firewall.allowedTCPPorts = [ 12345 ]; # TODO: home: rquickshare
 }

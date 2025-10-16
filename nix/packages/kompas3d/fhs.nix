@@ -43,9 +43,12 @@ buildFHSEnv rec {
       done
     )
   '';
-  # runScript = "${kompas}/bin/${kompas.meta.mainProgram}";
-  # runScript = "QT_QPA_PLATFORM=xcb ${kompas}/bin/${kompas.meta.mainProgram}";
-  # runScript = "QT_STYLE_OVERRIDE=Windows ${kompas}/bin/${kompas.meta.mainProgram}";
-  # runScript = "QT_STYLE_OVERRIDE=Fusion ${kompas}/bin/${kompas.meta.mainProgram}";
-  runScript = "env QT_QPA_PLATFORM=xcb QT_STYLE_OVERRIDE=Fusion ${kompas}/bin/${kompas.meta.mainProgram}";
+  # "${kompas}/bin/${kompas.meta.mainProgram}"
+  runScript = "${bash}/bin/bash ${writeText "kompas-wrapper" ''
+    export QT_QPA_PLATFORM=xcb
+    export QT_STYLE_OVERRIDE=Fusion
+    # export QT_STYLE_OVERRIDE=Windows
+    cd /opt/ascon/kompas3d-v24/Bin/
+    ./kKompas
+  ''}";
 }

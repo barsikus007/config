@@ -1,42 +1,40 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 {
-  xdg.configFile = {
-    # TODO    osConfig.programs.nekoray.package
-    # TODO if osConfig.programs.nekoray.enabled
-    # TODO makeDesktopItem ?
-    # Exec=${lib.getExe pkgs.throne} -tray -appdata
-    "autostart/Throne.desktop".text = ''
-      [Desktop Entry]
-      Name=Throne
-      Exec=Throne -tray -appdata
-      Terminal=false
-      Categories=Network
-      Type=Application
-      StartupNotify=false
-      X-GNOME-Autostart-enabled=true
-
-      X-KDE-autostart-after=panel
-    '';
-    "autostart/RQuickShare.desktop".text = ''
-      [Desktop Entry]
-      Type=Application
-      Version=1.0
-      Name=RQuickShare
-      Comment=RQuickSharestartup script
-      Exec=${pkgs.rquickshare-legacy}/bin/.r-quick-share-wrapped
-      StartupNotify=false
-      Terminal=false
-    '';
-    # ".config/autostart/vesktop.desktop".text = ''
-    #   [Desktop Entry]
-    #   Type=Application
-    #   Name=Vesktop
-    #   Comment=Vesktop autostart script
-    #   Exec="${pkgs.electron.unwrapped}/libexec/electron/electron" "${pkgs.vesktop}/opt/Vesktop/resources/app.asar" "--enable-speech-dispatcher"
-    #   StartupNotify=false
-    #   Terminal=false
-
-    #   X-KDE-autostart-after=panel
-    # '';
+  xdg.autostart = {
+    enable = true;
+    entries = [
+      # "${pkgs.evolution}/share/applications/throne.desktop"
+      (
+        (pkgs.makeDesktopItem rec {
+          destination = "/";
+          name = "Throne";
+          desktopName = name;
+          # exec = "${lib.getExe pkgs.throne} -tray -appdata";
+          exec = "${name} -tray -appdata";
+          terminal = false;
+          categories = [ "Network" ];
+          # type = "Application"; #? default
+          startupNotify = false;
+          extraConfig = {
+            "X-GNOME-Autostart-enabled" = "true";
+            "X-KDE-autostart-after" = "panel";
+          };
+        })
+        + /Throne.desktop
+      )
+    ];
   };
+  # TODO    osConfig.programs.nekoray.package
+  # TODO if osConfig.programs.nekoray.enabled
+  # ".config/autostart/vesktop.desktop".text = ''
+  #   [Desktop Entry]
+  #   Type=Application
+  #   Name=Vesktop
+  #   Comment=Vesktop autostart script
+  #   Exec="${pkgs.electron.unwrapped}/libexec/electron/electron" "${pkgs.vesktop}/opt/Vesktop/resources/app.asar" "--enable-speech-dispatcher"
+  #   StartupNotify=false
+  #   Terminal=false
+
+  #   X-KDE-autostart-after=panel
+  # '';
 }

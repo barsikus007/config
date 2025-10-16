@@ -63,8 +63,15 @@ pkgs.mkShell {
 
 ### [Nix install](https://zero-to-nix.com/start/install/) speedrun on existing system
 
-- `curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install`
-  - enable systemd if wsl
+- TLDR
+  - `curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install`
+    - enable systemd if wsl
+  - [offline install](https://github.com/DeterminateSystems/nix-installer/releases/latest/download/nix-installer-x86_64-linux)
+
+### [Nix uninstall](https://zero-to-nix.com/start/uninstall/)
+
+- TLDR
+  - `/nix/nix-installer uninstall`
 
 ## Config reference
 

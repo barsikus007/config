@@ -1,4 +1,7 @@
 {
+  xdg.mimeApps.defaultApplications = {
+    "application/x-shellscript" = [ "WezTerm.desktop" ];
+  };
   programs.zsh.shellAliases = {
     wt = "wezterm";
   };

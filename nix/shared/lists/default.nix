@@ -47,15 +47,6 @@ with pkgs;
   neovide
   qdirstat
   qbittorrent
-  rquickshare-legacy
-  # todo ports & ~/.local/share/dev.mandre.rquickshare/.settings.json
-  #   {
-  #   "realclose": false,
-  #   "autostart": true,
-  #   "visibility": 0,
-  #   "startminimized": true,
-  #   "port": 12345
-  # }
 
   # https://www.reddit.com/r/software/comments/t5n3cm/everything_for_linux/
   fsearch

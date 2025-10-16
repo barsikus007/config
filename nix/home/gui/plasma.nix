@@ -91,9 +91,23 @@
     ];
 
     window-rules = [
-      #! https://github.com/NixOS/nixpkgs/issues/344035#issuecomment-2453113223
-      #! https://github.com/VSCodium/vscodium/issues/1414
+      #? https://nix-community.github.io/plasma-manager/options.xhtml#opt-programs.plasma.window-rules
+      #? https://github.com/nix-community/plasma-manager/blob/trunk/modules/window-rules.nix
+      #? exact(1),initially(3) are defaults
+
       {
+        apply.Enabled = false;
+        description = "restore telegram-desktop position";
+        match.window-class = "AyuGram com.ayugram.desktop";
+        match.window-types = [ "normal" ];
+        apply.position = "1920,756";
+        apply.positionrule = 5; # ? now
+        apply.size = "1053,640";
+        apply.sizerule = 5; # ? now
+      }
+      {
+        #! https://github.com/NixOS/nixpkgs/issues/344035#issuecomment-2453113223
+        #! https://github.com/VSCodium/vscodium/issues/1414
         description = "code-url-handler fix";
         match.window-class = "code code";
         apply.desktopfile = "${pkgs.unstable.vscode}/share/applications/code.desktop";
@@ -101,13 +115,27 @@
       {
         description = "daninci-resolve titlebar fix";
         match.window-class = "resolve resolve";
-        apply.noborderrule = 2;
+        apply.noborder = false;
       }
-      # {
-      #   description = "syncthing-tray placement fix";
-      #   match.window-class = "syncthingtray";
-      #   apply.placement = 7;
-      # }
+      {
+        description = "syncthingtray placement fix";
+        match.window-class.value = "syncthingtray";
+        match.window-class.match-whole = false;
+        match.window-types = [ "normal" ];
+        match.title = "Syncthing Tray";
+        apply.position = "3868,892";
+      }
+      {
+        description = "copyq wayland fix";
+        match.window-class.value = "copyq";
+        match.window-class.match-whole = false;
+        match.window-types = [ "normal" ];
+        apply.placement = 7;
+        apply.ignoregeometry = true;
+        apply.above = true;
+        apply.noborder = true;
+        apply.fsplevel = 0;
+      }
     ]
     ++ (map
       (app: {
