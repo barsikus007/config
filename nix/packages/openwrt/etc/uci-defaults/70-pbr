@@ -1,0 +1,4 @@
+#!/bin/sh
+#? docs.openwrt.melmac.ca/pbr/1.1.8/#Warning:Pleasesetdhcp.lan.force1
+uci set dhcp.lan.force='1'
+uci commit

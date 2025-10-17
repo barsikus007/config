@@ -1,12 +1,8 @@
 # config
 
-- alias and function target is bash
-  - zsh someday maybe
-  - also nix
-
 ## [NixOS](nix/README.md)
 
-### [Packages](nix/flake.nix)
+### [packages](nix/flake.nix)
 
 ```shell
 #? generic with system nixpkgs usaage
@@ -19,6 +15,17 @@ sudo NIXPKGS_ALLOW_UNFREE=1 nix --extra-experimental-features "nix-command flake
 #? launch on computer with kompas (client)
 socat TCP-LISTEN:3189,bind=127.0.0.1,fork TCP:<remote_ip>:3189
 ```
+
+#### [OpenWrt Image](nix/packages/openwrt/xiaomi_ax3600.nix)
+
+##### TODO
+
+- [wiki #1](https://wiki.nixos.org/wiki/Networking_working_group)
+- [wiki #2](https://wiki.nixos.org/wiki/OpenWrt)
+- UCI declarative
+  - <https://gti.telent.net/dan/liminix>
+  - <https://github.com/MakiseKurisu/dewclaw>
+- [disable IPV6](https://3os.org/infrastructure/openwrt/disable-ipv6/)
 
 ## [Android](android/README.md)
 
@@ -36,7 +43,7 @@ socat TCP-LISTEN:3189,bind=127.0.0.1,fork TCP:<remote_ip>:3189
 
 ### [Git config (`~/.config/git/config`)](https://git-scm.com/docs/git-config)
 
-[nix code to fill](nix/home/default.nix#L61-L84):
+[nix code to fill](nix/home/default.nix#:~:text=%23%20%7D;-,userName):
 
 ```sh
 mkdir -p ~/.config/git/

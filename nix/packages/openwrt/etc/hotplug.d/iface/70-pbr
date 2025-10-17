@@ -1,0 +1,4 @@
+#!/bin/sh
+#? https://docs.openwrt.melmac.ca/pbr/1.1.8/#AWordAboutInterfaceHotplugScript
+logger -t pbr "Reloading $INTERFACE due to $ACTION of $INTERFACE ($DEVICE)"
+/etc/init.d/pbr on_interface_reload "$INTERFACE"

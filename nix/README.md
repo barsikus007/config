@@ -66,6 +66,7 @@ pkgs.mkShell {
 - TLDR
   - `curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install`
     - enable systemd if wsl
+    - alt installer `curl --proto '=https' --tlsv1.2 -sSf -L https://artifacts.nixos.org/experimental-installer | sh -s -- install`
   - [offline install](https://github.com/DeterminateSystems/nix-installer/releases/latest/download/nix-installer-x86_64-linux)
 
 ### [Nix uninstall](https://zero-to-nix.com/start/uninstall/)

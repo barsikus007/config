@@ -1,0 +1,7 @@
+#!/bin/sh
+if [ "$ACTION" = "ifup" -a "$INTERFACE" = "wan" ]; then
+    . /lib/functions/network.sh; network_get_ipaddr ip wan
+    _ip=$(echo $ip | grep -v -E "(^100\.6[4-9]\.|^100\.[7-9][0-9]\.|^100\.1[0-1][0-9]\.|^100\.12[0-7]\.)")
+    [ -z "$_ip" ] &&   logger -t white-ip-miner "Reloading wan due grey IP - $ip" && ifup wan
+    [ ! -z "$_ip" ] && logger -t white-ip-miner "White IP taken!           - $ip"
+fi

@@ -1,0 +1,5 @@
+#!/bin/sh
+uci -q batch << EOI
+set system.@system[0].hostname='testap'
+commit
+EOI

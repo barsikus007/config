@@ -46,6 +46,10 @@
       url = "github:kaylorben/nixcord";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    openwrt-imagebuilder = {
+      url = "github:astro/nix-openwrt-imagebuilder";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   #! FUCK THIS NIXFMT INDENT: https://github.com/NixOS/nixfmt/issues/91
@@ -230,6 +234,7 @@
         # nix run ./nix#kompas3d-fhs
         grdcontrol = callPackage ./packages/grdcontrol.nix { };
         # nix build ./nix#grdcontrol && ./result/opt/guardant/grdcontrol/grdcontrold
+        openwrt-xiaomi_ax3600 = (import ./packages/openwrt/xiaomi_ax3600.nix { inherit pkgs inputs; });
       };
       formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-tree;
     };

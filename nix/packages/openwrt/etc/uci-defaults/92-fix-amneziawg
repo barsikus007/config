@@ -1,0 +1,4 @@
+#!/bin/sh
+# sed -i 's/\tproto_amneziawg_check_installed/\t# proto_amneziawg_check_installed/g' /overlay/upper/lib/netifd/proto/amneziawg.sh
+# or (untested)
+sed -i '/\tproto_amneziawg_check_installed/s/^\t/^\t#/g' /overlay/upper/lib/netifd/proto/amneziawg.sh
