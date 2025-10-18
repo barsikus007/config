@@ -221,6 +221,52 @@
       };
       packages.${system} = with pkgs; {
         #? nix run --inputs-from nixpkgs github:barsikus007/config?dir=nix#<packageName>
+        goodix-patch-521d =
+          let
+            python3Env = python3.withPackages (
+              ps: with ps; [
+                pyusb
+                crcmod
+                python-periphery
+                spidev
+                pycryptodome
+                crccheck
+              ]
+            );
+          in
+          stdenv.mkDerivation {
+            pname = "goodix-patch";
+            version = "UwU";
+            src = pkgs.fetchFromGitHub {
+              owner = "goodix-fp-linux-dev";
+              repo = "goodix-fp-dump";
+              # rev = "master";
+              rev = "cc43bb3b3154a0bccc0412ae024013c7e1923139";
+              sha256 = "sha256-JqY0kRMm//xsmcpGOkUjUD/WNqTZM8oKGNxir/Hkyfg=";
+            };
+
+            patchPhase = ''
+              if [ -f driver_52xd.py ]; then
+                #? comment "if len(otp) < 64:" check
+                sed -i '133,134s/^/#/' driver_52xd.py
+              fi
+            '';
+
+            installPhase = ''
+              mkdir -p "$out/bin"
+              cp -r ./* "$out/"
+              cat > "$out/bin/run_521d" << EOF
+              #!/bin/sh
+              ${python3Env}/bin/python "$out/run_521d.py"
+              EOF
+              chmod +x "$out/bin/run_521d"
+            '';
+
+            buildInputs = [
+              openssl
+              python3Env
+            ];
+          };
         bcompare5 = (libsForQt5.callPackage ./packages/bcompare5.nix { });
         # nix build ./nix#bcompare5 && ./result/bin/bcompare
         mprint = callPackage ./packages/mprint.nix { };

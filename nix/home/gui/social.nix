@@ -31,6 +31,19 @@ let
   });
 in
 {
+
+  xdg.mimeApps = {
+    defaultApplications = {
+      "x-scheme-handler/discord" = [
+        "vesktop.desktop"
+        "discord.desktop"
+      ];
+    }
+    // lib.genAttrs [
+      "x-scheme-handler/tg"
+      "x-scheme-handler/tonsite"
+    ] (key: "com.ayugram.desktop.desktop");
+  };
   imports = [
     inputs.nixcord.homeModules.nixcord
   ];

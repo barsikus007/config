@@ -145,7 +145,9 @@ Windows Registry Editor Version 5.00
 
 Sound Source Settings -> Enhancements -> Loudness Equalization
 
-## Fix HW checks when install
+## install hacks
+
+### pass HW checks
 
 ```powershell
 # SHIFT + F10
@@ -157,4 +159,11 @@ reg add HKLM\System\Setup\LabConfig /t reg_dword /d 0x00000001 /f /v BypassRAMCh
 reg add HKLM\System\Setup\LabConfig /t reg_dword /d 0x00000001 /f /v BypassStorageCheck
 ```
 
-## [KMS](https://massgrave.dev)
+### local account creation
+
+```powershell
+# SHIFT + F10
+start ms-cxh:localonly
+```
+
+### [KMS](https://massgrave.dev)

@@ -1,5 +1,45 @@
-{ pkgs, config, ... }:
 {
+  lib,
+  pkgs,
+  config,
+  ...
+}:
+{
+  xdg.mimeApps = {
+    defaultApplications = {
+      # "application/x-desktop" = [WezTerm.desktop];
+    }
+    //
+      lib.genAttrs
+        [
+          # "default-web-browser"
+          # "x-scheme-handler/about"
+          # "x-scheme-handler/unknown"
+          "application/pdf"
+          "application/x-extension-htm"
+          "application/x-extension-html"
+          "application/x-extension-shtml"
+          "application/x-extension-xht"
+          "application/x-extension-xhtml"
+          "text/html"
+          "x-scheme-handler/chrome"
+          "x-scheme-handler/http"
+          "x-scheme-handler/https"
+        ]
+        (key: [
+          "firefox.desktop"
+          "microsoft-edge.desktop"
+          # "com.microsoft.Edge.desktop"
+        ]);
+    associations.removed = {
+      "application/xhtml+xml" = [
+        "firefox.desktop"
+        "microsoft-edge.desktop"
+        "com.microsoft.Edge.desktop"
+      ];
+    };
+  };
+
   programs.chromium = {
     enable = true;
     extensions = [
@@ -270,7 +310,7 @@
                 }
               ];
 
-              iconMapObj."32" = "https://github.githubassets.com/favicons/favicon.svg";
+              iconMapObj."32" = "https://github.com/favicons/favicon.svg";
               definedAliases = [ "gi" ];
             };
             "GitHub Nix" = {
@@ -290,8 +330,28 @@
                 }
               ];
 
-              iconMapObj."32" = "https://github.githubassets.com/favicons/favicon.svg";
+              iconMapObj."32" = "https://github.com/favicons/favicon.svg";
               definedAliases = [ "gin" ];
+            };
+            "Yandex Maps" = {
+              urls = [
+                {
+                  template = "https://yandex.ru/maps?mode=search&text=пиво";
+                  params = [
+                    {
+                      name = "mode";
+                      value = "search";
+                    }
+                    {
+                      name = "text";
+                      value = "{searchTerms}";
+                    }
+                  ];
+                }
+              ];
+
+              iconMapObj."32" = "https://yandex.ru/maps/favicon.svg";
+              definedAliases = [ "ym" ];
             };
 
             #? it wont work for some strange google reason

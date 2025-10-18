@@ -38,6 +38,11 @@
   };
 
   xdg.enable = true;
+  xdg.mimeApps.enable = true;
+  #? https://wiki.nixos.org/wiki/Default_applications#Configuration
+  # ls /run/current-system/sw/share/applications # for global packages
+  # ls /etc/profiles/per-user/$(id -n -u)/share/applications # for user packages
+  # ls ~/.nix-profile/share/applications # for home-manager packages
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

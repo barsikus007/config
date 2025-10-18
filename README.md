@@ -21,10 +21,10 @@ socat TCP-LISTEN:3189,bind=127.0.0.1,fork TCP:<remote_ip>:3189
 ##### TODO
 
 - [wiki #1](https://wiki.nixos.org/wiki/Networking_working_group)
+  - <https://github.com/disassembler/network/blob/master/nixos/portal/configuration.nix>
 - [wiki #2](https://wiki.nixos.org/wiki/OpenWrt)
-- UCI declarative
-  - <https://gti.telent.net/dan/liminix>
-  - <https://github.com/MakiseKurisu/dewclaw>
+  - UCI declarative
+    - <https://github.com/MakiseKurisu/dewclaw>
 - [disable IPV6](https://3os.org/infrastructure/openwrt/disable-ipv6/)
 
 ## [Android](android/README.md)

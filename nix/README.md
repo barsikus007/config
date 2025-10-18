@@ -22,39 +22,12 @@ Set user password and TODO other steps from [NixOS installation manual](https://
 
 #### [Fingerprint scanner](https://github.com/knauth/goodix-521d-explanation)
 
-Too lazy to write this on nix
-
 <https://github.com/goodix-fp-linux-dev/goodix-fp-dump/blob/master/README.md>
 
-1. `git clone --recurse-submodules https://github.com/goodix-fp-linux-dev/goodix-fp-dump.git && cd goodix-fp-dump`
-2. Create `shell.nix` with content below
-3. Enter nix shell `nix-shell`
-4. `sudo python3 run_521d.py`
-   1. Catch "Invalid OTP" and cry ;-;
-   2. I kidding, comment that checking at L133:L134
+~~Too lazy to write this on nix~~
 
-`shell.nix`
-
-```nix
-{
-  pkgs ? import <nixpkgs> { },
-}:
-
-pkgs.mkShell {
-  buildInputs = with pkgs; [
-    openssl
-    (python3.withPackages (
-      ps: with ps; [
-        pyusb
-        crcmod
-        python-periphery
-        spidev
-        pycryptodome
-        crccheck
-      ]
-    ))
-  ];
-}
+```shell
+sudo $(nix build ./nix#goodix-patch-521d --print-out-paths)/bin/run_521d
 ```
 
 ## Nix itself
