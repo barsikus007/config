@@ -76,7 +76,7 @@
         // tool specific
     },
     // docker
-    "docker.commands.composeUp": [
+    "containers.commands.composeUp": [
         {
             "label": "dev",
             "template": "docker-compose up -d --build"

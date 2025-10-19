@@ -12,5 +12,8 @@
   };
 
   # networking.firewall.enable = false;
-  networking.firewall.allowedTCPPorts = [ 12345 ]; # TODO: home: rquickshare
+  networking.firewall.allowedTCPPorts = [
+    # TODO: move to home module somehow...
+    12345 # ? home: rquickshare
+  ];
 }

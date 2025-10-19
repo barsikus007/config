@@ -23,6 +23,7 @@ with pkgs;
     python-pkgs: with python-pkgs; [
       ptpython
       ipython
+      # certifi
     ]
   ))
   unstable.uv
@@ -46,6 +47,7 @@ with pkgs;
   scrcpy
   neovide
   qdirstat
+  parsec-bin
   qbittorrent
 
   # https://www.reddit.com/r/software/comments/t5n3cm/everything_for_linux/

@@ -41,8 +41,7 @@
     })
     bottles
 
-    # https://github.com/DarthPJB/parsec-gaming-nix
-    parsec-bin
+    gpu-screen-recorder-gtk
   ];
 
   programs.gpu-screen-recorder.enable = true;

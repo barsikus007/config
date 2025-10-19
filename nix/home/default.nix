@@ -25,9 +25,9 @@
     # packages = import ./shared/lists { inherit pkgs; };
     # packages = import ./shared/lists/base.nix { inherit pkgs; };
 
-    # # https://wiki.nixos.org/wiki/Environment_variables
-    # # This is using a rec (recursive) expression to set and access XDG_BIN_HOME within the expression
-    # # For more on rec expressions see https://nix.dev/tutorials/first-steps/nix-language#recursive-attribute-set-rec
+    #? https://wiki.nixos.org/wiki/Environment_variables
+    # This is using a rec (recursive) expression to set and access XDG_BIN_HOME within the expression
+    # For more on rec expressions see https://nix.dev/tutorials/first-steps/nix-language#recursive-attribute-set-rec
     sessionVariables = {
       # Not officially in the specification
       XDG_BIN_HOME = "$HOME/.local/bin";
@@ -81,12 +81,11 @@
 
       rebase.autoStash = "true";
 
-      # TODO: secrets
-      # TODO: https://wiki.nixos.org/wiki/Git#Using_your_public_SSH_key_as_a_signing_key
-      user.signingKey = "~/.ssh/id_ed25519.pub";
-      commit.gpgSign = true;
       gpg.format = "ssh";
     };
+    # TODO: secrets: https://wiki.nixos.org/wiki/Git#Using_your_public_SSH_key_as_a_signing_key
+    signing.key = "~/.ssh/id_ed25519.pub";
+    signing.signByDefault = true;
   };
 
   #! https://github.com/nix-community/home-manager/issues/2064

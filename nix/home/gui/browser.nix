@@ -132,7 +132,7 @@
         #! https://mrotherguy.github.io/firefox-csshacks/?file=hide_tabs_toolbar_v2.css
         userChrome = pkgs.fetchurl {
           url = "https://raw.githubusercontent.com/MrOtherGuy/firefox-csshacks/9bb5b59e3ad2b42483731203d51f6cb758fa6cb5/chrome/hide_tabs_toolbar_v2.css";
-          sha256 = "sha256-xP2UqInVthDB67/hU9/rY1jEYXJs+R+i1qDn3LVts6Y=";
+          hash = "sha256-xP2UqInVthDB67/hU9/rY1jEYXJs+R+i1qDn3LVts6Y=";
         };
 
         search = {

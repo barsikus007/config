@@ -74,6 +74,7 @@
           lsp = {
             server = "nixd";
             options = {
+              # TODO: system
               home-manager.expr = "(builtins.getFlake \"${flakePath}\").homeConfigurations.${username}.options";
               nixos.expr = "(builtins.getFlake \"${flakePath}\").nixosConfigurations.ROG14.options";
             };

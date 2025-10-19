@@ -27,7 +27,8 @@ Set user password and TODO other steps from [NixOS installation manual](https://
 ~~Too lazy to write this on nix~~
 
 ```shell
-sudo $(nix build ./nix#goodix-patch-521d --print-out-paths)/bin/run_521d
+sudo $(nix build 'github:barsikus007/config?dir=nix#goodix-patch-521d' --print-out-paths)/bin/run_521d
+sudo $(nix build ~/config/nix#goodix-patch-521d --print-out-paths)/bin/run_521d
 ```
 
 ## Nix itself
