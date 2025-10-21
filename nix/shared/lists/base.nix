@@ -41,6 +41,7 @@ with pkgs;
   nh
   nvd
   nix-tree
+  nix-output-monitor
 
   nixfmt-rfc-style
   nixd

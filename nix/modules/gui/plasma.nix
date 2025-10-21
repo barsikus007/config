@@ -8,6 +8,9 @@
   };
   #? use KDE filepicker in GTK apps
   xdg.portal.xdgOpenUsePortal = true;
+  #? https://wiki.archlinux.org/title/Uniform_look_for_Qt_and_GTK_applications#Set_the_preferred_portal_backend
+  xdg.portal.config.common.default = [ "kde" ];
+  xdg.portal.config.common."org.freedesktop.impl.portal.FileChooser" = [ "kde" ];
 
   # TODO: 25.11: https://github.com/nix-community/stylix/issues/1865
   qt.style = pkgs.lib.mkForce "breeze";
@@ -41,14 +44,18 @@
   #   # xwaylandvideobridge # exposes Wayland windows to X11 screen capture
   # ];
   environment.defaultPackages = with pkgs; [
+    #? KDE apps, which are analog to useful Windows apps
     kdePackages.filelight
     kdePackages.kclock
     kdePackages.kcalc
 
-    #? for KDE Connect ?
-    kdePackages.kdialog
-
+    #? ydotool for plasma
     kdotool
+
+    #? for KDE Connect
+    kdePackages.kdialog
+    # https://invent.kde.org/network/kdeconnect-kde/-/tree/master/plugins/virtualmonitor
+    kdePackages.krfb
   ];
   programs.kdeconnect.enable = true;
 }

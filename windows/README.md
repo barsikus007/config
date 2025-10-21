@@ -1,5 +1,12 @@
 # [Windows](../README.md)
 
+## Post-install
+
+```powershell
+#? https://wiki.archlinux.org/title/System_time#UTC_in_Microsoft_Windows
+reg add "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\TimeZoneInformation" /v RealTimeIsUniversal /d 1 /t REG_DWORD /f
+```
+
 ## Powershell lifehack to bypas security policy
 
 ```powershell

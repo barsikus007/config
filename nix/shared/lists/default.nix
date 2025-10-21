@@ -8,8 +8,9 @@ with pkgs;
   isd
   file
   tlrc
-  unrar
   aria2
+  sbctl # for systemd-boot (and lumine) secure boot
+  unrar
   ffmpeg
   yt-dlp
   pciutils # lspci
@@ -45,6 +46,7 @@ with pkgs;
   sox
 
   # GUI
+  gimp3
   scrcpy
   neovide
   qdirstat
