@@ -17,11 +17,6 @@
   # For PAM
   # environment.sessionVariables = {};
 
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
-
   # Set your time zone.
   time.timeZone = "Europe/Moscow";
 
@@ -90,6 +85,7 @@
   };
   imports = [
     inputs.home-manager.nixosModules.home-manager
+    ../shared/nix.nix
     # ../modules/shell/fish.nix
   ];
 

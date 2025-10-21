@@ -1,20 +1,6 @@
 {
   description = "https://никспобеда.рф";
 
-  nixConfig = {
-    substituters = [
-      "https://cache.nixos.org/"
-      "https://nixos-cache-proxy.cofob.dev"
-
-      "https://nix-community.cachix.org"
-    ];
-    trusted-public-keys = [
-      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-    ];
-  };
-
   inputs = {
     #? nixpkgs-previous.url = "github:nixos/nixpkgs?ref=nixos-25.05";
     nixpkgs-previous.url = "github:nixos/nixpkgs?ref=879bd460b3d3e8571354ce172128fbcbac1ed633";
@@ -149,6 +135,8 @@
           flakePath = "/home/nixos/config/nix";
         };
         modules = [
+          ./shared/nix.nix
+
           ./home
           ./home/shells.nix
           ./home/editors.nix
