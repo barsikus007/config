@@ -67,6 +67,11 @@
     #? https://github.com/NixOS/nixos-hardware/issues/1450
     nvidia.dynamicBoost.enable = false;
 
+    #? if GPU apps fails after suspend
+    # nvidia.powerManagement.enable = true;
+    #? finer GPU power management
+    nvidia.powerManagement.finegrained = true;
+
     #! https://github.com/NixOS/nixpkgs/issues/429624#issuecomment-3261936923
     nvidia.package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
       version = "580.65.06";

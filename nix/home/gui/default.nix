@@ -1,4 +1,25 @@
+{ lib, ... }:
 {
+  xdg = {
+    #? ls /run/current-system/sw/share/applications /etc/profiles/per-user/$(id -n -u)/share/applications ~/.nix-profile/share/applications | grep <name>
+    mimeApps.enable = true;
+    mimeApps.defaultApplications =
+      lib.genAttrs
+        [
+          # default for unknown (binary) and text
+          "text/plain"
+          "application/octet-stream"
+          "application/x-zerosize"
+        ]
+        (key: [
+          # "org.kde.kwrite.desktop"
+          "org.kde.kate.desktop"
+          "neovide.desktop"
+          "nvim.desktop"
+        ]);
+    userDirs.enable = true;
+  };
+
   programs.keepassxc = {
     enable = true;
     settings = {

@@ -35,12 +35,7 @@
     ];
   };
 
-  xdg = {
-    enable = true;
-    # ls /run/current-system/sw/share/applications /etc/profiles/per-user/$(id -n -u)/share/applications ~/.nix-profile/share/applications | grep <name>
-    mimeApps.enable = true;
-    userDirs.enable = true;
-  };
+  xdg.enable = true;
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
