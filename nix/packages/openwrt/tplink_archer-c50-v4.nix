@@ -1,17 +1,19 @@
 { pkgs, inputs, ... }:
-#? https://openwrt.org/toh/xiaomi/ax3600
-#? https://openwrt.org/toh/hwdata/xiaomi/xiaomi_ax3600
-#  Package architecture: aarch64_cortex-a53
+#? https://openwrt.org/toh/tp-link/archer_a5_v5
+#? https://openwrt.org/toh/tp-link/archer-c50
+#? https://openwrt.org/toh/hwdata/tp-link/tp-link_archer_a5_v5
+#? https://openwrt.org/toh/hwdata/tp-link/tp-link_archer_c50_v4
+#  Package architecture: mipsel_24kc
 let
   profiles = inputs.openwrt-imagebuilder.lib.profiles { inherit pkgs; };
   profile = (
-    profiles.identifyProfile "xiaomi_ax3600"
+    profiles.identifyProfile "tplink_archer-c50-v4"
     // {
       # specify release
       # release = "24.10.3";
     }
   );
-  arch = "aarch64_cortex-a53";
+  arch = "mipsel_24kc";
   inherit (import ./. { }) mkAmneziaPackages;
 in
 inputs.openwrt-imagebuilder.lib.build (
@@ -30,7 +32,7 @@ inputs.openwrt-imagebuilder.lib.build (
       "-dnsmasq"
       "dnsmasq-full"
       "luci-app-pbr"
-      "luci-proto-wireguard" # ? I use amneziawg instead
+      # "luci-proto-wireguard" # ? I use amneziawg instead
       "kmod-amneziawg"
       "amneziawg-tools"
       "luci-proto-amneziawg"

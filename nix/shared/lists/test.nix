@@ -29,7 +29,7 @@ with pkgs;
   # new other
   shfmt
   iotop
-  fatrace  # sudo fatrace . 2>&1 | grep firefox
+  fatrace # sudo fatrace . 2>&1 | grep firefox
   systemctl-tui
 
   bruno

@@ -277,7 +277,10 @@
         grdcontrol = callPackage ./packages/grdcontrol.nix { };
         # nix build ./nix#grdcontrol && ./result/opt/guardant/grdcontrol/grdcontrold
         openwrt-xiaomi_ax3600 = (import ./packages/openwrt/xiaomi_ax3600.nix { inherit pkgs inputs; });
+        openwrt-tplink_archer-c50-v4 = (
+          import ./packages/openwrt/tplink_archer-c50-v4.nix { inherit pkgs inputs; }
+        );
       };
-      formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-tree;
+      formatter.${system} = pkgs.nixfmt-tree;
     };
 }
