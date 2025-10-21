@@ -26,8 +26,6 @@
     # packages = import ./shared/lists/base.nix { inherit pkgs; };
 
     #? https://wiki.nixos.org/wiki/Environment_variables
-    # This is using a rec (recursive) expression to set and access XDG_BIN_HOME within the expression
-    # For more on rec expressions see https://nix.dev/tutorials/first-steps/nix-language#recursive-attribute-set-rec
     sessionVariables = {
       # Not officially in the specification
       XDG_BIN_HOME = "$HOME/.local/bin";
@@ -37,12 +35,12 @@
     ];
   };
 
-  xdg.enable = true;
-  xdg.mimeApps.enable = true;
-  #? https://wiki.nixos.org/wiki/Default_applications#Configuration
-  # ls /run/current-system/sw/share/applications # for global packages
-  # ls /etc/profiles/per-user/$(id -n -u)/share/applications # for user packages
-  # ls ~/.nix-profile/share/applications # for home-manager packages
+  xdg = {
+    enable = true;
+    # ls /run/current-system/sw/share/applications /etc/profiles/per-user/$(id -n -u)/share/applications ~/.nix-profile/share/applications | grep <name>
+    mimeApps.enable = true;
+    userDirs.enable = true;
+  };
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -86,13 +84,5 @@
     # TODO: secrets: https://wiki.nixos.org/wiki/Git#Using_your_public_SSH_key_as_a_signing_key
     signing.key = "~/.ssh/id_ed25519.pub";
     signing.signByDefault = true;
-  };
-
-  #! https://github.com/nix-community/home-manager/issues/2064
-  systemd.user.targets.tray = {
-    Unit = {
-      Description = "Home Manager System Tray";
-      Requires = [ "graphical-session-pre.target" ];
-    };
   };
 }

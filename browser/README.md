@@ -33,6 +33,9 @@
 ```css
 ! 2022-02-22 https://lurkmore.media
 lurkmore.media##.sitenotice
+
+! 2025-10-21 stop reddit translation
+||reddit.com^$removeparam=tl
 ```
 
 [VK](https://github.com/vtosters/adblock)

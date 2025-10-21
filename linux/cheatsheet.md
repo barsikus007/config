@@ -120,6 +120,13 @@ sudo btrfs balance status /
 distrobox create --name astra --image registry.astralinux.ru/astra/ubi18:latest
 ```
 
+## partitions
+
+- `sudo cfdisk /dev/...`
+  - `sudo parted`
+- `nix-shell -p ntfs3g --run 'sudo ntfsfix /dev/nvme0n1p3'`
+  - `nix-shell -p ntfs3g --run 'sudo ntfsfix /dev/nvme0n1p3 --clear-dirty'`
+
 ## commands
 
 ### [download "whole" site](https://pingvinus.ru/note/wget-download-sites) ([alt](https://superuser.com/q/1672776))

@@ -32,7 +32,6 @@
 
     # Use the systemd-boot EFI boot loader.
     loader = {
-      # timeout = 3;
       systemd-boot = {
         enable = true;
         editor = false;
@@ -44,6 +43,7 @@
 
     # https://wiki.nixos.org/wiki/Plymouth
     plymouth.enable = true;
+
     # Enable "Silent boot"
     consoleLogLevel = 3;
     initrd.verbose = false;
@@ -58,6 +58,9 @@
     # It's still possible to open the bootloader list by pressing any key
     # It will just not appear on screen unless a key is pressed
     loader.timeout = 0;
+
+    #? https://wiki.nixos.org/wiki/NTFS
+    supportedFilesystems = [ "ntfs" ];
   };
 
   hardware = {

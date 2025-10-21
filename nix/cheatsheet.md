@@ -5,6 +5,12 @@
 - [index](https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/all-packages.nix)
   - `code $(nix eval -f '<nixpkgs>' path)/pkgs/top-level/all-packages.nix`
 
+### misc
+
+- ventoy: `NIXPKGS_ALLOW_UNFREE=1 NIXPKGS_ALLOW_INSECURE=1 nix-shell -p ventoy-full-qt`
+  - `sudo ventoy-gui /dev/...`
+  - `sudo ventoy-plugson /dev/...`
+
 ## nixos-rebuild
 
 ```bash

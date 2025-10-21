@@ -35,6 +35,7 @@ with pkgs;
   litecli
 
   # CLI renders for yazi
+  exiftool
   poppler
   resvg
   imagemagick

@@ -262,11 +262,6 @@
               EOF
               chmod +x "$out/bin/run_521d"
             '';
-
-            buildInputs = [
-              openssl
-              python3Env
-            ];
           };
         bcompare5 = (libsForQt5.callPackage ./packages/bcompare5.nix { });
         # nix build ./nix#bcompare5 && ./result/bin/bcompare
