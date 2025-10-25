@@ -1,4 +1,4 @@
-# WSL
+# [WSL](./README.md)
 
 ```powershell
 wsl --install

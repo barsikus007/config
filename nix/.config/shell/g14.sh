@@ -1,25 +1,32 @@
 #!/bin/sh
 
-# TODO: if asus
-# TODO install media and conf file
-# yt-dlp UkgK8eUdpAo
-# ffmpeg -i *.webm -filter_complex "[0:v]fps=30,scale=66:-1,setpts=0.645*PTS[v]" -map '[v]' -loop 0 bad-apple.gif -y && cp -rf bad-apple.gif ~/.config/rog/
-# ffmpeg -i *.webm bad-apple.mp3 -y && cp -rf bad-apple.mp3 ~/Music/
-# ROG G14 specific aliases
-# TODO: non ported
+demo_download() {
+  # TODO make check if files exits
+  (
+    VIDEO_FOLDER=~/.config/rog
+    mkdir -p $VIDEO_FOLDER
+    VIDEO_ID=UkgK8eUdpAo
+    VIDEO_NAME=bad_apple
+    yt-dlp $VIDEO_ID -o - | ffmpeg -i - -filter_complex "[0:v]fps=30,scale=66:-1,setpts=0.645*PTS[v]" -map '[v]' -loop 0 $VIDEO_FOLDER/$VIDEO_NAME.gif $VIDEO_FOLDER/$VIDEO_NAME.mp3 -y
+  )
+}
+
+
+# TODO split em
+#? ROG G14 specific
+# TODO deps: tmux asusctl sox(play)
 #! https://gitlab.com/asus-linux/asusctl/-/issues/530#note_2101255275
 alias animeclr='asusctl anime -E false > /dev/null'
-# alias noanime='systemctl --user stop asusd-user && animeclr'
+#! alias noanime='systemctl --user stop asusd-user && animeclr'
 alias noanime='tmux kill-session -t anime 2> /dev/null; animeclr'
-# alias yesanime='systemctl --user start asusd-user'
+#! alias yesanime='systemctl --user start asusd-user'
 alias yesanime='tmux new -s anime -d "asusctl anime gif -p ~/.config/rog/bad-apple.gif"'
 alias anime='animeclr && yesanime'
 alias demosplash='asusctl anime pixel-image -p ~/.config/rog/bad-apple.png'
 alias nodemo='tmux kill-session -t sound 2> /dev/null; noanime'
-alias demo='nodemo && anime && sleep 0.5 && tmux new -s sound -d "play ~/Music/bad-apple.mp3 repeat -"'
+alias demo='nodemo && anime && sleep 0.5 && tmux new -s sound -d "play ~/.config/rog/bad-apple.mp3 repeat -"'
 demotoggle() {
   # demo toggle function (for dedicated key)
-  # sudo sed -i 's/StartLimitInterval=200/StartLimitInterval=2/' /usr/lib/systemd/user/asusd-user.service && systemctl --user daemon-reload
   (
     DEMO_FILE=~/.config/.is-demo-working
     if [ -f "$DEMO_FILE" ]; then
@@ -30,6 +37,7 @@ demotoggle() {
   )
 }
 
+#? asus general
 fan() {
   # fan switch function (for Fn+F5 key)
   (
@@ -43,7 +51,7 @@ fan() {
   )
 }
 
-# TODO this is laptop specific, not G14
+#? laptop general
 boost() {
   # https://www.reddit.com/r/linuxmint/comments/12n8qfe/comment/jge3kys/
   if grep -q 0 /sys/devices/system/cpu/cpufreq/boost; then
@@ -57,5 +65,8 @@ boost() {
 
 battery() {
   awk '{print $1*10^-6 " W"}' /sys/class/power_supply/BAT0/power_now
-  # TODO watch -n 5 battery
+}
+
+power_draw() {
+  watch -n 5 zsh -c battery
 }

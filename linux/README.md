@@ -8,6 +8,10 @@
 
 ## [WSL Hints](wsl.md)
 
+## [ethical hacking](hax.md)
+
+## [raspberry pi zero w](devices/rpi-zero.md)
+
 ## Archive
 
 ### Install Config
@@ -17,14 +21,33 @@
 
 #### Deps
 
-- `sudo apt install git -y`
-- `chsh -s /bin/bash`
+```sh
+#? ubuntu
+sudo apt install git -y
+
+#? arch
+sudo pacman -S git
+
+#? all
+chsh -s /bin/bash
+```
 
 #### Clone
 
-- `cd && git clone https://github.com/barsikus007/config --depth 1 && cd -`
+```sh
+cd && git clone https://github.com/barsikus007/config --depth 1 && cd -
+```
 
 #### Install/Update
 
-- `cd ~/config/ && git pull && ./configs/install.sh && cd -`
-- TODO `setup_ubuntu`
+```sh
+#? all
+cd ~/config/ && git pull && ./configs/install.sh && cd -
+
+setup_ubuntu
+
+setup_arch
+
+#? others
+setup_linux
+```

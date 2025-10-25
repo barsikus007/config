@@ -1,4 +1,4 @@
-# zlom
+# [zlom](./README.md)
 
 ## scan.sh by XAKEP
 

@@ -75,11 +75,3 @@ alias sex='explorer.exe .'
 
 # https://www.cyberciti.biz/faq/unix-linux-check-if-port-is-in-use-command/
 alias open-ports='sudo lsof -i -P -n | grep LISTEN'
-
-# ROG G14 specific aliases TODO detect if ROG G14 TODO install media and conf file
-alias animeclr='asusctl anime -E false > /dev/null'
-alias noanime='systemctl --user stop asusd-user && animeclr'
-alias anime='animeclr && systemctl --user start asusd-user'
-alias demosplash='asusctl anime pixel-image -p ~/.config/rog/bad-apple.png'
-alias nodemo='tmux kill-session -t sound 2> /dev/null; noanime'
-alias demo='nodemo && anime && sleep 0.5 && tmux new -s sound -d "play ~/Music/bad-apple.mp3 repeat -"'

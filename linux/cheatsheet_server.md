@@ -130,7 +130,7 @@ sudo /sbin/modprobe zfs
 ### Commands
 
 - [Clear arc cache](https://netpoint-dc.com/blog/zfs-caching-arc-l2arc-linux/)
-  - `sudo sh -c 'echo 3 > /proc/sys/vm/drop_caches'`
+  - `sudo sysctl vm/drop_caches=3`
 - Add auto snapshot package
   - `sudo apt install zfs-auto-snapshot -y`
 - Enable scrub timer
@@ -192,12 +192,17 @@ zfs get share.smb.all tank/storage%storage
 ### Docker
 
 ```bash
-# install docker
+# install
+#? ubuntu
 curl -sSL https://get.docker.com | sh
 # seems like it's not needed
 # sudo groupadd docker
 sudo usermod -aG docker $USER
 newgrp docker; exit
+
+#? arch
+sudo pacman -S docker docker-compose
+sudo systemctl restart docker
 ```
 
 #### Watchtower
@@ -208,17 +213,4 @@ docker run -d \
 --restart always \
 -v /var/run/docker.sock:/var/run/docker.sock \
 containrrr/watchtower --cleanup --remove-volumes
-```
-
-### arch soft
-
-```bash
-# install config
-sudo pacman -S git
-cd && git clone https://github.com/barsikus007/config --depth 1 && cd -
-cd ~/config/ && git pull && ./configs/install.sh && cd -
-setup_arch
-
-sudo pacman -S docker docker-compose
-sudo systemctl restart docker
 ```
