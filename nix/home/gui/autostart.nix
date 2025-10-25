@@ -3,7 +3,7 @@
   xdg.autostart = {
     enable = true;
     entries = [
-      # "${pkgs.evolution}/share/applications/throne.desktop"
+      # "${pkgs.throne}/share/applications/throne.desktop"
       (
         (pkgs.makeDesktopItem rec {
           destination = "/";
@@ -24,8 +24,6 @@
       )
     ];
   };
-  # TODO    osConfig.programs.nekoray.package
-  # TODO if osConfig.programs.nekoray.enabled
   # ".config/autostart/vesktop.desktop".text = ''
   #   [Desktop Entry]
   #   Type=Application

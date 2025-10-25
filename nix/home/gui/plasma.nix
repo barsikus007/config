@@ -6,8 +6,7 @@
 }:
 {
   imports = [ inputs.plasma-manager.homeModules.plasma-manager ];
-  # TODO: if asus
-  home.packages = with pkgs; [ supergfxctl-plasmoid ];
+  home.packages = if config.custom.isAsus then with pkgs; [ supergfxctl-plasmoid ] else [ ];
 
   programs.zsh.initContent = ''explorer.exe() {dolphin --new-window "$@" 1>/dev/null 2>/dev/null & disown}'';
   #? have issues with focus, it should focus to explorer every time
@@ -24,22 +23,27 @@
     enable = true;
     overrideConfig = true;
 
-    # TODO: if asus
-    hotkeys.commands."laptop-button-rog" = {
-      name = "Laptop ROG Button";
-      key = "Launch (1)";
-      command = "zsh -c demotoggle";
-    };
-    # hotkeys.commands."laptop-button-f5" = {
-    #   name = "Laptop F5 Button";
-    #   key = "Launch (4)";
-    #   command = "zsh -c fan";
-    # };
-    hotkeys.commands."laptop-button-f6" = {
-      name = "Laptop F6 Button";
-      key = "Meta+Shift+S";
-      command = "zsh -c \"noanime && anime\"";
-    };
+    hotkeys.commands =
+      if config.custom.isAsus then
+        {
+          "laptop-button-rog" = {
+            name = "Laptop ROG Button";
+            key = "Launch (1)";
+            command = "zsh -c demotoggle";
+          };
+          # "laptop-button-f5" = {
+          #   name = "Laptop F5 Button";
+          #   key = "Launch (4)";
+          #   command = "zsh -c fan";
+          # };
+          "laptop-button-f6" = {
+            name = "Laptop F6 Button";
+            key = "Meta+Shift+S";
+            command = "zsh -c \"noanime && anime\"";
+          };
+        }
+      else
+        { };
     kscreenlocker.timeout = 10;
     powerdevil = {
       batteryLevels = {
@@ -47,8 +51,8 @@
         criticalLevel = 5;
       };
       AC.autoSuspend.action = "nothing";
-      AC.displayBrightness = 100; # TODO: will it fix low brightness after sleep or idk when?
-      # battery.whenLaptopLidClosed = "hibernate";
+      AC.displayBrightness = 100;
+      # battery.whenLaptopLidClosed = "hibernate"; # TODO
       # lowBattery.whenLaptopLidClosed = "hibernate"; #?
       lowBattery.powerProfile = "powerSaving";
     };
@@ -191,7 +195,6 @@
           {
             iconTasks = {
               launchers = [
-                # TODO not linked to anything
                 "applications:org.kde.dolphin.desktop"
                 "applications:org.wezfurlong.wezterm.desktop"
                 "applications:firefox.desktop"

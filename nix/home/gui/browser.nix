@@ -169,8 +169,7 @@
                   params = [
                     {
                       name = "channel";
-                      # TODO should be system version
-                      value = config.home.stateVersion;
+                      value = pkgs.lib.trivial.release;
                     }
                     {
                       name = "query";
@@ -190,8 +189,8 @@
                   params = [
                     {
                       name = "channel";
-                      # TODO should be system version
-                      value = config.home.stateVersion;
+                      #? should be system version but I don't care
+                      value = pkgs.lib.trivial.release;
                     }
                     {
                       name = "query";
@@ -211,7 +210,7 @@
                   params = [
                     {
                       name = "release";
-                      value = "release-${config.home.stateVersion}";
+                      value = "release-${config.home.version.release}";
                     }
                     {
                       name = "query";

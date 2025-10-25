@@ -52,6 +52,9 @@
       };
       specialArgs = defaultSpecialArgs // {
       };
+      commonConfig.custom = {
+        isAsus = true;
+      };
     in
     {
       nixosConfigurations."ROG14-WSL" = nixpkgs.lib.nixosSystem {
@@ -61,6 +64,8 @@
           flakePath = "/home/nixos/config/nix";
         };
         modules = [
+          ./shared
+
           ./hosts
           ./hosts/ROG14-WSL/configuration.nix
         ];
@@ -68,6 +73,8 @@
       nixosConfigurations."ROG14" = nixpkgs.lib.nixosSystem {
         inherit system specialArgs pkgs;
         modules = [
+          ./shared
+
           ./hosts
           ./hosts/ROG14/configuration.nix
 
@@ -97,6 +104,7 @@
           ./modules/gui/waydroid.nix
           (import ./modules/gui/video-edit.nix { pkgs = pkgs.previous; })
 
+          commonConfig
           {
             programs.nix-ld.libraries = with pkgs; [
               #? nix-index
@@ -136,6 +144,7 @@
           flakePath = "/home/nixos/config/nix";
         };
         modules = [
+          ./shared
           ./shared/nix.nix
 
           ./home
@@ -147,6 +156,8 @@
         inherit pkgs;
         extraSpecialArgs = specialArgs;
         modules = [
+          ./shared
+
           ./home
           ./home/shells.nix
           ./home/editors.nix
@@ -171,6 +182,7 @@
           ./home/gui/social.nix
           ./home/gui/office.nix
           ./home/gui/bcompare.nix
+          commonConfig
           {
             programs.nvf.settings.vim.lsp.enable = nixpkgs.lib.mkForce true;
           }

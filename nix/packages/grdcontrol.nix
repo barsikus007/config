@@ -16,7 +16,6 @@ in
 stdenv.mkDerivation {
   inherit pname version;
 
-  # TODO: limit amd64 only
   src = fetchzip {
     url = "https://download.guardant.ru/Guardant_Control_Center/${version}/grdcontrol-${version}_amd64.deb";
     hash = "sha256-1JvZaEPo6IEkcOVsx7PLW1fCUbbn/Bn89iz/4IAmZAs=";

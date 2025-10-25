@@ -52,6 +52,5 @@
 
   #? https://wiki.archlinux.org/title/Java#Java_applications_cannot_open_external_links
   # also for gio mount
-  # TODO: allow minecraft to open file links
   services.gvfs.enable = true;
 }
