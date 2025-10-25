@@ -40,6 +40,7 @@ with pkgs;
   poppler
   resvg
   imagemagick
+  ueberzugpp
 
   # sound
   # for play command for asus

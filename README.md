@@ -9,7 +9,7 @@
 nix run --inputs-from nixpkgs 'github:barsikus007/config?dir=nix#<packageName>'
 #? kompas on non-NixOS
 nix --extra-experimental-features "nix-command flakes" run --impure --inputs-from nixpkgs 'github:nix-community/nixGL' -- env NIXPKGS_ALLOW_UNFREE=1 nix run --impure --inputs-from nixpkgs 'github:barsikus007/config?dir=nix#kompas3d-fhs'
-#? rm ~/.config/ascon/KOMPAS-3D/24/recent_files.xml
+#? rm ~/.config/ascon/KOMPAS-3D/24/{recent_files.xml,KOMPAS.kit.config}
 #? launch on computer with enough system parts (remote) lol
 sudo NIXPKGS_ALLOW_UNFREE=1 nix --extra-experimental-features "nix-command flakes" run --impure --inputs-from nixpkgs 'github:barsikus007/config?dir=nix#grdcontrol'
 #? launch on computer with kompas (client)

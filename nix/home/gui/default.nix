@@ -12,8 +12,9 @@
           "application/x-zerosize"
         ]
         (key: [
-          # "org.kde.kwrite.desktop"
           "org.kde.kate.desktop"
+          # "org.kde.kwrite.desktop"
+          "code.desktop"
           "neovide.desktop"
           "nvim.desktop"
         ]);

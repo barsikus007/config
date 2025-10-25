@@ -4,6 +4,7 @@
 
 - [index](https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/all-packages.nix)
   - `code $(nix eval -f '<nixpkgs>' path)/pkgs/top-level/all-packages.nix`
+- [phases order](https://nixos.org/manual/nixpkgs/stable/#sec-stdenv-phases)
 
 ### misc
 

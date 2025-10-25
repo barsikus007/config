@@ -298,6 +298,25 @@ in
         ];
       };
     };
+    #? https://github.com/sxyazi/yazi/blob/157156b5b8f36db15b2ba425c7d15589039a9e1e/yazi-plugin/preset/components/linemode.lua#L25
+    initLua = ''
+      function strip_date_year(time_to_format)
+        local time = math.floor(time_to_format or 0)
+        if time == 0 then
+          return ""
+        elseif os.date("%Y", time) == os.date("%Y") then
+          return os.date("%m-%d %H:%M", time)
+        else
+          return os.date("%Y-%m-%d", time)
+        end
+      end
+      function Linemode:btime()
+        return strip_date_year(self._file.cha.btime)
+      end
+      function Linemode:mtime()
+        return strip_date_year(self._file.cha.mtime)
+      end
+    '';
   };
   programs.lazygit.enable = true;
   programs.btop = {
