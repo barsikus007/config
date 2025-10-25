@@ -89,6 +89,7 @@
 
           ./modules/gui
           ./modules/gui/plasma.nix
+          ./modules/gui/sound.nix
           ./modules/gui/vm.nix
           ./modules/gui/games.nix
           ./modules/gui/nekoray.nix
