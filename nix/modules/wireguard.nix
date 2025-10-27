@@ -3,7 +3,7 @@
   networking.wg-quick.interfaces = {
     awg0 = {
       autostart = false;
-      type = "amneziawg"; # Provided by unstable
+      type = "amneziawg";
       # TODO: secrets
       configFile = "/home/${username}/awg0.conf";
     };

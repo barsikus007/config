@@ -6,7 +6,7 @@ demo_download() {
     VIDEO_FOLDER=~/.config/rog
     mkdir -p $VIDEO_FOLDER
     VIDEO_ID=UkgK8eUdpAo
-    VIDEO_NAME=bad_apple
+    VIDEO_NAME=bad-apple
     yt-dlp $VIDEO_ID -o - | ffmpeg -i - -filter_complex "[0:v]fps=30,scale=66:-1,setpts=0.645*PTS[v]" -map '[v]' -loop 0 $VIDEO_FOLDER/$VIDEO_NAME.gif $VIDEO_FOLDER/$VIDEO_NAME.mp3 -y
   )
 }
@@ -68,5 +68,5 @@ battery() {
 }
 
 power_draw() {
-  watch -n 5 zsh -c battery
+  watch -n 5 -x zsh -c battery
 }

@@ -3,7 +3,19 @@
   xdg = {
     #? ls /run/current-system/sw/share/applications /etc/profiles/per-user/$(id -n -u)/share/applications ~/.nix-profile/share/applications | grep <name>
     mimeApps.enable = true;
-    mimeApps.defaultApplications =
+    mimeApps.defaultApplications = {
+      "inode/directory" = [
+        "org.kde.dolphin.desktop"
+        "code.desktop"
+      ];
+      "image/*" = "org.kde.gwenview.desktop";
+      "video/*" = "mpv.desktop";
+      "audio/*" = [
+        "org.kde.elisa.desktop"
+        "mpv.desktop"
+      ];
+    }
+    //
       lib.genAttrs
         [
           # default for unknown (binary) and text
@@ -13,8 +25,8 @@
         ]
         (key: [
           "org.kde.kate.desktop"
-          # "org.kde.kwrite.desktop"
           "code.desktop"
+          "org.kde.kwrite.desktop"
           "neovide.desktop"
           "nvim.desktop"
         ]);

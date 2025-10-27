@@ -31,12 +31,52 @@
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/F82B-4BA6";
+    device = "/dev/disk/by-uuid/5099-6DA0";
     fsType = "vfat";
     options = [
       "fmask=0077"
       "dmask=0077"
     ];
+  };
+
+  fileSystems."/run/media/ogurez/Data" = {
+    # device = "/dev/disk/by-uuid/01DC4611808524F0";
+    label = "Data";
+    fsType = "ntfs-3g";
+    options = [
+      "rw"
+      "uid=1000"
+      "gid=100"
+    ];
+  };
+  fileSystems."/run/media/ogurez/System" = {
+    # device = "/dev/disk/by-uuid/01DC45437F7A9E60";
+    label = "System";
+    fsType = "ntfs-3g";
+    options = [
+      "rw"
+      "uid=1000"
+      "gid=100"
+    ];
+  };
+  #? https://wiki.nixos.org/wiki/Samba#CIFS_mount_configuration
+  fileSystems."/run/media/ogurez/NAS" = {
+    # device = "//admin.lan/storage";
+    device = "//192.168.1.4/storage";
+    fsType = "cifs";
+    options =
+      let
+        # this line prevents hanging on network split
+        automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
+      in
+      [
+        "${automount_opts},credentials=/etc/nixos/smb-secrets"
+        "rw"
+        "uid=1000"
+        "gid=100"
+
+        "noserverino"
+      ];
   };
 
   swapDevices = [ ];

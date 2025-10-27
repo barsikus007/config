@@ -293,6 +293,7 @@
     ];
 
     # ETO PIZDA
+    # TODO: isAsus
     input.touchpads = [
       {
         vendorId = "04F3";

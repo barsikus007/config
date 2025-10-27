@@ -22,6 +22,7 @@ with pkgs;
   python-launcher
   (unstable.python313.withPackages (
     python-pkgs: with python-pkgs; [
+      tkinter
       ptpython
       ipython
       # certifi

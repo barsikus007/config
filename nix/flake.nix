@@ -204,7 +204,7 @@
             pythonPkg = pkgs.python313;
           in
           pkgs.mkShell {
-            # nix develop ~/config/nix#python
+            #? nix develop ~/config/nix#python
             packages = with pkgs; [
               (pythonPkg.withPackages (
                 python-pkgs: with python-pkgs; [
