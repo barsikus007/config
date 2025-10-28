@@ -19,7 +19,6 @@
     sddm = {
       enable = true;
       wayland.enable = true;
-      # TODO idk what it does
       autoLogin.relogin = true;
     };
   };

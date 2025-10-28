@@ -232,3 +232,9 @@ subnet='46.175.145'; for i in {0..255}; do timeout 0.5 ping -c1 $subnet.$i; done
   - `curl https://getcroc.schollz.com | bash`
     - alt with `wget -O- https://getcroc.schollz.com | bash`
     - if install is [failed](https://github.com/schollz/croc/issues/765), use unpacked binary from `/tmp/` folder (it is not deleted after failed install)
+
+### test mounted disk speed
+
+```sh
+dd if=/dev/zero of=./disk-speed-test-$(date +%Y-%m-%d'_'%H_%M_%S).img bs=100M count=10 conv=fdatasync status=progress
+```
