@@ -1,5 +1,7 @@
 # [cheatsheet](./README.md)
 
+- `Ctrl+Alt+Delete` to force systemd shutdown
+
 ## ssh
 
 ### [add git key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent?platform=linux)
@@ -237,4 +239,15 @@ subnet='46.175.145'; for i in {0..255}; do timeout 0.5 ping -c1 $subnet.$i; done
 
 ```sh
 dd if=/dev/zero of=./disk-speed-test-$(date +%Y-%m-%d'_'%H_%M_%S).img bs=100M count=10 conv=fdatasync status=progress
+```
+
+### localepreview
+
+```sh
+localepreview () {
+  locale -a | grep utf8 | while read locale; do
+    printf "%20s: " $locale
+    LC_ALL="$locale" date +%x\ %X\ %c
+  done
+}
 ```

@@ -14,22 +14,12 @@
     EDITOR = "nvim";
     VISUAL = EDITOR;
   };
-  # For PAM
-  # environment.sessionVariables = {};
 
   # Set your time zone.
   time.timeZone = "Europe/Moscow";
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  i18n.supportedLocales = [
-    "C.UTF-8/UTF-8"
-    "en_US.UTF-8/UTF-8"
-    "ru_RU.UTF-8/UTF-8"
-  ];
-
-  # Optionally
+  # i18n.defaultLocale = "C.UTF-8";
   i18n.extraLocaleSettings = {
     # LC_ALL = "C.UTF-8"; # This overrides all other LC_* settings.
     LC_CTYPE = "en_US.UTF8";
@@ -42,8 +32,7 @@
     LC_PAPER = "ru_RU.UTF-8";
     LC_TELEPHONE = "ru_RU.UTF-8"; # en_US.UTF-8
     LC_TIME = "C.UTF-8";
-    LC_COLLATE = "ru_RU.UTF-8"; # en_US.UTF-8
-    LC_IDENTIFICATION = "ru_RU.UTF-8"; # en_US.UTF-8
+    LC_COLLATE = "en_US.UTF-8";
   };
 
   fonts.packages = with pkgs; [

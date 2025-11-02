@@ -83,6 +83,7 @@
           ./modules/hardware/wifi-unlimited.nix
 
           ./modules/containers
+          # ./modules/locale.nix
           ./modules/network.nix
           ./modules/swap.nix
           ./modules/java.nix
