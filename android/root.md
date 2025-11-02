@@ -80,6 +80,8 @@
 - ~~[Pixelify](https://github.com/Kingsman44/Pixelify/releases)~~
   - [Google-Photos-Unlimited-backup Submodule](https://www.pling.com/p/2004615/)
     - !was removed from pling
+- [bindhosts](https://github.com/bindhosts/bindhosts/releases)
+  - [rule](https://4pda.to/forum/index.php?showtopic=915158&view=findpost&p=133873426)
 
 ## LSPosed Modules
 
@@ -90,12 +92,12 @@
 
 ## Apps
 
+- Kernel Flasher fork - `https://github.com/fatalcoder524/KernelFlasher`
 - [Swift Backup](https://play.google.com/store/apps/details?id=org.swiftapps.swiftbackup)
 - [Card emulation](https://play.google.com/store/apps/details?id=com.yuanwofei.cardemulator.pro)
 - [VPN Hotspot](https://play.google.com/store/apps/details?id=be.mygod.vpnhotspot)  - `https://github.com/Mygod/VPNHotspot`
 - Classic Power Menu - `https://github.com/KieronQuinn/ClassicPowerMenu`
   - !broken on ksu/apatch
-- Kernel Flasher fork - `https://github.com/fatalcoder524/KernelFlasher`
 - Root Detector - `https://github.com/reveny/Android-Native-Root-Detector`
   - [another one - momo](https://t.me/magiskalpha/529)
 - Hide Applists - `https://github.com/pumPCin/HMAL`
@@ -137,8 +139,7 @@ adb shell -t "su -c 'sh'"
 adb shell -t "su -c 'cd /data/data/com.termux/files/ && usr/bin/bash'"
 
 cd /data/data/com.termux/files/
-PREFIX=/data/data/com.termux/files/usr
-PWD=/data/data/com.termux/files/home
-PATH=$PATH:$PWD/.local/bin:$PREFIX/bin
-. /data/data/com.termux/files/usr/etc/profile
+PREFIX=/data/data/com.termux/files
+PATH=$PATH:$PREFIX/home/.local/bin:$PREFIX/usr/bin
+. $PREFIX/usr/etc/profile
 ```

@@ -14,6 +14,7 @@ with pkgs;
   # seclists
   # frida-tools
   # wifite2
+  # airgeddon
   # openvas-scanner
   # burpsuite
   # caido

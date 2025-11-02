@@ -342,7 +342,10 @@
       };
 
       "services/org.wezfurlong.wezterm.desktop" = {
-        "_launch" = "Ctrl+Alt+T";
+        "_launch" = [
+          "Ctrl+Alt+T"
+          "Meta+`"
+        ];
       };
       "org_kde_powerdevil" = {
         "powerProfile" = [
@@ -373,6 +376,7 @@
 
       #! workspace.enableMiddleClickPaste = false; don't work
       "kwinrc"."Wayland"."EnablePrimarySelection" = false;
+      #? higher is stronger prevention
       "kwinrc"."Windows"."FocusStealingPreventionLevel" = 3;
       # "kwinrc"."Windows"."FocusStealingPreventionLevel" = 4;
       # "kwinrc"."Windows"."FocusStealingPreventionLevel" = 5;

@@ -26,6 +26,7 @@
     podman-compose
     podman-desktop
   ];
-  # alias lazypodman='DOCKER_HOST=unix:///run/podman/podman.sock lazydocker'
-  # alias lazypodman='DOCKER_HOST=unix:///run/user/1000/podman/podman.sock lazydocker'
+  environment.sessionVariables = {
+    DOCKER_HOST = "unix:///run/user/1000/podman/podman.sock";
+  };
 }
