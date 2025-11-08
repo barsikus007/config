@@ -13,6 +13,7 @@
     experimental-features = [
       "nix-command"
       "flakes"
+      "pipe-operators"
     ];
     substituters = lib.mkForce [
       "https://cache.nixos.org/"

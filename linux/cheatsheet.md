@@ -1,6 +1,7 @@
 # [cheatsheet](./README.md)
 
 - `Ctrl+Alt+Delete` to force systemd shutdown
+- `Alt+PrtSc h` to print SysRq help to dmesg
 
 ## ssh
 

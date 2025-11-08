@@ -22,8 +22,8 @@
     # changes in each release.
     stateVersion = "25.05";
 
+    # packages = import ./shared/lists/extra.nix { inherit pkgs; };
     # packages = import ./shared/lists { inherit pkgs; };
-    # packages = import ./shared/lists/base.nix { inherit pkgs; };
 
     #? https://wiki.nixos.org/wiki/Environment_variables
     sessionVariables = {

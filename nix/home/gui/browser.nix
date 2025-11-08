@@ -335,7 +335,7 @@
             "Yandex Maps" = {
               urls = [
                 {
-                  template = "https://yandex.ru/maps?mode=search&text=пиво";
+                  template = "https://yandex.ru/maps";
                   params = [
                     {
                       name = "mode";

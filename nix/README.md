@@ -18,7 +18,7 @@ home-manager switch --flake .
 
 Set user password and TODO other steps from [NixOS installation manual](https://nixos.org/manual/nixos/stable/#ch-installation)
 
-### G14
+### Asus ROG G14 2020-2021 specific
 
 #### [Fingerprint scanner](https://github.com/knauth/goodix-521d-explanation)
 
@@ -31,11 +31,11 @@ sudo $(nix build 'github:barsikus007/config?dir=nix#goodix-patch-521d' --print-o
 sudo $(nix build ~/config/nix#goodix-patch-521d --print-out-paths)/bin/run_521d
 ```
 
-## Nix itself
+### Nix itself
 
-### [WSL distro](https://nix-community.github.io/NixOS-WSL/)
+#### [WSL distro](https://nix-community.github.io/NixOS-WSL/)
 
-### [Nix install](https://zero-to-nix.com/start/install/) speedrun on existing system
+#### [Nix install](https://zero-to-nix.com/start/install/) speedrun on existing system
 
 - TLDR
   - `curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install`
@@ -43,7 +43,7 @@ sudo $(nix build ~/config/nix#goodix-patch-521d --print-out-paths)/bin/run_521d
     - alt installer `curl --proto '=https' --tlsv1.2 -sSf -L https://artifacts.nixos.org/experimental-installer | sh -s -- install`
   - [offline install](https://github.com/DeterminateSystems/nix-installer/releases/latest/download/nix-installer-x86_64-linux)
 
-### [Nix uninstall](https://zero-to-nix.com/start/uninstall/)
+#### [Nix uninstall](https://zero-to-nix.com/start/uninstall/)
 
 - TLDR
   - `/nix/nix-installer uninstall`
@@ -218,12 +218,4 @@ sudo $(nix build ~/config/nix#goodix-patch-521d --print-out-paths)/bin/run_521d
     - disable all other
     - batman ?
   - init.lua vim types
-- .editorconfig conf
-  - make it global ?
-
-### 25.05
-
-- `nh os repl`
 - stylix
-  - cursor fix
-  - fonts fix

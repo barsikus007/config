@@ -12,11 +12,23 @@
   - `sudo ventoy-gui /dev/...`
   - `sudo ventoy-plugson /dev/...`
 
-## nixos-rebuild
+## nixos
+
+### nixos-rebuild
 
 ```bash
 # no internet
 nh os switch /home/ogurez/config/nix -- --option substitute false
+```
+
+### ISO with initial soft
+
+```shell
+
+nix build ./nix#minimalIso
+dd bs=4M conv=fsync oflag=direct status=progress if=./result/iso/nixos-minimal- of=/dev/sd
+qemu-system-x86_64 -enable-kvm -m 256 -cdrom result/iso/nixos-*.iso -nic user,hostfwd=tcp::2222-:22
+ssh root@localhost -p 2222
 ```
 
 ## nix
@@ -31,13 +43,13 @@ nix hash path <filename>
 nix-hash --type sha256 --sri --flat <filename>
 ```
 
-## resolve libs
+### resolve libs
 
 ```bash
 ldd ./result/bin/executable | grep 'not found' | awk '{print $1}' | sort -u | xargs -I {} sh -c 'echo "Lib: {}"; nix-locate "{}"'
 ```
 
-## don't stop build on hash mismatch (to mass-replace hashes)
+### don't stop build on hash mismatch (to mass-replace hashes)
 
 ```nix
 let

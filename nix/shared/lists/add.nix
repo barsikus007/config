@@ -4,7 +4,8 @@ with pkgs;
 [
   # add (historicaly, this is packages was unavailable in ubuntu/scoop base repos or have different name)
   zsh
-  fish
+  # fish
+  # babelfish
   fd
   eza
   lsof
@@ -15,7 +16,6 @@ with pkgs;
   yazi
   psmisc # killall pstree
   starship
-  babelfish
   fastfetch
   lazygit
   lazydocker

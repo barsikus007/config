@@ -138,6 +138,35 @@
           }
         ];
       };
+      nixosConfigurations.minimalIso = nixpkgs.lib.nixosSystem {
+        #? https://wiki.nixos.org/wiki/Creating_a_NixOS_live_CD
+        system = "x86_64-linux";
+        modules = [
+          (
+            { pkgs, modulesPath, ... }:
+            {
+              imports = [ (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix") ];
+              environment.systemPackages = import ./shared/lists { inherit pkgs; };
+
+              systemd.services.sshd.wantedBy = pkgs.lib.mkForce [ "multi-user.target" ];
+              users.users.root.openssh.authorizedKeys.keys = [
+                (pkgs.lib.strings.removeSuffix "\n" (
+                  builtins.readFile (
+                    builtins.fetchurl {
+                      url = "https://github.com/barsikus007.keys";
+                      sha256 = "sha256-Tnf/WxeYOikI9i5l4e0ABDk33I5z04BJFApJpUplNi0=";
+                    }
+                  )
+                ))
+              ];
+
+              #? https://wiki.nixos.org/wiki/Creating_a_NixOS_live_CD#Building_faster
+              # isoImage.squashfsCompression = "gzip -Xcompression-level 1";
+            }
+          )
+        ];
+      };
+
       homeConfigurations."nixos" = inputs.home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         extraSpecialArgs = specialArgs // {
@@ -222,6 +251,7 @@
           };
       };
       packages.${system} = with pkgs; {
+        minimalIso = self.nixosConfigurations.minimalIso.config.system.build.isoImage;
         #? nix run --inputs-from nixpkgs github:barsikus007/config?dir=nix#<packageName>
         goodix-patch-521d =
           let
