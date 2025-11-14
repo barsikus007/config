@@ -31,6 +31,34 @@ qemu-system-x86_64 -enable-kvm -m 256 -cdrom result/iso/nixos-*.iso -nic user,ho
 ssh root@localhost -p 2222
 ```
 
+### show only enabled programs/services
+
+```nix
+let
+  # toCheck = config.programs;
+  toCheck = config.services;
+  blacklist = [ "redis" ];
+in
+let
+  names = pkgs.lib.attrNames toCheck;
+  getEnable =
+    n:
+    let
+      modEval = builtins.tryEval (toCheck.${n});
+    in
+    if modEval.success then
+      let
+        enableEval = builtins.tryEval (modEval.value.enable or false);
+      in
+      if enableEval.success then enableEval.value else false
+    else
+      false;
+  enabledNames = pkgs.lib.filter (n: getEnable n == true) (lib.subtractLists blacklist names);
+in
+pkgs.lib.getAttrs enabledNames toCheck
+
+```
+
 ## nix
 
 ### hash

@@ -2,9 +2,7 @@
 
 format = """
 $username\
-${custom.windows}\
-${custom.linux}\
-${custom.macos}\
+$os\
 $hostname\
 $localip\
 $shlvl\
@@ -91,7 +89,6 @@ $jobs\
 $battery\
 $time\
 $status\
-$os\
 $container\
 $shell\
 $character"""
@@ -107,23 +104,18 @@ show_always = true
 format = "[$user]($style) "
 aliases = { "Administrator" = "root" }
 
-[custom.windows]
-when = true
-os = "windows"
+[os]
 style = "bold blue"
-format = "[]($style) "
+disabled = false
 
-[custom.linux]
-when = true
-os = "linux"
-style = "bold black"
-format = "[]($style) "
-
-[custom.macos]
-when = true
-os = "macos"
-style ="bold white"
-format = "[]($style) "
+[os.symbols]
+#? https://www.nerdfonts.com/cheat-sheet
+Windows = "[](bold blue) "
+Linux = "[](bold black) "
+Macos = "[](bold white) "
+Arch = "[󰣇](bold blue) "
+Ubuntu = "[󰕈](bold orange) "
+NixOS = "[](bold cyan) "
 
 [hostname]
 ssh_only = false
