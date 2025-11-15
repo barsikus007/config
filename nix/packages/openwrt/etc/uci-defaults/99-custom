@@ -1,5 +1,12 @@
 #!/bin/sh
 uci -q batch << EOI
-set system.@system[0].hostname='testap'
-commit
+# set system.@system[0].hostname='TODO ESSID'
+# commit system
+
+del wireless.@wifi-device[-1].disabled
+del wireless.@wifi-iface[-1].disabled
+# set wireless.@wifi-iface[-1].ssid='TODO ESSID'
+# set wireless.@wifi-iface[-1].encryption='sae-mixed'
+# set wireless.@wifi-iface[-1].key='TODO password'
+commit wireless
 EOI

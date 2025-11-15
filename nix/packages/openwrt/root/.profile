@@ -1,6 +1,5 @@
 #!/bin/sh
-if [ -x /bin/bash ] && [ "$0" != "/bin/bash" ]; then
-    echo "Switching to bash shell..."
-    SHELL=/bin/bash
-    exec /bin/bash
+if [ -x /usr/bin/fish ] && [ "$0" != "/usr/bin/fish" ]; then
+    SHELL=/usr/bin/fish
+    exec /usr/bin/fish
 fi

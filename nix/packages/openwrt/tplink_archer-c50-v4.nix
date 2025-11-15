@@ -23,8 +23,8 @@ inputs.openwrt-imagebuilder.lib.build (
     # want to install manually later
     packages = [
       #? terminal related
-      # "zsh"
       "bash"
+      # "fish"
       "tmux"
       "iperf3"
 
@@ -66,7 +66,9 @@ inputs.openwrt-imagebuilder.lib.build (
                 ])
                 (
                   pkgs.lib.fileset.unions [
-                    ./etc/uci-defaults/99-custom
+                    #? uncomment line below to disable custom settings (like enabling wireless)
+                    # ./etc/uci-defaults/99-custom
+                    ./root/.profile
                   ]
                 );
           };

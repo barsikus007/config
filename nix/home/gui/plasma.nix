@@ -376,10 +376,8 @@
 
       #! workspace.enableMiddleClickPaste = false; don't work
       "kwinrc"."Wayland"."EnablePrimarySelection" = false;
-      #? higher is stronger prevention
+      #? higher is stronger prevention (0-4, 1 is default) ((4 removes focus stealing from win menu and screenshot))
       "kwinrc"."Windows"."FocusStealingPreventionLevel" = 3;
-      # "kwinrc"."Windows"."FocusStealingPreventionLevel" = 4;
-      # "kwinrc"."Windows"."FocusStealingPreventionLevel" = 5;
       "plasmaparc"."General"."RaiseMaximumVolume" = true;
 
       "spectaclerc"."General"."autoSaveImage" = true;

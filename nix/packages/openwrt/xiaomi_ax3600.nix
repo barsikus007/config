@@ -8,7 +8,7 @@ let
     profiles.identifyProfile "xiaomi_ax3600"
     // {
       # specify release
-      # release = "24.10.3";
+      # release = "24.10.4";
     }
   );
   arch = "aarch64_cortex-a53";
@@ -20,9 +20,11 @@ inputs.openwrt-imagebuilder.lib.build (
     # add package to include in the image, ie. packages that you don't
     # want to install manually later
     packages = [
+      "luci"
+
       #? terminal related
-      # "zsh"
       "bash"
+      "fish"
       "tmux"
       "iperf3"
 
@@ -64,7 +66,8 @@ inputs.openwrt-imagebuilder.lib.build (
                 ])
                 (
                   pkgs.lib.fileset.unions [
-                    ./etc/uci-defaults/99-custom
+                    #? uncomment line below to disable custom settings (like enabling wireless)
+                    # ./etc/uci-defaults/99-custom
                   ]
                 );
           };

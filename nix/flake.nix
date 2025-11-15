@@ -297,21 +297,29 @@
           };
         bcompare5 = (libsForQt5.callPackage ./packages/bcompare5.nix { });
         # nix build ./nix#bcompare5 && ./result/bin/bcompare
+
         mprint = callPackage ./packages/mprint.nix { };
         libspeedhack = callPackage ./packages/libspeedhack { };
+
         shikiwatch-appimage = callPackage ./packages/shikiwatch-appimage.nix { };
         shikiwatch-native = callPackage ./packages/shikiwatch-native.nix { };
         # nix build ./nix#shikiwatch-appimage && ./result/bin/ShikiWatch
+
         kompas3d = callPackage ./packages/kompas3d { };
         # nix build ./nix#kompas3d && ./result/bin/kompas-v24
         kompas3d-fhs = (import ./packages/kompas3d/fhs.nix { inherit pkgs; });
         # nix run ./nix#kompas3d-fhs
         grdcontrol = callPackage ./packages/grdcontrol.nix { };
         # nix build ./nix#grdcontrol && ./result/opt/guardant/grdcontrol/grdcontrold
+
         openwrt-xiaomi_ax3600 = (import ./packages/openwrt/xiaomi_ax3600.nix { inherit pkgs inputs; });
         openwrt-tplink_archer-c50-v4 = (
           import ./packages/openwrt/tplink_archer-c50-v4.nix { inherit pkgs inputs; }
         );
+        # nix build ./nix#openwrt
+        # or if hash mismatch
+        # nix run <locally cloned nix-openwrt-imagebuilder>#generate-hashes <openwrt version>
+        # nix build --override-input openwrt-imagebuilder <locally cloned nix-openwrt-imagebuilder> ./nix#openwrt
       };
       formatter.${system} = pkgs.nixfmt-tree;
     };
