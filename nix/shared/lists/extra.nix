@@ -32,6 +32,9 @@ with pkgs;
   unstable.hatch
   unstable.ruff
 
+  # CLI node
+  bun
+
   # CLI db
   pgcli
   litecli

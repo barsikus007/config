@@ -111,11 +111,12 @@ disabled = false
 [os.symbols]
 #? https://www.nerdfonts.com/cheat-sheet
 Windows = "[](bold blue) "
-Linux = "[](bold black) "
+Linux = "[](fg:black bg:white) "
 Macos = "[](bold white) "
-Arch = "[󰣇](bold blue) "
-Ubuntu = "[󰕈](bold orange) "
-NixOS = "[](bold cyan) "
+Arch = "[󰣇](bold #1793d1) "
+Ubuntu = "[󰕈](bold #E95420) "
+# NixOS = "[](bold #7EBAE4) "
+NixOS = "[](bold #5277C3) "
 
 [hostname]
 ssh_only = false
