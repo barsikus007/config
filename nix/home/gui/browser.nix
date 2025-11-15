@@ -169,7 +169,7 @@
                   params = [
                     {
                       name = "channel";
-                      value = pkgs.lib.trivial.release;
+                      value = "unstable";
                     }
                     {
                       name = "query";
@@ -189,8 +189,7 @@
                   params = [
                     {
                       name = "channel";
-                      #? should be system version but I don't care
-                      value = pkgs.lib.trivial.release;
+                      value = "unstable";
                     }
                     {
                       name = "query";
@@ -210,7 +209,7 @@
                   params = [
                     {
                       name = "release";
-                      value = "release-${config.home.version.release}";
+                      value = "master";
                     }
                     {
                       name = "query";
@@ -238,6 +237,22 @@
 
               icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
               definedAliases = [ "wik" ];
+            };
+            "NixOS Hydra" = {
+              urls = [
+                {
+                  template = "https://hydra.nixos.org/jobset/nixos/trunk-combined/latest-eval";
+                  params = [
+                    {
+                      name = "filter";
+                      value = "{searchTerms}";
+                    }
+                  ];
+                }
+              ];
+
+              icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+              definedAliases = [ "hyd" ];
             };
             "Anime" = {
               urls = [

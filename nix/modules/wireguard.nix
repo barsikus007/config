@@ -9,7 +9,7 @@
     };
   };
 
-  environment.systemPackages = with pkgs.unstable; [
+  environment.systemPackages = with pkgs; [
     wireguard-tools
     amneziawg-tools
   ];

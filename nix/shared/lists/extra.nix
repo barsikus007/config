@@ -20,17 +20,17 @@ with pkgs;
 
   # CLI python
   python-launcher
-  (unstable.python313.withPackages (
+  (python3.withPackages (
     python-pkgs: with python-pkgs; [
       tkinter
       ptpython
       ipython
-      # certifi
+      #? certifi
     ]
   ))
-  unstable.uv
-  unstable.hatch
-  unstable.ruff
+  uv
+  previous.hatch
+  ruff
 
   # CLI node
   bun

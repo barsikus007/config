@@ -166,15 +166,19 @@ hatch run true
 
 ### Other
 
-- Telegram > Settings > Advanced
-  - Automatic media download > * > !Files
-  - Window title bar > Use * window frame
-  - Spell checker >
-  - Experimental settings
-    - Add "View Profile"
-    - Show Peer IDs in Profile
-    - Send large photos
-    - Enable webview inspecting
+- Telegram > Settings
+  - Notifications and Sound
+    - Calls > Accept calls on this device
+    - Badge counter > !1,!3
+  - Advanced
+    - Automatic media download > * > !Files
+    - Window title bar > Use * window frame
+    - Spell checker >
+    - Experimental settings
+      - Add "View Profile"
+      - Show Peer IDs in Profile
+      - Send large photos
+      - Enable webview inspecting
 - Throne (formerly known as nekoray/nekobox)
   - Settings -> Basic settings -> Core -> Core Options -> Underlying DNS: `tcp://1.0.0.1`
 

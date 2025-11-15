@@ -39,7 +39,7 @@ with pkgs;
   pixelflasher
   qtscrcpy
   blender
-  # (unstable.blender-hip.override {
+  # (blender-hip.override {
   #   # blender-hip for rocm amd gpu
   #   cudaSupport = true;
   # })

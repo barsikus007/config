@@ -12,9 +12,6 @@
   xdg.portal.config.common.default = [ "kde" ];
   xdg.portal.config.common."org.freedesktop.impl.portal.FileChooser" = [ "kde" ];
 
-  # TODO: 25.11: https://github.com/nix-community/stylix/issues/1865
-  qt.style = pkgs.lib.mkForce "breeze";
-
   services.displayManager = {
     sddm = {
       enable = true;

@@ -4,8 +4,9 @@
 }:
 let
   repo =
-    # TODO rename after PR accepted
-    (builtins.getFlake "github:TomaSajt/nixpkgs/7f01041c58ffddc0acab9723dc9c2dced6fbd8cd").outPath;
+    # TODO rename file after PR accepted
+    # (builtins.getFlake "github:TomaSajt/nixpkgs/7f01041c58ffddc0acab9723dc9c2dced6fbd8cd").outPath;
+    (builtins.getFlake "github:NixOS/nixpkgs/8aaebd41e5277081bda6ab5509f47aff1c2c3795").outPath;
 in
 {
   imports = [

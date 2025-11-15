@@ -114,7 +114,7 @@
         #! https://github.com/VSCodium/vscodium/issues/1414
         description = "code-url-handler fix";
         match.window-class = "code code";
-        apply.desktopfile = "${pkgs.unstable.vscode}/share/applications/code.desktop";
+        apply.desktopfile = "${pkgs.vscode}/share/applications/code.desktop";
       }
       {
         description = "daninci-resolve titlebar fix";
@@ -161,7 +161,7 @@
       [
         {
           name = "Telegram";
-          class = "ayugram-desktop com.ayugram.desktop";
+          class = "AyuGram com.ayugram.desktop";
           title = "AyuGramDesktop";
         }
         {

@@ -4,15 +4,14 @@
   inputs = {
     #? nixpkgs-previous.url = "github:nixos/nixpkgs?ref=nixos-25.05";
     nixpkgs-previous.url = "github:nixos/nixpkgs?ref=879bd460b3d3e8571354ce172128fbcbac1ed633";
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-25.05";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-    nixos-hardware.url = "github:nixos/nixos-hardware?ref=master";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixos-hardware.url = "github:nixos/nixos-hardware";
     nixos-wsl = {
-      url = "github:nix-community/NixOS-WSL?ref=main";
+      url = "github:nix-community/NixOS-WSL";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:nix-community/home-manager?ref=release-25.05";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     plasma-manager = {
@@ -21,7 +20,7 @@
       inputs.home-manager.follows = "home-manager";
     };
     stylix = {
-      url = "github:nix-community/stylix?ref=release-25.05";
+      url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nvf = {
@@ -220,12 +219,11 @@
       };
       devShells.${system} = {
         default = pkgs.mkShell {
-          # nix develop ~/config/nix
-          # packages = with pkgs; [
-          #   unstable.
-          # ];
+          #? nix develop ~/config/nix
+          packages = with pkgs; [
+          ];
           shellHook = ''
-            echo "Welcome to the test ${pkgs.unstable.lib.version} devShell!"
+            echo "Welcome to the test ${pkgs.lib.version} devShell!"
             zsh; exit
           '';
         };
@@ -251,6 +249,7 @@
           };
       };
       packages.${system} = with pkgs; {
+        #? nix build ./nix# <tab>
         minimalIso = self.nixosConfigurations.minimalIso.config.system.build.isoImage;
         #? nix run --inputs-from nixpkgs github:barsikus007/config?dir=nix#<packageName>
         goodix-patch-521d =

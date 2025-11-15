@@ -9,11 +9,10 @@
   services.cliphist.enable = true;
   programs.rofi = {
     enable = true;
-    package = pkgs.rofi-wayland;
     plugins = [
       pkgs.rofi-calc
       pkgs.rofi-file-browser
-      pkgs.rofi-emoji-wayland
+      pkgs.rofi-emoji
     ];
     # pass
     theme =

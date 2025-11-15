@@ -21,7 +21,7 @@
             in
             # This part overrides the wrapper, we need to replace all of the instances of ${davinci} with the patched version
             # Copies the parts from the official nixpkgs derivation that need overriding
-            # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/by-name/da/davinci-resolve/package.nix
+            # https://github.com/NixOS/nixpkgs/blob/d82502b7773487d325a541ce84deb166cea3748a/pkgs/by-name/da/davinci-resolve/package.nix
             super.buildFHSEnv (
               fhs
               // {

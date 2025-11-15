@@ -13,7 +13,7 @@
   };
   programs.vscode = {
     enable = false;
-    package = pkgs.unstable.vscodium;
+    package = pkgs.vscodium;
     profiles.default = {
       enableUpdateCheck = false;
       keybindings = builtins.fromJSON (
@@ -37,8 +37,8 @@
     };
   };
   home.packages = with pkgs; [
-    unstable.vscode
+    vscode
     #! https://github.com/NixOS/nixpkgs/blob/c23193b943c6c689d70ee98ce3128239ed9e32d1/pkgs/applications/editors/vscode/generic.nix#L82
-    # unstable.vscode-fhs
+    # vscode-fhs
   ];
 }

@@ -40,11 +40,6 @@ import inputs.nixpkgs {
   inherit system;
   overlays = [
     (final: prev: {
-      unstable = import inputs.nixpkgs-unstable {
-        inherit prev;
-        system = prev.system;
-        config.allowUnfreePredicate = pkg: builtins.elem (inputs.nixpkgs-unstable.lib.getName pkg) paidApps;
-      };
       previous = import inputs.nixpkgs-previous {
         inherit prev;
         system = prev.system;

@@ -2,10 +2,10 @@
 {
   virtualisation.waydroid.enable = true;
 
-  environment.systemPackages = [ pkgs.unstable.waydroid-helper ];
+  environment.systemPackages = with pkgs; [ waydroid-helper ];
 
   systemd = {
-    packages = [ pkgs.unstable.waydroid-helper ];
+    packages = with pkgs; [ waydroid-helper ];
     services.waydroid-mount.wantedBy = [ "multi-user.target" ];
   };
 }

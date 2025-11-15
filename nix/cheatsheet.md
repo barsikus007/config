@@ -5,6 +5,7 @@
 - [index](https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/all-packages.nix)
   - `code $(nix eval -f '<nixpkgs>' path)/pkgs/top-level/all-packages.nix`
 - [phases order](https://nixos.org/manual/nixpkgs/stable/#sec-stdenv-phases)
+- [builder status nixos-unstable](https://hydra.nixos.org/jobset/nixos/trunk-combined/latest-eval)
 
 ### misc
 
@@ -108,6 +109,39 @@ in
     # touch $out
   '';
 }).outPath
+```
+
+let ... in approach
+
+```nix
+let
+  fakefetchzip =
+    _:
+    fetchurl {
+      inherit (_) url;
+      # hash = "sha256-original+hash===============================" + "=";
+      #? empty file (fetchurl)
+      hash = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
+      #? empty path (fetchzip)
+      # hash = "sha256-NOALhZKmrUZYUaRqZ0ZOB2EC/VEGymyzOi8VAJ0w1ZA=";
+
+      nativeBuildInputs = [ dpkg ];
+
+      postFetch = ''
+        echo
+        echo "Calculating hash for $url"
+        #? empty file (fetchurl)
+        ${nix}/bin/nix --extra-experimental-features nix-command hash file "$out"
+        #? empty path (fetchzip)
+        # ${nix}/bin/nix --extra-experimental-features nix-command hash path "$out"
+        echo sleep 9999
+        echo
+        sleep 9999
+        # mv $out "$TMPDIR/unpack"
+        # touch $out
+      '';
+    };
+in fakefetchzip { url = "smth"; hash = "sha256-smth" }
 ```
 
 ## python development

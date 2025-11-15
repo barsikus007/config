@@ -5,33 +5,7 @@
   ...
 }:
 # Да.
-let
-  patchesRepo = pkgs.fetchFromGitHub {
-    #? https://github.com/desktop-app/patches/tree/a25a212644a8e42d9a5b1c7ba6489e11e92df813
-    owner = "desktop-app";
-    repo = "patches";
-    rev = "a25a212644a8e42d9a5b1c7ba6489e11e92df813";
-    sha256 = "sha256-PpLfoZcWV6aK7R1VYbYfJI7VNgFijirdvWt9NeFUEhg=";
-  };
-  qtbasePatches = pkgs.lib.filesystem.listFilesRecursive "${patchesRepo}/qtbase_6.9.2";
-  qtwaylandPatches = pkgs.lib.filesystem.listFilesRecursive "${patchesRepo}/qtwayland_6.9.2";
-in
-let
-  qtbasePatched = pkgs.qt6.qtbase.overrideAttrs (oldAttrs: {
-    patches = (oldAttrs.patches or [ ]) ++ qtbasePatches;
-  });
-  qtwaylandPatched = pkgs.qt6.qtwayland.overrideAttrs (oldAttrs: {
-    patches =
-      (oldAttrs.patches or [ ])
-      ++ [ (builtins.elemAt qtwaylandPatches 0) ]
-      # ++ [ (builtins.elemAt qtwaylandPatches 1) ] # compilation error
-      ++ [ (builtins.elemAt qtwaylandPatches 2) ];
-    # ++ [ (builtins.elemAt qtwaylandPatches 3) ] # compilation error
-    # ++ [ (builtins.elemAt qtwaylandPatches 4) ] # core dumped
-  });
-in
 {
-
   xdg.mimeApps = {
     defaultApplications = {
       "x-scheme-handler/discord" = [
@@ -120,19 +94,8 @@ in
   };
 
   home.packages = with pkgs; [
-    # TODO: 25.11: mesa 25.2.0
     # TODO: system.replaceDependencies
-    (unstable.ayugram-desktop.overrideAttrs (oldAttrs: {
-      qtWrapperArgs = (oldAttrs.qtWrapperArgs or [ ]) ++ [
-        "--prefix"
-        "LD_LIBRARY_PATH"
-        ":"
-        (lib.makeLibraryPath [
-          qtbasePatched
-          qtwaylandPatched
-        ])
-      ];
-    }))
+    previous.ayugram-desktop
     element-desktop
   ];
 }

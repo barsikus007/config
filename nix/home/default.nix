@@ -42,8 +42,6 @@
 
   programs.nh = {
     enable = true;
-    # TODO: 25.11
-    package = pkgs.unstable.nh;
     flake = flakePath;
   };
 
@@ -56,10 +54,9 @@
     #   co = "checkout";
     #   s = "status";
     # };
-    userName = "barsikus007";
-    userEmail = "barsikus07@gmail.com";
-
-    extraConfig = {
+    settings = {
+      user.name = "barsikus007";
+      user.email = "barsikus07@gmail.com";
       core.editor = "code --wait";
       core.autocrlf = "input";
       core.ignoreCase = "false";

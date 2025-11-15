@@ -26,8 +26,6 @@
         package = cascadia-code;
         name = "Cascadia Code NF";
       };
-      # TODO: 25.11: 🫪
-      emoji.package = unstable.noto-fonts-color-emoji;
       sizes = {
         applications = 10;
         terminal = 12;

@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    rquickshare-legacy
+    rquickshare
   ];
 
   xdg.dataFile."dev.mandre.rquickshare/.settings.json".text = builtins.toJSON {
