@@ -6,9 +6,9 @@
   dpkg,
   autoPatchelfHook,
 
-  qt6,
   xorg,
   xcb-util-cursor,
+  libdrm,
   libgcc,
   util-linux,
   llvmPackages,
@@ -19,63 +19,63 @@
 }:
 
 let
-  version = "24.1.0.64";
+  version = "24.1.0.100";
   pkgsList = [
     {
       name = "ascon-kompas3d-v24-full";
-      hash = "sha256-iaSeDzShGJdwtsUL+BtzlvAYIIadxqpIr3kue5AZk/0=";
+      hash = "sha256-EkSbvM8u+mI/TDbds31rojdquNosLQOwgFZc1Mt2a2Q=";
     }
     {
       name = "ascon-kompas-common-v24";
-      hash = "sha256-e1bd2FN5Xbuwq2jvfxU230RpBRSur/WhkJ4jPpQNJwE=";
+      hash = "sha256-Ml8OjpiIz2VVUpMfImmE4dTdh8RS97xnXEa/gyps3sg=";
     }
     {
       name = "ascon-kompas3d-v24";
-      hash = "sha256-M//vJ+lfRKj86cYW0ZUXTlg3rnBr0BBZ1qJJn5fZuNQ=";
+      hash = "sha256-RxYkSTyNjLFJzKtbzpn5ep8uuyUMW5TkBI3KUdn3u+o=";
     }
     {
       name = "ascon-kompas-graphic-v24";
-      hash = "sha256-bOX0T64RZHxqGpGfN8U2hHA2kWxeoy+xIiz+gjqreJE=";
+      hash = "sha256-8FX1x2Pv6YEm9HvK2KJSVFF30ygrlWX+0bhnI7bzmGo=";
     }
     {
       name = "ascon-kompas-plugins-v24";
-      hash = "sha256-V6hVRkv8KgDq2P0x+IV0Zowngy6iYaDULwpr6tAHVFI=";
+      hash = "sha256-W5lrFmKOKeH295pQ6HEl2bL+LVM7h9AM8nogJSlgvPo=";
     }
     {
       name = "ascon-kompas-nesting-v24";
-      hash = "sha256-SiR8zTHiJD2IB5WdVvGpC0BEtrDbXJLjjTC8xY5N1XY=";
+      hash = "sha256-PRF9g+hCNqxTc5gED4m7pxgWKn1TAZvRfyyf5ZHZNoo=";
     }
     {
       name = "ascon-kompas-servicetools-v24";
-      hash = "sha256-G3+Sqq5WJ7Xgdb0xGulFczPqGPsVGlghhCrNj68K1t8=";
+      hash = "sha256-ZwgAD/4TM4mCDaFXFKKNUrgG7e9P9B1djvn58UmFJh4=";
     }
     {
       name = "ascon-kompas-featurekompas-v24";
-      hash = "sha256-FSM848+wTOA7Ol84LPzFLI6WP+eY7taSKMRFUT5NROE=";
+      hash = "sha256-ysfWiAMZ9EzgPj5fFRmbM5Obrja728T4wWtTA/kP0uk=";
     }
     {
       name = "ascon-kompas-sdk-v24";
-      hash = "sha256-D14LgHtqe+BsIBeCkaJdyrNj2UxyvU1WL/bhcTW7QGo=";
+      hash = "sha256-5OdNfT/AdrHWds9NgPBFj25ng1+uoRHawyu4sdZ3UlY=";
     }
     {
       name = "ascon-kompas-libsamples-v24";
-      hash = "sha256-+pSovwz3i9eo3jfudiIOVJU78Rb6Dqomil6vWPvKD28=";
+      hash = "sha256-hge1NZy06aQWWkV4ol4676At3TxPCXGrwFxT/8673m4=";
     }
     {
       name = "ascon-kompas-coupling-v24";
-      hash = "sha256-BVbcZHo8aDgHxopkxk0SlFBRckjw5+HrPW3BURm5vjA=";
+      hash = "sha256-uiWCSLxBn0CAa/x8BW0QoM7z8G3HKSmp+esqFHKGVk0=";
     }
     {
       name = "ascon-kompas-help-v24";
-      hash = "sha256-Ws4RCDlGKfS0bNrct5i4pLOtkeiPaYflRmLbGHVNbXE=";
+      hash = "sha256-qarIDgemCClvK6ZYbbE0ISGj8C036gs4CllE2EESieQ=";
     }
     {
       name = "ascon-kompas-checker-v24";
-      hash = "sha256-JuGhlKmlfZbDxI/2uzdSK/wH6BBUSKsS9Wxp9/6U2uE=";
+      hash = "sha256-WRbWkXW2DZEWsNZC6fPknUSPfpVskRfivxMSvtMVKPo=";
     }
     {
       name = "ascon-kompas-dimchain-v24";
-      hash = "sha256-G2YvDq6IIuRG6NOCGbjQC31lZFNXjVdvEusxGnzJs8Q=";
+      hash = "sha256-nHvtzD3gXzsVRFwIjBgmxHC90lL+XbCz1c0/ctYfSnE=";
     }
   ];
 
@@ -116,11 +116,12 @@ stdenv.mkDerivation {
   propagatedBuildInputs = [
     gtk2
     libgcc.lib
-    qt6.full
+    # qt6.full
     util-linux.lib
     cups
     libGLU
     tinyxml
+    libdrm
     xcb-util-cursor
     xorg.libSM
     xorg.libXxf86vm
