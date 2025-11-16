@@ -62,6 +62,7 @@
 
   users.defaultUserShell = pkgs.zsh;
   programs.zsh.enable = true;
+  programs.zsh.histSize = 100000;
 
   programs.nh = {
     enable = true;

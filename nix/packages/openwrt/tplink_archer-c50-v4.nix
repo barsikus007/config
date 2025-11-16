@@ -10,7 +10,7 @@ let
     profiles.identifyProfile "tplink_archer-c50-v4"
     // {
       # specify release
-      # release = "24.10.3";
+      release = "24.10.3";
     }
   );
   arch = "mipsel_24kc";

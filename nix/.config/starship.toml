@@ -105,18 +105,16 @@ format = "[$user]($style) "
 aliases = { "Administrator" = "root" }
 
 [os]
-style = "bold blue"
 disabled = false
 
 [os.symbols]
 #? https://www.nerdfonts.com/cheat-sheet
-Windows = "[](bold blue) "
+Windows = "[](#0078D4) "
 Linux = "[](fg:black bg:white) "
-Macos = "[](bold white) "
-Arch = "[󰣇](bold #1793d1) "
-Ubuntu = "[󰕈](bold #E95420) "
-# NixOS = "[](bold #7EBAE4) "
-NixOS = "[](bold #5277C3) "
+Macos = "[](white) "
+Arch = "[󰣇](#1793d1) "
+Ubuntu = "[󰕈](#E95420) "
+NixOS = "[](#5277C3) "
 
 [hostname]
 ssh_only = false
@@ -231,7 +229,8 @@ symbol = " "
 symbol = " "
 
 [nix_shell]
-symbol = " "
+symbol = " "
+style = "bold #7EBAE4"
 
 [nodejs]
 symbol = " "

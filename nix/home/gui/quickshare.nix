@@ -9,7 +9,7 @@
     visibility = 0;
     autostart = true;
     realclose = false;
-    port = 12345; # TODO: system: firewall
+    port = 12345; # TODO: home-manager-module: firewall
   };
 
   xdg.configFile."autostart/RQuickShare.desktop".text = ''

@@ -13,7 +13,7 @@
 
   # networking.firewall.enable = false;
   networking.firewall.allowedTCPPorts = [
-    # TODO: move to home module somehow...
+    # TODO: home-manager-module: firewall
     12345 # ? home: rquickshare
   ];
 }

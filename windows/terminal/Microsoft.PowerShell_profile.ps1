@@ -107,10 +107,8 @@ Function mkcd { New-Item $args -ItemType Directory -Force | Select-Object Name |
 # ls
 Function l { ls -CF $args }
 Function ll { ls -la $args }
-# TODO: lazy pwsh: function first time resolver
 if (Test-Command eza) {
     Set-Alias -Option AllScope ls eza
-    # TODO fix command args
     Function l { eza -F -bghM --smart-group --group-directories-first --color=auto --color-scale --icons=always --no-quotes --hyperlink $args }
     Function ll { eza -F -labghM --smart-group --group-directories-first --color=auto --color-scale --icons=always --no-quotes --hyperlink $args }
 }

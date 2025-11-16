@@ -15,6 +15,7 @@ with pkgs;
   yt-dlp
   pciutils # lspci
   usbutils # lssub
+  inetutils # telnet traceroute whois
   strace # files monitoring
   inotify-tools # files monitoring
 
@@ -29,6 +30,7 @@ with pkgs;
     ]
   ))
   uv
+  # TODO: unstable: https://github.com/NixOS/nixpkgs/issues/461912
   previous.hatch
   ruff
 

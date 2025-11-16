@@ -27,6 +27,7 @@
   wsl.enable = true;
   wsl.defaultUser = username;
   wsl.docker-desktop.enable = true;
+  wsl.interop.register = true;
   wsl.startMenuLaunchers = true;
   wsl.usbip.enable = true;
 

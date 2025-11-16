@@ -90,6 +90,7 @@ foreach ($oldvid in $oldvids) {
   - pwsh 5 dont load profile and notice about pwsh 7
   - pwsh funcs $args broken?
   - config pwsh -nol
+  - lazy eval of Test-Command
 - unsorted dump from TG
   - fix powertoys rmc
   - fix dotnet

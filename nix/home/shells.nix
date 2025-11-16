@@ -119,10 +119,6 @@ let
   };
 in
 {
-  home.sessionVariables = {
-    PAGER = "bat";
-    LESS = "--mouse";
-  };
   xdg.configFile."shell/functions.sh".source =
     config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/shell/functions.sh";
   # TODO: finer way to do it
@@ -200,10 +196,10 @@ in
       source "$XDG_CONFIG_HOME"/shell/functions.sh
     '';
   };
-  programs.fish = {
-    enable = true;
-    shellAliases = sharedAliases;
-  };
+  # programs.fish = {
+  #   enable = true;
+  #   shellAliases = sharedAliases;
+  # };
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;
@@ -215,21 +211,24 @@ in
     enableFishIntegration = true;
     options = [ "--cmd cd" ];
   };
+
   programs.bat = {
     enable = true;
     config = {
       theme = "Coldark-Dark";
     };
-    # TODO: batman, batpipe and check other extra stuff
-    #? https://github.com/eth-p/bat-extras
     extraPackages = with pkgs.bat-extras; [
-      batdiff
       batman
-      batpipe
       batgrep
-      batwatch
     ];
   };
+  programs.lesspipe.enable = true;
+  home.sessionVariables = {
+    PAGER = "bat";
+    MANPAGER = "batman";
+    LESS = "--mouse";
+  };
+
   programs.tmux = {
     enable = true;
     extraConfig = ''

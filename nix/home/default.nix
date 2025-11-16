@@ -77,4 +77,6 @@
     signing.key = "~/.ssh/id_ed25519.pub";
     signing.signByDefault = true;
   };
+  programs.delta.enable = true;
+  programs.delta.enableGitIntegration = true;
 }

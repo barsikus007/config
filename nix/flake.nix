@@ -250,7 +250,7 @@
       };
       packages.${system} = with pkgs; {
         #? nix build ./nix# <tab>
-        minimalIso = self.nixosConfigurations.minimalIso.config.system.build.isoImage;
+        minimalIso = self.nixosConfigurations."minimalIso-${system}".config.system.build.isoImage;
         #? nix run --inputs-from nixpkgs github:barsikus007/config?dir=nix#<packageName>
         goodix-patch-521d =
           let

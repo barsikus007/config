@@ -213,9 +213,5 @@ sudo $(nix build ~/config/nix#goodix-patch-521d --print-out-paths)/bin/run_521d
   - [zsh '--help' alias](https://github.com/sharkdp/bat#highlighting---help-messages)
     - [explain command](https://github.com/learnbyexample/command_help)
 - nvim
-  - nvimpager
-    - enable syntax hightlighting
-    - disable all other
-    - batman ?
   - init.lua vim types
 - stylix
