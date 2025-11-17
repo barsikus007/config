@@ -205,12 +205,14 @@
           ./home/gui/plasma.nix
           ./home/gui/rofi.nix
           ./home/gui/mpv.nix
-          ./home/gui/minecraft.nix
           ./home/gui/vscode.nix
           ./home/gui/browser.nix
           ./home/gui/social.nix
           ./home/gui/office.nix
           ./home/gui/bcompare.nix
+
+          ./home/gui/games
+          ./home/gui/games/minecraft.nix
           commonConfig
           {
             programs.nvf.settings.vim.lsp.enable = nixpkgs.lib.mkForce true;
