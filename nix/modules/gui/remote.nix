@@ -18,6 +18,6 @@
   };
 
   environment.defaultPackages = with pkgs; [
-    previous.rustdesk-flutter
+    rustdesk-flutter
   ];
 }

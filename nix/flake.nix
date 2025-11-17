@@ -99,7 +99,7 @@
           ./modules/gui/sound.nix
           ./modules/gui/vm.nix
           ./modules/gui/games.nix
-          ./modules/gui/nekoray.nix
+          ./modules/gui/throne.nix
           ./modules/gui/remote.nix
           ./modules/gui/waydroid.nix
           (import ./modules/gui/video-edit.nix { pkgs = pkgs.previous; })
