@@ -55,6 +55,7 @@ sudo $(nix build ~/config/nix#goodix-patch-521d --print-out-paths)/bin/run_521d
 - TODO
   - export configs
     - layout
+      - `code ~/.config/Code/User/globalStorage/state.vscdb`
     - extensions
       - remove/sort
         - use profiles
@@ -142,7 +143,9 @@ sudo $(nix build ~/config/nix#goodix-patch-521d --print-out-paths)/bin/run_521d
 ### GUI
 
 - Steam
-  - Top left steam logo > Settings > Compatibility > Enable steam play for all titles
+  - Top left steam logo > Settings > Compatibility
+    - Enable steam play for all titles
+    - Default compatibility tool: GE-Proton
   - [NTFS library fix](https://github.com/ValveSoftware/Proton/wiki/Using-a-NTFS-disk-with-Linux-and-Windows#preventing-ntfs-read-errors)
   - `nvidia-offload gamemoderun mangohud %command%`
 

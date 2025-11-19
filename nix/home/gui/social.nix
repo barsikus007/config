@@ -95,7 +95,7 @@
 
   home.packages = with pkgs; [
     # TODO: system.replaceDependencies
-    previous.ayugram-desktop
+    ayugram-desktop
     element-desktop
   ];
 }

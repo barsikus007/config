@@ -2,7 +2,6 @@
   config,
   username,
   flakePath,
-  pkgs,
   ...
 }:
 {

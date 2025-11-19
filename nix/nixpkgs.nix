@@ -39,13 +39,21 @@ in
 import inputs.nixpkgs {
   inherit system;
   overlays = [
-    (final: prev: {
-      previous = import inputs.nixpkgs-previous {
-        inherit prev;
-        system = prev.system;
-        config.allowUnfreePredicate = pkg: builtins.elem (inputs.nixpkgs-previous.lib.getName pkg) paidApps;
-      };
-    })
+    (
+      _: prev:
+      builtins.mapAttrs
+        (
+          pkgsName: pkgsInput:
+          import pkgsInput {
+            inherit system;
+            config.allowUnfreePredicate = pkg: builtins.elem (pkgsInput.lib.getName pkg) paidApps;
+          }
+        )
+        {
+          previous = inputs.nixpkgs-previous;
+          # master = inputs.nixpkgs-master;
+        }
+    )
   ];
   config.allowUnfreePredicate = pkg: builtins.elem (inputs.nixpkgs.lib.getName pkg) paidApps;
 }

@@ -1,0 +1,73 @@
+---
+runtime:
+  threads: ~
+release:
+  check: true
+manifest:
+  enable: true
+language: en-US
+theme: light
+roots:
+  - store: steam
+    path: /home/ogurez/.local/share/Steam
+  - store: heroic
+    path: /home/ogurez/.config/heroic
+  - store: steam
+    path: /run/media/ogurez/Data/games/SteamLibrary
+redirects: []
+backup:
+  path: /run/media/ogurez/NAS/data/saves
+  ignoredGames: []
+  filter:
+    excludeStoreScreenshots: false
+    cloud:
+      exclude: false
+      epic: false
+      gog: false
+      origin: false
+      steam: false
+      uplay: false
+    ignoredPaths: []
+    ignoredRegistry: []
+  toggledPaths: {}
+  toggledRegistry: {}
+  sort:
+    key: status
+    reversed: false
+  retention:
+    full: 1
+    differential: 0
+  format:
+    chosen: simple
+    zip:
+      compression: deflate
+    compression:
+      deflate:
+        level: 6
+      bzip2:
+        level: 6
+      zstd:
+        level: 10
+  onlyConstructive: false
+restore:
+  path: /run/media/ogurez/NAS/data/saves
+  ignoredGames: []
+  toggledPaths: {}
+  toggledRegistry: {}
+  sort:
+    key: status
+    reversed: false
+  reverseRedirects: false
+scan:
+  showDeselectedGames: true
+  showUnchangedGames: true
+  showUnscannedGames: true
+cloud:
+  remote: ~
+  path: ludusavi-backup
+  synchronize: true
+apps:
+  rclone:
+    path: rclone
+    arguments: "--fast-list --ignore-checksum"
+customGames: []

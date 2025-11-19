@@ -81,7 +81,8 @@ let
     nvs = "nvim +'Telescope live_grep hidden=true'";
   };
   batAliases = {
-    cat = "bat";
+    cat = "bat --style=plain";
+    ccat = ''\command cat'';
   };
   nixAliases =
     let

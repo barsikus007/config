@@ -3,8 +3,12 @@
 
   inputs = {
     #? nixpkgs-previous.url = "github:nixos/nixpkgs?ref=nixos-25.05";
-    nixpkgs-previous.url = "github:nixos/nixpkgs?ref=879bd460b3d3e8571354ce172128fbcbac1ed633";
+    # nixpkgs-previous.url = "github:nixos/nixpkgs?ref=879bd460b3d3e8571354ce172128fbcbac1ed633";
+    #? nixpkgs-previous.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs-previous.url = "github:nixos/nixpkgs?ref=a871af02f1b36d22fadbc8ea5ad5f7fb22cc68e7";
+    # nixpkgs-previous.url = "github:nixos/nixpkgs?ref=50a96edd8d0db6cc8db57dab6bb6d6ee1f3dc49a";
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    # nixpkgs-master.url = "github:nixos/nixpkgs";
     nixos-hardware.url = "github:nixos/nixos-hardware";
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL";
@@ -137,9 +141,9 @@
           }
         ];
       };
-      nixosConfigurations.minimalIso = nixpkgs.lib.nixosSystem {
+      nixosConfigurations."minimalIso-${system}" = nixpkgs.lib.nixosSystem {
         #? https://wiki.nixos.org/wiki/Creating_a_NixOS_live_CD
-        system = "x86_64-linux";
+        inherit system;
         modules = [
           (
             { pkgs, modulesPath, ... }:
