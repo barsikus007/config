@@ -2,11 +2,8 @@
   description = "https://никспобеда.рф";
 
   inputs = {
-    #? nixpkgs-previous.url = "github:nixos/nixpkgs?ref=nixos-25.05";
-    # nixpkgs-previous.url = "github:nixos/nixpkgs?ref=879bd460b3d3e8571354ce172128fbcbac1ed633";
-    #? nixpkgs-previous.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     nixpkgs-previous.url = "github:nixos/nixpkgs?ref=a871af02f1b36d22fadbc8ea5ad5f7fb22cc68e7";
-    # nixpkgs-previous.url = "github:nixos/nixpkgs?ref=50a96edd8d0db6cc8db57dab6bb6d6ee1f3dc49a";
+    # nixpkgs-pinned.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     # nixpkgs-master.url = "github:nixos/nixpkgs";
     nixos-hardware.url = "github:nixos/nixos-hardware";
@@ -106,7 +103,6 @@
           ./modules/gui/throne.nix
           ./modules/gui/remote.nix
           ./modules/gui/waydroid.nix
-          (import ./modules/gui/video-edit.nix { pkgs = pkgs.previous; })
 
           commonConfig
           {
@@ -136,7 +132,9 @@
             environment.defaultPackages = with pkgs; [
               (callPackage ./packages/anicli-ru { })
               (callPackage ./packages/libspeedhack { })
-              (import ./packages/kompas3d/fhs.nix { pkgs = previous; })
+              (callPackage ./packages/kompas3d/fhs.nix { })
+              #? needs 8.4 GiB * 3 (or more) space to build, takes ~12.2 GiB
+              (callPackage ./packages/davinci-resolve-studio.nix { })
             ];
           }
         ];
@@ -300,7 +298,13 @@
               chmod +x "$out/bin/run_521d"
             '';
           };
-        bcompare5 = (libsForQt5.callPackage ./packages/bcompare5.nix { });
+        bcompare5 = (libsForQt5.callPackage ./packages/bcompare5.nix { }).overrideAttrs (old: {
+          #? sorry, I can't buy this software right now (and trial don't work)
+          #? https://gist.github.com/rise-worlds/5a5917780663aada8028f96b15057a67?permalink_comment_id=5168755#gistcomment-5168755
+          postFixup = ''
+            sed -i "s/AlPAc7Np1/AlPAc7Npn/g" $out/lib/beyondcompare/BCompare
+          '';
+        });
         # nix build ./nix#bcompare5 && ./result/bin/bcompare
 
         mprint = callPackage ./packages/mprint.nix { };

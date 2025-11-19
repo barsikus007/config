@@ -35,6 +35,7 @@ let
 
     "xow_dongle-firmware"
   ];
+  lib = inputs.nixpkgs.lib;
 in
 import inputs.nixpkgs {
   inherit system;
@@ -49,11 +50,17 @@ import inputs.nixpkgs {
             config.allowUnfreePredicate = pkg: builtins.elem (pkgsInput.lib.getName pkg) paidApps;
           }
         )
-        {
-          previous = inputs.nixpkgs-previous;
-          # master = inputs.nixpkgs-master;
-        }
+        (
+          inputs
+          |> inputs.nixpkgs.lib.filterAttrs (inputName: _: inputName |> lib.strings.hasPrefix "nixpkgs-")
+          |> lib.attrsets.mapAttrs' (
+            inputName: input: {
+              name = "${inputName |> lib.strings.removePrefix "nixpkgs-"}";
+              value = input;
+            }
+          )
+        )
     )
   ];
-  config.allowUnfreePredicate = pkg: builtins.elem (inputs.nixpkgs.lib.getName pkg) paidApps;
+  config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) paidApps;
 }
