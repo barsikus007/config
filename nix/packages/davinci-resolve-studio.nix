@@ -12,7 +12,9 @@ let
       (previous.buildFHSEnv (
         oldFHSEnvArgs
         // {
-          extraBwrapArgs = builtins.filter (n: !(lib.strings.hasInfix "license" n)) oldFHSEnvArgs.extraBwrapArgs;
+          extraBwrapArgs = builtins.filter (
+            n: !(lib.strings.hasInfix "license" n)
+          ) oldFHSEnvArgs.extraBwrapArgs;
         }
       ));
   });
@@ -20,14 +22,14 @@ in
 let
   davinci = davinci-resolve-studio-licenseless.passthru.davinci;
   davinciPatched = davinci.overrideAttrs (
+    #? for 19 version
+    #? https://rutracker.org/forum/viewtopic.php?t=6088055&start=210
+    # ${perl}/bin/perl -pi -e 's/\x74\x11\xe8\x21\x23\x00\x00/\xeb\x11\xe8\x21\x23\x00\x00/g' $out/bin/resolve
+    #? for 20 version
+    #? https://rutracker.org/forum/viewtopic.php?t=6088055&start=270
     finalAttrs: previousAttrs: {
       postFixup = ''
         ${previousAttrs.postFixup}
-        #? for 19 version
-        #? https://rutracker.org/forum/viewtopic.php?t=6088055&start=210
-        # ${perl}/bin/perl -pi -e 's/\x74\x11\xe8\x21\x23\x00\x00/\xeb\x11\xe8\x21\x23\x00\x00/g' $out/bin/resolve
-        #? for 20 version
-        #? https://rutracker.org/forum/viewtopic.php?t=6088055&start=270
         ${perl}/bin/perl -pi -e 's/\x03\x00\x89\x45\xFC\x83\x7D\xFC\x00\x74\x11\x48\x8B\x45\xC8\x8B/\x03\x00\x89\x45\xFC\x83\x7D\xFC\x00\xEB\x11\x48\x8B\x45\xC8\x8B/' $out/bin/resolve
         ${perl}/bin/perl -pi -e 's/\x74\x11\x48\x8B\x45\xC8\x8B\x55\xFC\x89\x50\x58\xB8\x00\x00\x00/\xEB\x11\x48\x8B\x45\xC8\x8B\x55\xFC\x89\x50\x58\xB8\x00\x00\x00/' $out/bin/resolve
         ${perl}/bin/perl -pi -e 's/\x41\xb6\x01\x84\xc0\x0f\x84\xb0\x00\x00\x00\x48\x85\xdb\x74\x08\x45\x31\xf6\xe9\xa3\x00\x00\x00/\x41\xb6\x00\x84\xc0\x0f\x84\xb0\x00\x00\x00\x48\x85\xdb\x74\x08\x45\x31\xf6\xe9\xa3\x00\x00\x00/' $out/bin/resolve
