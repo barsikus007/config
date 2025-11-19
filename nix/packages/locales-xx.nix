@@ -28,8 +28,8 @@ in
   allLocales = false;
   locales = locales;
 }).overrideAttrs
-  (old: {
-    patchPhase = (old.patchPhase or "") + ''
+  (previousAttrs: {
+    patchPhase = (previousAttrs.patchPhase or "") + ''
       echo 'en_XX.UTF-8@POSIX/UTF-8 \' >> ../glibc-2*/localedata/SUPPORTED
       for glibc_root in ../glibc-2*/localedata/locales
       do

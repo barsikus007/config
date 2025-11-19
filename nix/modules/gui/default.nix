@@ -29,7 +29,7 @@
       # minecraft-like fonts
       monocraft
       miracode
-      (minecraftia.overrideAttrs (_: {
+      (minecraftia.overrideAttrs {
         version = "2.0";
 
         src = fetchzip {
@@ -46,7 +46,7 @@
 
           runHook postInstall
         '';
-      }))
+      })
     ];
   };
 

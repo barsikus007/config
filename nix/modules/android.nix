@@ -7,8 +7,8 @@
     android-file-transfer
     # adbfs-rootless
     #? https://github.com/spion/adbfs-rootless/pull/73
-    # (adbfs-rootless.overrideAttrs (old: {
-    #   patches = (old.patches or [ ]) ++ [
+    # (adbfs-rootless.overrideAttrs (previousAttrs: {
+    #   patches = (previousAttrs.patches or [ ]) ++ [
     #     (fetchpatch {
     #       url = "github.com/spion/adbfs-rootless/pull/73.patch";
     #       hash = "sha256-S3KY3xy+939nkYyJerC+rKemcqocbxPV7bwjZKMkeJQ=";
@@ -16,8 +16,8 @@
     #   ];
     # }))
     #? https://github.com/spion/adbfs-rootless/issues/56
-    (adbfs-rootless.overrideAttrs (old: {
-      pname = old.pname + "-libfuse-3";
+    (adbfs-rootless.overrideAttrs (previousAttrs: {
+      pname = previousAttrs.pname + "-libfuse-3";
 
       src = fetchFromGitHub {
         owner = "spion";
