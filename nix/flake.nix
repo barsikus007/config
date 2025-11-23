@@ -127,7 +127,8 @@
 
               glib
               freetype
-            ];
+              #? https://github.com/NixOS/nixpkgs/blob/cf468dffe856afaf83e755de82d20e72ccf183c2/pkgs/by-name/st/steam/package.nix#L72
+            ]; # ++ pkgs.steam-run.args.multiPkgs pkgs;
 
             environment.defaultPackages = with pkgs; [
               (callPackage ./packages/anicli-ru { })
@@ -255,7 +256,7 @@
       packages.${system} = with pkgs; {
         #? nix build ./nix# <tab>
         minimalIso = self.nixosConfigurations."minimalIso-${system}".config.system.build.isoImage;
-        #? nix run --inputs-from nixpkgs github:barsikus007/config?dir=nix#<packageName>
+        #? nix run --override-input nixpkgs nixpkgs github:barsikus007/config?dir=nix#<packageName>
         goodix-patch-521d =
           let
             python3Env = python3.withPackages (
@@ -309,6 +310,9 @@
 
         mprint = callPackage ./packages/mprint.nix { };
         libspeedhack = callPackage ./packages/libspeedhack { };
+
+        flclashx = callPackage ./packages/flclashx.nix { };
+        # nix build ./nix#flclashx && ./result/bin/FlClashX
 
         shikiwatch-appimage = callPackage ./packages/shikiwatch-appimage.nix { };
         shikiwatch-native = callPackage ./packages/shikiwatch-native.nix { };

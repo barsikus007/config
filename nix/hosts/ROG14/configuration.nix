@@ -67,9 +67,10 @@
   };
 
   hardware = {
+    amdgpu.opencl.enable = true;
+
     #? https://github.com/NixOS/nixos-hardware/issues/1450
     nvidia.dynamicBoost.enable = false;
-
     #? if GPU apps fails after suspend
     # nvidia.powerManagement.enable = true;
     #? finer GPU power management
