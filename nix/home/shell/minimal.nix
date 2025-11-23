@@ -80,10 +80,6 @@ let
     nvf = "nvim +'Telescope find_files hidden=true cwd=/'";
     nvs = "nvim +'Telescope live_grep hidden=true'";
   };
-  batAliases = {
-    cat = "bat --style=plain";
-    ccat = ''\command cat'';
-  };
   nixAliases =
     let
       inherit flakePath;
@@ -112,7 +108,6 @@ let
     // otherAliases
     // ezaAliases
     // nvimAliases
-    // batAliases
     // nixAliases;
   zshAliases = {
     "?" = "type_colored_and_nix_truncate";
@@ -120,6 +115,9 @@ let
   };
 in
 {
+  import = [
+    ./bat.nix
+  ];
   xdg.configFile."shell/functions.sh".source =
     config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/shell/functions.sh";
   # TODO: finer way to do it
@@ -213,23 +211,6 @@ in
     options = [ "--cmd cd" ];
   };
 
-  programs.bat = {
-    enable = true;
-    config = {
-      theme = "Coldark-Dark";
-    };
-    extraPackages = with pkgs.bat-extras; [
-      batman
-      batgrep
-    ];
-  };
-  programs.lesspipe.enable = true;
-  home.sessionVariables = {
-    PAGER = "bat";
-    MANPAGER = "batman";
-    LESS = "--mouse";
-  };
-
   programs.tmux = {
     enable = true;
     extraConfig = ''
@@ -246,8 +227,11 @@ in
   };
   programs.starship = {
     enable = true;
-    settings = builtins.fromTOML (builtins.readFile ../.config/starship.toml);
+    # settings = builtins.fromTOML (builtins.readFile ../.config/starship.toml);
+    settings = lib.mkForce { };
   };
+  xdg.configFile."starship.toml".source = # TODO stylix conflict
+    lib.mkForce (config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/starship.toml");
   xdg.configFile."starship/starship.bash".source = ../.config/starship/starship.bash;
   programs.yazi = {
     enable = true;

@@ -180,7 +180,7 @@
           ./shared/nix.nix
 
           ./home
-          ./home/shells.nix
+          ./home/shell/minimal.nix
           ./home/editors.nix
         ];
       };
@@ -191,13 +191,14 @@
           ./shared
 
           ./home
-          ./home/shells.nix
+          ./home/shell
           ./home/editors.nix
 
           ./home/hardware/anime.nix
 
           ./home/stylix.nix
           ./home/shell/404.nix
+          ./home/shell/bat.nix
 
           ./home/gui
           ./home/gui/sound.nix

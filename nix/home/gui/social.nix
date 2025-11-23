@@ -59,10 +59,7 @@
         fakeNitro.enable = true;
         showHiddenChannels.enable = true;
         showConnections.enable = true;
-        silentTyping = {
-          enable = true;
-          showIcon = true;
-        };
+        silentTyping.enable = true;
         forceOwnerCrown.enable = true;
         platformIndicators.enable = true;
         permissionFreeWill.enable = true;
@@ -84,7 +81,7 @@
         quickReply.enable = true;
         previewMessage.enable = true;
         pictureInPicture.enable = true;
-        copyUserURLs.enable = true;
+        copyUserUrLs.enable = true;
 
         #? idk
         alwaysAnimate.enable = true;
