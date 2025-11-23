@@ -115,7 +115,7 @@
           "layout.css.backdrop-filter.enabled" = true;
           "svg.context-properties.content.enabled" = true;
 
-          # disable ads and telemetry for privacy reasons
+          #? disable ads and telemetry for privacy reasons
           "browser.newtabpage.activity-stream.showSponsored" = false;
           "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
           "toolkit.telemetry.archive.enabled" = false;

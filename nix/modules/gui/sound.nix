@@ -1,4 +1,9 @@
+{ pkgs, ... }:
 {
+  environment.systemPackages = with pkgs; [
+    # TODO: idk why I ever need this
+    helvum
+  ];
   # rtkit (optional, recommended) allows Pipewire to use the realtime scheduler for increased performance.
   security.rtkit.enable = true;
   services.pipewire.enable = true;

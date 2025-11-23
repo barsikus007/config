@@ -148,6 +148,8 @@ sudo $(nix build ~/config/nix#goodix-patch-521d --print-out-paths)/bin/run_521d
     - Default compatibility tool: GE-Proton
   - [NTFS library fix](https://github.com/ValveSoftware/Proton/wiki/Using-a-NTFS-disk-with-Linux-and-Windows#preventing-ntfs-read-errors)
   - `nvidia-offload gamemoderun mangohud %command%`
+- Throne (formerly known as nekoray/nekobox)
+  - Routing -> Routing settings -> DNS -> Direct DNS: `8.8.8.8`
 
 ## TODO
 

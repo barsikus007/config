@@ -377,7 +377,8 @@
       #! workspace.enableMiddleClickPaste = false; don't work
       "kwinrc"."Wayland"."EnablePrimarySelection" = false;
       #? higher is stronger prevention (0-4, 1 is default) ((4 removes focus stealing from win menu and screenshot))
-      "kwinrc"."Windows"."FocusStealingPreventionLevel" = 3;
+      #? ((2+ https://github.com/bugaevc/wl-clipboard/issues/268))
+      # "kwinrc"."Windows"."FocusStealingPreventionLevel" = 3;
       "plasmaparc"."General"."RaiseMaximumVolume" = true;
 
       "spectaclerc"."General"."autoSaveImage" = true;

@@ -179,8 +179,6 @@ hatch run true
       - Show Peer IDs in Profile
       - Send large photos
       - Enable webview inspecting
-- Throne (formerly known as nekoray/nekobox)
-  - Settings -> Basic settings -> Core -> Core Options -> Underlying DNS: `tcp://1.0.0.1`
 
 ### TODO
 
