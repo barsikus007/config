@@ -2,7 +2,7 @@
   stdenv,
   fetchzip,
   glibcLocales,
-  locales ? [ "en_XX.UTF-8@POSIX" ],
+  locales ? [ "en_XX.UTF-8@POSIX/UTF-8" ],
   ...
 }:
 let
