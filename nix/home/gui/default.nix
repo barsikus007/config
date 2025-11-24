@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 {
   xdg = {
     #? ls /run/current-system/sw/share/applications /etc/profiles/per-user/$(id -n -u)/share/applications ~/.nix-profile/share/applications ~/.local/share/applications | grep <name>
@@ -42,12 +42,12 @@
         Enabled = true;
         BestMatchOnly = true;
         AlwaysAllowAccess = true;
+        UpdateBinaryPath = false;
       };
       GUI = {
-        # AdvancedSettings = true;
-        # ApplicationTheme = "dark";
-        # CompactMode = true;
-        # HidePasswords = true;
+        AdvancedSettings = true;
+        ColorPasswords = true;
+        CompactMode = true;
         MinimizeOnClose = true;
         MinimizeOnStartup = true;
         ShowTrayIcon = true;
@@ -60,6 +60,10 @@
       SSHAgent.Enabled = true;
     };
   };
+  # xdg.configFile."keepassxc/keepassxc.ini".source =
+  #   config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/keepassxc/keepassxc.ini";
+  programs.firefox.nativeMessagingHosts = with pkgs; [ keepassxc ];
+
   services.copyq.enable = true;
   # # xdg.configFile."copyq/copyq.conf".source =
   #   config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/copyq/copyq.conf";

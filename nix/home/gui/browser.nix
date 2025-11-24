@@ -54,7 +54,7 @@
   };
   programs.firefox = {
     enable = true;
-    nativeMessagingHosts = [ pkgs.firefoxpwa ];
+    nativeMessagingHosts = with pkgs; [ firefoxpwa ];
     # https://github.com/tupakkatapa/mozid
     # nix run github:tupakkatapa/mozid -- '<url>'
     policies.ExtensionSettings =
