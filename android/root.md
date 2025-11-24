@@ -132,7 +132,7 @@ echo 2 >> /sys/class/backlight/panel0-backlight/hbm_mode
 
 ## adb shell sudo bash
 
-```sh
+```shell
 adb shell -t su
 adb shell -t "su -c 'sh'"
 

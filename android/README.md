@@ -43,7 +43,7 @@
 
 `adb shell` script:
 
-```sh
+```shell
 folder="/sdcard/Download/APKs/app_lists/`date +%Y-%m-%d`"
 mkdir -p $folder
 for i in null com.google.android.packageinstaller com.android.vending dev.imranr.obtainium ru.vk.store; do
@@ -75,7 +75,7 @@ done
 
 ### adbfs-fuse
 
-```sh
+```shell
 umount /run/media/$USER/adbfs; adb kill-server && adb connect 192.168.1.7:5555 && sudo mkdir -p /run/media/$USER/adbfs/ && sudo chown $(id -u):$(id -g) /run/media/$USER/adbfs/ && adbfs /run/media/$USER/adbfs -o uid=$(id -u),gid=$(id -g)
 ```
 

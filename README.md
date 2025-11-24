@@ -45,7 +45,7 @@ socat TCP-LISTEN:3189,bind=127.0.0.1,fork TCP:<remote_ip>:3189
 
 [nix code to fill](nix/home/default.nix#:~:text=%23%20%7D;-,userName):
 
-```sh
+```shell
 mkdir -p ~/.config/git/
 nix eval --impure --raw --expr '
   with import <nixpkgs> {};

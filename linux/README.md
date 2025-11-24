@@ -21,7 +21,7 @@
 
 #### Deps
 
-```sh
+```shell
 #? ubuntu
 sudo apt install git -y
 
@@ -34,13 +34,13 @@ chsh -s /bin/bash
 
 #### Clone
 
-```sh
+```shell
 cd && git clone https://github.com/barsikus007/config --depth 1 && cd -
 ```
 
 #### Install/Update
 
-```sh
+```shell
 #? all
 cd ~/config/ && git pull && ./configs/install.sh && cd -
 

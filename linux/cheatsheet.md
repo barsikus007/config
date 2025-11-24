@@ -238,13 +238,13 @@ subnet='46.175.145'; for i in {0..255}; do timeout 0.5 ping -c1 $subnet.$i; done
 
 ### test mounted disk speed
 
-```sh
+```shell
 dd if=/dev/zero of=./disk-speed-test-$(date +%Y-%m-%d'_'%H_%M_%S).img bs=100M count=10 conv=fdatasync status=progress
 ```
 
 ### localepreview
 
-```sh
+```shell
 localepreview () {
   locale -a | grep utf8 | while read locale; do
     printf "%20s: " $locale
@@ -255,7 +255,7 @@ localepreview () {
 
 ### check file handlers and etc
 
-```sh
+```shell
 command=<command to check>
 strace --trace=file --string-limit=200 \
 $(command) 2> ~/strace-$(date +%Y-%m-%d'_'%H_%M_%S).log
@@ -263,7 +263,7 @@ $(command) 2> ~/strace-$(date +%Y-%m-%d'_'%H_%M_%S).log
 
 ### check file changes in folder
 
-```sh
+```shell
 # modify,attrib,close_write,move,create,delete
 inotifywait --event modify,create,delete,move --monitor --recursive ~/
 ```
