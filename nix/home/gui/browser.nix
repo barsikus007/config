@@ -1,15 +1,11 @@
 {
   lib,
   pkgs,
-  config,
   ...
 }:
 {
   xdg.mimeApps = {
-    defaultApplications = {
-      # "application/x-desktop" = [WezTerm.desktop];
-    }
-    //
+    defaultApplications =
       lib.genAttrs
         [
           # "default-web-browser"
@@ -21,6 +17,7 @@
           "application/x-extension-shtml"
           "application/x-extension-xht"
           "application/x-extension-xhtml"
+          "application/xhtml+xml"
           "text/html"
           "x-scheme-handler/chrome"
           "x-scheme-handler/http"
@@ -31,13 +28,6 @@
           "microsoft-edge.desktop"
           # "com.microsoft.Edge.desktop"
         ]);
-    associations.removed = {
-      "application/xhtml+xml" = [
-        "firefox.desktop"
-        "microsoft-edge.desktop"
-        "com.microsoft.Edge.desktop"
-      ];
-    };
   };
 
   programs.chromium = {
@@ -127,6 +117,13 @@
           "datareporting.healthreport.uploadEnabled" = false;
           "browser.ping-centre.telemetry" = false;
           "browser.urlbar.eventTelemetry.enabled" = false; # (default)
+
+          #? https://wiki.nixos.org/wiki/Accelerated_Video_Playback#NVIDIA
+          "media.ffmpeg.vaapi.enabled" = true;
+          "media.hardware-video-decoding.force-enabled" = true;
+          "media.rdd-ffmpeg.enabled" = true;
+          "gfx.x11-egl.force-enabled" = true;
+          "widget.dmabuf.force-enabled" = true;
         };
         # Hide tab bar because we have tree style tabs
         #! https://mrotherguy.github.io/firefox-csshacks/?file=hide_tabs_toolbar_v2.css

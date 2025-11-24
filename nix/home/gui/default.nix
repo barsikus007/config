@@ -18,6 +18,8 @@
     //
       lib.genAttrs
         [
+          "application/x-shellscript"
+          "application/xml"
           # default for unknown (binary) and text
           "text/plain"
           "application/octet-stream"

@@ -92,6 +92,7 @@
             "template": "docker-compose -f compose.yaml -f compose.debug.yaml up -d --build"
         },
     ],
+    "containers.containerClient": "com.microsoft.visualstudio.containers.podman",
     // #endregion misc
     // #region nix
     "nix.enableLanguageServer": true,
@@ -324,6 +325,7 @@
     "security.promptForLocalFileProtocolHandling": false,
     "diffEditor.renderSideBySide": true,
     "chat.agent.enabled": true,
+    "diffEditor.maxComputationTime": 10000,
     "diffEditor.hideUnchangedRegions.enabled": true,
     // #endregion auto
 }

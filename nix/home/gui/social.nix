@@ -91,9 +91,10 @@
   };
 
   home.packages = with pkgs; [
-    (callPackage ../../packages/telegram-desktop-patched.nix {
-      telegram-desktop-client = ayugram-desktop;
-    })
+    ayugram-desktop
+    # (callPackage ../../packages/telegram-desktop-patched.nix {
+    #   telegram-desktop-client = ayugram-desktop;
+    # })
     element-desktop
   ];
 }

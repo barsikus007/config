@@ -328,6 +328,16 @@
         "Window Above Other Windows" = "Meta+Ctrl+T";
         "Window Fullscreen" = "F11";
       };
+
+      # [plasmashell]
+      # show-on-mouse-pos=none,Meta+V,Show Clipboard Items at Mouse Position
+      "plasmashell" = {
+        "show-on-mouse-pos" = "";
+      };
+
+      "services/com.github.hluk.copyq.desktop" = {
+        "_launch" = "Meta+V";
+      };
       "services/org.kde.konsole.desktop" = {
         "_launch" = "none";
       };

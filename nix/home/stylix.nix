@@ -14,7 +14,9 @@
       vscode.enable = false;
       nixcord.enable = false;
 
-      firefox.profileNames = [ "default" ];
+      # firefox.profileNames = [ "default" ];
+      # due to font troubles
+      firefox.enable = false;
       mpv.enable = false;
     };
   };

@@ -38,7 +38,7 @@
     };
   };
 
-  #! FUCK THIS NIXFMT INDENT: https://github.com/NixOS/nixfmt/issues/91
+  # TODO: FUCK THIS NIXFMT INDENT: https://github.com/NixOS/nixfmt/issues/91
   outputs =
     { self, nixpkgs, ... }@inputs:
     let
