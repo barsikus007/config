@@ -22,7 +22,7 @@
   # i18n.defaultLocale = "C.UTF-8";
   i18n.extraLocaleSettings = {
     # LC_ALL = "C.UTF-8"; # This overrides all other LC_* settings.
-    LC_CTYPE = "en_US.UTF8";
+    LC_CTYPE = "en_US.UTF-8";
     LC_ADDRESS = "ru_RU.UTF-8";
     LC_MEASUREMENT = "ru_RU.UTF-8";
     LC_MESSAGES = "en_US.UTF-8";
@@ -30,7 +30,7 @@
     LC_NAME = "ru_RU.UTF-8";
     LC_NUMERIC = "en_US.UTF-8";
     LC_PAPER = "ru_RU.UTF-8";
-    LC_TELEPHONE = "ru_RU.UTF-8"; # en_US.UTF-8
+    LC_TELEPHONE = "ru_RU.UTF-8";
     LC_TIME = "C.UTF-8";
     LC_COLLATE = "en_US.UTF-8";
   };

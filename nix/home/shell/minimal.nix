@@ -115,7 +115,7 @@ let
   };
 in
 {
-  import = [
+  imports = [
     ./bat.nix
   ];
   xdg.configFile."shell/functions.sh".source =
@@ -227,12 +227,12 @@ in
   };
   programs.starship = {
     enable = true;
-    # settings = builtins.fromTOML (builtins.readFile ../.config/starship.toml);
+    # settings = builtins.fromTOML (builtins.readFile ../../.config/starship.toml);
     settings = lib.mkForce { };
   };
   xdg.configFile."starship.toml".source = # TODO stylix conflict
     lib.mkForce (config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/starship.toml");
-  xdg.configFile."starship/starship.bash".source = ../.config/starship/starship.bash;
+  xdg.configFile."starship/starship.bash".source = ../../.config/starship/starship.bash;
   programs.yazi = {
     enable = true;
     settings = {

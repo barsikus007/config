@@ -7,8 +7,7 @@
 {
   i18n = {
     glibcLocales = (
-      import ../packages/locales-xx.nix {
-        inherit pkgs;
+      pkgs.callPackage ../packages/locales-xx.nix {
         locales = config.i18n.supportedLocales;
       }
     );
