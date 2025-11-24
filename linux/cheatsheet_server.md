@@ -4,7 +4,7 @@
 
 ### arch
 
-```bash
+```shell
 # change root user passwd
 sudo passwd root
 sudo passwd arch
@@ -30,7 +30,7 @@ su $username
 
 ### ubuntu
 
-```bash
+```shell
 # change root user passwd
 sudo passwd root
 
@@ -47,7 +47,7 @@ su $username
 
 ### config sshd_config for security
 
-```bash
+```shell
 cat <<-EOF | sudo tee /etc/ssh/sshd_config.d/99-security.conf >/dev/null
 Port 2222
 PermitRootLogin no
@@ -61,7 +61,7 @@ sudo systemctl reload sshd
 
 #### old (bad) method
 
-```bash
+```shell
 sshd_file=/etc/ssh/sshd_config
 cp $sshd_file ~
 sudo sed -i 's/^#Port/Port/' $sshd_file
@@ -72,7 +72,7 @@ sudo systemctl reload sshd
 
 ##### for ubuntu 22.10 or newer
 
-```bash
+```shell
 # check files in /etc/ssh/sshd_config.d/
 sudo cat /etc/ssh/sshd_config.d/*
 # fix all confilting config in that files or remove them
@@ -86,7 +86,7 @@ sudo reboot
 
 ### allow port forward ssh (used for minecraft a long time ago..)
 
-```bash
+```shell
 cat <<-EOF | sudo tee /etc/ssh/sshd_config.d/10-port-forward.conf >/dev/null
 AllowTcpForwarding yes
 GatewayPorts yes
@@ -97,7 +97,7 @@ sudo systemctl reload sshd
 
 ## UTF-8
 
-```bash
+```shell
 locale
 locale -a
 # if not C.UTF-8 exists
@@ -118,7 +118,7 @@ sudo localectl set-locale C.UTF-8
 
 ### Install
 
-```bash
+```shell
 sudo apt install zfsutils-linux -y
 
 # if no prebuilt kernel module
@@ -140,7 +140,7 @@ sudo /sbin/modprobe zfs
 
 ### Zpool setup
 
-```bash
+```shell
 # check if -O utf8only=on is needed
 sudo zpool create -O normalization=formD -O compression=lz4 tank raidz sda sdb sdc sdd
 
@@ -155,7 +155,7 @@ sudo chown -R $USER:$USER /tank/storage/
 
 ### Docker on ZFS
 
-```bash
+```shell
 sudo zfs create -o com.sun:auto-snapshot=false tank/docker
 sudo service docker stop
 sudoedit /etc/docker/daemon.json
@@ -171,7 +171,7 @@ sudo service docker start
 
 ### SMB TODO (OpenZFS doesn't have all options of vanilla ZFS)
 
-```bash
+```shell
 # sudo zfs get sharesmb tank/storage
 sudo zfs set nbmand=on tank/storage
 # sudo zfs share -o sharesmb=on tank/storage%storage
@@ -191,7 +191,7 @@ zfs get share.smb.all tank/storage%storage
 
 ### Docker
 
-```bash
+```shell
 # install
 #? ubuntu
 curl -sSL https://get.docker.com | sh
@@ -207,7 +207,7 @@ sudo systemctl restart docker
 
 #### Watchtower
 
-```bash
+```shell
 docker run -d \
 --name watchtower \
 --restart always \

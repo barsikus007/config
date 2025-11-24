@@ -2,11 +2,11 @@
 
 Goal is to provide modular close to windows-godlike desktop experience
 
-## [Command Cheat Sheet](cheatsheet.md)
+## [Command Cheat Sheet](./cheatsheet.md)
 
 ## Installation
 
-```bash
+```shell
 cd
 git clone https://github.com/barsikus007/config
 # cp config/nix/ ~/ && cd nix/

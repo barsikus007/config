@@ -1,16 +1,16 @@
 # [Linux](../README.md)
 
-## [Command Cheat Sheet](cheatsheet.md)
+## [Command Cheat Sheet](./cheatsheet.md)
 
-### [Server](cheatsheet_server.md)
+### [Server](./cheatsheet_server.md)
 
-### [Desktop](cheatsheet_desktop.md)
+### [Desktop](./cheatsheet_desktop.md)
 
-## [WSL Hints](wsl.md)
+## [WSL Hints](./wsl.md)
 
-## [ethical hacking](hax.md)
+## [ethical hacking](./hax.md)
 
-## [raspberry pi zero w](devices/rpi-zero.md)
+## [raspberry pi zero w](./devices/rpi-zero.md)
 
 ## Archive
 

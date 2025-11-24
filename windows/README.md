@@ -17,9 +17,9 @@ PowerShell.exe -ExecutionPolicy Bypass -File filename
 
 `.\windows\pwsh.ps1`
 
-## [Soft](soft.md)
+## [Soft](./soft.md)
 
-## [ROG G14](rog14.md)
+## [ROG G14](./rog14.md)
 
 ## PWSH cheatsheet
 

@@ -17,7 +17,7 @@
 
 ### nixos-rebuild
 
-```bash
+```shell
 # no internet
 nh os switch /home/ogurez/config/nix -- --option substitute false
 ```
@@ -64,7 +64,7 @@ pkgs.lib.getAttrs enabledNames toCheck
 
 ### hash
 
-```bash
+```shell
 nix hash file <filename>
 nix-hash --type sha256 --sri <filename>
 
@@ -74,7 +74,7 @@ nix-hash --type sha256 --sri --flat <filename>
 
 ### resolve libs
 
-```bash
+```shell
 ldd ./result/bin/executable | grep 'not found' | awk '{print $1}' | sort -u | xargs -I {} sh -c 'echo "Lib: {}"; nix-locate "{}"'
 ```
 

@@ -7,7 +7,7 @@
 
 ### [add git key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent?platform=linux)
 
-```bash
+```shell
 ssh-keygen -t ed25519 -C "example@gmail.com"
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
@@ -18,7 +18,7 @@ cat ~/.ssh/id_ed25519.pub
 
 ### generate and upload SSH
 
-```bash
+```shell
 key_file=~/.ssh/filename
 ssh-keygen -t ed25519 -f $key_file  # -P "password" -C "comment"
 ssh-copy-id -i $key_file.pub user@host
@@ -29,7 +29,7 @@ ssh-copy-id -i $key_file.pub user@host
 
 ### apt
 
-```bash
+```shell
 # show installed https://askubuntu.com/q/2389
 apt-mark showmanual
 # or better
@@ -42,7 +42,7 @@ zgrep -E "Commandline: apt(|-get)" /var/log/apt/history.log*
 
 #### Update old enough arch
 
-```bash
+```shell
 sudo pacman --noconfirm --needed --color always -Sy archlinux-keyring
 sudo pacman --noconfirm --needed --color always -Syu
 # sudo pacman --needed --color always -Syu
@@ -50,25 +50,25 @@ sudo pacman --noconfirm --needed --color always -Syu
 
 #### tune parallel downloads
 
-```bash
+```shell
 sudo sed -i 's/^#ParallelDownloads = [0-9]\+/ParallelDownloads = 7/' /etc/pacman.conf
 ```
 
 ##### revert
 
-```bash
+```shell
 sudo sed -i 's/^ParallelDownloads = [0-9]\+/#ParallelDownloads = 7/' /etc/pacman.conf
 ```
 
 #### AUR
 
-```bash
+```shell
 sudo pacman --noconfirm --needed --color always -S git base-devel && git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si --noconfirm && cd - && rm -rf yay-bin
 ```
 
 #### [mirrors choose](https://wiki.archlinux.org/title/mirrors#Fetching_and_ranking_a_live_mirror_list)
 
-```bash
+```shell
 sudo yay -S --color always rate-mirrors-bin
 export TMPFILE="$(mktemp)"; \
     sudo true; \
@@ -81,7 +81,7 @@ export TMPFILE="$(mktemp)"; \
 
 #### clean
 
-```bash
+```shell
 sudo dnf clean all
 ```
 
@@ -95,21 +95,21 @@ sudo dnf clean all
   - minimal?
 - PATH
 
-```bash
+```shell
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 # or proto install rust
 ```
 
 #### software
 
-```bash
+```shell
 cargo install cargo-update
 cargo install-update -a
 ```
 
 ## btrfs
 
-```bash
+```shell
 sudo btrfs fi usage /
 
 sudo btrfs balance start --full-balance --bg /
@@ -118,7 +118,7 @@ sudo btrfs balance status /
 
 ## distrobox
 
-```bash
+```shell
 # astra linux
 distrobox create --name astra --image registry.astralinux.ru/astra/ubi18:latest
 ```
@@ -138,7 +138,7 @@ distrobox create --name astra --image registry.astralinux.ru/astra/ubi18:latest
 
 ### [download "whole" site](https://pingvinus.ru/note/wget-download-sites) ([alt](https://superuser.com/q/1672776))
 
-```bash
+```shell
 # set recursion depth manually
 wget -r -k -l 7 -p -E -nc http://site.com/
 # OR automatic
@@ -147,7 +147,7 @@ wget -mpEk http://site.com/
 
 ### check size of files at folder
 
-```bash
+```shell
 # current folder
 du . -hcd 1 | sort -hr
 # current folder with files (use apparent sizes, rather than disk usage)
@@ -160,13 +160,13 @@ du . -ha | sort -hr
 
 TODO add find or strings example
 
-```bash
+```shell
 grep -rnw 'dir/' -e 'search'
 ```
 
 ### [dos2unix4folder](https://stackoverflow.com/a/11929475/15844518)
 
-```bash
+```shell
 find . -type f -print0 | xargs -0 dos2unix -ic0 | xargs -0 dos2unix -b
 # or for git repos
 git ls-files | xargs dos2unix -ic0 | xargs dos2unix -b
@@ -174,19 +174,19 @@ git ls-files | xargs dos2unix -ic0 | xargs dos2unix -b
 
 ### [bleachbit clear](https://askubuntu.com/q/671798)
 
-```bash
+```shell
 sudo bleachbit --list | grep -E "[a-z0-9_\-]+\.[a-z0-9_\-]+" | grep -v system.free_disk_space | xargs sudo bleachbit --clean
 ```
 
 ### [clean running docker containers logs (also there is logs rotating config TODO)](https://stackoverflow.com/q/41091634)
 
-```bash
+```shell
 sudo sh -c "truncate -s 0 /var/lib/docker/containers/*/*-json.log"
 ```
 
 ### [show motd](https://askubuntu.com/q/319528)
 
-```bash
+```shell
 run-parts /etc/update-motd.d
 ```
 
@@ -194,13 +194,13 @@ run-parts /etc/update-motd.d
 
 unknown source
 
-```bash
+```shell
 ps aux | grep sshd | grep "\w*@pts/.*" | awk {'print $2'} | xargs kill -9
 ```
 
 ### [cron based autoclean](https://crontab.guru/#0_0_*_*_*)
 
-```bash
+```shell
 sudo crontab -e
 # ---
 0 0 * * * sh -c "truncate -s 0 /var/lib/docker/containers/*/*-json.log"
@@ -209,7 +209,7 @@ sudo crontab -e
 
 ### linux fork bombs
 
-```bash
+```shell
 # spams function calls
 :(){ :|:& };:
 # redirect yes output to "no" file
@@ -218,7 +218,7 @@ yes > no
 
 ### Ping whole subnet
 
-```bash
+```shell
 subnet='46.175.145'; for i in {0..255}; do timeout 0.5 ping -c1 $subnet.$i; done
 ```
 

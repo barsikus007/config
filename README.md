@@ -1,8 +1,8 @@
 # config
 
-## [NixOS](nix/README.md)
+## [NixOS](./nix/README.md)
 
-### [packages](nix/flake.nix)
+### [packages](./nix/flake.nix)
 
 ```shell
 #? generic with system nixpkgs usaage
@@ -16,7 +16,7 @@ sudo NIXPKGS_ALLOW_UNFREE=1 nix --extra-experimental-features "nix-command flake
 socat TCP-LISTEN:3189,bind=127.0.0.1,fork TCP:<remote_ip>:3189
 ```
 
-#### [OpenWrt Image](nix/packages/openwrt/xiaomi_ax3600.nix)
+#### [OpenWrt Image](./nix/packages/openwrt/xiaomi_ax3600.nix)
 
 ##### TODO
 
@@ -27,17 +27,17 @@ socat TCP-LISTEN:3189,bind=127.0.0.1,fork TCP:<remote_ip>:3189
     - <https://github.com/MakiseKurisu/dewclaw>
 - [disable IPV6](https://3os.org/infrastructure/openwrt/disable-ipv6/)
 
-## [Android](android/README.md)
+## [Android](./android/README.md)
 
-## [Linux](linux/README.md)
+## [Linux](./linux/README.md)
 
-## [Windows](windows/README.md)
+## [Windows](./windows/README.md)
 
-## [Versus](versus/README.md)
+## [Versus](./versus/README.md)
 
-## [Browser](browser/README.md)
+## [Browser](./browser/README.md)
 
-## [Archive](аrchive/README.md)
+## [Archive](./аrchive/README.md)
 
 ## Cross-platform
 
@@ -64,7 +64,7 @@ nix eval --impure --raw --expr '
 
 #### Usage
 
-```bash
+```shell
 # TODO https://moonrepo.dev/docs/proto/commands/completions
 proto install go
 # then clean ~/.bashrc
@@ -78,7 +78,7 @@ proto install bun
 
 ##### Linux
 
-```bash
+```shell
 curl -fsSL https://moonrepo.dev/install/proto.sh | PROTO_INSTALL_DIR=$XDG_CONFIG_HOME/proto/bin bash -s -- --no-profile
 rm -rf ~/.proto/
 ```
@@ -95,13 +95,13 @@ Remove-Item -Recurse ~\.proto\
 
 ### Python
 
-```bash
+```shell
 python3 -m pip install --upgrade pip setuptools wheel
 ```
 
 #### uv
 
-```bash
+```shell
 uv python install
 uv python install --preview
 # uv python install 3.10 3.11 3.12 3.13t pypy
@@ -110,7 +110,7 @@ uv python install --preview
 
 [TODO - python available globally](https://docs.astral.sh/uv/guides/install-python/#getting-started)
 
-```bash
+```shell
 # linux
 curl -LsSf https://astral.sh/uv/install.sh | sh
 # windows
@@ -131,7 +131,7 @@ uv tool upgrade --all
 
 #### hatch
 
-```bash
+```shell
 hatch config set dirs.env.virtual .venv
 hatch config set template.licenses.headers false
 hatch config set terminal.styles.spinner material
@@ -141,7 +141,7 @@ hatch config set terminal.styles.spinner material
 
 ##### release schedule
 
-```bash
+```shell
 hatch test -ac
 hatch version micro
 hatch build
@@ -150,7 +150,7 @@ hatch publish
 
 ###### tag based
 
-```bash
+```shell
 hatch test -ac
 hatch version micro
 git commit -am "release: $(hatch version)"
@@ -160,7 +160,7 @@ git push origin --follow-tags
 
 #### [hatch sync env](https://github.com/pypa/hatch/discussions/594#discussioncomment-4377827)
 
-```bash
+```shell
 hatch run true
 ```
 

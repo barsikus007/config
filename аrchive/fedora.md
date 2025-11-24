@@ -14,7 +14,7 @@
 
 ### Asus specific soft
 
-```bash
+```shell
 sudo dnf copr enable lukenukem/asus-linux
 sudo dnf update
 sudo dnf install asusctl supergfxctl asusctl-rog-gui
@@ -23,7 +23,7 @@ sudo systemctl enable --now supergfxd
 
 ### repos
 
-```bash
+```shell
 sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 #! https://rpmsphere.github.io/ says, that 38th is latest
 # sudo dnf install https://github.com/rpmsphere/noarch/raw/master/r/rpmsphere-release-$(rpm -E %fedora)-1.noarch.rpm
@@ -33,7 +33,7 @@ sudo dnf update -y
 
 ### nvidia
 
-```bash
+```shell
 sudo dnf install kernel-devel
 sudo dnf install akmod-nvidia xorg-x11-drv-nvidia-cuda
 sudo systemctl enable nvidia-{suspend,resume,hibernate,powerd}
@@ -42,14 +42,14 @@ systemctl mask nvidia-fallback
 
 ### vscode
 
-```bash
+```shell
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
 ```
 
 ### microsoft-edge
 
-```bash
+```shell
 TODO
 ```
 
@@ -57,7 +57,7 @@ TODO
 
 #### wifite
 
-```bash
+```shell
 # install old wifite and deps from rpmfusion
 sudo dnf install wifite
 # clone upstream wifite2 fork
@@ -79,7 +79,7 @@ git clone https://github.com/kimocoder/wifite2.git
 
 #### pam fix of mount password remember checkbox
 
-```bash
+```shell
 sudo patch /etc/pam.d/login login.patch
 ```
 
@@ -124,7 +124,7 @@ sudo patch /etc/pam.d/login login.patch
 
 #### install
 
-```bash
+```shell
 sudo btrfs subvolume create /swap
 swapon
 
@@ -216,7 +216,7 @@ systemctl hibernate
 
 #### rollback
 
-```bash
+```shell
 # remove SELinux module via semodule -r systemd_sleep
 # $ semodule -r systemd_sleep
 
@@ -262,13 +262,13 @@ sudo btrfs subvolume delete /swap
 
 #### Get keycodes
 
-```bash
+```shell
 cat /usr/include/linux/input-event-codes.h | grep -E '_(HOME|END|PAGE(UP|DOWN))\s'
 ```
 
 #### Allow ydotool as non-root
 
-```bash
+```shell
 sed -i "s/ydotoold$/ydotoold --socket-path=\/run\/user\/$UID\/.ydotool_socket --socket-own=$(id -u):$(id -g)/g" /usr/lib/systemd/system/ydotool.service
 sudo systemctl daemon-reload
 sudo systemctl enable --all ydotool && systemctl status ydotool
@@ -313,7 +313,7 @@ sudo systemctl reload ydotool && systemctl status ydotool
   - Check for `GRUB_CMDLINE_LINUX` duplicates
     - Also emove `nomodeset` if any
 
-```bash
+```shell
 cat <<-EOF | sudo tee /etc/default/grub.d/99-hide-timeout >/dev/null
 GRUB_TIMEOUT=1
 GRUB_TIMEOUT_STYLE=hidden

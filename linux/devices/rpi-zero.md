@@ -4,7 +4,7 @@
 
 ### WiFi setup
 
-```bash
+```shell
 wpa_passphrase "Network 1" >> wpa_supplicant.conf
 wpa_passphrase "Network 2 with lower priority" >> wpa_supplicant.conf
 ```
@@ -27,7 +27,7 @@ network={
 
 ### [Bluetooth stealth mode](https://stackoverflow.com/a/67193246/15844518)
 
-```bash
+```shell
 sudoedit /etc/systemd/system/bluetooth.target.wants/bluetooth.service
 
 ExecStart=/usr/libexec/bluetooth/bluetoothd --noplugin=hostname
@@ -46,7 +46,7 @@ sudo hciconfig hci0 name ''
 
 ### setup
 
-```bash
+```shell
 # Expand filesystem
 sudo raspi-config --expand-rootfs
 # Create password for user pi

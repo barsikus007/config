@@ -2,9 +2,9 @@
 
 ## devices
 
-### [Oculus Quest 2](devices/oculus.md)
+### [Oculus Quest 2](./devices/oculus.md)
 
-### [Mi TV Stick](devices/mitv.md)
+### [Mi TV Stick](./devices/mitv.md)
 
 ### [Pixel 7 Pro](https://4pda.to/forum/index.php?showtopic=1039682)
 
@@ -31,13 +31,13 @@
 
 ## instructions
 
-### [YouTube ReVanced](revanced.md)
+### [YouTube ReVanced](./revanced.md)
 
-### [Termux](termux.md)
+### [Termux](./termux.md)
 
-### [root](root.md)
+### [root](./root.md)
 
-### [install certificates](certs.md)
+### [install certificates](./certs.md)
 
 ### backup apps list
 

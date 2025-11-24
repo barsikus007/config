@@ -1,6 +1,6 @@
 # [Termux](./)
 
-```bash
+```shell
 termux-setup-storage
 yes | pkg up
 # unix

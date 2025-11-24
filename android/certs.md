@@ -1,6 +1,6 @@
-# [how to install certificates](README.md)
+# [How to install certificates](./README.md)
 
-```bash
+```shell
 mitmproxy -p 8081 --set block_global=false
 
 adb shell settings put global http_proxy 10.0.2.2:8080
@@ -39,7 +39,7 @@ chcon u:object_r:system_file:s0 /system/etc/security/cacerts/*
 
 ## or use HTTP Toolkit with <https://github.com/NVISOsecurity/MagiskTrustUserCerts>
 
-```bash
+```shell
 frida -U --codeshare akabe1/frida-multiple-unpinning -f com.punicapp.whoosh
 
 wsl

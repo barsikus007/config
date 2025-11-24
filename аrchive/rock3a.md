@@ -2,7 +2,7 @@
 
 ## Armbian install (choose legacy-kernel)
 
-```bash
+```shell
 tzselect
 # 7 39 2 1
 # install config
@@ -20,7 +20,7 @@ sudo apt install armbian-bsp-cli-rock-3a-legacy
 
 ## RKMPP
 
-```bash
+```shell
 sudo add-apt-repository ppa:liujianfeng1994/rockchip-multimedia -y
 sudo apt update -y
 sudo apt install rockchip-multimedia-config ffmpeg -y
@@ -29,7 +29,7 @@ sudo apt install rockchip-multimedia-config ffmpeg -y
 
 ## NPU
 
-```bash
+```shell
 curl -L --output rknpu2-rk356x_latest_arm64.deb https://github.com/radxa-pkg/rknn2/releases/latest/download/rknpu2-rk356x_$(curl -L https://github.com/radxa-pkg/rknn2/releases/latest/download/VERSION)_arm64.deb
 sudo dpkg -i rknpu2-rk356x_latest_arm64.deb
 rm rknpu2-rk356x_latest_arm64.deb
@@ -37,7 +37,7 @@ rm rknpu2-rk356x_latest_arm64.deb
 
 ### Test
 
-```bash
+```shell
 git clone https://github.com/rockchip-linux/rknpu2
 cd rknpu2/examples/rknn_yolov5_demo/
 chmod +x build-linux_RK3566_RK3568.sh
@@ -48,7 +48,7 @@ cd install/rknn_yolov5_demo_Linux/
 
 ## SATA HAT
 
-```bash
+```shell
 curl -sL https://raw.githubusercontent.com/barsikus007/rockpi-penta/master/install.sh | sudo -E bash -
 
 sudo systemctl stop armbian-led-state && sudo sed -i 's/trigger=heartbeat/trigger=none/' /etc/armbian-leds.conf && sudo sed -i 's/brightness=0/brightness=1/' /etc/armbian-leds.conf && sudo systemctl start armbian-led-state
@@ -115,7 +115,7 @@ diff -durN zfs-2.2.2.orig/module/os/linux/zfs/zfs_ioctl_os.c zfs-2.2.2/module/os
 +MODULE_IMPORT_NS(VFS_internal_I_am_really_a_filesystem_and_am_NOT_a_driver);
 ```
 
-```bash
+```shell
 # based on https://github.com/openzfs/zfs/issues/15586#issuecomment-1836806381
 # patch
 OPENZFS_VERSION="2.2.2"
@@ -154,13 +154,13 @@ sudo apt-mark hold zfs-auto-snapshot
 
 ### SMART
 
-```bash
+```shell
 sudo apt install smartmontools -y
 ```
 
 ## Old Ubuntu-20.04-linux-4.19 setup
 
-```bash
+```shell
 sudoedit /etc/apt/sources.list.d/apt-radxa-com.list
 sudo apt update && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt clean
 sudo cat /sys/class/thermal/thermal_zone*/temp

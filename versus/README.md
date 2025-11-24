@@ -2,15 +2,15 @@
 
 My opinion to different things
 
-- [VsCode vs PyCharm](pages/vscode-pycharm.md)
-- [Opera vs Other](pages/opera-other.md)
+- [VsCode vs PyCharm](./pages/vscode-pycharm.md)
+- [Opera vs Other](./pages/opera-other.md)
 - yandex vs google
 - english vs russian UI
 - gpt vs copilot
 
 ## Notes
 
-- [Instagram](pages/instagram.md)
+- [Instagram](./pages/instagram.md)
 
 ## TODO
 

@@ -70,7 +70,7 @@ Win+S -> `Internet Options` -> Security -> Local intranet -> Sites -> Advanced -
 
 ## [Get DISPLAY for old WSL (probably, useless now)](https://serverfault.com/q/47915)
 
-```bash
+```shell
 ip r l default | awk '{print $3}'
 ```
 
@@ -91,7 +91,7 @@ exit
 
 ## Forward ports to WSL
 
-```bash
+```shell
 # wsl host [0]
 hostname -I
 ip a s eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}'
@@ -116,13 +116,13 @@ netsh.exe interface portproxy delete v4tov4 listenport=19000 listenaddress=0.0.0
 
 ## [fix broken PATH cause windows paths mapping](https://github.com/microsoft/WSL/issues/1426#issuecomment-442155686)
 
-```bash
+```shell
 export PATH=`echo $PATH | tr ':' '\n' | awk '($0!~/mnt\/c/) {print} ' | tr '\n' ':'`
 ```
 
 ### or maybe edit `/etc/wsl.conf`
 
-```bash
+```shell
 appendWindowsPath=False
 ```
 
