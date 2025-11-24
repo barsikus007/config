@@ -19,7 +19,7 @@
   time.timeZone = "Europe/Moscow";
 
   # Select internationalisation properties.
-  # i18n.defaultLocale = "C.UTF-8";
+  i18n.defaultLocale = "C.UTF-8";
   i18n.extraLocaleSettings = {
     # LC_ALL = "C.UTF-8"; # This overrides all other LC_* settings.
     LC_CTYPE = "en_US.UTF-8";

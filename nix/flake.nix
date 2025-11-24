@@ -83,7 +83,7 @@
           ./modules/hardware/wifi-unlimited.nix
 
           ./modules/containers
-          # ./modules/locale.nix
+          ./modules/locale.nix
           ./modules/network.nix
           ./modules/swap.nix
           ./modules/java.nix
@@ -221,6 +221,18 @@
           commonConfig
           {
             programs.nvf.settings.vim.lsp.enable = nixpkgs.lib.mkForce true;
+          }
+          {
+            # TODO: home-manager-module: locales
+            i18n.glibcLocales = (
+              pkgs.callPackage ./packages/locale-cxx.nix {
+                locales = [
+                  "C.UTF-8/UTF-8"
+                  "en_US.UTF-8/UTF-8"
+                  "ru_RU.UTF-8/UTF-8"
+                ];
+              }
+            );
           }
         ];
       };
