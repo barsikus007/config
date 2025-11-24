@@ -58,4 +58,7 @@
       SSHAgent.Enabled = true;
     };
   };
+  services.copyq.enable = true;
+  # # xdg.configFile."copyq/copyq.conf".source =
+  #   config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/copyq/copyq.conf";
 }
