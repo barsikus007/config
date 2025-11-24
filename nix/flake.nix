@@ -108,7 +108,7 @@
           {
             programs.nix-ld.libraries = with pkgs; [
               #? nix-index
-              #? nix-locate -- lib/libgobject-2.0.so.0
+              #? nix-locate lib/libgobject-2.0.so.0
               #? https://unix.stackexchange.com/a/522823
               #? https://wiki.nixos.org/wiki/Nix-ld
               # stdenv.cc.cc
@@ -277,7 +277,7 @@
         goodix-patch-521d = callPackage ./packages/goodix-patch-521d.nix { };
 
         bcompare5 = (libsForQt5.callPackage ./packages/bcompare5.nix { }).overrideAttrs {
-          #? sorry, I can't buy this software right now (and trial don't work)
+          #? sorry, I can't buy this software right now (and trial doesn't work)
           #? https://gist.github.com/rise-worlds/5a5917780663aada8028f96b15057a67?permalink_comment_id=5168755#gistcomment-5168755
           postFixup = ''
             sed -i "s/AlPAc7Np1/AlPAc7Npn/g" $out/lib/beyondcompare/BCompare

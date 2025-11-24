@@ -1,5 +1,9 @@
 # [cheatsheet for desktop](./README.md)
 
+## plasma
+
+- `kioclient exec <file>.desktop`
+
 ## waydroid
 
 - <https://wiki.nixos.org/wiki/Waydroid#Installation>

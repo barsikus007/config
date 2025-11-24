@@ -15,6 +15,8 @@
     "workbench.iconTheme": "vscode-icons",
     "window.autoDetectColorScheme": true,
     "window.commandCenter": false,
+    "chat.commandCenter.enabled": false,
+    "workbench.layoutControl.enabled": false,
     "workbench.preferredLightColorTheme": "Shades of Purple",
     // "workbench.preferredDarkColorTheme": "Shades of Purple",
     "workbench.preferredDarkColorTheme": "Shades of Purple (Super Dark)",
@@ -90,18 +92,16 @@
             "template": "docker-compose -f compose.yaml -f compose.debug.yaml up -d --build"
         },
     ],
-    // javascript
-    "npm.packageManager": "bun",
     // #endregion misc
     // #region nix
     "nix.enableLanguageServer": true,
-    "nix.serverPath": "nixd", // or "nil"
-    "[nix]": {
-        "editor.formatOnSave": true,
-    },
+    "nix.serverPath": "nixd",
     "nix.hiddenLanguageServerErrors": [
         "textDocument/definition",
     ],
+    "[nix]": {
+        "editor.formatOnSave": true,
+    },
     // #endregion nix
     // #region python
     "python.analysis.autoFormatStrings": true,
@@ -158,6 +158,7 @@
     // },
     // #endregion python
     // #region javascript
+    "npm.packageManager": "bun",
     "[javascript][typescript]": {
         "editor.tabSize": 2,
         "editor.formatOnSave": true,

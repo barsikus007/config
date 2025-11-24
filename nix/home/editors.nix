@@ -69,10 +69,11 @@
           enable = true;
           lsp = {
             server = "nixd";
+            nixpkgs.expr = "let inputs = (builtins.getFlake ''${flakePath}'').inputs; system = ''x86_64-linux''; in (import ''\${toString ./.}/nix/nixpkgs.nix'' { inherit system inputs; })";
             options = {
-              # TODO: system
-              home-manager.expr = "(builtins.getFlake \"${flakePath}\").homeConfigurations.${username}.options";
-              nixos.expr = "(builtins.getFlake \"${flakePath}\").nixosConfigurations.ROG14.options";
+              # TODO: home-manager-module
+              home-manager.expr = "(builtins.getFlake ''${flakePath}'').homeConfigurations.${username}.options";
+              nixos.expr = "(builtins.getFlake ''${flakePath}'').nixosConfigurations.ROG14.options";
             };
           };
         };
