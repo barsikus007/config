@@ -132,6 +132,7 @@
 
             environment.defaultPackages = with pkgs; [
               (callPackage ./packages/anicli-ru { })
+              (callPackage ./packages/shdotenv.nix { })
               (callPackage ./packages/libspeedhack { })
               (callPackage ./packages/kompas3d/fhs.nix { })
               #? needs 8.4 GiB * 3 (or more) space to build, takes ~12.2 GiB
@@ -256,50 +257,13 @@
       };
       packages.${system} = with pkgs; {
         #? nix build ./nix# <tab>
+        #? nix run --override-input nixpkgs nixpkgs github:barsikus007/config?dir=nix# <tab>
+
         minimalIso = self.nixosConfigurations."minimalIso-${system}".config.system.build.isoImage;
-        #? nix run --override-input nixpkgs nixpkgs github:barsikus007/config?dir=nix#<packageName>
-        goodix-patch-521d =
-          let
-            python3Env = python3.withPackages (
-              ps: with ps; [
-                pyusb
-                crcmod
-                python-periphery
-                spidev
-                pycryptodome
-                crccheck
-              ]
-            );
-          in
-          stdenvNoCC.mkDerivation {
-            pname = "goodix-patch";
-            version = "UwU";
-            src = pkgs.fetchFromGitHub {
-              owner = "goodix-fp-linux-dev";
-              repo = "goodix-fp-dump";
-              # rev = "master";
-              rev = "cc43bb3b3154a0bccc0412ae024013c7e1923139";
-              hash = "sha256-AVq2PZe0iv9Mh8+XRr/vbZsbvDIrPKD90Xdu9lXs8p0=";
-              fetchSubmodules = true;
-            };
 
-            patchPhase = ''
-              #? comment "if len(otp) < 64:" check
-              sed -i '133,134s/^/#/' driver_52xd.py
-            '';
+        libfprint-27c6-521d = callPackage ./packages/libfprint-27c6-521d.nix { };
+        goodix-patch-521d = callPackage ./packages/goodix-patch-521d.nix { };
 
-            installPhase = ''
-              mkdir -p "$out/bin"
-              cp -r ./* "$out/"
-              cat > "$out/bin/run_521d" << EOF
-              #!/bin/sh
-              cd "$out/"
-              export PATH="$PATH:${openssl}/bin"
-              ${python3Env}/bin/python "run_521d.py"
-              EOF
-              chmod +x "$out/bin/run_521d"
-            '';
-          };
         bcompare5 = (libsForQt5.callPackage ./packages/bcompare5.nix { }).overrideAttrs {
           #? sorry, I can't buy this software right now (and trial don't work)
           #? https://gist.github.com/rise-worlds/5a5917780663aada8028f96b15057a67?permalink_comment_id=5168755#gistcomment-5168755
