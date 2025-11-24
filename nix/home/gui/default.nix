@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ lib, ... }:
 {
   xdg = {
     #? ls /run/current-system/sw/share/applications /etc/profiles/per-user/$(id -n -u)/share/applications ~/.nix-profile/share/applications ~/.local/share/applications | grep <name>
@@ -62,7 +62,6 @@
   };
   # xdg.configFile."keepassxc/keepassxc.ini".source =
   #   config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/keepassxc/keepassxc.ini";
-  programs.firefox.nativeMessagingHosts = with pkgs; [ keepassxc ];
 
   services.copyq.enable = true;
   # # xdg.configFile."copyq/copyq.conf".source =

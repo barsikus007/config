@@ -8,7 +8,6 @@
     defaultApplications =
       lib.genAttrs
         [
-          # "default-web-browser"
           # "x-scheme-handler/about"
           # "x-scheme-handler/unknown"
           "application/pdf"
@@ -52,11 +51,21 @@
       }
     );
   };
+  #? firefox pwa, if I ever need it
+  # programs.firefoxpwa.enable = true;
   programs.firefox = {
     enable = true;
-    nativeMessagingHosts = with pkgs; [ firefoxpwa ];
+    #? firefox pwa, if I ever need it
+    # nativeMessagingHosts = with pkgs; [ firefoxpwa ];
     # https://github.com/tupakkatapa/mozid
     # nix run github:tupakkatapa/mozid -- '<url>'
+    policies = {
+      AppAutoUpdate = false;
+      BackgroundAppUpdate = false;
+      DisableTelemetry = true;
+      DontCheckDefaultBrowser = true;
+      HardwareAcceleration = true;
+    };
     policies.ExtensionSettings =
       let
         extension = shortId: uuid: {
@@ -88,8 +97,14 @@
       default = {
         id = 0;
         isDefault = true;
-        # https://github.com/oddlama/nix-config/blob/main/users/myuser/graphical/firefox.nix
         settings = {
+          #? examples
+          # about:config
+          # https://github.com/oddlama/nix-config/blob/f47d977efc640a669a273d896fa2a1ad6e6a9e4f/users/myuser/graphical/firefox.nix#L61
+          # https://gist.github.com/lassekongo83/7026910c6a277d5d9cf37989d83e9f6d
+
+          #? https://whatismyviewport.com/
+          #  1280 × 800
           "widget.use-xdg-desktop-portal.file-picker" = 1;
           "general.autoScroll" = true; # middle click scroll
           "browser.ctrlTab.sortByRecentlyUsed" = true; # mru ^Tab
@@ -125,6 +140,18 @@
           "gfx.x11-egl.force-enabled" = true;
           "widget.dmabuf.force-enabled" = true;
         };
+
+        # visit
+        # about:debugging#/runtime/this-firefox
+        # click inspect on extension you want to take settings
+        # `await browser.storage.local.getKeys()`
+        # `await browser.storage.local.get()`
+        # extensions.settings.<name>.settings
+        #? examples
+        # https://github.com/dot013/nix/blob/766d2293f44d7781ec4852655571d18c98929647/home/guz-lite/browser.nix#L85
+        # https://github.com/xarvex/dotfyls/blob/2dc848d0fc40809fc800ea414bcdd02bd9b24ee9/modules/home/browsers/firefox/extensions/canvasblocker.nix
+        # https://github.com/iawaknahc/dotfiles/blob/00ac870113c68ce899f6b308471e4970db8ffaaa/home-manager/firefox/default.nix#L46
+
         # Hide tab bar because we have tree style tabs
         #! https://mrotherguy.github.io/firefox-csshacks/?file=hide_tabs_toolbar_v2.css
         userChrome = pkgs.fetchurl {
@@ -385,5 +412,18 @@
         };
       };
     };
+  };
+
+  # TODO: mkIf plasma
+  # TODO: other kwin scripts like https://store.kde.org/p/2138867 https://github.com/micha4w/kde-alt-f4-desktop
+  #? https://store.kde.org/p/2313455
+  # 0.0.3
+  xdg.dataFile."kwin/scripts/auto-active".source = builtins.fetchTarball {
+    url = "https://github.com/ruanimal/auto-active/archive/f5e550f659017d79825a698acfc6a6eb3ded8ec5.tar.gz";
+    sha256 = "sha256-9dVf9m47m916cz6oPVZenCCAlucVQbyb1ZjZhvWw0HI=";
+  };
+  programs.plasma.configFile."kwinrc".Plugins = {
+    "auto-activeEnabled" = true;
+    # Add config, e.g., Whitelist = "sublime_text,org.kde.dolphin";
   };
 }
