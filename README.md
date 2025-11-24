@@ -5,8 +5,8 @@
 ### [packages](./nix/flake.nix)
 
 ```shell
-#? generic with system nixpkgs usaage
-nix run --override-input nixpkgs nixpkgs 'github:barsikus007/config?dir=nix#<packageName>'
+#? generic usage with your system nixpkgs
+nix run --override-input nixpkgs nixpkgs github:barsikus007/config?dir=nix# <tab>
 #? kompas on non-NixOS
 nix --extra-experimental-features "nix-command flakes" run --impure --override-input nixpkgs nixpkgs 'github:nix-community/nixGL' -- env NIXPKGS_ALLOW_UNFREE=1 nix run --impure --override-input nixpkgs nixpkgs 'github:barsikus007/config?dir=nix#kompas3d-fhs'
 #? rm ~/.config/ascon/KOMPAS-3D/24/{recent_files.xml,KOMPAS.kit.config}

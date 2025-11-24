@@ -268,8 +268,7 @@
           };
       };
       packages.${system} = with pkgs; {
-        #? nix build ./nix# <tab>
-        #? nix run --override-input nixpkgs nixpkgs github:barsikus007/config?dir=nix# <tab>
+        #? nix {build,run} ./nix# <tab>
 
         minimalIso = self.nixosConfigurations."minimalIso-${system}".config.system.build.isoImage;
 
@@ -283,24 +282,23 @@
             sed -i "s/AlPAc7Np1/AlPAc7Npn/g" $out/lib/beyondcompare/BCompare
           '';
         };
-        # nix build ./nix#bcompare5 && ./result/bin/bcompare
+
+        telegram-desktop-patched = callPackage ./packages/telegram-desktop-patched.nix { };
+        ayugram-desktop-patched = callPackage ./packages/telegram-desktop-patched.nix {
+          telegram-desktop-client = ayugram-desktop;
+        };
 
         mprint = callPackage ./packages/mprint.nix { };
         libspeedhack = callPackage ./packages/libspeedhack { };
 
         flclashx = callPackage ./packages/flclashx.nix { };
-        # nix build ./nix#flclashx && ./result/bin/FlClashX
 
         shikiwatch-appimage = callPackage ./packages/shikiwatch-appimage.nix { };
         shikiwatch-native = callPackage ./packages/shikiwatch-native.nix { };
-        # nix build ./nix#shikiwatch-appimage && ./result/bin/ShikiWatch
 
         kompas3d = callPackage ./packages/kompas3d { };
-        # nix build ./nix#kompas3d && ./result/bin/kompas-v24
         kompas3d-fhs = (import ./packages/kompas3d/fhs.nix { inherit pkgs; });
-        # nix run ./nix#kompas3d-fhs
         grdcontrol = callPackage ./packages/grdcontrol.nix { };
-        # nix build ./nix#grdcontrol && ./result/opt/guardant/grdcontrol/grdcontrold
 
         openwrt-xiaomi_ax3600 = (import ./packages/openwrt/xiaomi_ax3600.nix { inherit pkgs inputs; });
         openwrt-tplink_archer-c50-v4 = (
