@@ -251,7 +251,7 @@
             ];
             shellHook = ''
               echo "Welcome to the Python ${pythonPkg.version} devShell!"
-              zsh
+              zsh; exit
             '';
           };
       };

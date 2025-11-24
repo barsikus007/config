@@ -252,3 +252,18 @@ localepreview () {
   done
 }
 ```
+
+### check file handlers and etc
+
+```sh
+command=<command to check>
+strace --trace=file --string-limit=200 \
+$(command) 2> ~/strace-$(date +%Y-%m-%d'_'%H_%M_%S).log
+```
+
+### check file changes in folder
+
+```sh
+# modify,attrib,close_write,move,create,delete
+inotifywait --event modify,create,delete,move --monitor --recursive ~/
+```

@@ -70,6 +70,8 @@ nix-hash --type sha256 --sri <filename>
 
 nix hash path <filename>
 nix-hash --type sha256 --sri --flat <filename>
+
+nix hash convert sha256:<full-sha256>
 ```
 
 ### resolve libs
