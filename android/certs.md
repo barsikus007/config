@@ -1,4 +1,4 @@
-# How to install certificates
+# [how to install certificates](README.md)
 
 ```bash
 mitmproxy -p 8081 --set block_global=false

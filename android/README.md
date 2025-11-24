@@ -1,14 +1,6 @@
 # [Android](../README.md)
 
-## Instructions
-
-### [YouTube ReVanced](revanced.md)
-
-### [Termux](termux.md)
-
-### [Root](root.md)
-
-## Devices
+## devices
 
 ### [Oculus Quest 2](devices/oculus.md)
 
@@ -16,15 +8,38 @@
 
 ### [Pixel 7 Pro](https://4pda.to/forum/index.php?showtopic=1039682)
 
-#### Useful topics
-
 - [root and kernel english](https://xdaforums.com/t/november-12-2023-up1a-231105-003-a1-for-jp-carriers-unlock-bootloader-root-pixel-7-pro-cheetah-safetynet.4502805/)
 - [OTA](https://apatch.dev/update.html#ota-update-with-apatch-retention)
   - [Pixel Flasher](https://github.com/badabing2005/PixelFlasher/releases)
   - [root update russian](https://4pda.to/forum/index.php?s=&showtopic=1063306&view=findpost&p=120901180)
 - [App Manager interceptor](https://www.reddit.com/r/fossdroid/comments/1g0lsit/app_manager_issue_it_automatically_options)
 
-#### backup apps list
+#### DEPRECATED
+
+- Audio. Because no configuration and no difference.
+  - [ViPERFX RE](https://github.com/AndroidAudioMods/ViPERFX_RE)
+  - [ViPER4Android Repackaged](https://github.com/programminghoch10/ViPER4AndroidRepackaged)
+  - [?Dolby Atmos](https://gitlab.com/reiryuki-the-fixer/dolby-atmos-magic-revision-magisk-module)
+  - [no root - wavelet](https://4pda.to/forum/index.php?showtopic=1039682&view=findpost&p=119899326)
+
+#### TODO
+
+- root detectors
+  - [momo](https://t.me/s/magiskalpha/529)
+- Design and Tweak Mods
+  - <https://github.com/Mahmud0808/Iconify>
+
+## instructions
+
+### [YouTube ReVanced](revanced.md)
+
+### [Termux](termux.md)
+
+### [root](root.md)
+
+### [install certificates](certs.md)
+
+### backup apps list
 
 `adb shell` script:
 
@@ -41,7 +56,7 @@ done
 - show other
   - `pm list packages -i -3 | grep -v installer=null | grep -v installer=com.google.android.packageinstaller | grep -v installer=com.android.vending | grep -v installer=dev.imranr.obtainium | grep -v installer=ru.vk.store`
 
-#### Persist WiFi ADB
+### persist WiFi ADB
 
 - shizuku
   - Phone TODO
@@ -58,18 +73,12 @@ done
     - disable `resetprop -d persist.adb.tcp.port && stop adbd && start adbd`
   - PC `adb connect 192.168.1.7:5555`
 
-#### TODO
+### adbfs-fuse
+
+```sh
+umount /run/media/$USER/adbfs; adb kill-server && adb connect 192.168.1.7:5555 && sudo mkdir -p /run/media/$USER/adbfs/ && sudo chown $(id -u):$(id -g) /run/media/$USER/adbfs/ && adbfs /run/media/$USER/adbfs -o uid=$(id -u),gid=$(id -g)
+```
+
+### TODO
 
 - `ADB_DELAYED_ACK=1` [when adb is used for large files transfer](https://developer.android.com/tools/adb#burstMode)
-- root detectors
-  - [momo](https://t.me/s/magiskalpha/529)
-- Design and Tweak Mods
-  - <https://github.com/Mahmud0808/Iconify>
-
-#### DEPRECATED
-
-- Audio. Because no configuration and no difference.
-  - [ViPERFX RE](https://github.com/AndroidAudioMods/ViPERFX_RE)
-  - [ViPER4Android Repackaged](https://github.com/programminghoch10/ViPER4AndroidRepackaged)
-  - [?Dolby Atmos](https://gitlab.com/reiryuki-the-fixer/dolby-atmos-magic-revision-magisk-module)
-  - [no root - wavelet](https://4pda.to/forum/index.php?showtopic=1039682&view=findpost&p=119899326)
