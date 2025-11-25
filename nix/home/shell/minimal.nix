@@ -9,6 +9,7 @@
 let
   baseAliases = {
     editor = "nano";
+    grep = "grep --color=auto";
     grp = "grep -Fin -C 7";
     c = "clear";
     h = "history";

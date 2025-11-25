@@ -36,6 +36,10 @@
       url = "github:astro/nix-openwrt-imagebuilder";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-vfio = {
+      url = "github:j-brn/nixos-vfio";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   # TODO: FUCK THIS NIXFMT INDENT: https://github.com/NixOS/nixfmt/issues/91
@@ -98,11 +102,16 @@
           ./modules/gui
           ./modules/gui/plasma.nix
           ./modules/gui/sound.nix
-          ./modules/gui/vm.nix
           ./modules/gui/games.nix
           ./modules/gui/throne.nix
           ./modules/gui/remote.nix
           ./modules/gui/waydroid.nix
+
+          ./modules/vm
+          ./modules/vm/gui.nix
+          ./modules/vm/vfio
+          #? uncomment for nixd to show options
+          # ./modules/vm/vfio/vfio.nix
 
           commonConfig
           {

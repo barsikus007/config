@@ -13,7 +13,11 @@
 - [WiFiHotspot](https://mypublicwifi.com/publicwifi/en/index.html)
 - [Shadow Defender](http://www.shadowdefender.com/download/Setup.exe)
   - VMACN-4MA3W-S4RHY-5HYT4-GZNN4
-- [Virtual Monitor](https://www.amyuni.com/forum/viewtopic.php?t=3030)
+- [Virtual Monitor](https://github.com/nomi-san/parsec-vdd/releases/latest)
+  - [old](https://www.amyuni.com/forum/viewtopic.php?t=3030)
+    - [died, but still able to download](https://www.amyuni.com/downloads/usbmmidd.zip)
+      - [archive link btw](https://web.archive.org/web/20210108200957/https://www.amyuni.com/forum/viewtopic.php?t=3030)
+    - [new landing](https://www.amyuni.com/en/desktop-editions/usb-mobile-monitor/learn-more)
 
 ## Office
 
