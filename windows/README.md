@@ -1,5 +1,23 @@
 # [Windows](../README.md)
 
+## Pre-install
+
+```powershell
+# TODO
+```
+
+## Install
+
+```powershell
+# Clone
+cd; git clone https://github.com/barsikus007/config --depth 1; cd -
+# Install/Update
+# TODO remove sudo? and/or make universal configs\install.ps1 installer
+cd ~/config/ && git pull && sudo .\windows\pwsh.ps1 && cd -
+# idk which
+cd ~/config/ && git pull && .\configs\install.ps1 && cd -
+```
+
 ## Post-install
 
 ```powershell
@@ -12,10 +30,6 @@ reg add "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\TimeZoneInformation
 ```powershell
 PowerShell.exe -ExecutionPolicy Bypass -File filename
 ```
-
-## Install config (TODO move to install.ps1)
-
-`.\windows\pwsh.ps1`
 
 ## [Soft](./soft.md)
 

@@ -4,7 +4,7 @@
 
 1. [LTSC](https://massgrave.dev/windows10_eol#windows-10-iot-enterprise-ltsc-2021)
 2. [unattend.xml](https://schneegans.de/windows/unattend-generator/)
-   1. [unattend-win10-iot-ltsc-vrt.xml](https://schneegans.de/windows/unattend-generator/view/?LanguageMode=Unattended&UILanguage=en-US&Locale=en-US&Keyboard=00000409&UseKeyboard2=true&Locale2=ru-RU&Keyboard2=00000419&GeoLocation=203&ProcessorArchitecture=amd64&BypassRequirementsCheck=true&UseConfigurationSet=true&ComputerNameMode=Custom&ComputerName=NIXOS-WIN10-VRT&CompactOsMode=Default&TimeZoneMode=Implicit&PartitionMode=Unattended&PartitionLayout=GPT&EspSize=300&RecoveryMode=None&DiskAssertionMode=Skip&WindowsEditionMode=Custom&ProductKey=QPM6N-7J2WJ-P88HH-P3YRH-YY74H&InstallFromMode=Automatic&PEMode=Default&UserAccountMode=Unattended&AccountName0=Admin&AccountDisplayName0=&AccountPassword0=&AccountGroup0=Administrators&AutoLogonMode=Own&PasswordExpirationMode=Unlimited&LockoutMode=Default&HideFiles=HiddenSystem&ShowFileExtensions=true&LaunchToThisPC=true&ShowEndTask=true&TaskbarSearch=Hide&TaskbarIconsMode=Default&DisableWidgets=true&HideTaskViewButton=true&ShowAllTrayIcons=true&DisableBingResults=true&StartTilesMode=Empty&StartPinsMode=Default&DisableDefender=true&DisableSmartScreen=true&EnableLongPaths=true&DeleteJunctions=true&HideEdgeFre=true&DisableEdgeStartupBoost=true&DisablePointerPrecision=true&EffectsMode=Default&DesktopIconsMode=Default&StartFoldersMode=Default&VirtIoGuestTools=true&WifiMode=Skip&ExpressSettings=DisableAll&LockKeysMode=Skip&StickyKeysMode=Default&ColorMode=Default&WallpaperMode=Default&LockScreenMode=Default&WdacMode=Skip)
+   1. [unattend-win10-iot-ltsc-vrt.xml](https://schneegans.de/windows/unattend-generator/?LanguageMode=Unattended&UILanguage=en-US&Locale=en-US&Keyboard=00000409&UseKeyboard2=true&Locale2=ru-RU&Keyboard2=00000419&GeoLocation=203&ProcessorArchitecture=amd64&BypassRequirementsCheck=true&UseConfigurationSet=true&ComputerNameMode=Custom&ComputerName=NIXOS-WIN10-VRT&CompactOsMode=Default&TimeZoneMode=Implicit&PartitionMode=Unattended&PartitionLayout=GPT&EspSize=300&RecoveryMode=None&DiskAssertionMode=Skip&WindowsEditionMode=Custom&ProductKey=QPM6N-7J2WJ-P88HH-P3YRH-YY74H&InstallFromMode=Automatic&PEMode=Default&UserAccountMode=Unattended&AccountName0=Admin&AccountDisplayName0=&AccountPassword0=&AccountGroup0=Administrators&AutoLogonMode=Own&PasswordExpirationMode=Unlimited&LockoutMode=Default&HideFiles=HiddenSystem&ShowFileExtensions=true&LaunchToThisPC=true&ShowEndTask=true&TaskbarSearch=Hide&TaskbarIconsMode=Default&DisableWidgets=true&HideTaskViewButton=true&ShowAllTrayIcons=true&DisableBingResults=true&StartTilesMode=Empty&StartPinsMode=Default&DisableDefender=true&DisableSmartScreen=true&EnableLongPaths=true&DeleteJunctions=true&HideEdgeFre=true&DisableEdgeStartupBoost=true&DisablePointerPrecision=true&EffectsMode=Default&DesktopIconsMode=Default&StartFoldersMode=Default&VirtIoGuestTools=true&WifiMode=Skip&ExpressSettings=DisableAll&LockKeysMode=Skip&StickyKeysMode=Default&ColorMode=Default&WallpaperMode=Default&LockScreenMode=Default&SystemScript0=C%3A%5CWindows%5CSetup%5CScripts%5CInstall.ps1&SystemScriptType0=Ps1&WdacMode=Skip)
       1. remove `view/` from link above to edit or change to `iso/` to download iso packed file
 3. [virtio-win](https://looking-glass.io/docs/B7/install_libvirt/#keyboard-mouse-display-audio)
    1. [mount on virtual machine and install](https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/latest-virtio/virtio-win.iso)
@@ -80,13 +80,12 @@
 ## soft to install
 
 - [SPICE guest tools](https://looking-glass.io/docs/B7/install_libvirt/#clipboard-synchronization)
-  - [installer](https://www.spice-space.org/download.html#windows-binaries)
+  - [installer](https://www.spice-space.org/download/windows/spice-guest-tools/spice-guest-tools-latest.exe)
+    - `sudo *.exe /S`
 - [looking-glass-host](https://looking-glass.io/artifact/stable/host)
-
-## IDDs
-
-- <https://looking-glass.io/artifact/bleeding/idd>
-  - also compile client from latest rev
+  - `unzip | sudo *.exe /S`
+  - or use [IDD version](https://looking-glass.io/artifact/bleeding/idd)
+    - also compile client from latest rev
 
 ## misc
 
@@ -103,9 +102,24 @@
   - updates from 19044.1288 to 6576 (OOBE:KB5026037, OS:KB5068781, NET:KB5066746)
   - useful soft installation
     - via scoop ?
-      - embed it with preinstalled scoop apps ?
+      - embed it with preinstalled scoop apps into `$OEM$\$1\Users\Admin\scoop` ?
         - nix-scoop ???
   - nix unattend.iso builder ?
 - <https://looking-glass.io/docs/B7/install_libvirt/#additional-tuning>
   - <https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Improving_performance_on_AMD_CPUs>
 - <https://learn.microsoft.com/en-us/windows-hardware/customize/desktop/wsim/distribution-shares-and-configuration-sets-overview#oem-folders>
+
+#### scoop
+
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+irm https://get.scoop.sh | iex
+
+irm https://raw.githubusercontent.com/barsikus007/config/blob/master/windows/scoop/00Bootstrap.ps1 | iex
+irm https://raw.githubusercontent.com/barsikus007/config/blob/master/windows/scoop/01LTSC.ps1 | iex
+
+irm https://raw.githubusercontent.com/barsikus007/config/blob/master/windows/scoop/10Shell.ps1 | iex
+irm https://raw.githubusercontent.com/barsikus007/config/blob/master/windows/scoop/11ShellHeavy.ps1 | iex
+
+irm https://raw.githubusercontent.com/barsikus007/config/blob/master/windows/scoop/20SoftHighPriority.ps1 | iex
+```

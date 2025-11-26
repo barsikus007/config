@@ -3,8 +3,8 @@ Write-Host "Run as administrator:" -ForegroundColor Green
 Write-Host "Set-ExecutionPolicy RemoteSigned -Force"
 Write-Host ""
 
-Write-Host "Install scoop:" -ForegroundColor Green
-Write-Host "PowerShell.exe -ExecutionPolicy Bypass -File $PSScriptRoot\scoop\InstallScoop.ps1 $args"
+Write-Host "Install scoop, to change dir:" -ForegroundColor Green
+Write-Host "irm get.scoop.sh -ScoopDir D:\scoop | iex"
 Write-Host ""
 scoop alias rm i | Out-Null
 scoop alias rm up | Out-Null

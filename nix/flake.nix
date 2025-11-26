@@ -282,6 +282,8 @@
         #? nix {build,run} ./nix# <tab>
 
         minimalIso = self.nixosConfigurations."minimalIso-${system}".config.system.build.isoImage;
+        windowsBootstrapIso = callPackage ./packages/windows { };
+        # nix build ./nix#windowsBootstrapIso -o unattend-win10-iot-ltsc-vrt.iso
 
         libfprint-27c6-521d = callPackage ./packages/libfprint-27c6-521d.nix { };
         goodix-patch-521d = callPackage ./packages/goodix-patch-521d.nix { };

@@ -120,7 +120,7 @@ Function u { suss | scoop update * }
 #* Function cu { cd ~/config/ && git pull && ./configs/install.ps1 && ./windows/pwsh.ps1 && cd - }
 
 # docker
-$env:COMPOSE_BAKE=true
+$env:COMPOSE_BAKE=$true
 Function lzd { lazydocker }
 Function lzdu { scoop update lazydocker }
 Function dc { docker compose $args }
@@ -149,6 +149,16 @@ Function pyta { ptpython --asyncio }
 
 # other
 Function sex { explorer.exe . }
+# https://yazi-rs.github.io/docs/quick-start/#shell-wrapper
+Function yy {
+    $tmp = (New-TemporaryFile).FullName
+    yazi $args --cwd-file="$tmp"
+    $cwd = Get-Content -Path $tmp -Encoding UTF8
+    if (-not [String]::IsNullOrEmpty($cwd) -and $cwd -ne $PWD.Path) {
+        Set-Location -LiteralPath (Resolve-Path -LiteralPath $cwd).Path
+    }
+    Remove-Item -Path $tmp
+}
 }).Milliseconds
 
 

@@ -1,31 +1,3 @@
-$cli=@"
-#! scoop addons
-scoop-search scoop-completion
-
-#! essential
-#? curl wget
-#! base
-jq fd bat duf gdu fzf btop neovim zoxide ripgrep
-#? btop-lhm VERY SLOW
-#! add
-eza tlrc yazi fastfetch
-#! pwsh/cmd specific
-posh-git psfzf starship
-clink clink-completions
-
-lazydocker
-#? psreadline
-#! unix tools
-#? cmake
-busybox
-#! shim overrides
-#? uutils-coreutils
-which
-grep
-less
-"@
-#? clink inject; clink autorun install
-
 $base=@"
 $cli
 #? mitmproxy httptoolkit
@@ -39,7 +11,6 @@ beyondcompare
 brave
 dbeaver
 dupeguru
-everything
 ffmpeg
 handbrake
 iperf3
@@ -47,7 +18,6 @@ keepassxc
 mpv
 neovide
 nmap
-notepadplusplus
 obs-studio
 powertoys
 qbittorrent@4.1.9.1
@@ -61,7 +31,6 @@ uv
 ventoy
 vscode
 winscp
-wiztree
 wumgr
 yt-dlp
 "@
@@ -164,7 +133,6 @@ simplex-chat
 streamlink
 superfile
 syncthingtray
-systeminformer-nightly
 terminal-icons
 universal-android-debloater
 uv
