@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ pkgs, inputs, ... }:
 # https://wiki.nixos.org/wiki/PCI_passthrough
 # https://j-brn.github.io/nixos-vfio/options.html
 # https://github.com/devusb/nix-config/blob/fcf2d44464f1a6bf8d38f208e12d8bf31bdf2354/hosts/tomservo/vfio.nix
@@ -8,6 +8,10 @@
   imports = [
     inputs.nixos-vfio.nixosModules.vfio
   ];
+
+  # TODO: virtualisation.hugepages.
+  # TODO: virtualisation.libvirtd.qemu.domains.declarative = true;
+  # TODO: virtualisation.libvirtd.qemu.domains.domains."win10".
 
   virtualisation.libvirtd = {
     deviceACL = [
@@ -52,7 +56,13 @@
     devices = [
       {
         # https://looking-glass.io/docs/B7/install_libvirt/#libvirt-determining-memory
-        size = 64; # 2560x1440
+        size = 64;
+        # TODO: PR: https://github.com/j-brn/nixos-vfio/issues/85
+        # resolution = {
+        #   width = 2560;
+        #   height = 1440;
+        #   pixelFormat = "rgb24";
+        # };
         permissions = {
           group = "libvirtd";
           mode = "0660";
@@ -60,4 +70,23 @@
       }
     ];
   };
+  #? isn't needed with working kvmfr
+  # systemd.tmpfiles.rules = [
+  #   "f /dev/shm/looking-glass 0660 ${username} qemu-libvirtd -"
+  # ];
+
+  environment.defaultPackages = with pkgs; [
+    # looking-glass-client
+    (looking-glass-client.overrideAttrs {
+      version = "B7-g3efe47ffb2";
+
+      src = fetchFromGitHub {
+        owner = "gnif";
+        repo = "LookingGlass";
+        rev = "3efe47ffb21ca96ed46b2a9342b3cee4df553987";
+        hash = "sha256-kIS5JuEu2DnZdB+kRQ6jUR6pcR0hYiJLjZK3witvJcM=";
+        fetchSubmodules = true;
+      };
+    })
+  ];
 }
