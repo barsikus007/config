@@ -110,8 +110,6 @@
           ./modules/vm
           ./modules/vm/gui.nix
           ./modules/vm/vfio
-          #? uncomment for nixd to show options
-          # ./modules/vm/vfio/vfio.nix
 
           commonConfig
           {

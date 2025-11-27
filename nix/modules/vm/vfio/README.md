@@ -1,5 +1,12 @@
 # NixOS VFIO imperative steps
 
+## Toggle GPU
+
+- host on
+  - `sudo modprobe -r vfio-pci && sudo modprobe nvidia{,_modeset,_uvm,_drm}`
+- host off
+  - `sudo modprobe -r nvidia{_drm,_uvm,_modeset,} && sudo modprobe vfio-pci`
+
 ## Windows 10 ISO and setup
 
 1. [LTSC](https://massgrave.dev/windows10_eol#windows-10-iot-enterprise-ltsc-2021)
@@ -18,12 +25,13 @@
   - 25 good
   - 30+ best
 - pass needed devices from GPU iommu_group to vm
+- add tpm-crb
 
 ## xml edits
 
 - `sudo virsh edit win10`
 
-### spice
+### [spice](https://looking-glass.io/docs/B7/install_libvirt/#keyboard-mouse-display-audio)
 
 - in `<devices>`
   - `<graphics type='spice' />`
@@ -77,6 +85,73 @@
 </shmem>
 ```
 
+### [tuning](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Performance_tuning)
+
+- if `<cpu />` is from [AMD](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Improving_performance_on_AMD_CPUs)
+  - specify `<topology />` and set `<feature policy='require' name='topoext'/>` inside
+
+### [stealth](https://astrid.tech/2022/09/22/0/nixos-gpu-vfio/#:~:text=Anti-Anti-Cheat%20Aktion)
+
+- `/\/<oc O` `<smbios mode="sysinfo"/>`
+
+#### [bios](https://libvirt.org/formatdomain.html#smbios-system-information)
+
+```shell
+# in root domain
+<sysinfo type='smbios'>
+  <bios>
+sudo dmidecode --type bios | awk  -F  ': ' '
+/Vendor/              { printf "    <entry name=\"vendor\">%s</entry>\n", $2 }
+/Version/             { printf "    <entry name=\"version\">%s</entry>\n", $2 }
+/Release Date/        { printf "    <entry name=\"date\">%s</entry>\n", $2 }
+/BIOS Revision/       { printf "    <entry name=\"release\">%s</entry>\n", $2 }
+'
+  </bios>
+  <system>
+sudo dmidecode --type system | awk  -F  ': ' '
+/Manufacturer/        { printf "    <entry name=\"manufacturer\">%s</entry>\n", $2 }
+/Product Name/        { printf "    <entry name=\"product\">%s</entry>\n", $2 }
+/Version/             { printf "    <entry name=\"version\">%s</entry>\n", $2 }
+/Serial Number/       { printf "    <entry name=\"serial\">%s</entry>\n", $2 }
+/UUID/                { printf "    <entry name=\"uuid\">%s</entry>\n", $2 }
+/SKU Number/          { printf "    <entry name=\"sku\">%s</entry>\n", $2 }
+/Family/              { printf "    <entry name=\"family\">%s</entry>\n", $2 }
+'
+  </system>
+  <baseBoard>
+sudo dmidecode --type baseboard | awk  -F  ': ' '
+/Manufacturer/        { printf "    <entry name=\"manufacturer\">%s</entry>\n", $2 }
+/Product Name/        { printf "    <entry name=\"product\">%s</entry>\n", $2 }
+/Version/             { printf "    <entry name=\"version\">%s</entry>\n", $2 }
+/Serial Number/       { printf "    <entry name=\"serial\">%s</entry>\n", $2 }
+/Asset Tag/           { printf "    <entry name=\"asset\">%s</entry>\n", $2 }
+/Location In Chassis/ { printf "    <entry name=\"location\">%s</entry>\n", $2 }
+/Family/              { printf "    <entry name=\"family\">%s</entry>\n", $2 }
+'
+  </baseBoard>
+  <chassis>
+sudo dmidecode --type chassis | awk  -F  ': ' '
+/Manufacturer/        { printf "    <entry name=\"manufacturer\">%s</entry>\n", $2 }
+/Version/             { printf "    <entry name=\"version\">%s</entry>\n", $2 }
+/Serial Number/       { printf "    <entry name=\"serial\">%s</entry>\n", $2 }
+/Asset Tag/           { printf "    <entry name=\"asset\">%s</entry>\n", $2 }
+/SKU Number/          { printf "    <entry name=\"sku\">%s</entry>\n", $2 }
+'
+  </chassis>
+</sysinfo>
+```
+
+#### [features](https://libvirt.org/formatdomain.html#hypervisor-features)
+
+- !doesn't work `/<hy` change mode to `passthrough`
+
+```xml
+<!-- /\/fe O -->
+<kvm>
+  <hidden state="on"/>
+</kvm>
+```
+
 ## soft to install
 
 - [SPICE guest tools](https://looking-glass.io/docs/B7/install_libvirt/#clipboard-synchronization)
@@ -94,6 +169,7 @@
   - [wiztree](https://www.diskanalyzer.com/download)
   - [everything](https://www.voidtools.com/downloads/)
   - [latest nvidia drivers](https://www.nvidia.com/en-us/drivers/)
+    - [CLI](https://docs.nvidia.com/datacenter/tesla/driver-installation-guide/windows.html)
 
 ### TODO
 
@@ -106,7 +182,6 @@
         - nix-scoop ???
   - nix unattend.iso builder ?
 - <https://looking-glass.io/docs/B7/install_libvirt/#additional-tuning>
-  - <https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Improving_performance_on_AMD_CPUs>
 - <https://learn.microsoft.com/en-us/windows-hardware/customize/desktop/wsim/distribution-shares-and-configuration-sets-overview#oem-folders>
 
 #### scoop

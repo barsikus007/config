@@ -10,8 +10,7 @@ scoop install jq fd bat duf gdu fzf btop neovim zoxide ripgrep
 #! add
 scoop install eza tlrc yazi starship fastfetch
 #! pwsh/cmd specific
-scoop install posh-git psfzf winget-ps
-# TODO winget-ps
+scoop install posh-git psfzf
 scoop install clink clink-completions
 
 scoop install lazydocker
@@ -23,6 +22,6 @@ scoop install busybox
 # TODO is still needed
 scoop install uutils-coreutils
 # scoop install which
-# scoop install grep
+scoop install grep
 # scoop install less
 #? clink inject; clink autorun install

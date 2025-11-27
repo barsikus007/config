@@ -99,6 +99,7 @@
     "nix.serverPath": "nixd",
     "nix.hiddenLanguageServerErrors": [
         "textDocument/definition",
+        "textDocument/formatting",
     ],
     "[nix]": {
         "editor.formatOnSave": true,

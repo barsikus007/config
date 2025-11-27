@@ -13,9 +13,9 @@
 cd; git clone https://github.com/barsikus007/config --depth 1; cd -
 # Install/Update
 # TODO remove sudo? and/or make universal configs\install.ps1 installer
-cd ~/config/ && git pull && sudo .\windows\pwsh.ps1 && cd -
+cd ~\config\ && git pull && sudo .\windows\pwsh.ps1 && cd -
 # idk which
-cd ~/config/ && git pull && .\configs\install.ps1 && cd -
+cd ~\config\ && git pull && .\configs\install.ps1 && cd -
 ```
 
 ## Post-install

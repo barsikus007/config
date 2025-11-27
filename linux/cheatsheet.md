@@ -114,6 +114,9 @@ sudo btrfs fi usage /
 
 sudo btrfs balance start --full-balance --bg /
 sudo btrfs balance status /
+
+sudo btrfs scrub start /
+sudo btrfs scrub status /
 ```
 
 ## distrobox

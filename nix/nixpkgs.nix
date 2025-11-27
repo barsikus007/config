@@ -11,6 +11,7 @@ let
     "steam-original"
     "steam-run"
 
+    "7zz"
     "unrar"
     "corefonts"
     "graalvm-oracle"
