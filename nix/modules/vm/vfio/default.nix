@@ -37,6 +37,7 @@
     enable = true;
     # TODO: isAsus: device specific
     #? Kernel auto-detects if IOMMU is enabled in BIOS on AMD, but module needs this setting
+    # TODO: PR: amd_iommu doesn't accept an on value, it never has, read the kernel arguments documentation. The default is already on. looking-glass discord: https://discord.com/channels/804108879436316733/1080928977922838548/1349027466227748895
     IOMMUType = "amd";
     devices = [
       #? you need to pass all devices in group? cause otherwise "Please ensure all devices within the iommu_group are bound to their vfio bus driver."

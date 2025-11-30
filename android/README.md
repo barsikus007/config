@@ -44,14 +44,14 @@
 `adb shell` script:
 
 ```shell
-folder="/sdcard/Download/APKs/app_lists/`date +%Y-%m-%d`"
+folder="/sdcard/Documents/Sync/android/app_lists/`date +%Y-%m-%d`"
 mkdir -p $folder
 for i in null com.google.android.packageinstaller com.android.vending dev.imranr.obtainium ru.vk.store; do
   pm list packages -i -3 | grep installer=$i | cut -d':' -f2 | awk '{printf "%s\n", $1}' > $folder/$i.txt
 done
 ```
 
-`adb pull /sdcard/Download/APKs/app_lists/`
+`adb pull /sdcard/Documents/Sync/android/app_lists/`
 
 - show other
   - `pm list packages -i -3 | grep -v installer=null | grep -v installer=com.google.android.packageinstaller | grep -v installer=com.android.vending | grep -v installer=dev.imranr.obtainium | grep -v installer=ru.vk.store`
@@ -64,7 +64,7 @@ done
     - [2](https://www.reddit.com/r/tasker/comments/re8k68/howto_enable_adb_wifi_after_reboot_using_ladb_app/)
     - [3](https://www.reddit.com/r/tasker/comments/rceljk/enable_adb_wifi_on_device_boot_android_11/)
   - PC
-    - `IP=192.168.1.7`
+    - `IP=192.168.1.15`
     - `adb connect $IP:$(nmap $IP -p 33000-46000 | awk "/\/tcp/" | cut -d/ -f1)`
       - [credits](https://stackoverflow.com/a/70878705)
 - root

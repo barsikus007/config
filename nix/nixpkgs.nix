@@ -33,8 +33,6 @@ let
     "grdcontrol"
     "kompas3d-v24-full"
     "davinci-resolve-studio"
-
-    "xow_dongle-firmware"
   ];
   lib = inputs.nixpkgs.lib;
 in

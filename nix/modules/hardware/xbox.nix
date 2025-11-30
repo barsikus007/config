@@ -1,6 +1,6 @@
 {
   # USB
-  hardware.xone.enable = true;
+  hardware.xpad-noone.enable = true;
   # BT
   hardware.xpadneo.enable = true;
 }

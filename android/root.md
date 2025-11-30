@@ -1,14 +1,15 @@
 # [Root](./)
 
-## ~~Magisk~~ ~~[KernelSU](https://github.com/tiann/KernelSU)~~ ~~[APatch](https://github.com/bmax121/APatch)~~ ~~[Kitsune Magisk](https://github.com/1q23lyc45/KitsuneMagisk)~~ [KernelSU Next](https://github.com/KernelSU-Next/KernelSU-Next)
+## ~~Magisk~~ ~~[KernelSU](https://github.com/tiann/KernelSU)~~ [APatch](https://github.com/bmax121/APatch) ~~[Kitsune Magisk](https://github.com/1q23lyc45/KitsuneMagisk)~~ ~~[KernelSU Next](https://github.com/KernelSU-Next/KernelSU-Next)~~
 
 ### ඞ installation
 
 1. Kernel Flasher fork
 2. [ඞ kernel](https://github.com/WildKernels/GKI_KernelSU_SUSFS/releases)
-   - P7 A15 is `android14-6.1.99`
-   - P7 A16 is `android14-6.1.124`
-   - P7 A16 is `android14-6.1.134`
+   - P7 A15 is `6.1.99-android14`
+   - P7 A16 is `6.1.124-android14`
+   - P7 A16 is `6.1.134-android14`
+   - [OnePlus specific](https://github.com/WildKernels/OnePlus_KernelSU_SUSFS/releases)
 3. [ඞ module](https://github.com/sidex15/susfs4ksu-module/releases)
 
 #### OTA
@@ -89,6 +90,7 @@
 - [AlfaBank Patcher](https://github.com/Xposed-Modules-Repo/ru.bluecat.alfabankpatcher)
 - [SberBank Patcher](https://github.com/Xposed-Modules-Repo/ru.bluecat.sberbankpatcher)
 - ~~[MirPay Patcher](https://github.com/Xposed-Modules-Repo/ru.bluecat.mirpaysecurity)~~ [PaySecurityBypass](https://github.com/vova7878-modules/PaySecurityBypass)
+- [allow downgrade](https://github.com/LSPosed/CorePatch)
 
 ## Apps
 

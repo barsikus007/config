@@ -8,6 +8,7 @@
 #? alternatives:
 # https://git.m-labs.hk/M-Labs/wfvm
 # https://github.com/MatthewCroughan/NixThePlanet
+# https://git.stupid.fish/teidesu/nixfiles/src/branch/master/lib/windows
 let
   unattend = callPackage ./unattend.nix { };
   scoopBucketMain = fetchgit {

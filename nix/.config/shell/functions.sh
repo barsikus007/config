@@ -1,8 +1,9 @@
 #!/bin/bash
 
 . "$XDG_CONFIG_HOME/shell/setup.sh"
-. "$XDG_CONFIG_HOME/shell/wifite.sh"
+. "$XDG_CONFIG_HOME/shell/android-utils.sh"
 . "$XDG_CONFIG_HOME/shell/g14.sh"
+. "$XDG_CONFIG_HOME/shell/wifite.sh"
 
 mkcd() { mkdir -p "$@" && cd "$@" || exit; }
 

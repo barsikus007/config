@@ -11,7 +11,7 @@
 
 1. [LTSC](https://massgrave.dev/windows10_eol#windows-10-iot-enterprise-ltsc-2021)
 2. [unattend.xml](https://schneegans.de/windows/unattend-generator/)
-   1. [unattend-win10-iot-ltsc-vrt.xml](https://schneegans.de/windows/unattend-generator/?LanguageMode=Unattended&UILanguage=en-US&Locale=en-US&Keyboard=00000409&UseKeyboard2=true&Locale2=ru-RU&Keyboard2=00000419&GeoLocation=203&ProcessorArchitecture=amd64&BypassRequirementsCheck=true&UseConfigurationSet=true&ComputerNameMode=Custom&ComputerName=NIXOS-WIN10-VRT&CompactOsMode=Default&TimeZoneMode=Implicit&PartitionMode=Unattended&PartitionLayout=GPT&EspSize=300&RecoveryMode=None&DiskAssertionMode=Skip&WindowsEditionMode=Custom&ProductKey=QPM6N-7J2WJ-P88HH-P3YRH-YY74H&InstallFromMode=Automatic&PEMode=Default&UserAccountMode=Unattended&AccountName0=Admin&AccountDisplayName0=&AccountPassword0=&AccountGroup0=Administrators&AutoLogonMode=Own&PasswordExpirationMode=Unlimited&LockoutMode=Default&HideFiles=HiddenSystem&ShowFileExtensions=true&LaunchToThisPC=true&ShowEndTask=true&TaskbarSearch=Hide&TaskbarIconsMode=Default&DisableWidgets=true&HideTaskViewButton=true&ShowAllTrayIcons=true&DisableBingResults=true&StartTilesMode=Empty&StartPinsMode=Default&DisableDefender=true&DisableSmartScreen=true&EnableLongPaths=true&DeleteJunctions=true&HideEdgeFre=true&DisableEdgeStartupBoost=true&DisablePointerPrecision=true&EffectsMode=Default&DesktopIconsMode=Default&StartFoldersMode=Default&VirtIoGuestTools=true&WifiMode=Skip&ExpressSettings=DisableAll&LockKeysMode=Skip&StickyKeysMode=Default&ColorMode=Default&WallpaperMode=Default&LockScreenMode=Default&SystemScript0=C%3A%5CWindows%5CSetup%5CScripts%5CInstall.ps1&SystemScriptType0=Ps1&WdacMode=Skip)
+   1. [unattend-win10-iot-ltsc-vrt.xml](https://schneegans.de/windows/unattend-generator/view/?LanguageMode=Unattended&UILanguage=en-US&Locale=en-US&Keyboard=00000409&UseKeyboard2=true&Locale2=ru-RU&Keyboard2=00000419&GeoLocation=203&ProcessorArchitecture=amd64&BypassRequirementsCheck=true&UseConfigurationSet=true&ComputerNameMode=Custom&ComputerName=NIXOS-WIN10-VRT&CompactOsMode=Default&TimeZoneMode=Implicit&PartitionMode=Unattended&PartitionLayout=GPT&EspSize=300&RecoveryMode=None&DiskAssertionMode=Skip&WindowsEditionMode=Custom&ProductKey=QPM6N-7J2WJ-P88HH-P3YRH-YY74H&InstallFromMode=Automatic&PEMode=Default&UserAccountMode=Unattended&AccountName0=Admin&AccountDisplayName0=&AccountPassword0=&AccountGroup0=Administrators&AutoLogonMode=Own&PasswordExpirationMode=Unlimited&LockoutMode=Default&HideFiles=HiddenSystem&ShowFileExtensions=true&LaunchToThisPC=true&ShowEndTask=true&TaskbarSearch=Hide&TaskbarIconsMode=Default&DisableWidgets=true&HideTaskViewButton=true&ShowAllTrayIcons=true&DisableBingResults=true&StartTilesMode=Empty&StartPinsMode=Default&DisableDefender=true&DisableSmartScreen=true&EnableLongPaths=true&DeleteJunctions=true&HideEdgeFre=true&DisableEdgeStartupBoost=true&DisablePointerPrecision=true&EffectsMode=Default&DesktopIconsMode=Default&StartFoldersMode=Default&VirtIoGuestTools=true&WifiMode=Skip&ExpressSettings=DisableAll&LockKeysMode=Skip&StickyKeysMode=Default&ColorMode=Default&WallpaperMode=Default&LockScreenMode=Default&SystemScript0=C%3A%5CWindows%5CSetup%5CScripts%5CInstall.ps1&SystemScriptType0=Ps1&WdacMode=Skip)
       1. remove `view/` from link above to edit or change to `iso/` to download iso packed file
 3. [virtio-win](https://looking-glass.io/docs/B7/install_libvirt/#keyboard-mouse-display-audio)
    1. [mount on virtual machine and install](https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/latest-virtio/virtio-win.iso)
@@ -87,6 +87,8 @@
 
 ### [tuning](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Performance_tuning)
 
+- [pin correct cores](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#CPU_pinning) to VM
+  - left 2/4 cores/threads to host
 - if `<cpu />` is from [AMD](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Improving_performance_on_AMD_CPUs)
   - specify `<topology />` and set `<feature policy='require' name='topoext'/>` inside
 
@@ -141,17 +143,6 @@ sudo dmidecode --type chassis | awk  -F  ': ' '
 </sysinfo>
 ```
 
-#### [features](https://libvirt.org/formatdomain.html#hypervisor-features)
-
-- !doesn't work `/<hy` change mode to `passthrough`
-
-```xml
-<!-- /\/fe O -->
-<kvm>
-  <hidden state="on"/>
-</kvm>
-```
-
 ## soft to install
 
 - [SPICE guest tools](https://looking-glass.io/docs/B7/install_libvirt/#clipboard-synchronization)
@@ -173,16 +164,34 @@ sudo dmidecode --type chassis | awk  -F  ': ' '
 
 ### TODO
 
-- somewhat kvmfr method doesn't work
+- rewrite `xml edits` section to `virt-xml win10 --edit` or `nixvirt` or `nixos-vfio qemu` options
+- virtio-net
 - embed to autounattend.xml
-  - updates from 19044.1288 to 6576 (OOBE:KB5026037, OS:KB5068781, NET:KB5066746)
   - useful soft installation
     - via scoop ?
       - embed it with preinstalled scoop apps into `$OEM$\$1\Users\Admin\scoop` ?
         - nix-scoop ???
   - nix unattend.iso builder ?
-- <https://looking-glass.io/docs/B7/install_libvirt/#additional-tuning>
 - <https://learn.microsoft.com/en-us/windows-hardware/customize/desktop/wsim/distribution-shares-and-configuration-sets-overview#oem-folders>
+
+#### [windows update ISO](https://gravesoft.dev/update-windows-iso)
+
+- [WIN10UI](https://github.com/mariahlamb31/BatUtil/tree/27ab2d01e2d2cf47c87835c90a0991ca4d7c5f64/W10UI)
+- `nix-shell -p aria2 cabextract wimlib chntpw cdrkit`
+- [win10 LTSC](https://uupdump.net/known.php?q=category:w10-21h2)
+  - [Feature](https://uupdump.net/selectlang.php?id=1f41c0e5-e142-4636-ba48-e333cf9f14dc)
+  - [NET](https://www.catalog.update.microsoft.com/Search.aspx?q=3.5+-4.8.1+22H2+1903+Updates+x64)
+  - pinned 2025-11-30 updates from 19044.1288 to 6576
+    - [Cum KB5068781](https://www.catalog.update.microsoft.com/Search.aspx?q=KB5068781+LTSB+x64)
+      - [SSU KB5031539](https://www.catalog.update.microsoft.com/Search.aspx?q=KB5031539+LTSB+x64)
+    - [NET KB5066746](https://www.catalog.update.microsoft.com/Search.aspx?q=KB5066746+x64)
+    - OOBE KB5026037
+  - drivers
+    - [nvidia](https://www.nvidia.com/en-us/drivers/)
+      - `no 206 10`
+        - [581.80](https://www.nvidia.com/en-us/drivers/details/257496/)
+          - click on latest game drivers, they are the same lol (from GTX 7XX)
+
 
 #### scoop
 

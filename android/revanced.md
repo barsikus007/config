@@ -15,7 +15,7 @@ if phone crashes, it causes base.apk of default apps reset their version
 
 ## [YouTube](https://revanced.app/patches?pkg=com.google.android.youtube)
 
-- 5.41.0
+- 5.46.0
   - Theme
     - Material You
   - !GmsCore support (due to root)
@@ -43,22 +43,21 @@ if phone crashes, it causes base.apk of default apps reset their version
 "ryd_toast_on_connection_error": false,
 "seekbar_tapping": true,
 "shorts_player_type": "regular_player",
-"spoof_app_version_target": "19.26.42",
 "swipe_brightness": true,
 "swipe_lowest_value_enable_auto_brightness": true,
-"swipe_text_overlay_size": 22,
 "swipe_volume": true,
-"sb_local_time_saved_milliseconds": 3959055,
-"sb_local_time_saved_number_segments": 111,
+"sb_local_time_saved_milliseconds": 4330921,
+"sb_local_time_saved_number_segments": 120,
 "sb_toast_on_connection_error": false
 ```
 
 ## [YouTube Music](https://revanced.app/patches?pkg=com.google.android.apps.youtube.music)
 
-- 5.41.0
+- 5.46.0
+  - Theme
+    - Material You
   - !Bypass certificate check (due to root)
   - !GmsCore support (due to root)
-  - !Spoof client (due to root)
 
 ### settings
 
@@ -71,4 +70,4 @@ if phone crashes, it causes base.apk of default apps reset their version
 "music_hide_navigation_bar_samples_button": true
 ```
 
-## updated 2025-08-29
+## updated 2025-11-29
