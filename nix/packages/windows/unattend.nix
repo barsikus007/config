@@ -6,7 +6,7 @@ let
     name = "raw.autounattend.xml";
     url = "https://schneegans.de/windows/unattend-generator/view/?${paramsurl}";
     # sha256 = "";
-    sha256 = "sha256-MDDu30dvAExvp311SBVKOdC2Y21JkwJfY10Aj3aU4So=";
+    sha256 = "sha256-swdIjW5z0xmnONdu+78ZHePbSzECTBMoJzR6onV3wGo=";
   };
 in
 let

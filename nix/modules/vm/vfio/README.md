@@ -92,6 +92,18 @@
 - if `<cpu />` is from [AMD](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Improving_performance_on_AMD_CPUs)
   - specify `<topology />` and set `<feature policy='require' name='topoext'/>` inside
 
+#### [virtio-net](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Virtio_network)
+
+- change `model` `type` to `virtio`
+
+```xml
+<interface type="network">
+  ...
+  <model type="virtio"/>
+  ...
+</interface>
+```
+
 ### [stealth](https://astrid.tech/2022/09/22/0/nixos-gpu-vfio/#:~:text=Anti-Anti-Cheat%20Aktion)
 
 - `/\/<oc O` `<smbios mode="sysinfo"/>`
@@ -165,45 +177,113 @@ sudo dmidecode --type chassis | awk  -F  ': ' '
 ### TODO
 
 - rewrite `xml edits` section to `virt-xml win10 --edit` or `nixvirt` or `nixos-vfio qemu` options
-- virtio-net
 - embed to autounattend.xml
-  - useful soft installation
-    - via scoop ?
-      - embed it with preinstalled scoop apps into `$OEM$\$1\Users\Admin\scoop` ?
-        - nix-scoop ???
-  - nix unattend.iso builder ?
+  - SSH with GH private key
+    - embed it with preinstalled scoop apps into `$OEM$\$1\Users\Default\scoop` ?
+      - nix-scoop ???
 - <https://learn.microsoft.com/en-us/windows-hardware/customize/desktop/wsim/distribution-shares-and-configuration-sets-overview#oem-folders>
 
 #### [windows update ISO](https://gravesoft.dev/update-windows-iso)
 
-- [WIN10UI](https://github.com/mariahlamb31/BatUtil/tree/27ab2d01e2d2cf47c87835c90a0991ca4d7c5f64/W10UI)
 - `nix-shell -p aria2 cabextract wimlib chntpw cdrkit`
+- [WIN10UI](https://github.com/mariahlamb31/BatUtil/tree/27ab2d01e2d2cf47c87835c90a0991ca4d7c5f64/W10UI)
+  - 1h 50m and 30-50G needed to build in VM
 - [win10 LTSC](https://uupdump.net/known.php?q=category:w10-21h2)
-  - [Feature](https://uupdump.net/selectlang.php?id=1f41c0e5-e142-4636-ba48-e333cf9f14dc)
-  - [NET](https://www.catalog.update.microsoft.com/Search.aspx?q=3.5+-4.8.1+22H2+1903+Updates+x64)
-  - pinned 2025-11-30 updates from 19044.1288 to 6576
-    - [Cum KB5068781](https://www.catalog.update.microsoft.com/Search.aspx?q=KB5068781+LTSB+x64)
-      - [SSU KB5031539](https://www.catalog.update.microsoft.com/Search.aspx?q=KB5031539+LTSB+x64)
-    - [NET KB5066746](https://www.catalog.update.microsoft.com/Search.aspx?q=KB5066746+x64)
-    - OOBE KB5026037
-  - drivers
-    - [nvidia](https://www.nvidia.com/en-us/drivers/)
-      - `no 206 10`
-        - [581.80](https://www.nvidia.com/en-us/drivers/details/257496/)
-          - click on latest game drivers, they are the same lol (from GTX 7XX)
+  - [pinned 2025-11-30 updates from 19044.1288 to 6576](https://uupdump.net/get.php?id=1f41c0e5-e142-4636-ba48-e333cf9f14dc&pack=en-us&edition=core%3Bprofessional)
+    - [NET](https://www.catalog.update.microsoft.com/Search.aspx?q=3.5+-4.8.1+22H2+1903+Updates+x64)
+    - msus
+      - [Cum KB5068781](https://www.catalog.update.microsoft.com/Search.aspx?q=KB5068781+LTSB+x64)
+        - [SSU KB5031539](https://www.catalog.update.microsoft.com/Search.aspx?q=KB5031539+LTSB+x64)
+      - [NET KB5066746](https://www.catalog.update.microsoft.com/Search.aspx?q=KB5066746+x64)
+      - OOBE KB5026037
+    - drivers
+      - [nvidia](https://www.nvidia.com/en-us/drivers/)
+        - `no 206 10`
+          - [581.80](https://www.nvidia.com/en-us/drivers/details/257496/)
+            - click on latest game drivers, they are the same lol (from GTX 7XX)
+        - [cab](https://www.catalog.update.microsoft.com/Search.aspx?q=nvidia%2021H2)
+          - `32.0.15.8134`
 
+```shell
+UPDATE_ID=1f41c0e5-e142-4636-ba48-e333cf9f14dc
+mkdir "win10-ltsc-$UPDATE_ID"
+cd "win10-ltsc-$UPDATE_ID"
+aria2c -i <(curl -s "https://uupdump.net/get.php?id=$UPDATE_ID&pack=en-us&edition=core%3Bprofessional&aria2=2" | grep -i cab -C 2 --no-group-separator) \
+  -x16 -s16 -j5 -c -R
+wget "https://raw.githubusercontent.com/mariahlamb31/BatUtil/27ab2d01e2d2cf47c87835c90a0991ca4d7c5f64/W10UI/W10UI.cmd"
+
+BACKUP_DIR=/run/media/ogurez/NAS/Desktop/1VM/qcows/win10-1st
+mkdir -p "$BACKUP_DIR"
+sudo sh -c "cp /var/lib/libvirt/images/* $BACKUP_DIR"
+sudo cp /var/lib/libvirt/qemu/win10.xml "$BACKUP_DIR"
+
+<disk type="block" device="disk">
+  <driver name="qemu" type="raw" cache="none" io="native" discard="unmap"/>
+  <source dev="/dev/disk/by-label/System" index="1"/>
+  <backingStore/>
+  <target dev="vda" bus="virtio"/>
+  <alias name="virtio-disk0"/>
+  <address type="pci" domain="0x0000" bus="0x0b" slot="0x00" function="0x0"/>
+</disk>
+```
+
+```powershell
+# I'll remove this in next commit!
+sudo powershell.exe -nop
+
+# $WorkDir        = "D:\_"
+$WorkDir        = "\\NAS.lan\storage"
+$IsoPath        = "$WorkDir\en-us_windows_10_iot_enterprise_ltsc_2021_x64_dvd_257ad90f.iso"
+$PatchedIsoPath = "$WorkDir\windows-patched-$(Get-Date -Format 'yyyy-MM-dd_HH-mm-ss').iso"
+$IsoDir         = "$WorkDir\ISO"
+$MountDir       = "$WorkDir\Mount"
+$PackagePath    = "$WorkDir\msus"
+$DriverPath     = "$WorkDir\driver"
+$LogPath        = "$WorkDir\dism-$(Get-Date -Format 'yyyy-MM-dd_HH-mm-ss').log"
+
+Mount-DiskImage -ImagePath $IsoPath | Get-Volume | %{ $MountedDriveLetter = $_.DriveLetter + ":" }
+robocopy $MountedDriveLetter\ $IsoDir /MIR /R:1 /W:1
+attrib -R "$IsoDir\sources\install.wim"
+Dismount-DiskImage -ImagePath $IsoPath
+
+New-Item -ItemType Directory -Path $MountDir -Force -ErrorAction SilentlyContinue
+Write-Host "2nd index in win10 LTSC 2021 is IoT LTSC"
+$WimPath        = "$IsoDir\sources\install.wim"
+Mount-WindowsImage -ImagePath $WimPath -Index 2 -Path $MountDir -LogPath $LogPath
+
+Add-WindowsPackage -Path $MountDir -PackagePath $PackagePath -LogPath $LogPath
+# Add-WindowsDriver -Path $MountDir -Driver $DriverPath -LogPath $LogPath
+
+Dismount-WindowsImage -Path $MountDir -Save -LogPath $LogPath
+Remove-Item -Path $MountDir -Recurse -Force -ErrorAction SilentlyContinue
+
+# scoop install oscdimg
+oscdimg.exe -u2 -udfver102 -h "-bootdata:2#p0,e,b$IsoDir\boot\etfsboot.com#pEF,e,b$IsoDir\efi\microsoft\boot\efisys.bin" $IsoDir $PatchedIsoPath
+
+Remove-Item -Path $IsoDir -Recurse -Force -ErrorAction SilentlyContinue
+```
 
 #### scoop
 
 ```powershell
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 irm https://get.scoop.sh | iex
+irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/scoop/00Bootstrap.ps1 | iex
+# $SCOOP_HOME = $(If (Test-Path env:SCOOP) { $env:SCOOP } Else { ($env:GIT_INSTALL_ROOT -split "scoop")[0]+"scoop" })
+# reg import "$SCOOP_HOME\apps\7zip\current\install-context.reg"
+irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/scoop/01LTSC.ps1 | iex
+# irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/scoop/05System.ps1 | iex
 
-irm https://raw.githubusercontent.com/barsikus007/config/blob/master/windows/scoop/00Bootstrap.ps1 | iex
-irm https://raw.githubusercontent.com/barsikus007/config/blob/master/windows/scoop/01LTSC.ps1 | iex
+irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/scoop/10Shell.ps1 | iex
+irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/scoop/11ShellHeavy.ps1 | iex
 
-irm https://raw.githubusercontent.com/barsikus007/config/blob/master/windows/scoop/10Shell.ps1 | iex
-irm https://raw.githubusercontent.com/barsikus007/config/blob/master/windows/scoop/11ShellHeavy.ps1 | iex
+irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/scoop/20SoftHighPriority.ps1 | iex
+# reg import "$SCOOP_HOME\apps\everything\current\install-context.reg"
+# reg import "$SCOOP_HOME\apps\notepadplusplus\current\install-context.reg"
 
-irm https://raw.githubusercontent.com/barsikus007/config/blob/master/windows/scoop/20SoftHighPriority.ps1 | iex
+pwsh.exe
+cd && git clone https://github.com/barsikus007/config --depth 1 && cd ~\config\ && sudo .\windows\pwsh.ps1 && cd -
+
+# winget upgrade --accept-source-agreements
+# winget install -e --id Microsoft.Edge  --force
 ```

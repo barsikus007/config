@@ -10,7 +10,8 @@
 
 ```powershell
 # Clone
-cd; git clone https://github.com/barsikus007/config --depth 1; cd -
+pwsh.exe
+cd && git clone https://github.com/barsikus007/config --depth 1 && cd -
 # Install/Update
 # TODO remove sudo? and/or make universal configs\install.ps1 installer
 cd ~\config\ && git pull && sudo .\windows\pwsh.ps1 && cd -
@@ -22,7 +23,7 @@ cd ~\config\ && git pull && .\configs\install.ps1 && cd -
 
 ```powershell
 #? https://wiki.archlinux.org/title/System_time#UTC_in_Microsoft_Windows
-reg add "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\TimeZoneInformation" /v RealTimeIsUniversal /d 1 /t REG_DWORD /f
+sudo reg add "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\TimeZoneInformation" /v RealTimeIsUniversal /d 1 /t REG_DWORD /f
 ```
 
 ## Powershell lifehack to bypas security policy

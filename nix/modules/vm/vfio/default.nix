@@ -76,16 +76,23 @@
 
   environment.defaultPackages = with pkgs; [
     # looking-glass-client
-    (looking-glass-client.overrideAttrs {
-      version = "B7-g3efe47ffb2";
+    (looking-glass-client.overrideAttrs (
+      let
+        # https://github.com/gnif/LookingGlass/commits/master/
+        # https://github.com/gnif/LookingGlass/compare/<ref>...gnif%3ALookingGlass%3Amaster
+        rev = "53bfb6547f2b7abd6c183192e13a57068c1677ea";
+        hash = "sha256-SakFCEXPsJW3zmNpmklK8ZCGpcJzJ/4v7TJDpjWqVeA=";
+      in
+      {
+        version = "B7-g${builtins.substring 0 10 rev}";
 
-      src = fetchFromGitHub {
-        owner = "gnif";
-        repo = "LookingGlass";
-        rev = "3efe47ffb21ca96ed46b2a9342b3cee4df553987";
-        hash = "sha256-kIS5JuEu2DnZdB+kRQ6jUR6pcR0hYiJLjZK3witvJcM=";
-        fetchSubmodules = true;
-      };
-    })
+        src = fetchFromGitHub {
+          inherit rev hash;
+          owner = "gnif";
+          repo = "LookingGlass";
+          fetchSubmodules = true;
+        };
+      }
+    ))
   ];
 }

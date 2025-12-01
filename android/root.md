@@ -27,11 +27,7 @@
   - [LSPosed](https://github.com/JingMatrix/LSPosed/releases)
     - [temp fix](https://github.com/JingMatrix/LSPosed/actions/runs/17713071813)
     - `/data/adb/lspd/config`
-- Hiding root
-  - [Zygisk-Assistant](https://github.com/snake-4/Zygisk-Assistant/releases)
-    - !dont used
-  - [Shamiko](https://github.com/LSPosed/LSPosed.github.io/releases)
-    - !dont used
+- [Hiding root](https://github.com/sidex15/susfs4ksu-module/issues/39#issuecomment-3080237450)
   - Integrity
     - ~~[Play Integrity Fix](https://github.com/chiteroman/PlayIntegrityFix/releases)~~ [Fork](https://github.com/osm0sis/PlayIntegrityFork/releases)
       - Action
@@ -79,8 +75,7 @@
   - Silent notifications
 - [DriveDroid](https://github.com/overzero-git/DriveDroid-fix-Magisk-module/releases)
 - ~~[Pixelify](https://github.com/Kingsman44/Pixelify/releases)~~
-  - [Google-Photos-Unlimited-backup Submodule](https://www.pling.com/p/2004615/)
-    - !was removed from pling
+- [Google-Photos-Unlimited-backup Submodule](https://git.disroot.org/cuynu/gphotos-unlimited-zygisk/releases)
 - [bindhosts](https://github.com/bindhosts/bindhosts/releases)
   - [rule](https://4pda.to/forum/index.php?showtopic=915158&view=findpost&p=133873426)
 

@@ -1,6 +1,6 @@
 {
   callPackage,
-  fetchgit,
+  fetchFromGitHub,
   writeTextFile,
   runCommand,
   xorriso,
@@ -11,17 +11,19 @@
 # https://git.stupid.fish/teidesu/nixfiles/src/branch/master/lib/windows
 let
   unattend = callPackage ./unattend.nix { };
-  scoopBucketMain = fetchgit {
-    url = "https://github.com/ScoopInstaller/Main.git";
+  scoopBucketMain = fetchFromGitHub {
+    owner = "ScoopInstaller";
+    repo = "Main";
     rev = "7439a1bd990a9d5e9fbdff9f045b6b58b2521724";
-    hash = "sha256-8haFMZep/NF3zb1fYkgI/Bp/CrkAQLIW3PDGh5A/lag=";
-    leaveDotGit = true;
+    hash = "sha256-atLFGU+PLlGu5ydgOq8momsS9d6DNJXsftuyr7Aadz8=";
+    deepClone = true;
   };
-  scoopBucketExtras = fetchgit {
-    url = "https://github.com/ScoopInstaller/Extras.git";
+  scoopBucketExtras = fetchFromGitHub {
+    owner = "ScoopInstaller";
+    repo = "Extras";
     rev = "fd88db6be9d32263da516c77d7765e2517d6eadb";
-    hash = "sha256-zxba2YKiGLq2mjknrTjRgX6Bmz6eyGTjduGpBXjOgnM=";
-    leaveDotGit = true;
+    hash = "sha256-AThGnK1GgZmQHnfBVOJm8ow1/QIf3WV/JOsYPaorEv4=";
+    deepClone = true;
   };
   installPs1 = writeTextFile {
     name = "Install.ps1";
@@ -44,9 +46,9 @@ let
     mkdir -p $out
     cp ${unattend}               $out/autounattend.xml
 
-    mkdir -p $out/\$OEM\$/\$1/Users/Admin/scoop/buckets/{main,extras}
-    cp -a ${scoopBucketMain}/.   $out/\$OEM\$/\$1/Users/Admin/scoop/buckets/main
-    cp -a ${scoopBucketExtras}/. $out/\$OEM\$/\$1/Users/Admin/scoop/buckets/extras
+    mkdir -p $out/\$OEM\$/\$1/Users/Default/scoop/buckets/{main,extras}
+    cp -a ${scoopBucketMain}/.   $out/\$OEM\$/\$1/Users/Default/scoop/buckets/main
+    cp -a ${scoopBucketExtras}/. $out/\$OEM\$/\$1/Users/Default/scoop/buckets/extras
 
     mkdir -p $out/\$OEM\$/\$\$/Setup/Scripts
     cp ${installPs1}             $out/\$OEM\$/\$\$/Setup/Scripts/Install.ps1

@@ -119,17 +119,9 @@ in
   imports = [
     ./bat.nix
   ];
-  xdg.configFile."shell/functions.sh".source =
-    config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/shell/functions.sh";
   # TODO: finer way to do it
-  xdg.configFile."shell/setup.sh".source =
-    config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/shell/setup.sh";
-  xdg.configFile."shell/android-utils.sh".source =
-    config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/shell/android-utils.sh";
-  xdg.configFile."shell/g14.sh".source =
-    config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/shell/g14.sh";
-  xdg.configFile."shell/wifite.sh".source =
-    config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/shell/wifite.sh";
+  xdg.configFile."shell/".source =
+    config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/shell/";
   programs.zsh = {
     enable = true;
     shellAliases = sharedAliases // zshAliases;

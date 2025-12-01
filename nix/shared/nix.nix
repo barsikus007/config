@@ -16,7 +16,7 @@
       "pipe-operators"
     ];
     substituters = lib.mkForce [
-      "https://cache.nixos.org/"
+      "https://cache.nixos.org"
       # "https://nixos-cache-proxy.cofob.dev" # ? cloudflare mirror, uses original keys
 
       "https://nix-community.cachix.org"

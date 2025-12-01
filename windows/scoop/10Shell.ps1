@@ -24,4 +24,4 @@ scoop install uutils-coreutils
 # scoop install which
 scoop install grep
 # scoop install less
-#? clink inject; clink autorun install
+#TODO: clink inject; clink autorun install
