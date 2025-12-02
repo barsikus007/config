@@ -6,4 +6,3 @@ scoop install extras/vcredist2022
 scoop install winget
 
 winget install -e --id Microsoft.WindowsTerminal --accept-package-agreements
-# TODO: no NF fonts is terminal, ltsc or old windows bug?

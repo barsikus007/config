@@ -201,6 +201,10 @@ sudo dmidecode --type chassis | awk  -F  ': ' '
         - `no 206 10`
           - [581.80](https://www.nvidia.com/en-us/drivers/details/257496/)
             - click on latest game drivers, they are the same lol (from GTX 7XX)
+            - [cli]
+              - `7zz x *-win10-win11-64bit-international-dch-whql.exe Display.Driver NVI2 EULA.txt ListDevices.txt setup.cfg setup.exe -odrivers`
+              - `.\setup.exe -s -n Display.Driver -log:c:\logs -loglevel:6`
+              - `-log:logs`
         - [cab](https://www.catalog.update.microsoft.com/Search.aspx?q=nvidia%2021H2)
           - `32.0.15.8134`
 
@@ -216,51 +220,6 @@ BACKUP_DIR=/run/media/ogurez/NAS/Desktop/1VM/qcows/win10-1st
 mkdir -p "$BACKUP_DIR"
 sudo sh -c "cp /var/lib/libvirt/images/* $BACKUP_DIR"
 sudo cp /var/lib/libvirt/qemu/win10.xml "$BACKUP_DIR"
-
-<disk type="block" device="disk">
-  <driver name="qemu" type="raw" cache="none" io="native" discard="unmap"/>
-  <source dev="/dev/disk/by-label/System" index="1"/>
-  <backingStore/>
-  <target dev="vda" bus="virtio"/>
-  <alias name="virtio-disk0"/>
-  <address type="pci" domain="0x0000" bus="0x0b" slot="0x00" function="0x0"/>
-</disk>
-```
-
-```powershell
-# I'll remove this in next commit!
-sudo powershell.exe -nop
-
-# $WorkDir        = "D:\_"
-$WorkDir        = "\\NAS.lan\storage"
-$IsoPath        = "$WorkDir\en-us_windows_10_iot_enterprise_ltsc_2021_x64_dvd_257ad90f.iso"
-$PatchedIsoPath = "$WorkDir\windows-patched-$(Get-Date -Format 'yyyy-MM-dd_HH-mm-ss').iso"
-$IsoDir         = "$WorkDir\ISO"
-$MountDir       = "$WorkDir\Mount"
-$PackagePath    = "$WorkDir\msus"
-$DriverPath     = "$WorkDir\driver"
-$LogPath        = "$WorkDir\dism-$(Get-Date -Format 'yyyy-MM-dd_HH-mm-ss').log"
-
-Mount-DiskImage -ImagePath $IsoPath | Get-Volume | %{ $MountedDriveLetter = $_.DriveLetter + ":" }
-robocopy $MountedDriveLetter\ $IsoDir /MIR /R:1 /W:1
-attrib -R "$IsoDir\sources\install.wim"
-Dismount-DiskImage -ImagePath $IsoPath
-
-New-Item -ItemType Directory -Path $MountDir -Force -ErrorAction SilentlyContinue
-Write-Host "2nd index in win10 LTSC 2021 is IoT LTSC"
-$WimPath        = "$IsoDir\sources\install.wim"
-Mount-WindowsImage -ImagePath $WimPath -Index 2 -Path $MountDir -LogPath $LogPath
-
-Add-WindowsPackage -Path $MountDir -PackagePath $PackagePath -LogPath $LogPath
-# Add-WindowsDriver -Path $MountDir -Driver $DriverPath -LogPath $LogPath
-
-Dismount-WindowsImage -Path $MountDir -Save -LogPath $LogPath
-Remove-Item -Path $MountDir -Recurse -Force -ErrorAction SilentlyContinue
-
-# scoop install oscdimg
-oscdimg.exe -u2 -udfver102 -h "-bootdata:2#p0,e,b$IsoDir\boot\etfsboot.com#pEF,e,b$IsoDir\efi\microsoft\boot\efisys.bin" $IsoDir $PatchedIsoPath
-
-Remove-Item -Path $IsoDir -Recurse -Force -ErrorAction SilentlyContinue
 ```
 
 #### scoop

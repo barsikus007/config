@@ -124,6 +124,7 @@
           "gfx.webrender.enabled" = true;
           "layout.css.backdrop-filter.enabled" = true;
           "svg.context-properties.content.enabled" = true;
+          "intl.regional_prefs.use_os_locales" = true; # WHY THE FUCK THIS ISN'T DEFAULT???
 
           #? disable ads and telemetry for privacy reasons
           "browser.newtabpage.activity-stream.showSponsored" = false;
@@ -174,6 +175,22 @@
             google.metaData.alias = "g";
             # tabs.metaData.alias = "t"; #! tabs doesnt work for some reason!!!
             bing.metaData.hidden = true;
+            "Google Exact" = {
+              urls = [
+                {
+                  template = "https://www.google.com/search";
+                  params = [
+                    {
+                      name = "q";
+                      value = ''"{searchTerms}"'';
+                    }
+                  ];
+                }
+              ];
+
+              iconMapObj."32" = "https://www.google.com/favicon.ico";
+              definedAliases = [ "gg" ];
+            };
             #? Search engines are now referenced by id instead of by name, use 'youtube' instead of 'YouTube' -_-
             youtube = {
               urls = [

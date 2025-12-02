@@ -22,12 +22,12 @@ if phone crashes, it causes base.apk of default apps reset their version
 
 ### settings
 
-- General
-  - Double-tap to seek
-    - 5 seconds
 - Video quality preferences
   - \*
     - Higher picture quality
+- Playback
+  - Double-tap to seek
+    - 5 seconds
 - ReVanced
   - Miscellaneous
     - Import / Export
