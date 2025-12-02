@@ -2,7 +2,7 @@
   description = "https://никспобеда.рф";
 
   inputs = {
-    nixpkgs-previous.url = "github:nixos/nixpkgs?ref=a871af02f1b36d22fadbc8ea5ad5f7fb22cc68e7";
+    # nixpkgs-previous.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     # nixpkgs-pinned.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     # nixpkgs-master.url = "github:nixos/nixpkgs";
@@ -143,7 +143,8 @@
               (callPackage ./packages/anicli-ru { })
               (callPackage ./packages/shdotenv.nix { })
               (callPackage ./packages/libspeedhack { })
-              (callPackage ./packages/kompas3d/fhs.nix { })
+              #? died due to end of beta-test
+              # (callPackage ./packages/kompas3d/fhs.nix { })
               #? needs 8.4 GiB * 3 (or more) space to build, takes ~12.2 GiB
               (callPackage ./packages/davinci-resolve-studio.nix { })
             ];

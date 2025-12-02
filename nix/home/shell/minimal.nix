@@ -93,7 +93,7 @@ let
       nd = "nh clean all";
       nr = "nh os repl ${flakePath}";
       nrr = "nh home repl ${flakePath}";
-      nrrr = "${lib.getExe pkgs.nixos-rebuild-ng} repl --flake ${flakePath}";
+      nrrr = "${lib.getExe pkgs.nixos-rebuild} repl --flake ${flakePath}";
       ne = "editor ${flakePath}";
       ndiff = "${lib.getExe pkgs.nvd} diff ~/.local/state/nix/profiles/$(command ls -t ~/.local/state/nix/profiles | fzf) ~/.local/state/nix/profiles/home-manager";
       nndiff = "${lib.getExe pkgs.nvd} diff /nix/var/nix/profiles/$(command ls -t /nix/var/nix/profiles/ | fzf) /nix/var/nix/profiles/system";

@@ -31,8 +31,7 @@ with pkgs;
     ]
   ))
   uv
-  # TODO: unstable: https://github.com/NixOS/nixpkgs/issues/461912
-  previous.hatch
+  hatch
   ruff
 
   # CLI node

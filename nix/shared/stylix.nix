@@ -1,6 +1,8 @@
 { pkgs, ... }:
 {
   stylix = {
+    # TODO: unstable: https://github.com/nix-community/stylix/blob/master/stylix/release.nix
+    enableReleaseChecks = false;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
     # image = pkgs.fetchurl {
     #   url = "https://www.pixelstalk.net/wp-content/uploads/2016/05/Epic-Anime-Awesome-Wallpapers.jpg";

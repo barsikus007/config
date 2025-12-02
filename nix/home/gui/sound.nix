@@ -1,4 +1,3 @@
-{ pkgs, config, ... }:
 {
   services.easyeffects.enable = true;
   dconf.settings."com/github/wwmm/easyeffects" = {
@@ -23,16 +22,5 @@
         }
       )
     );
-  };
-
-  # TODO: unstable: https://github.com/nix-community/home-manager/pull/8192
-  systemd.user.services.easyeffects.Service = {
-    ExecStart = pkgs.lib.mkForce "${pkgs.easyeffects}/bin/easyeffects --hide-window --service-mode ${
-      pkgs.lib.optionalString (
-        config.services.easyeffects.preset != ""
-      ) "--load-preset ${config.services.easyeffects.preset}"
-    }";
-    Type = pkgs.lib.mkForce "";
-    BusName = pkgs.lib.mkForce "";
   };
 }
