@@ -47,22 +47,23 @@
 
 <https://winstall.app/apps/{id}>
 
-`winget install --id={id} -e -h`
+`winget install -e --id={id} -h`
 
 ### msstore
 
 ```powershell
+winget upgrade --accept-source-agreements
 # paint3d
-winget install --id=9NBLGGH5FV99 -e --accept-package-agreements
+winget install -e --id 9NBLGGH5FV99
 # minecraft
-winget install --id=9NBLGGH2JHXJ -e --accept-package-agreements
+winget install -e --id 9NBLGGH2JHXJ
 ```
 
 ### CORE APPS
 
 ```powershell
 winget upgrade --accept-source-agreements
-winget install --id Microsoft.PowerShell -e -h
+winget install -e --id Microsoft.PowerShell -h
 ```
 
 - Docker.DockerDesktop
@@ -73,11 +74,11 @@ winget install --id Microsoft.PowerShell -e -h
 
 ```powershell
 # dotnet for some apps, 6 is for powertoys, others are for TODO
-# sudo winget install --id=Microsoft.dotnetRuntime.3-x64 -e -h
-# sudo winget install --id=Microsoft.dotnetRuntime.5-x64 -e -h
-sudo winget install --id=Microsoft.dotnetRuntime.6-x64 -e -h
+# sudo winget install -e --id Microsoft.dotnetRuntime.3-x64 -h
+# sudo winget install -e --id Microsoft.dotnetRuntime.5-x64 -h
+sudo winget install -e --id Microsoft.dotnetRuntime.6-x64 -h
 # Microsoft Visual C++ 14.0 or greater for some python packages
-sudo winget install --id=Microsoft.VisualStudio.2022.BuildTools -e --override '--add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --add Microsoft.VisualStudio.Component.Windows10SDK.19041 --quiet --wait'
+sudo winget install -e --id Microsoft.VisualStudio.2022.BuildTools --override '--add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --add Microsoft.VisualStudio.Component.Windows10SDK.19041 --quiet --wait'
 ```
 
 // scoop probably broken

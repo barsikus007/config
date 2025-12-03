@@ -1,4 +1,3 @@
-winget install -e --id Microsoft.PowerShell
 #! scoop addons
 scoop install scoop-search scoop-completion
 

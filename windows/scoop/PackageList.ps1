@@ -1,9 +1,9 @@
 $base=@"
-$cli
 #? mitmproxy httptoolkit
 #? jetbrains-toolbox android-studio pycharm-professional
-adb@33.0.3
-adb@34.0.5
+# adb@33.0.3
+# adb@34.0.5
+adb
 anydesk
 audacity
 ayugram
@@ -20,8 +20,9 @@ neovide
 nmap
 obs-studio
 powertoys
-qbittorrent@4.1.9.1
-qbittorrent@4.3.9
+# qbittorrent@4.1.9.1
+# qbittorrent@4.3.9
+qbittorrent
 quicklook
 remove-empty-directories
 rufus

@@ -30,6 +30,6 @@ sudo New-Item -ItemType SymbolicLink -Value $PSScriptRoot\terminal\Microsoft.Pow
 sudo New-Item -ItemType SymbolicLink -Value $PSScriptRoot\terminal\Microsoft.PowerShell_profile.ps1 -Path ~\Documents\PowerShell\Microsoft.PowerShell_profile.ps1 -Force | Out-Null
 sudo New-Item -ItemType SymbolicLink -Value $PSScriptRoot\terminal\extend.ps1 -Path ~\Documents\PowerShell\extend.ps1 -Force | Out-Null
 Write-Host "WindowsTerminal..."
-sudo New-Item -ItemType SymbolicLink -Value $PSScriptRoot\terminal\settings.json -Path ~\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\ -Force | Out-Null
+sudo New-Item -ItemType SymbolicLink -Value $PSScriptRoot\terminal\settings.json -Path ~\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json -Force | Out-Null
 Write-Host "Winget..."
-sudo New-Item -ItemType SymbolicLink -Value $PSScriptRoot\winget\settings.json -Path ~\AppData\Local\Microsoft\WinGet\Settings\defaultState\ -Force | Out-Null
+sudo New-Item -ItemType SymbolicLink -Value $PSScriptRoot\winget\settings.json -Path ~\AppData\Local\Microsoft\WinGet\Settings\defaultState\settings.json -Force | Out-Null
