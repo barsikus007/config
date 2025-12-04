@@ -1,15 +1,23 @@
 # irm = Invoke-RestMethod; iex = Invoke-Expression
-Invoke-RestMethod https://get.scoop.sh | Invoke-Expression
+try {
+    Write-Host "scoop installation..." -ForegroundColor Green
+    Invoke-RestMethod https://get.scoop.sh | Invoke-Expression
+} catch {
+    Write-Error "It seems scoop was hydrated (or failed with error)"
+}
+Write-Host "scoop inital packages installation..." -ForegroundColor Green
 Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/scoop/00Bootstrap.ps1 | Invoke-Expression
-Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/scoop/01LTSC.ps1 | Invoke-Expression
-# TODO: died: https://github.com/ScoopInstaller/Extras/issues/16590; is needed?: dotnet-sdk
-# Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/scoop/05System.ps1 | Invoke-Expression
+# TODO: is needed?: dotnet-sdk
+Write-Host "System packages installation..." -ForegroundColor Green
+Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/scoop/01System.ps1 | Invoke-Expression
 
 
-Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/scoop/10Shell.ps1 | Invoke-Expression
-Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/scoop/11ShellHeavy.ps1 | Invoke-Expression
+Write-Host "Shell packages installation..." -ForegroundColor Green
+pwsh.exe -Command 'Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/scoop/10Shell.ps1 | Invoke-Expression'
+pwsh.exe -Command 'Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/scoop/11ShellHeavy.ps1 | Invoke-Expression'
 
-Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/scoop/20SoftHighPriority.ps1 | Invoke-Expression
+Write-Host "GUI packages installation..." -ForegroundColor Green
+pwsh.exe -Command 'Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/scoop/20SoftHighPriority.ps1 | Invoke-Expression'
 
 
 Write-Host "Notes from scoop packages" -ForegroundColor Green
