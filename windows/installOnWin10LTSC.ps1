@@ -1,10 +1,7 @@
 # irm = Invoke-RestMethod; iex = Invoke-Expression
-try {
-    Write-Host "scoop installation..." -ForegroundColor Green
-    Invoke-RestMethod https://get.scoop.sh -ErrorAction Stop | Invoke-Expression
-} catch {
-    Write-Error "It seems scoop was hydrated (or failed with error)"
-}
+Write-Host "scoop installation..." -ForegroundColor Green
+powershell.exe -Command 'Invoke-RestMethod https://get.scoop.sh | Invoke-Expression'
+
 Write-Host "scoop inital packages installation..." -ForegroundColor Green
 Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/scoop/00Bootstrap.ps1 | Invoke-Expression
 # TODO: is needed?: dotnet-sdk
