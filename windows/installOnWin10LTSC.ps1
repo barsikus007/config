@@ -1,7 +1,7 @@
 # irm = Invoke-RestMethod; iex = Invoke-Expression
 try {
     Write-Host "scoop installation..." -ForegroundColor Green
-    Invoke-RestMethod https://get.scoop.sh | Invoke-Expression
+    Invoke-RestMethod https://get.scoop.sh -ErrorAction Stop | Invoke-Expression
 } catch {
     Write-Error "It seems scoop was hydrated (or failed with error)"
 }
