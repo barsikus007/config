@@ -2,10 +2,11 @@
   description = "https://никспобеда.рф";
 
   inputs = {
-    # nixpkgs-previous.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-    # nixpkgs-pinned.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-    # nixpkgs-master.url = "github:nixos/nixpkgs";
+    # nixpkgs-previous.url = "nixpkgs/nixos-unstable";
+    # nixpkgs-pinned.url = "nixpkgs/nixos-unstable";
+    # nixpkgs-fix-for-<smth>.url = "nixpkgs/pull/1488/head";
+    nixpkgs.url = "nixpkgs/nixos-unstable";
+    # nixpkgs-master.url = "nixpkgs";
     nixos-hardware.url = "github:nixos/nixos-hardware";
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL";
