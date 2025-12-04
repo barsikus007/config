@@ -10,12 +10,9 @@
 ## Windows 10 ISO and setup
 
 1. [LTSC](https://massgrave.dev/windows10_eol#windows-10-iot-enterprise-ltsc-2021)
-2. [unattend.xml](https://schneegans.de/windows/unattend-generator/)
-   1. [unattend-win10-iot-ltsc-vrt.xml](https://schneegans.de/windows/unattend-generator/view/?LanguageMode=Unattended&UILanguage=en-US&Locale=en-US&Keyboard=00000409&UseKeyboard2=true&Locale2=ru-RU&Keyboard2=00000419&GeoLocation=203&ProcessorArchitecture=amd64&BypassRequirementsCheck=true&UseConfigurationSet=true&ComputerNameMode=Custom&ComputerName=NIXOS-WIN10-VRT&CompactOsMode=Default&TimeZoneMode=Implicit&PartitionMode=Unattended&PartitionLayout=GPT&EspSize=300&RecoveryMode=None&DiskAssertionMode=Skip&WindowsEditionMode=Custom&ProductKey=QPM6N-7J2WJ-P88HH-P3YRH-YY74H&InstallFromMode=Automatic&PEMode=Default&UserAccountMode=Unattended&AccountName0=Admin&AccountDisplayName0=&AccountPassword0=&AccountGroup0=Administrators&AutoLogonMode=Own&PasswordExpirationMode=Unlimited&LockoutMode=Default&HideFiles=HiddenSystem&ShowFileExtensions=true&LaunchToThisPC=true&ShowEndTask=true&TaskbarSearch=Hide&TaskbarIconsMode=Default&DisableWidgets=true&HideTaskViewButton=true&ShowAllTrayIcons=true&DisableBingResults=true&StartTilesMode=Empty&StartPinsMode=Default&DisableDefender=true&DisableSmartScreen=true&EnableLongPaths=true&DeleteJunctions=true&HideEdgeFre=true&DisableEdgeStartupBoost=true&DisablePointerPrecision=true&EffectsMode=Default&DesktopIconsMode=Default&StartFoldersMode=Default&VirtIoGuestTools=true&WifiMode=Skip&ExpressSettings=DisableAll&LockKeysMode=Skip&StickyKeysMode=Default&ColorMode=Default&WallpaperMode=Default&LockScreenMode=Default&SystemScript0=Get-Content+-LiteralPath+%27C%3A%5CWindows%5CSetup%5CScripts%5CAdditionalVMSetup.ps1%27+-Raw+%7C+Invoke-Expression%3B&SystemScriptType0=Ps1&WdacMode=Skip)
-      1. remove `view/` from link above to edit or change to `iso/` to download iso packed file
-3. [virtio-win](https://looking-glass.io/docs/B7/install_libvirt/#keyboard-mouse-display-audio)
-   1. [mount on virtual machine and install](https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/latest-virtio/virtio-win.iso)
-4. `irm https://get.activated.win | iex`
+2. `nix build ./nix#windowsBootstrapIso -o unattend-win10-iot-ltsc-vrt.iso --print-build-logs` ([content](../../../packages/windows/default.nix))
+   1. mount it
+   2. [also mount this iso on virtual machine to install VM tools](https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/latest-virtio/virtio-win.iso)
 
 ## virt-manager setup
 
@@ -179,16 +176,27 @@ sudo dmidecode --type chassis | awk  -F  ': ' '
 - rewrite `xml edits` section to `virt-xml win10 --edit` or `nixvirt` or `nixos-vfio qemu` options
   - or [virsh](https://wiki.archlinux.org/title/Libvirt#virsh)
 - embed to autounattend.xml
-  - SSH with GH private key
-    - embed it with preinstalled scoop apps into `$OEM$\$1\Users\Default\scoop` ?
-      - nix-scoop ???
+  - tweaks to embed
+    - auto accept idd driver + set resolution on 2nd monitor + disable 1st
+    - default virtio-net network is private
+    - dark theme
+      - wallpaper
+        - enable HQ
+      - sync colors with wallpaper
+    - add toolbar icons (explorer.exe, wt.exe, edge.exe)
+    - disable uac prompts
+    - default ssh shell
+      - `New-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell -Value "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -PropertyType String –Force`
+      - `New-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell -Value "pwsh.exe" -PropertyType String –Force`
+    - region
+      - time in seconds
 - <https://learn.microsoft.com/en-us/windows-hardware/customize/desktop/wsim/distribution-shares-and-configuration-sets-overview#oem-folders>
 
 #### [windows update ISO](https://gravesoft.dev/update-windows-iso)
 
 - `nix-shell -p aria2 cabextract wimlib chntpw cdrkit`
 - [WIN10UI](https://github.com/mariahlamb31/BatUtil/tree/27ab2d01e2d2cf47c87835c90a0991ca4d7c5f64/W10UI)
-  - 1h 50m and 30-50G needed to build in VM
+  - 1h50m and 30-50G needed to build in VM (50m on host)
 - [win10 LTSC](https://uupdump.net/known.php?q=category:w10-21h2)
   - [pinned 2025-11-30 updates from 19044.1288 to 6576](https://uupdump.net/get.php?id=1f41c0e5-e142-4636-ba48-e333cf9f14dc&pack=en-us&edition=core%3Bprofessional)
     - [NET](https://www.catalog.update.microsoft.com/Search.aspx?q=3.5+-4.8.1+22H2+1903+Updates+x64)
@@ -226,30 +234,5 @@ sudo cp /var/lib/libvirt/qemu/win10.xml "$BACKUP_DIR"
 
 ```powershell
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-irm https://get.scoop.sh | iex
-irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/scoop/00Bootstrap.ps1 | iex
-irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/scoop/01LTSC.ps1 | iex
-# TODO: died: https://github.com/ScoopInstaller/Extras/issues/16590; is needed?: dotnet-sdk
-# irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/scoop/05System.ps1 | iex
-
-
-irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/scoop/10Shell.ps1 | iex
-irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/scoop/11ShellHeavy.ps1 | iex
-
-irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/scoop/20SoftHighPriority.ps1 | iex
-
-
-pwsh.exe
-cd && git clone https://github.com/barsikus007/config --depth 1 && cd ~\config\ && sudo .\windows\pwsh.ps1 && cd -
-
-
-Write-Host "Notes from scoop packages" -ForegroundColor Green
-# TODO parse them programmatically
-$SCOOP_HOME = $(If (Test-Path env:SCOOP) { $env:SCOOP } Else { ($env:GIT_INSTALL_ROOT -split "scoop")[0]+"scoop" })
-reg import "$SCOOP_HOME\apps\7zip\current\install-context.reg"
-reg import "$SCOOP_HOME\apps\everything\current\install-context.reg"
-reg import "$SCOOP_HOME\apps\notepadplusplus\current\install-context.reg"
-
-
-winget install -e --id Microsoft.Edge -h --force
+irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/installOnWin10LTSC.ps1 | iex
 ```

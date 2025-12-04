@@ -78,7 +78,7 @@ lurkmore.media##.sitenotice
 - TODO
   - <https://extensions.xenorio.xyz/list/tubetweaks>
   - <https://github.com/dessant/ping-blocker>
-  - <https://github.com/BrowserBoost/Extension>
+  - <https://github.com/ray-lothian/UserAgent-Switcher>
   - <https://github.com/vknext/vk-classic-feed>
   - <https://github.com/zero-peak/ZeroOmega>
   - <https://selectorgadget.com/>
