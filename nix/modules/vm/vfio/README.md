@@ -13,6 +13,8 @@
 2. `nix build ./nix#windowsBootstrapIso -o unattend-win10-iot-ltsc-vrt.iso --print-build-logs` ([content](../../../packages/windows/default.nix))
    1. mount it
    2. [also mount this iso on virtual machine to install VM tools](https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/latest-virtio/virtio-win.iso)
+3. run in pwsh as admin `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/installOnWin10LTSC.ps1 | iex`
+   1. optional tweaks `irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/99Tweaks.ps1 | iex`
 
 ## virt-manager setup
 
@@ -175,22 +177,6 @@ sudo dmidecode --type chassis | awk  -F  ': ' '
 
 - rewrite `xml edits` section to `virt-xml win10 --edit` or `nixvirt` or `nixos-vfio qemu` options
   - or [virsh](https://wiki.archlinux.org/title/Libvirt#virsh)
-- embed to autounattend.xml
-  - tweaks to embed
-    - auto accept idd driver + set resolution on 2nd monitor + disable 1st
-    - default virtio-net network is private
-    - dark theme
-      - wallpaper
-        - enable HQ
-      - sync colors with wallpaper
-    - add toolbar icons (explorer.exe, wt.exe, edge.exe)
-    - disable uac prompts
-    - default ssh shell
-      - `New-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell -Value "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -PropertyType String –Force`
-      - `New-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell -Value "pwsh.exe" -PropertyType String –Force`
-    - region
-      - time in seconds
-- <https://learn.microsoft.com/en-us/windows-hardware/customize/desktop/wsim/distribution-shares-and-configuration-sets-overview#oem-folders>
 
 #### [windows update ISO](https://gravesoft.dev/update-windows-iso)
 
@@ -228,11 +214,4 @@ BACKUP_DIR=/run/media/ogurez/NAS/Desktop/1VM/qcows/win10-1st
 mkdir -p "$BACKUP_DIR"
 sudo sh -c "cp /var/lib/libvirt/images/* $BACKUP_DIR"
 sudo cp /var/lib/libvirt/qemu/win10.xml "$BACKUP_DIR"
-```
-
-#### scoop
-
-```powershell
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/installOnWin10LTSC.ps1 | iex
 ```

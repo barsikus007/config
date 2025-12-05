@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ inputs, ... }:
 # https://wiki.nixos.org/wiki/PCI_passthrough
 # https://j-brn.github.io/nixos-vfio/options.html
 # https://github.com/j-brn/nixos-vfio/issues/69
@@ -73,26 +73,4 @@
   # systemd.tmpfiles.rules = [
   #   "f /dev/shm/looking-glass 0660 ${username} qemu-libvirtd -"
   # ];
-
-  environment.defaultPackages = with pkgs; [
-    # looking-glass-client
-    (looking-glass-client.overrideAttrs (
-      let
-        # https://github.com/gnif/LookingGlass/commits/master/
-        # https://github.com/gnif/LookingGlass/compare/<ref>...gnif%3ALookingGlass%3Amaster
-        rev = "53bfb6547f2b7abd6c183192e13a57068c1677ea";
-        hash = "sha256-SakFCEXPsJW3zmNpmklK8ZCGpcJzJ/4v7TJDpjWqVeA=";
-      in
-      {
-        version = "B7-g${builtins.substring 0 10 rev}";
-
-        src = fetchFromGitHub {
-          inherit rev hash;
-          owner = "gnif";
-          repo = "LookingGlass";
-          fetchSubmodules = true;
-        };
-      }
-    ))
-  ];
 }

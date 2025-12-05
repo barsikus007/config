@@ -1,5 +1,9 @@
 # irm = Invoke-RestMethod; iex = Invoke-Expression
+Write-Host "Hint: to apply tweaks, run:" -ForegroundColor Gray
+Write-Host "sudo pwsh.exe -Command 'irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/99Tweaks.ps1 | iex'" -ForegroundColor Gray
+Write-Host
 Write-Host "scoop installation..." -ForegroundColor Green
+# TODO: run as user
 powershell.exe -Command 'Invoke-RestMethod https://get.scoop.sh | Invoke-Expression'
 
 Write-Host "scoop inital packages installation..." -ForegroundColor Green

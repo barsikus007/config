@@ -18,9 +18,9 @@ scoop install lazydocker
 #? cmake
 scoop install busybox
 #! shim overrides
-# TODO is still needed
+# TODO: is still needed
 scoop install uutils-coreutils
 # scoop install which
 scoop install grep
 # scoop install less
-#TODO: clink inject; clink autorun install
+# TODO: clink inject; clink autorun install

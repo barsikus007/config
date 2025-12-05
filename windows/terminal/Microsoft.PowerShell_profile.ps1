@@ -48,7 +48,9 @@ Debug-Log starship (Measure-Command {
 Invoke-Expression (&starship init powershell)
 starship completions powershell | Out-String | Invoke-Expression
 }).Milliseconds (Measure-Command {
-Set-PSReadLineOption -PredictionSource History
+if ($PSVersionTable.PSVersion.Major -gt 5) {
+	Set-PSReadLineOption -PredictionSource History
+}
 # Set-PSReadlineOption -EditMode Vi
 # Set-PSReadlineOption -EditMode Emacs
 # https://stackoverflow.com/a/62936536/15844518
@@ -189,7 +191,9 @@ Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
 
 #f45873b3-b655-43a6-b217-97c00aa0db58 PowerToys CommandNotFound module
 
-Import-Module -Name Microsoft.WinGet.CommandNotFound
+if (Get-Module -Name Microsoft.WinGet.CommandNotFound) {
+    Import-Module -Name Microsoft.WinGet.CommandNotFound
+}
 #f45873b3-b655-43a6-b217-97c00aa0db58
 
 
