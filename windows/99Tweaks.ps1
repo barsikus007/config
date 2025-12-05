@@ -20,7 +20,7 @@ Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\
 
 Write-Host "default ssh shell to pwsh.exe" -ForegroundColor Green
 Write-Host "TODO: check if path exists C:\Program Files\PowerShell\7\pwsh.exe" -ForegroundColor DarkYellow
-# New-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell -Value "C:\Program Files\PowerShell\7\pwsh.exe" -PropertyType String –Force
+# New-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell -Value "C:\Program Files\PowerShell\7\pwsh.exe" -PropertyType String -Force
 
 Write-Host "set wallpaper to https://www.wallpaperhub.app/wallpapers/5512" -ForegroundColor Green
 $Url = "https://www.wallpaperhub.app/_next/image?url=https%3A%2F%2Fcdn.wallpaperhub.app%2Fcloudcache%2Fd%2F1%2F5%2F6%2F9%2F4%2Fd156944bf7f0d9d246b7e40e5abd72aec3bd8304.png&w=4500&q=100"
