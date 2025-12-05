@@ -13,8 +13,8 @@
 2. `nix build ./nix#windowsBootstrapIso -o unattend-win10-iot-ltsc-vrt.iso --print-build-logs` ([content](../../../packages/windows/default.nix))
    1. mount it
    2. [also mount this iso on virtual machine to install VM tools](https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/latest-virtio/virtio-win.iso)
-3. run in pwsh as admin `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/installOnWin10LTSC.ps1 | iex`
-   1. optional tweaks `irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/99Tweaks.ps1 | iex`
+3. run in pwsh as admin `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/installOnWin10LTSC.ps1 | iex`([content](../../../../windows/installOnWin10LTSC.ps1))
+   1. optional tweaks `irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/99Tweaks.ps1 | iex` ([content](../../../../windows/99Tweaks.ps1))
 
 ## virt-manager setup
 
@@ -177,8 +177,11 @@ sudo dmidecode --type chassis | awk  -F  ': ' '
 
 - rewrite `xml edits` section to `virt-xml win10 --edit` or `nixvirt` or `nixos-vfio qemu` options
   - or [virsh](https://wiki.archlinux.org/title/Libvirt#virsh)
+- somehow optionally add `installOnWin10LTSC.ps1` and `99Tweaks.ps1` to unattend script
+  - via nix ?
+- `installOnWin10LTSC.ps1` could fail if `scoop` isn't in PATH FOR SOME FUCKING WINDOWS REASON
 
-#### [windows update ISO](https://gravesoft.dev/update-windows-iso)
+### [windows update ISO](https://gravesoft.dev/update-windows-iso)
 
 - `nix-shell -p aria2 cabextract wimlib chntpw cdrkit`
 - [WIN10UI](https://github.com/mariahlamb31/BatUtil/tree/27ab2d01e2d2cf47c87835c90a0991ca4d7c5f64/W10UI)

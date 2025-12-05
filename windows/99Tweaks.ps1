@@ -1,16 +1,22 @@
+Function Test-Command ($commandName) {
+    if (Get-Command $commandName -ErrorAction SilentlyContinue) { return $true }
+    return $false
+}
+
 Write-Host "disable UAC prompts" -ForegroundColor Green
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "ConsentPromptBehaviorAdmin" -Value 0
 
-Write-Host "set wt.exe as default" -ForegroundColor Green
-Write-Host "TODO: check if wt.exe exists" -ForegroundColor DarkYellow
-# $registryPath = "HKCU:\Console\%%Startup"
-# if (-not (Test-Path $registryPath)) { New-Item -Path $registryPath -Force }
+if (Test-Command wt) {
+  Write-Host "set wt.exe as default" -ForegroundColor Green
+  $registryPath = "HKCU:\Console\%%Startup"
+  if (-not (Test-Path $registryPath)) { New-Item -Path $registryPath -Force }
 
-# # UUIDs for Windows Terminal
-# Set-ItemProperty -Path $registryPath -Name "DelegationConsole" -Value "{2EACA947-7F5F-4CFA-BA87-8F7FBEEFBE69}" -Type String
-# Set-ItemProperty -Path $registryPath -Name "DelegationTerminal" -Value "{E12CFF52-A866-4C77-9A90-F570A7AA2C6B}" -Type String
+  # UUIDs for Windows Terminal
+  Set-ItemProperty -Path $registryPath -Name "DelegationConsole" -Value "{2EACA947-7F5F-4CFA-BA87-8F7FBEEFBE69}" -Type String
+  Set-ItemProperty -Path $registryPath -Name "DelegationTerminal" -Value "{E12CFF52-A866-4C77-9A90-F570A7AA2C6B}" -Type String
 
-# Write-Host "Default terminal set to Windows Terminal."
+  Write-Host "Default terminal set to Windows Terminal."
+}
 
 Write-Host "set ru region" -ForegroundColor Green
 Set-Culture ru-RU
@@ -18,9 +24,10 @@ Set-Culture ru-RU
 Write-Host "enable seconds in taskbar" -ForegroundColor Green
 Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name ShowSecondsInSystemClock -Value 1 -Force
 
-Write-Host "default ssh shell to pwsh.exe" -ForegroundColor Green
-Write-Host "TODO: check if path exists C:\Program Files\PowerShell\7\pwsh.exe" -ForegroundColor DarkYellow
-# New-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell -Value "C:\Program Files\PowerShell\7\pwsh.exe" -PropertyType String -Force
+if (Test-Path "C:\Program Files\PowerShell\7\pwsh.exe") {
+  Write-Host "default ssh shell to pwsh.exe" -ForegroundColor Green
+  New-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell -Value "C:\Program Files\PowerShell\7\pwsh.exe" -PropertyType String -Force
+}
 
 Write-Host "set wallpaper to https://www.wallpaperhub.app/wallpapers/5512" -ForegroundColor Green
 $Url = "https://www.wallpaperhub.app/_next/image?url=https%3A%2F%2Fcdn.wallpaperhub.app%2Fcloudcache%2Fd%2F1%2F5%2F6%2F9%2F4%2Fd156944bf7f0d9d246b7e40e5abd72aec3bd8304.png&w=4500&q=100"
