@@ -35,8 +35,10 @@ with pkgs;
 
   # CLI node
   bun
+  nodejs # it is probably installed by other tools anyway
 
   # CLI db
+  lazysql
   pgcli
   litecli
 

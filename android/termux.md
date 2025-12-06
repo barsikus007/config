@@ -16,7 +16,17 @@ cd $HOME
 
 # https://github.com/nix-community/nix-on-droid/issues/248
 adb shell -t 'su $(su -c "stat -c %U /data/data/com.termux.nix") -c /data/data/com.termux.nix/files/usr/bin/login'
+#! NEVER REBUILD SYSTEM FROM ADB SHELL
 ```
+
+## sync ssh folder
+
+```shell
+nix shell nixpkgs#rsync
+rsync -avz --delete --chmod=F0600 --no-owner --no-group storage/shared/Documents/Sync/home/.ssh/ ~/.ssh/
+```
+
+## vanilla setup
 
 ```shell
 termux-setup-storage
