@@ -2,6 +2,7 @@
   lib,
   pkgs,
   inputs,
+  flakePath,
   ...
 }:
 #? https://nix-community.github.io/nix-on-droid/nix-on-droid-options.html#sec-options
@@ -55,9 +56,7 @@
       #tzdata
       #hostname
       #man
-      #gnugrep
       #gnupg
-      #gnused
 
       #gnutar
       #bzip2
@@ -92,6 +91,10 @@
         ./home
         ./home/shell/minimal.nix
       ];
+      programs.zsh.shellAliases = {
+        nodn = "nix-on-droid switch --flake ${flakePath}";
+        nodr = "nix repl --expr '(builtins.getFlake \"${flakePath}\").nixOnDroidConfigurations.default'";
+      };
     };
   };
   # TODO: stylix

@@ -263,15 +263,15 @@
         };
         extraSpecialArgs = specialArgs // {
           username = "nix-on-droid";
-          flakePath = "/data/data/com.termux.nix/files/home/config";
+          flakePath = "/data/data/com.termux.nix/files/home/config/nix";
         };
         modules = [
-          {
-            home-manager.extraSpecialArgs = specialArgs // {
-              username = "nix-on-droid";
-              flakePath = "/data/data/com.termux.nix/files/home/config";
-            };
-          }
+          (
+            { specialArgs, ... }:
+            {
+              home-manager.extraSpecialArgs = specialArgs;
+            }
+          )
           #! ./shared/nix.nix
           ./nix-on-droid.nix
         ];
