@@ -162,6 +162,11 @@ sudo dmidecode --type chassis | awk  -F  ': ' '
 - `& "C:\Program Files\Virtio-Win\VioFS\virtiofs.exe" -t Data -m D:`
 - `& "C:\Program Files\Virtio-Win\VioFS\virtiofs.exe" -t System -m S:`
 
+#### hugepages memory backing for virtiofs
+
+- add `<memoryBacking><hugepages><page size='2048' unit='KiB'/></hugepages><access mode='shared'/></memoryBacking>` to `<domain>`
+- add `<numa><cell id='0' cpus='0-11' memory='8388608' unit='KiB' memAccess='shared'/></numa>` to `<domain><cpu>`
+
 ## misc
 
 - useful soft

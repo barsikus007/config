@@ -2,6 +2,7 @@
   lib,
   pkgs,
   inputs,
+  config,
   flakePath,
   ...
 }:
@@ -66,7 +67,9 @@
     ++ import ./shared/lists/01_base.nix { inherit pkgs; }
     ++ import ./shared/lists/02_add.nix { inherit pkgs; };
   environment.motd = "Welcome to Nix-on-Droid!";
-  # environment.sessionVariables = { };
+  environment.sessionVariables = {
+    SHELL = config.user.shell;
+  };
 
   # Backup etc files instead of failing to activate generation if a file already exists in /etc
   # environment.etcBackupExtension = ".bak";

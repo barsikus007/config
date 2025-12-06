@@ -18,6 +18,17 @@ home-manager switch --flake .
 
 Set user password and TODO other steps from [NixOS installation manual](https://nixos.org/manual/nixos/stable/#ch-installation)
 
+### nix-on-droid specific
+
+1. in `~/.config/nix-on-droid/flake.nix`
+   1. set `nixpkgs` input to `nixpkgs-unstable` branch
+2. in `~/.config/nix-on-droid/nix-on-droid.nix`
+   1. add `pipe-operators` to `experimental-features`
+   2. add `git` to `environment.packages`
+3. `nix-on-droid switch --flake ~/.config/nix-on-droid`
+4. `cd && git clone https://github.com/barsikus007/config && cd -`
+5. `nix-on-droid switch --flake ~/config/nix`
+
 ### Asus ROG G14 2020-2021 specific
 
 #### [Fingerprint scanner](https://github.com/knauth/goodix-521d-explanation)
@@ -164,7 +175,8 @@ sudo $(nix build ~/config/nix#goodix-patch-521d --print-out-paths)/bin/run_521d
 - nix-on-droid
   - `nix-shell -p <smth>`
     - needs for channel?
-  - sudo
+  - [sudo](https://github.com/nix-community/nix-on-droid/issues/252)
+    - not worth it, use [NixOS-AVF](https://github.com/nix-community/nixos-avf)
 
 ### Shell
 

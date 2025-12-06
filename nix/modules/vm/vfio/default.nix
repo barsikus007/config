@@ -1,5 +1,6 @@
 { inputs, ... }:
 # https://wiki.nixos.org/wiki/PCI_passthrough
+# https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF
 # https://j-brn.github.io/nixos-vfio/options.html
 # https://github.com/j-brn/nixos-vfio/issues/69
 # https://github.com/devusb/nix-config/blob/fcf2d44464f1a6bf8d38f208e12d8bf31bdf2354/hosts/tomservo/vfio.nix
