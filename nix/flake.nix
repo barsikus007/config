@@ -11,6 +11,10 @@
       url = "github:nix-community/NixOS-WSL";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-vfio = {
+      url = "github:j-brn/nixos-vfio";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -41,8 +45,8 @@
       url = "github:astro/nix-openwrt-imagebuilder";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixos-vfio = {
-      url = "github:j-brn/nixos-vfio";
+    dewclaw = {
+      url = "github:MakiseKurisu/dewclaw";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -347,6 +351,10 @@
         openwrt-tplink_archer-c50-v4 = (
           import ./packages/openwrt/tplink_archer-c50-v4.nix { inherit pkgs inputs; }
         );
+        dewclaw-env = callPackage inputs.dewclaw {
+          configuration = import ./packages/openwrt/dewclaw.nix;
+        };
+
         # nix build ./nix#openwrt
         # or if hash mismatch
         # nix run <locally cloned nix-openwrt-imagebuilder>#generate-hashes <openwrt version>
