@@ -161,6 +161,10 @@ sudo $(nix build ~/config/nix#goodix-patch-521d --print-out-paths)/bin/run_521d
   - obs
     - quick replay (import scenes)
       - battery/ac based quality
+- nix-on-droid
+  - HOME/END in zsh
+  - `nix-shell -p <smth>`
+  - sudo
 
 ### Shell
 

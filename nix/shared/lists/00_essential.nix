@@ -10,6 +10,7 @@ with pkgs;
   psmisc # killall pstree
   gnused
   gnugrep
+  iproute2
   diffutils
   findutils
 ]

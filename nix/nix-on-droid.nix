@@ -44,6 +44,7 @@
     with pkgs;
     [
       zsh
+      android-tools
 
       # Some common stuff that people expect to have
       #procps
@@ -89,8 +90,8 @@
         ./home/shell/minimal.nix
       ];
       programs.zsh.shellAliases = {
-        nodn = "nix-on-droid switch --flake ${flakePath}";
-        nodr = "nix repl --expr '(builtins.getFlake \"${flakePath}\").nixOnDroidConfigurations.default'";
+        nn = lib.mkForce "nix-on-droid switch --flake ${flakePath}";
+        nr = lib.mkForce "nix repl --expr '(builtins.getFlake \"${flakePath}\").nixOnDroidConfigurations.default'";
       };
     };
   };
