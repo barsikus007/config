@@ -12,5 +12,5 @@ with pkgs;
   zoxide
   ripgrep
 
-  ncurses
+  ncurses # tput for convinient colors in scripts
 ]

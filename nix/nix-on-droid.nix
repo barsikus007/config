@@ -47,10 +47,7 @@
 
       # Some common stuff that people expect to have
       #procps
-
-      #diffutils
-      #findutils
-      #utillinux
+      #util-linux
 
       #tzdata
       #hostname
