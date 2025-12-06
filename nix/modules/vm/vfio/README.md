@@ -1,5 +1,7 @@
 # NixOS VFIO imperative steps
 
+codename `Windows-Resurrect`
+
 ## Toggle GPU
 
 - host on
@@ -13,8 +15,9 @@
 2. `nix build ./nix#windowsBootstrapIso -o unattend-win10-iot-ltsc-vrt.iso --print-build-logs` ([content](../../../packages/windows/default.nix))
    1. mount it
    2. [also mount this iso on virtual machine to install VM tools](https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/latest-virtio/virtio-win.iso)
-3. run in pwsh as admin `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/installOnWin10LTSC.ps1 | iex`([content](../../../../windows/installOnWin10LTSC.ps1))
+3. run in pwsh **as user** `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/installOnWin10LTSC.ps1 | iex`([content](../../../../windows/installOnWin10LTSC.ps1))
    1. optional tweaks `irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/99Tweaks.ps1 | iex` ([content](../../../../windows/99Tweaks.ps1))
+4. [soft to install](../../../packages/windows/AdditionalVMSetup.ps1)
 
 ## virt-manager setup
 
@@ -154,15 +157,10 @@ sudo dmidecode --type chassis | awk  -F  ': ' '
 </sysinfo>
 ```
 
-## soft to install
+### [FS](https://wiki.archlinux.org/title/Libvirt#Virtio-FS)
 
-- [SPICE guest tools](https://looking-glass.io/docs/B7/install_libvirt/#clipboard-synchronization)
-  - [installer](https://www.spice-space.org/download/windows/spice-guest-tools/spice-guest-tools-latest.exe)
-    - `sudo *.exe /S`
-- [looking-glass-host](https://looking-glass.io/artifact/stable/host)
-  - `unzip | sudo *.exe /S`
-  - or use [IDD version](https://looking-glass.io/artifact/bleeding/idd)
-    - also compile client from latest rev
+- `& "C:\Program Files\Virtio-Win\VioFS\virtiofs.exe" -t Data -m D:`
+- `& "C:\Program Files\Virtio-Win\VioFS\virtiofs.exe" -t System -m S:`
 
 ## misc
 

@@ -2,8 +2,7 @@
   description = "https://никспобеда.рф";
 
   inputs = {
-    # nixpkgs-previous.url = "nixpkgs/nixos-unstable";
-    # nixpkgs-pinned.url = "nixpkgs/nixos-unstable";
+    # nixpkgs-previous.url = "nixpkgs/commit_hash";
     # nixpkgs-fix-for-<smth>.url = "nixpkgs/pull/1488/head";
     nixpkgs.url = "nixpkgs/nixos-unstable";
     # nixpkgs-master.url = "nixpkgs";

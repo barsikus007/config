@@ -12,6 +12,13 @@
 } *>&1 | Out-String -Stream >> 'C:\Windows\Setup\Scripts\VirtIoGuestTools.log';
 #endregion VirtIoGuestTools
 
+#region winfsp
+Invoke-WebRequest `
+    -Uri https://github.com/winfsp/winfsp/releases/download/v2.1/winfsp-2.1.25156.msi `
+    -OutFile "C:\Windows\Temp\winfsp.msi"
+Invoke-Expression "C:\Windows\Temp\winfsp.msi /passive"
+#endregion winfsp
+
 #region Looking Glass
 Invoke-WebRequest `
     -Uri https://looking-glass.io/artifact/bleeding/idd `

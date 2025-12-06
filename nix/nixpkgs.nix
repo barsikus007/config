@@ -40,7 +40,7 @@ import inputs.nixpkgs {
   inherit system;
   overlays = [
     (
-      _: _:
+      _: prev:
       builtins.mapAttrs
         (
           pkgsName: pkgsInput:

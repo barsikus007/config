@@ -11,7 +11,9 @@
     qemu = {
       swtpm.enable = true;
       # https://wiki.archlinux.org/title/Libvirt#Virtio-FS
-      vhostUserPackages = with pkgs; [ virtiofsd ];
+      vhostUserPackages = with pkgs; [
+        (callPackage ../../packages/virtiofsd/default.nix { })
+      ];
     };
   };
   users.users.${username}.extraGroups = [ "libvirtd" ];

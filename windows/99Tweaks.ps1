@@ -93,8 +93,11 @@ catch {
     Write-Error "Failed to update current user: $_"
 }
 
+Write-Host "enable clipboard history" -ForegroundColor Green
+$Path = "HKCU:\Software\Microsoft\Clipboard"
+if (-not (Test-Path $Path)) { New-Item -Path $Path -Force | Out-Null }
+Set-ItemProperty -Path $Path -Name "EnableClipboardHistory" -Value 1 -Type DWord -Force
+
 Write-Host "TODO: 2nd: https://win10tweaker.ru/twikinarium/system" -ForegroundColor DarkYellow
-
-Write-Host "TODO: notepad++.exe,7zFM.exe open by default" -ForegroundColor DarkYellow
-
-Write-Host "TODO: enable clipboard history" -ForegroundColor DarkYellow
+Write-Host "TODO: edge.exe: google search; no tabs in recents" -ForegroundColor DarkYellow
+Write-Host "TODO: everything,altsnap,systeminformer autostart" -ForegroundColor DarkYellow

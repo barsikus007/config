@@ -300,6 +300,22 @@
               icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
               definedAliases = [ "hyd" ];
             };
+            "scoop.sh" = {
+              urls = [
+                {
+                  template = "https://scoop.sh/#/apps";
+                  params = [
+                    {
+                      name = "q";
+                      value = "{searchTerms}";
+                    }
+                  ];
+                }
+              ];
+
+              iconMapObj."32" = "https://scoop.sh/favicon.ico";
+              definedAliases = [ "sc" ];
+            };
             "Anime" = {
               urls = [
                 {
@@ -332,6 +348,7 @@
               iconMapObj."32" = "https://shikimori.one/favicon.ico";
               definedAliases = [ "aa" ];
             };
+            # TODO: not working
             "Web Archive" = {
               urls = [ { template = "https://web.archive.org/web/20250000000000*/{searchTerms}"; } ];
               iconMapObj."32" = "https://web-static.archive.org/_static/images/archive.ico";
@@ -352,6 +369,23 @@
 
               iconMapObj."32" = "https://grok.com/images/favicon-dark.png";
               definedAliases = [ "gr" ];
+            };
+            # needs violentmonkey script
+            "Gemini" = {
+              urls = [
+                {
+                  template = "https://gemini.google.com/app";
+                  params = [
+                    {
+                      name = "q";
+                      value = "{searchTerms}";
+                    }
+                  ];
+                }
+              ];
+
+              iconMapObj."32" = "https://www.gstatic.com/lamda/images/gemini_sparkle_aurora_33f86dc0c0257da337c63.svg";
+              definedAliases = [ "ge" ];
             };
             "GitHub" = {
               urls = [

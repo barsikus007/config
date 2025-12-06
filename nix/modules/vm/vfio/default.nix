@@ -12,9 +12,16 @@
     inputs.nixos-vfio.nixosModules.vfio
   ];
 
-  # TODO: https://j-brn.github.io/nixos-vfio/options.html#virtualisationhugepagesenable
   # TODO: https://j-brn.github.io/nixos-vfio/options.html#virtualisationlibvirtdqemudomainsdeclarative
   # TODO: virtualisation.libvirtd.qemu.domains.domains."win10".
+
+  virtualisation.hugepages = {
+    enable = true;
+    defaultPageSize = "2M";
+    pageSize = "2M";
+    # https://wiki.archlinux.org/title/KVM#Enabling_huge_pages
+    numPages = 4150; # 8G + smth
+  };
 
   virtualisation.libvirtd = {
     deviceACL = [
