@@ -55,7 +55,9 @@ import inputs.nixpkgs {
         )
         (
           inputs
-          |> inputs.nixpkgs.lib.filterAttrs (inputName: _: inputName |> lib.strings.hasPrefix "nixpkgs-")
+          |> inputs.nixpkgs.lib.attrsets.filterAttrs (
+            inputName: _: inputName |> lib.strings.hasPrefix "nixpkgs-"
+          )
           |> lib.attrsets.mapAttrs' (
             inputName: input: {
               name = "${inputName |> lib.strings.removePrefix "nixpkgs-"}";
@@ -64,6 +66,7 @@ import inputs.nixpkgs {
           )
         )
     )
-  ] ++ overlays;
+  ]
+  ++ overlays;
   config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) paidApps;
 }

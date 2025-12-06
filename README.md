@@ -4,8 +4,6 @@
 
 ### [packages](./nix/packages/README.md)
 
-[definition](./nix/flake.nix#L315)
-
 ## [Android](./android/README.md)
 
 ## [Linux](./linux/README.md)
@@ -167,6 +165,8 @@ hatch run true
   - clone single dir
     - <https://stackoverflow.com/questions/600079/how-do-i-clone-a-subdirectory-only-of-a-git-repository/52269934#52269934>
   - info about CH340
+  - nuke media from git history
+    - save refs somehow
 
 ### archive
 

@@ -5,7 +5,7 @@
 nix run --override-input nixpkgs nixpkgs github:barsikus007/config?dir=nix# <tab>
 ```
 
-## index
+## [index](https://github.com/barsikus007/config/blob/19c08aca56fd7dfd1fc66a31a62cf26e880ca59c/nix/flake.nix#L315)
 
 - [adbfs with libfuse experemental](./adbfs-rootless-libfuse-3.nix)
 - [anicli anime TUI client](./anicli-ru/)

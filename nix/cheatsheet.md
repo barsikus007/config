@@ -36,12 +36,13 @@ ssh root@localhost -p 2222
 
 ```nix
 let
-  # toCheck = config.programs;
-  toCheck = config.services;
+  lib = pkgs.lin;
+  toCheck = config.programs;
+  # toCheck = config.services;
   blacklist = [ "redis" ];
 in
 let
-  names = pkgs.lib.attrNames toCheck;
+  names = builtins.attrNames toCheck;
   getEnable =
     n:
     let
@@ -54,10 +55,49 @@ let
       if enableEval.success then enableEval.value else false
     else
       false;
-  enabledNames = pkgs.lib.filter (n: getEnable n == true) (lib.subtractLists blacklist names);
+  enabledNames = builtins.filter (n: getEnable n == true) (lib.lists.subtractLists blacklist names);
 in
-pkgs.lib.getAttrs enabledNames toCheck
+lib.attrsets.getAttrs enabledNames toCheck
+```
 
+### show programs/services which can be enabled
+
+use `NIXPKGS_ALLOW_UNFREE=1 NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1`
+
+```nix
+let
+  lib = pkgs.lib;
+  toCheck = config.programs;
+  toCompare = config.environment.systemPackages;
+  # toCompare = config.home.packages;
+  blacklist = [ "redis" ];
+in
+let
+  names = builtins.attrNames toCheck;
+  getEnable =
+    n:
+    let
+      modEval = builtins.tryEval (toCheck.${n});
+    in
+    if modEval.success then
+      let
+        enableEval = builtins.tryEval (modEval.value.enable or null);
+      in
+      if enableEval.success then enableEval.value else false
+    else
+      false;
+  enabledNames = builtins.filter (n: getEnable n == false) (lib.lists.subtractLists blacklist names);
+in
+let
+  disabledSmth = lib.attrsets.getAttrs enabledNames toCheck;
+  comparePackages =
+    n:
+    let
+      modEval = builtins.tryEval (n.package or null);
+    in
+    if modEval.success then builtins.elem modEval.value toCompare else false;
+in
+lib.attrsets.filterAttrs (_: v: comparePackages v) disabledSmth
 ```
 
 ## nix

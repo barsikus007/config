@@ -168,7 +168,6 @@ sudo $(nix build ~/config/nix#goodix-patch-521d --print-out-paths)/bin/run_521d
 - parse nix files for pkgs (or do it via nix script)
 - better way to work with functions in shell.nix
 - GUI
-  - move badapple gif and mp3 outsude of git (or genereate them idk)
   - obs
     - quick replay (import scenes)
       - battery/ac based quality
