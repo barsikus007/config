@@ -40,6 +40,12 @@
   #   # xwaylandvideobridge # exposes Wayland windows to X11 screen capture
   # ];
   environment.defaultPackages = with pkgs; [
+    # https://wiki.nixos.org/wiki/Dolphin
+    kdePackages.qtsvg
+    kdePackages.kio
+    kdePackages.kio-fuse
+    kdePackages.kio-extras
+
     #? KDE apps, which are analog to useful Windows apps
     kdePackages.filelight
     kdePackages.kclock

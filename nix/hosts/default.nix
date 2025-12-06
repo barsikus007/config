@@ -57,6 +57,16 @@
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
     # extraGroups = [ "wheel" "networkmanager" "docker" ];
     # hashedPassword = "hashedPassword";
+    openssh.authorizedKeys.keys = [
+      (pkgs.lib.strings.removeSuffix "\n" (
+        builtins.readFile (
+          builtins.fetchurl {
+            url = "https://github.com/barsikus007.keys";
+            sha256 = "sha256-Tnf/WxeYOikI9i5l4e0ABDk33I5z04BJFApJpUplNi0=";
+          }
+        )
+      ))
+    ];
   };
   nix.settings.trusted-users = [ username ];
 

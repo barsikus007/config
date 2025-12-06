@@ -191,6 +191,34 @@
               iconMapObj."32" = "https://www.google.com/favicon.ico";
               definedAliases = [ "gg" ];
             };
+            "Google Translate" = {
+              urls = [
+                {
+                  template = "https://translate.google.com/";
+                  params = [
+                    {
+                      name = "sl";
+                      value = "auto";
+                    }
+                    {
+                      name = "tl";
+                      value = "ru";
+                    }
+                    {
+                      name = "text";
+                      value = "{searchTerms}";
+                    }
+                    {
+                      name = "op";
+                      value = "translate";
+                    }
+                  ];
+                }
+              ];
+
+              iconMapObj."32" = "https://translate.google.com/favicon.ico";
+              definedAliases = [ "tr" ];
+            };
             #? Search engines are now referenced by id instead of by name, use 'youtube' instead of 'YouTube' -_-
             youtube = {
               urls = [
@@ -348,6 +376,22 @@
               iconMapObj."32" = "https://shikimori.one/favicon.ico";
               definedAliases = [ "aa" ];
             };
+            "RuTracker" = {
+              urls = [
+                {
+                  template = "https://rutracker.org/forum/tracker.php";
+                  params = [
+                    {
+                      name = "nm";
+                      value = "{searchTerms}";
+                    }
+                  ];
+                }
+              ];
+
+              iconMapObj."32" = "https://rutracker.org/favicon.ico";
+              definedAliases = [ "ru" ];
+            };
             # TODO: not working due to url escapism
             "Web Archive" = {
               urls = [ { template = "https://web.archive.org/web/*/{searchTerms}"; } ];
@@ -426,6 +470,22 @@
 
               iconMapObj."32" = "https://github.com/favicons/favicon.svg";
               definedAliases = [ "gin" ];
+            };
+            "Ozon" = {
+              urls = [
+                {
+                  template = "https://www.ozon.ru/search";
+                  params = [
+                    {
+                      name = "text";
+                      value = "{searchTerms}";
+                    }
+                  ];
+                }
+              ];
+
+              iconMapObj."32" = "https://www.ozon.ru/favicon.ico";
+              definedAliases = [ "oz" ];
             };
             "Yandex Maps" = {
               urls = [

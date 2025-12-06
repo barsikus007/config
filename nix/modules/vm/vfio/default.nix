@@ -14,7 +14,7 @@
     defaultPageSize = "2M";
     pageSize = "2M";
     # https://wiki.archlinux.org/title/KVM#Enabling_huge_pages
-    numPages = 4150; # 8G + smth
+    numPages = 4400; # (8G / 2M) + 10%
   };
 
   virtualisation.libvirtd = {
