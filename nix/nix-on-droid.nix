@@ -1,4 +1,5 @@
 { pkgs, inputs, ... }:
+#? https://nix-community.github.io/nix-on-droid/nix-on-droid-options.html#sec-options
 {
   # modules = [
   #   #! ./shared/nix.nix
@@ -16,13 +17,12 @@
 
       "https://nix-community.cachix.org"
     ];
-    trusted-public-keys = [
+    trustedPublicKeys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
 
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
   };
-  #? https://nix-community.github.io/nix-on-droid/nix-on-droid-options.html#sec-options
   android-integration.am.enable = true;
   android-integration.termux-setup-storage.enable = true;
   android-integration.termux-open.enable = true;

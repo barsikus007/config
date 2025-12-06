@@ -132,11 +132,5 @@ echo 2 >> /sys/class/backlight/panel0-backlight/hbm_mode
 ```shell
 adb shell -t su
 adb shell -t "su -c 'sh'"
-
-adb shell -t "su -c 'cd /data/data/com.termux/files/ && usr/bin/bash'"
-
-cd /data/data/com.termux/files/
-PREFIX=/data/data/com.termux/files
-PATH=$PATH:$PREFIX/home/.local/bin:$PREFIX/usr/bin
-. $PREFIX/usr/etc/profile
+adb shell -t "su -c '/data/data/com.termux/files/usr/bin/login'"
 ```
