@@ -70,10 +70,9 @@
     # backupFileExtension = "hm-bak";
     config = {
       # Read the changelog before changing this value
-      # home.stateVersion = "24.05";
+      home.stateVersion = "25.05";
 
-      modules = [
-
+      imports = [
       ];
     };
   };
