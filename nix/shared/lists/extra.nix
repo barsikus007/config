@@ -1,7 +1,6 @@
 { pkgs, ... }:
 with pkgs;
-(import ./base.nix { inherit pkgs; })
-++ [
+[
   # other (specific cli tools)
   _7zz-rar
   gcc

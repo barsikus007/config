@@ -34,29 +34,35 @@
   # android-integration.unsupported.enable = true;
 
   # Simply install just the packages
-  environment.packages = with pkgs; [
-    neovim
-    git
+  environment.packages =
+    with pkgs;
+    [
+      #zsh
 
-    # Some common stuff that people expect to have
-    #procps
-    #killall
-    #diffutils
-    #findutils
-    #utillinux
-    #tzdata
-    #hostname
-    #man
-    #gnugrep
-    #gnupg
-    #gnused
-    #gnutar
-    #bzip2
-    #gzip
-    #xz
-    #zip
-    #unzip
-  ];
+      # Some common stuff that people expect to have
+      #procps
+      #killall
+
+      #diffutils
+      #findutils
+      #utillinux
+
+      #tzdata
+      #hostname
+      #man
+      #gnugrep
+      #gnupg
+      #gnused
+
+      #gnutar
+      #bzip2
+      #gzip
+      #xz
+      #zip
+      #unzip
+    ]
+    ++ import ./shared/lists/00_essential.nix { inherit pkgs; }
+    ++ import ./shared/lists/01_base.nix { inherit pkgs; };
   environment.motd = "Welcome to Nix-on-Droid!";
   # environment.sessionVariables = { };
 
@@ -78,10 +84,10 @@
       ];
     };
   };
-  # terminal.colors;
+  # TODO: stylix
+  # terminal.colors = { };
   terminal.font = with pkgs; "${cascadia-code}/share/fonts/truetype/CascadiaCodeNF-Regular.ttf";
-  # terminal.font = with pkgs; "${cascadia-code}/share/fonts/opentype/CascadiaCodeNF-Regular.otf";
   # time.timeZone = "Europe/Moscow";
-  # user.shell = "${pkgs.zsh}/bin/zsh"
+  user.shell = "${pkgs.zsh}/bin/zsh";
   # user.userName = "nix-on-droid";
 }

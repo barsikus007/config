@@ -1,8 +1,7 @@
 { pkgs, ... }:
-
+# add (historicaly, this is packages was unavailable in ubuntu/scoop base repos or have different name)
 with pkgs;
 [
-  # add (historicaly, this is packages was unavailable in ubuntu/scoop base repos or have different name)
   zsh
   # fish
   # babelfish
