@@ -2,7 +2,7 @@
 
 Goal is to provide modular close to windows-godlike desktop experience
 
-## [Command Cheat Sheet](./cheatsheet.md)
+## [Command cheatsheet](./cheatsheet.md)
 
 ## Installation
 
@@ -42,7 +42,7 @@ sudo $(nix build 'github:barsikus007/config?dir=nix#goodix-patch-521d' --print-o
 sudo $(nix build ~/config/nix#goodix-patch-521d --print-out-paths)/bin/run_521d
 ```
 
-### Nix itself
+### nix itself
 
 #### [WSL distro](https://nix-community.github.io/NixOS-WSL/)
 
@@ -177,10 +177,14 @@ sudo $(nix build ~/config/nix#goodix-patch-521d --print-out-paths)/bin/run_521d
     - needs for channel?
   - [sudo](https://github.com/nix-community/nix-on-droid/issues/252)
     - not worth it, use [NixOS-AVF](https://github.com/nix-community/nixos-avf)
+- [OpenWrt Image](./packages/openwrt/xiaomi_ax3600.nix)
+  - [uci](./packages/openwrt/dewclaw.nix)
+    - make it)
+    - [disable IPV6](https://3os.org/infrastructure/openwrt/disable-ipv6/)
 
-### Shell
+### shell
 
-#### New software
+#### new software
 
 - zsh or fish (or bash lol)
 - [dive](https://github.com/wagoodman/dive)
@@ -200,7 +204,7 @@ sudo $(nix build ~/config/nix#goodix-patch-521d --print-out-paths)/bin/run_521d
       - rustscan
       - zmap
 
-#### Alias
+#### alias
 
 - 'sudo '
 - fzf
@@ -224,7 +228,7 @@ sudo $(nix build ~/config/nix#goodix-patch-521d --print-out-paths)/bin/run_521d
   - or lll
 - proto outdated --update
 
-#### Other
+#### other
 
 - [guix environment like](https://github.com/NixOS/nix/issues/8207)
   - [containter](https://wiki.nixos.org/wiki/NixOS_Containers)

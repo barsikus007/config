@@ -348,9 +348,9 @@
               iconMapObj."32" = "https://shikimori.one/favicon.ico";
               definedAliases = [ "aa" ];
             };
-            # TODO: not working
+            # TODO: not working due to url escapism
             "Web Archive" = {
-              urls = [ { template = "https://web.archive.org/web/20250000000000*/{searchTerms}"; } ];
+              urls = [ { template = "https://web.archive.org/web/*/{searchTerms}"; } ];
               iconMapObj."32" = "https://web-static.archive.org/_static/images/archive.ico";
               definedAliases = [ "ar" ];
             };

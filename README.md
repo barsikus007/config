@@ -2,30 +2,9 @@
 
 ## [NixOS](./nix/README.md)
 
-### [packages](./nix/flake.nix)
+### [packages](./nix/packages/README.md)
 
-```shell
-#? generic usage with your system nixpkgs
-nix run --override-input nixpkgs nixpkgs github:barsikus007/config?dir=nix# <tab>
-#? kompas on non-NixOS
-nix --extra-experimental-features "nix-command flakes" run --impure --override-input nixpkgs nixpkgs 'github:nix-community/nixGL' -- env NIXPKGS_ALLOW_UNFREE=1 nix run --impure --override-input nixpkgs nixpkgs 'github:barsikus007/config?dir=nix#kompas3d-fhs'
-#? rm ~/.config/ascon/KOMPAS-3D/24/{recent_files.xml,KOMPAS.kit.config}
-#? launch on computer with enough system parts (remote) lol
-sudo NIXPKGS_ALLOW_UNFREE=1 nix --extra-experimental-features "nix-command flakes" run --impure --override-input nixpkgs nixpkgs 'github:barsikus007/config?dir=nix#grdcontrol'
-#? launch on computer with kompas (client)
-socat TCP-LISTEN:3189,bind=127.0.0.1,fork TCP:<remote_ip>:3189
-```
-
-#### [OpenWrt Image](./nix/packages/openwrt/xiaomi_ax3600.nix)
-
-##### TODO
-
-- [wiki #1](https://wiki.nixos.org/wiki/Networking_working_group)
-  - <https://github.com/disassembler/network/blob/master/nixos/portal/configuration.nix>
-- [wiki #2](https://wiki.nixos.org/wiki/OpenWrt)
-  - UCI declarative
-    - <https://github.com/MakiseKurisu/dewclaw>
-- [disable IPV6](https://3os.org/infrastructure/openwrt/disable-ipv6/)
+[definition](./nix/flake.nix#L315)
 
 ## [Android](./android/README.md)
 
@@ -41,7 +20,7 @@ socat TCP-LISTEN:3189,bind=127.0.0.1,fork TCP:<remote_ip>:3189
 
 ## Cross-platform
 
-### [Git config (`~/.config/git/config`)](https://git-scm.com/docs/git-config)
+### [git config (`~/.config/git/config`)](https://git-scm.com/docs/git-config)
 
 [nix code to fill](nix/home/default.nix#:~:text=%23%20%7D;-,userName):
 
@@ -62,7 +41,7 @@ nix eval --impure --raw --expr '
 
 ### [proto](https://moonrepo.dev/proto)
 
-#### Usage
+#### usage
 
 ```shell
 # TODO https://moonrepo.dev/docs/proto/commands/completions
@@ -74,7 +53,7 @@ proto install bun
 # TODO proto install rust -- --profile minimal
 ```
 
-#### Install
+#### install
 
 ##### Linux
 
@@ -93,7 +72,7 @@ Remove-Item -Recurse ~\.proto\
 # TODO add proto to scoop
 ```
 
-### Python
+### python
 
 ```shell
 python3 -m pip install --upgrade pip setuptools wheel
@@ -164,7 +143,7 @@ git push origin --follow-tags
 hatch run true
 ```
 
-### Other
+### other
 
 - Telegram > Settings
   - Notifications and Sound
@@ -189,7 +168,7 @@ hatch run true
     - <https://stackoverflow.com/questions/600079/how-do-i-clone-a-subdirectory-only-of-a-git-repository/52269934#52269934>
   - info about CH340
 
-### Archive
+### archive
 
 - Docker Desktop Extensions
   - Ddosify
