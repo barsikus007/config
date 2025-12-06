@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   programs.ssh.startAgent = true;
 
@@ -16,4 +17,8 @@
         }
     });
   '';
+
+  environment.systemPackages = with pkgs; [
+    (callPackage ../packages/keepassxc.nix { })
+  ];
 }

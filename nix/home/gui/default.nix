@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 {
   xdg = {
     #? ls /run/current-system/sw/share/applications /etc/profiles/per-user/$(id -n -u)/share/applications ~/.nix-profile/share/applications ~/.local/share/applications | grep <name>
@@ -37,6 +37,7 @@
 
   programs.keepassxc = {
     enable = true;
+    package = with pkgs; callPackage ../../packages/keepassxc.nix { };
     settings = {
       Browser = {
         Enabled = true;
@@ -58,6 +59,7 @@
         SpecialChars = false;
       };
       SSHAgent.Enabled = true;
+      FdoSecrets.Enabled = true;
     };
   };
   # xdg.configFile."keepassxc/keepassxc.ini".source =
