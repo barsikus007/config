@@ -262,10 +262,10 @@
             # add other overlays
           ];
         };
-        home-manager.extraSpecialArgs = specialArgs // {
-          username = "nix-on-droid";
-          flakePath = "/data/data/com.termux.nix/files/home";
-        };
+        # home-manager.extraSpecialArgs = specialArgs // {
+        #   username = "nix-on-droid";
+        #   flakePath = "/data/data/com.termux.nix/files/home";
+        # };
         nix = {
           extraOptions = ''
             experimental-features = nix-command flakes pipe-operators

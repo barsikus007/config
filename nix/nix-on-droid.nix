@@ -14,6 +14,7 @@
   # Simply install just the packages
   environment.packages = with pkgs; [
     neovim
+    git
 
     # Some common stuff that people expect to have
     #procps
