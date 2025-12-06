@@ -15,6 +15,11 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-on-droid = {
+      url = "github:nix-community/nix-on-droid";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
     plasma-manager = {
       url = "github:nix-community/plasma-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -247,6 +252,45 @@
           }
         ];
       };
+
+      nixOnDroidConfigurations.default = inputs.nix-on-droid.lib.nixOnDroidConfiguration {
+        pkgs = import ./nixpkgs.nix {
+          inherit inputs;
+          system = "aarch64-linux";
+          overlays = [
+            inputs.nix-on-droid.overlays.default
+            # add other overlays
+          ];
+        };
+        home-manager.extraSpecialArgs = specialArgs // {
+          username = "nix-on-droid";
+          flakePath = "/data/data/com.termux.nix/files/home";
+        };
+        nix = {
+          extraOptions = ''
+            experimental-features = nix-command flakes pipe-operators
+          '';
+          registry = {
+            nixpkgs.flake = inputs.nixpkgs;
+          };
+          substituters = [
+            "https://cache.nixos.org"
+            # "https://nixos-cache-proxy.cofob.dev" # ? cloudflare mirror, uses original keys
+
+            "https://nix-community.cachix.org"
+          ];
+          trusted-public-keys = [
+            "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+
+            "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+          ];
+        };
+        modules = [
+          #! ./shared/nix.nix
+          ./nix-on-droid.nix
+        ];
+      };
+
       devShells.${system} = {
         default = pkgs.mkShell {
           #? nix develop ~/config/nix

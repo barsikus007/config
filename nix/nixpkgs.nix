@@ -1,4 +1,8 @@
-{ system, inputs }:
+{
+  system,
+  inputs,
+  overlays ? [ ],
+}:
 let
   # харам, платные приложения
   paidApps = [
@@ -60,6 +64,6 @@ import inputs.nixpkgs {
           )
         )
     )
-  ];
+  ] ++ overlays;
   config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) paidApps;
 }
