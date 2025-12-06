@@ -1,4 +1,9 @@
-{ pkgs, inputs, ... }:
+{
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 #? https://nix-community.github.io/nix-on-droid/nix-on-droid-options.html#sec-options
 {
   # modules = [
@@ -37,7 +42,7 @@
   environment.packages =
     with pkgs;
     [
-      #zsh
+      zsh
 
       # Some common stuff that people expect to have
       #procps
@@ -78,9 +83,14 @@
     # backupFileExtension = "hm-bak";
     config = {
       # Read the changelog before changing this value
-      home.stateVersion = "25.05";
+      home = {
+        stateVersion = lib.mkForce "25.05";
+        homeDirectory = lib.mkForce "/data/data/com.termux.nix/files/home";
+      };
 
       imports = [
+        ./home
+        ./home/shell/minimal.nix
       ];
     };
   };
@@ -88,6 +98,6 @@
   # terminal.colors = { };
   terminal.font = with pkgs; "${cascadia-code}/share/fonts/truetype/CascadiaCodeNF-Regular.ttf";
   # time.timeZone = "Europe/Moscow";
-  user.shell = "${pkgs.zsh}/bin/zsh";
+  # user.shell = "${pkgs.zsh}/bin/zsh";
   # user.userName = "nix-on-droid";
 }

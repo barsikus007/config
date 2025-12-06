@@ -259,18 +259,17 @@
           system = "aarch64-linux";
           overlays = [
             inputs.nix-on-droid.overlays.default
-            # add other overlays
           ];
         };
         extraSpecialArgs = specialArgs // {
           username = "nix-on-droid";
-          flakePath = "/data/data/com.termux.nix/files/home";
+          flakePath = "/data/data/com.termux.nix/files/home/config";
         };
         modules = [
           {
             home-manager.extraSpecialArgs = specialArgs // {
               username = "nix-on-droid";
-              flakePath = "/data/data/com.termux.nix/files/home";
+              flakePath = "/data/data/com.termux.nix/files/home/config";
             };
           }
           #! ./shared/nix.nix

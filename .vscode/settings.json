@@ -16,11 +16,14 @@
                 "expr": "let inputs = (builtins.getFlake (''git+file://'' + toString ./. + ''?dir=nix'')).inputs; system = ''x86_64-linux''; in (import ''${toString ./.}/nix/nixpkgs.nix'' { inherit system inputs; })",
             },
             "options": {
+                "nixos": {
+                    "expr": "(builtins.getFlake (''git+file://'' + toString ./. + ''?dir=nix'')).nixosConfigurations.ROG14.options",
+                },
                 "home-manager": {
                     "expr": "(builtins.getFlake (''git+file://'' + toString ./. + ''?dir=nix'')).homeConfigurations.ogurez.options",
                 },
-                "nixos": {
-                    "expr": "(builtins.getFlake (''git+file://'' + toString ./. + ''?dir=nix'')).nixosConfigurations.ROG14.options",
+                "nix-on-droid": {
+                    "expr": "(builtins.getFlake (''git+file://'' + toString ./. + ''?dir=nix'')).nixOnDroidConfigurations.default.options",
                 },
             },
         }
