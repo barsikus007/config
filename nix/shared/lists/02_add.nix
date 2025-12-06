@@ -13,7 +13,6 @@ with pkgs;
   zellij
   tree
   yazi
-  psmisc # killall pstree
   starship
   fastfetch
   lazygit

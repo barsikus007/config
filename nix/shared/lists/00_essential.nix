@@ -6,6 +6,7 @@ with pkgs;
   curl
   wget
 
+  psmisc # killall pstree
   gnused
   gnugrep
 ]

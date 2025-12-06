@@ -11,4 +11,6 @@ with pkgs;
   neovim
   zoxide
   ripgrep
+
+  ncurses
 ]

@@ -47,7 +47,6 @@
 
       # Some common stuff that people expect to have
       #procps
-      #killall
 
       #diffutils
       #findutils
@@ -66,7 +65,8 @@
       #unzip
     ]
     ++ import ./shared/lists/00_essential.nix { inherit pkgs; }
-    ++ import ./shared/lists/01_base.nix { inherit pkgs; };
+    ++ import ./shared/lists/01_base.nix { inherit pkgs; }
+    ++ import ./shared/lists/02_add.nix { inherit pkgs; };
   environment.motd = "Welcome to Nix-on-Droid!";
   # environment.sessionVariables = { };
 
@@ -97,10 +97,11 @@
       };
     };
   };
+
   # TODO: stylix
   # terminal.colors = { };
   terminal.font = with pkgs; "${cascadia-code}/share/fonts/truetype/CascadiaCodeNF-Regular.ttf";
-  # time.timeZone = "Europe/Moscow";
-  # user.shell = "${pkgs.zsh}/bin/zsh";
+  time.timeZone = "Europe/Moscow";
+  user.shell = "${pkgs.zsh}/bin/zsh";
   # user.userName = "nix-on-droid";
 }
