@@ -150,10 +150,12 @@ in
 
         bindkey -e
         # home
-        #bindkey "^[[H"    beginning-of-line
+        bindkey "^[[H"    beginning-of-line
+        #? probably, for WSL (or wt.exe), but works on wezterm too
         bindkey "^[OH"    beginning-of-line
         # end
-        #bindkey "^[[F"    end-of-line
+        bindkey "^[[F"    end-of-line
+        #? probably, for WSL (or wt.exe), but works on wezterm too
         bindkey "^[OF"    end-of-line
 
         # page up/down
