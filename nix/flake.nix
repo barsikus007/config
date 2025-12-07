@@ -41,6 +41,10 @@
       url = "github:kaylorben/nixcord";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    erosanix = {
+      url = "github:emmanuelrosa/erosanix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     openwrt-imagebuilder = {
       url = "github:astro/nix-openwrt-imagebuilder";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -346,6 +350,18 @@
         kompas3d = callPackage ./packages/kompas3d { };
         kompas3d-fhs = (import ./packages/kompas3d/fhs.nix { inherit pkgs; });
         grdcontrol = callPackage ./packages/grdcontrol.nix { };
+
+        #? https://github.com/emmanuelrosa/erosanix/tree/master/pkgs/mkwindowsapp
+        # link src.zip to flake dir
+        # `nvidia-offload nix run ./nix#photoshop`
+        photoshop = pkgs.callPackage ./packages/photoshop.nix {
+          inherit (inputs.erosanix.lib."${system}") mkWindowsAppNoCC copyDesktopIcons makeDesktopIcon;
+          #? its fucked with unstable wine
+          # wine = wineWowPackages.unstableFull;
+          wine = wineWowPackages.stable;
+          scale = 192;
+          src = ./src.zip;
+        };
 
         openwrt-xiaomi_ax3600 = (import ./packages/openwrt/xiaomi_ax3600.nix { inherit pkgs inputs; });
         openwrt-tplink_archer-c50-v4 = (
