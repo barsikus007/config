@@ -46,9 +46,8 @@
       efi.canTouchEfiVariables = true;
     };
 
-    # https://wiki.nixos.org/wiki/Plymouth
+    #? https://wiki.nixos.org/wiki/Plymouth
     plymouth.enable = true;
-
     # Enable "Silent boot"
     consoleLogLevel = 3;
     initrd.verbose = false;
@@ -93,6 +92,13 @@
     };
   };
 
+  # TODO: laptop generic
+  #! after reboot with/out powersupply it is set to perfomance/schedutil: cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
+  powerManagement.cpuFreqGovernor = "schedutil";
+  services.udev.extraRules = ''
+    ACTION=="add|change", SUBSYSTEM=="power_supply", ATTR{online}=="0", RUN+="${config.boot.kernelPackages.cpupower}/bin/cpupower frequency-set -g schedutil"
+    ACTION=="add|change", SUBSYSTEM=="power_supply", ATTR{online}=="1", RUN+="${config.boot.kernelPackages.cpupower}/bin/cpupower frequency-set -g performance"
+  '';
   # disable 4.2 GHz boost
   systemd.tmpfiles.rules = [
     "w /sys/devices/system/cpu/cpufreq/boost - - - - 0"

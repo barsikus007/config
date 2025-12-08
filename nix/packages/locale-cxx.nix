@@ -9,7 +9,7 @@
 }).overrideAttrs
   (previousAttrs: {
     patchPhase = (previousAttrs.patchPhase or "") + ''
-      substituteInPlace localedata/locales/C \
-        --replace-fail 'd_fmt   "%m//%d//%y"' 'd_fmt   "%F"'
+      substituteInPlace localedata/locales/en_GB \
+        --replace-fail 'd_fmt       "%d//%m//%y"' 'd_fmt       "%F"'
     '';
   })

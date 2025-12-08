@@ -90,6 +90,7 @@ let
       nu = "nix flake update --flake ${flakePath}";
       n = "nh home switch ${flakePath}";
       nn = "nh os switch ${flakePath}";
+      nnn = "sudo true && nn && notify-send 'System build success' && exec $SHELL || notify-send 'System build failed'";
       nd = "nh clean all";
       nr = "nh os repl ${flakePath}";
       nrr = "nh home repl ${flakePath}";

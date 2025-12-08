@@ -90,6 +90,17 @@
     };
   };
 
+  programs.thunderbird = {
+    enable = true;
+    profiles.default = {
+      isDefault = true;
+      settings = {
+        # "general.useragent.override" = "";
+        # "privacy.donottrackheader.enabled" = true;
+      };
+    };
+  };
+
   home.packages = with pkgs; [
     ayugram-desktop
     # (callPackage ../../packages/telegram-desktop-patched.nix {

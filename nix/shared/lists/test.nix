@@ -36,8 +36,6 @@ with pkgs;
   bruno
   devenv
   devbox
-  pixelflasher
-  qtscrcpy
   blender
   # (blender-hip.override {
   #   # blender-hip for rocm amd gpu

@@ -112,6 +112,7 @@
           #  1280 × 800
           "widget.use-xdg-desktop-portal.file-picker" = 1;
           "general.autoScroll" = true; # middle click scroll
+          "middlemouse.paste" = false; # same
           "browser.ctrlTab.sortByRecentlyUsed" = true; # mru ^Tab
           "browser.startup.page" = 3; # Resume previous session on startup
           "browser.translations.neverTranslateLanguages" = "ru";
@@ -124,7 +125,6 @@
           "gfx.webrender.enabled" = true;
           "layout.css.backdrop-filter.enabled" = true;
           "svg.context-properties.content.enabled" = true;
-          "intl.regional_prefs.use_os_locales" = true; # WHY THE FUCK THIS ISN'T DEFAULT???
 
           #? disable ads and telemetry for privacy reasons
           "browser.newtabpage.activity-stream.showSponsored" = false;
@@ -428,7 +428,8 @@
                 }
               ];
 
-              iconMapObj."32" = "https://www.gstatic.com/lamda/images/gemini_sparkle_aurora_33f86dc0c0257da337c63.svg";
+              iconMapObj."32" =
+                "https://www.gstatic.com/lamda/images/gemini_sparkle_aurora_33f86dc0c0257da337c63.svg";
               definedAliases = [ "ge" ];
             };
             "GitHub" = {

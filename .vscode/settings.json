@@ -20,7 +20,8 @@
                     "expr": "(builtins.getFlake (''git+file://'' + toString ./. + ''?dir=nix'')).nixosConfigurations.ROG14.options",
                 },
                 "home-manager": {
-                    "expr": "(builtins.getFlake (''git+file://'' + toString ./. + ''?dir=nix'')).homeConfigurations.ogurez.options",
+                    // "expr": "(builtins.getFlake (''git+file://'' + toString ./. + ''?dir=nix'')).homeConfigurations.ogurez.options",
+                    "expr": "(builtins.getFlake (''git+file://'' + toString ./. + ''?dir=nix'')).nixosConfigurations.ROG14.options.home-manager.users.type.getSubOptions []",
                 },
                 "nix-on-droid": {
                     "expr": "(builtins.getFlake (''git+file://'' + toString ./. + ''?dir=nix'')).nixOnDroidConfigurations.default.options",
