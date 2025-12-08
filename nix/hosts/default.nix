@@ -1,8 +1,9 @@
 {
   pkgs,
+  inputs,
   username,
   flakePath,
-  inputs,
+  specialArgs,
   ...
 }:
 {
@@ -48,6 +49,7 @@
 
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
+  home-manager.extraSpecialArgs = specialArgs;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${username} = {

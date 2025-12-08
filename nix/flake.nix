@@ -209,58 +209,6 @@
           ./home/editors.nix
         ];
       };
-      homeConfigurations.${username} = inputs.home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        extraSpecialArgs = specialArgs;
-        modules = [
-          ./shared
-
-          ./home
-          ./home/shell
-          ./home/editors.nix
-
-          ./home/hardware/anime.nix
-
-          ./home/stylix.nix
-          ./home/shell/404.nix
-          ./home/shell/bat.nix
-
-          ./home/gui
-          ./home/gui/sound.nix
-          ./home/gui/autostart.nix
-          ./home/gui/syncthing.nix
-          ./home/gui/quickshare.nix
-          ./home/gui/terminal.nix
-          ./home/gui/plasma.nix
-          ./home/gui/rofi.nix
-          ./home/gui/mpv.nix
-          ./home/gui/vscode.nix
-          ./home/gui/browser.nix
-          ./home/gui/social.nix
-          ./home/gui/office.nix
-          ./home/gui/bcompare.nix
-          ./home/gui/vm.nix
-
-          ./home/gui/games
-          ./home/gui/games/minecraft.nix
-          commonConfig
-          {
-            programs.nvf.settings.vim.lsp.enable = nixpkgs.lib.mkForce true;
-          }
-          {
-            # TODO: home-manager-module: locales
-            i18n.glibcLocales = (
-              pkgs.callPackage ./packages/locale-cxx.nix {
-                locales = [
-                  "C.UTF-8/UTF-8"
-                  "en_US.UTF-8/UTF-8"
-                  "ru_RU.UTF-8/UTF-8"
-                ];
-              }
-            );
-          }
-        ];
-      };
 
       nixOnDroidConfigurations.default = inputs.nix-on-droid.lib.nixOnDroidConfiguration {
         pkgs = import ./nixpkgs.nix {

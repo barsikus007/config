@@ -1,9 +1,5 @@
-{ inputs, config, ... }:
+{ config, ... }:
 {
-  imports = [
-    inputs.stylix.homeModules.stylix
-    ../shared/stylix.nix
-  ];
   stylix = {
     enable = true;
     # autoEnable = false;

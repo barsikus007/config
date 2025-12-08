@@ -2,6 +2,7 @@
   pkgs,
   inputs,
   config,
+  username,
   ...
 }:
 {
@@ -26,6 +27,7 @@
     ./hardware-configuration.nix
     ../../modules/hardware/fingerprint.nix
   ];
+  home-manager.users.${username} = ./home.nix;
 
   boot = {
     #? Blazing fast https://xanmod.org/
