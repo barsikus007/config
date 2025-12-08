@@ -25,7 +25,8 @@
       inputs.home-manager.follows = "home-manager";
     };
     plasma-manager = {
-      url = "github:nix-community/plasma-manager";
+      # TODO: unstable: https://github.com/nix-community/plasma-manager/issues/556
+      url = "github:nix-community/plasma-manager?ref=d4fae3492172c388777380d67c67c53cc316ffcd";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };

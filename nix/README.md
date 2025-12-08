@@ -164,6 +164,7 @@ sudo $(nix build ~/config/nix#goodix-patch-521d --print-out-paths)/bin/run_521d
 
 ## TODO
 
+- Syncthing Tray/service setup info (isn't declarative)
 - [flake-parts](https://nix-community.github.io/home-manager/index.xhtml#sec-flakes-flake-parts-module)
 - parse nix files for pkgs (or do it via nix script)
 - better way to work with functions in shell.nix

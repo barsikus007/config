@@ -8,6 +8,8 @@ codename `Windows-Resurrect`
   - `sudo modprobe -r vfio-pci && sudo modprobe nvidia{,_modeset,_uvm,_drm}`
 - host off
   - `sudo modprobe -r nvidia{_drm,_uvm,_modeset,} && sudo modprobe vfio-pci`
+  - check what uses gpu
+    - `sudo fuser -v /dev/nvidia*`
 
 ## Windows 10 ISO and setup
 

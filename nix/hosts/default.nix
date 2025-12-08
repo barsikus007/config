@@ -42,8 +42,6 @@
     "Cascadia Code NF"
   ];
 
-  # харам, fhs
-  services.envfs.enable = true;
   #? https://nix-community.github.io/NixOS-WSL/how-to/vscode.html
   # and other stuff
   programs.nix-ld.enable = true;
