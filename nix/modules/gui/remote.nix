@@ -17,7 +17,7 @@
     # TODO https://search.nixos.org/options?query=services.sunshine.applications
   };
 
-  environment.defaultPackages = with pkgs; [
+  environment.systemPackages = with pkgs; [
     rustdesk-flutter
   ];
 }

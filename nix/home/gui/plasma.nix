@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   inputs,
   config,
@@ -12,10 +13,23 @@
   #? have issues with focus, it should focus to explorer every time
   # programs.zsh.initContent = "alias explorer.exe='kioclient exec'";
 
-  gtk.theme.package = pkgs.lib.mkForce pkgs.kdePackages.breeze-gtk;
-  gtk.theme.name = pkgs.lib.mkForce (
-    if (config.stylix.polarity == "light") then "Breeze" else "Breeze-Dark"
-  );
+  #region gtk
+  #! JUST FUCK THIS SHIT: nix-shell -p kdePackages.qttools --run "qdbus org.kde.kded6 /kded org.kde.kded6.loadModule gtkconfig"
+  home.sessionVariables.GTK2_RC_FILES = config.gtk.gtk2.configLocation;
+  gtk = {
+    gtk2 = {
+      configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
+      iconTheme.package = pkgs.gnome-icon-theme;
+      iconTheme.name = "gnome";
+    };
+    iconTheme.package = pkgs.kdePackages.breeze-icons;
+    iconTheme.name = lib.mkForce (
+      if (config.stylix.polarity == "light") then "breeze" else "breeze-dark"
+    );
+    theme.package = lib.mkForce pkgs.kdePackages.breeze-gtk;
+    theme.name = lib.mkForce (if (config.stylix.polarity == "light") then "Breeze" else "Breeze-Dark");
+  };
+  #endregion gtk
 
   #? https://github.com/nix-community/plasma-manager
   #? https://nix-community.github.io/plasma-manager/options.xhtml
@@ -331,13 +345,13 @@
 
       # [plasmashell]
       # show-on-mouse-pos=none,Meta+V,Show Clipboard Items at Mouse Position
-      "plasmashell" = {
-        "show-on-mouse-pos" = "";
-      };
+      # "plasmashell" = {
+      #   "show-on-mouse-pos" = "";
+      # };
+      # "services/com.github.hluk.copyq.desktop" = {
+      #   "_launch" = "Meta+V";
+      # };
 
-      "services/com.github.hluk.copyq.desktop" = {
-        "_launch" = "Meta+V";
-      };
       "services/org.kde.konsole.desktop" = {
         "_launch" = "none";
       };

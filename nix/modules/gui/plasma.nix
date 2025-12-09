@@ -20,27 +20,15 @@
     };
   };
   services.desktopManager.plasma6.enable = true;
-  # environment.plasma6.excludePackages = with pkgs.kdePackages; [
-  #   #? https://github.com/NixOS/nixpkgs/blob/nixos-25.05/nixos/modules/services/desktop-managers/plasma6.nix#L159-L174
-  #   # plasma-browser-integration
-  #   # konsole
-  #   # (lib.getBin qttools) # Expose qdbus in PATH
-  #   # ark
-  #   # elisa
-  #   # gwenview
-  #   # okular
-  #   # kate
-  #   # khelpcenter
-  #   # dolphin
-  #   # baloo-widgets # baloo information in Dolphin
-  #   # dolphin-plugins
-  #   # spectacle
-  #   # ffmpegthumbs
-  #   # krdp
-  #   # xwaylandvideobridge # exposes Wayland windows to X11 screen capture
-  # ];
-  environment.defaultPackages = with pkgs; [
-    # https://wiki.nixos.org/wiki/Dolphin
+  #? https://github.com/NixOS/nixpkgs/blob/d960d804370080d9ba0d4d197c3269e7e001b0e3/nixos/modules/services/desktop-managers/plasma6.nix#L151-L169
+  # environment.plasma6.excludePackages = with pkgs.kdePackages; [ ];
+  environment.systemPackages = with pkgs; [
+    #? The fallback for GNOME apps
+    gnome-icon-theme
+    #? gtk2 console warning fix
+    gnome-themes-extra
+
+    #? https://wiki.nixos.org/wiki/Dolphin
     kdePackages.qtsvg
     kdePackages.kio
     kdePackages.kio-fuse

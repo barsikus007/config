@@ -62,6 +62,7 @@
         "ru": true
     },
     "editor.foldingMaximumRegions": 50000,
+    "terminal.integrated.stickyScroll.enabled": false,
     "terminal.integrated.scrollback": 50000,
     // "editor.maxTokenizationLineLength": 200000,
     // #endregion behavior
@@ -247,13 +248,6 @@
     "gutterpreview.showUnderline": true,
     "editor.guides.bracketPairs": "active",
     "editor.inlineSuggest.enabled": true,
-    //
-    "github.copilot.enable": {
-        "*": true,
-        "plaintext": false,
-        "markdown": true,
-        "scminput": false
-    },
     // "hadolint.hadolintPath": "/usr/bin/hadolint",
     "sourcery.codeLens": false,
     // #endregion todo

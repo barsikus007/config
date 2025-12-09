@@ -3,7 +3,7 @@
   programs.adb.enable = true;
   users.users.${username}.extraGroups = [ "adbusers" ];
 
-  environment.defaultPackages = with pkgs; [
+  environment.systemPackages = with pkgs; [
     android-file-transfer
     (callPackage ../packages/adbfs-rootless-libfuse-3.nix { })
   ];

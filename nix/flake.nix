@@ -153,7 +153,7 @@
               #? https://github.com/NixOS/nixpkgs/blob/cf468dffe856afaf83e755de82d20e72ccf183c2/pkgs/by-name/st/steam/package.nix#L72
             ]; # ++ pkgs.steam-run.args.multiPkgs pkgs;
 
-            environment.defaultPackages = with pkgs; [
+            environment.systemPackages = with pkgs; [
               (callPackage ./packages/anicli-ru { })
               (callPackage ./packages/shdotenv.nix { })
               (callPackage ./packages/libspeedhack { })
