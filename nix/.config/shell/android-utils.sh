@@ -56,7 +56,7 @@ adbfs_connected() {
 
 adbfs_disconnect() {
   local TO_UMOUNT
-  TO_UMOUNT=$(mount | grep adbfs | fzf | cut --delimiter " " --fields 3)
+  TO_UMOUNT=$(mount | grep adbfs | fzf | cut --delimiter=" " --fields=3)
   [ -z "$TO_UMOUNT" ] && echo "No mount selected" && return 1
   pgrep --full "$TO_UMOUNT"
   umount "$TO_UMOUNT"

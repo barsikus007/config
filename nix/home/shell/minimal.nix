@@ -92,7 +92,7 @@ let
       nn = "nh os switch ${flakePath}";
       nnn = "sudo true && nn && notify-send 'System build success' && exec $SHELL || notify-send 'System build failed'";
       nd = "nh clean all";
-      nr = "nh os repl ${flakePath}";
+      nr = "nix repl ${flakePath}/repl.nix";
       nrr = "nh home repl ${flakePath}";
       nrrr = "${lib.getExe pkgs.nixos-rebuild} repl --flake ${flakePath}";
       ne = "editor ${flakePath}";

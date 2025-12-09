@@ -7,7 +7,7 @@
 }:
 {
   imports = [ inputs.nvf.homeManagerModules.default ];
-  # home.sessionVariables.MANPAGER = "nvim +Man!";
+  home.sessionVariables.MANPAGER = "nvim +Man!";
   programs.nvf = {
     enable = true;
     defaultEditor = true;

@@ -28,7 +28,7 @@ a() {
   print -z -- $(
     alias | awk -F= '{print $1}' |
     fzf --height 40% --border --prompt="Alias: " \
-        --preview "zsh  -c 'source ~/.zshrc && alias {} | cut -d= -f2-' | tr -d \' | bat -l sh --style=plain --color=always" \
+        --preview "zsh  -c 'source ~/.zshrc && alias {} | cut --delimiter== --fields=2-' | tr --delete \' | bat --language sh --style=plain --color=always" \
         --preview-window 80%
   )
 }
