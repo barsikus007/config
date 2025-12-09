@@ -12,7 +12,7 @@
 - [USB Tree View](https://www.uwe-sieber.de/usbtreeview_e.html#download)
 - [WiFiHotspot](https://mypublicwifi.com/publicwifi/en/index.html)
 - [Shadow Defender](http://www.shadowdefender.com/download/Setup.exe)
-  - VMACN-4MA3W-S4RHY-5HYT4-GZNN4
+  - `VMACN-4MA3W-S4RHY-5HYT4-GZNN4`
 - [Virtual Monitor](https://github.com/nomi-san/parsec-vdd/releases/latest)
   - [old](https://www.amyuni.com/forum/viewtopic.php?t=3030)
     - [died, but still able to download](https://www.amyuni.com/downloads/usbmmidd.zip)
@@ -39,9 +39,8 @@
 
 ## Torrent Edition
 
-- VMware.WorkstationPlayer
-- VMware.WorkstationPro
-- or other virtual thing
+- `VMware.WorkstationPro`
+  - try Hyper-V instead
 
 ## winget
 
@@ -81,7 +80,7 @@ sudo winget install -e --id Microsoft.dotnetRuntime.6-x64 -h
 sudo winget install -e --id Microsoft.VisualStudio.2022.BuildTools --override '--add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --add Microsoft.VisualStudio.Component.Windows10SDK.19041 --quiet --wait'
 ```
 
-// scoop probably broken
+#### probably broken in scoop
 
 - AnyDeskSoftwareGmbH.AnyDesk
 - Microsoft.PowerToys
@@ -105,7 +104,7 @@ sudo winget install -e --id Microsoft.VisualStudio.2022.BuildTools --override '-
 - Nvidia.CUDA
 - Nvidia.GeForceExperience
 
-// scoop probably broken
+#### probably broken in scoop
 
 - IrfanSkiljan.IrfanView
 - Oracle.JavaRuntimeEnvironment

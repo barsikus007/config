@@ -28,7 +28,7 @@ sudo reg add "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\TimeZoneInform
 ## Powershell lifehack to bypas security policy
 
 ```powershell
-PowerShell.exe -ExecutionPolicy Bypass -File filename
+PowerShell.exe -ExecutionPolicy Bypass -File <filename>
 ```
 
 ## [Soft](./soft.md)
