@@ -8,12 +8,9 @@ let
   paidApps = [
     "nvidia-x11"
     "nvidia-settings"
-    "nvidia-persistenced"
 
     "steam"
     "steam-unwrapped"
-    "steam-original"
-    "steam-run"
 
     "7zz"
     "unrar"
@@ -25,7 +22,6 @@ let
     "cuda_nvcc"
     "cuda_cccl"
 
-    "code"
     "vscode"
     "discord"
     "obsidian"

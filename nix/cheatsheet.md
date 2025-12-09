@@ -100,6 +100,27 @@ in
 lib.attrsets.filterAttrs (_: v: comparePackages v) disabledSmth
 ```
 
+### show unfree (paid) apps
+
+```nix
+let
+  allExplicitPkgs =
+    config.environment.systemPackages
+    ++ lib.concatMap (u: u.home.packages) (lib.attrValues config.home-manager.users)
+    ++ lib.concatMap (u: u.packages) (lib.attrValues config.users.users)
+    ++ config.fonts.packages
+    ++ [ config.boot.kernelPackages.kernel ];
+
+  isUnfree =
+    pkg:
+    let
+      licenses = lib.toList (pkg.meta.license or [ ]);
+    in
+    lib.any (l: !(l.free or true)) licenses;
+in
+lib.unique (lib.filter isUnfree allExplicitPkgs)
+```
+
 ## nix
 
 ### hash
