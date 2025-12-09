@@ -41,6 +41,14 @@
         enable = true;
         editor = false;
         configurationLimit = 5;
+        # TODO: hackintosh (and/or refind)
+        extraEntries = {
+          "macos.conf" = ''
+            title macOS
+            efi /efi/OC/OpenCore.efi
+          '';
+        };
+        # sort-key macos
         # rebootForBitlocker = true;
       };
       efi.canTouchEfiVariables = true;

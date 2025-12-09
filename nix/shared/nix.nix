@@ -6,6 +6,7 @@
 }:
 {
   nix.package = pkgs.nix;
+  nix.channel.enable = false;
   nix.registry = {
     nixpkgs.flake = inputs.nixpkgs;
   };

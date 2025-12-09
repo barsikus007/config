@@ -14,6 +14,16 @@ roots:
     path: /home/ogurez/.config/heroic
   - store: steam
     path: /run/media/ogurez/Data/games/SteamLibrary
+  - store: gogGalaxy
+    path: /run/media/ogurez/Data/games/GOG Galaxy
+  - store: epic
+    path: /run/media/ogurez/Data/games/Epic Games
+  - store: other
+    path: /run/media/ogurez/Data/games/TorrentEdition
+  - store: otherWindows
+    path: /run/media/ogurez/Data
+  - store: otherWindows
+    path: /run/media/ogurez/System
 redirects: []
 backup:
   path: /run/media/ogurez/NAS/data/saves
