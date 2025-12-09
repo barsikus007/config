@@ -28,7 +28,7 @@ nix eval --impure --raw --expr '
   with import <nixpkgs> {};
   pkgs.lib.generators.toGitINI
     ((builtins.getFlake "github:barsikus007/config?dir=nix")
-      .homeConfigurations.ogurez.config.programs.git.iniContent)
+      .nixosConfigurations.ROG14.config.home-manager.users.ogurez.programs.git.iniContent)
 ' > ~/.config/git/config
 ```
 
@@ -156,7 +156,7 @@ hatch run true
       - Show Peer IDs in Profile
       - Send large photos
       - Enable webview inspecting
-- [CH340/CH341 driver (chineese Arduino)](https://web.archive.org/https://www.wch-ic.com/downloads/ch341ser_zip.html)
+- [CH340/CH341 driver (chinese Arduino)](https://web.archive.org/https://www.wch-ic.com/downloads/ch341ser_zip.html)
 
 ### TODO
 
