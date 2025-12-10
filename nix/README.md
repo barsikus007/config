@@ -175,6 +175,7 @@ sudo $(nix build ~/config/nix#goodix-patch-521d --print-out-paths)/bin/run_521d
 - nix-on-droid
   - `nix-shell -p <smth>`
     - needs for channel?
+      - fix channels somehow?
   - [sudo](https://github.com/nix-community/nix-on-droid/issues/252)
     - not worth it, use [NixOS-AVF](https://github.com/nix-community/nixos-avf)
 - [OpenWrt Image](./packages/openwrt/xiaomi_ax3600.nix)

@@ -130,8 +130,8 @@ distrobox create --name astra --image registry.astralinux.ru/astra/ubi18:latest
 
 - `sudo cfdisk /dev/...`
   - `sudo parted`
-- `nix-shell -p ntfs3g --run 'sudo ntfsfix /dev/nvme0n1p3'`
-  - `nix-shell -p ntfs3g --run 'sudo ntfsfix /dev/nvme0n1p3 --clear-dirty'`
+- `nix shell nixpkgs#ntfs3g --command sudo ntfsfix /dev/nvme0n1p3`
+  - `nix shell nixpkgs#ntfs3g --command sudo ntfsfix /dev/nvme0n1p3 --clear-dirty`
 
 ## commands
 

@@ -188,7 +188,7 @@ sudo dmidecode --type chassis | awk  -F  ': ' '
 
 ### [windows update ISO](https://gravesoft.dev/update-windows-iso)
 
-- `nix-shell -p aria2 cabextract wimlib chntpw cdrkit`
+- `nix shell nixpkgs#{aria2,cabextract,wimlib,chntpw,cdrkit}`
 - [WIN10UI](https://github.com/mariahlamb31/BatUtil/tree/27ab2d01e2d2cf47c87835c90a0991ca4d7c5f64/W10UI)
   - 1h50m and 30-50G needed to build in VM (50m on host)
 - [win10 LTSC](https://uupdump.net/known.php?q=category:w10-21h2)

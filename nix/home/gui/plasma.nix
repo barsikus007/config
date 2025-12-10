@@ -14,7 +14,7 @@
   # programs.zsh.initContent = "alias explorer.exe='kioclient exec'";
 
   #region gtk
-  #! JUST FUCK THIS SHIT: nix-shell -p kdePackages.qttools --run "qdbus org.kde.kded6 /kded org.kde.kded6.loadModule gtkconfig"
+  #! JUST FUCK THIS SHIT: nix shell nixpkgs#kdePackages.qttools --command qdbus org.kde.kded6 /kded org.kde.kded6.loadModule gtkconfig
   home.sessionVariables.GTK2_RC_FILES = config.gtk.gtk2.configLocation;
   gtk = {
     gtk2 = {
