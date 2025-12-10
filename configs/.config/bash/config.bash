@@ -29,6 +29,17 @@ if hash starship &> /dev/null; then
   eval "$(starship init bash)"
 fi
 
+# https://yazi-rs.github.io/docs/quick-start/
+if hash yazi &> /dev/null; then
+  function yy() {
+    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+    yazi "$@" --cwd-file="$tmp"
+    IFS= read -r -d '' cwd < "$tmp"
+    [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+    rm -f -- "$tmp"
+  }
+fi
+
 if hash batcat &> /dev/null; then
   alias bat=batcat
   alias cat=batcat
