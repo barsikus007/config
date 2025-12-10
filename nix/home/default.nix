@@ -32,6 +32,7 @@
     sessionPath = [
       "${config.home.sessionVariables.XDG_BIN_HOME}"
     ];
+    preferXdgDirectories = true;
   };
 
   xdg.enable = true;
