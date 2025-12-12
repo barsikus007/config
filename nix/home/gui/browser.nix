@@ -409,10 +409,15 @@
               definedAliases = [ "ru" ];
             };
             # TODO: not working due to url escapism
-            "Web Archive" = {
+            "Web Archive Wayback" = {
               urls = [ { template = "https://web.archive.org/web/*/{searchTerms}"; } ];
               iconMapObj."32" = "https://web-static.archive.org/_static/images/archive.ico";
               definedAliases = [ "ar" ];
+            };
+            "Web Archive Is" = {
+              urls = [ { template = "https://archive.is/{searchTerms}"; } ];
+              iconMapObj."32" = "https://archive.is/favicon.ico";
+              definedAliases = [ "arr" ];
             };
             "Grok" = {
               urls = [
@@ -466,7 +471,10 @@
               ];
 
               iconMapObj."32" = "https://github.com/favicons/favicon.svg";
-              definedAliases = [ "gi" ];
+              definedAliases = [
+                "gi"
+                "gh"
+              ];
             };
             "GitHub Nix" = {
               urls = [

@@ -9,8 +9,9 @@
   xdg.mimeApps = {
     defaultApplications = {
       "x-scheme-handler/discord" = [
+        # "discord.desktop"
         "vesktop.desktop"
-        "discord.desktop"
+        # "dorion.desktop"
       ];
     }
     // lib.genAttrs [

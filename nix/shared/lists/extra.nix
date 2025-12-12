@@ -11,6 +11,7 @@ with pkgs;
   aria2
   sbctl # for systemd-boot (and lumine) secure boot
   unrar
+  yq-go
   ffmpeg
   yt-dlp
   pciutils # lspci

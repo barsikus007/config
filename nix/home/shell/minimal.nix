@@ -69,7 +69,8 @@ let
     zps = "zpool status -v";
     sex = "explorer.exe .";
     lzg = "lazygit";
-    yt-dlpa = "yt-dlp -N 16 -R inf";
+    yt-dlpa = "yt-dlp --concurrent-fragments=16 --retries=inf";
+    aria2ca = "aria2c --split=16 --max-connection-per-server=16 --continue";
   };
   ezaAliases = {
     l = "eza -F -bghM --smart-group --group-directories-first --color=auto --color-scale --icons=always --no-quotes --hyperlink";

@@ -9,7 +9,7 @@
 
 ### misc
 
-- ventoy: `NIXPKGS_ALLOW_UNFREE=1 NIXPKGS_ALLOW_INSECURE=1 nix shell nixpkgs#ventoy-full-qt`
+- ventoy: `NIXPKGS_ALLOW_UNFREE=1 NIXPKGS_ALLOW_INSECURE=1 nix shell --impure nixpkgs#ventoy-full-qt`
   - `sudo ventoy-gui /dev/...`
   - `sudo ventoy-plugson /dev/...`
 

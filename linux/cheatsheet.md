@@ -262,6 +262,10 @@ localepreview () {
 command=<command to check>
 strace --trace=file --string-limit=200 \
 $(command) 2> ~/strace-$(date +%Y-%m-%d'_'%H_%M_%S).log
+
+strace --trace=openat --attach <PID>
+
+sudo fatrace . 2>&1 | grep <process or folder name>
 ```
 
 ### check file changes in folder

@@ -3,18 +3,15 @@
 {
   programs.mpv = {
     enable = true;
-    package = (
-      pkgs.mpv-unwrapped.wrapper {
-        scripts = with pkgs.mpvScripts; [
+    package =
+      with pkgs;
+      (mpv.override {
+        scripts = with mpvScripts; [
+          mpris
           uosc
           thumbfast
         ];
-
-        mpv = pkgs.mpv-unwrapped.override {
-          waylandSupport = true;
-        };
-      }
-    );
+      });
   };
   xdg.configFile."mpv".source = ../../.config/mpv;
 }

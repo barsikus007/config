@@ -3,11 +3,31 @@
   pkgs,
   inputs,
   config,
+  custom,
   ...
 }:
 {
   imports = [ inputs.plasma-manager.homeModules.plasma-manager ];
-  home.packages = if config.custom.isAsus then with pkgs; [ supergfxctl-plasmoid ] else [ ];
+  home.packages =
+    with pkgs;
+    (if custom.isAsus then [ supergfxctl-plasmoid ] else [ ])
+    ++ [
+      (pkgs.writeShellScriptBin "inspect-window" ''
+        WINDOW_ID=$(${kdotool}/bin/kdotool getactivewindow)
+        if [ -z "$WINDOW_ID" ]; then
+          ${libnotify}/bin/notify-send "Error" "No valid window ID obtained. Did you focus a window?" --urgency=critical
+          exit 1
+        fi
+
+        PID=$(${kdotool}/bin/kdotool getwindowpid "$WINDOW_ID")
+        if [ -z "$PID" ]; then
+            ${libnotify}/bin/notify-send "Error" "No valid PID obtained for window ID $WINDOW_ID." --urgency=critical
+            exit 1
+        fi
+
+        ${wezterm}/bin/wezterm start --always-new-process -- ${btop}/bin/btop --filter "$PID"
+      '')
+    ];
 
   programs.zsh.initContent = ''explorer.exe() {dolphin --new-window "$@" 1>/dev/null 2>/dev/null & disown}'';
   #? have issues with focus, it should focus to explorer every time
@@ -38,7 +58,7 @@
     overrideConfig = true;
 
     hotkeys.commands =
-      if config.custom.isAsus then
+      if custom.isAsus then
         {
           "laptop-button-rog" = {
             name = "Laptop ROG Button";
@@ -55,10 +75,15 @@
             key = "Meta+Shift+S";
             command = "zsh -c \"noanime && anime\"";
           };
+          "inspect-window" = {
+            name = "Open Current Window in btop";
+            key = "Meta+Shift+`";
+            command = "inspect-window";
+          };
         }
       else
         { };
-    kscreenlocker.timeout = 10;
+    kscreenlocker.timeout = 15;
     powerdevil = {
       batteryLevels = {
         lowLevel = 30;
@@ -215,8 +240,8 @@
                 # "applications:microsoft-edge.desktop"
                 "applications:code.desktop"
                 "applications:com.ayugram.desktop.desktop"
-                "applications:discord.desktop"
-                # "applications:vesktop.desktop"
+                # "applications:discord.desktop"
+                "applications:vesktop.desktop"
                 # "applications:dorion.desktop"
                 "applications:obsidian.desktop"
                 "applications:bcompare.desktop"

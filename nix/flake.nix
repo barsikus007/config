@@ -89,7 +89,8 @@
         ];
       };
       nixosConfigurations."ROG14" = nixpkgs.lib.nixosSystem {
-        inherit system specialArgs pkgs;
+        inherit system pkgs;
+        specialArgs = specialArgs // commonConfig;
         modules = [
           ./shared
 
