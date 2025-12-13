@@ -106,6 +106,8 @@
     "[nix]": {
         "editor.formatOnSave": true,
     },
+    //? nix for dev shells
+    "direnv.status.showChangesCount": false,
     // #endregion nix
     // #region python
     "python.analysis.autoFormatStrings": true,

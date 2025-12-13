@@ -101,6 +101,7 @@
           ./modules/hardware/xbox.nix
           ./modules/hardware/wifi-unlimited.nix
 
+          ./modules/shell
           ./modules/containers
           ./modules/locale.nix
           ./modules/network.nix
@@ -261,7 +262,7 @@
               hatch
             ];
             shellHook = ''
-              echo "Welcome to the Python ${pythonPkg.version} devShell!"
+              echo "🐍 Welcome to the Python ${pythonPkg.version} devShell!"
               zsh; exit
             '';
           };
