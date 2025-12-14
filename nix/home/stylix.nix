@@ -4,16 +4,21 @@
     enable = true;
     # autoEnable = false;
     targets = {
-      # kde.enable = false;
-      # gtk.enable = false;
-      bat.enable = false;
+      # TODO: unstable: https://github.com/nix-community/stylix/issues/869: user profile: stylix: qt: `config.stylix.targets.qt.platform` other than 'qtct' are currently unsupported: kde. Support may be added in the future.
+      # TODO: unstable: https://github.com/NixOS/nixpkgs/issues/359129
+      # qt.platform = "qtct";
+
+      mpv.enable = false;
       vscode.enable = false;
       nixcord.enable = false;
 
-      # firefox.profileNames = [ "default" ];
-      # due to font troubles
+      #? due to font troubles
       firefox.enable = false;
-      mpv.enable = false;
+      # firefox.profileNames = [ "default" ];
+
+      #? shell
+      bat.enable = false;
+      fzf.enable = false;
     };
   };
 

@@ -55,6 +55,18 @@
         trouble.enable = true;
         # https://github.com/ray-x/lsp_signature.nvim
         lspSignature.enable = true;
+
+        servers = {
+          nixd.init_options = {
+            # TODO: home-manager-module
+            nixpkgs.expr = "let inputs = (builtins.getFlake ''${flakePath}'').inputs; system = ''x86_64-linux''; in (import ''\${toString ./.}/nix/nixpkgs.nix'' { inherit system inputs; })";
+            options = {
+              nixos.expr = "(builtins.getFlake ''${flakePath}'').nixosConfigurations.ROG14.options";
+              # home-manager.expr = "(builtins.getFlake ''${flakePath}'').homeConfigurations.${username}.options";
+              home-manager.expr = "(builtins.getFlake ''${flakePath}'').nixosConfigurations.ROG14.options.home-manager.users.type.getSubOptions []";
+            };
+          };
+        };
       };
 
       # This section does not include a comprehensive list of available language modules.
@@ -65,24 +77,10 @@
         enableExtraDiagnostics = true;
 
         # Languages that will be supported in default and maximal configurations.
-        nix = {
-          enable = true;
-          lsp = {
-            server = "nixd";
-            options = {
-              # TODO: home-manager-module
-              nixpkgs.expr = "let inputs = (builtins.getFlake ''${flakePath}'').inputs; system = ''x86_64-linux''; in (import ''\${toString ./.}/nix/nixpkgs.nix'' { inherit system inputs; })";
-              options = {
-                nixos.expr = "(builtins.getFlake ''${flakePath}'').nixosConfigurations.ROG14.options";
-                # home-manager.expr = "(builtins.getFlake ''${flakePath}'').homeConfigurations.${username}.options";
-                home-manager.expr = "(builtins.getFlake ''${flakePath}'').nixosConfigurations.ROG14.options.home-manager.users.type.getSubOptions []";
-              };
-            };
-          };
-        };
+        nix.enable = true;
         python = {
           enable = true;
-          format.type = "ruff";
+          format.type = [ "ruff" ];
         };
         ts.enable = true;
         css.enable = true;

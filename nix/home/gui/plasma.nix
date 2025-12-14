@@ -105,6 +105,9 @@
       # cursor.theme = "Breeze_Dark";
       # cursor.size = 24;
       lookAndFeel =
+        if (config.stylix.targets.kde.enable) then
+          "stylix"
+        else
         if (config.stylix.polarity == "light") then
           "org.kde.breeze.desktop"
         else

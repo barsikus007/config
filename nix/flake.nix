@@ -129,8 +129,6 @@
 
           commonConfig
           {
-            # TODO: unstable: https://github.com/NixOS/nixpkgs/issues/462935
-            services.orca.enable = false;
             programs.nix-ld.libraries = with pkgs; [
               #? nix-index
               #? nix-locate lib/libgobject-2.0.so.0
