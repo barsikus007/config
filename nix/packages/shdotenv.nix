@@ -7,14 +7,14 @@
   coreutils,
 }:
 #? https://github.com/NixOS/nixpkgs/pull/348161
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "shdotenv";
   version = "0.14.0";
 
   src = fetchFromGitHub {
     owner = "ko1nksm";
     repo = "shdotenv";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-3O9TUA3/vuC12OJTxVVoAGmgSRq+1xPG7LxX+aXqVCo=";
   };
 
@@ -51,4 +51,4 @@ stdenv.mkDerivation rec {
     ];
     mainProgram = "shdotenv";
   };
-}
+})

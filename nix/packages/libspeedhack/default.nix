@@ -4,14 +4,14 @@
   fetchFromGitHub,
 }:
 #? https://github.com/NixOS/nixpkgs/pull/202212
-multiStdenv.mkDerivation rec {
+multiStdenv.mkDerivation (finalAttrs: {
   pname = "libspeedhack";
   version = "0.1-x86-multilib";
 
   src = fetchFromGitHub {
     owner = "evg-zhabotinsky";
-    repo = pname;
-    rev = version;
+    repo = finalAttrs.pname;
+    rev = finalAttrs.version;
     hash = "sha256-+ymV3hWeNtnaUBPkbELhloQ1UVf1vAwXnPOMj2aun54=";
   };
 
@@ -20,7 +20,7 @@ multiStdenv.mkDerivation rec {
   ];
 
   postPatch = ''
-    substituteInPlace ${meta.mainProgram} --replace-fail %OUT% $out
+    substituteInPlace ${finalAttrs.meta.mainProgram} --replace-fail %OUT% $out
   '';
 
   buildPhase = ''
@@ -31,7 +31,7 @@ multiStdenv.mkDerivation rec {
     mkdir -p $out/lib/64 $out/lib/32 $out/bin
     cp lib64/* $out/lib/64
     cp lib32/* $out/lib/32
-    cp ${meta.mainProgram} $out/bin
+    cp ${finalAttrs.meta.mainProgram} $out/bin
   '';
 
   meta = with lib; {
@@ -45,4 +45,4 @@ multiStdenv.mkDerivation rec {
     ];
     mainProgram = "speedhack";
   };
-}
+})

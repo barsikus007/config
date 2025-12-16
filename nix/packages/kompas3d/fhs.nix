@@ -3,7 +3,7 @@ with pkgs;
 let
   kompas = (callPackage ./default.nix { });
 in
-buildFHSEnv rec {
+buildFHSEnv {
   pname = "kompas3d-fhs";
   inherit (kompas) version;
 

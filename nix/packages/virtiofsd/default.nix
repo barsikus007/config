@@ -6,15 +6,15 @@
   libcap_ng,
   libseccomp,
 }:
-
-rustPlatform.buildRustPackage rec {
+#? https://gitlab.com/virtio-fs/virtiofsd/-/issues/96#note_2514997399
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "virtiofsd-hreitz-fork";
   version = "8fa5564fdd4d5296997fb054a5e3193e18a81bcf"; # The specific commit hash
 
   src = fetchFromGitLab {
     owner = "hreitz";
     repo = "virtiofsd-rs";
-    rev = version; # Use the commit hash
+    rev = finalAttrs.version; # Use the commit hash
     hash = "sha256-QjLOjH+AvF3I9ffLTRhEfwRKG7SIjTy9kQv3Q/it+hs=";
   };
 
@@ -52,4 +52,4 @@ rustPlatform.buildRustPackage rec {
     ];
     mainProgram = "virtiofsd";
   };
-}
+})
