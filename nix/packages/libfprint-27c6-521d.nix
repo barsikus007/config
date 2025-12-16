@@ -38,25 +38,6 @@ stdenv.mkDerivation {
     hash = "sha256-Zov/PfvKBfnoRUyUGsOsofrTt80kHq0eKCKlRXyvnio=";
   };
 
-  #? https://gcc.gnu.org/gcc-14/porting_to.html#incompatible-pointer-types
-  env.NIX_CFLAGS_COMPILE = "-Wno-error=incompatible-pointer-types";
-
-  patchPhase = ''
-    # disable building GObject Introspection repository
-    sed -i "8c       value: false)" ./meson_options.txt
-    # set correct udev rules path for nix
-    sed -i "16c       value: '$out/lib/udev')" ./meson_options.txt
-    # set correct udev hwdb path for nix
-    sed -i "24c       value: '$out/lib/udev')" ./meson_options.txt
-    # don't build API docs
-    sed -i "32c       value: false)" ./meson_options.txt
-  ''
-  # don't install tests
-  + lib.strings.optionalString (!withTests) ''
-    # don't install tests
-    sed -i "36c       value: false)" ./meson_options.txt
-  '';
-
   nativeBuildInputs = [
     meson
     ninja
@@ -79,6 +60,25 @@ stdenv.mkDerivation {
     cairo
   ];
   mesonBuildType = "release";
+
+  #? https://gcc.gnu.org/gcc-14/porting_to.html#incompatible-pointer-types
+  env.NIX_CFLAGS_COMPILE = "-Wno-error=incompatible-pointer-types";
+
+  patchPhase = ''
+    # disable building GObject Introspection repository
+    sed -i "8c       value: false)" ./meson_options.txt
+    # set correct udev rules path for nix
+    sed -i "16c       value: '$out/lib/udev')" ./meson_options.txt
+    # set correct udev hwdb path for nix
+    sed -i "24c       value: '$out/lib/udev')" ./meson_options.txt
+    # don't build API docs
+    sed -i "32c       value: false)" ./meson_options.txt
+  ''
+  # don't install tests
+  + lib.strings.optionalString (!withTests) ''
+    # don't install tests
+    sed -i "36c       value: false)" ./meson_options.txt
+  '';
 
   meta = with lib; {
     homepage = "https://github.com/infinytum/libfprint/tree/driver/goodix-521d";
