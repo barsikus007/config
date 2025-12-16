@@ -10,6 +10,7 @@ nix run --override-input nixpkgs nixpkgs github:barsikus007/config?dir=nix# <tab
 - [adbfs with libfuse experemental](./adbfs-rootless-libfuse-3.nix)
 - [anicli anime TUI client](./anicli-ru/)
 - [bcompare 5 diff tool](./bcompare5.nix)
+  - `sed -i '/CheckID/d' ~/.config/bcompare5/BCState.xml.bak`
 - [davinci-resolve communism edition](./davinci-resolve-studio.nix)
 - TODO
 - [minecraftia 2 font](./minecraftia.nix)

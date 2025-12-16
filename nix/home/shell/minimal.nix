@@ -75,6 +75,7 @@ let
   ezaAliases = {
     l = "eza -F -bghM --smart-group --group-directories-first --color=auto --color-scale --icons=always --no-quotes --hyperlink";
     ll = "eza -F -labghM --smart-group --group-directories-first --color=auto --color-scale --icons=always --no-quotes --hyperlink";
+    lls = ''\command ls'';
   };
   nvimAliases = {
     editor = "nvim";

@@ -52,6 +52,9 @@
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
   home-manager.extraSpecialArgs = specialArgs;
+  home-manager.backupFileExtension = "hmbackup";
+  #? fd -H hmbackup
+  #? fd -H hmbackup | xargs rm
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${username} = {

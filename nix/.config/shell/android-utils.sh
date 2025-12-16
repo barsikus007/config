@@ -66,5 +66,5 @@ scrcpy_connect() {
   local ANDROID_DEVICE
   ANDROID_DEVICE=$(_get_android_device)
   [ -z "$ANDROID_DEVICE" ] && echo "No device selected" && return 1
-  scrcpy --render-driver=opengles2 --no-audio -K -b 1M -s "$ANDROID_DEVICE"
+  scrcpy -K --render-driver=opengles2 --no-audio --video-bit-rate=1M --serial="$ANDROID_DEVICE" "$@"
 }

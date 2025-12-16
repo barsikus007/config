@@ -50,12 +50,17 @@
 
 ### msstore
 
+- [get APPX by link/id](https://store.rg-adguard.net/)
+
 ```powershell
 winget upgrade --accept-source-agreements
 # paint3d
-winget install -e --id 9NBLGGH5FV99
+winget install -e --id=9NBLGGH5FV99 --accept-package-agreements
 # minecraft
-winget install -e --id 9NBLGGH2JHXJ
+winget install -e --id=9NBLGGH2JHXJ --accept-package-agreements
+# xbox, gamepad
+winget install -e --id=9MV0B5HZVK9Z --accept-package-agreements
+winget install -e --id=9NBLGGH30XJ3 --accept-package-agreements
 ```
 
 ### CORE APPS

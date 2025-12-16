@@ -238,6 +238,9 @@
     "[prisma]": {
         "editor.formatOnSave": true
     },
+    "[typst]": {
+        "editor.formatOnSave": true
+    },
     // #endregion other
     // #region todo
     // new

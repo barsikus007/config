@@ -83,6 +83,7 @@ lurkmore.media##.sitenotice
   - <https://github.com/zero-peak/ZeroOmega>
   - <https://selectorgadget.com/>
     - <https://github.com/hermit-crab/ScrapeMate>
+  - [skip bitly like sites](https://github.com/FastForwardTeam/FastForward)
 
 ## Dev Tools console
 

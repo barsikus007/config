@@ -449,6 +449,7 @@
 
       "dolphinrc"."General"."ShowFullPath" = true;
       "dolphinrc"."General"."BrowseThroughArchives" = true;
+      "dolphinrc"."UiSettings"."ColorScheme" = "";
       # "dolphinrc"."DetailsMode"."PreviewSize" = 16;
       # "dolphinrc"."KFileDialog Settings"."Places Icons Auto-resize" = false;
       # "dolphinrc"."KFileDialog Settings"."Places Icons Static Size" = 22;

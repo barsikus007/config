@@ -2,11 +2,9 @@
 # add (historicaly, this is packages was unavailable in ubuntu/scoop base repos or have different name)
 with pkgs;
 [
-  zsh
-  # fish
-  # babelfish
   fd
   eza
+  croc
   lsof
   mosh
   tmux
@@ -17,4 +15,8 @@ with pkgs;
   fastfetch
   lazygit
   lazydocker
+
+  zsh
+  # fish
+  # babelfish
 ]
