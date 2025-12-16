@@ -26,8 +26,8 @@
 #? https://github.com/0x00002a/libfprint/compare/0x2a/dev/goodixtls-sigfm...Infinytum:libfprint:driver/goodix-521d
 #? https://aur.archlinux.org/packages/libfprint-goodix-521d
 stdenv.mkDerivation {
-  pname = "libfprint-27c6-521d";
-  version = "uwu-0";
+  pname = "libfprint-goodixtls-27c6-521d";
+  version = "1.94.9";
 
   #? https://github.com/Infinytum/libfprint/tree/driver/goodix-521d
   #? https://github.com/barsikus007/libfprint/tree/merge/upstream-1.94.9
@@ -42,13 +42,19 @@ stdenv.mkDerivation {
   env.NIX_CFLAGS_COMPILE = "-Wno-error=incompatible-pointer-types";
 
   patchPhase = ''
-    # sed -i "4c       value: 'all')" ./meson_options.txt
+    # disable building GObject Introspection repository
     sed -i "8c       value: false)" ./meson_options.txt
+    # set correct udev rules path for nix
     sed -i "16c       value: '$out/lib/udev')" ./meson_options.txt
+    # set correct udev hwdb path for nix
     sed -i "24c       value: '$out/lib/udev')" ./meson_options.txt
+    # don't build API docs
     sed -i "32c       value: false)" ./meson_options.txt
-    # sed -i "36c       value: false)" ./meson_options.txt
-    cat ./meson_options.txt
+  ''
+  # don't install tests
+  + lib.strings.optionalString (!withTests) ''
+    # don't install tests
+    sed -i "36c       value: false)" ./meson_options.txt
   '';
 
   nativeBuildInputs = [
@@ -73,8 +79,6 @@ stdenv.mkDerivation {
     cairo
   ];
   mesonBuildType = "release";
-
-  passthru.driverPath = "/lib";
 
   meta = with lib; {
     homepage = "https://github.com/infinytum/libfprint/tree/driver/goodix-521d";

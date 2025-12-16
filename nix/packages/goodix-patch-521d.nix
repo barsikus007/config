@@ -17,7 +17,7 @@ let
   );
 in
 stdenvNoCC.mkDerivation {
-  pname = "goodix-patch";
+  pname = "goodix-fp-patch";
   version = "UwU";
   src = fetchFromGitHub {
     owner = "goodix-fp-linux-dev";
