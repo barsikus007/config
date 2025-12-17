@@ -1,9 +1,18 @@
-{ pkgs, ... }:
-with pkgs;
+{
+  kdePackages,
+
+  buildFHSEnv,
+
+  open-sans,
+  fontconfig,
+
+  bash,
+  writeText,
+}:
 let
-  kompas = (callPackage ./default.nix { });
+  kompas = (kdePackages.callPackage ./default.nix { });
 in
-buildFHSEnv {
+buildFHSEnv rec {
   pname = "kompas3d-fhs";
   inherit (kompas) version;
 

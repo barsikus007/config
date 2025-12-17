@@ -296,8 +296,8 @@
         shikiwatch-appimage = callPackage ./packages/shikiwatch-appimage.nix { };
         shikiwatch-native = callPackage ./packages/shikiwatch-native.nix { };
 
-        kompas3d = callPackage ./packages/kompas3d { };
-        kompas3d-fhs = (import ./packages/kompas3d/fhs.nix { inherit pkgs; });
+        kompas3d = kdePackages.callPackage ./packages/kompas3d { };
+        kompas3d-fhs = callPackage ./packages/kompas3d/fhs.nix { };
         grdcontrol = callPackage ./packages/grdcontrol.nix { };
 
         #? https://github.com/emmanuelrosa/erosanix/tree/master/pkgs/mkwindowsapp

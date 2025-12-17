@@ -5,6 +5,9 @@
   fetchurl,
   dpkg,
   autoPatchelfHook,
+  wrapQtAppsHook,
+
+  qt3d,
 
   xorg,
   xcb-util-cursor,
@@ -19,82 +22,100 @@
 }:
 
 let
-  version = "24.1.0.100";
+  version = "24.1.0.161";
   pkgsList = [
     {
       name = "ascon-kompas3d-v24-full";
-      hash = "sha256-EkSbvM8u+mI/TDbds31rojdquNosLQOwgFZc1Mt2a2Q=";
-    }
-    {
-      name = "ascon-kompas-common-v24";
-      hash = "sha256-Ml8OjpiIz2VVUpMfImmE4dTdh8RS97xnXEa/gyps3sg=";
+      hash = "sha256-KhBf0K450J3donQB7OmbHuPUmNREcCWJdFlhi6dkXyo=";
     }
     {
       name = "ascon-kompas3d-v24";
-      hash = "sha256-RxYkSTyNjLFJzKtbzpn5ep8uuyUMW5TkBI3KUdn3u+o=";
+      hash = "sha256-aFJ5OT1ZtT6a9IGURMtIWoHYSCZG4c8SlXNLmyLg6Zc=";
     }
     {
       name = "ascon-kompas-graphic-v24";
-      hash = "sha256-8FX1x2Pv6YEm9HvK2KJSVFF30ygrlWX+0bhnI7bzmGo=";
+      hash = "sha256-5ebowbW/HxnZfnC6uUizBsQKD+NCu9+WgwcGz8Oop4I=";
     }
     {
       name = "ascon-kompas-plugins-v24";
-      hash = "sha256-W5lrFmKOKeH295pQ6HEl2bL+LVM7h9AM8nogJSlgvPo=";
+      hash = "sha256-A90aR0AIJDSdu6kXq70g/kIm1w7QUnl/wOOgwwnUdrY=";
     }
     {
       name = "ascon-kompas-nesting-v24";
-      hash = "sha256-PRF9g+hCNqxTc5gED4m7pxgWKn1TAZvRfyyf5ZHZNoo=";
+      hash = "sha256-/LXNk9k2MmDvgnf4eGqrXCGnswdmeDyBvrlAcVMgZY8=";
     }
     {
       name = "ascon-kompas-servicetools-v24";
-      hash = "sha256-ZwgAD/4TM4mCDaFXFKKNUrgG7e9P9B1djvn58UmFJh4=";
+      hash = "sha256-QiEqVyllq5ahZsE+liUWoCqOqrqL4Tpgc6MXPCeS0fo=";
     }
     {
       name = "ascon-kompas-featurekompas-v24";
-      hash = "sha256-ysfWiAMZ9EzgPj5fFRmbM5Obrja728T4wWtTA/kP0uk=";
+      hash = "sha256-zuWsok3h5deOEqJ8Na4ruaKh8rjVPfAN4yj7RlNSiQA=";
     }
     {
       name = "ascon-kompas-sdk-v24";
-      hash = "sha256-5OdNfT/AdrHWds9NgPBFj25ng1+uoRHawyu4sdZ3UlY=";
+      hash = "sha256-z0bohENrSBk4LDPK+cC3YkYARxvwdpEJMZdVuf1oAPA=";
     }
     {
       name = "ascon-kompas-libsamples-v24";
-      hash = "sha256-hge1NZy06aQWWkV4ol4676At3TxPCXGrwFxT/8673m4=";
+      hash = "sha256-wZfda5t8aaH2IlHByZrKa7lDfeqWK483FxQnaoXhARk=";
     }
     {
       name = "ascon-kompas-coupling-v24";
-      hash = "sha256-uiWCSLxBn0CAa/x8BW0QoM7z8G3HKSmp+esqFHKGVk0=";
+      hash = "sha256-lptq6iZA0Ij09VkvwsIcAqAuJJfSfpn8/Vqn8AaJhtU=";
     }
     {
       name = "ascon-kompas-help-v24";
-      hash = "sha256-qarIDgemCClvK6ZYbbE0ISGj8C036gs4CllE2EESieQ=";
+      hash = "sha256-nmFqmsPx6g0+4ptFnOJ6AtVoSVtZWEGmU88qhQl9XR8=";
     }
     {
       name = "ascon-kompas-checker-v24";
-      hash = "sha256-WRbWkXW2DZEWsNZC6fPknUSPfpVskRfivxMSvtMVKPo=";
+      hash = "sha256-z+huhrrEvgA50G0UJ7Cd7q0pMAJtYoTk2BHyEZepzXU=";
     }
     {
       name = "ascon-kompas-dimchain-v24";
-      hash = "sha256-nHvtzD3gXzsVRFwIjBgmxHC90lL+XbCz1c0/ctYfSnE=";
+      hash = "sha256-EtY1KLWWFWTogY0QnS/E4x+76FaUohWBk860CJrSuo0=";
     }
   ];
 
   fetchDebs =
     package:
     fetchurl {
-      url = "https://repo.ascon.ru/beta/deb/pool/main/a/${package.name}/${package.name}_${version}_amd64.deb";
+      url = "https://repo.ascon.ru/stable/deb/pool/main/a/${package.name}/${package.name}_${version}_amd64.deb";
       hash = package.hash;
     };
 
   srcs = (map fetchDebs pkgsList) ++ [
     (fetchurl {
-      url = "https://repo.ascon.ru/beta/deb/pool/main/a/ascon-kompas-fonts/ascon-kompas-fonts_1.0.0.4_amd64.deb";
-      hash = "sha256-lNPCNrkoz62+LCka7A6cj1Lsgj5jFVfk9AgAqjU0s7w=";
+      url = "https://repo.ascon.ru/stable/deb/pool/main/a/ascon-kompas-common/ascon-kompas-common_1.0.0.3_amd64.deb";
+      hash = "sha256-fYGTd2WNrQBSXDvn5g/yHM8WTXkALNsnGPd9dxUNgM4=";
     })
     (fetchurl {
-      url = "https://repo.ascon.ru/beta/deb/pool/main/a/ascon/ascon-polynom-library-23.3-23.3.0.25091905-amd64.deb";
-      hash = "sha256-TBQQGnignLxUn4Tadzv9a6xa1UarjtMW1MD4wBGq3Bs=";
+      url = "https://repo.ascon.ru/stable/deb/pool/main/a/ascon-kompas-fonts/ascon-kompas-fonts_1.0.0.7_amd64.deb";
+      hash = "sha256-iQKgDSzyd3fRBcZzl4IbkCn9Z0z+xsCRRhW+lbo9cyo=";
     })
+    # ascon-kompas3d-viewer-help-v24/
+    # ascon-kompas3d-viewer-v24/
+    # ascon-kompas3d-viewer-v24-full/
+    (fetchurl {
+      url = "https://repo.ascon.ru/stable/deb/pool/main/a/ascon/ascon-polynom-library-23.3-23.3.0.25101312-amd64.deb";
+      hash = "sha256-IIfFSfZ2+HTf0diA7+6BcvGzIgDbwDmUq1ruAqLaB20=";
+    })
+    # ascon-cas-23.3-23.3.0.25092913-amd64.deb
+    # ascon-commons-23.3-23.3.0.25092914-amd64.deb
+    # ascon-csc-agent-5.1-5.1.0.43.deb
+    # ascon-csc-console-5.1-5.1.0.43.deb
+    # ascon-csc-monitor-5.1-5.1.0.43.deb
+    # ascon-loodsman-23.3-23.3.1.25101616-amd64.deb
+    # ascon-loodsman-appserver-23.3-23.3.1.25101616-amd64.deb
+    # ascon-loodsman-file-archive-service-23.3-23.3.1.25101616-amd64.deb
+    # ascon-loodsman-load-balancer-23.3-23.3.1.25101616-amd64.deb
+    # ascon-loodsman-notify-23.3-23.3.1.25101616-amd64.deb
+    # ascon-polynom-appserver-23.3-23.3.0.25081118-amd64.deb
+    # ascon-polynom-database-23.3-23.3.0.25080512-amd64.deb
+    #? ascon-polynom-library-23.3-23.3.0.25101312-amd64.deb
+    # ascon-polynom-migration-23.3-23.3.0.25081118-amd64.deb
+    # ascon-polynom-webserver-23.3-23.3.0.25081118-amd64.deb
   ];
 
 in
@@ -105,6 +126,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     dpkg
     autoPatchelfHook
+    wrapQtAppsHook
   ];
 
   autoPatchelfIgnoreMissingDeps = [
@@ -116,7 +138,7 @@ stdenv.mkDerivation {
   propagatedBuildInputs = [
     gtk2
     libgcc.lib
-    # qt6.full
+    qt3d
     util-linux.lib
     cups
     libGLU
