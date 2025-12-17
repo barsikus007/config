@@ -272,7 +272,7 @@
         windowsBootstrapIso = callPackage ./packages/windows { };
         # nix build ./nix#windowsBootstrapIso -o unattend-win10-iot-ltsc-vrt.iso
 
-        libfprint-27c6-521d = callPackage ./packages/libfprint-27c6-521d.nix { };
+        libfprint-goodixtls-27c6-521d = callPackage ./packages/libfprint-27c6-521d.nix { };
         goodix-patch-521d = callPackage ./packages/goodix-patch-521d.nix { };
 
         bcompare5 = (libsForQt5.callPackage ./packages/bcompare5.nix { }).overrideAttrs {
