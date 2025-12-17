@@ -248,6 +248,7 @@
                 # "applications:dorion.desktop"
                 "applications:obsidian.desktop"
                 "applications:bcompare.desktop"
+                "applications:thunderbird.desktop"
               ];
               behavior.grouping.clickAction = "showTooltips";
             };

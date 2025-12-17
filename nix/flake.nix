@@ -157,8 +157,7 @@
               (callPackage ./packages/anicli-ru { })
               (callPackage ./packages/shdotenv.nix { })
               (callPackage ./packages/libspeedhack { })
-              #? died due to end of beta-test
-              # (callPackage ./packages/kompas3d/fhs.nix { })
+              # (kdePackages.callPackage ./packages/kompas3d/fhs.nix { })
               #? needs 8.4 GiB * 3 (or more) space to build, takes ~12.2 GiB, and ~18 minutes to download
               (callPackage ./packages/davinci-resolve-studio.nix { })
             ];

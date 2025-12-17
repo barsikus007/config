@@ -6,6 +6,7 @@
   - `code $(nix eval -f '<nixpkgs>' path)/pkgs/top-level/all-packages.nix`
 - [phases order](https://nixos.org/manual/nixpkgs/stable/#sec-stdenv-phases)
 - [builder status nixos-unstable](https://hydra.nixos.org/jobset/nixos/trunk-combined/latest-eval)
+- [attributes ordering](https://github.com/jtojnar/nixpkgs-hammering/blob/main/explanations/attribute-ordering.md)
 
 ### misc
 
