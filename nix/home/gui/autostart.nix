@@ -1,38 +1,30 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
+let
+  replaceDesktopItem =
+    package: name: newExec:
+    (pkgs.runCommand name { } ''
+      mkdir -p $out
+      src=${package}/share/applications/${name}
+      sed 's|^Exec=.*$|Exec=${newExec}|' "$src" > $out/${name}
+    '')
+    + /${name};
+in
 {
   xdg.autostart = {
     enable = true;
     entries = [
-      # "${pkgs.throne}/share/applications/throne.desktop"
-      (
-        (pkgs.makeDesktopItem rec {
-          destination = "/";
-          name = "Throne";
-          desktopName = name;
-          # exec = "${lib.getExe pkgs.throne} -tray -appdata";
-          exec = "${name} -tray -appdata";
-          terminal = false;
-          categories = [ "Network" ];
-          # type = "Application"; #? default
-          startupNotify = false;
-          extraConfig = {
-            "X-GNOME-Autostart-enabled" = "true";
-            "X-KDE-autostart-after" = "panel";
-          };
-        })
-        + /Throne.desktop
+      (replaceDesktopItem pkgs.throne "throne.desktop"
+        "${pkgs.throne}/share/throne/Throne -tray -appdata"
+      )
+      # extraConfig = {
+      #   "X-KDE-autostart-after" = "panel";
+      # };
+      # outName = "Throne.desktop";
+
+      (replaceDesktopItem pkgs.ayugram-desktop "com.ayugram.desktop.desktop" "AyuGram -autostart")
+      (replaceDesktopItem config.programs.nixcord.finalPackage.vesktop "vesktop.desktop"
+        "vesktop --start-minimized"
       )
     ];
   };
-  # ".config/autostart/vesktop.desktop".text = ''
-  #   [Desktop Entry]
-  #   Type=Application
-  #   Name=Vesktop
-  #   Comment=Vesktop autostart script
-  #   Exec="${pkgs.electron.unwrapped}/libexec/electron/electron" "${pkgs.vesktop}/opt/Vesktop/resources/app.asar" "--enable-speech-dispatcher"
-  #   StartupNotify=false
-  #   Terminal=false
-
-  #   X-KDE-autostart-after=panel
-  # '';
 }
