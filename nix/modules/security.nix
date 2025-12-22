@@ -1,6 +1,13 @@
 { pkgs, ... }:
 {
-  programs.ssh.startAgent = true;
+  #? https://wiki.nixos.org/wiki/SSH_public_key_authentication#KDE
+  programs.ssh = {
+    startAgent = true;
+    enableAskPassword = true;
+  };
+  environment.variables = {
+    SSH_ASKPASS_REQUIRE = "prefer";
+  };
 
   security.polkit.debug = true;
   security.polkit.extraConfig = ''

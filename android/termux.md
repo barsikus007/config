@@ -1,9 +1,12 @@
 # [Termux](./)
 
-from PC (root needed)
+## adb shell with termux (root needed)
+
+.adbrc creation
 
 ```shell
-adb shell -t "su -c /data/data/com.termux/files/usr/bin/login"
+cat > /data/data/com.termux/files/home/.adbrc << "EOF"
+#!/data/data/com.termux/files/usr/bin/bash
 
 export PREFIX="/data/data/com.termux/files"
 export HOME="$PREFIX/home"
@@ -13,8 +16,29 @@ export LANG="en_US.UTF-8"
 cd $HOME
 . $PREFIX/usr/etc/profile
 
+/data/data/com.termux/files/usr/bin/login
+EOF
+chmod +x /data/data/com.termux/files/home/.adbrc
+```
 
-# https://github.com/nix-community/nix-on-droid/issues/248
+essential aliases
+
+```shell
+cat > /data/data/com.termux/files/home/.bash_profile << "EOF"
+source .bash_aliases
+EOF
+cat > /data/data/com.termux/files/home/.bash_aliases << "EOF"
+alias ll='ls -la'
+EOF
+```
+
+enter shell
+
+```shell
+adb shell -t "su -c /data/data/com.termux/files/home/.adbrc"
+# or without .adbrc
+adb shell -t "su -c /data/data/com.termux/files/usr/bin/login"
+# or for nix-on-droid https://github.com/nix-community/nix-on-droid/issues/248
 adb shell -t 'su $(su -c "stat -c %U /data/data/com.termux.nix") -c /data/data/com.termux.nix/files/usr/bin/login'
 #! NEVER REBUILD SYSTEM FROM ADB SHELL
 ```

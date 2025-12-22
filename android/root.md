@@ -32,6 +32,9 @@
     - ~~[Play Integrity Fix](https://github.com/chiteroman/PlayIntegrityFix/releases)~~ [Fork](https://github.com/osm0sis/PlayIntegrityFork/releases)
       - Action
     - [Tricky Store](https://github.com/5ec1cff/TrickyStore)
+      - TODO: FOSS forks
+        - <https://github.com/qwq233/TrickyStore>
+        - <https://github.com/beakthoven/TrickyStoreOSS>
     - [Tricky Addon - Update Target List](https://github.com/KOWX712/Tricky-Addon-Update-Target-List)
       - Menu
         - Select All

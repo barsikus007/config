@@ -210,8 +210,6 @@ in fakefetchzip { url = "smth"; hash = "sha256-smth" }
 
 ## python development
 
-[direnv](https://devenv.sh/automatic-shell-activation/)
-
 ### [flake devShell](flake.nix)
 
 ```shell
@@ -220,9 +218,41 @@ nix develop ~/config/nix#python
 nix develop github:barsikus007/config?dir=nix#python
 ```
 
-#### ? nix run github:nix-community/pip2nix -- generate -r requirements.txt
+#### activate with [direnv](https://direnv.net/) `.envrc`
+
+[vscode ext](https://marketplace.visualstudio.com/items?itemName=mkhl.direnv)
+
+```shell
+echo "use flake" > .envrc && direnv allow
+```
+
+#### x2nix
+
+##### ? nix run github:nix-community/pip2nix -- generate -r requirements.txt
+
+##### [pyproject2nix](https://wiki.nixos.org/wiki/Python#With_pyproject.toml)
+
+###### [uv2nix](https://pyproject-nix.github.io/uv2nix/usage/hello-world.html)
+
+uv2nix lets you fairly easily:
+
+- use the UV package manager normally inside an impure shell
+- use/set up an environment for projects using UV, which is quickly becoming the default python package manager
+- build your package using nix
+
+It's not perfect, you still need to make some edits to the uv2nix flake (e.g. when you want to change python version).
+
+##### [dream2nix](https://dream2nix.dev/guides/pip/)
+
+###### <https://github.com/DavHau/mach-nix>
+
+<https://discourse.nixos.org/t/why-is-it-so-hard-to-use-a-python-package/19200/5>
+
+Unlike poetry2nix & co, it uses a full database to map out pip packages, and is pretty good in just making things work without packaging them IME.
 
 ### [devenv](https://devenv.sh/getting-started/)
+
+flake.nix with simplified nix syntax
 
 ```nix
 { pkgs, ... }:
@@ -238,61 +268,15 @@ nix develop github:barsikus007/config?dir=nix#python
 }
 ```
 
-### [devbox](https://www.jetify.com/devbox/)
+#### [devbox](https://www.jetify.com/devbox/)
 
-### [uv2nix](https://pyproject-nix.github.io/uv2nix/usage/hello-world.html)
+devenv analog with config in json
 
-uv2nix lets you fairly easily:
+### other
 
-- use the UV package manager normally inside an impure shell
-- use/set up an environment for projects using UV, which is quickly becoming the default python package manager
-- build your package using nix
-
-It's not perfect, you still need to make some edits to the uv2nix flake (e.g. when you want to change python version).
-
-### [pyproject2nix](https://wiki.nixos.org/wiki/Python#With_pyproject.toml)
-
-### [dream2nix](https://dream2nix.dev/guides/pip/)
-
-#### <https://github.com/DavHau/mach-nix>
-<https://discourse.nixos.org/t/why-is-it-so-hard-to-use-a-python-package/19200/5>
-
-Unlike poetry2nix & co, it uses a full database to map out pip packages, and is pretty good in just making things work without packaging them IME.
-
-### last resort python
-
-#### [devshell](https://numtide.github.io/devshell/getting_started.html)
-
-#### [python issue ?](https://github.com/numtide/devshell/issues/172#issuecomment-1094675420)
+#### [devshell (WIP)](https://numtide.github.io/devshell/getting_started.html)
 
 #### [dev containers](https://containers.dev/)
 
-#### ld fix?
-
-```nix
-  programs.nix-ld = {
-    enable = true;
-    #Include libstdc++ in the nix-ld profile
-    libraries = [
-      pkgs.stdenv.cc.cc
-      pkgs.zlib
-      pkgs.fuse3
-      pkgs.icu
-      pkgs.nss
-      pkgs.openssl
-      pkgs.curl
-      pkgs.expat
-      pkgs.xorg.libX11
-      pkgs.vulkan-headers
-      pkgs.vulkan-loader
-      pkgs.vulkan-tools
-    ];
-  };
-  environment.systemPackages = [
-
-    (pkgs.writeShellScriptBin "python" ''
-      export LD_LIBRARY_PATH=$NIX_LD_LIBRARY_PATH
-      exec ${pkgs.python3}/bin/python "$@"
-    '')
-  ];
-```
+- <https://dev.to/cmiles74/really-using-visual-studio-development-containers-561e>
+- <https://habr.com/ru/companies/ruvds/articles/717110/>

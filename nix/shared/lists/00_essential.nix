@@ -6,6 +6,7 @@ with pkgs;
   curl
   wget
 
+  zip
   gawk
   psmisc # killall pstree
   gnused
