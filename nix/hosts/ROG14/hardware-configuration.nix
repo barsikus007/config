@@ -28,6 +28,20 @@
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/afb30336-18f3-4359-bebb-39c51e8f7b45";
     fsType = "btrfs";
+    options = [
+      "subvol=@"
+    ];
+  };
+  #? sudo btrfs subvolume create /@nix
+  fileSystems."/nix" = {
+    device = "/dev/disk/by-uuid/afb30336-18f3-4359-bebb-39c51e8f7b45";
+    fsType = "btrfs";
+    # neededForBoot = true;
+    options = [
+      "subvol=@nix"
+      "noatime"
+      "compress=zstd"
+    ];
   };
 
   fileSystems."/boot" = {
