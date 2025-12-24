@@ -77,7 +77,7 @@
           };
           "inspect-window" = {
             name = "Open Current Window in btop";
-            key = "Meta+Shift+`";
+            key = "Meta+Ctrl+`";
             command = "inspect-window";
           };
         }

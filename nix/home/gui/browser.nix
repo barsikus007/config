@@ -194,7 +194,7 @@
             "Google Translate" = {
               urls = [
                 {
-                  template = "https://translate.google.com/";
+                  template = "https://translate.google.com/details";
                   params = [
                     {
                       name = "sl";
@@ -345,17 +345,7 @@
               definedAliases = [ "ng" ];
             };
             "scoop.sh" = {
-              urls = [
-                {
-                  template = "https://scoop.sh/#/apps";
-                  params = [
-                    {
-                      name = "q";
-                      value = "{searchTerms}";
-                    }
-                  ];
-                }
-              ];
+              urls = [ { template = "https://scoop.sh/#/apps?q={searchTerms}"; } ];
 
               iconMapObj."32" = "https://scoop.sh/favicon.ico";
               definedAliases = [ "sc" ];

@@ -1,4 +1,13 @@
 {
+  lib,
+  config,
+  username,
+  ...
+}:
+let
+  hmConfig = config.home-manager.users.${username};
+in
+{
   networking.networkmanager.enable = true;
   #? dns
   services.resolved.enable = true;
@@ -12,8 +21,15 @@
   };
 
   # networking.firewall.enable = false;
-  networking.firewall.allowedTCPPorts = [
-    # TODO: home-manager-module: firewall
-    12345 # ? home: rquickshare
-  ];
+  # TODO: unified custom config: firewall: rquickshare,syncthing
+  networking.firewall = {
+    allowedTCPPorts =
+      [ ]
+      ++ lib.optionals (lib.any (pkg: lib.getName pkg == "rquickshare") hmConfig.home.packages) [ 12345 ]
+      ++ lib.optionals hmConfig.services.syncthing.enable [ 22000 ];
+    allowedUDPPorts = lib.mkIf hmConfig.services.syncthing.enable [
+      21027
+      22000
+    ];
+  };
 }

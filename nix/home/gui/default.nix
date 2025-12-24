@@ -7,6 +7,7 @@
       "inode/directory" = [
         "org.kde.dolphin.desktop"
         "code.desktop"
+        "mpv.desktop"
       ];
       "image/*" = "org.kde.gwenview.desktop";
       "video/*" = "mpv.desktop";

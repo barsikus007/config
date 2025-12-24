@@ -90,6 +90,7 @@ let
     {
       iusenixbtw = "fastfetch";
       nu = "nix flake update --flake ${flakePath}";
+      nuu = "nix flake update nixpkgs --override-input nixpkgs nixpkgs/$(nixos-version --hash)";
       n = "nh home switch ${flakePath}";
       nn = "nh os switch ${flakePath}";
       nnn = "sudo true && nn && notify-send 'System build success' && exec $SHELL || notify-send 'System build failed'";
@@ -123,8 +124,7 @@ in
     ./bat.nix
   ];
   # TODO: finer way to do it
-  xdg.configFile."shell/".source =
-    config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/shell/";
+  xdg.configFile."shell/".source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/shell/";
   programs.zsh = {
     enable = true;
     shellAliases = sharedAliases // zshAliases;
