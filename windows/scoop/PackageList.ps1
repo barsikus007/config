@@ -46,11 +46,14 @@ autoclicker
 cheat-engine
 ds4windows
 
+openjdk8-redhat
+openjdk17
+openjdk
 graalvm
-graalvm-oracle-jdk
-graalvm-oracle-17
 graalvm20-jdk8
+graalvm-oracle-17
 graalvm-oracle-21jdk
+graalvm-oracle-jdk
 prismlauncher
 amulet-map-editor
 "@

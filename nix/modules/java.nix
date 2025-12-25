@@ -2,7 +2,7 @@
 {
   programs.java = {
     enable = true;
-    package = pkgs.graalvmPackages.graalvm-oracle;
+    package = with pkgs; jdk25;
     binfmt = true;
   };
 }

@@ -15,7 +15,6 @@ let
     "7zz"
     "unrar"
     "corefonts"
-    "graalvm-oracle"
 
     "blender"
     "cuda_cudart"
