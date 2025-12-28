@@ -100,8 +100,7 @@
   - !broken on ksu/apatch
 - Root Detector - `https://github.com/reveny/Android-Native-Root-Detector`
   - [another one - momo](https://t.me/magiskalpha/529)
-- Hide Applists - `https://github.com/pumPCin/HMAL`
-  - alt - `https://github.com/Dr-TSNG/Hide-My-Applist`
+- Hide Applists - `https://github.com/frknkrc44/HMA-OSS`
   - Checker - `https://github.com/Dr-TSNG/ApplistDetector`
 - [TODO](https://github.com/stars/barsikus007/lists/neckbeard-android)
   - [cool boot animation](https://github.com/Chainfire/liveboot)

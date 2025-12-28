@@ -61,7 +61,7 @@
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
     # extraGroups = [ "wheel" "networkmanager" "docker" ];
-    # hashedPassword = "hashedPassword";
+    hashedPasswordFile = "/persistent/etc/nixos/passwords/${username}.hash";
     openssh.authorizedKeys.keys = [
       (pkgs.lib.strings.removeSuffix "\n" (
         builtins.readFile (

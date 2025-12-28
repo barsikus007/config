@@ -64,7 +64,6 @@ in
       # "/etc/asusd" # TODO: asus
       "/etc/NetworkManager/system-connections"
       "/etc/nixos" # TODO: secrets
-      "/etc/shadow" # TODO: secrets
       "/var/db" # ? ./sudo/lectured/$(id -u)
       "/var/log"
       # "/var/lib/AccountsService/users" # TODO: is this needed? plasma
@@ -95,7 +94,7 @@ in
     files = [
       # "/etc/adjtime" # TODO: is this needed? hwclock
       # "/etc/logrotate.status" # TODO: is this needed? /var/log/{b,w}tmp
-      "/etc/machine-id"
+      "/etc/machine-id" # TODO: secrets
       # "/etc/supergfxd.conf" # TODO: asus
     ];
     users.${username} = {
@@ -112,7 +111,6 @@ in
 
         "config"
         "hax"
-        # "projects" # ! symlink
         "Sync"
 
         # TODO: https://wiki.nixos.org/wiki/Impermanence#Example_3
@@ -145,24 +143,20 @@ in
         # ".parsec-persistent" # TODO: is this needed?
         ".steam"
         ".wine"
-
-        # {
-        #   directory = ".ssh"; # ! symlink
-        #   mode = "0700";
-        # }
       ];
       files = [
         # ".zcompdump" # TODO: is this needed?
-        ".zsh_history"
-        # "awg0.conf" # ! symlink
       ];
     };
   };
   systemd.tmpfiles.rules = [
     # Syntax: Type Path Mode User Group Age Argument
     # L+ = Create symlink, remove existing file if necessary
-    "L+ /home/${username}/awg0.conf - ${username} - - /home/${username}/Sync/wg/donstux-linux-49.conf"
-    "L+ /home/${username}/.ssh - ${username} - - /home/${username}/Sync/home/.ssh/"
-    "L+ /home/${username}/projects - ${username} - - /run/media/${username}/Data/projects/"
+    "L+ /home/${username}/.zsh_history 0600 ${username} users - /persistent/home/${username}/.zsh_history"
+
+    "L+ /home/${username}/.ssh 0700 ${username} users - /home/${username}/Sync/home/.ssh/"
+    "L+ /home/${username}/projects 0700 ${username} users - /run/media/${username}/Data/projects/"
+
+    "L+ /home/${username}/awg0.conf 0600 ${username} users - /home/${username}/Sync/wg/donstux-linux-49.conf"
   ];
 }

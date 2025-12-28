@@ -118,10 +118,10 @@ sudo btrfs balance status /
 sudo btrfs scrub start /
 sudo btrfs scrub status /
 
-sudo mkdir -p /mnt/btrfs-root && sudo mount -o subvolid=5 /dev/disk/by-uuid/afb30336-18f3-4359-bebb-39c51e8f7b45 /mnt/btrfs-root
+sudo mkdir -p /btrfs_tmp && sudo mount /dev/disk/by-uuid/afb30336-18f3-4359-bebb-39c51e8f7b45 /btrfs_tmp
 BACKUP_DATE=$(date +%Y-%m-%d)
-sudo btrfs subvolume snapshot -r /mnt/btrfs-root/@ "/mnt/btrfs-root/@-backup-$BACKUP_DATE"
-sudo btrfs send "/mnt/btrfs-root/@-backup-$BACKUP_DATE" | zstd | pv | ssh admin "cat > /tank/storage/backups/@-backup-$BACKUP_DATE.btrfs.zst"
+sudo btrfs subvolume snapshot -r /btrfs_tmp/@persistent "/btrfs_tmp/@persistent-backup-$BACKUP_DATE"
+sudo btrfs send "/btrfs_tmp/@persistent-backup-$BACKUP_DATE" | zstd | pv | ssh admin "cat > /tank/storage/backups/@persistent-backup-$BACKUP_DATE.btrfs.zst"
 ```
 
 ## distrobox

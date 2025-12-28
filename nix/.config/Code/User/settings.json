@@ -94,7 +94,9 @@
         },
     ],
     "containers.commands.logs": "while true; do ${containerCommand} logs --tail 1000 -f ${containerId}; echo 'Container stopped, restarting...' sleep 1; done",
+    // podman
     "containers.containerClient": "com.microsoft.visualstudio.containers.podman",
+    "dev.containers.dockerPath": "podman",
     // #endregion misc
     // #region nix
     "nix.enableLanguageServer": true,
@@ -249,6 +251,9 @@
     "sqliteViewer.maxFileSize": 0, // remove sqlite limit (2GB is vscode limit idk how to resolve)
     "scm.defaultViewMode": "tree",
     "search.defaultViewMode": "tree",
+    "gitlens.views.commits.files.layout": "tree",
+    "gitlens.views.commitDetails.files.layout": "tree",
+    "git.defaultBranchName": "master",
     "git.autofetch": true,
     // TODO https://github.com/kisstkondoros/gutter-preview limit
     "gutterpreview.showUnderline": true,
@@ -302,7 +307,6 @@
         "*.sdb": "${capture}.${extname}-*",
         "*.s3db": "${capture}.${extname}-*"
     },
-    "gitlens.views.commitDetails.files.layout": "tree",
     "svg.preview.mode": "svg",
     "hadolint.hadolintPath": "/usr/bin/hadolint",
     "hexeditor.columnWidth": 16,

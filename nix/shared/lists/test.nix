@@ -33,6 +33,7 @@ with pkgs;
   fatrace # sudo fatrace . 2>&1 | grep firefox
   systemctl-tui
 
+  yaak
   bruno
   devenv
   devbox
