@@ -1,7 +1,7 @@
 {
+  lib,
   pkgs,
   config,
-  lib,
   ...
 }:
 #! https://github.com/svenstaro/rofi-calc/issues/33

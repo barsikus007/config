@@ -144,16 +144,11 @@ in
         ".steam"
         ".wine"
       ];
-      files = [
-        # ".zcompdump" # TODO: is this needed?
-      ];
     };
   };
   systemd.tmpfiles.rules = [
     # Syntax: Type Path Mode User Group Age Argument
     # L+ = Create symlink, remove existing file if necessary
-    "L+ /home/${username}/.zsh_history 0600 ${username} users - /persistent/home/${username}/.zsh_history"
-
     "L+ /home/${username}/.ssh 0700 ${username} users - /home/${username}/Sync/home/.ssh/"
     "L+ /home/${username}/projects 0700 ${username} users - /run/media/${username}/Data/projects/"
 

@@ -208,6 +208,10 @@
           ./home
           ./home/shell/minimal.nix
           ./home/editors.nix
+          {
+            #? https://nix-community.github.io/home-manager/release-notes.xhtml
+            home.stateVersion = "26.05";
+          }
         ];
       };
 

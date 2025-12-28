@@ -48,6 +48,7 @@
     );
     theme.package = lib.mkForce pkgs.kdePackages.breeze-gtk;
     theme.name = lib.mkForce (if (config.stylix.polarity == "light") then "Breeze" else "Breeze-Dark");
+    #? https://nix-community.github.io/home-manager/release-notes.xhtml#sec-release-26.05-state-version-changes
   };
   #endregion gtk
 

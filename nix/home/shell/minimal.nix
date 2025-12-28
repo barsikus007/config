@@ -129,6 +129,7 @@ in
     enable = true;
     shellAliases = sharedAliases // zshAliases;
     history = {
+      #? cp ~/.config/zsh/.zsh_history ~/Sync/backup/.zsh_history_$(date +%Y-%m-%d'_'%H_%M_%S).bak
       size = 100000;
     };
     autocd = true;
@@ -144,7 +145,6 @@ in
     ];
     envExtra = ''
       source "$XDG_CONFIG_HOME"/shell/g14.sh
-      # source ~/.zshrc
     '';
     initContent = # /* shell */ comment for tree-sitter
       ''

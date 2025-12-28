@@ -82,7 +82,7 @@
         quickReply.enable = true;
         previewMessage.enable = true;
         pictureInPicture.enable = true;
-        copyUserUrLs.enable = true;
+        CopyUserURLs.enable = true;
 
         #? idk
         alwaysAnimate.enable = true;
