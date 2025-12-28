@@ -9,7 +9,7 @@
     # Home Manager needs a bit of information about you and the
     # paths it should manage.
     inherit username;
-    homeDirectory = "/home/${config.home.username}";
+    homeDirectory = "/home/${username}";
 
     # This value determines the Home Manager release that your
     # configuration is compatible with. This helps avoid breakage
@@ -20,9 +20,6 @@
     # the Home Manager release notes for a list of state version
     # changes in each release.
     stateVersion = "25.05";
-
-    # packages = import ./shared/lists/extra.nix { inherit pkgs; };
-    # packages = import ./shared/lists { inherit pkgs; };
 
     #? https://wiki.nixos.org/wiki/Environment_variables
     sessionVariables = {

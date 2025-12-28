@@ -3,6 +3,7 @@
 with pkgs;
 [
   jq
+  pv
   bat
   duf
   gdu

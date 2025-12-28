@@ -25,11 +25,19 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
+  services.btrfs.autoScrub = {
+    enable = true;
+    # interval = "weekly";
+    fileSystems = [ "/" ];
+  };
+
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/afb30336-18f3-4359-bebb-39c51e8f7b45";
     fsType = "btrfs";
     options = [
       "subvol=@"
+      "noatime"
+      "compress=zstd"
     ];
   };
   #? sudo btrfs subvolume create /@nix
