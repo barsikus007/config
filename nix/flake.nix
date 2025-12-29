@@ -166,30 +166,52 @@
           }
         ];
       };
+
+      #? https://github.com/NixOS/nixpkgs/tree/master/nixos/modules/installer/cd-dvd
       nixosConfigurations."minimalIso-${system}" = nixpkgs.lib.nixosSystem {
-        #? https://wiki.nixos.org/wiki/Creating_a_NixOS_live_CD
         inherit system;
         modules = [
           (
-            { pkgs, modulesPath, ... }:
+            { modulesPath, ... }:
             {
-              imports = [ (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix") ];
-              environment.systemPackages = import ./shared/lists { inherit pkgs; };
-
-              systemd.services.sshd.wantedBy = pkgs.lib.mkForce [ "multi-user.target" ];
-              users.users.root.openssh.authorizedKeys.keys = [
-                (pkgs.lib.strings.removeSuffix "\n" (
-                  builtins.readFile (
-                    builtins.fetchurl {
-                      url = "https://github.com/barsikus007.keys";
-                      sha256 = "sha256-Tnf/WxeYOikI9i5l4e0ABDk33I5z04BJFApJpUplNi0=";
-                    }
-                  )
-                ))
+              imports = [
+                (modulesPath + "/installer/cd-dvd/installation-cd-minimal-combined.nix")
+                ./packages/iso.nix
               ];
+            }
+          )
+        ];
+      };
+      nixosConfigurations."plasmaIso-${system}" = nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [
+          (
+            { modulesPath, ... }:
+            {
+              imports = [
+                (modulesPath + "/installer/cd-dvd/installation-cd-base.nix")
+                ./packages/iso.nix
+              ];
+              isoImage.edition = "graphical";
+              isoImage.showConfiguration = nixpkgs.lib.mkDefault false;
 
-              #? https://wiki.nixos.org/wiki/Creating_a_NixOS_live_CD#Building_faster
-              # isoImage.squashfsCompression = "gzip -Xcompression-level 1";
+              specialisation = {
+                plasma.configuration = {
+                  imports = [ (modulesPath + "/installer/cd-dvd/installation-cd-graphical-calamares-plasma6.nix") ];
+                  isoImage.showConfiguration = true;
+                  isoImage.configurationName = "Plasma (Linux LTS)";
+                };
+                plasma_latest_kernel.configuration =
+                  { config, ... }:
+                  {
+                    imports = [
+                      (modulesPath + "/installer/cd-dvd/installation-cd-graphical-calamares-plasma6.nix")
+                      (modulesPath + "/installer/cd-dvd/latest-kernel.nix")
+                    ];
+                    isoImage.showConfiguration = true;
+                    isoImage.configurationName = "Plasma (Linux ${config.boot.kernelPackages.kernel.version})";
+                  };
+              };
             }
           )
         ];
@@ -273,7 +295,8 @@
       packages.${system} = with pkgs; {
         #? nix {build,run} ./nix# <tab>
 
-        minimalIso = self.nixosConfigurations."minimalIso-${system}".config.system.build.isoImage;
+        nixosMinimalIso = self.nixosConfigurations."minimalIso-${system}".config.system.build.isoImage;
+        nixosPlasmaIso = self.nixosConfigurations."plasmaIso-${system}".config.system.build.isoImage;
         windowsBootstrapIso = callPackage ./packages/windows { };
         # nix build ./nix#windowsBootstrapIso -o unattend-win10-iot-ltsc-vrt.iso
 
