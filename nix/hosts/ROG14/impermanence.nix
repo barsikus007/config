@@ -114,7 +114,8 @@ in
         "Sync"
 
         # TODO: https://wiki.nixos.org/wiki/Impermanence#Example_3
-        # ".cache"
+        ".cache/nix-index"
+        ".cache/tlrc"
         ".config" # TODO: more
         ".local" # TODO: more
         # ".local/share/direnv"

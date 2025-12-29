@@ -209,6 +209,23 @@ let
 in fakefetchzip { url = "smth"; hash = "sha256-smth" }
 ```
 
+### advanced nix-copy-closure
+
+you can copy whole system closure to offline machine this way
+
+```shell
+PACKAGE_NAME=bat
+nix-store --export $(nix-store --query --requisites $(realpath $(which $PACKAGE_NAME))) | zstd | pv > $PACKAGE_NAME.closure.zst
+
+zstdcat $PACKAGE_NAME.closure.zst | nix-store --import
+zstdcat $PACKAGE_NAME.closure.zst | sudo nix-store --import --no-require-sigs
+
+zstdcat $PACKAGE_NAME.closure.zst | ssh admin "nix-store --import"
+ REMOTE_PASSWORD=toor
+#? /nix/var/nix/profiles/default/bin/nix-store
+(echo $REMOTE_PASSWORD; zstdcat $PACKAGE_NAME.closure.zst) | ssh admin "sudo -S nix-store --import --no-require-sigs"
+```
+
 ## python development
 
 ### [flake devShell](flake.nix)

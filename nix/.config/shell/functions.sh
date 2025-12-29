@@ -70,6 +70,13 @@ nix_shell_exec() {
   nix-shell -p "$1" --run "$*"
 }
 
+nix_copy_edit() {
+  #? fd -H '\.ink$'
+  mv "$1" "$1.ink"
+  cp --no-preserve=mode,ownership "$1.ink" "$1"
+  nvim "$1"
+}
+
 export_aliases() {  # TODO WIP
   # export aliases
   # alias | awk -F'[ =]' '{print "alias "$2"='\''"$3"'\''"}'

@@ -148,6 +148,9 @@ in
     '';
     initContent = # /* shell */ comment for tree-sitter
       ''
+        alias -s ts="bun"
+        alias -s py="python"
+
         autoload -Uz select-word-style
         select-word-style bash
 
