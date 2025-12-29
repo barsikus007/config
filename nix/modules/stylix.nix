@@ -40,7 +40,7 @@
         name = "Noto Serif";
       };
       sansSerif = {
-        package = cascadia-code;
+        package = noto-fonts;
         name = "Noto Sans";
       };
       monospace = {

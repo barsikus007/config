@@ -23,7 +23,7 @@
     "workbench.colorTheme": "Shades of Purple (Super Dark)",
     "workbench.sideBar.location": "right",
     "workbench.secondarySideBar.defaultVisibility": "hidden",
-    // https://github.com/ahmadawais/shades-of-purple-vscode/issues/37
+    //? https://github.com/ahmadawais/shades-of-purple-vscode/issues/37
     // "indentRainbow.colors": [
     //     "rgba(165, 153, 233, 0.5)",
     //     "rgba(165, 153, 233, 0.4)",
@@ -31,7 +31,7 @@
     //     "rgba(165, 153, 233, 0.2)",
     //     "rgba(165, 153, 233, 0.1)"
     // ],
-    // https://github.com/ahmadawais/shades-of-purple-vscode/issues/37#issuecomment-2354045877
+    //? https://github.com/ahmadawais/shades-of-purple-vscode/issues/37#issuecomment-2354045877
     "indentRainbow.colors": [
         "rgba(92, 85, 132, 0.5)",
         "rgba(92, 85, 132, 0.4)",
@@ -41,12 +41,12 @@
     ],
     // #endregion appearence
     // #region behavior
-    // nekoray proxy, mainly for copilot
+    //? throne proxy, mainly for copilot
     // "http.proxy": "socks://127.0.0.1:2080",
-    "http.proxy": "http://127.0.0.1:2080",
+    // "http.proxy": "http://127.0.0.1:2080",
     "window.restoreWindows": "preserve",
     "window.openFilesInNewWindow": "default",
-    // https://stackoverflow.com/a/70899027/15844518
+    //? https://stackoverflow.com/a/70899027/15844518
     "window.openFoldersInNewWindow": "on",
     "files.autoSave": "afterDelay",
     "files.associations": {
@@ -67,18 +67,18 @@
     // "editor.maxTokenizationLineLength": 200000,
     // #endregion behavior
     // #region misc
-    // ports
+    //! ports
     "remote.autoForwardPorts": false,
-    // telemetry
+    //! telemetry
     "telemetry.telemetryLevel": "off",
     "redhat.telemetry.enabled": false,
-    // spam
+    //! spam
     "vsicons.dontShowNewVersionMessage": true,
     "gitlens.advanced.messages": {
         "suppressCreatePullRequestPrompt": true
         // tool specific
     },
-    // docker
+    //! docker
     "containers.commands.composeUp": [
         {
             "label": "dev",
@@ -94,9 +94,17 @@
         },
     ],
     "containers.commands.logs": "while true; do ${containerCommand} logs --tail 1000 -f ${containerId}; echo 'Container stopped, restarting...' sleep 1; done",
-    // podman
+    //! podman
     "containers.containerClient": "com.microsoft.visualstudio.containers.podman",
     "dev.containers.dockerPath": "podman",
+    //! AI AI AI
+    "chat.agent.enabled": true,
+    //? friendship eng with copilot, now I use genimi
+    "chat.disableAIFeatures": true,
+    "geminicodeassist.enableTelemetry": false,
+    "geminicodeassist.displayInlineContextHint": false,
+    "geminicodeassist.inlineSuggestions.enableAuto": true,
+    "geminicodeassist.inlineSuggestions.nextEditPredictions": true,
     // #endregion misc
     // #region nix
     "nix.enableLanguageServer": true,
@@ -110,6 +118,7 @@
     },
     //? nix for dev shells
     "direnv.status.showChangesCount": false,
+    "direnv.watchForChanges": false,
     // #endregion nix
     // #region python
     "python.analysis.autoFormatStrings": true,
@@ -329,7 +338,6 @@
     },
     "security.promptForLocalFileProtocolHandling": false,
     "diffEditor.renderSideBySide": true,
-    "chat.agent.enabled": true,
     "diffEditor.maxComputationTime": 10000,
     "diffEditor.hideUnchangedRegions.enabled": true,
     // #endregion auto

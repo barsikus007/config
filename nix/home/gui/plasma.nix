@@ -117,17 +117,8 @@
       tooltipDelay = 500;
     };
 
-    fonts = {
-      # general = {
-      #   family = "Cascadia Mono NF";
-      #   pointSize = 10;
-      #   weight = 350;
-      # };
-      fixedWidth = {
-        family = "Cascadia Mono NF";
-        pointSize = 10;
-      };
-    };
+    #? stylix sets it: https://github.com/nix-community/stylix/blob/551df12ee3ebac52c5712058bd97fd9faa4c3430/modules/kde/hm.nix#L258
+    # fonts = {};
 
     # add keepAbove(F) to the left
     kwin.titlebarButtons.left = [

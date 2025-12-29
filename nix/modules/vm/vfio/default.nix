@@ -15,12 +15,12 @@
     defaultPageSize = "2M";
     pageSize = "2M";
     # https://wiki.archlinux.org/title/KVM#Enabling_huge_pages
-    numPages = 4400; #? (8G / 2M) + 10%
+    numPages = 4400; # ? (8G / 2M) + 10%
   };
 
   virtualisation.libvirtd = {
     deviceACL = [
-      "/dev/ptmx" #? for pty
+      "/dev/ptmx" # ? for pty
       "/dev/kvm"
       "/dev/kvmfr0"
       # "/dev/vfio/vfio"
