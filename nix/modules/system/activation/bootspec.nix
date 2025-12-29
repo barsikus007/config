@@ -11,9 +11,11 @@
 }:
 let
   cfg = config.boot.bootspec;
-  children = lib.mapAttrs (
-    childName: childConfig: childConfig.configuration.system.build.toplevel
-  ) config.specialisation;
+  children = lib.mapAttrs (childName: childConfig: childConfig.configuration.system.build.toplevel) (
+    lib.attrsets.filterAttrs (
+      childName: childConfig: childConfig.generateBootEntry
+    ) config.specialisation
+  );
   hasAtLeastOneInitrdSecret = lib.length (lib.attrNames config.boot.initrd.secrets) > 0;
   schemas = {
     v1 = rec {

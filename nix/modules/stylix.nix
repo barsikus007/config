@@ -5,7 +5,14 @@
   ...
 }:
 {
+  disabledModules = [
+    "system/activation/bootspec.nix"
+    "system/activation/specialisation.nix"
+  ];
   imports = [
+    ./system/activation/bootspec.nix
+    ./system/activation/specialisation.nix
+
     inputs.stylix.nixosModules.stylix
   ];
   stylix = {
@@ -50,16 +57,21 @@
     };
   };
 
-  specialisation.day.configuration = {
-    stylix = {
-      base16Scheme = lib.mkForce "${pkgs.base16-schemes}/share/themes/github.yaml";
-      image = lib.mkForce (
-        pkgs.fetchurl {
-          url = "https://w.wallhaven.cc/full/zy/wallhaven-zy3r2w.png";
-          hash = "sha256-O9INURruZK+bW3ZJmSD1lj50MviTOiuLCa9j7SUehvY=";
-        }
-      );
-      polarity = lib.mkForce "light";
+  specialisation.light = {
+    generateBootEntry = false;
+    configuration = {
+      stylix = {
+        base16Scheme = lib.mkForce "${pkgs.base16-schemes}/share/themes/github.yaml";
+        image = lib.mkForce (
+          pkgs.fetchurl {
+            url = "https://w.wallhaven.cc/full/zy/wallhaven-zy3r2w.png";
+            hash = "sha256-O9INURruZK+bW3ZJmSD1lj50MviTOiuLCa9j7SUehvY=";
+          }
+        );
+        polarity = lib.mkForce "light";
+      };
     };
   };
+  # TODO: alias nixos_switch_to_light="sudo /nix/var/nix/profiles/system/specialisation/light/bin/switch-to-configuration switch"
+  # TODO: alias nixos_switch_to_dark="sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch"
 }

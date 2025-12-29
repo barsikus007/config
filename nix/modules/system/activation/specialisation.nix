@@ -66,6 +66,12 @@ in
               description = "Include the entire system's configuration. Set to false to make a completely differently configured system.";
             };
 
+            options.generateBootEntry = mkOption {
+              type = types.bool;
+              default = true;
+              description = "Generate boot entry for this specialisation.";
+            };
+
             options.configuration = mkOption {
               default = { };
               description = ''
