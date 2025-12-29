@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   inputs,
   ...
@@ -11,11 +12,13 @@
     #? shared
     enable = true;
     # autoEnable = false;
+    #? https://github.com/tinted-theming/schemes/tree/spec-0.11/base16
     base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
-    # image = pkgs.fetchurl {
-    #   url = "https://www.pixelstalk.net/wp-content/uploads/2016/05/Epic-Anime-Awesome-Wallpapers.jpg";
-    #   sha256 = "enQo3wqhgf0FEPHj2coOCvo7DuZv+x5rL/WIo4qPI50=";
-    # };
+    # base16Scheme = "${pkgs.base16-schemes}/share/themes/shades-of-purple.yaml";
+    image = pkgs.fetchurl {
+      url = "https://w.wallhaven.cc/full/8o/wallhaven-8o5o7k.jpg";
+      hash = "sha256-jpN1gQ8RfDuBBfV4h3un0VvCm7FUy334YO1ibnYvmqk=";
+    };
     # cursor = {
     #   size = 24;
     #   package = pkgs.kdePackages.breeze;
@@ -44,6 +47,19 @@
 
     targets = {
       plymouth.enable = false;
+    };
+  };
+
+  specialisation.day.configuration = {
+    stylix = {
+      base16Scheme = lib.mkForce "${pkgs.base16-schemes}/share/themes/github.yaml";
+      image = lib.mkForce (
+        pkgs.fetchurl {
+          url = "https://w.wallhaven.cc/full/zy/wallhaven-zy3r2w.png";
+          hash = "sha256-O9INURruZK+bW3ZJmSD1lj50MviTOiuLCa9j7SUehvY=";
+        }
+      );
+      polarity = lib.mkForce "light";
     };
   };
 }

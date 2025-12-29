@@ -100,19 +100,20 @@
     session.sessionRestore.restoreOpenApplicationsOnLogin = "startWithEmptySession";
 
     workspace = {
-      # clickItemTo = "open"; # breaks type to search func in dolphin
+      # clickItemTo = "open"; #? breaks type to search func in dolphin
+      #? stylix sets it
       # theme = "breeze-dark";
       # colorScheme = "BreezeDark";
       # cursor.theme = "Breeze_Dark";
       # cursor.size = 24;
-      lookAndFeel =
-        if (config.stylix.targets.kde.enable) then
-          "stylix"
-        else
-        if (config.stylix.polarity == "light") then
-          "org.kde.breeze.desktop"
-        else
-          "org.kde.breezedark.desktop";
+      # lookAndFeel =
+      #   if (config.stylix.targets.kde.enable) then
+      #     "stylix"
+      #   else
+      #   if (config.stylix.polarity == "light") then
+      #     "org.kde.breeze.desktop"
+      #   else
+      #     "org.kde.breezedark.desktop";
       tooltipDelay = 500;
     };
 
@@ -427,6 +428,12 @@
       "kdeglobals"."Shortcuts"."Redo" = "Ctrl+Y";
       # "kdeglobals"."PreviewSettings"."EnableRemoteFolderThumbnail" = true;
       "kdeglobals"."PreviewSettings"."MaximumRemoteSize" = 1073741824; # 1 GiB
+      #? didn't need with stylix
+      # "kdeglobals"."KDE"."AutomaticLookAndFeel" = true;
+      # "kdeglobals"."KDE"."DefaultLightLookAndFeel" = "org.kde.breezetwilight.desktop";
+      # "kdeglobals"."KDE"."DefaultDarkLookAndFeel" = "stylix";
+      #? setted by stylix
+      # "kdeglobals"."KDE"."LookAndFeelPackage" = "stylix";
 
       #! workspace.enableMiddleClickPaste = false; don't work
       "kwinrc"."Wayland"."EnablePrimarySelection" = false;

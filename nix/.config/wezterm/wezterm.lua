@@ -33,8 +33,8 @@ return {
     keys = {
         --! it slightly differs from usual MRU
         -- https://github.com/wezterm/wezterm/issues/4518
-        { key = "Tab", mods='CTRL', action = "ActivateLastTab" },
-        { key = 'Tab', mods = 'CTRL', action = wezterm.action.ActivateTabRelative(1) },
+        { key = "Tab", mods = 'CTRL',       action = "ActivateLastTab" },
+        { key = 'Tab', mods = 'CTRL',       action = wezterm.action.ActivateTabRelative(1) },
         { key = 'Tab', mods = 'CTRL|SHIFT', action = wezterm.action.ActivateTabRelative(-1) },
 
         --! intersects with yazi
