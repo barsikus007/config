@@ -2,6 +2,7 @@
   lib,
   pkgs,
   inputs,
+  username,
   ...
 }:
 {
@@ -72,6 +73,20 @@
       };
     };
   };
-  # TODO: alias nixos_switch_to_light="sudo /nix/var/nix/profiles/system/specialisation/light/bin/switch-to-configuration switch"
-  # TODO: alias nixos_switch_to_dark="sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch"
+  # TODO: remember current scheme when building new configuration
+  security.sudo.extraRules = [
+    {
+      users = [ username ];
+      commands = [
+        {
+          command = "/nix/var/nix/profiles/system/bin/switch-to-configuration";
+          options = [ "NOPASSWD" ];
+        }
+        {
+          command = "/nix/var/nix/profiles/system/specialisation/light/bin/switch-to-configuration";
+          options = [ "NOPASSWD" ];
+        }
+      ];
+    }
+  ];
 }
