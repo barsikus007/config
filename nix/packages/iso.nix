@@ -1,6 +1,9 @@
 { pkgs, ... }:
 #? https://wiki.nixos.org/wiki/Creating_a_NixOS_live_CD
 {
+  imports = [
+    ../shared/nix.nix
+  ];
   environment.systemPackages = import ../shared/lists { inherit pkgs; };
 
   systemd.services.sshd.wantedBy = pkgs.lib.mkForce [ "multi-user.target" ];

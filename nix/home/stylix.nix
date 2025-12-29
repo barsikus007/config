@@ -8,17 +8,18 @@
       # TODO: unstable: https://github.com/NixOS/nixpkgs/issues/359129
       # qt.platform = "qtct";
 
-      mpv.enable = false;
-      vscode.enable = false;
-      nixcord.enable = false;
-
-      #? due to font troubles
-      firefox.enable = false;
-      # firefox.profileNames = [ "default" ];
-
-      #? shell
+      #? conflicts with custom theme
       bat.enable = false;
-      fzf.enable = false;
+      # TODO: check why this is disabled (TTYs?)
+      # fzf.enable = false;
+      #? conflicts with current setup
+      mpv.enable = false;
+      #? conflicts with custom theme
+      vscode.enable = false;
+      #? due to font troubles; theme isn't working
+      firefox.enable = false;
+      #? theme is unreadable
+      nixcord.enable = false;
     };
   };
 

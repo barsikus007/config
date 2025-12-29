@@ -118,8 +118,6 @@
           "browser.translations.neverTranslateLanguages" = "ru";
           # "devtools.chrome.enabled" = true; # Allow executing JS in the dev console
           # "browser.uitour.enabled" = false; # no tutorial please
-          # https://github.com/FirefoxCSS-Store/FirefoxCSS-Store.github.io/blob/main/README.md#generic-installation
-          "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
           "layers.acceleration.force-enabled" = true;
           "gfx.webrender.all" = true;
           "gfx.webrender.enabled" = true;
@@ -145,6 +143,10 @@
           "media.rdd-ffmpeg.enabled" = true;
           "gfx.x11-egl.force-enabled" = true;
           "widget.dmabuf.force-enabled" = true;
+
+          #? https://github.com/FirefoxCSS-Store/FirefoxCSS-Store.github.io/blob/main/README.md#generic-installation
+          "sidebar.revamp" = false;
+          "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
         };
 
         # visit
@@ -159,7 +161,7 @@
         # https://github.com/iawaknahc/dotfiles/blob/00ac870113c68ce899f6b308471e4970db8ffaaa/home-manager/firefox/default.nix#L46
 
         # Hide tab bar because we have tree style tabs
-        #! https://mrotherguy.github.io/firefox-csshacks/?file=hide_tabs_toolbar_v2.css
+        #? https://mrotherguy.github.io/firefox-csshacks/?file=hide_tabs_toolbar_v2.css
         userChrome = pkgs.fetchurl {
           url = "https://raw.githubusercontent.com/MrOtherGuy/firefox-csshacks/9bb5b59e3ad2b42483731203d51f6cb758fa6cb5/chrome/hide_tabs_toolbar_v2.css";
           hash = "sha256-xP2UqInVthDB67/hU9/rY1jEYXJs+R+i1qDn3LVts6Y=";

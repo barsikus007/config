@@ -279,3 +279,9 @@ sudo fatrace . 2>&1 | grep <process or folder name>
 # modify,attrib,close_write,move,create,delete
 inotifywait --event modify,create,delete,move --monitor --recursive ~/
 ```
+
+### [remove empty directories](https://stackoverflow.com/a/72176404)
+
+```shell
+find . -type d -empty -delete
+```

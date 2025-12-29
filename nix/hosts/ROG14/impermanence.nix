@@ -116,6 +116,7 @@ in
         # TODO: https://wiki.nixos.org/wiki/Impermanence#Example_3
         ".cache/nix-index"
         ".cache/tlrc"
+
         ".config" # TODO: more
         ".local" # TODO: more
         # ".local/share/direnv"
@@ -123,7 +124,6 @@ in
 
         #? apps
         ".android"
-        # ".floorp"
         ".gemini"
         ".mozilla"
         ".ocat" # ? macos opencore
