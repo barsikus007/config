@@ -10,8 +10,8 @@
 
       #? conflicts with custom theme
       bat.enable = false;
-      # TODO: check why this is disabled (TTYs?)
-      # fzf.enable = false;
+      #? isn't switching with script
+      fzf.enable = false;
       #? conflicts with current setup
       mpv.enable = false;
       #? conflicts with custom theme

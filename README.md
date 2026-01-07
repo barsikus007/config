@@ -156,6 +156,8 @@ hatch run true
       - Show Peer IDs in Profile
       - Send large photos
       - Enable webview inspecting
+  - AyuGram > General
+    - Show Message Seconds
 - [CH340/CH341 driver (chinese Arduino)](https://web.archive.org/https://www.wch-ic.com/downloads/ch341ser_zip.html)
 
 ### TODO

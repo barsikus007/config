@@ -23,6 +23,7 @@ with pkgs;
 
   # CLI python
   python-launcher
+  # (python314FreeThreading.withPackages (
   (python3.withPackages (
     python-pkgs: with python-pkgs; [
       tkinter

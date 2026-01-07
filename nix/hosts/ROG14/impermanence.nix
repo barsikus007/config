@@ -61,7 +61,7 @@ in
     # sudo cp -ax --reflink=always /var/lib/AccountsService/users /persistent/var/lib/AccountsService
     # sudo cp -ax --reflink=always /var/lib/systemd/{backlight,catalog,coredump,pstore,rfkill,timers} /persistent/var/lib/systemd
     directories = [
-      # "/etc/asusd" # TODO: asus
+      "/etc/asusd"
       "/etc/NetworkManager/system-connections"
       "/etc/nixos" # TODO: secrets
       "/var/db" # ? ./sudo/lectured/$(id -u)

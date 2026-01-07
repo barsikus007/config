@@ -67,6 +67,8 @@
     // "editor.maxTokenizationLineLength": 200000,
     // #endregion behavior
     // #region misc
+    //! https://github.com/astral-sh/ruff-vscode/issues/178
+    "remote.downloadExtensionsLocally": true,
     //! ports
     "remote.autoForwardPorts": false,
     //! telemetry
@@ -99,7 +101,7 @@
     "dev.containers.dockerPath": "podman",
     //! AI AI AI
     "chat.agent.enabled": true,
-    //? friendship eng with copilot, now I use genimi
+    //? friendship end with copilot, now I use genimi
     "chat.disableAIFeatures": true,
     "geminicodeassist.enableTelemetry": false,
     "geminicodeassist.displayInlineContextHint": false,
@@ -317,7 +319,6 @@
         "*.s3db": "${capture}.${extname}-*"
     },
     "svg.preview.mode": "svg",
-    "hadolint.hadolintPath": "/usr/bin/hadolint",
     "hexeditor.columnWidth": 16,
     "hexeditor.showDecodedText": true,
     "hexeditor.defaultEndianness": "little",
