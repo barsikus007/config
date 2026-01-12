@@ -73,7 +73,7 @@ mkWindowsAppNoCC rec {
       mkdir -p "${programDir}"
       mkdir -p "${commonDir}"
       tmpdir=$(mktemp -d)
-      ${unzip}/bin/unzip ${src} -d "$tmpdir"
+      ${lib.getExe unzip} ${src} -d "$tmpdir"
       mv "$tmpdir/photoshop" "${programDir}/${photoshopDir}"
       mv "$tmpdir/common" "${commonDir}/Adobe"
 

@@ -15,17 +15,17 @@
       (pkgs.writeShellScriptBin "inspect-window" ''
         WINDOW_ID=$(${kdotool}/bin/kdotool getactivewindow)
         if [ -z "$WINDOW_ID" ]; then
-          ${libnotify}/bin/notify-send "Error" "No valid window ID obtained. Did you focus a window?" --urgency=critical
+          ${lib.getExe libnotify} "Error" "No valid window ID obtained. Did you focus a window?" --urgency=critical
           exit 1
         fi
 
         PID=$(${kdotool}/bin/kdotool getwindowpid "$WINDOW_ID")
         if [ -z "$PID" ]; then
-            ${libnotify}/bin/notify-send "Error" "No valid PID obtained for window ID $WINDOW_ID." --urgency=critical
+            ${lib.getExe libnotify} "Error" "No valid PID obtained for window ID $WINDOW_ID." --urgency=critical
             exit 1
         fi
 
-        ${wezterm}/bin/wezterm start --always-new-process -- ${btop}/bin/btop --filter "$PID"
+        ${lib.getExe wezterm} start --always-new-process -- ${lib.getExe btop} --filter "$PID"
       '')
     ];
 

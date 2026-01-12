@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   inputs,
   config,
@@ -104,8 +105,8 @@
   #! after reboot with/out powersupply it is set to perfomance/schedutil: cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
   powerManagement.cpuFreqGovernor = "schedutil";
   services.udev.extraRules = ''
-    ACTION=="add|change", SUBSYSTEM=="power_supply", ATTR{online}=="0", RUN+="${config.boot.kernelPackages.cpupower}/bin/cpupower frequency-set -g schedutil"
-    ACTION=="add|change", SUBSYSTEM=="power_supply", ATTR{online}=="1", RUN+="${config.boot.kernelPackages.cpupower}/bin/cpupower frequency-set -g performance"
+    ACTION=="add|change", SUBSYSTEM=="power_supply", ATTR{online}=="0", RUN+="${lib.getExe config.boot.kernelPackages.cpupower} frequency-set -g schedutil"
+    ACTION=="add|change", SUBSYSTEM=="power_supply", ATTR{online}=="1", RUN+="${lib.getExe config.boot.kernelPackages.cpupower} frequency-set -g performance"
   '';
   # disable 4.2 GHz boost
   systemd.tmpfiles.rules = [

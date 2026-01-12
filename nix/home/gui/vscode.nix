@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   config,
   flakePath,
@@ -11,26 +12,26 @@
     "Code/User/keybindings.json".source =
       config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/Code/User/keybindings.json";
   };
-  programs.vscode = {
+  programs.vscode = with pkgs; {
     enable = false;
-    package = pkgs.vscodium;
+    package = vscodium;
     profiles.default = {
       enableUpdateCheck = false;
       keybindings = builtins.fromJSON (
         builtins.readFile (
-          pkgs.runCommand "clean-json" { } ''
-            ${pkgs.hjson-go}/bin/hjson-cli -j  ${../../.config/Code/User/keybindings.json} > $out
+          runCommand "clean-json" { } ''
+            ${lib.getExe hjson-go} -j  ${../../.config/Code/User/keybindings.json} > $out
           ''
         )
       );
       userSettings = builtins.fromJSON (
         builtins.readFile (
-          pkgs.runCommand "clean-json" { } ''
-            ${pkgs.hjson-go}/bin/hjson-cli -j ${../../.config/Code/User/settings.json} > $out
+          runCommand "clean-json" { } ''
+            ${lib.getExe hjson-go} -j ${../../.config/Code/User/settings.json} > $out
           ''
         )
       );
-      extensions = with pkgs.vscode-extensions; [
+      extensions = with vscode-extensions; [
         yzhang.markdown-all-in-one
         jnoortheen.nix-ide
       ];

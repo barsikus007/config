@@ -28,5 +28,5 @@ let
 in
 runCommand "autounattend.xml" { } "cp ${generatedXml} $out"
 # runCommand "autounattend.xml" { } ''
-#   ${yq-go}/bin/yq eval '.unattend.settings += [ load("${extraFragment}") ]' "${generatedXml}" > $out
+#   ${lib.getExe yq-go} eval '.unattend.settings += [ load("${extraFragment}") ]' "${generatedXml}" > $out
 # ''

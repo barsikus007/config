@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 #? https://github.com/NixOS/nixpkgs/pull/287399
 let
   cfg.package = pkgs.logiops_0_2_3;
@@ -14,7 +19,7 @@ in
     after = [ "multi-user.target" ];
     wants = [ "multi-user.target" ];
     serviceConfig = {
-      ExecStart = "${cfg.package}/bin/logid";
+      ExecStart = "${lib.getExe cfg.package}";
       Restart = "always";
       User = "root";
 

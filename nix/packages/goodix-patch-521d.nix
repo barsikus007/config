@@ -1,4 +1,5 @@
 {
+  lib,
   stdenvNoCC,
   fetchFromGitHub,
   python3,
@@ -40,7 +41,7 @@ stdenvNoCC.mkDerivation {
     #!/bin/sh
     cd "$out/"
     export PATH="$PATH:${openssl}/bin"
-    ${python3Env}/bin/python "run_521d.py"
+    ${lib.getExe python3Env} "run_521d.py"
     EOF
     chmod +x "$out/bin/run_521d"
   '';

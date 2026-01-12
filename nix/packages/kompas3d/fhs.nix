@@ -1,4 +1,5 @@
 {
+  lib,
   kdePackages,
 
   buildFHSEnv,
@@ -52,8 +53,8 @@ buildFHSEnv rec {
       done
     )
   '';
-  # "${kompas}/bin/${kompas.meta.mainProgram}"
-  runScript = "${bash}/bin/bash ${writeText "kompas-wrapper" ''
+  # "${lib.getExe kompas}"
+  runScript = "${lib.getExe bash} ${writeText "kompas-wrapper" ''
     export QT_QPA_PLATFORM=xcb
     export QT_STYLE_OVERRIDE=Fusion
     # export QT_STYLE_OVERRIDE=Windows
