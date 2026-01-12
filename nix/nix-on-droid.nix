@@ -46,9 +46,9 @@
     [
       zsh
       android-tools
+      dig
 
       # Some common stuff that people expect to have
-      #procps
       #util-linux
 
       #tzdata
@@ -84,7 +84,7 @@
     config = {
       # Read the changelog before changing this value
       home = {
-        stateVersion = lib.mkForce "25.05";
+        stateVersion = lib.mkForce "25.11";
         homeDirectory = lib.mkForce "/data/data/com.termux.nix/files/home";
       };
 

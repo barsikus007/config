@@ -37,6 +37,7 @@ with pkgs;
   bruno
   devenv
   devbox
+
   blender
   # (blender-hip.override {
   #   # blender-hip for rocm amd gpu

@@ -16,7 +16,6 @@ with pkgs;
   yt-dlp
   pciutils # lspci
   usbutils # lssub
-  inetutils # telnet traceroute whois
   rsync
   strace # files monitoring
   inotify-tools # files monitoring
