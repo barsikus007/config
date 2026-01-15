@@ -18,7 +18,7 @@
     registry = {
       nixpkgs.flake = inputs.nixpkgs;
     };
-    nix.nixPath = [ "nixpkgs=flake:nixpkgs" ];
+    nixPath = [ "nixpkgs=flake:nixpkgs" ];
     substituters = [
       "https://cache.nixos.org"
       # "https://nixos-cache-proxy.cofob.dev" # ? cloudflare mirror, uses original keys
