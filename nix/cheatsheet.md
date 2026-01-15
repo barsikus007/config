@@ -32,6 +32,8 @@ dd bs=4M conv=fsync oflag=direct status=progress if=./result/iso/nixos-minimal- 
 qemu-system-x86_64 -enable-kvm -m 256 -cdrom result/iso/nixos-minimal*.iso -nic user,hostfwd=tcp::2222-:22
 qemu-system-x86_64 -enable-kvm -m 2048 -smp 4 -cdrom result/iso/nixos-graphical*.iso -nic user,hostfwd=tcp::2222-:22
 ssh root@localhost -p 2222
+# or just
+nixos-rebuild build-vm --flake ./nix#minimalIso-x86_64-linux
 ```
 
 ### show only enabled programs/services

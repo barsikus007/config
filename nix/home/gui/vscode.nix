@@ -13,7 +13,7 @@
       config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/Code/User/keybindings.json";
   };
   programs.vscode = with pkgs; {
-    enable = false;
+    # enable = true;
     package = vscodium;
     profiles.default = {
       enableUpdateCheck = false;

@@ -35,6 +35,8 @@ with pkgs;
 
   yaak
   bruno
+  requestly
+
   devenv
   devbox
 

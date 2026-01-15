@@ -18,6 +18,7 @@
     registry = {
       nixpkgs.flake = inputs.nixpkgs;
     };
+    nix.nixPath = [ "nixpkgs=flake:nixpkgs" ];
     substituters = [
       "https://cache.nixos.org"
       # "https://nixos-cache-proxy.cofob.dev" # ? cloudflare mirror, uses original keys
@@ -47,6 +48,8 @@
       zsh
       android-tools
       dig
+
+      yt-dlp
 
       # Some common stuff that people expect to have
       #util-linux
@@ -84,7 +87,7 @@
     config = {
       # Read the changelog before changing this value
       home = {
-        stateVersion = lib.mkForce "25.11";
+        stateVersion = lib.mkForce "26.05";
         homeDirectory = lib.mkForce "/data/data/com.termux.nix/files/home";
       };
 

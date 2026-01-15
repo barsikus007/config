@@ -104,6 +104,7 @@ let
       nix-shell = "nix-shell --run zsh";
       ns = "nix-shell -p";
       nss = "nix_shell_exec";
+      ncode = "code --reuse-window $(nix eval -f '<nixpkgs>' path)/pkgs/top-level/all-packages.nix";
     };
   sharedAliases =
     baseAliases

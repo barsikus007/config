@@ -14,6 +14,7 @@ with pkgs;
   yq-go
   ffmpeg
   yt-dlp
+  hadolint # Dockerfile
   pciutils # lspci
   usbutils # lssub
   rsync

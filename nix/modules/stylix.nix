@@ -71,6 +71,8 @@
         );
         polarity = lib.mkForce "light";
       };
+      # TODO: module: help me
+      home-manager.users.${username}.programs.bat.config.theme = lib.mkForce "Coldark-Cold";
     };
   };
   # TODO: remember current scheme when building new configuration
