@@ -55,6 +55,11 @@
       efi.canTouchEfiVariables = true;
     };
 
+    kernelParams = [
+      #? NixOS param which enables root-shell when stage 1 fails
+      "boot.shell_on_fail"
+    ];
+
     #? https://wiki.nixos.org/wiki/NTFS
     supportedFilesystems = [ "ntfs" ];
   };
