@@ -342,11 +342,11 @@
         #? https://github.com/emmanuelrosa/erosanix/tree/master/pkgs/mkwindowsapp
         # link src.zip to flake dir
         # `nvidia-offload nix run ./nix#photoshop`
-        photoshop = pkgs.callPackage ./packages/photoshop.nix {
+        photoshop = callPackage ./packages/photoshop.nix {
           inherit (inputs.erosanix.lib."${system}") mkWindowsAppNoCC copyDesktopIcons makeDesktopIcon;
           #? its fucked with unstable wine
-          # wine = wineWowPackages.unstableFull;
-          wine = wineWowPackages.stable;
+          # wine = wineWow64Packages.unstableFull;
+          wine = wineWow64Packages.stable;
           scale = 192;
           src = ./src.zip;
         };

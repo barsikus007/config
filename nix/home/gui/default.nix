@@ -15,6 +15,7 @@
         "org.kde.elisa.desktop"
         "mpv.desktop"
       ];
+      "application/x-msdownload" = "wine";
     }
     //
       lib.genAttrs
