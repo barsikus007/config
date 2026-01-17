@@ -1,16 +1,14 @@
 {
+  #? https://wiki.nixos.org/wiki/Plymouth
   boot = {
-    #? https://wiki.nixos.org/wiki/Plymouth
     plymouth.enable = true;
-    # Enable "Silent boot"
+    #? Enable "Silent boot"
     consoleLogLevel = 3;
     initrd.verbose = false;
     kernelParams = [
       "quiet"
-      "splash"
-      "boot.shell_on_fail"
-      "udev.log_priority=3"
-      "rd.systemd.show_status=auto"
+      "udev.log_level=3"
+      "systemd.show_status=auto"
     ];
     # Hide the OS choice for bootloaders.
     # It's still possible to open the bootloader list by pressing any key
