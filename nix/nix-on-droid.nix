@@ -20,13 +20,13 @@
     };
     nixPath = [ "nixpkgs=flake:nixpkgs" ];
     substituters = [
-      "https://cache.nixos.org"
+      # "https://cache.nixos.org" # ? it is already set in nix-on-droid
       # "https://nixos-cache-proxy.cofob.dev" # ? cloudflare mirror, uses original keys
 
       "https://nix-community.cachix.org"
     ];
     trustedPublicKeys = [
-      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      # "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" # ? it is already set in nix-on-droid
 
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];

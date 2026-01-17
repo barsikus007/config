@@ -126,7 +126,7 @@ in
         ".android"
         ".gemini"
         ".mozilla"
-        ".ocat" # ? macos opencore
+        ".ocat" # TODO: macos opencore
         ".thunderbird"
         ".vscode"
 

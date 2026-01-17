@@ -93,7 +93,6 @@ let
       nuu = "nix flake update nixpkgs --override-input nixpkgs nixpkgs/$(nixos-version --hash)";
       n = "nh home switch ${flakePath}";
       nn = "nh os switch ${flakePath}";
-      nnn = "sudo true && nn && notify-send 'System build success' && exec $SHELL || notify-send 'System build failed'";
       nd = "nh clean all";
       nr = "nix repl --file ${flakePath}/repl.nix";
       nrr = "nh home repl ${flakePath}";
@@ -146,6 +145,7 @@ in
     ];
     envExtra = ''
       source "$XDG_CONFIG_HOME"/shell/g14.sh
+      source "$XDG_CONFIG_HOME"/shell/nix-utils.sh
     '';
     initContent = # /* shell */ comment for tree-sitter
       ''

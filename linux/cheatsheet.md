@@ -227,7 +227,7 @@ yes > no
 ### Ping whole subnet
 
 ```shell
-subnet='46.175.145'; for i in {0..255}; do timeout 0.5 ping -c1 $subnet.$i; done
+subnet='192.168.1'; for i in {0..255}; do timeout 0.5 ping -c1 $subnet.$i; done
 ```
 
 ### send nc/netcat/croc etc
