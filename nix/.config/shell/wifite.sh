@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # unused shebang
 #! /usr/bin/env nix-shell
@@ -12,9 +12,9 @@ restore_wifi() {
     old_region=${2:-RU}
     sudo airmon-ng stop "$iface"mon
     sudo ip link set "$iface" down
-    sudo iw reg set $old_region
-    sudo iw dev $iface set power_save on
-    sudo iw dev $iface set txpower auto
+    sudo iw reg set "$old_region"
+    sudo iw dev "$iface" set power_save on
+    sudo iw dev "$iface" set txpower auto
     sudo ip link set "$iface" up
   )
 }

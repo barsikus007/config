@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 confirm() {
   printf "%s [Y/n] " "$1"

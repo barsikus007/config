@@ -64,17 +64,17 @@
           "laptop-button-rog" = {
             name = "Laptop ROG Button";
             key = "Launch (1)";
-            command = "zsh -c demotoggle";
+            command = "zsh -c asus_demotoggle";
           };
           # "laptop-button-f5" = {
           #   name = "Laptop F5 Button";
           #   key = "Launch (4)";
-          #   command = "zsh -c fan";
+          #   command = "zsh -c asus_fan";
           # };
           "laptop-button-f6" = {
             name = "Laptop F6 Button";
             key = "Meta+Shift+S";
-            command = "zsh -c \"noanime && anime\"";
+            command = "zsh -c \"asus_noanime && asus_anime\"";
           };
           "inspect-window" = {
             name = "Open Current Window in btop";

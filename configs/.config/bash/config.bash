@@ -1,6 +1,8 @@
 # shellcheck disable=SC1091
-source "$XDG_CONFIG_HOME/shell/aliases.sh"
-source "$XDG_CONFIG_HOME/shell/functions.sh"
+for file in "$XDG_CONFIG_HOME"/shell/*.sh; do
+  # shellcheck source=/dev/null
+  source "$file"
+done
 
 HISTSIZE=100000
 HISTFILESIZE=100000

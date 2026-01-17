@@ -143,9 +143,11 @@ in
         file = "share/fzf-tab/fzf-tab.plugin.zsh";
       }
     ];
+    defaultKeymap = "emacs";
     envExtra = ''
-      source "$XDG_CONFIG_HOME"/shell/g14.sh
-      source "$XDG_CONFIG_HOME"/shell/nix-utils.sh
+      for file in "$XDG_CONFIG_HOME"/shell/*.sh; do
+        source "$file"
+      done
     '';
     initContent = # /* shell */ comment for tree-sitter
       ''
@@ -155,7 +157,6 @@ in
         autoload -Uz select-word-style
         select-word-style bash
 
-        bindkey -e
         # home
         bindkey "^[[H"    beginning-of-line
         #? probably, for WSL (or wt.exe), but works on wezterm too
@@ -187,7 +188,10 @@ in
         # ctrl + delete
         bindkey "^[[3;5~" delete-word
 
-        source "$XDG_CONFIG_HOME"/shell/functions.sh
+        #? https://wiki.archlinux.org/title/Zsh#Shortcut_to_exit_shell_on_partial_command_line
+        exit_zsh() { exit }
+        zle -N exit_zsh
+        bindkey '^D' exit_zsh
       '';
   };
   programs.bash = {
@@ -196,7 +200,9 @@ in
     historySize = 100000;
     historyControl = [ "ignoreboth" ];
     initExtra = ''
-      source "$XDG_CONFIG_HOME"/shell/functions.sh
+      for file in "$XDG_CONFIG_HOME"/shell/*.sh; do
+        source "$file"
+      done
     '';
   };
   # programs.fish = {

@@ -1,7 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
-demo_download() {
-  # TODO make check if files exits
+asus_demo_download() {
   (
     VIDEO_FOLDER=~/.config/rog
     mkdir -p $VIDEO_FOLDER
@@ -10,35 +9,32 @@ demo_download() {
     yt-dlp $VIDEO_ID -o - | ffmpeg -i - -filter_complex "[0:v]fps=30,scale=66:-1,setpts=0.645*PTS[v]" -map '[v]' -loop 0 $VIDEO_FOLDER/$VIDEO_NAME.gif $VIDEO_FOLDER/$VIDEO_NAME.mp3 -y
   )
 }
-
-
-# TODO split em
 #? ROG G14 specific
-# TODO deps: tmux asusctl sox(play)
+#? deps: tmux asusctl sox(play)
 #! https://gitlab.com/asus-linux/asusctl/-/issues/530#note_2101255275
-alias animeclr='asusctl anime -E false > /dev/null'
-#! alias noanime='systemctl --user stop asusd-user && animeclr'
-alias noanime='tmux kill-session -t anime 2> /dev/null; animeclr'
-#! alias yesanime='systemctl --user start asusd-user'
-alias yesanime='tmux new -s anime -d "asusctl anime gif -p ~/.config/rog/bad-apple.gif"'
-alias anime='animeclr && yesanime'
-alias demosplash='asusctl anime pixel-image -p ~/.config/rog/bad-apple.png'
-alias nodemo='tmux kill-session -t sound 2> /dev/null; noanime'
-alias demo='nodemo && anime && sleep 0.5 && tmux new -s sound -d "play ~/.config/rog/bad-apple.mp3 repeat -"'
-demotoggle() {
+alias asus_animeclr='asusctl anime -E false > /dev/null'
+#! alias asus_noanime='systemctl --user stop asusd-user && asus_animeclr'
+alias asus_noanime='tmux kill-session -t anime 2> /dev/null; asus_animeclr'
+#! alias asus_yesanime='systemctl --user start asusd-user'
+alias asus_yesanime='tmux new -s anime -d "asusctl anime gif -p ~/.config/rog/bad-apple.gif"'
+alias asus_anime='asus_animeclr && asus_yesanime'
+alias asus_demosplash='asusctl anime pixel-image -p ~/.config/rog/bad-apple.png'
+alias asus_nodemo='tmux kill-session -t sound 2> /dev/null; asus_noanime'
+alias asus_demo='asus_nodemo && asus_anime && sleep 0.5 && tmux new -s sound -d "play ~/.config/rog/bad-apple.mp3 repeat -"'
+asus_demotoggle() {
   # demo toggle function (for dedicated key)
   (
     DEMO_FILE=~/.config/.is-demo-working
     if [ -f "$DEMO_FILE" ]; then
-      nodemo && rm "$DEMO_FILE"
+      asus_nodemo && rm "$DEMO_FILE"
     else
-      demo && touch "$DEMO_FILE"
+      asus_demo && touch "$DEMO_FILE"
     fi
   )
 }
 
 #? asus general
-fan() {
+asus_fan() {
   # fan switch function (for Fn+F5 key)
   (
     asusctl profile -n
