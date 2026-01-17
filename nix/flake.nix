@@ -105,6 +105,7 @@
 
           ./modules/shell
           ./modules/containers
+          ./modules/silent-boot.nix
           ./modules/locale.nix
           ./modules/network.nix
           ./modules/swap.nix
