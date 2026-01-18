@@ -219,7 +219,9 @@
     // #region other
     "[lua]": {
         "editor.formatOnSave": true,
-        "editor.defaultFormatter": "sumneko.lua"
+        "editor.defaultFormatter": "sumneko.lua",
+        //! cause https://marketplace.visualstudio.com/items?itemName=ahmadalli.vscode-nginx-conf is spamming snippets
+        "editor.suggest.showSnippets": false
     },
     "[yaml]": {
         "editor.tabSize": 2,

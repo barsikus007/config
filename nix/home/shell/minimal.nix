@@ -84,28 +84,24 @@ let
     nvf = "nvim +'Telescope find_files hidden=true cwd=/'";
     nvs = "nvim +'Telescope live_grep hidden=true'";
   };
-  nixAliases =
-    let
-      inherit flakePath;
-    in
-    {
-      iusenixbtw = "fastfetch";
-      nu = "nix flake update --flake ${flakePath}";
-      nuu = "nix flake update nixpkgs --override-input nixpkgs nixpkgs/$(nixos-version --hash)";
-      n = "nh home switch ${flakePath}";
-      nn = "nh os switch ${flakePath}";
-      nd = "nh clean all";
-      nr = "nix repl --file ${flakePath}/repl.nix";
-      nrr = "nh home repl ${flakePath}";
-      nrrr = "nixos-rebuild repl --flake ${flakePath}";
-      ne = "editor ${flakePath}";
-      ndiff = "${lib.getExe pkgs.nvd} diff ~/.local/state/nix/profiles/$(command ls -t ~/.local/state/nix/profiles | fzf) ~/.local/state/nix/profiles/home-manager";
-      nndiff = "${lib.getExe pkgs.nvd} diff /nix/var/nix/profiles/$(command ls -t /nix/var/nix/profiles/ | fzf) /nix/var/nix/profiles/system";
-      nix-shell = "nix-shell --run zsh";
-      ns = "nix-shell -p";
-      nss = "nix_shell_exec";
-      ncode = "code --reuse-window $(nix eval -f '<nixpkgs>' path)/pkgs/top-level/all-packages.nix";
-    };
+  nixAliases = {
+    iusenixbtw = "fastfetch";
+    nu = "nix flake update --flake ${flakePath}";
+    nuu = "nix flake update nixpkgs --override-input nixpkgs nixpkgs/$(nixos-version --hash)";
+    n = "nh home switch ${flakePath}";
+    nn = "nh os switch ${flakePath}";
+    nd = "nh clean all";
+    nr = "nix repl --file ${flakePath}/repl.nix";
+    nrr = "nh home repl ${flakePath}";
+    nrrr = "nixos-rebuild repl --flake ${flakePath}";
+    ne = "editor ${flakePath}";
+    ndiff = "${lib.getExe pkgs.nvd} diff ~/.local/state/nix/profiles/$(command ls -t ~/.local/state/nix/profiles | fzf) ~/.local/state/nix/profiles/home-manager";
+    nndiff = "${lib.getExe pkgs.nvd} diff /nix/var/nix/profiles/$(command ls -t /nix/var/nix/profiles/ | fzf) /nix/var/nix/profiles/system";
+    nix-shell = "nix-shell --run zsh";
+    ns = "nix-shell -p";
+    nss = "nix_shell_exec";
+    ncode = "code --reuse-window $(nix eval -f '<nixpkgs>' path)/pkgs/top-level/all-packages.nix";
+  };
   sharedAliases =
     baseAliases
     // dockerAliases
@@ -118,6 +114,8 @@ let
   zshAliases = {
     "?" = "type_colored_and_nix_truncate";
     "??" = "type_colored";
+    history-cat = "nvim -R +'set filetype=bash' ~/.config/zsh/.zsh_history";
+    history-edit = "code --reuse-window ~/.config/zsh/.zsh_history";
   };
 in
 {

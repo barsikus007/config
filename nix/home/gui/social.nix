@@ -14,7 +14,7 @@
       "x-scheme-handler/tonsite"
     ] (key: "com.ayugram.desktop.desktop");
   };
-  # imports = [ inputs.nixcord.homeModules.default ];
+  #! imports = [ inputs.nixcord.homeModules.default ];
   programs.nixcord = {
     enable = true;
     discord = {

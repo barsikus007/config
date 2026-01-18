@@ -9,8 +9,6 @@ echo "DEPRECATION WARNING!!! I USE NIX NOW"
   cp -r "$script_dir/".[!.]* ~/
   cp -r "$script_dir/"../nix/.config/ ~/
 
-  ln -sf ~/.config/nvim/init.vim ~/.vimrc
-
   touch_file_if_not_exist() {
     # touches $1 if it does not exist
     if [ ! -f "$1" ]; then

@@ -1,36 +1,24 @@
-{ lib, flakePath, ... }:
 {
-  # imports = [ inputs.nvf.homeManagerModules.default ];
+  lib,
+  config,
+  flakePath,
+  ...
+}:
+{
+  xdg.configFile = {
+    "nvim/init.lua".source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/nvim/init.lua";
+  };
+
+  #! imports = [ inputs.nvf.homeManagerModules.default ];
   home.sessionVariables.MANPAGER = "nvim +Man!";
   programs.nvf = {
     enable = true;
     defaultEditor = true;
+    #? https://nvf.notashelf.dev/search.html
     settings.vim = {
-      # https://github.com/NotAShelf/nvf/blob/main/configuration.nix
+      #? https://github.com/NotAShelf/nvf/blob/main/configuration.nix
       viAlias = true;
       vimAlias = true;
-      options = {
-        # visual style
-        number = true;
-        relativenumber = true;
-        mouse = "a";
-        ruler = true;
-        cursorline = true;
-        title = true;
-        showmatch = true;
-        # fix indents
-        autoindent = true;
-        smartindent = true;
-        smarttab = true;
-        expandtab = true;
-        tabstop = 2;
-        softtabstop = 2;
-        shiftwidth = 2;
-        # search behaviour
-        ignorecase = true;
-        smartcase = true;
-        incsearch = true;
-      };
       keymaps = [
         {
           key = "<leader>?";
@@ -39,16 +27,21 @@
           action = ":Cheatsheet<CR>";
         }
       ];
-      luaConfigRC.basic = builtins.readFile ../.config/nvim/init.lua;
+      # luaConfigRC.basic = builtins.readFile ../.config/nvim/init.lua;
+      luaConfigPost = "require('init')";
       debugMode = {
         enable = false;
         level = 16;
         logFile = "/tmp/nvim.log";
       };
 
+      diagnostics.config.virtual_lines = true;
+
       lsp = {
         enable = false;
         formatOnSave = true;
+        inlayHints.enable = true;
+        mappings.goToDefinition = "gd";
         # https://github.com/onsails/lspkind.nvim
         lspkind.enable = false;
         # https://github.com/kosayoda/nvim-lightbulb
