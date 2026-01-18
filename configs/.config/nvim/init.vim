@@ -9,16 +9,17 @@ set encoding=UTF-8
 " init.lua
 
 
-" visual style
+"? visual style
 set number
 set relativenumber
 set mouse=a
 set ruler
 set cursorline
-" Show matching brackets when text indicator is over them
+set title
+"? Show matching brackets when text indicator is over them
 set showmatch
 
-" indent fix ?
+"? indent fix ?
 set autoindent
 set smartindent
 set smarttab
@@ -27,14 +28,14 @@ set tabstop=2
 set softtabstop=2
 set shiftwidth=2
 
-" undo behavior
+"? undo behavior
 " set noswapfile
 " set nobackup
 " set undodir=~/.vim/undodir
 " set undofile
 " set clipboard=unnamed
 
-" search behavior
+"? search behavior
 set ignorecase
 set smartcase
 set incsearch

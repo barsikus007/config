@@ -10,6 +10,14 @@
       viAlias = true;
       vimAlias = true;
       options = {
+        # visual style
+        number = true;
+        relativenumber = true;
+        mouse = "a";
+        ruler = true;
+        cursorline = true;
+        title = true;
+        showmatch = true;
         # fix indents
         autoindent = true;
         smartindent = true;
@@ -51,15 +59,19 @@
         lspSignature.enable = true;
 
         servers = {
-          nixd.init_options = {
-            # TODO: home-manager-module
-            nixpkgs.expr = "let inputs = (builtins.getFlake ''${flakePath}'').inputs; system = ''x86_64-linux''; in (import ''\${toString ./.}/nix/nixpkgs.nix'' { inherit system inputs; })";
-            options = {
-              nixos.expr = "(builtins.getFlake ''${flakePath}'').nixosConfigurations.ROG14.options";
-              # home-manager.expr = "(builtins.getFlake ''${flakePath}'').homeConfigurations.${username}.options";
-              home-manager.expr = "(builtins.getFlake ''${flakePath}'').nixosConfigurations.ROG14.options.home-manager.users.type.getSubOptions []";
+          nixd.init_options =
+            let
+              flake = "(builtins.getFlake ''${flakePath}'')";
+            in
+            {
+              # TODO: home-manager-module
+              nixpkgs.expr = "import ''${flakePath}/nixpkgs.nix'' { system = ''x86_64-linux''; inputs = ${flake}.inputs; }";
+              options = rec {
+                nixos.expr = "${flake}.nixosConfigurations.ROG14.options";
+                # home-manager.expr = "${flake}.homeConfigurations.${username}.options";
+                home-manager.expr = "${nixos.expr}.home-manager.users.type.getSubOptions []";
+              };
             };
-          };
         };
       };
 
@@ -71,7 +83,10 @@
         enableExtraDiagnostics = true;
 
         # Languages that will be supported in default and maximal configurations.
-        nix.enable = true;
+        nix = {
+          enable = true;
+          lsp.servers = [ "nixd" ];
+        };
         python = {
           enable = true;
           format.type = [ "ruff" ];
