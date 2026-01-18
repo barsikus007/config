@@ -33,9 +33,9 @@ _nn() {
   if [ -f ~/.cache/darkman/mode.txt ]; then
     echo "Current theme is: $(cat ~/.cache/darkman/mode.txt)"
     case "$(cat ~/.cache/darkman/mode.txt)" in
-      "dark") nh os switch "$@" ;;
-      "light") nh os switch --specialisation=light "$@" ;;
-      *) nh os switch "$@" ;;
+      ("dark") nh os switch "$@" ;;
+      ("light") nh os switch --specialisation=light "$@" ;;
+      (*) nh os switch "$@" ;;
     esac
   else
     echo "No theme file found"

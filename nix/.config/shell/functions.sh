@@ -10,7 +10,7 @@ batman() {
 ssht() {
   (
     case "$1" in
-      -*) echo "Specify hostname first"; return 1 ;;
+      (-*) echo "Specify hostname first"; return 1 ;;
     esac
     ssh "$@" -t "zellij attach -c $1 options --default-mode locked --session-serialization false || tmux new -As$1 || bash || sh"
   )
