@@ -16,6 +16,7 @@
     VISUAL = EDITOR;
   };
 
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   hardware.ksm.enable = true;
 
   # Set your time zone.

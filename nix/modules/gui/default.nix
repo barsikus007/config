@@ -2,7 +2,6 @@
 {
   environment.systemPackages = with pkgs; [
     # wayland stuff
-    #! https://github.com/YaLTeR/wl-clipboard-rs/issues/5
     wl-clipboard
     libnotify
 

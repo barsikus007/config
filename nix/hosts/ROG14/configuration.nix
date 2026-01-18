@@ -7,7 +7,7 @@
   ...
 }:
 {
-  networking.hostName = "ROG14"; # Define your hostname
+  networking.hostName = "ROG14";
 
   environment.systemPackages = (
     import ../../shared/lists {
@@ -24,19 +24,12 @@
   imports = [
     #? https://github.com/NixOS/nixos-hardware/blob/master/asus/zephyrus/ga401/default.nix
     inputs.nixos-hardware.nixosModules.asus-zephyrus-ga401
-    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../../modules/hardware/fingerprint.nix
   ];
   home-manager.users.${username} = ./home.nix;
 
   boot = {
-    #? Blazing fast https://xanmod.org/
-    # kernelPackages = pkgs.linuxPackages_latest;
-    kernelPackages = pkgs.linuxPackages_zen;
-    # kernelPackages = pkgs.linuxPackages_xanmod_stable;
-
-    # Use the systemd-boot EFI boot loader.
     loader = {
       systemd-boot = {
         enable = true;
@@ -49,8 +42,7 @@
             efi /efi/OC/OpenCore.efi
           '';
         };
-        # sort-key macos
-        # rebootForBitlocker = true;
+        #? sort-key macos
       };
       efi.canTouchEfiVariables = true;
     };
@@ -96,7 +88,7 @@
     ACTION=="add|change", SUBSYSTEM=="power_supply", ATTR{online}=="0", RUN+="${lib.getExe config.boot.kernelPackages.cpupower} frequency-set -g schedutil"
     ACTION=="add|change", SUBSYSTEM=="power_supply", ATTR{online}=="1", RUN+="${lib.getExe config.boot.kernelPackages.cpupower} frequency-set -g performance"
   '';
-  # disable 4.2 GHz boost
+  #? disable 4.2 GHz boost
   systemd.tmpfiles.rules = [
     "w /sys/devices/system/cpu/cpufreq/boost - - - - 0"
   ];

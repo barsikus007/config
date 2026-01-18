@@ -75,7 +75,6 @@
       home-manager.users.${username}.programs.bat.config.theme = lib.mkForce "Coldark-Cold";
     };
   };
-  # TODO: remember current scheme when building new configuration
   security.sudo.extraRules = [
     {
       users = [ username ];
