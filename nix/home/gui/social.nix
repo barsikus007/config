@@ -1,9 +1,4 @@
-{
-  lib,
-  pkgs,
-  inputs,
-  ...
-}:
+{ lib, pkgs, ... }:
 # Да.
 {
   xdg.mimeApps = {
@@ -19,9 +14,7 @@
       "x-scheme-handler/tonsite"
     ] (key: "com.ayugram.desktop.desktop");
   };
-  imports = [
-    inputs.nixcord.homeModules.nixcord
-  ];
+  # imports = [ inputs.nixcord.homeModules.default ];
   programs.nixcord = {
     enable = true;
     discord = {

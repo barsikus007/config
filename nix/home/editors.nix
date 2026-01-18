@@ -1,12 +1,6 @@
+{ lib, flakePath, ... }:
 {
-  lib,
-  inputs,
-  username,
-  flakePath,
-  ...
-}:
-{
-  imports = [ inputs.nvf.homeManagerModules.default ];
+  # imports = [ inputs.nvf.homeManagerModules.default ];
   home.sessionVariables.MANPAGER = "nvim +Man!";
   programs.nvf = {
     enable = true;

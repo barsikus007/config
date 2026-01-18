@@ -1,13 +1,12 @@
 {
   lib,
   pkgs,
-  inputs,
   config,
   custom,
   ...
 }:
 {
-  imports = [ inputs.plasma-manager.homeModules.plasma-manager ];
+  # imports = [ inputs.plasma-manager.homeModules.plasma-manager ];
   home.packages =
     with pkgs;
     (if custom.isAsus then [ supergfxctl-plasmoid ] else [ ])
