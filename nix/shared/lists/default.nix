@@ -12,6 +12,7 @@ import ./00_essential.nix { inherit pkgs; }
   nix-output-monitor
 
   tree-sitter
+  tree-sitter-grammars.tree-sitter-nix
   nixfmt-rfc-style
   nixd
   nil

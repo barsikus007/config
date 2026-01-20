@@ -1,14 +1,9 @@
 {
   lib,
-  config,
   flakePath,
   ...
 }:
 {
-  xdg.configFile = {
-    "nvim/init.lua".source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/nvim/init.lua";
-  };
-
   #! imports = [ inputs.nvf.homeManagerModules.default ];
   home.sessionVariables.MANPAGER = "nvim +Man!";
   programs.nvf = {
@@ -28,7 +23,7 @@
         }
       ];
       # luaConfigRC.basic = builtins.readFile ../.config/nvim/init.lua;
-      luaConfigPost = "require('init')";
+      luaConfigPost = "dofile('${flakePath}/.config/nvim/init.lua')";
       debugMode = {
         enable = false;
         level = 16;

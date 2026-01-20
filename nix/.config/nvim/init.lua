@@ -46,6 +46,9 @@ vim.o.wildignore = "*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xls
 
 --? keymaps
 vim.g.mapleader = " "
+--? search and replace: https://stackoverflow.com/a/676619
+vim.keymap.set('v', '<C-r>', '"hy:%s/<C-r>h//gc<left><left><left>', { noremap = true })
+
 
 --? ^c to copy; ^v to paste
 vim.keymap.set('n', '<C-c>', '"+y', { noremap = true })
@@ -55,7 +58,7 @@ if vim.g.neovide then
     vim.api.nvim_set_keymap('n', '<C-v>', '"+p', { noremap = true })
     vim.api.nvim_set_keymap('v', '<C-v>', '"+P', { noremap = true })
     vim.api.nvim_set_keymap('c', '<C-v>', '<C-R>+', { noremap = true })
-    vim.api.nvim_set_keymap('i', '<C-v>', '<ESC>"+p', { noremap = true })
+    vim.api.nvim_set_keymap('i', '<C-v>', '<C-R>+', { noremap = true })
     vim.api.nvim_set_keymap('t', '<C-v>', '<C-\\><C-n>"+Pi', { noremap = true })
 end
 

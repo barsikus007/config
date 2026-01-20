@@ -97,7 +97,7 @@
 - [Card emulation](https://play.google.com/store/apps/details?id=com.yuanwofei.cardemulator.pro)
 - [VPN Hotspot](https://play.google.com/store/apps/details?id=be.mygod.vpnhotspot)  - `https://github.com/Mygod/VPNHotspot`
 - Classic Power Menu - `https://github.com/KieronQuinn/ClassicPowerMenu`
-  - !broken on ksu/apatch
+  - TODO: module for OnePlus
 - Root Detector - `https://github.com/reveny/Android-Native-Root-Detector`
   - [another one - momo](https://t.me/magiskalpha/529)
 - Hide Applists - `https://github.com/frknkrc44/HMA-OSS`
@@ -128,11 +128,3 @@ echo 2 >> /sys/class/backlight/panel0-backlight/hbm_mode
 - <https://www.xda-developers.com/google-pixel-4-high-brightness-mode-fix/>
 - <https://xdaforums.com/t/hbm.4356189/>
 - <https://play.google.com/store/apps/details?id=com.franco.kernel>
-
-## adb shell sudo bash
-
-```shell
-adb shell -t su
-adb shell -t "su -c 'sh'"
-adb shell -t "su -c '/data/data/com.termux/files/usr/bin/login'"
-```

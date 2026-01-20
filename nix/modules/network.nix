@@ -18,6 +18,10 @@ in
   # ];
   networking.hosts = {
     "130.255.77.28" = [ "ntc.party" ];
+    "95.182.120.241" = [
+      "sora.com"
+      "sora.chatgpt.com"
+    ];
   };
 
   # networking.firewall.enable = false;

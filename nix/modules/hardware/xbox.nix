@@ -1,4 +1,5 @@
 { pkgs, config, ... }:
+#? sudo udevadm control --reload-rules && sudo udevadm trigger
 {
   # USB
   hardware.xpad-noone.enable = true;

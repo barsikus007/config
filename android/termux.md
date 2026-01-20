@@ -36,6 +36,8 @@ enter shell
 
 ```shell
 adb shell -t "su -c /data/data/com.termux/files/home/.adbrc"
+# or with termux user
+adb shell -t 'su $(su -c "stat -c %U /data/data/com.termux") -c /data/data/com.termux/files/home/.adbrc'
 # or without .adbrc
 adb shell -t "su -c /data/data/com.termux/files/usr/bin/login"
 # or for nix-on-droid https://github.com/nix-community/nix-on-droid/issues/248
