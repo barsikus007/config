@@ -8,6 +8,26 @@
 - [builder status nixos-unstable](https://hydra.nixos.org/jobset/nixos/trunk-combined/latest-eval)
 - [attributes ordering](https://github.com/jtojnar/nixpkgs-hammering/blob/main/explanations/attribute-ordering.md)
 
+### speedtest
+
+feat: gemini
+
+```shell
+# 1. Вычисляем хэш текущего ядра Linux из пути в /nix/store
+HASH=$(readlink -f /run/current-system/kernel | grep -oP '/nix/store/\K[a-z0-9]{32}')
+
+# 2. Получаем прямой URL к .nar архиву из кэша
+NAR_URL=$(curl -s https://cache.nixos.org/$HASH.narinfo | grep -oP 'URL: \K.*')
+
+# 3. Если файл найден в кэше — качаем и замеряем скорость
+if [ -z "$NAR_URL" ]; then
+  echo "Ваше ядро собрано локально или отсутствует в кэше. Попробуйте другой пакет."
+else
+  echo "Тестируем на файле: $NAR_URL"
+  curl -L -o /dev/null -w "Speed: %{speed_download} B/s\n" "https://cache.nixos.org/$NAR_URL"
+fi
+```
+
 ### misc
 
 - ventoy: `NIXPKGS_ALLOW_UNFREE=1 NIXPKGS_ALLOW_INSECURE=1 nix shell --impure nixpkgs#ventoy-full-qt`

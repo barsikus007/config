@@ -11,6 +11,7 @@
     nixpkgs.flake = inputs.nixpkgs;
   };
   nix.settings = {
+    auto-optimise-store = true;
     use-xdg-base-directories = true;
     experimental-features = [
       "nix-command"

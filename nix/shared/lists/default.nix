@@ -13,7 +13,7 @@ import ./00_essential.nix { inherit pkgs; }
 
   tree-sitter
   tree-sitter-grammars.tree-sitter-nix
-  nixfmt-rfc-style
+  nixfmt
   nixd
   nil
 ]
