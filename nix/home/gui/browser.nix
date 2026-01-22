@@ -61,9 +61,12 @@
   programs.firefox = {
     enable = true;
     #? firefox pwa, if I ever need it
-    # nativeMessagingHosts = with pkgs; [ firefoxpwa ];
+    nativeMessagingHosts = with pkgs; [
+      kdePackages.plasma-browser-integration
+      # firefoxpwa
+    ];
     # https://github.com/tupakkatapa/mozid
-    # nix run github:tupakkatapa/mozid -- '<url>'
+    # nix run --override-input nixpkgs nixpkgs github:tupakkatapa/mozid -- '<url>'
     policies = {
       AppAutoUpdate = false;
       BackgroundAppUpdate = false;
@@ -82,6 +85,7 @@
         };
       in
       builtins.listToAttrs [
+        (extension "plasma-integration" "plasma-browser-integration@kde.org")
         (extension "pwas-for-firefox" "firefoxpwa@filips.si")
         (extension "sidebery" "{3c078156-979c-498b-8990-85f7987dd929}")
         (extension "ublock-origin" "uBlock0@raymondhill.net")
