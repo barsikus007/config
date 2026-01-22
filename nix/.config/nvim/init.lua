@@ -44,11 +44,20 @@ vim.o.wildmode = "list:longest"
 vim.o.wildignore = "*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx"
 
 
+--? languages
+vim.o.commentstring = "# %s"
+vim.diagnostic.config({ virtual_lines = { current_line = true } })
+-- vim.lsp.config("lua-language-server", { -- lua_ls
+--     settings = {
+--         ["Lua.workspace.library"] = vim.env.VIMRUNTIME,
+--     }
+-- })
+
+
 --? keymaps
 vim.g.mapleader = " "
 --? search and replace: https://stackoverflow.com/a/676619
 vim.keymap.set('v', '<C-r>', '"hy:%s/<C-r>h//gc<left><left><left>', { noremap = true })
-
 
 --? ^c to copy; ^v to paste
 vim.keymap.set('n', '<C-c>', '"+y', { noremap = true })
@@ -63,17 +72,14 @@ if vim.g.neovide then
 end
 
 --? russian commands
--- TODO https://habr.com/ru/articles/726400/
 local function escape(str)
     --? Эти символы должны быть экранированы, если встречаются в langmap
     local escape_chars = [[;,."|\]]
     return vim.fn.escape(str, escape_chars)
 end
-
 local ru = [[ЁЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ,ёйцукенгшщзхъфывапролджэячсмить]]
 local en = [[~QWERTYUIOP{}ASDFGHJKL:"ZXCVBNM<>?`qwertyuiop[]asdfghjkl;'zxcvbnm]]
 vim.o.langmap = escape(ru) .. ";" .. escape(en)
-
 --! https://gist.github.com/sigsergv/5329458
 local map = vim.keymap.set
 -- like ":map" but for Normal mode
@@ -87,3 +93,5 @@ nmap("ф", "a")
 nmap("щ", "o")
 nmap("г", "u")
 nmap("З", "P")
+
+-- TODO: standalone: https://neovim.io/doc/user/lsp.html#lsp-quickstart; https://lazy.folke.io/installation; https://github.com/calops/hmts.nvim; https://github.com/Wansmer/langmapper.nvim

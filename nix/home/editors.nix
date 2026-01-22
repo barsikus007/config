@@ -1,8 +1,4 @@
-{
-  lib,
-  flakePath,
-  ...
-}:
+{ lib, flakePath, ... }:
 {
   #! imports = [ inputs.nvf.homeManagerModules.default ];
   home.sessionVariables.MANPAGER = "nvim +Man!";
@@ -29,8 +25,6 @@
         level = 16;
         logFile = "/tmp/nvim.log";
       };
-
-      diagnostics.config.virtual_lines = true;
 
       lsp = {
         enable = false;
@@ -70,7 +64,9 @@
         enableTreesitter = true;
         enableExtraDiagnostics = true;
 
-        # Languages that will be supported in default and maximal configurations.
+        lua = {
+          enable = true;
+        };
         nix = {
           enable = true;
           lsp.servers = [ "nixd" ];

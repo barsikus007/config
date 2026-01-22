@@ -42,4 +42,19 @@
     #! https://github.com/NixOS/nixpkgs/blob/c23193b943c6c689d70ee98ce3128239ed9e32d1/pkgs/applications/editors/vscode/generic.nix#L82
     # vscode-fhs
   ];
+  programs.zed-editor = {
+    # enable = true;
+    extensions = [
+      "comment"
+      "nix"
+    ];
+    userSettings = {
+      tabs = {
+        file_icons = true;
+      };
+      telemetry = {
+        metrics = false;
+      };
+    };
+  };
 }

@@ -61,6 +61,11 @@ in
     # sudo cp -ax --reflink=always /var/lib/AccountsService/users /persistent/var/lib/AccountsService
     # sudo cp -ax --reflink=always /var/lib/systemd/{backlight,catalog,coredump,pstore,rfkill,timers} /persistent/var/lib/systemd
     directories = [
+      {
+        directory = ".Trash-1000";
+        user = username;
+        group = "users";
+      }
       "/etc/asusd"
       "/etc/NetworkManager/system-connections"
       "/etc/nixos" # TODO: secrets
@@ -113,14 +118,69 @@ in
         "hax"
         "Sync"
 
-        # TODO: https://wiki.nixos.org/wiki/Impermanence#Example_3
+        ".cache/cloud-code" # ? gemini auth
         ".cache/nix-index"
         ".cache/tlrc"
 
-        ".config" # TODO: more
-        ".local" # TODO: more
+        ".config/autostart" # TODO: generate
+        ".config/bcompare5"
+        ".config/chromium" # TODO: ??
+        ".config/Code"
+        ".config/copyq" # TODO: ??
+        ".config/dconf" # TODO: ??
+        ".config/discord"
+        ".config/easyeffects" # TODO: config?
+        ".config/Element"
+        ".config/fsearch"
+        ".config/GIMP" # TODO: config
+        ".config/glib-2.0" # TODO: generate?
+        ".config/google-chrome" # TODO: ??
+        ".config/hatch" # TODO: generate
+        ".config/heroic" # TODO: more
+        ".config/kdeconnect"
+        ".config/kdedefaults" # TODO: unneded!!!!!?
+        ".config/libreoffice"
+        ".config/litecli"
+        ".config/ludusavi"
+        ".config/microsoft-edge" # TODO: ??
+        ".config/nix" # ? gh token
+        ".config/obs-studio"
+        ".config/obsidian" # TODO: ??
+        ".config/Podman Desktop" # TODO: ??
+        ".config/qBittorrent" # TODO: ??
+        ".config/r2modman" # TODO: ??
+        ".config/r2modmanPlus-local"
+        ".config/rog" # TODO: asus
+        ".config/rustdesk" # TODO: secrets
+        ".config/session" # ? KDE persist (dolphin and windows)
+        ".config/sourcery" # ? auth
+        ".config/sunshine" # ? auth
+        ".config/systemd/user/waydroid-monitor.service.d" # ? links to storage
+        ".config/Throne"
+        ".config/unity3d" # TODO: game saves
+        ".config/VESC"
+        ".config/vesktop" # TODO: ??
+        ".config/waydroid-helper" # TODO: ??
+        ".config/xsettingsd" # TODO: ????????????
+        ".config/zsh"
+
+        ".local/share" # TODO: more
+        # ".local/share/Trash"
+        # ".local/share/baloo"
+        # ".local/share/dolphin"
+        # ".local/share/kactivitymanagerd"
+        # ".local/share/kate"
+        # ".local/share/klipper"
+        # ".local/share/konsole"
+        # ".local/share/kscreen"
+        # ".local/share/kwalletd"
+        # ".local/share/kxmlgui5"
+        # ".local/share/RecentDocuments"
+        # ".local/share/sddm"
+
         # ".local/share/direnv"
-        ".var" # TODO: more
+        ".local/state" # TODO: more
+        # ".local/state/mpv/watch_later/"
 
         #? apps
         ".android"
@@ -145,6 +205,18 @@ in
         ".steam"
         ".wine"
       ];
+
+      files = [
+        ".config/kwin_dialogsrc"
+        ".config/kwinoutputconfig.json" # ? monitors
+        ".config/syncthingtray.ini" # TODO: config?
+        ".config/xclicker.conf"
+
+        # ".local/share/krunnerstaterc"
+        # ".local/share/user-places.xbel"
+        # ".local/share/user-places.xbel.bak"
+        # ".local/share/user-places.xbel.tbcache"
+      ];
     };
   };
   systemd.tmpfiles.rules = [
@@ -154,5 +226,9 @@ in
     "L+ /home/${username}/projects 0700 ${username} users - /run/media/${username}/Data/projects/"
 
     "L+ /home/${username}/awg0.conf 0600 ${username} users - /home/${username}/Sync/wg/donstux-linux-49.conf"
+
+    # "L+ /home/${username}/.config/plasmashellrc 0600 ${username} users - /persistent/home/${username}/.config/plasmashellrc" # ??????? desktop
+    # "L+ /home/${username}/.config/plasma-org.kde.plasma.desktop-appletsrc 0600 ${username} users - /persistent/home/${username}/.config/plasma-org.kde.plasma.desktop-appletsrc" # ??????? desktop
+    # "L+ /home/${username}/.config/syncthingtray.ini 0600 ${username} users - /persistent/home/${username}/.config/syncthingtray.ini" # TODO: config?
   ];
 }

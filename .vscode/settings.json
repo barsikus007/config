@@ -39,6 +39,8 @@
     ],
     // #endregion nix
     "Lua.workspace.library": [
-        "/etc/profiles/per-user/ogurez/share/nvim/runtime/lua"
+        "/etc/profiles/per-user/ogurez/share/nvim/runtime/lua",
+        //? git clone https://github.com/DrKJeff16/wezterm-types
+        "/Data/projects/.clones/wezterm-types/lua/wezterm/types",
     ],
 }

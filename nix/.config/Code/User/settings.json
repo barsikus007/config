@@ -95,7 +95,7 @@
             "template": "docker-compose -f compose.yaml -f compose.debug.yaml up -d --build"
         },
     ],
-    "containers.commands.logs": "while true; do ${containerCommand} logs --tail 1000 -f ${containerId}; echo 'Container stopped, restarting...' sleep 1; done",
+    "containers.commands.logs": "while true; do ${containerCommand} logs --tail 1000 -f ${containerId}; echo 'Container stopped, restarting...'; sleep 1; done",
     //! podman
     "containers.containerClient": "com.microsoft.visualstudio.containers.podman",
     "dev.containers.dockerPath": "podman",
