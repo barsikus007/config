@@ -25,6 +25,14 @@ in
       (replaceDesktopItem config.programs.nixcord.finalPackage.vesktop "vesktop.desktop"
         "vesktop --start-minimized"
       )
+      (replaceDesktopItem pkgs.syncthingtray "syncthingtray.desktop"
+        "syncthingtray qt-widgets-gui --single-instance --wait"
+      )
+      # extraConfig = {
+      #   "X-GNOME-Autostart-Delay" = 0;
+      #   "X-GNOME-Autostart-enabled" = true;
+      #   "X-LXQt-Need-Tray" = true;
+      # };
     ];
   };
 }
