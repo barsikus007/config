@@ -305,6 +305,7 @@
           };
       };
       packages.${system} = with pkgs; {
+        # TODO: https://noogle.dev/f/lib/filesystem/packagesFromDirectoryRecursive
         #? nix {build,run} ./nix# <tab>
 
         nixosMinimalIso = self.nixosConfigurations."minimalIso-${system}".config.system.build.isoImage;

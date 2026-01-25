@@ -11,7 +11,7 @@
     with pkgs;
     (if custom.isAsus then [ supergfxctl-plasmoid ] else [ ])
     ++ [
-      (pkgs.writeShellScriptBin "inspect-window" ''
+      (writeShellScriptBin "inspect-window" ''
         WINDOW_ID=$(${kdotool}/bin/kdotool getactivewindow)
         if [ -z "$WINDOW_ID" ]; then
           ${lib.getExe libnotify} "Error" "No valid window ID obtained. Did you focus a window?" --urgency=critical
@@ -25,6 +25,10 @@
         fi
 
         ${lib.getExe wezterm} start --always-new-process -- ${lib.getExe btop} --filter "$PID"
+      '')
+      (writeShellScriptBin "spectacle-ocr" ''
+        SCREENSHOT=$(mktemp)
+        ${lib.getExe kdePackages.spectacle} --background --nonotify --region --output $SCREENSHOT && ${lib.getExe tesseract} $SCREENSHOT stdout | ${wl-clipboard}/bin/wl-copy
       '')
     ];
 
@@ -57,32 +61,36 @@
     enable = true;
     overrideConfig = true;
 
-    hotkeys.commands =
-      if custom.isAsus then
-        {
-          "laptop-button-rog" = {
-            name = "Laptop ROG Button";
-            key = "Launch (1)";
-            command = "zsh -c asus_demotoggle";
-          };
-          # "laptop-button-f5" = {
-          #   name = "Laptop F5 Button";
-          #   key = "Launch (4)";
-          #   command = "zsh -c asus_fan";
-          # };
-          "laptop-button-f6" = {
-            name = "Laptop F6 Button";
-            key = "Meta+Shift+S";
-            command = "zsh -c \"asus_noanime && asus_anime\"";
-          };
-          "inspect-window" = {
-            name = "Open Current Window in btop";
-            key = "Meta+Ctrl+`";
-            command = "inspect-window";
-          };
-        }
-      else
-        { };
+    hotkeys.commands = {
+      "inspect-window" = {
+        name = "Open Current Window in btop";
+        key = "Meta+Ctrl+`";
+        command = "inspect-window";
+      };
+      "spectacle-ocr" = {
+        name = "Capture Screen Region then Extract Text with OCR";
+        key = "Meta+Shift+T";
+        command = "spectacle-ocr";
+      };
+    }
+    // lib.attrsets.optionalAttrs custom.isAsus {
+      "laptop-button-rog" = {
+        name = "Laptop ROG Button";
+        key = "Launch (1)";
+        command = "zsh -c asus_demotoggle";
+      };
+      #? done by plasma natively now
+      # "laptop-button-f5" = {
+      #   name = "Laptop F5 Button";
+      #   key = "Launch (4)";
+      #   command = "zsh -c asus_fan";
+      # };
+      "laptop-button-f6" = {
+        name = "Laptop F6 Button";
+        key = "Meta+Shift+S";
+        command = "zsh -c \"asus_noanime && asus_anime\"";
+      };
+    };
     kscreenlocker.timeout = 15;
     powerdevil = {
       batteryLevels = {
