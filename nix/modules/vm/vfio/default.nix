@@ -1,6 +1,7 @@
 { inputs, ... }:
 # https://wiki.nixos.org/wiki/PCI_passthrough
 # https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF
+# https://asus-linux.org/guides/vfio-guide/
 # https://j-brn.github.io/nixos-vfio/options.html
 # https://astrid.tech/2022/09/22/0/nixos-gpu-vfio #? VR and Hotplug; single for further research
 # https://github.com/QaidVoid/Complete-Single-GPU-Passthrough

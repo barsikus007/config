@@ -32,6 +32,8 @@ let
     "grdcontrol"
     "kompas3d-v24-full"
     "davinci-resolve-studio"
+
+    "hytale-launcher"
   ];
   lib = inputs.nixpkgs.lib;
 in

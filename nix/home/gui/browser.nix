@@ -60,9 +60,9 @@
   # programs.firefoxpwa.enable = true;
   programs.firefox = {
     enable = true;
-    #? firefox pwa, if I ever need it
     nativeMessagingHosts = with pkgs; [
       kdePackages.plasma-browser-integration
+      #? firefox pwa, if I ever need it
       # firefoxpwa
     ];
     # https://github.com/tupakkatapa/mozid

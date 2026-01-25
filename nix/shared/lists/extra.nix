@@ -60,6 +60,7 @@ with pkgs;
   gimp3
   scrcpy
   neovide
+  audacity
   qdirstat
   parsec-bin
   qbittorrent

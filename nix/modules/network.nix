@@ -31,9 +31,11 @@ in
       [ ]
       ++ lib.optionals (lib.any (pkg: lib.getName pkg == "rquickshare") hmConfig.home.packages) [ 12345 ]
       ++ lib.optionals hmConfig.services.syncthing.enable [ 22000 ];
-    allowedUDPPorts = lib.mkIf hmConfig.services.syncthing.enable [
-      21027
-      22000
-    ];
+    allowedUDPPorts =
+      [ ]
+      ++ lib.optionals hmConfig.services.syncthing.enable [
+        21027
+        22000
+      ];
   };
 }

@@ -157,6 +157,7 @@
             ]; # ++ pkgs.steam-run.args.multiPkgs pkgs;
 
             environment.systemPackages = with pkgs; [
+              (callPackage ./packages/hytale.nix { })
               (callPackage ./packages/anicli-ru { })
               (callPackage ./packages/shdotenv.nix { })
               (callPackage ./packages/libspeedhack { })
@@ -338,6 +339,8 @@
         kompas3d = kdePackages.callPackage ./packages/kompas3d { };
         kompas3d-fhs = callPackage ./packages/kompas3d/fhs.nix { };
         grdcontrol = callPackage ./packages/grdcontrol.nix { };
+
+        hytale = callPackage ./packages/hytale.nix { };
 
         #? https://github.com/emmanuelrosa/erosanix/tree/master/pkgs/mkwindowsapp
         # link src.zip to flake dir

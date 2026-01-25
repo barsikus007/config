@@ -1,5 +1,17 @@
-{ lib, flakePath, ... }:
 {
+  lib,
+  pkgs,
+  flakePath,
+  ...
+}:
+{
+  home.packages = with pkgs; [
+    lua-language-server
+    stylua
+
+    pyright
+    ruff
+  ];
   #! imports = [ inputs.nvf.homeManagerModules.default ];
   home.sessionVariables.MANPAGER = "nvim +Man!";
   programs.nvf = {
@@ -10,14 +22,6 @@
       #? https://github.com/NotAShelf/nvf/blob/main/configuration.nix
       viAlias = true;
       vimAlias = true;
-      keymaps = [
-        {
-          key = "<leader>?";
-          mode = "n";
-          silent = true;
-          action = ":Cheatsheet<CR>";
-        }
-      ];
       # luaConfigRC.basic = builtins.readFile ../.config/nvim/init.lua;
       luaConfigPost = "dofile('${flakePath}/.config/nvim/init.lua')";
       debugMode = {
@@ -30,7 +34,6 @@
         enable = false;
         formatOnSave = true;
         inlayHints.enable = true;
-        mappings.goToDefinition = "gd";
         # https://github.com/onsails/lspkind.nvim
         lspkind.enable = false;
         # https://github.com/kosayoda/nvim-lightbulb
@@ -64,9 +67,6 @@
         enableTreesitter = true;
         enableExtraDiagnostics = true;
 
-        lua = {
-          enable = true;
-        };
         nix = {
           enable = true;
           lsp.servers = [ "nixd" ];
