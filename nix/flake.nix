@@ -68,7 +68,12 @@
       flakePath = "/home/${username}/config/nix";
 
       defaultSpecialArgs = {
-        inherit inputs username flakePath;
+        inherit
+          self
+          inputs
+          username
+          flakePath
+          ;
       };
       specialArgs = defaultSpecialArgs // {
       };
@@ -158,13 +163,13 @@
             ]; # ++ pkgs.steam-run.args.multiPkgs pkgs;
 
             environment.systemPackages = with pkgs; [
-              (callPackage ./packages/hytale.nix { })
+              self.packages.${system}.games.hytale
               (callPackage ./packages/anicli-ru { })
               (callPackage ./packages/shdotenv.nix { })
-              (callPackage ./packages/libspeedhack { })
-              # (kdePackages.callPackage ./packages/kompas3d/fhs.nix { })
+              self.packages.${system}.libs.libspeedhack
+              # self.packages.${system}.kompas3d-fhs
               #? needs 8.4 GiB * 3 (or more) space to build, takes ~12.2 GiB, and ~18 minutes to download
-              (callPackage ./packages/davinci-resolve-studio.nix { })
+              self.packages.${system}.gui.davinci-resolve-studio
             ];
           }
         ];
@@ -305,70 +310,64 @@
             '';
           };
       };
-      packages.${system} = with pkgs; {
-        # TODO: https://noogle.dev/f/lib/filesystem/packagesFromDirectoryRecursive
-        #? nix {build,run} ./nix# <tab>
+      packages.${system} =
+        with pkgs;
+        {
+          #? nix {build,run} ./nix# <tab>
 
-        nixosMinimalIso = self.nixosConfigurations."minimalIso-${system}".config.system.build.isoImage;
-        nixosPlasmaIso = self.nixosConfigurations."plasmaIso-${system}".config.system.build.isoImage;
-        windowsBootstrapIso = callPackage ./packages/windows { };
-        # nix build ./nix#windowsBootstrapIso -o unattend-win10-iot-ltsc-vrt.iso
+          nixosMinimalIso = self.nixosConfigurations."minimalIso-${system}".config.system.build.isoImage;
+          nixosPlasmaIso = self.nixosConfigurations."plasmaIso-${system}".config.system.build.isoImage;
+          windowsBootstrapIso = callPackage ./packages/windows { };
+          # nix build ./nix#windowsBootstrapIso -o unattend-win10-iot-ltsc-vrt.iso
 
-        libfprint-goodixtls-27c6-521d = callPackage ./packages/libfprint-27c6-521d.nix { };
-        goodix-patch-521d = callPackage ./packages/goodix-patch-521d.nix { };
+          bcompare5 = (libsForQt5.callPackage ./packages/bcompare5.nix { }).overrideAttrs {
+            #? sorry, I can't buy this software right now (and trial doesn't work)
+            #? https://gist.github.com/rise-worlds/5a5917780663aada8028f96b15057a67?permalink_comment_id=5168755#gistcomment-5168755
+            postFixup = ''
+              sed -i "s/AlPAc7Np1/AlPAc7Npn/g" $out/lib/beyondcompare/BCompare
+            '';
+          };
 
-        bcompare5 = (libsForQt5.callPackage ./packages/bcompare5.nix { }).overrideAttrs {
-          #? sorry, I can't buy this software right now (and trial doesn't work)
-          #? https://gist.github.com/rise-worlds/5a5917780663aada8028f96b15057a67?permalink_comment_id=5168755#gistcomment-5168755
-          postFixup = ''
-            sed -i "s/AlPAc7Np1/AlPAc7Npn/g" $out/lib/beyondcompare/BCompare
-          '';
+          telegram-desktop-patched = callPackage ./packages/telegram-desktop-patched.nix { };
+          ayugram-desktop-patched = callPackage ./packages/telegram-desktop-patched.nix {
+            telegram-desktop-client = ayugram-desktop;
+          };
+
+          kompas3d = kdePackages.callPackage ./packages/kompas3d { };
+          kompas3d-fhs = callPackage ./packages/kompas3d/fhs.nix { };
+          grdcontrol = callPackage ./packages/grdcontrol.nix { };
+
+          #? https://github.com/emmanuelrosa/erosanix/tree/master/pkgs/mkwindowsapp
+          # link src.zip to flake dir
+          # `nvidia-offload nix run ./nix#photoshop`
+          photoshop = callPackage ./packages/photoshop.nix {
+            inherit (inputs.erosanix.lib."${system}") mkWindowsAppNoCC copyDesktopIcons makeDesktopIcon;
+            #? its fucked with unstable wine
+            # wine = wineWow64Packages.unstableFull;
+            wine = wineWow64Packages.stable;
+            scale = 192;
+            src = ./src.zip;
+          };
+
+          openwrt = {
+            xiaomi_ax3600 = (import ./packages/openwrt/xiaomi_ax3600.nix { inherit pkgs inputs; });
+            tplink_archer-c50-v4 = (
+              import ./packages/openwrt/tplink_archer-c50-v4.nix { inherit pkgs inputs; }
+            );
+            dewclaw-env = callPackage inputs.dewclaw {
+              configuration = import ./packages/openwrt/dewclaw.nix;
+            };
+          };
+
+          # nix build ./nix#openwrt
+          # or if hash mismatch
+          # nix run <locally cloned nix-openwrt-imagebuilder>#generate-hashes <openwrt version>
+          # nix build --override-input openwrt-imagebuilder <locally cloned nix-openwrt-imagebuilder> ./nix#openwrt
+        }
+        // lib.filesystem.packagesFromDirectoryRecursive {
+          inherit callPackage;
+          directory = ./packages/auto;
         };
-
-        telegram-desktop-patched = callPackage ./packages/telegram-desktop-patched.nix { };
-        ayugram-desktop-patched = callPackage ./packages/telegram-desktop-patched.nix {
-          telegram-desktop-client = ayugram-desktop;
-        };
-
-        mprint = callPackage ./packages/mprint.nix { };
-        libspeedhack = callPackage ./packages/libspeedhack { };
-
-        flclashx = callPackage ./packages/flclashx.nix { };
-
-        shikiwatch-appimage = callPackage ./packages/shikiwatch-appimage.nix { };
-        shikiwatch-native = callPackage ./packages/shikiwatch-native.nix { };
-
-        kompas3d = kdePackages.callPackage ./packages/kompas3d { };
-        kompas3d-fhs = callPackage ./packages/kompas3d/fhs.nix { };
-        grdcontrol = callPackage ./packages/grdcontrol.nix { };
-
-        hytale = callPackage ./packages/hytale.nix { };
-
-        #? https://github.com/emmanuelrosa/erosanix/tree/master/pkgs/mkwindowsapp
-        # link src.zip to flake dir
-        # `nvidia-offload nix run ./nix#photoshop`
-        photoshop = callPackage ./packages/photoshop.nix {
-          inherit (inputs.erosanix.lib."${system}") mkWindowsAppNoCC copyDesktopIcons makeDesktopIcon;
-          #? its fucked with unstable wine
-          # wine = wineWow64Packages.unstableFull;
-          wine = wineWow64Packages.stable;
-          scale = 192;
-          src = ./src.zip;
-        };
-
-        openwrt-xiaomi_ax3600 = (import ./packages/openwrt/xiaomi_ax3600.nix { inherit pkgs inputs; });
-        openwrt-tplink_archer-c50-v4 = (
-          import ./packages/openwrt/tplink_archer-c50-v4.nix { inherit pkgs inputs; }
-        );
-        dewclaw-env = callPackage inputs.dewclaw {
-          configuration = import ./packages/openwrt/dewclaw.nix;
-        };
-
-        # nix build ./nix#openwrt
-        # or if hash mismatch
-        # nix run <locally cloned nix-openwrt-imagebuilder>#generate-hashes <openwrt version>
-        # nix build --override-input openwrt-imagebuilder <locally cloned nix-openwrt-imagebuilder> ./nix#openwrt
-      };
       formatter.${system} = pkgs.nixfmt-tree;
     };
 }

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ self, pkgs, ... }:
 {
   #? https://wiki.nixos.org/wiki/SSH_public_key_authentication#KDE
   programs.ssh = {
@@ -25,7 +25,7 @@
     });
   '';
 
-  environment.systemPackages = with pkgs; [
-    (callPackage ../packages/keepassxc.nix { })
+  environment.systemPackages = [
+    self.packages.${pkgs.stdenv.hostPlatform.system}.gui.keepassxc
   ];
 }

@@ -1,9 +1,9 @@
-{ pkgs, ... }:
+{ pkgs, self, ... }:
 {
   services.printing = {
     enable = true;
     drivers = [
-      (pkgs.callPackage ../packages/mprint.nix { })
+      self.packages.${pkgs.stdenv.hostPlatform.system}.libs.mprint
     ];
   };
 }

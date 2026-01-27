@@ -1,4 +1,9 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  self,
+  pkgs,
+  ...
+}:
 {
   xdg = {
     #? ls /run/current-system/sw/share/applications /etc/profiles/per-user/$(id -n -u)/share/applications ~/.local/share/applications | grep <name>
@@ -39,7 +44,7 @@
 
   programs.keepassxc = {
     enable = true;
-    package = with pkgs; callPackage ../../packages/keepassxc.nix { };
+    package = self.packages.${pkgs.stdenv.hostPlatform.system}.gui.keepassxc;
     settings = {
       Browser = {
         Enabled = true;
