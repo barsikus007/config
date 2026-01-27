@@ -55,6 +55,7 @@
       url = "github:MakiseKurisu/dewclaw";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
   };
 
   # TODO: FUCK THIS NIXFMT INDENT: https://github.com/NixOS/nixfmt/issues/91

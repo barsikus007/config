@@ -1,5 +1,8 @@
 { pkgs, ... }:
 {
+  # boot.kernelPackages = pkgs.lib.mkForce pkgs.cachyosKernels.linuxPackages-cachyos-latest;
+  # boot.kernelPackages = pkgs.lib.mkForce pkgs.cachyosKernels.linuxPackages-cachyos-bore;
+  boot.kernelPackages = pkgs.lib.mkForce pkgs.cachyosKernels.linuxPackages-cachyos-bore-lto;
   environment.systemPackages = with pkgs; [
     # TODO: idk why I ever need this
     helvum

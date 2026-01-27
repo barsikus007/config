@@ -40,6 +40,7 @@ in
 import inputs.nixpkgs {
   inherit system;
   overlays = [
+    inputs.nix-cachyos-kernel.overlays.pinned
     (
       _: prev:
       builtins.mapAttrs

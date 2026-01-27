@@ -68,6 +68,38 @@
         "type": "github"
       }
     },
+    "cachyos-kernel": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1769435645,
+        "narHash": "sha256-xxIqw5x8U+13ya2BUcwmAW6BdpCpMhrMTn6Pd0bzocE=",
+        "owner": "CachyOS",
+        "repo": "linux-cachyos",
+        "rev": "e8675eeb9b48a23167b3e43f84e3be76e321935e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "CachyOS",
+        "repo": "linux-cachyos",
+        "type": "github"
+      }
+    },
+    "cachyos-kernel-patches": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1769420040,
+        "narHash": "sha256-OsO2Pi2oDE2hZoxCJ40mx9/wag9XXQ5FkcwIUcJN4Go=",
+        "owner": "CachyOS",
+        "repo": "kernel-patches",
+        "rev": "d2f1d070c0303b3b2bcb71df73c623a274258e22",
+        "type": "github"
+      },
+      "original": {
+        "owner": "CachyOS",
+        "repo": "kernel-patches",
+        "type": "github"
+      }
+    },
     "dewclaw": {
       "inputs": {
         "flake-parts": "flake-parts",
@@ -143,6 +175,22 @@
       }
     },
     "flake-compat_2": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1767039857,
+        "narHash": "sha256-vNpUSpF5Nuw8xvDLj2KCwwksIbjua2LZCqhV1LNRDns=",
+        "owner": "NixOS",
+        "repo": "flake-compat",
+        "rev": "5edf11c44bc78a0d334f6334cdaf7d60d732daab",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
+    "flake-compat_3": {
       "locked": {
         "lastModified": 1733328505,
         "narHash": "sha256-NeCCThCEP3eCl2l/+27kNNK7QrwZB1IJCrXfrbv5oqU=",
@@ -156,7 +204,7 @@
         "url": "https://flakehub.com/f/edolstra/flake-compat/1.tar.gz"
       }
     },
-    "flake-compat_3": {
+    "flake-compat_4": {
       "flake": false,
       "locked": {
         "lastModified": 1767039857,
@@ -172,7 +220,7 @@
         "type": "github"
       }
     },
-    "flake-compat_4": {
+    "flake-compat_5": {
       "flake": false,
       "locked": {
         "lastModified": 1751685974,
@@ -214,6 +262,24 @@
         "nixpkgs-lib": "nixpkgs-lib"
       },
       "locked": {
+        "lastModified": 1768135262,
+        "narHash": "sha256-PVvu7OqHBGWN16zSi6tEmPwwHQ4rLPU9Plvs8/1TUBY=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "80daad04eddbbf5a4d883996a73f3f542fa437ac",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
+      }
+    },
+    "flake-parts_3": {
+      "inputs": {
+        "nixpkgs-lib": "nixpkgs-lib_2"
+      },
+      "locked": {
         "lastModified": 1765835352,
         "narHash": "sha256-XswHlK/Qtjasvhd1nOa1e8MgZ8GS//jBoTqWtrS1Giw=",
         "owner": "hercules-ci",
@@ -227,9 +293,9 @@
         "type": "github"
       }
     },
-    "flake-parts_3": {
+    "flake-parts_4": {
       "inputs": {
-        "nixpkgs-lib": "nixpkgs-lib_2"
+        "nixpkgs-lib": "nixpkgs-lib_3"
       },
       "locked": {
         "lastModified": 1756770412,
@@ -245,7 +311,7 @@
         "type": "github"
       }
     },
-    "flake-parts_4": {
+    "flake-parts_5": {
       "inputs": {
         "nixpkgs-lib": [
           "nvf",
@@ -266,7 +332,7 @@
         "type": "github"
       }
     },
-    "flake-parts_5": {
+    "flake-parts_6": {
       "inputs": {
         "nixpkgs-lib": [
           "openwrt-imagebuilder",
@@ -287,7 +353,7 @@
         "type": "github"
       }
     },
-    "flake-parts_6": {
+    "flake-parts_7": {
       "inputs": {
         "nixpkgs-lib": [
           "stylix",
@@ -440,6 +506,29 @@
         "type": "github"
       }
     },
+    "nix-cachyos-kernel": {
+      "inputs": {
+        "cachyos-kernel": "cachyos-kernel",
+        "cachyos-kernel-patches": "cachyos-kernel-patches",
+        "flake-compat": "flake-compat_2",
+        "flake-parts": "flake-parts_2",
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1769450230,
+        "narHash": "sha256-PQXy2jBktNh4akTrykZm/iFP6Z1oyhN1FNrrspcto34=",
+        "owner": "xddxdd",
+        "repo": "nix-cachyos-kernel",
+        "rev": "5a69e7afa1281df9df8965778a81083603a1e518",
+        "type": "github"
+      },
+      "original": {
+        "owner": "xddxdd",
+        "ref": "release",
+        "repo": "nix-cachyos-kernel",
+        "type": "github"
+      }
+    },
     "nix-formatter-pack": {
       "inputs": {
         "nixpkgs": [
@@ -510,8 +599,8 @@
     },
     "nixcord": {
       "inputs": {
-        "flake-compat": "flake-compat_2",
-        "flake-parts": "flake-parts_2",
+        "flake-compat": "flake-compat_3",
+        "flake-parts": "flake-parts_3",
         "nixpkgs": [
           "nixpkgs"
         ]
@@ -547,7 +636,7 @@
     },
     "nixos-vfio": {
       "inputs": {
-        "flake-parts": "flake-parts_3",
+        "flake-parts": "flake-parts_4",
         "nix-std": "nix-std",
         "nixpkgs": [
           "nixpkgs"
@@ -569,7 +658,7 @@
     },
     "nixos-wsl": {
       "inputs": {
-        "flake-compat": "flake-compat_3",
+        "flake-compat": "flake-compat_4",
         "nixpkgs": [
           "nixpkgs"
         ]
@@ -653,6 +742,21 @@
     },
     "nixpkgs-lib_2": {
       "locked": {
+        "lastModified": 1765674936,
+        "narHash": "sha256-k00uTP4JNfmejrCLJOwdObYC9jHRrr/5M/a/8L2EIdo=",
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "rev": "2075416fcb47225d9b68ac469a5c4801a9c4dd85",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "type": "github"
+      }
+    },
+    "nixpkgs-lib_3": {
+      "locked": {
         "lastModified": 1754788789,
         "narHash": "sha256-x2rJ+Ovzq0sCMpgfgGaaqgBSwY+LST+WbZ6TytnT9Rk=",
         "owner": "nix-community",
@@ -667,6 +771,22 @@
       }
     },
     "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1769434638,
+        "narHash": "sha256-4NVXUmdbTTZa13qX1MFCVbPxiMT1nzF7OnuRbPMk0lI=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "9c2822d7024c032e66000a8b8a47e91b4e63ffc8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable-small",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_3": {
       "locked": {
         "lastModified": 1768886240,
         "narHash": "sha256-C2TjvwYZ2VDxYWeqvvJ5XPPp6U7H66zeJlRaErJKoEM=",
@@ -746,8 +866,8 @@
     },
     "nvf": {
       "inputs": {
-        "flake-compat": "flake-compat_4",
-        "flake-parts": "flake-parts_4",
+        "flake-compat": "flake-compat_5",
+        "flake-parts": "flake-parts_5",
         "mnw": "mnw",
         "ndg": "ndg",
         "nixpkgs": [
@@ -771,7 +891,7 @@
     },
     "openwrt-imagebuilder": {
       "inputs": {
-        "flake-parts": "flake-parts_5",
+        "flake-parts": "flake-parts_6",
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -821,12 +941,13 @@
         "erosanix": "erosanix",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
+        "nix-cachyos-kernel": "nix-cachyos-kernel",
         "nix-on-droid": "nix-on-droid",
         "nixcord": "nixcord",
         "nixos-hardware": "nixos-hardware",
         "nixos-vfio": "nixos-vfio",
         "nixos-wsl": "nixos-wsl",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs_3",
         "nvf": "nvf",
         "openwrt-imagebuilder": "openwrt-imagebuilder",
         "plasma-manager": "plasma-manager",
@@ -856,7 +977,7 @@
         "base16-helix": "base16-helix",
         "base16-vim": "base16-vim",
         "firefox-gnome-theme": "firefox-gnome-theme",
-        "flake-parts": "flake-parts_6",
+        "flake-parts": "flake-parts_7",
         "gnome-shell": "gnome-shell",
         "nixpkgs": [
           "nixpkgs"
