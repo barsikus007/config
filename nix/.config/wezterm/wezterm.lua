@@ -29,10 +29,12 @@ return {
         bottom = 0,
     },
 
-    -- https://wezterm.org/config/default-keys.html
+    --? https://wezterm.org/config/default-keys.html
     keys = {
+        --? https://wezterm.org/config/lua/keyassignment/QuitApplication.html
+        { key = 'q',   mods = 'CTRL',       action = wezterm.action.CloseCurrentTab { confirm = true } },
         --! it slightly differs from usual MRU
-        -- https://github.com/wezterm/wezterm/issues/4518
+        --? https://github.com/wezterm/wezterm/issues/4518
         { key = "Tab", mods = 'CTRL',       action = "ActivateLastTab" },
         { key = 'Tab', mods = 'CTRL',       action = wezterm.action.ActivateTabRelative(1) },
         { key = 'Tab', mods = 'CTRL|SHIFT', action = wezterm.action.ActivateTabRelative(-1) },

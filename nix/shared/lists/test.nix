@@ -8,17 +8,20 @@ with pkgs;
   serpl
   lshw-gui
 
-  # new add security scanners
+  #? new add security scanners
   nikto
   # ffuf
   # seclists
   # frida-tools
-  # wifite2
-  # airgeddon
   # openvas-scanner
   # burpsuite
   # caido
   wireshark
+  #? wifi specialised
+  mdk4
+  wifite2
+  airgeddon
+  aircrack-ng
 
   # networking tools
   zmap

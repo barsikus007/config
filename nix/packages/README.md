@@ -5,13 +5,13 @@
 nix run --override-input nixpkgs nixpkgs github:barsikus007/config?dir=nix# <tab>
 ```
 
-## [index](https://github.com/barsikus007/config/blob/19c08aca56fd7dfd1fc66a31a62cf26e880ca59c/nix/flake.nix#L315)
+## [index](https://github.com/barsikus007/config/blob/b32e3567a3e351249bf5849e77f7c970361ad614/nix/flake.nix#L313)
 
 - [adbfs with libfuse experemental](./adbfs-rootless-libfuse-3.nix)
 - [anicli anime TUI client](./anicli-ru/)
 - [bcompare 5 diff tool](./bcompare5.nix)
   - `sed -i '/CheckID/d' ~/.config/bcompare5/BCState.xml.bak`
-- [davinci-resolve communism edition](./davinci-resolve-studio.nix)
+- [davinci-resolve communism edition](./auto/gui/davinci-resolve-studio.nix)
 - TODO
 - [minecraftia 2 font](./minecraftia.nix)
 - TODO

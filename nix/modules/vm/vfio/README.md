@@ -5,9 +5,9 @@ codename `Windows-Resurrect`
 ## Toggle GPU
 
 - host on
-  - `sudo modprobe -r vfio-pci && sudo modprobe nvidia{,_modeset,_uvm,_drm}`
+  - `sudo modprobe --remove vfio-pci && sudo modprobe --all nvidia{,_modeset,_uvm,_drm}`
 - host off
-  - `sudo modprobe -r nvidia{_drm,_uvm,_modeset,} && sudo modprobe vfio-pci`
+  - `sudo fuser --kill --verbose /dev/nvidia*; sudo modprobe --remove --all nvidia{_drm,_uvm,_modeset,} && sudo modprobe vfio-pci`
   - check what uses gpu
     - `sudo fuser -v /dev/nvidia*`
 

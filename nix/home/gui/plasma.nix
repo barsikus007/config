@@ -28,7 +28,7 @@
       '')
       (writeShellScriptBin "spectacle-ocr" ''
         SCREENSHOT=$(mktemp)
-        ${lib.getExe kdePackages.spectacle} --background --nonotify --region --output $SCREENSHOT && ${lib.getExe tesseract} $SCREENSHOT stdout | ${wl-clipboard}/bin/wl-copy
+        ${lib.getExe kdePackages.spectacle} --background --nonotify --region --output $SCREENSHOT && ${lib.getExe tesseract} -l eng+rus $SCREENSHOT stdout | ${wl-clipboard}/bin/wl-copy
       '')
     ];
 
