@@ -23,8 +23,8 @@ nix_shell_exec() {
 }
 
 nix_copy_edit() {
-  #? fd -H '\.ink$'
-  mv "$1" "$1.ink"
+  #? fd -H '\.lnk$'
+  mv "$1" "$1.lnk"
   cp --no-preserve=mode,ownership "$1.lnk" "$1"
   nvim "$1"
 }

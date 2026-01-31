@@ -18,17 +18,23 @@
       "flakes"
       "pipe-operators"
     ];
-    substituters = lib.mkForce [
-      "https://cache.nixos.org"
-      # "https://nixos-cache-proxy.cofob.dev" # ? cloudflare mirror, uses original keys
+
+    stalled-download-timeout = 4;
+    connect-timeout = 4;
+
+    substituters = lib.mkAfter [
+      "https://cache.nixos.kz"
+      "https://mirror.yandex.ru/nixos"
+      # "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store" # REF: https://github.com/dramforever/mirror-web/blob/d7e263d4fe9a9e3078f819468cec18e1c11cf832/_posts/help/2019-02-17-nix.md
+      "https://ncproxy.vizqq.cc"
+      "https://nixos-cache-proxy.cofob.dev" # ? cloudflare mirror, uses original keys
+      "https://nixos-cache-proxy.sweetdogs.ru"
 
       "https://nix-community.cachix.org"
 
       "https://attic.xuyh0120.win/lantian"
     ];
-    trusted-public-keys = [
-      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-
+    trusted-public-keys = lib.mkAfter[
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
 
       "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="

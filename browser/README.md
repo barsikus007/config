@@ -18,7 +18,7 @@
 - Reddit undelete
   - `javascript:window.open(location.href.replace(/:\/\/([\w-]+.)?(reddit\.com\/r|reveddit\.com\/v)\//i, "://undelete.pullpush.io/r/"), "_blank")`
 - Shikimori to `yummy-anime.ru`
-  - `javascript:window.open(location.href.replace(/https:\/\/shikimori\.one\/animes\/\w?\d*-/i, "https://yummy-anime.ru/search?word="), "_blank")`
+  - `javascript:window.open(location.href.replace(/https:\/\/shiki\.one\/animes\/\w?\d*-/i, "https://yummy-anime.ru/search?word="), "_blank")`
 
 ## uBlock
 

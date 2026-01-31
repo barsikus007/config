@@ -31,13 +31,13 @@ return {
 
     --? https://wezterm.org/config/default-keys.html
     keys = {
-        --? https://wezterm.org/config/lua/keyassignment/QuitApplication.html
-        { key = 'q',   mods = 'CTRL',       action = wezterm.action.CloseCurrentTab { confirm = true } },
+        --? https://wezterm.org/config/lua/keyassignment/CloseCurrentTab.html
+        { key = 'q',   mods = 'CTRL',       action = act.CloseCurrentTab { confirm = false } },
         --! it slightly differs from usual MRU
         --? https://github.com/wezterm/wezterm/issues/4518
         { key = "Tab", mods = 'CTRL',       action = "ActivateLastTab" },
-        { key = 'Tab', mods = 'CTRL',       action = wezterm.action.ActivateTabRelative(1) },
-        { key = 'Tab', mods = 'CTRL|SHIFT', action = wezterm.action.ActivateTabRelative(-1) },
+        { key = 'Tab', mods = 'CTRL',       action = act.ActivateTabRelative(1) },
+        { key = 'Tab', mods = 'CTRL|SHIFT', action = act.ActivateTabRelative(-1) },
 
         --! intersects with yazi
         -- { key = "F1", action = "ActivateCommandPalette" },
@@ -50,23 +50,23 @@ return {
                 local selection_text = window:get_selection_text_for_pane(pane)
                 local is_selection_active = string.len(selection_text) ~= 0
                 if is_selection_active then
-                    window:perform_action(wezterm.action.CopyTo('ClipboardAndPrimarySelection'), pane)
+                    window:perform_action(act.CopyTo('ClipboardAndPrimarySelection'), pane)
                     -- https://wezterm.org/config/lua/keyassignment/ClearSelection.html
                     window:perform_action(act.ClearSelection, pane)
                 else
-                    window:perform_action(wezterm.action.SendKey { key = 'c', mods = 'CTRL' }, pane)
+                    window:perform_action(act.SendKey { key = 'c', mods = 'CTRL' }, pane)
                 end
             end),
         },
         {
             key = 'v',
             mods = 'CTRL',
-            action = wezterm.action.PasteFrom('Clipboard')
+            action = act.PasteFrom('Clipboard')
         },
         {
             key = 'v',
             mods = 'CTRL|SHIFT',
-            action = wezterm.action.SendKey { key = 'v', mods = 'CTRL' }
+            action = act.SendKey { key = 'v', mods = 'CTRL' }
         },
     },
     key_tables = {
@@ -103,11 +103,11 @@ return {
                 local selection_text = window:get_selection_text_for_pane(pane)
                 local is_selection_active = string.len(selection_text) ~= 0
                 if is_selection_active then
-                    window:perform_action(wezterm.action.CopyTo('ClipboardAndPrimarySelection'), pane)
+                    window:perform_action(act.CopyTo('ClipboardAndPrimarySelection'), pane)
                     -- https://wezterm.org/config/lua/keyassignment/ClearSelection.html
                     window:perform_action(act.ClearSelection, pane)
                 else
-                    window:perform_action(wezterm.action.PasteFrom('Clipboard'), pane)
+                    window:perform_action(act.PasteFrom('Clipboard'), pane)
                 end
             end),
         },

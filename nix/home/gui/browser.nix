@@ -375,7 +375,7 @@
             "Shikimori" = {
               urls = [
                 {
-                  template = "https://shikimori.one/animes";
+                  template = "https://shiki.one/animes";
                   params = [
                     {
                       name = "search";
