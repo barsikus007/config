@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, custom, ... }:
 {
   imports = [
     ../../shared
@@ -36,6 +36,7 @@
       programs.nvf.settings.vim.lsp.enable = lib.mkForce true;
     }
     {
+      inherit custom;
       home = {
         #? https://nix-community.github.io/home-manager/release-notes.xhtml
         stateVersion = "26.05";

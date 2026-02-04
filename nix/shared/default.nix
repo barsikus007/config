@@ -7,6 +7,6 @@ let
 in
 {
   options.custom = {
-    isAsus = mkEnableOption "Whether the machine is an ASUS laptop.";
+    isAsus = mkEnableOption "Whether the machine is an ASUS laptop";
   };
 }

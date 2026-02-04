@@ -2,7 +2,6 @@
   lib,
   pkgs,
   config,
-  custom,
   inputs,
   ...
 }:
@@ -10,7 +9,7 @@
   imports = [ inputs.plasma-manager.homeModules.plasma-manager ];
   home.packages =
     with pkgs;
-    (if custom.isAsus then [ supergfxctl-plasmoid ] else [ ])
+    lib.optionals config.custom.isAsus [ supergfxctl-plasmoid ]
     ++ [
       (writeShellScriptBin "inspect-window" ''
         WINDOW_ID=$(${kdotool}/bin/kdotool getactivewindow)
@@ -74,7 +73,7 @@
         command = "spectacle-ocr";
       };
     }
-    // lib.attrsets.optionalAttrs custom.isAsus {
+    // lib.attrsets.optionalAttrs config.custom.isAsus {
       "laptop-button-rog" = {
         name = "Laptop ROG Button";
         key = "Launch (1)";

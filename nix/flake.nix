@@ -64,27 +64,20 @@
     let
       system = "x86_64-linux";
       pkgs = import ./nixpkgs.nix { inherit system inputs; };
-      username = "ogurez";
-      flakePath = "/home/${username}/config/nix";
 
-      defaultSpecialArgs = {
+      mkSpecialArgs = username: {
         inherit
           self
           inputs
           username
-          flakePath
           ;
-      };
-      specialArgs = defaultSpecialArgs // {
+        flakePath = "/home/${username}/config/nix";
       };
 
       mkHomeCfg = username: modules: {
         homeConfigurations.${username} = inputs.home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          extraSpecialArgs = specialArgs // {
-            inherit username;
-            flakePath = "/home/${username}/config/nix";
-          };
+          extraSpecialArgs = mkSpecialArgs username;
           modules = modules ++ [
             {
               home = {
@@ -98,17 +91,12 @@
           ];
         };
       };
-      commonConfig.custom = {
-        isAsus = true;
-      };
+      custom.isAsus = true;
     in
     {
       nixosConfigurations."ROG14-WSL" = nixpkgs.lib.nixosSystem {
         inherit system pkgs;
-        specialArgs = specialArgs // {
-          username = "nixos";
-          flakePath = "/home/nixos/config/nix";
-        };
+        specialArgs = mkSpecialArgs "nixos";
         modules = [
           ./shared
 
@@ -118,7 +106,9 @@
       };
       nixosConfigurations."ROG14" = nixpkgs.lib.nixosSystem {
         inherit system pkgs;
-        specialArgs = specialArgs // commonConfig;
+        specialArgs = mkSpecialArgs "ogurez" // {
+          inherit custom;
+        };
         modules = [
           ./shared
 
@@ -156,9 +146,8 @@
           ./modules/vm
           ./modules/vm/gui.nix
           ./modules/vm/vfio
-
-          commonConfig
           {
+            inherit custom;
             programs.nix-ld.libraries = with pkgs; [
               #? nix-index
               #? nix-locate lib/libgobject-2.0.so.0
@@ -199,10 +188,7 @@
       #? https://github.com/NixOS/nixpkgs/tree/master/nixos/modules/installer/cd-dvd
       nixosConfigurations."minimalIso-${system}" = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = specialArgs // {
-          username = "nixos";
-          flakePath = "/home/nixos/config/nix";
-        };
+        specialArgs = mkSpecialArgs "nixos";
         modules = [
           (
             { modulesPath, ... }:
@@ -217,10 +203,7 @@
       };
       nixosConfigurations."plasmaIso-${system}" = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = specialArgs // {
-          username = "nixos";
-          flakePath = "/home/nixos/config/nix";
-        };
+        specialArgs = mkSpecialArgs "nixos";
         modules = [
           (
             { modulesPath, ... }:
@@ -264,8 +247,7 @@
             inputs.nix-on-droid.overlays.default
           ];
         };
-        extraSpecialArgs = specialArgs // {
-          username = "nix-on-droid";
+        extraSpecialArgs = mkSpecialArgs "nix-on-droid" // {
           flakePath = "/data/data/com.termux.nix/files/home/config/nix";
         };
         modules = [
