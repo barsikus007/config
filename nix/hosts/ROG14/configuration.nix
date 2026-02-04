@@ -29,13 +29,6 @@
   ];
   home-manager.users.${username} = ./home.nix;
 
-  home-manager.sharedModules = [
-    #! https://github.com/nix-community/nixd/issues/705#issuecomment-3103731843
-    inputs.nixcord.homeModules.default
-    inputs.nvf.homeManagerModules.default
-    inputs.plasma-manager.homeModules.plasma-manager
-  ];
-
   boot = {
     loader = {
       systemd-boot = {

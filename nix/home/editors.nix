@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  inputs,
   flakePath,
   ...
 }:
@@ -12,7 +13,7 @@
     pyright
     ruff
   ];
-  #! imports = [ inputs.nvf.homeManagerModules.default ];
+  imports = [ inputs.nvf.homeManagerModules.default ];
   home.sessionVariables.MANPAGER = "nvim +Man!";
   programs.nvf = {
     enable = true;
@@ -53,8 +54,7 @@
               nixpkgs.expr = "import ''${flakePath}/nixpkgs.nix'' { system = ''x86_64-linux''; inputs = ${flake}.inputs; }";
               options = rec {
                 nixos.expr = "${flake}.nixosConfigurations.ROG14.options";
-                # home-manager.expr = "${flake}.homeConfigurations.${username}.options";
-                home-manager.expr = "${nixos.expr}.home-manager.users.type.getSubOptions []";
+                home-manager.expr = "${nixos.expr}.home-manager.users.type.getSubOptions [] // ${flake}.homeConfigurations.nixd.options";
               };
             };
         };

@@ -77,6 +77,27 @@
       };
       specialArgs = defaultSpecialArgs // {
       };
+
+      mkHomeCfg = username: modules: {
+        homeConfigurations.${username} = inputs.home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          extraSpecialArgs = specialArgs // {
+            inherit username;
+            flakePath = "/home/${username}/config/nix";
+          };
+          modules = modules ++ [
+            {
+              home = {
+                inherit username;
+                homeDirectory = "/home/${username}";
+
+                #? https://nix-community.github.io/home-manager/release-notes.xhtml
+                stateVersion = "26.05";
+              };
+            }
+          ];
+        };
+      };
       commonConfig.custom = {
         isAsus = true;
       };
@@ -235,26 +256,6 @@
         ];
       };
 
-      homeConfigurations."nixos" = inputs.home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        extraSpecialArgs = specialArgs // {
-          username = "nixos";
-          flakePath = "/home/nixos/config/nix";
-        };
-        modules = [
-          ./shared
-          ./shared/nix.nix
-
-          ./home
-          ./home/shell/minimal.nix
-          ./home/editors.nix
-          {
-            #? https://nix-community.github.io/home-manager/release-notes.xhtml
-            home.stateVersion = "26.05";
-          }
-        ];
-      };
-
       nixOnDroidConfigurations.default = inputs.nix-on-droid.lib.nixOnDroidConfiguration {
         pkgs = import ./nixpkgs.nix {
           inherit inputs;
@@ -369,5 +370,19 @@
           directory = ./packages/auto;
         };
       formatter.${system} = pkgs.nixfmt-tree;
-    };
+    }
+    // mkHomeCfg "nixos" [
+      ./shared
+      ./shared/nix.nix
+
+      ./home
+      ./home/shell/minimal.nix
+      ./home/editors.nix
+    ]
+    // mkHomeCfg "nixd" [
+      #! https://github.com/nix-community/nixd/issues/705#issuecomment-3103731843
+      inputs.nixcord.homeModules.default
+      inputs.nvf.homeManagerModules.default
+      inputs.plasma-manager.homeModules.plasma-manager
+    ];
 }
