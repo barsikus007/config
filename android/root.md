@@ -81,6 +81,7 @@
 - [Google-Photos-Unlimited-backup Submodule](https://git.disroot.org/cuynu/gphotos-unlimited-zygisk/releases)
 - [bindhosts](https://github.com/bindhosts/bindhosts/releases)
   - [rule](https://4pda.to/forum/index.php?showtopic=915158&view=findpost&p=133873426)
+- [App Network Firewall](https://github.com/Rem01Gaming/net-switch/releases)
 
 ## LSPosed Modules
 

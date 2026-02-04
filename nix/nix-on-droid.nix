@@ -44,7 +44,14 @@
   # Simply install just the packages
   environment.packages =
     with pkgs;
+    let
+      ping = pkgs.writeShellScriptBin "ping" ''
+        /android/system/bin/linker64 /android/system/bin/ping "$@"
+      '';
+    in
     [
+      ping
+
       zsh
       android-tools
       dig
@@ -83,7 +90,7 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    # backupFileExtension = "hm-bak";
+    backupFileExtension = "hmbackup";
     config = {
       # Read the changelog before changing this value
       home = {

@@ -48,7 +48,7 @@ rec {
     {
       profile,
       arch,
-    #? https://openwrt.org/toh/hwdata/<vendor>/<vendor>_<device>
+      #? https://openwrt.org/toh/hwdata/<vendor>/<vendor>_<device>
     }:
     let
       release_string = "${profile.release}_${arch}_${profile.target}_${profile.variant}";

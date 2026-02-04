@@ -278,6 +278,7 @@ sudo fatrace . 2>&1 | grep <process or folder name>
 ```shell
 # modify,attrib,close_write,move,create,delete
 inotifywait --event modify,create,delete,move --monitor --recursive ~/
+inotifywait --event modify,create,delete,move --monitor --recursive ~/ @/home/$USER/{.config/Code,.mozilla/firefox,.cache/mozilla} @/home/$USER/.local/share/AyuGramDesktop
 ```
 
 ### [remove empty directories](https://stackoverflow.com/a/72176404)

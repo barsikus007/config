@@ -38,7 +38,7 @@ in
 runCommand "scoop-dir"
   {
     nativeBuildInputs = [ git ];
-    meta.description = ''Hydrate scoop with nix'';
+    meta.description = "Hydrate scoop with nix";
   }
   ''
     ${lib.strings.concatStringsSep "\n" (

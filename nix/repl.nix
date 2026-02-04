@@ -7,6 +7,7 @@ nixos
 // {
   inherit flake;
   home = builtins.head (builtins.attrValues config.home-manager.users) // {
-    options = options.home-manager.users.type.getSubOptions [ ] // flake.homeConfigurations.nixd.options;
+    options =
+      options.home-manager.users.type.getSubOptions [ ] // flake.homeConfigurations.nixd.options;
   };
 }

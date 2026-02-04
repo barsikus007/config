@@ -2,7 +2,7 @@
 
 ## adb shell with termux (root needed)
 
-.adbrc creation
+`.adbrc` creation
 
 ```shell
 cat > /data/data/com.termux/files/home/.adbrc << "EOF"
