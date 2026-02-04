@@ -1,12 +1,15 @@
 {
+  _class,
   lib,
   pkgs,
   inputs,
   ...
 }:
-{
-  nix.package = pkgs.nix;
+lib.attrsets.optionalAttrs (_class == "nixos") {
   nix.channel.enable = false;
+}
+// {
+  nix.package = pkgs.nix;
   nix.registry = {
     nixpkgs.flake = inputs.nixpkgs;
   };
@@ -22,7 +25,8 @@
     stalled-download-timeout = 4;
     connect-timeout = 4;
 
-    substituters = lib.mkAfter [
+    substituters = lib.mkForce [
+      # "https://cache.nixos.org"
       "https://cache.nixos.kz"
       "https://mirror.yandex.ru/nixos"
       # "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store" # REF: https://github.com/dramforever/mirror-web/blob/d7e263d4fe9a9e3078f819468cec18e1c11cf832/_posts/help/2019-02-17-nix.md

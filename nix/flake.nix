@@ -64,6 +64,7 @@
     let
       system = "x86_64-linux";
       pkgs = import ./nixpkgs.nix { inherit system inputs; };
+      custom.isAsus = true;
 
       mkSpecialArgs = username: {
         inherit
@@ -91,7 +92,24 @@
           ];
         };
       };
-      custom.isAsus = true;
+      homeConfigurations =
+        nixpkgs.lib.recursiveUpdate
+          (mkHomeCfg "nixos" [
+            ./shared
+            ./shared/nix.nix
+
+            ./home
+            ./home/shell/minimal.nix
+            ./home/editors.nix
+          ])
+          (
+            mkHomeCfg "nixd" [
+              #! https://github.com/nix-community/nixd/issues/705#issuecomment-3103731843
+              inputs.nixcord.homeModules.default
+              inputs.nvf.homeManagerModules.default
+              inputs.plasma-manager.homeModules.plasma-manager
+            ]
+          );
     in
     {
       nixosConfigurations."ROG14-WSL" = nixpkgs.lib.nixosSystem {
@@ -353,18 +371,5 @@
         };
       formatter.${system} = pkgs.nixfmt-tree;
     }
-    // mkHomeCfg "nixos" [
-      ./shared
-      ./shared/nix.nix
-
-      ./home
-      ./home/shell/minimal.nix
-      ./home/editors.nix
-    ]
-    // mkHomeCfg "nixd" [
-      #! https://github.com/nix-community/nixd/issues/705#issuecomment-3103731843
-      inputs.nixcord.homeModules.default
-      inputs.nvf.homeManagerModules.default
-      inputs.plasma-manager.homeModules.plasma-manager
-    ];
+    // homeConfigurations;
 }

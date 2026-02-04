@@ -137,6 +137,8 @@ sudo /sbin/modprobe zfs
   - `sudo systemctl enable --now zfs-scrub-weekly@tank.timer`
   - Cron-based alternative (`0 3 * * * /sbin/zpool scrub tank`)
     - `sudo crontab -l | cat - <(echo "0 3 * * * /sbin/zpool scrub tank") | sudo crontab -`
+- Find corrupted data, sent with `zfs_send_corrupt_data` module param
+  - `rg --text --files-with-matches --no-ignore --hidden '(?-u:\x0c\xb1\xdd\xba\xf5\x02\x00\x00)' ./`
 
 ### Zpool setup
 
