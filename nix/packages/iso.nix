@@ -1,6 +1,22 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  self,
+  username,
+  flakePath,
+  ...
+}:
 #? https://wiki.nixos.org/wiki/Creating_a_NixOS_live_CD
 {
+  system.activationScripts.copyFlake = {
+    text = ''
+      if [ ! -d ${flakePath} ]; then
+        mkdir --parents ${flakePath}
+        cp --recursive ${self.outPath}/* ${flakePath}
+        chown --recursive ${username}:100 ${flakePath}
+      fi
+    '';
+  };
+
   imports = [
     ../shared/nix.nix
   ];

@@ -54,7 +54,14 @@ qemu-system-x86_64 -enable-kvm -m 2048 -smp 4 -cdrom result/iso/nixos-graphical*
 ssh root@localhost -p 2222
 # or just
 nixos-rebuild build-vm --flake ./nix#minimalIso-x86_64-linux
+nh os build-vm --hostname minimalIso-x86_64-linux
+nh os build-vm --hostname minimalIso-x86_64-linux && ./result/bin/run-nixos-vm
 ```
+
+#### Paste How-To
+
+QEMU console is `Ctrl+Shift+2`, to return `Ctrl+Shift+1` then idk
+Add `-serial stdio` to QEMU cmd
 
 ### show only enabled programs/services
 
