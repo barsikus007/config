@@ -76,7 +76,7 @@
       };
 
       mkHomeCfg = username: modules: {
-        homeConfigurations.${username} = inputs.home-manager.lib.homeManagerConfiguration {
+        ${username} = inputs.home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           extraSpecialArgs = mkSpecialArgs username;
           modules = modules ++ [
@@ -92,24 +92,6 @@
           ];
         };
       };
-      homeConfigurations =
-        nixpkgs.lib.recursiveUpdate
-          (mkHomeCfg "nixos" [
-            ./shared
-            ./shared/nix.nix
-
-            ./home
-            ./home/shell/minimal.nix
-            ./home/editors.nix
-          ])
-          (
-            mkHomeCfg "nixd" [
-              #! https://github.com/nix-community/nixd/issues/705#issuecomment-3103731843
-              inputs.nixcord.homeModules.default
-              inputs.nvf.homeManagerModules.default
-              inputs.plasma-manager.homeModules.plasma-manager
-            ]
-          );
     in
     {
       nixosConfigurations."ROG14-WSL" = nixpkgs.lib.nixosSystem {
@@ -257,6 +239,23 @@
         ];
       };
 
+      homeConfigurations =
+        { }
+        // mkHomeCfg "nixos" [
+          ./shared
+          ./shared/nix.nix
+
+          ./home
+          ./home/shell/minimal.nix
+          ./home/editors.nix
+        ]
+        // mkHomeCfg "nixd" [
+          #! https://github.com/nix-community/nixd/issues/705#issuecomment-3103731843
+          inputs.nixcord.homeModules.default
+          inputs.nvf.homeManagerModules.default
+          inputs.plasma-manager.homeModules.plasma-manager
+        ];
+
       nixOnDroidConfigurations.default = inputs.nix-on-droid.lib.nixOnDroidConfiguration {
         pkgs = import ./nixpkgs.nix {
           inherit inputs;
@@ -370,6 +369,5 @@
           directory = ./packages/auto;
         };
       formatter.${system} = pkgs.nixfmt-tree;
-    }
-    // homeConfigurations;
+    };
 }

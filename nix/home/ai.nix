@@ -1,1 +1,4 @@
-{ programs.gemini-cli.enable = true; }
+{
+  programs.codex.enable = true;
+  programs.gemini-cli.enable = true;
+}

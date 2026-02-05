@@ -343,9 +343,7 @@
         productId = "3098";
         name = "ELAN1201:00 04F3:3098 Touchpad";
         naturalScroll = true;
-        # scrollSpeed = 0.5;
         scrollSpeed = 0.3;
-        # scrollSpeed = 0.1;
       }
     ];
 
