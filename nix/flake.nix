@@ -174,7 +174,6 @@
 
             environment.systemPackages = with pkgs; [
               self.packages.${system}.games.hytale
-              (callPackage ./packages/anicli-ru { })
               (callPackage ./packages/shdotenv.nix { })
               self.packages.${system}.libs.libspeedhack
               # self.packages.${system}.kompas3d-fhs

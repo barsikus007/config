@@ -22,6 +22,8 @@ pwsh.exe -Command 'Invoke-RestMethod https://raw.githubusercontent.com/barsikus0
 
 Write-Host "GUI packages installation..." -ForegroundColor Green
 pwsh.exe -Command 'Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/scoop/20SoftHighPriority.ps1 | Invoke-Expression'
+pwsh.exe -Command 'Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/scoop/21FileAssociations.ps1 | Invoke-Expression'
+pwsh.exe -Command 'Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/scoop/22Tweaks.ps1 | Invoke-Expression'
 
 
 Write-Host "Notes from scoop packages" -ForegroundColor Green

@@ -130,7 +130,7 @@ sudo /sbin/modprobe zfs
 ### Commands
 
 - [Clear arc cache](https://netpoint-dc.com/blog/zfs-caching-arc-l2arc-linux/)
-  - `sudo sysctl vm/drop_caches=3`
+  - `sync && sudo sysctl vm/drop_caches=3`
 - Add auto snapshot package
   - `sudo apt install zfs-auto-snapshot -y`
 - Enable scrub timer
@@ -143,7 +143,7 @@ sudo /sbin/modprobe zfs
 ### Zpool setup
 
 ```shell
-# check if -O utf8only=on is needed
+# TODO: migrate to formC: https://bbs.archlinux.org/viewtopic.php?id=289465
 sudo zpool create -O normalization=formD -O compression=lz4 tank raidz sda sdb sdc sdd
 
 sudo zfs create tank/apps

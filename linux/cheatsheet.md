@@ -142,7 +142,7 @@ distrobox create --name astra --image registry.astralinux.ru/astra/ubi18:latest
 
 ### [drop ram caches](https://linuxconfig.org/clear-cache-on-linux)
 
-`sudo sysctl vm/drop_caches=3`
+`sync && sudo sysctl vm/drop_caches=3`
 
 ### [download "whole" site](https://pingvinus.ru/note/wget-download-sites) ([alt](https://superuser.com/q/1672776))
 

@@ -8,12 +8,12 @@ import ./00_essential.nix { inherit pkgs; }
   # nix
   nh
   nvd
+  comma
   nix-tree
   nix-output-monitor
 
+  nixd
+  nixfmt
   tree-sitter
   tree-sitter-grammars.tree-sitter-nix
-  nixfmt
-  nixd
-  nil
 ]
