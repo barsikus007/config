@@ -14,4 +14,5 @@ with pkgs;
   ripgrep
 
   ncurses # tput for convinient colors in scripts
+  # net-tools # arp
 ]

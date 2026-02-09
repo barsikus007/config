@@ -98,6 +98,7 @@
         (extension "search_by_image" "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}")
         (extension "text-fragment" "text-fragment@example.com")
         (extension "clipboard2file" "{7343f7d1-e6ef-4d8a-8449-d4c18850f559}")
+        (extension "videospeed" "{7be2ba16-0f1e-4d93-9ebc-5164397477a9}")
         # (extension "bitwarden-password-manager" "{446900e4-71c2-419f-a6a7-df9c091e268b}")
         # (extension "umatrix" "uMatrix@raymondhill.net")
         # (extension "libredirect" "7esoorv3@alefvanoon.anonaddy.me")

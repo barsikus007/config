@@ -65,17 +65,15 @@ lurkmore.media##.sitenotice
   - [Return YouTube Dislike](https://www.returnyoutubedislike.com/)
   - [SponsorBlock for YouTube - Skip Sponsorships](https://sponsor.ajay.app)
   - [Disable Stopping Popup](https://github.com/lawfx/YoutubeNonStop)
-- [QuicKey](https://fwextensions.github.io/QuicKey/)
-  - [C+Tab](https://fwextensions.github.io/QuicKey/ctrl-tab/)
-    - <edge://extensions/shortcuts>
-      - `chrome.developerPrivate.updateExtensionCommand({extensionId: "mcjciddpjefdpndgllejgcekmajmehnd", commandName: "30-toggle-recent-tabs", keybinding: "Ctrl+Tab"});`
-      - or
-      - `chrome.developerPrivate.updateExtensionCommand({extensionId: "mcjciddpjefdpndgllejgcekmajmehnd", commandName: "1-previous-tab", keybinding: "Ctrl+Tab"});chrome.developerPrivate.updateExtensionCommand({extensionId: "mcjciddpjefdpndgllejgcekmajmehnd", commandName: "2-next-tab", keybinding: "Ctrl+Shift+Tab"});`
-- [PiP - Picture in Picture Plus](https://www.oinkandstuff.com/project/pip-picture-in-picture-plus/)
 - [Search by Image](https://github.com/dessant/search-by-image)
-- [Refined GitHub](https://github.com/refined-github/refined-github)
+- ^[Refined GitHub](https://github.com/refined-github/refined-github)
 - [Ruffle](https://ruffle.rs/)
 - [Dark Reader](https://darkreader.org/)
+- [Video Speed Control](https://github.com/codebicycle/videospeed)
+  - mpv shortcuts
+    - `[` - decrease
+    - `]` - increase
+    - `\` - reset
 - TODO
   - <https://extensions.xenorio.xyz/list/tubetweaks>
   - <https://github.com/dessant/ping-blocker>
@@ -86,6 +84,16 @@ lurkmore.media##.sitenotice
     - <https://github.com/hermit-crab/ScrapeMate>
   - [skip bitly like sites](https://github.com/FastForwardTeam/FastForward)
   - <https://github.com/clipboard2file/clipboard2file/>
+
+### Chromium (Edge)
+
+- [QuicKey](https://fwextensions.github.io/QuicKey/)
+  - [C+Tab](https://fwextensions.github.io/QuicKey/ctrl-tab/)
+    - <edge://extensions/shortcuts>
+      - `chrome.developerPrivate.updateExtensionCommand({extensionId: "mcjciddpjefdpndgllejgcekmajmehnd", commandName: "30-toggle-recent-tabs", keybinding: "Ctrl+Tab"});`
+      - or
+      - `chrome.developerPrivate.updateExtensionCommand({extensionId: "mcjciddpjefdpndgllejgcekmajmehnd", commandName: "1-previous-tab", keybinding: "Ctrl+Tab"});chrome.developerPrivate.updateExtensionCommand({extensionId: "mcjciddpjefdpndgllejgcekmajmehnd", commandName: "2-next-tab", keybinding: "Ctrl+Shift+Tab"});`
+- [PiP - Picture in Picture Plus](https://www.oinkandstuff.com/project/pip-picture-in-picture-plus/)
 
 ## Dev Tools console
 
