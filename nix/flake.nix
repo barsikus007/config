@@ -6,6 +6,7 @@
     # nixpkgs-fix-for-<smth>.url = "nixpkgs/pull/1488/head";
     nixpkgs.url = "nixpkgs/nixos-unstable";
     # nixpkgs-master.url = "nixpkgs";
+
     nixos-hardware.url = "github:nixos/nixos-hardware";
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL";
@@ -135,8 +136,7 @@
           ./modules/diagnostic.nix
           ./modules/printer.nix
 
-          ./modules/gui
-          ./modules/gui/plasma.nix
+          ./modules/desktop/manager/plasma.nix
           ./modules/gui/sound.nix
           ./modules/gui/games.nix
           ./modules/gui/throne.nix

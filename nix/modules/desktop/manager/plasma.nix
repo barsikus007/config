@@ -1,13 +1,10 @@
 { pkgs, ... }:
+#? https://wiki.nixos.org/wiki/KDE
 {
-  environment.sessionVariables = {
-    #? https://wiki.nixos.org/wiki/Wayland#Electron_and_Chromium
-    NIXOS_OZONE_WL = "1";
-    #? use KDE filepicker in GTK apps
-    GTK_USE_PORTAL = "1";
-  };
-  #? use KDE filepicker in GTK apps
-  xdg.portal.xdgOpenUsePortal = true;
+  imports = [
+    ../default.nix
+  ];
+
   #? https://wiki.archlinux.org/title/Uniform_look_for_Qt_and_GTK_applications#Set_the_preferred_portal_backend
   xdg.portal.config.common.default = [ "kde" ];
   xdg.portal.config.common."org.freedesktop.impl.portal.FileChooser" = [ "kde" ];
@@ -19,6 +16,10 @@
       autoLogin.relogin = true;
     };
   };
+  #! cause it breaks SDDM wallet and password auth
+  #? https://wiki.nixos.org/wiki/Fingerprint_scanner#Login
+  security.pam.services.login.fprintAuth = false;
+
   services.desktopManager.plasma6.enable = true;
   #? https://github.com/NixOS/nixpkgs/blob/d960d804370080d9ba0d4d197c3269e7e001b0e3/nixos/modules/services/desktop-managers/plasma6.nix#L151-L169
   # environment.plasma6.excludePackages = with pkgs.kdePackages; [ ];

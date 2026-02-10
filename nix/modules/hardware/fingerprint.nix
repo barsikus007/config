@@ -8,7 +8,4 @@
       libfprint = self.packages.${pkgs.stdenv.hostPlatform.system}.libs.libfprint-goodixtls-27c6-521d;
     };
   };
-  #! cause it breaks SDDM wallet and password auth
-  #? https://wiki.nixos.org/wiki/Fingerprint_scanner#Login
-  security.pam.services.login.fprintAuth = false;
 }

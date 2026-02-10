@@ -20,7 +20,7 @@
     ../../home/gui/syncthing.nix
     ../../home/gui/quickshare.nix
     ../../home/gui/terminal.nix
-    ../../home/gui/plasma.nix
+    ../../home/desktop/manager/plasma.nix
     ../../home/gui/rofi.nix
     ../../home/gui/mpv.nix
     ../../home/gui/vscode.nix

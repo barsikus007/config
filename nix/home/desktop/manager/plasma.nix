@@ -6,31 +6,15 @@
   ...
 }:
 {
-  imports = [ inputs.plasma-manager.homeModules.plasma-manager ];
+  imports = [
+    inputs.plasma-manager.homeModules.plasma-manager
+
+    ../.
+  ];
   home.packages =
     with pkgs;
     lib.optionals config.custom.isAsus [ supergfxctl-plasmoid ]
-    ++ [
-      (writeShellScriptBin "inspect-window" ''
-        WINDOW_ID=$(${kdotool}/bin/kdotool getactivewindow)
-        if [ -z "$WINDOW_ID" ]; then
-          ${lib.getExe libnotify} "Error" "No valid window ID obtained. Did you focus a window?" --urgency=critical
-          exit 1
-        fi
-
-        PID=$(${kdotool}/bin/kdotool getwindowpid "$WINDOW_ID")
-        if [ -z "$PID" ]; then
-            ${lib.getExe libnotify} "Error" "No valid PID obtained for window ID $WINDOW_ID." --urgency=critical
-            exit 1
-        fi
-
-        ${lib.getExe wezterm} start --always-new-process -- ${lib.getExe btop} --filter "$PID"
-      '')
-      (writeShellScriptBin "spectacle-ocr" ''
-        SCREENSHOT=$(mktemp)
-        ${lib.getExe kdePackages.spectacle} --background --nonotify --region --output $SCREENSHOT && ${lib.getExe tesseract} -l eng+rus $SCREENSHOT stdout | ${wl-clipboard}/bin/wl-copy
-      '')
-    ];
+    ++ (import ../../../shared/shell-scripts.nix { inherit pkgs; });
 
   programs.zsh.initContent = ''explorer.exe() {dolphin --new-window "$@" 1>/dev/null 2>/dev/null & disown}'';
   #? have issues with focus, it should focus to explorer every time
@@ -489,11 +473,6 @@
       # "dolphin/view_properties/global/.directory"."Dolphin"."ViewMode" = 1;
       # "dolphin/view_properties/global/.directory"."Settings"."HiddenFilesShown" = true;
     };
-
-  };
-  home.file.".face.icon".source = builtins.fetchurl {
-    url = "https://github.com/barsikus007.png";
-    sha256 = "sha256-ifkRxN8PTXOp7zkM8NcEWptT7scvMVkGZlcUs6B+0Dk=";
   };
   # NIXOS_OZONE_WL=1 fixes that
   # dconf.settings."org/gnome/desktop/interface" = {
