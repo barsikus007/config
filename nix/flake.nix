@@ -173,12 +173,12 @@
             ]; # ++ pkgs.steam-run.args.multiPkgs pkgs;
 
             environment.systemPackages = with pkgs; [
-              self.packages.${system}.games.hytale
+              self.packages.${stdenv.hostPlatform.system}.games.hytale
               (callPackage ./packages/shdotenv.nix { })
-              self.packages.${system}.libs.libspeedhack
-              # self.packages.${system}.kompas3d-fhs
+              self.packages.${stdenv.hostPlatform.system}.libs.libspeedhack
+              # self.packages.${stdenv.hostPlatform.system}.kompas3d-fhs
               #? needs 8.4 GiB * 3 (or more) space to build, takes ~12.2 GiB, and ~18 minutes to download
-              self.packages.${system}.gui.davinci-resolve-studio
+              self.packages.${stdenv.hostPlatform.system}.gui.davinci-resolve-studio
             ];
           }
         ];

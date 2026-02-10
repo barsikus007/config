@@ -144,6 +144,7 @@ in
         ".config/ludusavi"
         ".config/microsoft-edge" # TODO: ??
         ".config/nix" # ? gh token
+        ".config/noctalia/plugins"
         ".config/obs-studio"
         ".config/obsidian" # TODO: ??
         ".config/Podman Desktop" # TODO: ??

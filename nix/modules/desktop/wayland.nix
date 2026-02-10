@@ -12,13 +12,13 @@
 
   environment.systemPackages = with pkgs; [
     #? wayland stuff
+    libnotify
     #? screenshot related
     grim
     slurp
     #? clipboardrelated
     wtype
     wl-clipboard
-    libnotify
 
     #? spell check
     hunspell
@@ -26,7 +26,7 @@
     hunspellDicts.ru_RU
   ];
 
-  # wayland stuff
+  #? wayland stuff
   programs.ydotool.enable = true;
   users.users.${username}.extraGroups = [ "ydotool" ];
 }

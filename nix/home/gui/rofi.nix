@@ -6,23 +6,6 @@
 }:
 #! https://github.com/svenstaro/rofi-calc/issues/33
 {
-  services.cliphist = {
-    enable = true;
-    #! https://github.com/bugaevc/wl-clipboard/issues/268
-    #! https://github.com/YaLTeR/wl-clipboard-rs/issues/5
-    clipboardPackage =
-      with pkgs;
-      wl-clipboard.overrideAttrs {
-        version = "2.2.1-git";
-
-        src = fetchFromGitHub {
-          owner = "bugaevc";
-          repo = "wl-clipboard";
-          rev = "e8082035dafe0241739d7f7d16f7ecfd2ce06172";
-          hash = "sha256-sR/P+urw3LwAxwjckJP3tFeUfg5Axni+Z+F3mcEqznw=";
-        };
-      };
-  };
   programs.rofi = {
     enable = true;
     plugins = with pkgs; [
