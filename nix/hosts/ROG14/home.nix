@@ -21,6 +21,7 @@
     ../../home/gui/quickshare.nix
     ../../home/gui/terminal.nix
     ../../home/desktop/manager/plasma.nix
+    ../../home/desktop/manager/niri
     ../../home/gui/rofi.nix
     ../../home/gui/mpv.nix
     ../../home/gui/vscode.nix

@@ -8,4 +8,5 @@
       libfprint = self.packages.${pkgs.stdenv.hostPlatform.system}.libs.libfprint-goodixtls-27c6-521d;
     };
   };
+  security.pam.services.login.rules.auth.fprintd.args = [ "max-tries=1" ];
 }

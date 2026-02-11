@@ -51,10 +51,10 @@
         key = "Meta+Ctrl+`";
         command = "inspect-window";
       };
-      "spectacle-ocr" = {
+      "ocr-screen-region" = {
         name = "Capture Screen Region then Extract Text with OCR";
         key = "Meta+Shift+T";
-        command = "spectacle-ocr";
+        command = "ocr-screen-region";
       };
     }
     // lib.attrsets.optionalAttrs config.custom.isAsus {

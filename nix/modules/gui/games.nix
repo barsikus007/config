@@ -41,6 +41,7 @@ in
     winetricks
     bottles
 
+    gpu-screen-recorder
     gpu-screen-recorder-gtk
   ];
 

@@ -41,7 +41,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixcord = {
-      url = "github:kaylorben/nixcord";
+      url = "github:FlameFlag/nixcord";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     erosanix = {
@@ -57,6 +57,19 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
+
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    dms = {
+      url = "github:AvengeMedia/DankMaterialShell/stable";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   # TODO: FUCK THIS NIXFMT INDENT: https://github.com/NixOS/nixfmt/issues/91
@@ -137,6 +150,7 @@
           ./modules/printer.nix
 
           ./modules/desktop/manager/plasma.nix
+          ./modules/desktop/manager/niri.nix
           ./modules/gui/sound.nix
           ./modules/gui/games.nix
           ./modules/gui/throne.nix
@@ -253,6 +267,9 @@
           inputs.nixcord.homeModules.default
           inputs.nvf.homeManagerModules.default
           inputs.plasma-manager.homeModules.plasma-manager
+          inputs.niri.homeModules.niri
+          inputs.noctalia.homeModules.default
+          inputs.dms.homeModules.dank-material-shell
         ];
 
       nixOnDroidConfigurations.default = inputs.nix-on-droid.lib.nixOnDroidConfiguration {

@@ -103,14 +103,14 @@ in
             mode: "OnRelease";
             action = {
               type: "Keypress";
-              keys: ["KEY_LEFTMETA", "KEY_D"];
+              keys: ["KEY_LEFTMETA", "KEY_LEFTCTRL", "KEY_DOWN"];
             };
           }, {
             direction: "Up";
             mode: "OnRelease";
             action = {
               type: "Keypress";
-              keys: ["KEY_F18"];
+              keys: ["KEY_LEFTMETA", "KEY_LEFTCTRL", "KEY_UP"];
             };
           }, {
             direction: "None";

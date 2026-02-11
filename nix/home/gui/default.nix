@@ -6,7 +6,7 @@
 }:
 {
   xdg = {
-    #? ls /run/current-system/sw/share/applications /etc/profiles/per-user/$(id -n -u)/share/applications ~/.local/share/applications | grep <name>
+    #? \command ls /run/current-system/sw/share/applications /etc/profiles/per-user/$(id -n -u)/share/applications ~/.local/share/applications | grep <name>
     mimeApps.enable = true;
     mimeApps.defaultApplications = {
       "inode/directory" = [
@@ -20,13 +20,15 @@
         "org.kde.elisa.desktop"
         "mpv.desktop"
       ];
+      "application/zip" = "org.kde.ark.desktop";
       "application/x-msdownload" = "wine";
     }
     //
       lib.genAttrs
         [
-          "application/x-shellscript"
           "application/xml"
+          "application/json"
+          "application/x-shellscript"
           # default for unknown (binary) and text
           "text/plain"
           "application/octet-stream"
@@ -72,7 +74,7 @@
   # xdg.configFile."keepassxc/keepassxc.ini".source =
   #   config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/keepassxc/keepassxc.ini";
 
-  services.copyq.enable = true;
+  # services.copyq.enable = true;
   # # xdg.configFile."copyq/copyq.conf".source =
   #   config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/copyq/copyq.conf";
 }

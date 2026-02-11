@@ -1,4 +1,9 @@
-{ pkgs, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 #? https://wiki.nixos.org/wiki/KDE
 {
   imports = [
@@ -16,13 +21,23 @@
       autoLogin.relogin = true;
     };
   };
-  #! cause it breaks SDDM wallet and password auth
   #? https://wiki.nixos.org/wiki/Fingerprint_scanner#Login
-  security.pam.services.login.fprintAuth = false;
+  #! https://github.com/NixOS/nixpkgs/issues/171136#issuecomment-2918400189
+  security.pam.services.sddm.text = (
+    lib.strings.concatLines (
+      builtins.filter (x: (lib.strings.hasPrefix "auth " x) && (!lib.strings.hasInfix "fprintd" x)) (
+        lib.strings.splitString "\n" config.security.pam.services.login.text
+      )
+    )
+    + ''
+
+      account   include   login
+      password  substack  login
+      session   include   login
+    ''
+  );
 
   services.desktopManager.plasma6.enable = true;
-  #? https://github.com/NixOS/nixpkgs/blob/d960d804370080d9ba0d4d197c3269e7e001b0e3/nixos/modules/services/desktop-managers/plasma6.nix#L151-L169
-  # environment.plasma6.excludePackages = with pkgs.kdePackages; [ ];
   environment.systemPackages = with pkgs; [
     #? The fallback for GNOME apps
     gnome-icon-theme
@@ -40,7 +55,7 @@
     kdePackages.kclock
     kdePackages.kcalc
 
-    #? ydotool for plasma
+    #? xdotool for plasma
     kdotool
 
     #? for KDE Connect
