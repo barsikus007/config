@@ -46,3 +46,64 @@ _nn() {
 nnn() {
   sudo true && _nn "$@" && notify-send 'System build success' && exec $SHELL || notify-send 'System build failed'
 }
+
+nix_build_and_link() {
+  # TODO: nvd to determine changed paths and link
+  # TODO: maybe use `:b home.activationPackage` script?
+  NIX_REPL=$1
+
+  NIX_FILE=$2
+  NIX_EVAL=$3
+  CONFIG_LOCATION=$4
+  CALLBACK=$5
+
+  nix-instantiate --parse "$NIX_FILE" >/dev/null || return
+  echo "$NIX_FILE syntax correct"
+  echo "eval $NIX_EVAL and build..."
+  nix build --file "$NIX_REPL" "$NIX_EVAL" --out-link "$CONFIG_LOCATION" --option substitute false
+  echo "Done, exec callback..."
+  bash -c $CALLBACK
+}
+
+nix_hot_reload() {
+  NIX_REPL=$1
+
+  NIX_FILE=$2
+  NIX_EVAL=$3
+  CONFIG_LOCATION=$4
+  CALLBACK=$5
+
+  echo "watching with inotifywait: $NIX_FILE"
+
+  while inotifywait -q -e close_write,move,create,delete "$(dirname "$NIX_FILE")" >/dev/null 2>&1; do
+    # простой дебаунс
+    # если WATCH_PATH файл, то убедимся что он тронут
+    if [[ -f "$NIX_FILE" || -d "$WATCH_PATH" ]]; then
+      if ! nix_build_and_link $NIX_REPL $NIX_FILE $NIX_EVAL $CONFIG_LOCATION $CALLBACK; then
+        echo "build failed; waiting for next change…"
+      fi
+    fi
+  done
+}
+
+nix_hot_reload_noctalia() {
+  NIX_REPL=/home/ogurez/config/nix/repl.nix
+
+  NIX_FILE="/home/ogurez/config/nix/home/desktop/manager/niri/quickshell/noctalia.nix"
+  NIX_EVAL='home.xdg.configFile."noctalia/settings.json"'
+  CONFIG_LOCATION=/home/ogurez/.config/noctalia/settings.json
+  CALLBACK="systemctl --user restart noctalia-shell"
+
+  nix_hot_reload $NIX_REPL $NIX_FILE $NIX_EVAL $CONFIG_LOCATION $CALLBACK
+}
+
+nix_hot_reload_niri() {
+  NIX_REPL=/home/ogurez/config/nix/repl.nix
+
+  NIX_FILE="/home/ogurez/config/nix/home/gui/niri.nix"
+  NIX_EVAL='home.xdg.configFile."niri/config.kdl"'
+  CONFIG_LOCATION=/home/ogurez/.config/niri/config.kdl
+  CALLBACK=""
+
+  nix_hot_reload $NIX_REPL $NIX_FILE $NIX_EVAL $CONFIG_LOCATION $CALLBACK
+}
