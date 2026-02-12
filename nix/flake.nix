@@ -132,7 +132,6 @@
 
           ./modules/hardware/logi-mx3.nix
           ./modules/hardware/xbox.nix
-          ./modules/hardware/wifi-unlimited.nix
 
           ./modules/shell
           ./modules/containers

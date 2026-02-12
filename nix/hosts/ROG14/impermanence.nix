@@ -100,7 +100,6 @@ in
       # "/etc/adjtime" # TODO: is this needed? hwclock
       # "/etc/logrotate.status" # TODO: is this needed? /var/log/{b,w}tmp
       "/etc/machine-id" # TODO: secrets
-      # "/etc/supergfxd.conf" # TODO: asus
     ];
     users.${username} = {
       # sudo mkdir -p /persistent/home/ogurez && sudo chown ogurez: /persistent/home/ogurez

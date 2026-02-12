@@ -133,6 +133,7 @@
         forceBlackScreenCorners = true;
         lockScreenAnimations = true;
         autoStartAuth = true;
+        # TODO: breaks fprintd auth if authorized with pass?
         allowPasswordWithFprintd = true;
       };
       location = {

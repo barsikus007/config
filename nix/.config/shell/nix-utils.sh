@@ -48,8 +48,6 @@ nnn() {
 }
 
 nix_build_and_link() {
-  # TODO: nvd to determine changed paths and link
-  # TODO: maybe use `:b home.activationPackage` script?
   NIX_REPL=$1
 
   NIX_FILE=$2
@@ -62,7 +60,24 @@ nix_build_and_link() {
   echo "eval $NIX_EVAL and build..."
   nix build --file "$NIX_REPL" "$NIX_EVAL" --out-link "$CONFIG_LOCATION" --option substitute false
   echo "Done, exec callback..."
-  bash -c $CALLBACK
+  bash -c "$CALLBACK"
+}
+
+nix_home_manager_build_and_link() {
+  # TODO: nvd to determine is config changed/changed paths and link
+  NIX_REPL=$1
+
+  NIX_FILE=$2
+  CALLBACK=$3
+
+  nix-instantiate --parse "$NIX_FILE" >/dev/null || return
+  echo "$NIX_FILE syntax correct"
+  echo "eval $NIX_EVAL and build..."
+  OUT=$(nix build --file "$NIX_REPL" "home.home.activationPackage" --option substitute false --print-out-paths)
+  echo "built $OUT"
+  sh "$OUT"/bin/home-manager-generation
+  echo "Done, exec callback..."
+  bash -c "$CALLBACK"
 }
 
 nix_hot_reload() {
@@ -84,6 +99,15 @@ nix_hot_reload() {
       fi
     fi
   done
+}
+
+nix_home_manager_reload() {
+  NIX_REPL=/home/ogurez/config/nix/repl.nix
+
+  NIX_FILE="/home/ogurez/config/nix/home"
+  CALLBACK="systemctl --user restart noctalia-shell"
+
+  nix_home_manager_build_and_link $NIX_REPL $NIX_FILE $CALLBACK
 }
 
 nix_hot_reload_noctalia() {

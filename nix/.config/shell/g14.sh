@@ -48,6 +48,17 @@ asus_fan() {
 }
 
 #? laptop general
+dgpu_switch_to_integrated/vfio() {
+  sudo /run/current-system/sw/bin/kill --verbose --signal QUIT --timeout 1000 TERM \
+                                    --timeout 1000 KILL \
+                                    --timeout 1000 KILL \
+            $(sudo lsof -t /dev/nvidia*); \
+  sudo modprobe --remove --all nvidia{_drm,_uvm,_modeset,} && sudo modprobe vfio-pci
+}
+dgpu_switch_to_hybrid() {
+  sudo modprobe --remove vfio-pci && sudo modprobe --all nvidia{,_modeset,_uvm,_drm}
+}
+
 boost() {
   # https://www.reddit.com/r/linuxmint/comments/12n8qfe/comment/jge3kys/
   if grep -q 0 /sys/devices/system/cpu/cpufreq/boost; then

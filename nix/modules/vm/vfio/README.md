@@ -7,9 +7,9 @@ codename `Windows-Resurrect`
 - host on
   - `sudo modprobe --remove vfio-pci && sudo modprobe --all nvidia{,_modeset,_uvm,_drm}`
 - host off
-  - `sudo fuser --kill --verbose /dev/nvidia*; sudo modprobe --remove --all nvidia{_drm,_uvm,_modeset,} && sudo modprobe vfio-pci`
+  - `sudo kill --verbose --signal QUIT --timeout 1000 TERM --timeout 1000 KILL --timeout 1000 KILL $(sudo lsof -t /dev/nvidia*); sudo modprobe --remove --all nvidia{_drm,_uvm,_modeset,} && sudo modprobe vfio-pci`
   - check what uses gpu
-    - `sudo fuser -v /dev/nvidia*`
+    - `sudo fuser --verbose /dev/nvidia*`
 
 ## Windows 10 ISO and setup
 

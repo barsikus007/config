@@ -26,6 +26,7 @@
     inputs.nixos-hardware.nixosModules.asus-zephyrus-ga401
     ./hardware-configuration.nix
     ../../modules/hardware/fingerprint.nix
+    ../../modules/hardware/wifi-unlimited.nix
   ];
   home-manager.users.${username} = ./home.nix;
 
@@ -59,7 +60,7 @@
   hardware = {
     amdgpu.opencl.enable = true;
 
-    #? https://github.com/NixOS/nixos-hardware/issues/1450
+    #! https://github.com/NixOS/nixos-hardware/issues/1450
     nvidia.dynamicBoost.enable = false;
     #? if GPU apps fails after suspend
     # nvidia.powerManagement.enable = true;
@@ -69,15 +70,12 @@
     bluetooth.enable = true;
   };
 
+  #? https://asus-linux.org/guides/nixos/
   services = {
-    #? https://asus-linux.org/guides/nixos/
-    supergfxd.enable = true;
     asusd = {
       enable = true;
       #! https://gitlab.com/asus-linux/asusctl/-/issues/530#note_2101255275
       # enableUserService = true;
-      #? https://asus-linux.org/manual/asusctl-manual/
-      # TODO fanCurvesConfig = '''';
     };
   };
 

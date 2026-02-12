@@ -183,12 +183,14 @@ hatch run true
 
 ### TODO
 
+- cicd to generate configs from nix files
 - meta
   - check all `*.md` and `*.nix` code sections with `shellcheck`
   - [clone single dir](https://stackoverflow.com/questions/600079/how-do-i-clone-a-subdirectory-only-of-a-git-repository/52269934#52269934)
     - `git clone --no-checkout --depth=1 --filter=tree:0 https://github.com/barsikus007/config && cd config && git sparse-checkout set --no-cone /nix && git checkout`
   - nuke media from git history
     - save refs somehow
+      - new branch
 
 ### archive
 
