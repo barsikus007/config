@@ -103,7 +103,7 @@ in
     ];
     users.${username} = {
       # sudo mkdir -p /persistent/home/ogurez && sudo chown ogurez: /persistent/home/ogurez
-      # cp -ax --reflink=always /home/ogurez/{Desktop,Documents,Downloads,Games,Music,Pictures,Videos,config,hax,projects,Sync,.cache,.config,.local,.var,.android,.floorp,.gemini,.mozilla,.ocat,.thunderbird,.vscode,go,.cargo,.docker,.dotnet,.java,.npm,.pki,.parsec,.parsec-persistent,.steam,.wine,.ssh} /persistent/home/ogurez/
+      # cp -ax --reflink=always /home/ogurez/{...} /persistent/home/ogurez/
       directories = [
         "Desktop"
         "Documents"
@@ -117,6 +117,7 @@ in
         "hax"
         "Sync"
 
+        ".cache/cliphist"
         ".cache/cloud-code" # ? gemini auth
         ".cache/nix-index"
         ".cache/tlrc"

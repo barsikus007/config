@@ -48,6 +48,9 @@ asus_fan() {
 }
 
 #? laptop general
+dgpu_check_processes() {
+  sudo lsof /dev/nvidia*
+}
 dgpu_switch_to_integrated/vfio() {
   sudo /run/current-system/sw/bin/kill --verbose --signal QUIT --timeout 1000 TERM \
                                     --timeout 1000 KILL \

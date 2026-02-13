@@ -1,4 +1,9 @@
-{ pkgs, inputs, ... }:
+{
+  pkgs,
+  config,
+  inputs,
+  ...
+}:
 #? https://github.com/noctalia-dev/noctalia-shell
 {
   imports = [
@@ -35,18 +40,24 @@
             {
               id = "SystemMonitor";
             }
-            # TODO
             {
               id = "plugin:screen-recorder";
+              defaultSettings = {
+                copyToClipboard = true;
+                frameRate = 144;
+                videoCodec = "hevc";
+                audioSource = "both";
+              };
             }
+            # TODO
             {
               id = "plugin:pomodoro";
             }
 
             {
-              id = "ActiveWindow";
-              # id = "Taskbar";
-              # showTitle = true;
+              # id = "ActiveWindow";
+              id = "Taskbar";
+              showTitle = true;
             }
           ];
           center = [
@@ -58,6 +69,7 @@
           right = [
             {
               id = "CustomButton";
+              icon = "music-pin";
               leftClickExec = "dbus-send --type=method_call --dest=org.kde.plasma.browser_integration /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Raise";
             }
             {
@@ -80,31 +92,32 @@
             }
             {
               id = "Brightness";
+              displayMode = "alwaysShow";
             }
             {
               id = "Volume";
-            }
-            {
-              id = "KeyboardLayout";
-              showIcon = false;
-            }
-            {
-              id = "plugin:noctalia-supergfxctl";
+              displayMode = "alwaysShow";
             }
             {
               id = "PowerProfile";
             }
             {
               id = "Battery";
+              displayMode = "graphic";
               alwaysShowPercentage = true;
               warningThreshold = 30;
               showNoctaliaPerformance = true;
               showPowerProfiles = true;
             }
             {
+              id = "KeyboardLayout";
+              showIcon = false;
+            }
+            {
               id = "Clock";
               formatHorizontal = "yyyy-MM-dd HH:mm:ss";
-              useMonospacedFont = true;
+              useCustomFont = true;
+              customFont = config.stylix.fonts.monospace.name;
             }
           ];
         };
@@ -180,12 +193,7 @@
           sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
         };
 
-        #? bar
-        noctalia-supergfxctl = {
-          enabled = true;
-          sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
-        };
-        #? https://noctalia.dev/plugins/pomodoro/
+        #? bar: https://noctalia.dev/plugins/pomodoro/
         pomodoro = {
           enabled = true;
           sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";

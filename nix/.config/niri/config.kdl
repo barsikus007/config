@@ -34,7 +34,7 @@ input {
     // All commented-out settings here are examples, not defaults.
     touchpad {
         natural-scroll
-        accel-profile "flat"
+        accel-speed -0.1
         scroll-factor 0.3
         tap
     }
@@ -120,7 +120,14 @@ layout {
     }
 
     // You can also customize the heights that "switch-preset-window-height" (Mod+Shift+R) toggles between.
-    // preset-window-heights { }
+    preset-window-heights {
+        proportion 0.25
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+        proportion 0.75
+        proportion 1.0
+    }
 
     // You can change the default width of the new windows.
     default-column-width { proportion 0.5; }
@@ -255,6 +262,7 @@ layout {
 
 // This line starts waybar, a commonly used bar for Wayland compositors.
 spawn-at-startup "kwalletd6"
+spawn-at-startup "dbus-update-activation-environment" "--systemd" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP" "DISPLAY"
 // spawn-at-startup "noctalia-shell"
 // spawn-sh-at-startup "env QT_QPA_PLATFORMTHEME=qt6ct noctalia-shell"
 
@@ -354,6 +362,7 @@ window-rule {
     open-focused true
 }
 
+//? https://niri-wm.github.io/niri/Configuration%3A-Key-Bindings.html
 binds {
     // Keys consist of modifiers separated by + signs, followed by an XKB key name
     // in the end. To find an XKB name for a particular key, you may use a program
@@ -380,8 +389,8 @@ binds {
     Mod+E hotkey-overlay-title="Run a File Manager" { spawn "dolphin"; }
     Mod+V hotkey-overlay-title="Open Clipboard Manager" { spawn-sh "noctalia-shell ipc call launcher clipboard"; }
     // Mod+V hotkey-overlay-title="Open Clipboard Manager" { spawn-sh "dms ipc call clipboard toggle"; }
-    Mod+Alt+I hotkey-overlay-title="Open Settings" { spawn-sh "noctalia-shell ipc call launcher settings"; }
-    Ctrl+Shift+Escape hotkey-overlay-title="Open \"Task\" Manager" { spawn-sh "noctalia-shell ipc call systemMonitor toggle"; }
+    Mod+Alt+I hotkey-overlay-title="Open Settings" { spawn-sh "noctalia-shell ipc call settings open"; }
+    Ctrl+Shift+Escape hotkey-overlay-title="Open \"Task\" Manager" { spawn-sh "wezterm start --class org.wezfurlong.wezterm.floating btop"; }
     Ctrl+Alt+Delete hotkey-overlay-title="Open Power Actions" { spawn-sh "noctalia-shell ipc call sessionMenu toggle"; }
     // Mod+Period hotkey-overlay-title="Open Emoji Picker" { spawn-sh "noctalia-shell ipc call launcher emoji"; }
     Mod+Semicolon hotkey-overlay-title="Open Emoji Picker 🤓" { spawn-sh "noctalia-shell ipc call launcher emoji"; }
@@ -389,7 +398,9 @@ binds {
     Mod+Ctrl+Grave hotkey-overlay-title="Inspect Focused Window" { spawn "inspect-window"; }
     XF86Launch1 hotkey-overlay-title="Asus: Toggle Bad Apple" { spawn-sh "zsh -c asus_demotoggle"; }
     XF86Launch4 hotkey-overlay-title="Asus: Enable Bad Apple" { spawn-sh "noctalia-shell ipc call powerProfile cycle"; }
-    Mod+Shift+S hotkey-overlay-title="OCR Screen Region" { spawn-sh "zsh -c \"asus_noanime && asus_anime\""; }
+    Mod+Shift+S hotkey-overlay-title="Quick ScreenCapture" { spawn-sh "noctalia-shell ipc call plugin:screen-recorder toggle"; }
+    XF86KbdBrightnessUp   { spawn "ydotool" "key" "104:1" "104:0"; }
+    XF86KbdBrightnessDown { spawn "ydotool" "key" "109:1" "109:0"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
