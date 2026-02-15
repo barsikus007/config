@@ -38,6 +38,12 @@
     LC_TIME = "en_GB.UTF-8";
     LC_COLLATE = "en_US.UTF-8";
   };
+  services.xserver.xkb = {
+    layout = "us,ru";
+    options = "grp:win_space_toggle,compose:ralt,ctrl:nocaps";
+    # grp:lalt_lshift_toggle,
+  };
+  console.useXkbConfig = true;
 
   fonts.packages = with pkgs; [
     cascadia-code

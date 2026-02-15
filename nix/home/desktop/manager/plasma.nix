@@ -331,16 +331,6 @@
       }
     ];
 
-    configFile.kxkbrc = {
-      Layout = {
-        DisplayNames = "EN,РУ";
-        LayoutList = "us,ru";
-        Options = "grp:lalt_lshift_toggle";
-        ResetOldOptions = true;
-        Use = true;
-        VariantList = ",";
-      };
-    };
     shortcuts = {
       "KDE Keyboard Layout Switcher" = {
         "Switch to Next Keyboard Layout" = "Meta+Space";

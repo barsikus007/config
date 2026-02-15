@@ -64,6 +64,7 @@
     "editor.foldingMaximumRegions": 50000,
     "terminal.integrated.stickyScroll.enabled": false,
     "terminal.integrated.scrollback": 50000,
+    "terminal.integrated.initialHint": false,
     // "editor.maxTokenizationLineLength": 200000,
     // #endregion behavior
     // #region misc
@@ -103,10 +104,6 @@
     "chat.agent.enabled": true,
     //? friendship end with copilot, now I use genimi
     "chat.disableAIFeatures": true,
-    "geminicodeassist.enableTelemetry": false,
-    "geminicodeassist.displayInlineContextHint": false,
-    "geminicodeassist.inlineSuggestions.enableAuto": true,
-    "geminicodeassist.inlineSuggestions.nextEditPredictions": true,
     // #endregion misc
     // #region nix
     "nix.enableLanguageServer": true,
