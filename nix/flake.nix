@@ -175,7 +175,7 @@
               # icu
               # nss
               # expat
-              xorg.libX11
+              libx11
               # vulkan-headers
               # vulkan-loader
               # vulkan-tools
@@ -191,7 +191,7 @@
               self.packages.${stdenv.hostPlatform.system}.libs.libspeedhack
               # self.packages.${stdenv.hostPlatform.system}.kompas3d-fhs
               #? needs 8.4 GiB * 3 (or more) space to build, takes ~12.2 GiB, and ~18 minutes to download
-              self.packages.${stdenv.hostPlatform.system}.gui.davinci-resolve-studio
+              (callPackage ./packages/auto/gui/davinci-resolve-studio.nix { })
             ];
           }
         ];

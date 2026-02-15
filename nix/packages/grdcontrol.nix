@@ -7,7 +7,7 @@
 
   autoPatchelfHook,
 
-  xorg,
+  libxcb,
 }:
 let
   pname = "grdcontrol";
@@ -27,7 +27,7 @@ stdenv.mkDerivation {
   ];
 
   propagatedBuildInputs = [
-    xorg.libxcb
+    libxcb
   ];
 
   installPhase = ''

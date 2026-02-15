@@ -9,7 +9,37 @@
 
   qt3d,
 
-  xorg,
+  libSM,
+  libxxf86vm,
+  libxv,
+  libxres,
+  libxpm,
+  libxmu,
+  libxkbfile,
+  libxinerama,
+  libxdamage,
+  libxfixes,
+  libxcursor,
+  libxcomposite,
+  libxaw,
+  libxt,
+  libxtst,
+  libICE,
+  libfontenc,
+  libxcb,
+  libx11,
+  libxext,
+  libxrender,
+  libxrandr,
+  libxScrnSaver,
+  libxi,
+  xcbutil,
+  xcbutilwm,
+  xcbutilrenderutil,
+  xcbutilkeysyms,
+  xcbutilimage,
+  libxdmcp,
+  libxau,
   xcb-util-cursor,
   libdrm,
   libgcc,
@@ -146,37 +176,37 @@ stdenv.mkDerivation {
     tinyxml
     libdrm
     xcb-util-cursor
-    xorg.libSM
-    xorg.libXxf86vm
-    xorg.libXv
-    xorg.libXres
-    xorg.libXpm
-    xorg.libXmu
-    xorg.libxkbfile
-    xorg.libXinerama
-    xorg.libXdamage
-    xorg.libXfixes
-    xorg.libXcursor
-    xorg.libXcomposite
-    xorg.libXaw
-    xorg.libXt
-    xorg.libXtst
-    xorg.libICE
-    xorg.libfontenc
-    xorg.libxcb
-    xorg.libX11
-    xorg.libXext
-    xorg.libXrender
-    xorg.libXrandr
-    xorg.libXScrnSaver
-    xorg.libXi
-    xorg.xcbutil
-    xorg.xcbutilwm
-    xorg.xcbutilrenderutil
-    xorg.xcbutilkeysyms
-    xorg.xcbutilimage
-    xorg.libXdmcp
-    xorg.libXau
+    libSM
+    libxxf86vm
+    libxv
+    libxres
+    libxpm
+    libxmu
+    libxkbfile
+    libxinerama
+    libxdamage
+    libxfixes
+    libxcursor
+    libxcomposite
+    libxaw
+    libxt
+    libxtst
+    libICE
+    libfontenc
+    libxcb
+    libx11
+    libxext
+    libxrender
+    libxrandr
+    libxScrnSaver
+    libxi
+    xcbutil
+    xcbutilwm
+    xcbutilrenderutil
+    xcbutilkeysyms
+    xcbutilimage
+    libxdmcp
+    libxau
     llvmPackages.libcxx
     llvmPackages.libunwind
     llvmPackages.openmp

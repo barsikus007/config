@@ -38,7 +38,7 @@
   libffi,
   libGL,
   libpng,
-  libXext,
+  libxext,
   libxkbcommon,
   openssl,
   pcre2,
@@ -52,7 +52,12 @@
   util-linux,
   wayland,
   wrapGAppsHook3,
-  xorg,
+  libx11,
+  libxau,
+  libxcb,
+  libxdmcp,
+  libxfixes,
+  libxcb-keysyms,
   xz,
   zlib,
   zstd,
@@ -166,7 +171,7 @@ let
         libffi
         libGL
         libpng
-        libXext
+        libxext
         libxkbcommon
         openssl
         pcre2
@@ -177,12 +182,12 @@ let
         solid
         util-linux
         wayland
-        xorg.libX11
-        xorg.libXau
-        xorg.libxcb
-        xorg.libXdmcp
-        xorg.libXfixes
-        xorg.xcbutilkeysyms
+        libx11
+        libxau
+        libxcb
+        libxdmcp
+        libxfixes
+        libxcb-keysyms
         xz
         zlib
         zstd
