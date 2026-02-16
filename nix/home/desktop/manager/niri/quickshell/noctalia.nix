@@ -202,20 +202,42 @@
       version = 2;
     };
   };
+  #? screenshot annotation for clipboard history
   programs.satty.enable = true;
-  services.swayidle = {
+  services.hypridle = {
     enable = true;
-    timeouts = with pkgs; [
-      {
-        timeout = 10 * 60;
-        command = "${lib.getExe niri} msg action power-off-monitors";
-      }
-      {
-        timeout = 15 * 60;
-        command = "${
+    settings =
+      with pkgs;
+      let
+        lock_cmd = "${
           lib.getExe inputs.noctalia.packages.${stdenv.hostPlatform.system}.default
         } ipc call lockScreen lock";
-      }
-    ];
+        power_off_monitors_cmd = "${lib.getExe niri} msg action power-off-monitors";
+        is_locked = ''[ $(loginctl show-session $XDG_SESSION_ID -p LockedHint --value) == "yes" ]'';
+      in
+      {
+        general = {
+          inherit lock_cmd;
+        };
+        listener = [
+          {
+            timeout = 30;
+            on-timeout = "${is_locked} && ${power_off_monitors_cmd}";
+          }
+          {
+            timeout = 5 * 60;
+            on-timeout = "${is_locked} || ${lib.getExe brightnessctl} -s set 10";
+            on-resume = "${is_locked} || ${lib.getExe brightnessctl} -r";
+          }
+          {
+            timeout = 10 * 60;
+            on-timeout = "${is_locked} || ${power_off_monitors_cmd}";
+          }
+          {
+            timeout = 15 * 60;
+            on-timeout = "${is_locked} || ${lib.getExe brightnessctl} -r && loginctl lock-session";
+          }
+        ];
+      };
   };
 }
