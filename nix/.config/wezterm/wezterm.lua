@@ -66,7 +66,9 @@ return {
         {
             key = 'v',
             mods = 'CTRL|SHIFT',
-            action = act.SendKey { key = 'v', mods = 'CTRL' }
+            --! fucked up with noctalia-shell cliphist paste
+            -- action = act.SendKey { key = 'v', mods = 'CTRL' }
+            action = act.PasteFrom('Clipboard')
         },
     },
     key_tables = {

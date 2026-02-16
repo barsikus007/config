@@ -4,19 +4,6 @@
 // https://niri-wm.github.io/niri/Configuration:-Introduction
 include "nix-generated-config.kdl"
 
-layout {
-    focus-ring {
-        on
-        active-color "#5fb8f2"
-
-        // Color of the ring on inactive monitors.
-        //
-        // The focus ring only draws around the active window, so the only place
-        // where you can see its inactive-color is on other monitors.
-        inactive-color "#4d6fb7"
-    }
-}
-
 // Window rules let you adjust behavior for individual windows.
 // Find more information on the wiki:
 // https://niri-wm.github.io/niri/Configuration:-Window-Rules
@@ -100,7 +87,7 @@ binds {
     Ctrl+Alt+T hotkey-overlay-title="Open a Terminal: wezterm" { spawn "wezterm"; }
     Mod+F2    hotkey-overlay-title="Run an Application" { spawn-sh "noctalia-shell ipc call launcher toggle"; }
     Alt+Space hotkey-overlay-title="Run an Application" { spawn-sh "noctalia-shell ipc call launcher toggle"; }
-    Mod+L hotkey-overlay-title="Lock the Screen" { spawn-sh "noctalia-shell ipc call lockScreen lock"; }
+    Mod+L hotkey-overlay-title="Lock the Screen" allow-when-locked=true { spawn-sh "noctalia-shell ipc call lockScreen lock"; }
     Mod+E hotkey-overlay-title="Run a File Manager" { spawn "dolphin"; }
     Mod+V hotkey-overlay-title="Open Clipboard Manager" { spawn-sh "noctalia-shell ipc call launcher clipboard"; }
     // Mod+V hotkey-overlay-title="Open Clipboard Manager" { spawn-sh "dms ipc call clipboard toggle"; }
@@ -111,12 +98,6 @@ binds {
     Mod+Semicolon hotkey-overlay-title="Open Emoji Picker 🤓" { spawn-sh "noctalia-shell ipc call launcher emoji"; }
     Mod+Shift+T hotkey-overlay-title="OCR Screen Region" { spawn "ocr-screen-region"; }
     Mod+Ctrl+Grave hotkey-overlay-title="Inspect Focused Window" { spawn "inspect-window"; }
-
-    XF86Launch1 hotkey-overlay-title="Asus: Toggle Bad Apple" { spawn-sh "zsh -c asus_demotoggle"; }
-    XF86Launch4 hotkey-overlay-title="Asus: Enable Bad Apple" { spawn-sh "noctalia-shell ipc call powerProfile cycle"; }
-    Mod+Shift+S hotkey-overlay-title="Quick ScreenCapture" { spawn-sh "noctalia-shell ipc call plugin:screen-recorder toggle"; }
-    XF86KbdBrightnessUp   { spawn-sh "ydotool key 104:1 104:0"; }
-    XF86KbdBrightnessDown { spawn-sh "ydotool key 109:1 109:0"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.

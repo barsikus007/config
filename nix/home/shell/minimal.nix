@@ -83,6 +83,12 @@ let
     nvf = ''nvim +"lua vim.schedule(function() require('telescope.builtin').find_files({hidden=true}) end)"'';
     nvg = ''nvim +"lua vim.schedule(function() require('telescope.builtin').live_grep({hidden=true}) end)"'';
   };
+  journalCtlAliases = {
+    jctl = "journalctl";
+    jctlb = "jctl --boot=0";
+    jctld = "jctlb --dmesg";
+    jctlf = "jctlb --follow";
+  };
   nixAliases = {
     iusenixbtw = "fastfetch";
     nu = "nix flake update --flake ${flakePath}";
@@ -109,6 +115,7 @@ let
     // otherAliases
     // ezaAliases
     // nvimAliases
+    // journalCtlAliases
     // nixAliases;
   zshAliases = {
     "?" = "type_colored_and_nix_truncate";

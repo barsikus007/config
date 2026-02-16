@@ -1,7 +1,6 @@
 { pkgs, username, ... }:
 {
-  # TODO: this is auto, remove
-  environment.sessionVariables.QT_QPA_PLATFORM = "wayland";
+  environment.sessionVariables.QT_QPA_PLATFORM = "wayland;xcb";
 
   #? https://wiki.nixos.org/wiki/Wayland#Electron_and_Chromium
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
