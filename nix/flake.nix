@@ -4,7 +4,7 @@
   inputs = {
     # nixpkgs-previous.url = "nixpkgs/commit_hash";
     # nixpkgs-fix-for-<smth>.url = "nixpkgs/pull/1488/head";
-    nixpkgs.url = "nixpkgs/nixos-unstable";
+    nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz"; # Smaller then github tarball, less api hits
     # nixpkgs-master.url = "nixpkgs";
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
