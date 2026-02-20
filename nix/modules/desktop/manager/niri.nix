@@ -5,7 +5,7 @@
     ../default.nix
   ];
 
-  # services.displayManager.defaultSession = "niri";
+  services.displayManager.defaultSession = "niri";
   programs.niri = {
     enable = true;
     useNautilus = false;
@@ -34,10 +34,11 @@
     };
   };
   #? Fix unpopulated MIME menus in dolphin: https://discourse.nixos.org/t/dolphin-does-not-have-mime-associations/48985/8
-  environment.etc."/xdg/menus/applications.menu".text = builtins.readFile "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
+  environment.etc."/xdg/menus/applications.menu".text =
+    builtins.readFile "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
 
   programs.dms-shell = {
-    enable = false;
+    # enable = true;
     systemd.enable = false;
   };
 }

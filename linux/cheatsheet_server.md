@@ -144,7 +144,7 @@ sudo /sbin/modprobe zfs
 
 ```shell
 # TODO: migrate to formC: https://bbs.archlinux.org/viewtopic.php?id=289465
-sudo zpool create -O normalization=formD -O compression=lz4 tank raidz sda sdb sdc sdd
+sudo zpool create -O normalization=formD -O compression=lz4 -O atime=no tank raidz sda sdb sdc sdd
 
 sudo zfs create tank/apps
 sudo zfs create tank/storage

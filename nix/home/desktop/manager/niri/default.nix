@@ -32,6 +32,7 @@
     #? https://niri-wm.github.io/niri/Configuration:-Introduction
     settings = {
       #! https://github.com/YaLTeR/niri/issues/1818: snip to edge
+      #! https://github.com/niri-wm/niri/pull/2609: maybe use when merged
       #? win95 background
       overview.backdrop-color = "#018281";
 
@@ -109,7 +110,8 @@
 
       # hotkey-overlay.skip-at-startup = true;
 
-      prefer-no-csd = true;
+      #? enable csd for consistency cause this isn't possible to disable csd for all windows
+      # prefer-no-csd = true;
 
       binds = {
         # TODO: specific quickshell depent hotkeys; maybe make cli for unification?

@@ -31,7 +31,7 @@
   libxext,
   libxrender,
   libxrandr,
-  libxScrnSaver,
+  libXScrnSaver,
   libxi,
   xcbutil,
   xcbutilwm,
@@ -198,7 +198,7 @@ stdenv.mkDerivation {
     libxext
     libxrender
     libxrandr
-    libxScrnSaver
+    libXScrnSaver
     libxi
     xcbutil
     xcbutilwm
