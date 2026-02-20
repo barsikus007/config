@@ -1,13 +1,13 @@
 { pkgs, ... }:
 {
-  # boot.kernelPackages = pkgs.lib.mkForce pkgs.cachyosKernels.linuxPackages-cachyos-latest;
-  # boot.kernelPackages = pkgs.lib.mkForce pkgs.cachyosKernels.linuxPackages-cachyos-bore;
-  boot.kernelPackages = pkgs.lib.mkForce pkgs.cachyosKernels.linuxPackages-cachyos-bore-lto;
+  imports = [
+    ../cachyos-kernel.nix
+  ];
   environment.systemPackages = with pkgs; [
     # TODO: idk why I ever need this
     helvum
   ];
-  # rtkit (optional, recommended) allows Pipewire to use the realtime scheduler for increased performance.
+  #? rtkit (optional, recommended) allows Pipewire to use the realtime scheduler for increased performance.
   security.rtkit.enable = true;
   services.pipewire.enable = true;
   services.pipewire.extraConfig.pipewire = {
@@ -15,9 +15,9 @@
       #? https://ventureo.codeberg.page/source/sound.html#choppy-audio
       "context.properties" = {
         #? multiply min-quantum while sound still popping (starting from 512)
-        default.clock.min-quantum = 1024;
-        default.clock.quantum = 4096;
-        default.clock.max-quantum = 8192;
+        "default.clock.min-quantum" = 512;
+        "default.clock.quantum" = 4096;
+        "default.clock.max-quantum" = 8192;
       };
       # TODO: unknown source, but it helped with popping :/ (stream.properties is assume)
       "pulse.properties" = {
@@ -36,10 +36,10 @@
       #? https://ventureo.codeberg.page/source/sound.html#pipewire-setup
       "context.properties" = {
         #? default
-        # default.clock.rate = 48000;
+        # "default.clock.rate" = 48000;
         #? cat /proc/asound/cards
         #? cat /proc/asound/card*/codec\#* | grep -A 8 "Audio Output" -m 1 | grep rates
-        default.clock.allow-rates = [
+        "default.clock.allow-rates" = [
           # NVidia HDMI audio
           32000
           44100

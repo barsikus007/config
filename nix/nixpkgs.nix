@@ -4,7 +4,7 @@
   overlays ? [ ],
 }:
 let
-  # харам, платные приложения
+  #! харам, платные приложения
   paidApps = [
     "nvidia-x11"
     "nvidia-settings"
@@ -40,7 +40,6 @@ in
 import inputs.nixpkgs {
   inherit system;
   overlays = [
-    inputs.nix-cachyos-kernel.overlays.pinned
     (
       _: prev:
       builtins.mapAttrs
