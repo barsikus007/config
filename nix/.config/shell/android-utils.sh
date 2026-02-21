@@ -68,3 +68,16 @@ scrcpy_connect() {
   [ -z "$ANDROID_DEVICE" ] && echo "No device selected" && return 1
   scrcpy -K --render-driver=opengles2 --no-audio --video-bit-rate=1M --serial="$ANDROID_DEVICE" "$@"
 }
+
+scrcpy_camera() {
+  local ANDROID_DEVICE
+  ANDROID_DEVICE=$(_get_android_device)
+  [ -z "$ANDROID_DEVICE" ] && echo "No device selected" && return 1
+  sudo v4l2loopback-ctl add --name "ffmpeg Cam" /dev/video10
+  scrcpy --render-driver=opengles2 --video-source=camera --no-audio --v4l2-sink=/dev/video9 --orientation=90 --camera-size=1920x1440 --camera-id=0 --no-window --serial="$ANDROID_DEVICE" "$@"
+}
+
+scrcpy_camera_ffmpeg() {
+  sudo v4l2loopback-ctl add --name "ffmpeg Cam" /dev/video10
+  ffmpeg -f v4l2 -i /dev/video9 -vf "transpose=1,format=yuv420p" -f v4l2 /dev/video10
+}
