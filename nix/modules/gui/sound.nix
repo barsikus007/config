@@ -1,8 +1,8 @@
 { pkgs, ... }:
 {
-  imports = [
-    ../cachyos-kernel.nix
-  ];
+  # imports = [
+  #   ../cachyos-kernel.nix
+  # ];
   environment.systemPackages = with pkgs; [
     # TODO: idk why I ever need this
     helvum
@@ -18,18 +18,6 @@
         "default.clock.min-quantum" = 512;
         "default.clock.quantum" = 4096;
         "default.clock.max-quantum" = 8192;
-      };
-      # TODO: unknown source, but it helped with popping :/ (stream.properties is assume)
-      "pulse.properties" = {
-        "pulse.min.req" = "1024/48000";
-        "pulse.default.req" = "4096/48000";
-        "pulse.max.req" = "8192/48000";
-        "pulse.min.quantum" = "1024/48000";
-        "pulse.max.quantum" = "8192/48000";
-      };
-      "stream.properties" = {
-        "node.latency" = "2048/44100";
-        "resample.quality" = 4;
       };
     };
     "20-no-resampling" = {

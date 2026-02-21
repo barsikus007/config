@@ -56,7 +56,6 @@
       url = "github:MakiseKurisu/dewclaw";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
 
     niri = {
       url = "github:sodiboo/niri-flake";
@@ -192,6 +191,26 @@
               # self.packages.${stdenv.hostPlatform.system}.kompas3d-fhs
               #? needs 8.4 GiB * 3 (or more) space to build, takes ~12.2 GiB, and ~18 minutes to download
               (callPackage ./packages/auto/gui/davinci-resolve-studio.nix { })
+            ];
+          }
+          {
+            # TODO: unstable: https://github.com/NixOS/nixpkgs/pull/488627, https://github.com/NixOS/nixpkgs/pull/361716
+            boot.kernelPackages = pkgs.lib.mkForce pkgs.linuxPackages_6_18;
+            nixpkgs.overlays = [
+              (final: prev: {
+                # TODO: unstable: https://github.com/NixOS/nixpkgs/issues/492012#issuecomment-3927712940
+                microsoft-edge =
+                  let
+                    version = "144.0.3719.115";
+                  in
+                  prev.microsoft-edge.overrideAttrs (_old: {
+                    inherit version;
+                    src = final.fetchurl {
+                      url = "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-stable/microsoft-edge-stable_${version}-1_amd64.deb";
+                      hash = "sha256-HoV2D51zxewFwwu92efEDgohu1yJf1UyjekO3YWZqPc=";
+                    };
+                  });
+              })
             ];
           }
         ];
@@ -357,7 +376,7 @@
           # `nvidia-offload nix run ./nix#photoshop`
           photoshop = callPackage ./packages/photoshop.nix {
             inherit (inputs.erosanix.lib."${system}") mkWindowsAppNoCC copyDesktopIcons makeDesktopIcon;
-            #? its fucked with unstable wine
+            # TODO: retest that it was fucked with unstable wine
             # wine = wineWow64Packages.unstableFull;
             wine = wineWow64Packages.stable;
             scale = 192;
