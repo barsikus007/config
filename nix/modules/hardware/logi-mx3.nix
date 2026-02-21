@@ -70,6 +70,18 @@ in
   '';
 
   #? https://wiki.archlinux.org/title/Logitech_MX_Master#Logiops
+  #? KEY_F13 XF86Tools
+  #? KEY_F14 XF86Launch5
+  #? KEY_F15 XF86Launch6
+  #? KEY_F16 XF86Launch7
+  #? KEY_F17 XF86Launch8
+  #? KEY_F18 XF86Launch9
+  #? KEY_F19 NoSymbol
+  #? KEY_F20 mic
+  #? KEY_F21 XF86TouchpadToggle
+  #? KEY_F22 XF86TouchpadOn
+  #? KEY_F23 XF86TouchpadOff
+  #? KEY_F24 NoSymbol
   environment.etc."logid.cfg".text = ''
     devices: ({
       name: "Wireless Mouse MX Master 3";
@@ -89,28 +101,32 @@ in
             mode: "OnRelease";
             action = {
               type = "Keypress";
-              keys: ["KEY_LEFTMETA", "KEY_LEFTCTRL", "KEY_LEFT"];
-            };
-          }, {
-            direction: "Right";
-            mode: "OnRelease";
-            action = {
-              type = "Keypress";
-              keys: ["KEY_LEFTMETA", "KEY_LEFTCTRL", "KEY_RIGHT"];
+              // keys: ["KEY_LEFTMETA", "KEY_LEFTCTRL", "KEY_LEFT"];
+              keys: ["KEY_F15"];
             };
           }, {
             direction: "Down";
             mode: "OnRelease";
             action = {
               type: "Keypress";
-              keys: ["KEY_LEFTMETA", "KEY_LEFTCTRL", "KEY_DOWN"];
+              // keys: ["KEY_LEFTMETA", "KEY_LEFTCTRL", "KEY_DOWN"];
+              keys: ["KEY_F16"];
             };
           }, {
             direction: "Up";
             mode: "OnRelease";
             action = {
               type: "Keypress";
-              keys: ["KEY_LEFTMETA", "KEY_LEFTCTRL", "KEY_UP"];
+              // keys: ["KEY_LEFTMETA", "KEY_LEFTCTRL", "KEY_UP"];
+              keys: ["KEY_F17"];
+            };
+          }, {
+            direction: "Right";
+            mode: "OnRelease";
+            action = {
+              type = "Keypress";
+              // keys: ["KEY_LEFTMETA", "KEY_LEFTCTRL", "KEY_RIGHT"];
+              keys: ["KEY_F18"];
             };
           }, {
             direction: "None";
