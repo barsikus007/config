@@ -90,7 +90,7 @@
     enable = true;
     clean.enable = true;
     clean.dates = "daily";
-    clean.extraArgs = "--keep 5 --keep-since 4d";
+    clean.extraArgs = "--keep 5 --keep-since 7d";
     flake = flakePath;
   };
   imports = [

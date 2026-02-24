@@ -73,7 +73,7 @@ scrcpy_camera() {
   local ANDROID_DEVICE
   ANDROID_DEVICE=$(_get_android_device)
   [ -z "$ANDROID_DEVICE" ] && echo "No device selected" && return 1
-  sudo v4l2loopback-ctl add --name "ffmpeg Cam" /dev/video10
+  sudo v4l2loopback-ctl add --name "scrcpy Cam" /dev/video9
   scrcpy --render-driver=opengles2 --video-source=camera --no-audio --v4l2-sink=/dev/video9 --orientation=90 --camera-size=1920x1440 --camera-id=0 --no-window --serial="$ANDROID_DEVICE" "$@"
 }
 

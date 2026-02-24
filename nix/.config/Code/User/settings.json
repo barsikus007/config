@@ -214,6 +214,9 @@
     },
     // #endregion javascript
     // #region other
+    "[rust]": {
+        "editor.formatOnSave": true,
+    },
     "[lua]": {
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "sumneko.lua",

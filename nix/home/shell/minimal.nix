@@ -64,7 +64,7 @@ let
     wgw = "sudo watch -c script -q -c awg show";
   };
   otherAliases = {
-    y = "yazi";
+    yy = "yazi";
     gdu = "gdu -I ^/mnt";
     zps = "zpool status -v";
     sex = "explorer.exe .";
