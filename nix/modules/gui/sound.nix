@@ -1,10 +1,7 @@
 { pkgs, ... }:
 {
-  # imports = [
-  #   ../cachyos-kernel.nix
-  # ];
   environment.systemPackages = with pkgs; [
-    # TODO: idk why I ever need this
+    #? visual sound nodes editor
     helvum
   ];
   #? rtkit (optional, recommended) allows Pipewire to use the realtime scheduler for increased performance.
@@ -20,66 +17,32 @@
         "default.clock.max-quantum" = 8192;
       };
     };
-    "20-no-resampling" = {
-      #? https://ventureo.codeberg.page/source/sound.html#pipewire-setup
-      "context.properties" = {
-        #? default
-        # "default.clock.rate" = 48000;
-        #? cat /proc/asound/cards
-        #? cat /proc/asound/card*/codec\#* | grep -A 8 "Audio Output" -m 1 | grep rates
-        "default.clock.allow-rates" = [
-          # NVidia HDMI audio
-          32000
-          44100
-          48000
-          88200
-          96000
-          176400
-          192000
-        ];
-      };
-    };
   };
-  # TODO: idk2
+
+  #? more real times for realtime
   # boot.kernelParams = [ "preempt=full" ];
-  ##boot.kernelModules = [
-  ##  "snd-seq"
-  ##  "snd-rawmidi"
-  ##];
-  # security.rtkit = {
-  #   args = pkgs.lib.cli.toGNUCommandLine { optionValueSeparator = "="; } {
-  #     scheduling-policy = "FIFO";
-  #     our-realtime-priority = 89;
-  #     max-realtime-priority = 88;
-  #     min-nice-level = -19;
-  #     rttime-usec-max = 2000000;
-  #     users-max = 100;
-  #     processes-per-user-max = 1000;
-  #     threads-per-user-max = 10000;
-  #     actions-burst-sec = 10;
-  #     actions-per-burst-max = 1000;
-  #     canary-cheep-msec = 30000;
-  #     canary-watchdog-msec = 60000;
-  #   };
-  # };
+  #? cause user laucnhed pipewire isn't set any of this for rt
+  # users.users.${username}.extraGroups = [ "audio" ];
+  #? https://ventureo.codeberg.page/source/sound.html#pipewire-lowlatency-setup
+  #? https://github.com/musnix/musnix/blob/d65f98e0b1f792365f1705653d7b2d266ceeff6e/modules/base.nix#L112
   # security.pam.loginLimits = [
   #   {
-  #     domain = "@users";
-  #     item = "memlock";
-  #     type = "-";
-  #     value = "unlimited";
-  #   }
-  #   {
-  #     domain = "@users";
+  #     domain = "@audio";
   #     item = "rtprio";
   #     type = "-";
   #     value = 95;
   #   }
   #   {
-  #     domain = "@users";
+  #     domain = "@audio";
   #     item = "nice";
   #     type = "-";
   #     value = -19;
+  #   }
+  #   {
+  #     domain = "@audio";
+  #     item = "memlock";
+  #     type = "-";
+  #     value = "unlimited";
   #   }
   # ];
 }
