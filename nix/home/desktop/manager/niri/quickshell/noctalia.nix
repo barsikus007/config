@@ -12,7 +12,9 @@
 
   systemd.user.services.noctalia-shell.Service.Environment = [
     # "QT_QPA_PLATFORM=wayland;xcb"
-    "QT_QPA_PLATFORMTHEME=qt6ct"
+    # "QT_QPA_PLATFORMTHEME=qt6ct"
+    #? fix some icons
+    "QT_QPA_PLATFORMTHEME=gtk3"
     # "QT_AUTO_SCREEN_SCALE_FACTOR=1"
   ];
   programs.noctalia-shell = {

@@ -8,6 +8,6 @@
 
   environment.systemPackages = with pkgs; [
     v4l-utils
-    config.boot.kernelPackages.v4l2loopback
+    config.boot.kernelPackages.v4l2loopback.bin
   ];
 }

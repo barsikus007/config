@@ -65,6 +65,7 @@ lurkmore.media##.sitenotice
   - [Return YouTube Dislike](https://www.returnyoutubedislike.com/)
   - [SponsorBlock for YouTube - Skip Sponsorships](https://sponsor.ajay.app)
   - [Disable Stopping Popup](https://github.com/lawfx/YoutubeNonStop)
+  - [Auto FullHD](https://github.com/avi12/youtube-auto-hd)
 - [Search by Image](https://github.com/dessant/search-by-image)
 - ^[Refined GitHub](https://github.com/refined-github/refined-github)
 - [Ruffle](https://ruffle.rs/)
@@ -74,10 +75,9 @@ lurkmore.media##.sitenotice
     - `[` - decrease
     - `]` - increase
     - `\` - reset
+- [UserAgent Switcher](https://github.com/ray-lothian/UserAgent-Switcher)
 - TODO
-  - <https://extensions.xenorio.xyz/list/tubetweaks>
   - <https://github.com/dessant/ping-blocker>
-  - <https://github.com/ray-lothian/UserAgent-Switcher>
   - <https://github.com/vknext/vk-classic-feed>
   - <https://github.com/zero-peak/ZeroOmega>
   - <https://selectorgadget.com/>
