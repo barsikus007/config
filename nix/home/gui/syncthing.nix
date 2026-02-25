@@ -7,5 +7,6 @@
       command = "syncthingtray --wait --single-instance";
       package = with pkgs; syncthingtray;
     };
+    # TODO: declare: settings = { gui = «thunk»; options = «thunk»; };
   };
 }

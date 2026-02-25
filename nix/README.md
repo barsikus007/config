@@ -72,6 +72,8 @@ sudo $(nix build ~/config/nix#libs.goodix-patch-521d --print-out-paths)/bin/run_
         - use profiles
           - make own profiles system with minimal overhead
             - nixos?
+      - check nixpkgs existence
+        - `code --list-extensions | wl-copy`
     - profiles
   - python
     - -File activate envs
@@ -92,7 +94,6 @@ sudo $(nix build ~/config/nix#libs.goodix-patch-521d --print-out-paths)/bin/run_
     - <https://code.visualstudio.com/updates/v1_98#_task-rerun-action>
       - VERY new things
         - <https://github.com/microsoft/vscode/pull/248747>
-  - [comment to specify syntax highlight language (inline syntax highlight)](https://nixtips.ru/home-manager/introduction#пример-конфигурации-абстрактного-пакета)
   - stage selected button
     - also buttons to switch file generations disappearing
   - <https://github.com/kahole/edamagit>
@@ -164,18 +165,8 @@ sudo $(nix build ~/config/nix#libs.goodix-patch-521d --print-out-paths)/bin/run_
 
 ## TODO
 
-- Syncthing Tray/service setup info (isn't declarative)
-- [flake-parts](https://nix-community.github.io/home-manager/index.xhtml#sec-flakes-flake-parts-module)
-- parse nix files for pkgs (or do it via nix script)
-- better way to work with functions in shell.nix
-- GUI
-  - obs
-    - quick replay (import scenes)
-      - battery/ac based quality
+- parse `options.environment.systemPackages.files`, `home.packages` for added pkgs + use script to get all installed by `programs.*.enabled = true`
 - nix-on-droid
-  - `nix-shell -p <smth>`
-    - needs for channel?
-      - fix channels somehow?
   - [sudo](https://github.com/nix-community/nix-on-droid/issues/252)
     - not worth it, use [NixOS-AVF](https://github.com/nix-community/nixos-avf)
 - [OpenWrt Image](./packages/openwrt/xiaomi_ax3600.nix)
@@ -191,8 +182,6 @@ sudo $(nix build ~/config/nix#libs.goodix-patch-521d --print-out-paths)/bin/run_
 - [dive](https://github.com/wagoodman/dive)
 - [Mosh: the mobile shell](https://mosh.org/)
 - <https://github.com/pojntfx/octarchive>
-- [yassinebridi/serpl: A simple terminal UI for search and replace, ala VS Code.](https://github.com/yassinebridi/serpl)
-  - <https://ast-grep.github.io/>
 - test.nix
   - lshw-gui
   - new add security scanners
