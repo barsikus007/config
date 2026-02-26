@@ -2,7 +2,6 @@ let
   lib = (import <nixpkgs> { }).lib;
 
   tags = [
-    "TODO"
     "essential"
     "pack"
     "theme"
@@ -17,10 +16,7 @@ let
   ];
 
   extensions = {
-    "christian-kohler.path-intellisense" = [
-      "TODO" # TODO: check: which langages affected altrought nix
-      "essential"
-    ];
+    "mikestead.dotenv" = [ "theme" ]; # ? vscode have native highlight now, but I prefer this color scheme
     "mechatroner.rainbow-csv" = [
       "essential"
       "theme"
@@ -42,56 +38,33 @@ let
     "mgwg.light-pink-theme" = [ "theme" ];
     "akamud.vscode-theme-onedark" = [ "theme" ];
 
+    "christian-kohler.path-intellisense" = [ "essential" ];
     "aaron-bond.better-comments" = [ "essential" ];
-    "arthurlobo.easy-codesnap" = [
-      "TODO" # TODO: setup; decide if need
-      "essential"
-    ];
-    "dotjoshjohnson.xml" = [
-      "TODO" # TODO: now this is native?
-      "essential"
-    ];
+    "arthurlobo.easy-codesnap" = [ "essential" ]; # TODO: setup; decide if need
+    "ibm.output-colorizer" = [ "essential" ]; # TODO: setup; decide if need
     "editorconfig.editorconfig" = [ "essential" ];
-    "timonwong.shellcheck" = [ "essential" ];
-    "foxundermoon.shell-format" = [ "essential" ];
-    "jock.svg" = [
-      "TODO" # TODO: now this is native?
-      "essential"
-    ];
-    "kisstkondoros.vscode-gutter-preview" = [
-      "TODO" # TODO: now this is native?
-      "essential"
-    ];
-    "mikestead.dotenv" = [
-      "TODO" # TODO: now this is native?
-      "essential"
-    ];
-    "moshfeu.compare-folders" = [
-      "TODO" # TODO: now this is native?
-      "essential"
-    ];
-    "ms-vscode.hexeditor" = [
-      "TODO" # TODO: now this is native?
-      "essential"
-    ];
+    "kisstkondoros.vscode-gutter-preview" = [ "essential" ];
+    "moshfeu.compare-folders" = [ "essential" ];
+    "ms-vscode.hexeditor" = [ "essential" ];
     "qwtel.sqlite-viewer" = [ "essential" ];
-    "ruschaaf.extended-embedded-languages" = [
-      "TODO" # TODO: comment-syntax
-      "essential"
-    ];
+    "ruschaaf.extended-embedded-languages" = [ "essential" ]; # TODO: comment-syntax
     "semanticdiff.semanticdiff" = [ "essential" ];
-    "sourcery.sourcery" = [
-      "TODO"
-      "essential"
-    ];
+    "sourcery.sourcery" = [ "essential" ]; # TODO: ai
+    "google.gemini-cli-vscode-ide-companion" = [ ];
 
+    "timonwong.shellcheck" = [
+      "essential"
+      "generic language"
+    ];
+    "foxundermoon.shell-format" = [
+      "essential"
+      "generic language"
+    ];
     "tamasfe.even-better-toml" = [
-      "TODO" # TODO: now this is native?
       "essential"
       "generic language"
     ];
     "tomoki1207.pdf" = [
-      "TODO" # TODO: now this is native?
       "essential"
       "generic language"
     ];
@@ -99,10 +72,7 @@ let
     "eamodio.gitlens" = [ "github" ];
     "github.vscode-github-actions" = [ "github" ];
     "github.vscode-pull-request-github" = [ "github" ];
-    "jamitech.simply-blame" = [
-      "TODO" # TODO: merge with gitlens or fork
-      "github"
-    ];
+    "jamitech.simply-blame" = [ "github" ]; # TODO: merge with gitlens or fork
     "bierner.github-markdown-preview" = [
       "pack"
       "docs"
@@ -119,14 +89,8 @@ let
 
     "charliermarsh.ruff" = [ "python" ];
     "cstrap.python-snippets" = [ "python" ];
-    "kevinrose.vsc-python-indent" = [
-      "TODO" # TODO: now this is native?
-      "python"
-    ];
-    "mgesbert.indent-nested-dictionary" = [
-      "TODO" # TODO: now this is native?
-      "python"
-    ];
+    "kevinrose.vsc-python-indent" = [ "python" ]; # TODO: now this is native?
+    "mgesbert.indent-nested-dictionary" = [ "python" ]; # TODO: now this is native?
     "mihaicosma.quick-python-printf" = [ "python" ];
     "ms-python.debugpy" = [ "python" ];
     "ms-python.mypy-type-checker" = [ "python" ];
@@ -136,60 +100,25 @@ let
     "ms-python.vscode-python-envs" = [ "python" ];
     "twixes.pypi-assistant" = [ "python" ];
 
-    "bierner.comment-tagged-templates" = [
-      "TODO" # TODO: comment-syntax
-      "javascript"
-    ];
-    "ahadcove.js-quick-console" = [ "javascript" ];
-    "dbaeumer.vscode-eslint" = [
-      "TODO" # TODO: prettier-eslint
-      "javascript"
-    ];
-    "esbenp.prettier-vscode" = [
-      "TODO" # TODO: prettier-eslint
-      "javascript"
-    ];
-    "rvest.vs-code-prettier-eslint" = [
-      "TODO" # TODO: prettier-eslint
-      "javascript"
-    ];
-    "mgmcdermott.vscode-language-babel" = [
-      "TODO" # TODO: now this is native?
-      "javascript"
-    ];
-    "ms-vscode.live-server" = [
-      "TODO" # TODO: now this is native?
-      "javascript"
-    ];
-    "mxsdev.typescript-explorer" = [ "javascript" ];
-    "oven.bun-vscode" = [
-      "TODO" # TODO: now this is native?
-      "javascript"
-    ];
-    "pranaygp.vscode-css-peek" = [
-      "TODO" # TODO: css: now this is native?
-      "javascript"
-    ];
-    "syler.sass-indented" = [
-      "TODO" # TODO: css: now this is native?
-      "javascript"
-    ];
+    "jock.svg" = [ "javascript" ];
+    "ms-vscode.live-server" = [ "javascript" ]; # ? html preview
+    "pranaygp.vscode-css-peek" = [ "javascript" ]; # ? ctrl+click classes in html
+    "oven.bun-vscode" = [ "javascript" ]; # ? instead of default node.js tools
+    "wix.vscode-import-cost" = [ "javascript" ]; # ? or use https://phobia.vercel.app/
+    "ahadcove.js-quick-console" = [ "javascript" ]; # ? ctrl+shift+l
+    "mgmcdermott.vscode-language-babel" = [ "javascript" ]; # ? mainly for graphql
+    "styled-components.vscode-styled-components" = [ "javascript" ]; # ? styled lsp
+    "unifiedjs.vscode-mdx" = [ "javascript" ]; # ? mdx lsp
+    "yoavbls.pretty-ts-errors" = [ "javascript" ]; # ? typescript
+    "mxsdev.typescript-explorer" = [ "javascript" ]; # ? typescript
     "qufiwefefwoyn.inline-sql-syntax" = [
-      "TODO" # TODO: comment-syntax
       "python"
       "javascript"
-    ];
-    "styled-components.vscode-styled-components" = [ "javascript" ];
-    "unifiedjs.vscode-mdx" = [
-      "TODO"
-      "javascript"
-    ];
-    "vincaslt.highlight-matching-tag" = [
-      "TODO" # TODO: now this is native?
-      "javascript"
-    ];
-    "wix.vscode-import-cost" = [ "javascript" ];
-    "yoavbls.pretty-ts-errors" = [ "javascript" ];
+    ]; # TODO: comment-syntax
+    "bierner.comment-tagged-templates" = [ "javascript" ]; # TODO: comment-syntax
+    "dbaeumer.vscode-eslint" = [ "javascript" ]; # TODO: prettier-eslint
+    "esbenp.prettier-vscode" = [ "javascript" ]; # TODO: prettier-eslint
+    "rvest.vs-code-prettier-eslint" = [ "javascript" ]; # TODO: prettier-eslint
 
     "coopermaruyama.nix-embedded-languages" = [ "nix" ];
     "jnoortheen.nix-ide" = [ "nix" ];
@@ -201,47 +130,34 @@ let
       "pack"
       "devops"
     ];
+    "ms-vscode-remote.remote-containers" = [ "devops" ]; # ? pack above
+    "ms-vscode-remote.remote-ssh" = [ "devops" ]; # ? pack above
+    "ms-vscode-remote.remote-wsl" = [ "devops" ]; # ? pack above
+    "ms-vscode.remote-server" = [ "devops" ]; # ? pack above
     "ms-azuretools.vscode-containers" = [ "devops" ];
-    "ms-vscode-remote.remote-containers" = [ "devops" ];
-    "ms-vscode-remote.remote-ssh" = [ "devops" ];
     "ms-vscode-remote.remote-ssh-edit" = [ "devops" ];
-    "ms-vscode-remote.remote-wsl" = [ "devops" ];
     "ms-vscode.remote-explorer" = [ "devops" ];
-    "ms-vscode.remote-server" = [ "devops" ];
     "yy0931.save-as-root" = [ "devops" ];
 
     "grafana.grafana-alloy" = [ "generic language" ];
-    "kdl-org.kdl" = [ "generic language" ];
     "mattn.lisp" = [ "generic language" ];
     "myriad-dreamin.tinymist" = [ "generic language" ];
     "ahmadalli.vscode-nginx-conf" = [ "generic language" ];
     "raynigon.nginx-formatter" = [ "generic language" ];
-    "redhat.vscode-yaml" = [
-      "TODO" # TODO: conflict with docker
-      "generic language"
-    ];
+    "redhat.vscode-xml" = [ "generic language" ];
+    "redhat.vscode-yaml" = [ "generic language" ];
     "rust-lang.rust-analyzer" = [ "generic language" ];
     "sumneko.lua" = [ "generic language" ];
 
-    "google.gemini-cli-vscode-ide-companion" = [ "TODO" ];
-    "ibm.output-colorizer" = [
-      "TODO" # TODO: setup; decide if need
-    ];
-
     "astral-sh.ty" = [
-      "TODO" # TODO: is alt to mypy?
       "disabled"
       "python"
-    ];
+    ]; # TODO: is alt to mypy now?
     "mtxr.sqltools" = [ "disabled" ];
     "mtxr.sqltools-driver-pg" = [ "disabled" ];
     "mtxr.sqltools-driver-sqlite" = [ "disabled" ];
     "figma.figma-vscode-extension" = [ "disabled" ];
     "ms-vsliveshare.vsliveshare" = [ "disabled" ];
-    "christian-kohler.npm-intellisense" = [
-      "TODO" # TODO: now this is native?
-      "disabled"
-    ];
     "streetsidesoftware.code-spell-checker" = [ "disabled" ];
     "streetsidesoftware.code-spell-checker-russian" = [ "disabled" ];
   };
