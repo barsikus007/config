@@ -98,13 +98,13 @@ sudo $(nix build ~/config/nix#libs.goodix-patch-521d --print-out-paths)/bin/run_
 
 - uosc skin
   - with thumbfast
-- mpv.conf
-  - no-border
-  - snap-window
-  - save-position-on-quit
-  - screenshot-directory is desktop/
+- `mpv.conf`
+  - `no-border`
+  - `snap-window`
+  - `save-position-on-quit`
+  - `screenshot-directory` is `desktop/`
   - screenshot filename is more declare
-  - sub font will be searched in fonts/
+  - sub font will be searched in `fonts/`
   - sub/aud language priority
   - ontop only when playing
   - profiles
@@ -116,28 +116,28 @@ sudo $(nix build ~/config/nix#libs.goodix-patch-521d --print-out-paths)/bin/run_
     - music (mp3)
       - always show window
       - don't save position
-- input.conf
+- `input.conf`
   - patched ru keybinds
-  - middle mouse button to pin window on top
-  - _/- to cycle video tracks
-  - =/+ to cycle window sizes
-  - Alt+[0-6] keys to change window size
-  - k shuffle playlist
-  - Alt+k unshuffle playlist
-  - K loop/unloop playlist
-  - n show file tags
+  - `middle-mouse-button` to pin window on top
+  - `_/-` to cycle video tracks
+  - `=/+` to cycle window sizes
+  - `Alt+[0-6]` keys to change window size
+  - `k` shuffle playlist
+  - `Alt+k` unshuffle playlist
+  - `K` loop/unloop playlist
+  - `n` show file tags
   - [crop/encode](https://github.com/occivink/mpv-scripts/blob/master/input.conf)
     - crop
-      - c for crop
-      - Alt+c for soft crop
-      - C for toggle crop (remove filter and crop)
-      - l blur logo
-      - d remove crop filter
-      - D remove soft crop
+      - `c` for crop
+      - `Alt+c` for soft crop
+      - `C` for toggle crop (remove filter and crop)
+      - `l` blur section
+      - `d` remove crop filter
+      - `D` remove soft crop
     - encode
-      - e for webm no audio
-      - E for source
-      - Alt+e for mp4 no audio
+      - `e` for webm no audio
+      - `E` for source
+      - `Alt+e` for mp4 no audio
 - [crop/encode scripts](https://github.com/occivink/mpv-scripts)
   - [crop fix](https://github.com/occivink/mpv-scripts/pull/77/files)
 
