@@ -68,13 +68,11 @@ sudo $(nix build ~/config/nix#libs.goodix-patch-521d --print-out-paths)/bin/run_
     - layout
       - `code ~/.config/Code/User/globalStorage/state.vscdb`
     - extensions
-      - remove/sort
-        - use profiles
-          - make own profiles system with minimal overhead
-            - nixos?
-      - check nixpkgs existence
-        - `code --list-extensions | wl-copy`
+      - check nixpkgs existence in `extensions.nix`
     - profiles
+      - create profiles with given subset of
+        - extensions (based on tags)
+        - settings (based on regions)
   - python
     - -File activate envs
     - pycharm like run file
@@ -87,8 +85,6 @@ sudo $(nix build ~/config/nix#libs.goodix-patch-521d --print-out-paths)/bin/run_
       - not python specific ?
   - new things
     - compound logs check
-    - cssho.vscode-svgviewer is needed?
-    - jock.svg is needed?
     - <https://code.visualstudio.com/docs/copilot/copilot-customization#_reusable-prompt-files-experimental>
     - <https://code.visualstudio.com/docs/copilot/copilot-customization>
     - <https://code.visualstudio.com/updates/v1_98#_task-rerun-action>

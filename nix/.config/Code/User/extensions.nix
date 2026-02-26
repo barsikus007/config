@@ -17,6 +17,7 @@ let
 
   extensions = {
     "mikestead.dotenv" = [ "theme" ]; # ? vscode have native highlight now, but I prefer this color scheme
+    "ibm.output-colorizer" = [ "theme" ]; # ? vscode have native highlight now, but I prefer this color scheme
     "mechatroner.rainbow-csv" = [
       "essential"
       "theme"
@@ -41,16 +42,16 @@ let
     "christian-kohler.path-intellisense" = [ "essential" ];
     "aaron-bond.better-comments" = [ "essential" ];
     "arthurlobo.easy-codesnap" = [ "essential" ]; # TODO: setup; decide if need
-    "ibm.output-colorizer" = [ "essential" ]; # TODO: setup; decide if need
     "editorconfig.editorconfig" = [ "essential" ];
     "kisstkondoros.vscode-gutter-preview" = [ "essential" ];
     "moshfeu.compare-folders" = [ "essential" ];
     "ms-vscode.hexeditor" = [ "essential" ];
     "qwtel.sqlite-viewer" = [ "essential" ];
+    "mgesbert.indent-nested-dictionary" = [ "essential" ]; # ? will format even broken json
     "ruschaaf.extended-embedded-languages" = [ "essential" ]; # TODO: comment-syntax
     "semanticdiff.semanticdiff" = [ "essential" ];
-    "sourcery.sourcery" = [ "essential" ]; # TODO: ai
-    "google.gemini-cli-vscode-ide-companion" = [ ];
+    "sourcery.sourcery" = [ "essential" ]; # ? ai
+    "google.gemini-cli-vscode-ide-companion" = [ "essential" ]; # ? ai
 
     "timonwong.shellcheck" = [
       "essential"
@@ -89,8 +90,6 @@ let
 
     "charliermarsh.ruff" = [ "python" ];
     "cstrap.python-snippets" = [ "python" ];
-    "kevinrose.vsc-python-indent" = [ "python" ]; # TODO: now this is native?
-    "mgesbert.indent-nested-dictionary" = [ "python" ]; # TODO: now this is native?
     "mihaicosma.quick-python-printf" = [ "python" ];
     "ms-python.debugpy" = [ "python" ];
     "ms-python.mypy-type-checker" = [ "python" ];
@@ -144,6 +143,7 @@ let
     "myriad-dreamin.tinymist" = [ "generic language" ];
     "ahmadalli.vscode-nginx-conf" = [ "generic language" ];
     "raynigon.nginx-formatter" = [ "generic language" ];
+    "kdl-org.kdl" = [ "generic language" ];
     "redhat.vscode-xml" = [ "generic language" ];
     "redhat.vscode-yaml" = [ "generic language" ];
     "rust-lang.rust-analyzer" = [ "generic language" ];
