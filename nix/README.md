@@ -102,7 +102,10 @@ sudo $(nix build ~/config/nix#libs.goodix-patch-521d --print-out-paths)/bin/run_
   - no-border
   - snap-window
   - save-position-on-quit
-  - screenshot-directory is desktop
+  - screenshot-directory is desktop/
+  - screenshot filename is more declare
+  - sub font will be searched in fonts/
+  - sub/aud language priority
   - ontop only when playing
   - profiles
     - playlist
@@ -113,14 +116,6 @@ sudo $(nix build ~/config/nix#libs.goodix-patch-521d --print-out-paths)/bin/run_
     - music (mp3)
       - always show window
       - don't save position
-  - TODO
-    - headers based on link profile
-    - additional track settings
-      - sub/aud folder search
-      - #Audio language priority
-      - alang=ru,rus,en,eng,ja,jp,jpn
-      - #Subtitle language priority
-      - slang=ru,rus,en,eng,ja,jp,jpn
 - input.conf
   - patched ru keybinds
   - middle mouse button to pin window on top

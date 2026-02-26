@@ -71,7 +71,7 @@ lurkmore.media##.sitenotice
 - [Ruffle](https://ruffle.rs/)
 - [Dark Reader](https://darkreader.org/)
 - [Video Speed Control](https://github.com/codebicycle/videospeed)
-  - mpv shortcuts
+  - mpv like shortcuts
     - `[` - decrease
     - `]` - increase
     - `\` - reset
