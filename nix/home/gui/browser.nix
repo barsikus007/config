@@ -25,8 +25,10 @@
           ]
           (key: [
             "firefox.desktop"
-            "microsoft-edge.desktop"
+            # "microsoft-edge.desktop"
             # "com.microsoft.Edge.desktop"
+            "brave-browser.desktop"
+            "com.brave.Browser.desktop"
           ]);
     in
     {
@@ -46,7 +48,9 @@
     ];
     package = (
       #? no thorium? https://github.com/NixOS/nixpkgs/pull/336138#issuecomment-2299603455
-      pkgs.microsoft-edge.override {
+      # pkgs.microsoft-edge.override {
+      #! vivaldi is unfree :(
+      pkgs.brave.override {
         # https://wiki.nixos.org/wiki/Chromium#Accelerated_video_playback
         commandLineArgs = [
           "--enable-features=AcceleratedVideoEncoder"

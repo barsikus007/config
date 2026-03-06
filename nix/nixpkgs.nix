@@ -25,7 +25,6 @@ let
     "discord"
     "obsidian"
     "parsec-bin"
-    "microsoft-edge"
 
     "mprint"
     "bcompare"
