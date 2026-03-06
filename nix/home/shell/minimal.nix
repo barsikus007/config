@@ -56,13 +56,17 @@ let
     pyt = "ptpython";
     pyta = "pyt --asyncio";
   };
-  wgAliases = {
-    wgu = "sudo systemctl start wg-quick-awg0";
-    wgs = "systemctl status wg-quick-awg0";
-    wgd = "sudo systemctl stop wg-quick-awg0";
-    wgr = "sudo systemctl restart wg-quick-awg0";
-    wgw = "sudo watch -c script -q -c awg show";
-  };
+  wgAliases =
+    let
+      wgExec = "awg";
+    in
+    {
+      wgu = "sudo systemctl start wg-quick-${wgExec}0";
+      wgs = "systemctl status wg-quick-${wgExec}0";
+      wgd = "sudo systemctl stop wg-quick-${wgExec}0";
+      wgr = "sudo systemctl restart wg-quick-${wgExec}0";
+      wgw = "sudo watch -c 'WG_COLOR_MODE=always ${wgExec} show'";
+    };
   otherAliases = {
     yy = "yazi";
     gdu = "gdu -I ^/mnt";

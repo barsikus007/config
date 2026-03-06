@@ -87,6 +87,7 @@ binds {
     Ctrl+Alt+T hotkey-overlay-title="Open a Terminal: wezterm" { spawn "wezterm"; }
     Mod+F2    hotkey-overlay-title="Run an Application" { spawn-sh "noctalia-shell ipc call launcher toggle"; }
     Alt+Space hotkey-overlay-title="Run an Application" { spawn-sh "noctalia-shell ipc call launcher toggle"; }
+    Mod+S     hotkey-overlay-title="Run an Application" { spawn "fuzzel"; }
     Mod+L hotkey-overlay-title="Lock the Screen" allow-when-locked=true { spawn-sh "noctalia-shell ipc call lockScreen lock"; }
     Mod+E hotkey-overlay-title="Run a File Manager" { spawn "dolphin"; }
     Mod+V hotkey-overlay-title="Open Clipboard Manager" { spawn-sh "noctalia-shell ipc call launcher clipboard"; }

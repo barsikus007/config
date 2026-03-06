@@ -4,7 +4,6 @@
   flakePath,
   ...
 }:
-
 {
   programs.mpv = {
     enable = true;
@@ -18,5 +17,5 @@
         ];
       });
   };
-  xdg.configFile."mpv".source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/mpv";
+  xdg.configFile."mpv/".source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/mpv/";
 }

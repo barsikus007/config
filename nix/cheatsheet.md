@@ -49,19 +49,21 @@ nh os switch /home/ogurez/config/nix -- --option substitute false
 
 nix build ./nix#nixosMinimalIso
 dd bs=4M conv=fsync oflag=direct status=progress if=./result/iso/nixos-minimal- of=/dev/sd
-qemu-system-x86_64 -enable-kvm -m 256 -cdrom result/iso/nixos-minimal*.iso -nic user,hostfwd=tcp::2222-:22
-qemu-system-x86_64 -enable-kvm -m 2048 -smp 4 -cdrom result/iso/nixos-graphical*.iso -nic user,hostfwd=tcp::2222-:22
-ssh root@localhost -p 2222
+qemu-system-x86_64 -enable-kvm -m 256 -cdrom result/iso/nixos-minimal*.iso -nic user,hostfwd=tcp::22222-:22
+qemu-system-x86_64 -enable-kvm -m 2048 -smp 4 -cdrom result/iso/nixos-graphical*.iso -nic user,hostfwd=tcp::22222-:22
+ssh root@localhost -p 22222 -o StrictHostKeychecking=no
 # or just
 nixos-rebuild build-vm --flake ./nix#minimalIso-x86_64-linux
 nh os build-vm --hostname minimalIso-x86_64-linux
-nh os build-vm --hostname minimalIso-x86_64-linux && ./result/bin/run-nixos-vm
+nh os build-vm --hostname minimalIso-x86_64-linux && ./result/bin/run-nixos-vm -monitor stdio
 ```
 
 #### Paste How-To
 
 QEMU console is `Ctrl+Shift+2`, to return `Ctrl+Shift+1` then idk
-Add `-serial stdio` to QEMU cmd
+in console to `sendkey ctrl-alt-f2`
+Add `-monitor stdio` to open QEMU console in terminal, where script is launching
+Add `-serial stdio` to open serial console in terminal, where script is launching
 
 ### show only enabled programs/services
 

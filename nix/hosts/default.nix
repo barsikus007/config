@@ -6,10 +6,15 @@
   specialArgs,
   ...
 }:
+# TODO: refactor this file to make it contain reasonable minimal defaults (with no possible overhead) which can be used as base to **all** hosts
 {
-  environment.systemPackages = with pkgs; [
-    home-manager
-  ];
+  environment.systemPackages =
+    with pkgs;
+    [
+      home-manager
+    ]
+    ++ import ../shared/lists/00_essential.nix { inherit pkgs; }
+    ++ import ../shared/lists/01_base.nix { inherit pkgs; };
 
   environment.variables = rec {
     EDITOR = "nvim";
@@ -40,8 +45,9 @@
   };
   services.xserver.xkb = {
     layout = "us,ru";
-    options = "grp:win_space_toggle,compose:ralt,ctrl:nocaps";
-    # grp:lalt_lshift_toggle,
+    options = "grp:win_space_toggle";
+    # ,grp:lalt_lshift_toggle
+    # ,ctrl:nocaps
   };
   console.useXkbConfig = true;
 
@@ -56,6 +62,17 @@
   # and other stuff
   programs.nix-ld.enable = true;
 
+  services.openssh = {
+    enable = true;
+    ports = [ 2222 ];
+    settings = {
+      PermitRootLogin = "no";
+      PasswordAuthentication = false;
+      ChallengeResponseAuthentication = false;
+      KbdInteractiveAuthentication = false;
+    };
+  };
+
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
   home-manager.extraSpecialArgs = specialArgs;
@@ -68,7 +85,6 @@
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
     # extraGroups = [ "wheel" "networkmanager" "docker" ];
-    hashedPasswordFile = "/persistent/etc/nixos/passwords/${username}.hash";
     openssh.authorizedKeys.keys = [
       (pkgs.lib.strings.removeSuffix "\n" (
         builtins.readFile (

@@ -554,17 +554,4 @@
       };
     };
   };
-
-  # TODO: mkIf plasma
-  # TODO: other kwin scripts like https://store.kde.org/p/2138867 https://github.com/micha4w/kde-alt-f4-desktop
-  #? https://store.kde.org/p/2313455
-  # 0.0.3
-  xdg.dataFile."kwin/scripts/auto-active".source = builtins.fetchTarball {
-    url = "https://github.com/ruanimal/auto-active/archive/f5e550f659017d79825a698acfc6a6eb3ded8ec5.tar.gz";
-    sha256 = "sha256-9dVf9m47m916cz6oPVZenCCAlucVQbyb1ZjZhvWw0HI=";
-  };
-  programs.plasma.configFile."kwinrc".Plugins = {
-    "auto-activeEnabled" = true;
-    # Add config, e.g., Whitelist = "sublime_text,org.kde.dolphin";
-  };
 }

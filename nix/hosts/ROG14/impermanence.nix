@@ -29,7 +29,7 @@ in
     mount ${device} /btrfs_tmp
     if [[ -e /btrfs_tmp/@ ]]; then
       mkdir -p /btrfs_tmp/@-old_roots
-      timestamp=$(date --date="@$(stat -c %Y /btrfs_tmp/@)" "+%Y-%m-%-d_%H:%M:%S")
+      timestamp=$(date --date="@$(stat -c %Y /btrfs_tmp/@)" "+%Y-%m-%d_%H:%M:%S")
       mv /btrfs_tmp/@ "/btrfs_tmp/@-old_roots/$timestamp"
     fi
 
@@ -50,6 +50,9 @@ in
     umount /btrfs_tmp
   '';
 
+  # TODO: secrets
+  users.users.${username}.hashedPasswordFile = "/persistent/etc/nixos/passwords/${username}.hash";
+
   # sudo mkdir -p /persistent/etc/NetworkManager /persistent/var/{db,log,lib}
   # sudo cp -ax --reflink=always ...
   environment.persistence."/persistent" = {
@@ -66,9 +69,10 @@ in
         user = username;
         group = "users";
       }
-      "/etc/asusd"
+      "/etc/asusd" # TODO: config it?
       "/etc/NetworkManager/system-connections"
       "/etc/nixos" # TODO: secrets
+      "/etc/ssh" # TODO: secrets
       "/var/db" # ? ./sudo/lectured/$(id -u)
       "/var/log"
       # "/var/lib/AccountsService/users" # TODO: is this needed? plasma

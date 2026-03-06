@@ -34,7 +34,7 @@
           # "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store" # ? https://github.com/dramforever/mirror-web/blob/d7e263d4fe9a9e3078f819468cec18e1c11cf832/_posts/help/2019-02-17-nix.md
           "https://ncproxy.vizqq.cc"
           "https://nixos-cache-proxy.cofob.dev" # ? cloudflare mirror, uses original keys
-          "https://nixos-cache-proxy.sweetdogs.ru"
+          # "https://nixos-cache-proxy.sweetdogs.ru" # ? seems died
 
           "https://nix-community.cachix.org"
 

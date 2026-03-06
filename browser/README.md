@@ -13,6 +13,8 @@
 
 ## Favorites
 
+- downdetector
+  - `javascript:window.open(location.href.replace(/^(https?:\/\/)/i, "https://check-host.net/check-ping?host=$1"), "_blank")`
 - WebArchive
   - `javascript:window.open(location.href.replace(/^(https?:\/\/)/i, "https://web.archive.org/web/0/$1"), "_blank")`
 - Reddit undelete
@@ -64,7 +66,7 @@ lurkmore.media##.sitenotice
 - YouTube
   - [Return YouTube Dislike](https://www.returnyoutubedislike.com/)
   - [SponsorBlock for YouTube - Skip Sponsorships](https://sponsor.ajay.app)
-  - [Disable Stopping Popup](https://github.com/lawfx/YoutubeNonStop)
+  - ^[Disable Stopping Popup](https://github.com/lawfx/YoutubeNonStop)
   - [Auto FullHD](https://github.com/avi12/youtube-auto-hd)
 - [Search by Image](https://github.com/dessant/search-by-image)
 - ^[Refined GitHub](https://github.com/refined-github/refined-github)

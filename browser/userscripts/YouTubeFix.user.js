@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Fix
 // @namespace    https://github.com/barsikus007/
-// @version      2.1.0
+// @version      2.1.1
 // @author       XpucT & AngusWR & barsikus007
 // @description  Force focus and scroll to player when mouse enters it & 'Video paused. Continue watching?' auto confirmer
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=youtube.com
@@ -34,7 +34,7 @@ const selectors = {
     confirmSelector: '#confirm-button',
   },
   //? music.youtube.com
-  '.text.style-scope.ytmusic-you-there-renderer': {
+  'ytmusic-you-there-renderer': {
     popupTexts: continueTexts,
     confirmSelector: '[dialog-confirm]',
   },
@@ -55,16 +55,17 @@ setInterval(() => {
   let popups;
   /** @type selectors[keyof selectors] **/
   let selector;
-  Object.keys(selectors).forEach((popupTextSelector) => {
-    popups = document.querySelectorAll(popupTextSelector);
-    if (!popups.length) return;
-    selector = selectors[popupTextSelector];
-  });
-  if (!selector) return;
+  const popupTextSelector = Object.keys(selectors).find(
+    (popupTextSelector) => document.querySelectorAll(popupTextSelector).length,
+  );
+  if (!popupTextSelector) return;
+  popups = document.querySelectorAll(popupTextSelector);
+  selector = selectors[popupTextSelector];
   [...popups].forEach((popup) => {
     const { popupTexts, confirmSelector } = selector;
+    if (popup.offsetParent === null) return 'Not visible';
     if (!popupTexts.some((popupText) => popup.innerText.includes(popupText)))
-      return;
+      return 'Not target';
     popup.querySelector(confirmSelector).click();
     // popupNode.remove();
     console.log('YouTube Fix:', 'Confirmed in', popup.innerText);

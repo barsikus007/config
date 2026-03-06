@@ -63,6 +63,8 @@ sudo $(nix build ~/config/nix#libs.goodix-patch-521d --print-out-paths)/bin/run_
 
 ### [vscode](.config/Code/User/)
 
+- extensions manager script: `./nix/.config/Code/User/extensions-manager.sh`
+  - shows diff between extensions in `code` and defined in `extensions.nix`
 - TODO
   - export configs
     - layout
@@ -84,14 +86,11 @@ sudo $(nix build ~/config/nix#libs.goodix-patch-521d --print-out-paths)/bin/run_
       - in debug console ?
       - not python specific ?
   - new things
-    - compound logs check
+    - compound logs
     - <https://code.visualstudio.com/docs/copilot/copilot-customization#_reusable-prompt-files-experimental>
     - <https://code.visualstudio.com/docs/copilot/copilot-customization>
     - <https://code.visualstudio.com/updates/v1_98#_task-rerun-action>
-      - VERY new things
-        - <https://github.com/microsoft/vscode/pull/248747>
-  - stage selected button
-    - also buttons to switch file generations disappearing
+    - <https://github.com/microsoft/vscode/pull/248747>
   - <https://github.com/kahole/edamagit>
 
 ### [mpv](.config/mpv/)
@@ -160,6 +159,7 @@ sudo $(nix build ~/config/nix#libs.goodix-patch-521d --print-out-paths)/bin/run_
 - nix-on-droid
   - [sudo](https://github.com/nix-community/nix-on-droid/issues/252)
     - not worth it, use [NixOS-AVF](https://github.com/nix-community/nixos-avf)
+      - fuck snapdragon, I need to use `crosvm` binary for that, I can't even use `vm` one
 - [OpenWrt Image](./packages/openwrt/xiaomi_ax3600.nix)
   - [uci](./packages/openwrt/dewclaw.nix)
     - make it)
