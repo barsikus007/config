@@ -1,26 +1,26 @@
 {
   pkgs,
   self,
-  username,
   flakePath,
   ...
 }:
 #? https://wiki.nixos.org/wiki/Creating_a_NixOS_live_CD
 {
+  boot.kernelPackages = pkgs.lib.mkForce pkgs.linuxPackages_6_18;
   system.activationScripts.copyFlake = {
     text = ''
       if [ ! -d ${flakePath} ]; then
         mkdir --parents ${flakePath}
-        cp --recursive ${self.outPath}/* ${flakePath}
-        chown --recursive ${username}:100 ${flakePath}
+        cp --recursive ${self.outPath}/. ${flakePath}
+        chown --recursive 1000:100 ${flakePath}
       fi
     '';
   };
 
   imports = [
-    ../shared/nix.nix
+    ../../shared/nix.nix
   ];
-  environment.systemPackages = import ../shared/lists { inherit pkgs; };
+  environment.systemPackages = import ../../shared/lists { inherit pkgs; };
 
   systemd.services.sshd.wantedBy = pkgs.lib.mkForce [ "multi-user.target" ];
   users.users.root.openssh.authorizedKeys.keys = [

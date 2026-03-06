@@ -1,83 +1,33 @@
 {
   lib,
-  acl,
-  attr,
   autoPatchelfHook,
-  brotli,
   bzip2,
-  dbus,
-  expat,
   fetchurl,
-  fontconfig,
-  freetype,
   glibc,
   gobject-introspection,
-  graphite2,
-  harfbuzz,
-  icu,
-  karchive,
-  kauth,
-  kcodecs,
-  kcompletion,
-  kconfig,
-  kconfigwidgets,
-  kcoreaddons,
-  kcrash,
-  kdbusaddons,
-  keyutils,
-  kguiaddons,
-  ki18n,
-  kiconthemes,
-  kio,
-  kjobwidgets,
-  krb5,
-  kservice,
-  kwidgetsaddons,
-  kwindowsystem,
-  libcap,
-  libffi,
-  libGL,
-  libpng,
-  libxext,
-  libxkbcommon,
-  openssl,
-  pcre2,
+  kdePackages,
   python3,
-  qt5,
-  qtwayland,
+  qt6,
   runtimeShell,
-  solid,
   stdenv,
   unzip,
-  util-linux,
-  wayland,
   wrapGAppsHook3,
-  libx11,
-  libxau,
-  libxcb,
-  libxdmcp,
-  libxfixes,
-  libxcb-keysyms,
-  xz,
-  zlib,
-  zstd,
 }:
-
 let
   pname = "bcompare";
-  version = "5.1.5.31310";
+  version = "5.2.0.31950";
 
   throwSystem = throw "Unsupported system: ${stdenv.hostPlatform.system}";
 
   srcs = {
     x86_64-linux = fetchurl {
-      url = "https://www.scootersoftware.com/${pname}-${version}_amd64.deb";
-      hash = "sha256-8o8rOmB/GGOk532kg3dlEMarzIdvvmVmB12coRlW334=";
+      url = "https://www.scootersoftware.com/files/bcompare-${version}_amd64.deb";
+      sha256 = "sha256-CCSRNGWIYVKAoQVVJ8McDUtc45nK0S4CdamcT5uVlQM=";
     };
 
     x86_64-darwin = fetchurl {
-      url = "https://www.scootersoftware.com/BCompareOSX-${version}.zip";
-      hash = "sha256-jmRBwpH2UIN3zvL/LPMwcw2N2fc4IACKho8EnfYIMQg=";
+      url = "https://www.scootersoftware.com/files/BCompareOSX-${version}.zip";
+      sha256 = "sha256-R+G2Zlr074i2W4GaEDweK0c0q8tnzjs6M0N106WVAlg=";
     };
 
     aarch64-darwin = srcs.x86_64-darwin;
@@ -110,9 +60,9 @@ let
 
         cp -R usr/{bin,lib,share} $out/
 
-        # Remove libraries that refuse to be autoPatchelf'ed
+        # Remove non Qt5 libs
         rm $out/lib/beyondcompare/ext/bcompare_ext_kde.amd64.so
-        rm $out/lib/beyondcompare/ext/bcompare_ext_kde6.amd64.so
+        rm $out/lib/beyondcompare/ext/bcompare_ext_kde5.amd64.so
 
         substituteInPlace $out/bin/${pname} \
           --replace-fail "/usr/lib/beyondcompare" "$out/lib/beyondcompare" \
@@ -121,12 +71,6 @@ let
 
         substituteInPlace $out/lib/beyondcompare/bcmount.sh \
           --replace-fail "python3" "${python.interpreter}"
-
-        # $out/bin/bcompare is already a Qt wrapper
-        # Instead of creating another Qt wrapper to export QT_QPA_PLATFORM_PLUGIN_PATH,
-        # just add the export to the existing one
-        QT_PLUGIN_PATH="export QT_QPA_PLATFORM_PLUGIN_PATH=\"${qt5.qtbase}/${qt5.qtbase.qtPluginPrefix}/platforms\""
-        sed -i "/QT_QPA_PLATFORM/a $QT_PLUGIN_PATH" "$out/bin/bcompare"
       '';
 
       nativeBuildInputs = [
@@ -137,60 +81,15 @@ let
 
       buildInputs = [
         (lib.getLib stdenv.cc.cc)
-        acl
-        attr
-        brotli
         bzip2
-        dbus
-        expat
-        fontconfig
-        freetype
-        graphite2
-        harfbuzz
-        icu
-        karchive
-        kauth
-        kcodecs
-        kcompletion
-        kconfig
-        kconfigwidgets
-        kcoreaddons
-        kcrash
-        kdbusaddons
-        keyutils
-        kguiaddons
-        ki18n
-        kiconthemes
-        kio
-        kjobwidgets
-        krb5
-        kservice
-        kwidgetsaddons
-        kwindowsystem
-        libcap
-        libffi
-        libGL
-        libpng
-        libxext
-        libxkbcommon
-        openssl
-        pcre2
-        qt5.qtbase
-        qt5.qtsvg
-        qt5.qtx11extras
-        qtwayland
-        solid
-        util-linux
-        wayland
-        libx11
-        libxau
-        libxcb
-        libxdmcp
-        libxfixes
-        libxcb-keysyms
-        xz
-        zlib
-        zstd
+        kdePackages.kconfig
+        kdePackages.kconfigwidgets
+        kdePackages.kcoreaddons
+        kdePackages.ki18n
+        kdePackages.kio
+        kdePackages.kservice
+        qt6.qtbase
+        qt6.qtsvg
       ];
 
       dontBuild = true;
@@ -224,8 +123,9 @@ let
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
     maintainers = with maintainers; [
+      ktor
+      arkivm
       barsikus007
-      blemouzy
     ];
     platforms = builtins.attrNames srcs;
     mainProgram = "bcompare";

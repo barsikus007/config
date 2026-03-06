@@ -226,7 +226,7 @@
             {
               imports = [
                 (modulesPath + "/installer/cd-dvd/installation-cd-minimal-combined.nix")
-                ./packages/iso.nix
+                ./hosts/iso/configuration.nix
               ];
             }
           )
@@ -241,7 +241,7 @@
             {
               imports = [
                 (modulesPath + "/installer/cd-dvd/installation-cd-base.nix")
-                ./packages/iso.nix
+                ./hosts/iso/configuration.nix
               ];
               isoImage.edition = "graphical";
               isoImage.showConfiguration = nixpkgs.lib.mkDefault false;
@@ -354,7 +354,7 @@
           windowsBootstrapIso = callPackage ./packages/windows { };
           # nix build ./nix#windowsBootstrapIso -o unattend-win10-iot-ltsc-vrt.iso
 
-          bcompare5 = (libsForQt5.callPackage ./packages/bcompare5.nix { }).overrideAttrs {
+          bcompare = (callPackage ./packages/bcompare.nix { }).overrideAttrs {
             #? sorry, I can't buy this software right now (and trial doesn't work)
             #? https://gist.github.com/rise-worlds/5a5917780663aada8028f96b15057a67?permalink_comment_id=5168755#gistcomment-5168755
             postFixup = ''
