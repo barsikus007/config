@@ -10,8 +10,6 @@
   imports = [
     inputs.niri.homeModules.niri
     inputs.niri.homeModules.stylix
-
-    ./quickshell/noctalia.nix
   ];
   home.packages = with pkgs; [
     grim

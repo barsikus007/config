@@ -8,11 +8,11 @@
 {
   imports = [
     ../default.nix
+    ../environment/explorer/dolphin.nix
   ];
 
   #? https://wiki.archlinux.org/title/Uniform_look_for_Qt_and_GTK_applications#Set_the_preferred_portal_backend
   xdg.portal.config.common.default = [ "kde" ];
-  xdg.portal.config.common."org.freedesktop.impl.portal.FileChooser" = [ "kde" ];
 
   services.displayManager = {
     sddm = {
@@ -43,12 +43,6 @@
     gnome-icon-theme
     #? gtk2 console warning fix
     gnome-themes-extra
-
-    #? https://wiki.nixos.org/wiki/Dolphin
-    kdePackages.qtsvg
-    kdePackages.kio
-    kdePackages.kio-fuse
-    kdePackages.kio-extras
 
     #? KDE apps, which are analog to useful Windows apps
     kdePackages.filelight

@@ -6,7 +6,8 @@ include "nix-generated-config.kdl"
 
 // Window rules let you adjust behavior for individual windows.
 // Find more information on the wiki:
-// https://niri-wm.github.io/niri/Configuration:-Window-Rules
+//? https://niri-wm.github.io/niri/Configuration:-Window-Rules
+//? other https://github.com/YaLTeR/dotfiles/blob/8f705f48e32b84ee1c7548f28aa6005e10aa7196/dot_config/niri/rules.kdl
 
 // Enable rounded corners for all windows.
 window-rule {
@@ -18,12 +19,6 @@ window-rule {
 window-rule {
     match app-id=r#"^org\.wezfurlong\.wezterm\.floating$"#
     match app-id=r#"^com\.ayugram\.desktop$"# title="^Media viewer$"
-    //? picture-in-picture players
-    match app-id=r#"^com\.ayugram\.desktop$"# title="^AyuGramDesktop$"
-    match app-id=r#"^firefox$"# title="^Picture-in-Picture$"
-    //? other https://github.com/YaLTeR/dotfiles/blob/8f705f48e32b84ee1c7548f28aa6005e10aa7196/dot_config/niri/rules.kdl
-    match app-id="^mpv$"
-    match app-id=r#"^org\.kde\.dolphin$"#
     match app-id="scrcpy"
     open-floating true
 }
@@ -32,9 +27,11 @@ window-rule {
 //     open-fullscreen false
 // }
 window-rule {
+    //? picture-in-picture players
     match app-id=r#"^com\.ayugram\.desktop$"# title="^AyuGramDesktop$"
     match app-id=r#"^firefox$"# title="^Picture-in-Picture$"
     match app-id="^mpv$"
+    open-floating true
     open-on-output "eDP-1"
     //! https://github.com/niri-wm/niri/issues/2120#issuecomment-3690815686
     // open-focused false
@@ -44,7 +41,17 @@ window-rule {
     default-window-height { proportion 0.5; }
     default-column-width { proportion 0.5; }
 }
-
+window-rule {
+    //? status windows at noctalia OSD location
+    match app-id=r#"^org\.kde\.dolphin$"# title="^Copying — Dolphin$"
+    match app-id=r#"^org\.kde\.ark$"# title=r"^Loading archive .*— Ark$"
+    match app-id=r#"^org\.kde\.ark$"# title=r"^Extracting one file — Ark$"
+    open-floating true
+    //? focus-ring width x3
+    default-floating-position x=24 y=24 relative-to="top-right"
+    // default-window-height { proportion 0.5; }
+    // default-column-width { proportion 0.5; }
+}
 window-rule {
     match app-id=r#"^org\.keepassxc\.KeePassXC$"#
     match app-id=r#"^com\.obsproject\.Studio$"#

@@ -22,6 +22,7 @@
     ../../home/gui/terminal.nix
     ../../home/desktop/manager/plasma.nix
     ../../home/desktop/manager/niri
+    ../../home/desktop/manager/niri/quickshell/noctalia.nix
     ../../home/gui/rofi.nix
     ../../home/gui/mpv.nix
     ../../home/gui/vscode.nix

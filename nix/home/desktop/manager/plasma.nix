@@ -11,10 +11,6 @@
 
     ../.
   ];
-  home.packages =
-    with pkgs;
-    lib.optionals config.custom.isAsus [ supergfxctl-plasmoid ]
-    ++ (import ../../../shared/shell-scripts.nix { inherit pkgs; });
 
   programs.zsh.initContent = ''explorer.exe() {dolphin --new-window "$@" 1>/dev/null 2>/dev/null & disown}'';
   #? have issues with focus, it should focus to explorer every time
@@ -288,7 +284,6 @@
               icons.spacing = "small";
               items = {
                 shown = [
-                  "dev.jhyub.supergfxctl"
                   "org.kde.plasma.volume"
                   "org.kde.plasma.battery"
                   "org.kde.plasma.brightness"
