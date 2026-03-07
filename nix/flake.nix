@@ -165,10 +165,6 @@
               #? nix-locate lib/libgobject-2.0.so.0
               #? https://unix.stackexchange.com/a/522823
               #? https://wiki.nixos.org/wiki/Nix-ld
-              # stdenv.cc.cc
-              # zlib
-              # curl
-              # openssl
 
               # fuse3
               # icu
@@ -191,26 +187,6 @@
               # self.packages.${stdenv.hostPlatform.system}.kompas3d-fhs
               #? needs 8.4 GiB * 3 (or more) space to build, takes ~12.2 GiB, and ~18 minutes to download
               (callPackage ./packages/auto/gui/davinci-resolve-studio.nix { })
-            ];
-          }
-          {
-            # TODO: unstable: https://github.com/NixOS/nixpkgs/pull/488627, https://github.com/NixOS/nixpkgs/pull/361716
-            boot.kernelPackages = pkgs.lib.mkForce pkgs.linuxPackages_6_18;
-            nixpkgs.overlays = [
-              (final: prev: {
-                # TODO: unstable: https://github.com/NixOS/nixpkgs/issues/492012#issuecomment-3927712940
-                microsoft-edge =
-                  let
-                    version = "144.0.3719.115";
-                  in
-                  prev.microsoft-edge.overrideAttrs (_old: {
-                    inherit version;
-                    src = final.fetchurl {
-                      url = "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-stable/microsoft-edge-stable_${version}-1_amd64.deb";
-                      hash = "sha256-HoV2D51zxewFwwu92efEDgohu1yJf1UyjekO3YWZqPc=";
-                    };
-                  });
-              })
             ];
           }
         ];
@@ -402,6 +378,6 @@
           inherit callPackage;
           directory = ./packages/auto;
         };
-      formatter.${system} = pkgs.nixfmt-tree;
+      formatter.${system} = with pkgs; nixfmt-tree;
     };
 }
