@@ -2,6 +2,7 @@
   lib,
   pkgs,
   config,
+  username,
   ...
 }:
 #? https://wiki.nixos.org/wiki/KDE
@@ -10,6 +11,7 @@
     ../default.nix
     ../environment/explorer/dolphin.nix
   ];
+  home-manager.users.${username}.imports = [ ../../../home/desktop/manager/plasma.nix ];
 
   #? https://wiki.archlinux.org/title/Uniform_look_for_Qt_and_GTK_applications#Set_the_preferred_portal_backend
   xdg.portal.config.common.default = [ "kde" ];

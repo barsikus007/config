@@ -14,15 +14,14 @@
     ../../home/shell/bat.nix
     ../../home/ai.nix
 
+    ../../home/desktop/manager/quickshell/noctalia.nix
+
     ../../home/gui
     ../../home/gui/sound.nix
     ../../home/gui/autostart.nix
     ../../home/gui/syncthing.nix
     ../../home/gui/quickshare.nix
     ../../home/gui/terminal.nix
-    ../../home/desktop/manager/plasma.nix
-    ../../home/desktop/manager/niri
-    ../../home/desktop/manager/niri/quickshell/noctalia.nix
     ../../home/gui/rofi.nix
     ../../home/gui/mpv.nix
     ../../home/gui/vscode.nix

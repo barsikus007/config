@@ -1,9 +1,15 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  username,
+  ...
+}:
 #? https://wiki.nixos.org/wiki/Niri
 {
   imports = [
     ../default.nix
   ];
+  home-manager.users.${username}.imports = [ ../../../home/desktop/manager/niri.nix ];
 
   services.displayManager.defaultSession = "niri";
   programs.niri = {
