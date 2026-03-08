@@ -86,6 +86,7 @@ lurkmore.media##.sitenotice
     - <https://github.com/hermit-crab/ScrapeMate>
   - [skip bitly like sites](https://github.com/FastForwardTeam/FastForward)
   - <https://github.com/clipboard2file/clipboard2file/>
+  - [Grammar Check](https://languagetool.org/services#browsers)
 
 ### Chromium (Edge)
 

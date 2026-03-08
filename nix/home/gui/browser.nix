@@ -105,6 +105,7 @@
         (extension "text-fragment" "text-fragment@example.com")
         (extension "clipboard2file" "{7343f7d1-e6ef-4d8a-8449-d4c18850f559}")
         (extension "user-agent-string-switcher" "{a6c4a591-f1b2-4f03-b3ff-767e5bedf4e7}")
+        # (extension "languagetool" "languagetool-webextension@languagetool.org")
         # (extension "bitwarden-password-manager" "{446900e4-71c2-419f-a6a7-df9c091e268b}")
         # (extension "umatrix" "uMatrix@raymondhill.net")
         # (extension "libredirect" "7esoorv3@alefvanoon.anonaddy.me")

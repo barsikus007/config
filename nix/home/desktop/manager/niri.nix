@@ -22,6 +22,7 @@
   xdg.configFile."niri/config.kdl".source =
     config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/niri/config.kdl";
   xdg.configFile.niri-config.target = lib.mkForce "niri/nix-generated-config.kdl";
+  xdg.portal.enable = lib.mkForce false; # ! handled by nixos module
   programs.niri = {
     enable = true;
     package = with pkgs; niri;

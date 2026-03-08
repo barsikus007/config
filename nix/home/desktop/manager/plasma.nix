@@ -42,6 +42,11 @@
     overrideConfig = true;
 
     hotkeys.commands = {
+      "search" = {
+        name = "Open Search";
+        key = "Meta+S";
+        command = "fuzzel";
+      };
       "inspect-window" = {
         name = "Open Current Window in btop";
         key = "Meta+Ctrl+`";
@@ -337,6 +342,9 @@
         "Overview" = "Meta+Tab";
         "Window Above Other Windows" = "Meta+Ctrl+T";
         "Window Fullscreen" = "F11";
+        "Peek at Desktop" = "Launch (7)";
+        "Switch One Desktop to the Left" = "Launch (6)";
+        "Switch One Desktop to the Right" = "Launch (9)";
       };
 
       # [plasmashell]

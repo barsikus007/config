@@ -49,13 +49,15 @@ asus_fan() {
 
 #? laptop general
 dgpu_check_processes() {
-  sudo lsof /dev/nvidia*
+  lsof /dev/nvidia*
+  cat /sys/bus/pci/devices/0000:0{1,4}:00.0/power{_state,/runtime_status}
 }
 dgpu_switch_to_integrated/vfio() {
+  # TODO: wtf
   sudo /run/current-system/sw/bin/kill --verbose --signal QUIT --timeout 1000 TERM \
                                     --timeout 1000 KILL \
                                     --timeout 1000 KILL \
-            $(sudo lsof -t /dev/nvidia*); \
+            $(lsof -t /dev/nvidia*); \
   sudo modprobe --remove --all nvidia{_drm,_uvm,_modeset,} && sudo modprobe vfio-pci
 }
 dgpu_switch_to_hybrid() {
