@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   username,
   flakePath,
   ...
@@ -79,9 +78,4 @@
     clean.extraArgs = "--keep 5 --keep-since 7d";
     flake = flakePath;
   };
-
-  #! 13Mb
-  users.defaultUserShell = pkgs.zsh;
-  programs.zsh.enable = true;
-  programs.zsh.histSize = 100000;
 }

@@ -51,7 +51,7 @@ nix build ./nix#nixosMinimalIso
 dd bs=4M conv=fsync oflag=direct status=progress if=./result/iso/nixos-minimal- of=/dev/sd
 qemu-system-x86_64 -enable-kvm -m 256 -cdrom result/iso/nixos-minimal*.iso -nic user,hostfwd=tcp::22222-:22
 qemu-system-x86_64 -enable-kvm -m 2048 -smp 4 -cdrom result/iso/nixos-graphical*.iso -nic user,hostfwd=tcp::22222-:22
-ssh root@localhost -p 22222 -o StrictHostKeychecking=no
+ssh root@localhost -p 22222 -o StrictHostKeychecking=no -o ConnectionAttempts=60
 # or just
 nixos-rebuild build-vm --flake ./nix#minimalIso-x86_64-linux
 nh os build-vm --hostname minimalIso-x86_64-linux

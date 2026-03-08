@@ -1,11 +1,21 @@
 {
+  self,
+  username,
+  flakePath,
+  ...
+}:
+{
+  imports = [
+    #? to compile completions at NixOS buildtime
+    ../../shared/zsh-compinit.nix
+  ];
   virtualisation.vmVariant = {
     virtualisation = {
       diskImage = null;
       memorySize = 8 * 1024;
       cores = 8;
       forwardPorts = [
-        #? ssh ogurez@localhost -p 22222 -o StrictHostKeychecking=no
+        #? ssh localhost -p 22222 -o StrictHostKeychecking=no -o ConnectionAttempts=60
         {
           from = "host";
           host.port = 22222;
@@ -14,4 +24,27 @@
       ];
     };
   };
+
+  #? autologin
+  security.sudo.wheelNeedsPassword = false;
+  services.getty.autologinUser = username;
+  services.displayManager.autoLogin.enable = true;
+  services.displayManager.autoLogin.user = username;
+
+  # TODO: same for iso
+  system.activationScripts.copyFlake = {
+    text = ''
+      if [ ! -d ${flakePath} ]; then
+        mkdir --parents ${flakePath}
+        cp --recursive ${self.outPath}/. ${flakePath}
+        chown --recursive 1000:100 ${flakePath}
+      fi
+    '';
+  };
+
+  #? guest tools
+  #! 250Kb
+  services.qemuGuest.enable = true;
+  services.spice-vdagentd.enable = true;
+  services.spice-autorandr.enable = true;
 }

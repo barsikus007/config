@@ -10,7 +10,7 @@ with pkgs;
   tmux
   zellij
   tree
-  yazi
+  yazi # ? no ubuntu
   starship
   fastfetch
   lazygit

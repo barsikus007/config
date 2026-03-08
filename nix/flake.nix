@@ -93,15 +93,18 @@
           inherit pkgs;
           extraSpecialArgs = mkSpecialArgs username;
           modules = modules ++ [
-            {
-              home = {
-                inherit username;
-                homeDirectory = "/home/${username}";
+            (
+              { lib, ... }:
+              {
+                home = {
+                  inherit username;
+                  homeDirectory = "/home/${username}";
 
-                #? https://nix-community.github.io/home-manager/release-notes.xhtml
-                stateVersion = "26.05";
-              };
-            }
+                  #? https://nix-community.github.io/home-manager/release-notes.xhtml
+                  stateVersion = lib.mkDefault "26.05";
+                };
+              }
+            )
           ];
         };
       };
