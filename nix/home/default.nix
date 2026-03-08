@@ -1,10 +1,6 @@
+{ config, username, ... }:
 {
-  config,
-  username,
-  flakePath,
-  ...
-}:
-{
+  imports = [ ./git.nix ];
   home = {
     # Home Manager needs a bit of information about you and the
     # paths it should manage.
@@ -21,49 +17,5 @@
     ];
     preferXdgDirectories = true;
   };
-
   xdg.enable = true;
-
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
-
-  programs.nh = {
-    enable = true;
-    flake = flakePath;
-  };
-
-  programs.git = {
-    enable = true;
-    lfs.enable = true;
-    # TODO
-    # aliases = {
-    #   ci = "commit";
-    #   co = "checkout";
-    #   s = "status";
-    # };
-    settings = {
-      user.name = "barsikus007";
-      user.email = "barsikus07@gmail.com";
-      core.editor = "code --wait";
-      core.autocrlf = "input";
-      core.ignoreCase = "false";
-
-      init.defaultBranch = "master";
-
-      push.default = "current";
-
-      pull.rebase = "true";
-
-      merge.autoStash = "true";
-
-      rebase.autoStash = "true";
-
-      gpg.format = "ssh";
-    };
-    # TODO: secrets: https://wiki.nixos.org/wiki/Git#Using_your_public_SSH_key_as_a_signing_key
-    signing.key = "~/.ssh/id_ed25519.pub";
-    signing.signByDefault = true;
-  };
-  programs.delta.enable = true;
-  programs.delta.enableGitIntegration = true;
 }

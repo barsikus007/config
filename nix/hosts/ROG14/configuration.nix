@@ -7,23 +7,20 @@
   ...
 }:
 {
+  #? https://nixos.org/manual/nixos/unstable/release-notes
+  system.stateVersion = "26.05";
   networking.hostName = "ROG14";
 
   environment.systemPackages = (
-    import ../../shared/lists {
-      inherit pkgs;
-    }
-    ++ import ../../shared/lists/extra.nix {
-      inherit pkgs;
-    }
-    ++ import ../../shared/lists/test.nix {
-      inherit pkgs;
-    }
+    import ../../shared/lists { inherit pkgs; }
+    ++ import ../../shared/lists/extra.nix { inherit pkgs; }
+    ++ import ../../shared/lists/test.nix { inherit pkgs; }
   );
 
   imports = [
-    #? https://github.com/NixOS/nixos-hardware/blob/master/asus/zephyrus/ga401/default.nix
-    inputs.nixos-hardware.nixosModules.asus-zephyrus-ga401
+    # TODO: PR: file for whole 2020th ga401, not just iv; https://github.com/NixOS/nixos-hardware/issues/1450
+    #? https://github.com/NixOS/nixos-hardware/blob/master/asus/zephyrus/ga401iv/default.nix
+    inputs.nixos-hardware.nixosModules.asus-zephyrus-ga401iv
     ./hardware-configuration.nix
     ../../modules/hardware/fingerprint.nix
     ../../modules/hardware/wifi-unlimited.nix
@@ -60,8 +57,6 @@
   hardware = {
     amdgpu.opencl.enable = true;
 
-    #! https://github.com/NixOS/nixos-hardware/issues/1450
-    nvidia.dynamicBoost.enable = false;
     #? if GPU apps fails after suspend
     # nvidia.powerManagement.enable = true;
     #? finer GPU power management

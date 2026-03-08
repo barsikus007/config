@@ -1,15 +1,12 @@
-{
-  lib,
-  username,
-  flakePath,
-  ...
-}:
+{ lib, username, ... }:
 #! 30Mb
 {
-  #! 150Kb
   imports = [
+    #! 150Kb
     ../shared/nix.nix
     ../modules/home-manager.nix
+    #! 17Mb
+    ../shared/nh.nix
   ];
 
   hardware.ksm.enable = true;
@@ -69,13 +66,4 @@
 
   #! 80Kb
   programs.nix-ld.enable = true;
-
-  #! 17Mb
-  programs.nh = {
-    enable = true;
-    clean.enable = true;
-    clean.dates = "daily";
-    clean.extraArgs = "--keep 5 --keep-since 7d";
-    flake = flakePath;
-  };
 }

@@ -1,12 +1,11 @@
 { pkgs, ... }:
-# base cli packages, which is used in all hosts and easy to install
+#? base cli packages, which is used in all hosts and easy to install
 with pkgs;
 import ./00_essential.nix { inherit pkgs; }
 ++ import ./01_base.nix { inherit pkgs; }
 ++ import ./02_add.nix { inherit pkgs; }
 ++ [
-  # nix
-  nh
+  #? nix
   nvd
   nurl
   comma

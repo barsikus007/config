@@ -110,14 +110,14 @@
       };
     in
     {
-      nixosConfigurations."ROG14-WSL" = nixpkgs.lib.nixosSystem {
+      nixosConfigurations."NixOS-WSL" = nixpkgs.lib.nixosSystem {
         inherit system pkgs;
         specialArgs = mkSpecialArgs "nixos";
         modules = [
           ./shared
 
           ./hosts
-          ./hosts/ROG14-WSL/configuration.nix
+          ./hosts/NixOS-WSL/configuration.nix
         ];
       };
       nixosConfigurations."ROG14" = nixpkgs.lib.nixosSystem {
@@ -135,7 +135,6 @@
           ./modules/hardware/logi-mx3.nix
           ./modules/hardware/xbox.nix
 
-          ./modules/shell
           ./modules/containers
           ./modules/silent-boot.nix
           ./modules/locale.nix
@@ -254,6 +253,7 @@
         // mkHomeCfg "nixos" [
           ./shared
           ./shared/nix.nix
+          ./shared/nh.nix
 
           ./home
           ./home/shell/minimal.nix

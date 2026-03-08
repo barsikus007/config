@@ -1,3 +1,4 @@
+#! 444Mb
 {
   imports = [
     ./minimal.nix

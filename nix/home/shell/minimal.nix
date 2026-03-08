@@ -5,6 +5,7 @@
   flakePath,
   ...
 }:
+#! 90Mb
 let
   baseAliases = {
     editor = "nano";
