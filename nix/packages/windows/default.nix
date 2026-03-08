@@ -15,7 +15,7 @@ let
   massgrave = builtins.fetchurl {
     name = "MAS_AIO.cmd";
     url = "https://dev.azure.com/massgrave/Microsoft-Activation-Scripts/_apis/git/repositories/Microsoft-Activation-Scripts/items?path=/MAS/All-In-One-Version-KL/MAS_AIO.cmd&download=true";
-    sha256 = "sha256-Gu7PV5yWZZf+/ay5YWoOwBtDOKuTOr/8iGd2FgnmtsQ==";
+    sha256 = "sha256-1hl89jQf2p+RtE3ue/+cZevSoz7Ra3p3u350aE/Xy74=";
   };
 
   openSshServerPackage = builtins.fetchurl {

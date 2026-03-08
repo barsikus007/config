@@ -2,15 +2,15 @@
 Write-Host "Hint: to apply tweaks, run:" -ForegroundColor Gray
 Write-Host "sudo pwsh.exe -Command 'irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/99Tweaks.ps1 | iex'" -ForegroundColor Gray
 Write-Host
-Write-Host "disable UAC prompts" -ForegroundColor Green
-Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "ConsentPromptBehaviorAdmin" -Value 0
-Write-Host
 Write-Host "scoop installation..." -ForegroundColor Green
 powershell.exe -Command 'Invoke-RestMethod https://get.scoop.sh | Invoke-Expression'
 $env:Path += ";C:\Program Files\PowerShell\7\;$HOME\scoop\shims"
 
 Write-Host "scoop inital packages installation..." -ForegroundColor Green
 Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/scoop/00Bootstrap.ps1 | Invoke-Expression
+#? part of the 99Tweaks.ps1
+Write-Host "disable UAC prompts" -ForegroundColor Green
+sudo Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "ConsentPromptBehaviorAdmin" -Value 0
 # TODO: is needed?: dotnet-sdk
 Write-Host "System packages installation..." -ForegroundColor Green
 Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/scoop/01System.ps1 | Invoke-Expression
