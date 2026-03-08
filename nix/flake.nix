@@ -6,6 +6,8 @@
     # nixpkgs-fix-for-<smth>.url = "nixpkgs/pull/1488/head";
     nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz"; # Smaller then github tarball, less api hits
     # nixpkgs-master.url = "nixpkgs";
+    nix-index-database.url = "github:nix-community/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
     nixos-wsl = {
