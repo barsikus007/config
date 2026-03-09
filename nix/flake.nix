@@ -193,6 +193,70 @@
         ];
       };
 
+      #? subset of my desktop system for testing purposes
+      nixosConfigurations."coolvm" = nixpkgs.lib.nixosSystem {
+        #? nh os build-vm --hostname coolvm && ./result/bin/run-*-vm
+        # TODO: mouse capture and cursor; resolution; vfio; clipboard
+        inherit system pkgs;
+        specialArgs = mkSpecialArgs "ogurez";
+        #? check every module impact on closure size:
+        # nix path-info --closure-size --human-readable ./result
+        modules = [
+          # ./hosts/vm/paravirt-spiced.nix
+          ./hosts/vm/niri-qemu.nix
+          # ./hosts/vm/vfio-pass.nix
+          {
+            system.stateVersion = "26.05";
+            networking.hostName = "coolvm";
+
+            virtualisation.vmVariant.virtualisation = {
+              diskImage = null;
+              memorySize = 8 * 1024;
+              cores = 8;
+              #! sharedDirectories
+              qemu.options = [
+                "-monitor stdio"
+                "-fullscreen"
+              ];
+            };
+          }
+          # ./shared
+
+          ./modules/desktop/manager/niri-kde.nix
+          # ./modules/desktop/manager/plasma.nix
+          #! test area
+          #? link current nixpkgs source to store
+          (
+            { username, ... }:
+            {
+              #! 152Mb
+              environment.systemPackages = import ./shared/lists/02_add.nix { inherit pkgs; };
+              #! +720Mb for nix tools, wtf
+              # environment.systemPackages = import ./shared/lists { inherit pkgs; };
+
+              #! 11Mb initial size
+              home-manager.users.${username} = {
+                imports = [
+                  # ./shared
+
+                  ./home
+                  ./home/shell
+
+                  ./home/desktop/manager/quickshell/noctalia.nix
+
+                  ./home/gui/neovide.nix
+                  ./home/gui/browser.nix
+                  {
+                    # inherit custom;
+                    home.stateVersion = "26.05";
+                  }
+                ];
+              };
+            }
+          )
+        ];
+      };
+
       #? https://github.com/NixOS/nixpkgs/tree/master/nixos/modules/installer/cd-dvd
       nixosConfigurations."minimalIso-${system}" = nixpkgs.lib.nixosSystem {
         inherit system;

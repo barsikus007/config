@@ -1,0 +1,104 @@
+{
+  pkgs,
+  config,
+  username,
+  ...
+}:
+#? incomplete and messed as F
+{
+  virtualisation.vmVariant = {
+    virtualisation = {
+      qemu.options = [
+        #? looking glass
+        # "-object memory-backend-file,id=shmmem-lg,mem-path=/dev/kvmfr0,size=64M,share=yes"
+        # "-device ivshmem-plain,memdev=shmmem-lg"
+
+        # "-device vfio-pci,host=01:00.0,x-vga=on"
+
+        # "-mem-path /dev/hugepages"
+        # "-mem-prealloc"
+        #? sudo prlimit --memlock=unlimited --pid $$
+        #? prlimit --memlock=unlimited:unlimited ./result/bin/run-*-vm
+      ];
+      #! sharedDirectories
+      forwardPorts =
+        #? localhost:57989
+        let
+          generatePorts = port: offsets: map (offset: port + offset) offsets;
+          allowedTCPPorts = generatePorts config.services.sunshine.settings.port [
+            (-5)
+            0
+            1
+            21
+          ];
+          allowedUDPPorts = generatePorts config.services.sunshine.settings.port [
+            9
+            10
+            11
+            13
+            21
+          ];
+        in
+        [
+          {
+            from = "host";
+            host.port = 44444;
+            guest.port = config.services.sunshine.settings.port;
+            proto = "tcp";
+          }
+        ]
+        ++ map (p: {
+          from = "host";
+          host.port = p;
+          guest.port = p;
+          proto = "tcp";
+        }) allowedTCPPorts
+        ++ map (p: {
+          from = "host";
+          host.port = p;
+          guest.port = p;
+          proto = "udp";
+        }) allowedUDPPorts;
+    };
+  };
+  # networking.bridges.br0.interfaces = [ "eth0" ];
+  # networking.interfaces.br0.useDHCP = true;
+  boot.extraModulePackages = with config.boot.kernelPackages; [ kvmfr ];
+  environment.etc = {
+    "modules-load.d/kvmfr.conf".text = ''
+      kvmfr
+    '';
+
+    "modprobe.d/kvmfr.conf".text = ''
+      options kvmfr static_size_mb=64
+    '';
+  };
+  services.udev.extraRules = ''
+    SUBSYSTEM=="kvmfr", GROUP="video", MODE="0660"
+  '';
+
+  environment.systemPackages =
+    with pkgs;
+    [
+      (callPackage (builtins.fetchurl {
+        url = "https://raw.githubusercontent.com/Yeshey/nixOS-Config/26723df921862360a3fa78e9066f7f681cba0b27/pkgs/looking-glass-host.nix";
+        sha256 = "sha256-K3lCcm63bzBXuBKOj1hVadh8Fnmae5cy6uQ3SRtZ5pY=";
+      }) { })
+
+      gpu-screen-recorder
+      gpu-screen-recorder-gtk
+    ]
+    ++ import ./shared/lists { inherit pkgs; };
+  users.users.${username}.extraGroups = [ "video" ];
+  hardware.graphics.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.nvidia.open = true;
+  services.sunshine = {
+    enable = true;
+    autoStart = true;
+    capSysAdmin = true;
+    openFirewall = true;
+    # TODO https://search.nixos.org/options?query=services.sunshine.applications
+    settings.port = 57989;
+  };
+}
