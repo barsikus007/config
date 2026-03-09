@@ -1,5 +1,6 @@
 { pkgs, ... }:
-# add (historicaly, this is packages was unavailable in ubuntu/scoop base repos or have different name)
+#? add (historicaly, this is packages was unavailable in ubuntu/scoop base repos or have different name)
+#! +152Mb to default host
 with pkgs;
 [
   fd

@@ -10,6 +10,8 @@
   imports = [
     inputs.niri.homeModules.niri
     inputs.niri.homeModules.stylix
+
+    ../.
   ];
   home.packages = with pkgs; [
     grim

@@ -1,5 +1,6 @@
 { pkgs, ... }:
 {
+  imports = [ ../gui/terminal.nix ];
   home.packages = (import ../../shared/shell-scripts.nix { inherit pkgs; });
   services.cliphist = {
     enable = true;

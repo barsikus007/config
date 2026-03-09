@@ -6,24 +6,18 @@
 }:
 {
   imports = [
+    ../../hosts/minimal.nix
     #? to compile completions at NixOS buildtime
     ../../shared/zsh-compinit.nix
   ];
-  virtualisation.vmVariant = {
-    virtualisation = {
-      diskImage = null;
-      memorySize = 8 * 1024;
-      cores = 8;
-      forwardPorts = [
-        #? ssh localhost -p 22222 -o StrictHostKeychecking=no -o ConnectionAttempts=60
-        {
-          from = "host";
-          host.port = 22222;
-          guest.port = 2222;
-        }
-      ];
-    };
-  };
+  virtualisation.vmVariant.virtualisation.forwardPorts = [
+    #? ssh localhost -p 22222 -o StrictHostKeychecking=no -o ConnectionAttempts=60
+    {
+      from = "host";
+      host.port = 22222;
+      guest.port = 2222;
+    }
+  ];
 
   #? autologin
   security.sudo.wheelNeedsPassword = false;

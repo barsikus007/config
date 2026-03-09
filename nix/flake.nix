@@ -118,7 +118,6 @@
         modules = [
           ./shared
 
-          ./hosts
           ./hosts/NixOS-WSL/configuration.nix
         ];
       };
@@ -130,9 +129,7 @@
         modules = [
           ./shared
 
-          ./hosts
           ./hosts/ROG14/configuration.nix
-          ./hosts/ROG14/impermanence.nix
 
           ./modules/hardware/logi-mx3.nix
           ./modules/hardware/xbox.nix
@@ -152,7 +149,7 @@
           ./modules/printer.nix
 
           ./modules/desktop/manager/plasma.nix
-          ./modules/desktop/manager/niri.nix
+          ./modules/desktop/manager/niri-kde.nix
           ./modules/gui/sound.nix
           ./modules/gui/games.nix
           ./modules/gui/throne.nix

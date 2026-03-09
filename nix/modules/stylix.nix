@@ -5,6 +5,7 @@
   username,
   ...
 }:
+#! 580Mb
 {
   disabledModules = [
     "system/activation/bootspec.nix"
@@ -16,6 +17,8 @@
 
     inputs.stylix.nixosModules.stylix
   ];
+  home-manager.users.${username}.imports = [ ../home/stylix.nix ];
+
   stylix = {
     #? shared
     enable = true;
@@ -58,6 +61,7 @@
     };
   };
 
+  # TODO: move toggle to module
   specialisation.light = {
     generateBootEntry = false;
     configuration = {

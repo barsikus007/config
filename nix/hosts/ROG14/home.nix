@@ -9,7 +9,6 @@
 
     ../../home/hardware/anime.nix
 
-    ../../home/stylix.nix
     ../../home/shell/404.nix
     ../../home/shell/bat.nix
     ../../home/ai.nix
@@ -22,6 +21,7 @@
     ../../home/gui/syncthing.nix
     ../../home/gui/quickshare.nix
     ../../home/gui/terminal.nix
+    ../../home/gui/neovide.nix
     ../../home/gui/rofi.nix
     ../../home/gui/mpv.nix
     ../../home/gui/vscode.nix

@@ -3,9 +3,7 @@
 {
   programs.bat = {
     enable = true;
-    config = {
-      theme = "Coldark-Dark";
-    };
+    config.theme = "Coldark-Dark";
     extraPackages = with pkgs.bat-extras; [
       batman
       batgrep
