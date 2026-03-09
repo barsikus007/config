@@ -1,5 +1,6 @@
 {
   self,
+  config,
   username,
   flakePath,
   ...
@@ -15,7 +16,7 @@
     {
       from = "host";
       host.port = 22222;
-      guest.port = 2222;
+      guest.port = builtins.elemAt config.services.openssh.ports 0;
     }
   ];
 
