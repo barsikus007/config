@@ -150,6 +150,4 @@
   };
 
   services.polkit-gnome.enable = true; # ? polkit from wiki
-
-  programs.fuzzel.enable = true;
 }

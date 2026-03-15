@@ -216,7 +216,7 @@
               #! sharedDirectories
               qemu.options = [
                 "-monitor stdio"
-                "-fullscreen"
+                "-full-screen"
               ];
             };
           }
@@ -241,8 +241,6 @@
 
                   ./home
                   ./home/shell
-
-                  ./home/desktop/manager/quickshell/noctalia.nix
 
                   ./home/gui/neovide.nix
                   ./home/gui/browser.nix

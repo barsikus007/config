@@ -1,10 +1,17 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  username,
+  ...
+}:
 #! +1.1Gb
 {
   imports = [
     ./niri.nix
     ../environment/explorer/dolphin.nix
   ];
+  home-manager.users.${username}.imports = [ ../../../home/desktop/manager/quickshell/noctalia.nix ];
+
   programs.niri.useNautilus = false;
 
   environment.systemPackages = with pkgs; [

@@ -13,8 +13,6 @@
     ../../home/shell/bat.nix
     ../../home/ai.nix
 
-    ../../home/desktop/manager/quickshell/noctalia.nix
-
     ../../home/gui
     ../../home/gui/sound.nix
     ../../home/gui/autostart.nix
