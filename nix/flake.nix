@@ -383,6 +383,24 @@
               zsh; exit
             '';
           };
+        rust = pkgs.mkShell {
+          RUST_SRC_PATH = "${pkgs.rustPlatform.rustLibSrc}";
+          buildInputs = with pkgs; [
+            cargo
+            rustc
+            rustfmt
+            clippy
+            rust-analyzer
+          ];
+          packages = with pkgs; [
+            evcxr
+          ];
+
+          shellHook = ''
+            echo "🦀 Welcome to the Rust ${with pkgs; rustc.version} devShell!"
+            zsh; exit
+          '';
+        };
       };
       packages.${system} =
         with pkgs;
