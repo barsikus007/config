@@ -17,4 +17,5 @@ with pkgs;
   inetutils # ping telnet traceroute whois
   diffutils
   findutils
+  netcat-openbsd # nc
 ]

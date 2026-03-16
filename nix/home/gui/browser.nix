@@ -295,6 +295,7 @@
               urls = [
                 {
                   template = "https://home-manager-options.extranix.com/";
+                  # template = "https://searchix.ovh/options/home-manager/search";
                   params = [
                     {
                       name = "release";

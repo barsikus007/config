@@ -51,40 +51,42 @@ vim.keymap.set('n', "gd", vim.lsp.buf.definition, { noremap = true, silent = tru
 --?  https://neovim.io/doc/user/lsp.html#lsp-quickstart
 -- TODO: use lsp/ folder https://neovim.io/doc/user/lsp.html#_config
 -- TODO: this shit wont activate lua lsp for no reason
-vim.lsp.config["lua_ls"] = {
-    -- TODO: formatter: stylua
-    cmd = { "lua-language-server" },
-    filetypes = { "lua" },
-    root_markers = {
-        "init.lua",
-        ".luarc.json",
-        ".luarc.jsonc",
-        ".luacheckrc",
-        ".stylua.toml",
-        "stylua.toml",
-        "selene.toml",
-        "selene.yml",
-        ".git",
-    },
-    settings = {
-        Lua = {
-            runtime = {
-                version = 'LuaJIT',
-            },
-            workspace = {
-                library = { vim.env.VIMRUNTIME },
+-- TODO: old versions fallback
+if vim.lsp.config then
+    vim.lsp.config["lua_ls"] = {
+        -- TODO: formatter: stylua
+        cmd = { "lua-language-server" },
+        filetypes = { "lua" },
+        root_markers = {
+            "init.lua",
+            ".luarc.json",
+            ".luarc.jsonc",
+            ".luacheckrc",
+            ".stylua.toml",
+            "stylua.toml",
+            "selene.toml",
+            "selene.yml",
+            ".git",
+        },
+        settings = {
+            Lua = {
+                runtime = {
+                    version = 'LuaJIT',
+                },
+                workspace = {
+                    library = { vim.env.VIMRUNTIME },
+                },
             },
         },
-    },
-}
-vim.lsp.enable({
-    -- "basedpyright",
-    -- "cssls",
-    "lua_ls",
-    -- "nixd",
-    -- "ts_ls",
-})
-
+    }
+    vim.lsp.enable({
+        -- "basedpyright",
+        -- "cssls",
+        "lua_ls",
+        -- "nixd",
+        -- "ts_ls",
+    })
+end
 
 --? keymaps
 vim.g.mapleader = " "

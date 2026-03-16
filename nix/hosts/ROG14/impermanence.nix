@@ -180,6 +180,7 @@ in
         # ".local/share/kwalletd"
         # ".local/share/kxmlgui5"
         # ".local/share/RecentDocuments"
+        # ".local/share/nix/repl-history"
         # ".local/share/sddm"
 
         # ".local/share/direnv"

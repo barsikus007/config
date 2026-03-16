@@ -424,7 +424,7 @@
           };
 
           openwrt = {
-            xiaomi_ax3600 = (import ./packages/openwrt/xiaomi_ax3600.nix { inherit pkgs inputs; });
+            xiaomi_ax3600 = import ./packages/openwrt/xiaomi_ax3600.nix { inherit pkgs inputs; };
             tplink_archer-c50-v4 = (
               import ./packages/openwrt/tplink_archer-c50-v4.nix { inherit pkgs inputs; }
             );
