@@ -1,0 +1,28 @@
+#region general
+#? intellij idea moment
+.idea/
+#? macos moment
+**/.DS_Store
+#? private dotenv files
+*.env
+#endregion general
+
+#region direnv
+.direnv/
+.envrc
+#endregion direnv
+
+#region nix
+result
+#endregion nix
+
+#region python
+.venv/
+#? fd --no-ignore __pycache__ -H -x rm -rf
+**/__pycache__/
+#endregion python
+
+#region node
+node_modules/
+dist/
+#endregion node

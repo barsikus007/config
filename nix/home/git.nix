@@ -1,3 +1,4 @@
+{ config, flakePath, ... }:
 #! 21Mb
 {
   programs.git = {
@@ -31,6 +32,8 @@
     signing.key = "~/.ssh/id_ed25519.pub";
     signing.signByDefault = true;
   };
+  xdg.configFile."git/ignore".source =
+    config.lib.file.mkOutOfStoreSymlink "${flakePath}/.gitignore";
   programs.delta.enable = true;
   programs.delta.enableGitIntegration = true;
 }
