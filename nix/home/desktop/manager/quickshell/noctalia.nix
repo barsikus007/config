@@ -5,6 +5,9 @@
   ...
 }:
 #? https://github.com/noctalia-dev/noctalia-shell
+let
+  meta = import ../meta.nix;
+in
 {
   imports = [
     inputs.noctalia.homeModules.default
@@ -127,20 +130,7 @@
       dock = {
         pinnedStatic = true;
         inactiveIndicators = true;
-        pinnedApps = [
-          "org.kde.dolphin"
-          "org.wezfurlong.wezterm"
-          "firefox"
-          # "microsoft-edge"
-          "code"
-          "com.ayugram.desktop"
-          # "discord"
-          "vesktop"
-          # "dorion"
-          "obsidian"
-          "bcompare"
-          "thunderbird"
-        ];
+        pinnedApps = meta.dock;
       };
       general = {
         avatarImage = "~/.face.icon";

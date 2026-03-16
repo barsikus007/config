@@ -5,6 +5,9 @@
   inputs,
   ...
 }:
+let
+  meta = import ../meta.nix;
+in
 {
   imports = [
     inputs.plasma-manager.homeModules.plasma-manager
@@ -221,20 +224,7 @@
           }
           {
             iconTasks = {
-              launchers = [
-                "applications:org.kde.dolphin.desktop"
-                "applications:org.wezfurlong.wezterm.desktop"
-                "applications:firefox.desktop"
-                # "applications:microsoft-edge.desktop"
-                "applications:code.desktop"
-                "applications:com.ayugram.desktop.desktop"
-                # "applications:discord.desktop"
-                "applications:vesktop.desktop"
-                # "applications:dorion.desktop"
-                "applications:obsidian.desktop"
-                "applications:bcompare.desktop"
-                "applications:thunderbird.desktop"
-              ];
+              launchers = map (dockApp: "applications:${dockApp}.desktop") meta.dock;
               behavior.grouping.clickAction = "showTooltips";
             };
           }
@@ -476,7 +466,7 @@
   # TODO: other kwin scripts like https://store.kde.org/p/2138867 https://github.com/micha4w/kde-alt-f4-desktop
   #? https://store.kde.org/p/2313455
   # 0.0.3
-  xdg.dataFile."kwin/scripts/auto-active".source = builtins.fetchTarball {
+  xdg.dataFile."kwin/scripts/auto-active".source = fetchTarball {
     url = "https://github.com/ruanimal/auto-active/archive/f5e550f659017d79825a698acfc6a6eb3ded8ec5.tar.gz";
     sha256 = "sha256-9dVf9m47m916cz6oPVZenCCAlucVQbyb1ZjZhvWw0HI=";
   };
