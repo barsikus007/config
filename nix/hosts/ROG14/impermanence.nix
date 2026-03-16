@@ -123,7 +123,6 @@ in
 
         ".cache/cliphist"
         ".cache/cloud-code" # ? gemini auth
-        ".cache/nix-index"
         ".cache/tlrc"
 
         ".config/autostart" # TODO: generate

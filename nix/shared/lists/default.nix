@@ -8,7 +8,6 @@ import ./00_essential.nix { inherit pkgs; }
   #? nix
   nvd
   nurl
-  comma
   nix-tree
   nix-output-monitor
 
