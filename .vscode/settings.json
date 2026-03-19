@@ -39,6 +39,9 @@
         "textDocument/definition",
         "textDocument/formatting",
     ],
+    "python.analysis.extraPaths": [
+        "/etc/nixpkgs/nixos/lib/test-driver/src/",
+    ],
     // #endregion nix
     "Lua.workspace.library": [
         "/etc/profiles/per-user/ogurez/share/nvim/runtime/lua",

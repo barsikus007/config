@@ -50,6 +50,7 @@ in
 # TODO: _class == "nixOnDroid"
 if (_class == "nixos") then
   {
+    environment.etc."nixpkgs".source = pkgs.path;
     nix = {
       channel.enable = false;
     }
