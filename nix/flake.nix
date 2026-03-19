@@ -154,8 +154,8 @@
           #? mertech website is currently down
           # ./modules/printer.nix
 
-          ./modules/desktop/manager/plasma.nix
-          ./modules/desktop/manager/niri-kde.nix
+          # ./modules/desktop/manager/plasma.nix
+          ./modules/desktop/manager/niri-de.nix
           ./modules/gui/sound.nix
           ./modules/gui/games.nix
           ./modules/gui/throne.nix
@@ -228,7 +228,7 @@
           }
           # ./shared
 
-          ./modules/desktop/manager/niri-kde.nix
+          ./modules/desktop/manager/niri-de.nix
           # ./modules/desktop/manager/plasma.nix
           #! test area
           #? link current nixpkgs source to store
