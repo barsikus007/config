@@ -24,6 +24,7 @@ let
     "1ip" = "wget -qO - icanhazip.com";
     "2ip" = "curl 2ip.ru";
     "3ip" = "curl -so- ipinfo.io | jq";
+    "4ip" = "curl -so- wtfismyip.com/json | jq";
     cu = "cd ${flakePath} && git pull && cd -";
     #? nix have ip with prebuilt color, alias brokes autocmpletion
     # ip = "ip --color";

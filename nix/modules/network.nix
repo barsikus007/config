@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   config,
   username,
   ...
@@ -28,6 +29,8 @@ in
       "sora.chatgpt.com"
     ];
   };
+
+  environment.systemPackages = with pkgs; [ nixos-firewall-tool ];
 
   # networking.firewall.enable = false;
   # TODO: unified custom config: firewall: rquickshare,syncthing

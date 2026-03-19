@@ -7,6 +7,7 @@ with pkgs;
   wget
 
   zip
+  unzip
   gawk
   procps # watch
   psmisc # killall pstree

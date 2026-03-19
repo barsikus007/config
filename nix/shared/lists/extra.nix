@@ -19,6 +19,7 @@ with pkgs;
   usbutils # lssub
   rsync
   strace # files monitoring
+  qrencode
   inotify-tools # files monitoring
 
   # CLI python
