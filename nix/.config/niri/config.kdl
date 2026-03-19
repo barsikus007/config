@@ -4,6 +4,14 @@
 // https://niri-wm.github.io/niri/Configuration:-Introduction
 include "nix-generated-config.kdl"
 
+prefer-no-csd
+
+animations {
+    workspace-switch {
+        spring damping-ratio=0.8 stiffness=1000 epsilon=0.0001
+    }
+}
+
 debug {
     //! this breaks focus
     // strict-new-window-focus-policy
@@ -71,6 +79,29 @@ window-rule {
     // block-out-from "screencast"
 }
 
+// Indicate screencasted windows with red colors.
+window-rule {
+    match is-window-cast-target=true
+
+    focus-ring {
+        active-color "#f38ba8"
+        inactive-color "#7d0d2d"
+    }
+
+    border {
+        inactive-color "#7d0d2d"
+    }
+
+    shadow {
+        color "#7d0d2d70"
+    }
+
+    tab-indicator {
+        active-color "#f38ba8"
+        inactive-color "#7d0d2d"
+    }
+}
+
 // Always focus the KeePassXC-Browser unlock dialog.
 //
 // This dialog opens parented to the KeePassXC window rather than the browser,
@@ -79,6 +110,44 @@ window-rule {
     match app-id=r#"^org\.keepassxc\.KeePassXC$"# title="^KeePassXC - Browser Access Request$"
     match app-id=r#"^org\.keepassxc\.KeePassXC$"# title="^Unlock Database - KeePassXC$"
     open-focused true
+}
+
+//? https://niri-wm.github.io/niri/Configuration%3A-Named-Workspaces.html
+workspace "games" {
+    open-on-output "HDMI-A-1"
+    layout {
+        focus-ring {
+            //? https://www.brandcolorcode.com/xbox
+            active-color "#0C7A1F"
+        }
+    }
+}
+window-rule {
+    match app-id=r#"^org\.prismlauncher\.PrismLauncher$"#
+    match app-id=r#"^steam$"#
+    open-on-workspace "games"
+    // open-focused false
+}
+window-rule {
+    match app-id=r#"^Minecraft 1\.\d{1,2}\.\d*$"#
+    match app-id=r#"^GT: New Horizons "#
+    open-on-workspace "games"
+    open-maximized true
+}
+workspace "social" {
+    open-on-output "HDMI-A-1"
+    layout {
+        focus-ring {
+            //? https://www.brandcolorcode.com/telegram
+            active-color "#24A1DE"
+        }
+    }
+}
+window-rule {
+    match app-id=r#"^vesktop$"#
+    match app-id=r#"^com\.ayugram\.desktop$"#
+    open-on-workspace "social"
+    // open-focused false
 }
 //#endregion window-rules
 
@@ -106,6 +175,8 @@ binds {
     Mod+F2    hotkey-overlay-title="Run an Application" { spawn-sh "noctalia-shell ipc call launcher toggle"; }
     Alt+Space hotkey-overlay-title="Run an Application" { spawn-sh "noctalia-shell ipc call launcher toggle"; }
     Mod+S     hotkey-overlay-title="Run an Application" { spawn "fuzzel"; }
+    // Mod+Shift+D hotkey-overlay-title="Run an Application" { spawn-sh "tmux new -s xd -d 'scrcpy -K --render-driver=opengles2 --no-audio --video-bit-rate=1M --serial=OnePlus-15.lan:5555'"; }
+    // Mod+D hotkey-overlay-title="Run an Application" { spawn-sh "tmux kill-session -t xd"; }
     Mod+L hotkey-overlay-title="Lock the Screen" allow-when-locked=true { spawn-sh "noctalia-shell ipc call lockScreen lock"; }
     Mod+E hotkey-overlay-title="Run a File Manager" { spawn "dolphin"; }
     Mod+V hotkey-overlay-title="Open Clipboard Manager" { spawn-sh "noctalia-shell ipc call launcher clipboard"; }

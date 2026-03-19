@@ -346,6 +346,7 @@ in
         "_launch" = "Meta+I";
       };
       "kwin" = {
+        # "Edit Tiles" = "none";
         "Overview" = "Meta+Tab";
         "Window Above Other Windows" = "Meta+Ctrl+T";
         "Window Fullscreen" = "F11";
@@ -378,6 +379,7 @@ in
 
       "services/org.wezfurlong.wezterm.desktop" = {
         "_launch" = [
+          "Meta+T"
           "Ctrl+Alt+T"
           "Meta+`"
         ];

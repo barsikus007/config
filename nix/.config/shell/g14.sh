@@ -5,6 +5,7 @@ asus_demo_download() {
     VIDEO_FOLDER=~/.config/rog
     mkdir --parents $VIDEO_FOLDER
     VIDEO_ID=UkgK8eUdpAo
+    # VIDEO_ID=dQw4w9WgXcQ
     VIDEO_NAME=bad-apple
     yt-dlp $VIDEO_ID --output - | ffmpeg -i - -filter_complex "[0:v]fps=30,scale=66:-1,setpts=0.645*PTS[v]" -map '[v]' -loop 0 $VIDEO_FOLDER/$VIDEO_NAME.gif $VIDEO_FOLDER/$VIDEO_NAME.mp3 -y
   )
