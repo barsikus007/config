@@ -10,6 +10,7 @@
   imports = [
     ../default.nix
     ../environment/explorer/dolphin.nix
+    ../environment/kdeconnect.nix
   ];
   home-manager.users.${username}.imports = [ ../../../home/desktop/manager/plasma.nix ];
 
@@ -53,11 +54,5 @@
 
     #? xdotool for plasma
     kdotool
-
-    #? for KDE Connect
-    kdePackages.kdialog
-    # https://invent.kde.org/network/kdeconnect-kde/-/tree/master/plugins/virtualmonitor
-    kdePackages.krfb
   ];
-  programs.kdeconnect.enable = true;
 }

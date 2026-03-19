@@ -15,10 +15,6 @@ in
     ../.
   ];
 
-  programs.zsh.initContent = ''explorer.exe() {dolphin --new-window "$@" 1>/dev/null 2>/dev/null & disown}'';
-  #? have issues with focus, it should focus to explorer every time
-  # programs.zsh.initContent = "alias explorer.exe='kioclient exec'";
-
   #region gtk
   #! JUST FUCK THIS SHIT: nix shell nixpkgs#kdePackages.qttools --command qdbus org.kde.kded6 /kded org.kde.kded6.loadModule gtkconfig
   home.sessionVariables.GTK2_RC_FILES = config.gtk.gtk2.configLocation;
@@ -59,6 +55,27 @@ in
         name = "Capture Screen Region then Extract Text with OCR";
         key = "Meta+Shift+T";
         command = "ocr-screen-region";
+      };
+    }
+    // lib.attrsets.optionalAttrs config.programs.rofi.enable {
+      "rofi" = {
+        name = "chuvak eto rofis";
+        key = "Ctrl+Alt+Space";
+        # TODO https://github.com/svenstaro/rofi-calc/issues/33
+        command = "rofi -show combi -show-icons";
+      };
+      #! no other way vi klipper https://bugs.kde.org/show_bug.cgi?id=427214
+      # TODO disable klipper
+      # TODO pins https://github.com/sentriz/cliphist/issues/23
+      # TODO css big images
+      # TODO css split text
+      # TODO cancel on esc
+      # TODO appear under cursor or better - above focus
+      "rofi-cb" = {
+        name = "chuvak eto rofis-cb";
+        key = "Ctrl+Meta+V";
+        #? https://github.com/sentriz/cliphist/issues/111
+        command = "zsh -c \"rofi -modi clipboard:cliphist-rofi-img -show clipboard -show-icons && ${pkgs.ydotool} key 29:1 47:1 47:0 29:0\"";
       };
     }
     // lib.attrsets.optionalAttrs config.custom.isAsus {

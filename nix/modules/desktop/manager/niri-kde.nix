@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  config,
   username,
   ...
 }:
@@ -9,6 +10,7 @@
   imports = [
     ./niri.nix
     ../environment/explorer/dolphin.nix
+    ../environment/kdeconnect.nix
   ];
   home-manager.users.${username}.imports = [
     ../../../home/desktop/manager/quickshell/noctalia.nix
@@ -22,6 +24,8 @@
       ];
     }
   ];
+
+  services.displayManager.gdm.enable = !config.services.displayManager.sddm.enable;
 
   programs.niri.useNautilus = false;
 

@@ -10,5 +10,11 @@
     kdePackages.kio
     kdePackages.kio-fuse
     kdePackages.kio-extras
+
+    #? have issues with focus, it should focus to explorer every time
+    # alias explorer.exe='kioclient exec'
+    (writeShellScriptBin "explorer.exe" ''
+      dolphin --new-window "$@" 1>/dev/null 2>/dev/null & disown
+    '')
   ];
 }

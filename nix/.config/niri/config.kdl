@@ -4,6 +4,16 @@
 // https://niri-wm.github.io/niri/Configuration:-Introduction
 include "nix-generated-config.kdl"
 
+debug {
+    //! this breaks focus
+    // strict-new-window-focus-policy
+    render-drm-device "/dev/dri/renderD128"
+    // render-drm-device "/dev/dri/by-path/pci-0000:04:00.0-render"
+    ignore-drm-device "/dev/dri/renderD129"
+    ignore-drm-device "/dev/dri/by-path/pci-0000:01:00.0-render"
+}
+
+//#region window-rules
 // Window rules let you adjust behavior for individual windows.
 // Find more information on the wiki:
 //? https://niri-wm.github.io/niri/Configuration:-Window-Rules
@@ -70,6 +80,7 @@ window-rule {
     match app-id=r#"^org\.keepassxc\.KeePassXC$"# title="^Unlock Database - KeePassXC$"
     open-focused true
 }
+//#endregion window-rules
 
 //? https://niri-wm.github.io/niri/Configuration%3A-Key-Bindings.html
 binds {
