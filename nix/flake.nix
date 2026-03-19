@@ -66,6 +66,11 @@
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.noctalia-qs.follows = "noctalia-qs";
+    };
+    noctalia-qs = {
+      url = "github:noctalia-dev/noctalia-qs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     dms = {
       url = "github:AvengeMedia/DankMaterialShell/stable";
@@ -146,7 +151,8 @@
           ./modules/zapret.nix
           ./modules/android.nix
           ./modules/diagnostic.nix
-          ./modules/printer.nix
+          #? mertech website is currently down
+          # ./modules/printer.nix
 
           ./modules/desktop/manager/plasma.nix
           ./modules/desktop/manager/niri-kde.nix

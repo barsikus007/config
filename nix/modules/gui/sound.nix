@@ -2,7 +2,7 @@
 {
   environment.systemPackages = with pkgs; [
     #? visual sound nodes editor
-    helvum
+    crosspipe
   ];
   #? rtkit (optional, recommended) allows Pipewire to use the realtime scheduler for increased performance.
   security.rtkit.enable = true;

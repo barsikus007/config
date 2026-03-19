@@ -13,6 +13,7 @@ let
     "steam-unwrapped"
 
     "7zz"
+    "uasm" # ? 7zz unfree dep
     "unrar"
     "corefonts"
 

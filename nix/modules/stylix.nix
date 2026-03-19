@@ -30,11 +30,11 @@
       url = "https://w.wallhaven.cc/full/8o/wallhaven-8o5o7k.jpg";
       hash = "sha256-jpN1gQ8RfDuBBfV4h3un0VvCm7FUy334YO1ibnYvmqk=";
     };
-    # cursor = {
-    #   size = 24;
-    #   package = pkgs.kdePackages.breeze;
-    #   name = "breeze_cursors";
-    # };
+    cursor = {
+      size = 24;
+      package = with pkgs; kdePackages.breeze;
+      name = "breeze_cursors";
+    };
     polarity = "dark";
 
     fonts = with pkgs; {

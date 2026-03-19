@@ -10,13 +10,23 @@
     ./niri.nix
     ../environment/explorer/dolphin.nix
   ];
-  home-manager.users.${username}.imports = [ ../../../home/desktop/manager/quickshell/noctalia.nix ];
+  home-manager.users.${username}.imports = [
+    ../../../home/desktop/manager/quickshell/noctalia.nix
+    {
+      programs.niri.settings.spawn-at-startup = [
+        {
+          command = [
+            "noctalia-shell"
+          ];
+        }
+      ];
+    }
+  ];
 
   programs.niri.useNautilus = false;
 
   environment.systemPackages = with pkgs; [
     kdePackages.qt6ct
-    kdePackages.polkit-kde-agent-1
   ];
   services.gnome.gnome-keyring.enable = false;
   xdg.portal = {

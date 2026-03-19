@@ -13,13 +13,11 @@ in
     inputs.noctalia.homeModules.default
   ];
 
-  systemd.user.services.noctalia-shell.Service.Environment = [
-    # "QT_QPA_PLATFORM=wayland;xcb"
-    # "QT_QPA_PLATFORMTHEME=qt6ct"
-    #? fix some icons
-    "QT_QPA_PLATFORMTHEME=gtk3"
-    # "QT_AUTO_SCREEN_SCALE_FACTOR=1"
-  ];
+  # "QT_QPA_PLATFORM=wayland;xcb"
+  # "QT_QPA_PLATFORMTHEME=qt6ct"
+  #? fix some icons
+  #! "QT_QPA_PLATFORMTHEME=gtk3"
+  # "QT_AUTO_SCREEN_SCALE_FACTOR=1"
   programs.noctalia-shell = {
     enable = true;
     systemd.enable = true;
@@ -174,6 +172,10 @@ in
           enabled = true;
           sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
         };
+        polkit-agent = {
+          enabled = true;
+          sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+        };
 
         #? appLauncher
         currency-exchange = {
@@ -194,6 +196,8 @@ in
       version = 2;
     };
   };
+  #? noctalia have own polkit now
+  services.polkit-gnome.enable = false;
   #? screenshot annotation for clipboard history
   programs.satty.enable = true;
   services.hypridle = {
