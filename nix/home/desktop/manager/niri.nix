@@ -129,8 +129,8 @@
           hotkey-overlay.title = "Quick ScreenCapture";
           action.spawn-sh = "noctalia-shell ipc call plugin:screen-recorder toggle";
         };
-        "XF86KbdBrightnessUp".action.spawn-sh = "ydotool key 104:1 104:0";
-        "XF86KbdBrightnessDown".action.spawn-sh = "ydotool key 109:1 109:0";
+        # "XF86KbdBrightnessUp".action.spawn-sh = "ydotool key 104:1 104:0";
+        # "XF86KbdBrightnessDown".action.spawn-sh = "ydotool key 109:1 109:0";
       };
 
       clipboard.disable-primary = true;

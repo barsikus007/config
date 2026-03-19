@@ -87,4 +87,13 @@
   systemd.tmpfiles.rules = [
     "w /sys/devices/system/cpu/cpufreq/boost - - - - 0"
   ];
+
+  #? use Fn+Arrows buttons as Home/End/PgUp/PgDown
+  services.udev.extraHwdb = ''
+    #? https://asus-linux.org/faq/keyboard/remap-arrow-keys/
+    evdev:name:*:dmi:bvn*:bvr*:bd*:svnASUS*:pn*:*
+      KEYBOARD_KEY_ff3100c4=pageup    # Fn+Up
+      KEYBOARD_KEY_ff3100c5=pagedown  # Fn+Down
+  '';
+  #? others in https://github.com/NixOS/nixos-hardware/blob/41c6b421bdc301b2624486e11905c9af7b8ec68e/asus/zephyrus/ga401iv/default.nix#L34
 }
