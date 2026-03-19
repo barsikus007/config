@@ -6,7 +6,7 @@
 }:
 {
   xdg = {
-    #? \command ls /run/current-system/sw/share/applications /etc/profiles/per-user/$(id -n -u)/share/applications ~/.local/share/applications | grep <name>
+    #? \command ls /run/current-system/sw/share/applications /etc/profiles/per-user/$(id -n -u)/share/applications ~/.local/share/applications | grep -i <name>
     mimeApps.enable = true;
     mimeApps.defaultApplications = {
       "inode/directory" = [

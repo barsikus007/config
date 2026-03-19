@@ -20,7 +20,6 @@ in
   # "QT_AUTO_SCREEN_SCALE_FACTOR=1"
   programs.noctalia-shell = {
     enable = true;
-    systemd.enable = true;
     settings = {
       #? https://docs.noctalia.dev/getting-started/nixos/#config-ref
       appLauncher = {
@@ -169,6 +168,10 @@ in
           sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
         };
         screen-recorder = {
+          enabled = true;
+          sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+        };
+        kde-connect = {
           enabled = true;
           sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
         };

@@ -80,7 +80,7 @@
   #! after reboot with/out powersupply it is set to perfomance/schedutil: cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
   powerManagement.cpuFreqGovernor = "schedutil";
   services.udev.extraRules = ''
-    ACTION=="add|change", SUBSYSTEM=="power_supply", ATTR{online}=="0", RUN+="${lib.getExe config.boot.kernelPackages.cpupower} frequency-set -g schedutil"
+    ACTION=="add|change", SUBSYSTEM=="power_supply", ATTR{online}=="0", RUN+="${lib.getExe config.boot.kernelPackages.cpupower} frequency-set -g powersave"
     ACTION=="add|change", SUBSYSTEM=="power_supply", ATTR{online}=="1", RUN+="${lib.getExe config.boot.kernelPackages.cpupower} frequency-set -g performance"
   '';
   #? disable 4.2 GHz boost
@@ -96,4 +96,7 @@
       KEYBOARD_KEY_ff3100c5=pagedown  # Fn+Down
   '';
   #? others in https://github.com/NixOS/nixos-hardware/blob/41c6b421bdc301b2624486e11905c9af7b8ec68e/asus/zephyrus/ga401iv/default.nix#L34
+
+  #? https://wiki.nixos.org/wiki/Linux_kernel#Enable_SysRq
+  boot.kernel.sysctl."kernel.sysrq" = 1;
 }

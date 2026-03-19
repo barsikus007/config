@@ -4,7 +4,7 @@
   username,
   ...
 }:
-#? incomplete and messed as F
+#? WIP: incomplete and messed as F
 {
   virtualisation.vmVariant = {
     virtualisation = {
@@ -13,7 +13,7 @@
         # "-object memory-backend-file,id=shmmem-lg,mem-path=/dev/kvmfr0,size=64M,share=yes"
         # "-device ivshmem-plain,memdev=shmmem-lg"
 
-        # "-device vfio-pci,host=01:00.0,x-vga=on"
+        "-device vfio-pci,host=01:00.0,x-vga=on"
 
         # "-mem-path /dev/hugepages"
         # "-mem-prealloc"
@@ -88,7 +88,7 @@
       gpu-screen-recorder
       gpu-screen-recorder-gtk
     ]
-    ++ import ./shared/lists { inherit pkgs; };
+    ++ import ../../shared/lists { inherit pkgs; };
   users.users.${username}.extraGroups = [ "video" ];
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];

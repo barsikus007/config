@@ -8,6 +8,5 @@
     ../../modules/stylix.nix
     ../../modules/desktop/manager/niri.nix
   ];
-  services.displayManager.gdm.enable = true;
   home-manager.users.${username}.imports = [ ../../shared/zsh-compinit.nix ];
 }

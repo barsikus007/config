@@ -89,7 +89,6 @@ in
       # "/var/lib/power-profiles-daemon" # TODO: is this needed? my experiments with power toggling
       # "/var/lib/private" # TODO: is this needed? rustdesk
       # "/var/lib/sbctl" # TODO: is this needed? secure boot
-      # "/var/lib/sddm" # TODO: is this needed?
       # "/var/lib/swtpm-localca" # TODO: is this needed? tpm for libvirtd
       # "/var/lib/systemd/backlight" # TODO: is this needed? keyboard backlight
       # "/var/lib/systemd/catalog" # TODO: is this needed? creates auto, binary database for the Journal Message Catalog (extended log descriptions)
@@ -123,9 +122,9 @@ in
 
         ".cache/cliphist"
         ".cache/cloud-code" # ? gemini auth
+        ".cache/noctalia" # ? to disable prompt on startup
         ".cache/tlrc"
 
-        ".config/autostart" # TODO: generate
         ".config/bcompare5"
         ".config/chromium" # TODO: ??
         ".config/Code"
