@@ -149,5 +149,5 @@
     };
   };
 
-  services.polkit-gnome.enable = true; # ? polkit from wiki
+  services.polkit-gnome.enable = lib.mkDefault true; # ? polkit from wiki
 }

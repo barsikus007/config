@@ -9,8 +9,6 @@
 
     ../../home/hardware/anime.nix
 
-    ../../home/shell/404.nix
-    ../../home/shell/bat.nix
     ../../home/ai.nix
 
     ../../home/gui

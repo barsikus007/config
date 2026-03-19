@@ -2,6 +2,7 @@
 #! 30Mb
 {
   imports = [
+    ../modules/ssh-secure.nix
     #! 150Kb
     ../shared/nix.nix
     ../modules/home-manager.nix
@@ -40,29 +41,8 @@
   users.users.${username} = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
-    openssh.authorizedKeys.keys = [
-      (lib.strings.removeSuffix "\n" (
-        builtins.readFile (
-          builtins.fetchurl {
-            url = "https://github.com/barsikus007.keys";
-            sha256 = "sha256-Tnf/WxeYOikI9i5l4e0ABDk33I5z04BJFApJpUplNi0=";
-          }
-        )
-      ))
-    ];
   };
   nix.settings.trusted-users = [ username ];
-
-  services.openssh = {
-    enable = true;
-    ports = lib.mkDefault [ 2222 ];
-    settings = {
-      PermitRootLogin = "no";
-      PasswordAuthentication = false;
-      ChallengeResponseAuthentication = false;
-      KbdInteractiveAuthentication = false;
-    };
-  };
 
   #! 80Kb
   programs.nix-ld.enable = true;

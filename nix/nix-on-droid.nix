@@ -73,9 +73,7 @@
       #zip
       #unzip
     ]
-    ++ import ./shared/lists/00_essential.nix { inherit pkgs; }
-    ++ import ./shared/lists/01_base.nix { inherit pkgs; }
-    ++ import ./shared/lists/02_add.nix { inherit pkgs; };
+    ++ import ./shared/lists { inherit pkgs; };
   environment.motd = "Welcome to Nix-on-Droid!";
   environment.sessionVariables = {
     SHELL = config.user.shell;

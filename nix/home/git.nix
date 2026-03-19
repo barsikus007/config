@@ -33,7 +33,7 @@
     signing.signByDefault = true;
   };
   xdg.configFile."git/ignore".source =
-    config.lib.file.mkOutOfStoreSymlink "${flakePath}/.gitignore";
+    config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/git/ignore";
   programs.delta.enable = true;
   programs.delta.enableGitIntegration = true;
 }

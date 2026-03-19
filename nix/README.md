@@ -156,6 +156,7 @@ sudo $(nix build ~/config/nix#libs.goodix-patch-521d --print-out-paths)/bin/run_
 ## TODO
 
 - parse `options.environment.systemPackages.files`, `home.packages` for added pkgs + use script to get all installed by `programs.*.enabled = true`
+  - same for `...packages.definitionsWithLocations`
 - nix-on-droid
   - [sudo](https://github.com/nix-community/nix-on-droid/issues/252)
     - not worth it, use [NixOS-AVF](https://github.com/nix-community/nixos-avf)

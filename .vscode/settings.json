@@ -1,4 +1,7 @@
 {
+    "files.associations": {
+        "ignore": "ignore"
+    },
     "search.exclude": {
         "аrchive/": true,
     },
