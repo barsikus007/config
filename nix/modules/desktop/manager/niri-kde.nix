@@ -9,6 +9,7 @@
 {
   imports = [
     ./niri.nix
+    ../environment/win-apps.nix
     ../environment/explorer/dolphin.nix
     ../environment/kdeconnect.nix
   ];

@@ -1,57 +1,18 @@
-{
-  lib,
-  pkgs,
-  config,
-  username,
-  ...
-}:
+{ pkgs, username, ... }:
 #? https://wiki.nixos.org/wiki/KDE
 {
   imports = [
     ../default.nix
+    ../dm/sddm.nix
+    ../style/qt-for-gtk.nix
+    ../environment/explorer/dolphin.nix
     ../environment/explorer/dolphin.nix
     ../environment/kdeconnect.nix
   ];
   home-manager.users.${username}.imports = [ ../../../home/desktop/manager/plasma.nix ];
 
-  #? https://wiki.archlinux.org/title/Uniform_look_for_Qt_and_GTK_applications#Set_the_preferred_portal_backend
-  xdg.portal.config.common.default = [ "kde" ];
-
-  services.displayManager = {
-    sddm = {
-      enable = true;
-      wayland.enable = true;
-      autoLogin.relogin = true;
-    };
-  };
-  #? https://wiki.nixos.org/wiki/Fingerprint_scanner#Login
-  #! https://github.com/NixOS/nixpkgs/issues/171136#issuecomment-2918400189
-  security.pam.services.sddm.text = lib.mkForce (
-    lib.strings.concatLines (
-      builtins.filter (x: (lib.strings.hasPrefix "auth " x) && (!lib.strings.hasInfix "fprintd" x)) (
-        lib.strings.splitString "\n" config.security.pam.services.login.text
-      )
-    )
-    + ''
-
-      account   include   login
-      password  substack  login
-      session   include   login
-    ''
-  );
-
   services.desktopManager.plasma6.enable = true;
   environment.systemPackages = with pkgs; [
-    #? The fallback for GNOME apps
-    gnome-icon-theme
-    #? gtk2 console warning fix
-    gnome-themes-extra
-
-    #? KDE apps, which are analog to useful Windows apps
-    kdePackages.filelight
-    kdePackages.kclock
-    kdePackages.kcalc
-
     #? xdotool for plasma
     kdotool
   ];

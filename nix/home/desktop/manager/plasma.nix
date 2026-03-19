@@ -15,25 +15,6 @@ in
     ../.
   ];
 
-  #region gtk
-  #! JUST FUCK THIS SHIT: nix shell nixpkgs#kdePackages.qttools --command qdbus org.kde.kded6 /kded org.kde.kded6.loadModule gtkconfig
-  home.sessionVariables.GTK2_RC_FILES = config.gtk.gtk2.configLocation;
-  gtk = {
-    gtk2 = {
-      configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
-      iconTheme.package = pkgs.gnome-icon-theme;
-      iconTheme.name = "gnome";
-    };
-    iconTheme.package = pkgs.kdePackages.breeze-icons;
-    iconTheme.name = lib.mkForce (
-      if (config.stylix.polarity == "light") then "breeze" else "breeze-dark"
-    );
-    theme.package = lib.mkForce pkgs.kdePackages.breeze-gtk;
-    theme.name = lib.mkForce (if (config.stylix.polarity == "light") then "Breeze" else "Breeze-Dark");
-    #? https://nix-community.github.io/home-manager/release-notes.xhtml#sec-release-26.05-state-version-changes
-  };
-  #endregion gtk
-
   #? https://github.com/nix-community/plasma-manager
   #? https://nix-community.github.io/plasma-manager/options.xhtml
   programs.plasma = {
