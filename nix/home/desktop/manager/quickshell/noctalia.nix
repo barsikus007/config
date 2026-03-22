@@ -55,6 +55,9 @@ in
             {
               id = "plugin:pomodoro";
             }
+            {
+              id = "plugin:kde-connect";
+            }
 
             {
               # id = "ActiveWindow";

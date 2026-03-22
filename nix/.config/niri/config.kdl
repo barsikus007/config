@@ -391,6 +391,7 @@ binds {
     Mod+F { maximize-column; }
     F11 { fullscreen-window; }
     Mod+Shift+F { fullscreen-window; }
+    Mod+Alt+F  { toggle-windowed-fullscreen; }
 
     // While maximize-column leaves gaps and borders around the window,
     // maximize-window-to-edges doesn't: the window expands to the edges of the screen.

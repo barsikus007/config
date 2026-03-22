@@ -6,8 +6,8 @@
     ../dm/sddm.nix
     ../style/qt-for-gtk.nix
     ../environment/explorer/dolphin.nix
-    ../environment/explorer/dolphin.nix
     ../environment/kdeconnect.nix
+    ../environment/win-apps.nix
   ];
   home-manager.users.${username}.imports = [ ../../../home/desktop/manager/plasma.nix ];
 

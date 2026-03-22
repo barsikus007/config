@@ -8,6 +8,7 @@
     "editor.selectionClipboard": false,
     "settingsSync.keybindingsPerPlatform": false,
     "update.mode": "manual",
+    "terminal.external.linuxExec": "wezterm",
     // #region appearence
     "terminal.integrated.fontFamily": "Cascadia Code NF",
     "editor.fontFamily": "Cascadia Code NF",
