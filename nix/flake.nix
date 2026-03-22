@@ -202,7 +202,7 @@
       #? subset of my desktop system for testing purposes
       nixosConfigurations."coolvm" = nixpkgs.lib.nixosSystem {
         #? nh os build-vm --hostname coolvm && ./result/bin/run-*-vm
-        # TODO: mouse capture and cursor; resolution; vfio; clipboard
+        # TODO: sunshine; vfio
         inherit system pkgs;
         specialArgs = mkSpecialArgs "ogurez";
         #? check every module impact on closure size:
@@ -243,7 +243,7 @@
               #! 11Mb initial size
               home-manager.users.${username} = {
                 imports = [
-                  # ./shared
+                  ./shared
 
                   ./home
                   ./home/shell
@@ -251,7 +251,7 @@
                   ./home/gui/neovide.nix
                   ./home/gui/browser.nix
                   {
-                    # inherit custom;
+                    inherit custom;
                     home.stateVersion = "26.05";
                   }
                 ];

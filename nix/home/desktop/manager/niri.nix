@@ -136,6 +136,7 @@
       clipboard.disable-primary = true;
 
       debug = {
+        #! I moved out all debug settings into config.kdl for now
         #? https://github.com/niri-wm/niri/issues/3265
         #? https://github.com/niri-wm/niri/issues/3610
         # hardware.nvidia.prime.amdgpuBusId
@@ -145,7 +146,7 @@
         # ignore-drm-device = "/dev/dri/renderD129"
         # ignore-drm-device = [ "/dev/dri/by-path/pci-0000:01:00.0-render" ];
         #? https://github.com/niri-wm/niri/issues/2955
-        honor-xdg-activation-with-invalid-serial = true;
+        # honor-xdg-activation-with-invalid-serial = true;
       };
     };
   };

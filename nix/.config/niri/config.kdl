@@ -13,11 +13,14 @@ animations {
 }
 
 debug {
+    //? new test for focus stealing between workspaces
+    deactivate-unfocused-windows
+    //? https://github.com/niri-wm/niri/issues/2955
+    honor-xdg-activation-with-invalid-serial
     //! this breaks focus
     // strict-new-window-focus-policy
-    render-drm-device "/dev/dri/renderD128"
-    // render-drm-device "/dev/dri/by-path/pci-0000:04:00.0-render"
-    ignore-drm-device "/dev/dri/renderD129"
+    render-drm-device "/dev/dri/by-path/pci-0000:04:00.0-render"
+    // ignore-drm-device "/dev/dri/renderD129"
     ignore-drm-device "/dev/dri/by-path/pci-0000:01:00.0-render"
 }
 
@@ -131,6 +134,7 @@ window-rule {
 window-rule {
     match app-id=r#"^Minecraft 1\.\d{1,2}\.\d*$"#
     match app-id=r#"^GT: New Horizons "#
+    match app-id=r#"^qemu$"#
     open-on-workspace "games"
     open-maximized true
 }
