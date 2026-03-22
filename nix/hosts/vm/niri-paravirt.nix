@@ -3,6 +3,7 @@
 #! 2.2Gb
 {
   imports = [
+    ./minimal.nix
     ./paravirt-spiced.nix
     ../../hosts
     ../../modules/stylix.nix

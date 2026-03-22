@@ -20,49 +20,8 @@
         #? sudo prlimit --memlock=unlimited --pid $$
         #? prlimit --memlock=unlimited:unlimited ./result/bin/run-*-vm
       ];
-      #! sharedDirectories
-      forwardPorts =
-        #? localhost:57989
-        let
-          generatePorts = port: offsets: map (offset: port + offset) offsets;
-          allowedTCPPorts = generatePorts config.services.sunshine.settings.port [
-            (-5)
-            0
-            1
-            21
-          ];
-          allowedUDPPorts = generatePorts config.services.sunshine.settings.port [
-            9
-            10
-            11
-            13
-            21
-          ];
-        in
-        [
-          {
-            from = "host";
-            host.port = 44444;
-            guest.port = config.services.sunshine.settings.port;
-            proto = "tcp";
-          }
-        ]
-        ++ map (p: {
-          from = "host";
-          host.port = p;
-          guest.port = p;
-          proto = "tcp";
-        }) allowedTCPPorts
-        ++ map (p: {
-          from = "host";
-          host.port = p;
-          guest.port = p;
-          proto = "udp";
-        }) allowedUDPPorts;
     };
   };
-  # networking.bridges.br0.interfaces = [ "eth0" ];
-  # networking.interfaces.br0.useDHCP = true;
   boot.extraModulePackages = with config.boot.kernelPackages; [ kvmfr ];
   environment.etc = {
     "modules-load.d/kvmfr.conf".text = ''
@@ -93,12 +52,4 @@
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia.open = true;
-  services.sunshine = {
-    enable = true;
-    autoStart = true;
-    capSysAdmin = true;
-    openFirewall = true;
-    # TODO https://search.nixos.org/options?query=services.sunshine.applications
-    settings.port = 57989;
-  };
 }

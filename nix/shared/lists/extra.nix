@@ -62,15 +62,14 @@ with pkgs;
   scrcpy
   neovide
   audacity
+  obsidian
   qdirstat
   parsec-bin
   qbittorrent
+  moonlight-qt
 
   # https://www.reddit.com/r/software/comments/t5n3cm/everything_for_linux/
   fsearch
-
-  # GUI unfree
-  obsidian
 
   # GUI automation
   xclicker

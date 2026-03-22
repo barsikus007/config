@@ -208,9 +208,14 @@
         #? check every module impact on closure size:
         # nix path-info --closure-size --human-readable ./result
         modules = [
+          # ./hosts/vm/minimal.nix
           # ./hosts/vm/paravirt-spiced.nix
-          ./hosts/vm/niri-qemu.nix
           # ./hosts/vm/vfio-pass.nix
+
+          # ./hosts/vm/niri-paravirt.nix
+          ./hosts/vm/kde-sunshined.nix
+          #! ./result/bin/run-*-vm -device virtio-vga
+          # ./hosts/vm/kde-sunshined-vfio.nix
           {
             system.stateVersion = "26.05";
             networking.hostName = "coolvm";
@@ -228,10 +233,9 @@
           }
           # ./shared
 
-          ./modules/desktop/manager/niri-de.nix
+          # ./modules/desktop/manager/niri-de.nix
           # ./modules/desktop/manager/plasma.nix
-          #! test area
-          #? link current nixpkgs source to store
+          #? link current nixpkgs source to store to avoid refetching it withing guest
           (
             { username, ... }:
             {
