@@ -1,4 +1,5 @@
 { pkgs, username, ... }:
+#! no way desktop GPU passthrough on linux is THAT cursed
 {
   imports = [
     ./kde-sunshined.nix

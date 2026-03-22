@@ -17,7 +17,7 @@
 
         # "-mem-path /dev/hugepages"
         # "-mem-prealloc"
-        #? sudo prlimit --memlock=unlimited --pid $$
+        #? sudo prlimit --memlock=unlimited:unlimited --pid $$ && ulimit -l
         #? prlimit --memlock=unlimited:unlimited ./result/bin/run-*-vm
       ];
     };

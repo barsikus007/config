@@ -16,7 +16,10 @@
       ];
     };
   };
-  users.users.${username}.extraGroups = [ "libvirtd" ];
+  users.users.${username}.extraGroups = [
+    "kvm"
+    "libvirtd"
+  ];
 
   virtualisation.spiceUSBRedirection.enable = true;
 }
