@@ -178,7 +178,7 @@ binds {
     Ctrl+Alt+T hotkey-overlay-title="Open a Terminal: wezterm" { spawn "wezterm"; }
     Mod+F2    hotkey-overlay-title="Run an Application" { spawn-sh "noctalia-shell ipc call launcher toggle"; }
     Alt+Space hotkey-overlay-title="Run an Application" { spawn-sh "noctalia-shell ipc call launcher toggle"; }
-    Mod+S     hotkey-overlay-title="Run an Application" { spawn "fuzzel"; }
+    Mod+S     hotkey-overlay-title="Run an Application" { spawn "anyrun"; }
     // Mod+Shift+D hotkey-overlay-title="Run an Application" { spawn-sh "tmux new -s xd -d 'scrcpy -K --render-driver=opengles2 --no-audio --video-bit-rate=1M --serial=OnePlus-15.lan:5555'"; }
     // Mod+D hotkey-overlay-title="Run an Application" { spawn-sh "tmux kill-session -t xd"; }
     Mod+L hotkey-overlay-title="Lock the Screen" allow-when-locked=true { spawn-sh "noctalia-shell ipc call lockScreen lock"; }

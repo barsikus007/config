@@ -20,7 +20,7 @@ in
       "search" = {
         name = "Open Search";
         key = "Meta+S";
-        command = "fuzzel";
+        command = "anyrun";
       };
       "inspect-window" = {
         name = "Open Current Window in btop";
