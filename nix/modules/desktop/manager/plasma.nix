@@ -11,6 +11,8 @@
   ];
   home-manager.users.${username}.imports = [ ../../../home/desktop/manager/plasma.nix ];
 
+  xdg.portal.config.common.default = [ "kde" ];
+
   services.desktopManager.plasma6.enable = true;
   environment.systemPackages = with pkgs; [
     #? xdotool for plasma

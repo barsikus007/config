@@ -2,7 +2,6 @@
   lib,
   pkgs,
   config,
-  inputs,
   ...
 }:
 let
@@ -10,17 +9,13 @@ let
 in
 {
   imports = [
-    inputs.plasma-manager.homeModules.plasma-manager
-
     ../.
+    ../environment/kde-settings.nix
   ];
 
   #? https://github.com/nix-community/plasma-manager
   #? https://nix-community.github.io/plasma-manager/options.xhtml
   programs.plasma = {
-    enable = true;
-    overrideConfig = true;
-
     hotkeys.commands = {
       "search" = {
         name = "Open Search";
@@ -386,11 +381,6 @@ in
     };
 
     configFile = {
-      "kdeglobals"."General"."TerminalApplication" = "wezterm";
-      "kdeglobals"."General"."TerminalService" = "org.wezfurlong.wezterm.desktop";
-      "kdeglobals"."Shortcuts"."Redo" = "Ctrl+Y";
-      # "kdeglobals"."PreviewSettings"."EnableRemoteFolderThumbnail" = true;
-      "kdeglobals"."PreviewSettings"."MaximumRemoteSize" = 1073741824; # 1 GiB
       #? didn't need with stylix
       # "kdeglobals"."KDE"."AutomaticLookAndFeel" = true;
       # "kdeglobals"."KDE"."DefaultLightLookAndFeel" = "org.kde.breezetwilight.desktop";
@@ -419,45 +409,13 @@ in
       # "klipperrc"."General"."SelectionTextOnly" = false;
       # "klipperrc"."General"."SyncClipboards" = true;
 
-      "dolphinrc"."General"."ShowFullPath" = true;
-      "dolphinrc"."General"."BrowseThroughArchives" = true;
-      "dolphinrc"."UiSettings"."ColorScheme" = "";
-      # "dolphinrc"."DetailsMode"."PreviewSize" = 16;
-      # "dolphinrc"."KFileDialog Settings"."Places Icons Auto-resize" = false;
-      # "dolphinrc"."KFileDialog Settings"."Places Icons Static Size" = 22;
-
       #? https://github.com/nix-community/stylix/issues/267#issuecomment-2314636091
       "kded5rc"."Module-gtkconfig"."autoload" = false;
 
-      # "kdeglobals"."KFileDialog Settings"."Allow Expansion" = false;
-      # "kdeglobals"."KFileDialog Settings"."Automatically select filename extension" = true;
-      # "kdeglobals"."KFileDialog Settings"."Breadcrumb Navigation" = true;
-      # "kdeglobals"."KFileDialog Settings"."Decoration position" = 2;
-      # "kdeglobals"."KFileDialog Settings"."LocationCombo Completionmode" = 5;
-      # "kdeglobals"."KFileDialog Settings"."PathCombo Completionmode" = 5;
-      # "kdeglobals"."KFileDialog Settings"."Show Bookmarks" = false;
-      # "kdeglobals"."KFileDialog Settings"."Show Full Path" = false;
-      # "kdeglobals"."KFileDialog Settings"."Show Inline Previews" = true;
-      # "kdeglobals"."KFileDialog Settings"."Show Preview" = false;
-      # "kdeglobals"."KFileDialog Settings"."Show Speedbar" = true;
-      # "kdeglobals"."KFileDialog Settings"."Show hidden files" = false;
-      # "kdeglobals"."KFileDialog Settings"."Sort by" = "Name";
-      # "kdeglobals"."KFileDialog Settings"."Sort directories first" = true;
-      # "kdeglobals"."KFileDialog Settings"."Sort hidden files last" = false;
-      # "kdeglobals"."KFileDialog Settings"."Sort reversed" = false;
-      # "kdeglobals"."KFileDialog Settings"."View Style" = "DetailTree";
-
-      # "kiorc"."Confirmations"."ConfirmDelete" = true;
-      # "kiorc"."Executable scripts"."behaviourOnLaunch" = "execute";
-
       "bluedevilglobalrc"."General"."launchState" = "enable";
     };
-    dataFile = {
-      # "dolphin/view_properties/global/.directory"."Dolphin"."ViewMode" = 1;
-      # "dolphin/view_properties/global/.directory"."Settings"."HiddenFilesShown" = true;
-    };
   };
-  # NIXOS_OZONE_WL=1 fixes that
+  #? NIXOS_OZONE_WL=1 fixes that
   # dconf.settings."org/gnome/desktop/interface" = {
   #   gtk-enable-primary-paste = false;
   # };

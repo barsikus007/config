@@ -4,8 +4,6 @@
 {
   home-manager.users.${username}.imports = [ ../../../home/desktop/style/qt-for-gtk.nix ];
 
-  xdg.portal.config.common.default = [ "kde" ];
-
   environment.systemPackages = with pkgs; [
     #? The fallback for GNOME apps
     gnome-icon-theme
