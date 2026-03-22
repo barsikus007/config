@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 #! 970Mb
 {
   imports = [
@@ -28,7 +28,8 @@
   environment.variables.VISUAL = "nvim";
 
   # TODO: unstable: https://github.com/NixOS/nixpkgs/pull/488627, https://github.com/NixOS/nixpkgs/pull/361716
-  # boot.kernelPackages = with pkgs; linuxPackages_latest;
+  # boot.kernelPackages = lib.mkDefault (with pkgs; linuxPackages_latest);
+  boot.kernelPackages = lib.mkDefault (with pkgs; linuxPackages_6_18);
 
   #! 150Mb
   fonts.packages = with pkgs; [

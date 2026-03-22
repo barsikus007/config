@@ -1,13 +1,8 @@
-{
-  self,
-  config,
-  username,
-  flakePath,
-  ...
-}:
+{ config, username, ... }:
 {
   imports = [
-    ../../hosts/minimal.nix
+    ../minimal.nix
+    ../../modules/copy-flake.nix
     #? to compile completions at NixOS buildtime
     ../../shared/zsh-compinit.nix
   ];
@@ -25,17 +20,6 @@
   services.getty.autologinUser = username;
   services.displayManager.autoLogin.enable = true;
   services.displayManager.autoLogin.user = username;
-
-  # TODO: same for iso
-  system.activationScripts.copyFlake = {
-    text = ''
-      if [ ! -d ${flakePath} ]; then
-        mkdir --parents ${flakePath}
-        cp --recursive ${self.outPath}/. ${flakePath}
-        chown --recursive 1000:100 ${flakePath}
-      fi
-    '';
-  };
 
   #? guest tools
   #! 250Kb
