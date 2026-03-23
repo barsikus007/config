@@ -29,18 +29,4 @@
     normal = [ config.stylix.fonts.monospace.name ];
     size = config.stylix.fonts.sizes.terminal;
   };
-  services.darkman = {
-    enable = true;
-    darkModeScripts = {
-      switch-to-dark = "sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch";
-    };
-    lightModeScripts = {
-      switch-to-light = "sudo /nix/var/nix/profiles/system/specialisation/light/bin/switch-to-configuration switch";
-    };
-    settings = {
-      lat = 42;
-      lng = 40;
-      # usegeoclue = true;
-    };
-  };
 }
