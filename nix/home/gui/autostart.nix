@@ -25,9 +25,10 @@ in
       (replaceDesktopItem config.programs.nixcord.finalPackage.vesktop "vesktop.desktop"
         "vesktop --start-minimized"
       )
-      (replaceDesktopItem pkgs.syncthingtray "syncthingtray.desktop"
-        "syncthingtray qt-widgets-gui --single-instance --wait"
-      )
+      #? Requires & After tray.target
+      # (replaceDesktopItem pkgs.syncthingtray "syncthingtray.desktop"
+      #   "syncthingtray qt-widgets-gui --single-instance --wait"
+      # )
       # extraConfig = {
       #   "X-GNOME-Autostart-Delay" = 0;
       #   "X-GNOME-Autostart-enabled" = true;

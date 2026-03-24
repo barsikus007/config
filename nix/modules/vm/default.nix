@@ -1,11 +1,6 @@
 { pkgs, username, ... }:
 # https://wiki.nixos.org/wiki/Virt-manager
 {
-  environment.systemPackages = with pkgs; [
-    # TODO: is needed? https://wiki.nixos.org/wiki/Libvirt#Default_networking
-    dnsmasq
-  ];
-
   virtualisation.libvirtd = {
     enable = true;
     qemu = {

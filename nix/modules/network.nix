@@ -29,6 +29,7 @@ in
       "sora.chatgpt.com"
     ];
   };
+  networking.nftables.enable = true;
 
   environment.systemPackages = with pkgs; [ nixos-firewall-tool ];
 

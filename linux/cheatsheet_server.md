@@ -148,7 +148,6 @@ sudo zpool create -O normalization=formD -O compression=lz4 -O atime=no tank rai
 
 sudo zfs create tank/apps
 sudo zfs create tank/storage
-sudo zfs create tank/backup
 
 sudo zfs create tank/git?lab
 # TODO idk if it's needed

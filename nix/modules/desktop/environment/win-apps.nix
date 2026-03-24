@@ -6,6 +6,7 @@
     kcalc
     kclock
 
+    ark
     elisa
     gwenview
     kate

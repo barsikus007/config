@@ -151,8 +151,7 @@
           ./modules/zapret.nix
           ./modules/android.nix
           ./modules/diagnostic.nix
-          #? mertech website is currently down
-          # ./modules/printer.nix
+          ./modules/printer.nix
 
           # ./modules/desktop/manager/plasma.nix
           ./modules/desktop/manager/niri-de.nix

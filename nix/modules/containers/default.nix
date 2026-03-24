@@ -11,5 +11,6 @@
 
     lazydocker
     dive
+    skopeo
   ];
 }

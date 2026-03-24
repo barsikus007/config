@@ -133,6 +133,17 @@ in
         apply.sizerule = 5; # ? now
       }
       {
+        apply.Enabled = false;
+        description = "restore firefox position";
+        match.window-class = "firefox firefox";
+        match.window-types = [ "normal" ];
+        apply.position = "1920,0";
+        apply.positionrule = 5; # ? now
+        apply.size = "1396,941";
+        apply.sizerule = 5; # ? now
+      }
+
+      {
         #! https://github.com/NixOS/nixpkgs/issues/344035#issuecomment-2453113223
         #! https://github.com/VSCodium/vscodium/issues/1414
         description = "code-url-handler fix";

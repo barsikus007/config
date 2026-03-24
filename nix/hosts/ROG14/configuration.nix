@@ -35,14 +35,6 @@
         enable = true;
         editor = false;
         configurationLimit = 5;
-        # TODO: hackintosh (and/or refind)
-        extraEntries = {
-          "macos.conf" = ''
-            title macOS
-            efi /efi/OC/OpenCore.efi
-          '';
-        };
-        #? sort-key macos
       };
       efi.canTouchEfiVariables = true;
     };
@@ -98,5 +90,6 @@
   #? others in https://github.com/NixOS/nixos-hardware/blob/41c6b421bdc301b2624486e11905c9af7b8ec68e/asus/zephyrus/ga401iv/default.nix#L34
 
   #? https://wiki.nixos.org/wiki/Linux_kernel#Enable_SysRq
+  #? it have same security level as having force-reset power-button
   boot.kernel.sysctl."kernel.sysrq" = 1;
 }
