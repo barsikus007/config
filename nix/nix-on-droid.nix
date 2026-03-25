@@ -20,7 +20,6 @@
   android-integration.xdg-open.enable = true;
   # android-integration.unsupported.enable = true;
 
-  # Simply install just the packages
   environment.packages =
     with pkgs;
     let
@@ -37,7 +36,7 @@
 
       yt-dlp
 
-      # Some common stuff that people expect to have
+      #? Some common stuff that people expect to have
       #util-linux
 
       #tzdata
@@ -49,8 +48,6 @@
       #bzip2
       #gzip
       #xz
-      #zip
-      #unzip
     ]
     ++ import ./shared/lists { inherit pkgs; };
   environment.motd = "Welcome to Nix-on-Droid!";
@@ -58,10 +55,10 @@
     SHELL = config.user.shell;
   };
 
-  # Backup etc files instead of failing to activate generation if a file already exists in /etc
-  # environment.etcBackupExtension = ".bak";
+  #? Backup etc files instead of failing to activate generation if a file already exists in /etc
+  # environment.etcBackupExtension = ".nodbackup";
 
-  # Read the changelog before changing this value
+  #? https://github.com/nix-community/nix-on-droid/blob/master/CHANGELOG.md
   system.stateVersion = "24.05";
 
   home-manager = {
@@ -69,8 +66,8 @@
     useUserPackages = true;
     backupFileExtension = "hmbackup";
     config = {
-      # Read the changelog before changing this value
       home = {
+        #? https://nix-community.github.io/home-manager/release-notes.xhtml
         stateVersion = lib.mkForce "26.05";
         homeDirectory = lib.mkForce "/data/data/com.termux.nix/files/home";
       };

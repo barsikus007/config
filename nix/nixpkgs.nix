@@ -1,6 +1,7 @@
 {
   system,
   inputs,
+  nixpkgs ? inputs.nixpkgs,
   overlays ? [ ],
 }:
 let
@@ -35,9 +36,9 @@ let
 
     "hytale-launcher"
   ];
-  lib = inputs.nixpkgs.lib;
+  lib = nixpkgs.lib;
 in
-import inputs.nixpkgs {
+import nixpkgs {
   inherit system;
   overlays = [
     (
@@ -52,7 +53,7 @@ import inputs.nixpkgs {
         )
         (
           inputs
-          |> inputs.nixpkgs.lib.attrsets.filterAttrs (
+          |> nixpkgs.lib.attrsets.filterAttrs (
             inputName: _: inputName |> lib.strings.hasPrefix "nixpkgs-"
           )
           |> lib.attrsets.mapAttrs' (

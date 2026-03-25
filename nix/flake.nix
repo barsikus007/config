@@ -22,9 +22,11 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    #! https://github.com/nix-community/nix-on-droid/issues/495
+    nixpkgs-unstable-droid.url = "nixpkgs/88d3861";
     nix-on-droid = {
       url = "github:nix-community/nix-on-droid";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable-droid";
       inputs.home-manager.follows = "home-manager";
     };
     impermanence.url = "github:nix-community/impermanence";
@@ -321,6 +323,7 @@
         pkgs = import ./nixpkgs.nix {
           inherit inputs;
           system = "aarch64-linux";
+          nixpkgs = inputs.nixpkgs-unstable-droid;
           overlays = [
             inputs.nix-on-droid.overlays.default
           ];
