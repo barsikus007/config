@@ -43,7 +43,6 @@ let
     };
   };
 in
-# TODO: _class == "nixOnDroid"
 if (_class == "nixos") then
   {
     environment.etc."nixpkgs".source = pkgs.path;
@@ -52,7 +51,20 @@ if (_class == "nixos") then
     }
     // nix;
   }
+else if (_class == "nixOnDroid") then
+  {
+    nix = {
+      inherit (nix) registry;
+      inherit (nix.settings) substituters;
+      extraOptions = ''
+        experimental-features = ${builtins.concatStringsSep " " nix.settings.experimental-features}
+      '';
+      nixPath = [ "nixpkgs=flake:nixpkgs" ];
+      trustedPublicKeys = nix.settings.trusted-public-keys;
+    };
+  }
 else
+  #? home-manager
   {
     inherit nix;
   }

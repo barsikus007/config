@@ -335,7 +335,6 @@
               home-manager.extraSpecialArgs = specialArgs;
             }
           )
-          #! ./shared/nix.nix
           ./nix-on-droid.nix
         ];
       };

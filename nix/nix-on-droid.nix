@@ -1,36 +1,15 @@
 {
   lib,
   pkgs,
-  inputs,
   config,
   flakePath,
   ...
 }:
 #? https://nix-community.github.io/nix-on-droid/nix-on-droid-options.html#sec-options
 {
-  # modules = [
-  #   #! ./shared/nix.nix
-  # ];
-  nix = {
-    extraOptions = ''
-      experimental-features = nix-command flakes pipe-operators
-    '';
-    registry = {
-      nixpkgs.flake = inputs.nixpkgs;
-    };
-    nixPath = [ "nixpkgs=flake:nixpkgs" ];
-    substituters = [
-      # "https://cache.nixos.org" # ? it is already set in nix-on-droid
-      # "https://nixos-cache-proxy.cofob.dev" # ? cloudflare mirror, uses original keys
-
-      "https://nix-community.cachix.org"
-    ];
-    trustedPublicKeys = [
-      # "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" # ? it is already set in nix-on-droid
-
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-    ];
-  };
+  modules = [
+    ./shared/nix.nix
+  ];
   android-integration.am.enable = true;
   android-integration.termux-setup-storage.enable = true;
   android-integration.termux-open.enable = true;
