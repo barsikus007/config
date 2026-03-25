@@ -7,7 +7,7 @@
 }:
 #? https://nix-community.github.io/nix-on-droid/nix-on-droid-options.html#sec-options
 {
-  modules = [
+  imports = [
     ./shared/nix.nix
   ];
   android-integration.am.enable = true;
