@@ -126,7 +126,7 @@ alias uu='sudo apt update && sudo apt full-upgrade -y && sudo apt autoremove -y 
 alias uuu='sudo nala update && sudo nala upgrade -y && sudo nala autoremove -y && sudo nala clean'
 alias u=uu
 alias pacman='pacman --color=always'
-alias cu='cd ~/config/ && git pull && ./configs/install.sh && cd -'
+alias cu='cd ~/config/ && git pull && ./linux/install.sh && cd -'
 
 
 #? ls replacement

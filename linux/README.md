@@ -42,7 +42,7 @@ cd && git clone https://github.com/barsikus007/config --depth 1 && cd -
 
 ```shell
 #? all
-cd ~/config/ && git pull && ./configs/install.sh && cd -
+cd ~/config/ && git pull && ./linux/install.sh && cd -
 
 setup_ubuntu
 

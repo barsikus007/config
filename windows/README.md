@@ -15,7 +15,7 @@ cd && git clone https://github.com/barsikus007/config --depth 1 && cd -
 # Install/Update
 # sudo is needed for New-Item -ItemType SymbolicLink
 # TODO split initial and incremental setup
-cd ~\config\ && git pull && sudo .\windows\pwsh.ps1 &&.\configs\install.ps1 && cd -
+cd ~\config\ && git pull && sudo .\windows\pwsh.ps1 &&.\windows\install.ps1 && cd -
 ```
 
 ## Post-install

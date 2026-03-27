@@ -3,6 +3,6 @@ repos:
     hooks:
       - id: compile-shell-aliases-from-nix
         name: Run My Shell Script
-        entry: ./configs/hooks/compile-aliases.sh
+        entry: ./linux/hooks/compile-aliases.sh
         language: script
         pass_filenames: false

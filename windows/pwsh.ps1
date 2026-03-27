@@ -18,7 +18,7 @@ scoop alias add up 'scoop update $args' 'Alias to update'
 scoop alias add un 'scoop uninstall $args' 'Alias to uninstall'
 
 Write-Host "Updating config files..." -ForegroundColor Green
-.\$PSScriptRoot\..\configs\install.ps1
+.\$PSScriptRoot\..\windows\install.ps1
 Write-Host "cmd clink..."
 New-Item ~\AppData\Local\clink\ -Force -ItemType Directory | Out-Null
 Copy-Item $PSScriptRoot\terminal\starship.lua ~\AppData\Local\clink\ -Recurse -Force

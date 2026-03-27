@@ -1,6 +1,5 @@
 Write-Host "DEPRECATION WARNING!!! I USE NIX NOW"
 Write-Host "Installing config files..."
-Copy-Item $PSScriptRoot\.config\* ~\.config\ -Recurse -Force
 Copy-Item $PSScriptRoot\..\nix\.config\* ~\.config\ -Recurse -Force
 
 Write-Host "Installing nvim config files..."

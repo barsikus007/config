@@ -119,7 +119,7 @@ if (Test-Command eza) {
 Function suss { scoop update | scoop status }
 Function i { scoop install }
 Function u { suss | scoop update * }
-#* Function cu { cd ~/config/ && git pull && ./configs/install.ps1 && ./windows/pwsh.ps1 && cd - }
+#* Function cu { cd ~/config/ && git pull && ./windows/install.ps1 && ./windows/pwsh.ps1 && cd - }
 
 # docker
 $env:COMPOSE_BAKE=$true
