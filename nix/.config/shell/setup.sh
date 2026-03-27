@@ -116,6 +116,28 @@ setup_arch() {
   )
 }
 
+
+#? package managers and updaters
+# TODO u functions which will resolve all
+# TODO pacman color=auto ?
+alias i='sudo apt install'
+alias ii='sudo nala install'
+alias uu='sudo apt update && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt clean'
+alias uuu='sudo nala update && sudo nala upgrade -y && sudo nala autoremove -y && sudo nala clean'
+alias u=uu
+alias pacman='pacman --color=always'
+alias cu='cd ~/config/ && git pull && ./configs/install.sh && cd -'
+
+
+#? ls replacement
+alias ezal='eza -F -bghM --smart-group --group-directories-first --color=auto --color-scale --icons=always --no-quotes --hyperlink'
+alias ezall='eza -F -labghM --smart-group --group-directories-first --color=auto --color-scale --icons=always --no-quotes --hyperlink'
+alias exal='exa -laFbgh --group-directories-first --color=auto --icons --color-scale'
+alias exall='exa -laFbgh --group-directories-first --color=auto --icons --color-scale'
+alias ls='ls --group-directories-first --color=auto --hyperlink'
+alias ll=lllazy
+alias l=llazy
+
 llalias() {
   if hash eza &> /dev/null; then
     alias ll=ezall

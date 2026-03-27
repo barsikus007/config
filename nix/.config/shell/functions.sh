@@ -16,8 +16,6 @@ ssht() {
   )
 }
 
-dcsh() { docker compose exec -it "$1" sh -c 'bash || sh'; }
-
 a() {
   # shellcheck disable=SC2046
   print -z -- $(
