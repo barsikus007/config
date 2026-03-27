@@ -10,9 +10,11 @@
 
 ## [Windows](./windows/README.md)
 
-## [Versus](./versus/README.md)
-
 ## [Browser](./browser/README.md)
+
+## [Versus](https://notes.ogurez.ipv64.net/Versus/)
+
+My opinion on random things, mostly comparisons between flaming objects
 
 ## [Archive](./аrchive/README.md)
 
