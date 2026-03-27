@@ -10,36 +10,36 @@ echo "DEPRECATION WARNING!!! I USE NIX NOW"
   cp -r "$script_dir/"../nix/.config/ ~/
 
   touch_file_if_not_exist() {
-    # touches $1 if it does not exist
+    #? touches $1 if it does not exist
     if [ ! -f "$1" ]; then
       touch "$1"
     fi
   }
 
   add_line_if_not_exists() {
-    # appends $1 to $2 if it does not exist
+    #? appends $1 to $2 if it does not exist
     if ! grep -q "$1" "$2"; then
-      echo "$1" >>"$2"
+      echo "$1" >> "$2"
     fi
   }
 
   create_bashrc() {
-    # creates .bashrc if it does not exist
+    #? creates .bashrc if it does not exist
     touch_file_if_not_exist ~/.bashrc
   }
 
   create_bash_profile() {
-    # creates .bash_profile if it does not exist
+    #? creates .bash_profile if it does not exist
     touch_file_if_not_exist ~/.bash_profile
   }
 
   add_to_bashrc() {
-    # appends $1 to bashrc if it does not exist
+    #? appends $1 to bashrc if it does not exist
     add_line_if_not_exists "$1" ~/.bashrc
   }
 
   add_to_bash_profile() {
-    # appends $1 to bash_profile if it does not exist
+    #? appends $1 to bash_profile if it does not exist
     add_line_if_not_exists "$1" ~/.bash_profile
   }
 
@@ -52,5 +52,5 @@ echo "DEPRECATION WARNING!!! I USE NIX NOW"
   add_to_bashrc '[ -f "$XDG_CONFIG_HOME/bash/config.bash" ] && source $XDG_CONFIG_HOME/bash/config.bash'
   sed -i 's/^HIST/# HIST/' ~/.bashrc
 )
-# https://stackoverflow.com/questions/2518127/how-to-reload-bashrc-settings-without-logging-out-and-back-in-again
+#? https://stackoverflow.com/questions/2518127/how-to-reload-bashrc-settings-without-logging-out-and-back-in-again
 exec "$SHELL"

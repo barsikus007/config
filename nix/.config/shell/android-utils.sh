@@ -46,7 +46,7 @@ adbfs_connect() {
   umount "$ANDROID_DEVICE_FOLDER"
   mkdir -p "$ANDROID_DEVICE_FOLDER"
   adbfs "$ANDROID_DEVICE_FOLDER" -o "uid=$(id -u),gid=$(id -g)"
-  yy "$ANDROID_DEVICE_FOLDER/storage/emulated/0/"
+  y "$ANDROID_DEVICE_FOLDER/storage/emulated/0/"
 }
 
 adbfs_connected() {

@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# TODO: fzf selection: https://www.reddit.com/r/docker/comments/vovo2b/dockerfzf_exec_bash_if_found_otherwise_sh/
 dcsh() { docker compose exec -it "$1" sh -c 'bash || sh'; }
 
 dclf() {

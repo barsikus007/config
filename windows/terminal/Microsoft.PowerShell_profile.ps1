@@ -152,7 +152,7 @@ Function pyta { ptpython --asyncio }
 # other
 Function sex { explorer.exe . }
 # https://yazi-rs.github.io/docs/quick-start/#shell-wrapper
-Function yy {
+Function y {
     $tmp = (New-TemporaryFile).FullName
     yazi $args --cwd-file="$tmp"
     $cwd = Get-Content -Path $tmp -Encoding UTF8

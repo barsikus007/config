@@ -134,9 +134,6 @@ alias ezal='eza -F -bghM --smart-group --group-directories-first --color=auto --
 alias ezall='eza -F -labghM --smart-group --group-directories-first --color=auto --color-scale --icons=always --no-quotes --hyperlink'
 alias exal='exa -laFbgh --group-directories-first --color=auto --icons --color-scale'
 alias exall='exa -laFbgh --group-directories-first --color=auto --icons --color-scale'
-alias ls='ls --group-directories-first --color=auto --hyperlink'
-alias ll=lllazy
-alias l=llazy
 
 llalias() {
   if hash eza &> /dev/null; then

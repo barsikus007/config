@@ -191,27 +191,28 @@ sudo $(nix build ~/config/nix#libs.goodix-patch-521d --print-out-paths)/bin/run_
 
 #### alias
 
-- 'sudo '
-- fzf
-  - !autocompletion
-  - wgu selector
-    - best location for config files
-      - agenix secrets?
-  - [docker compose](https://www.reddit.com/r/docker/comments/vovo2b/dockerfzf_exec_bash_if_found_otherwise_sh/)
-  - fzc alias=fzf ~/config
-- grep config folder for cheatsheet
-- code=co
-- clear=cl
-- dcu not pull
-- dcup prod
+- fzf-based wgu selector
+  - best location for wg config files
+    - nix secrets?
+- grep config folder for cheatsheets
+  - parse mds to sections?
 - wsl `find / -not -path '/mnt/*'`
-- `find / -not -path '/mnt/*' -name python -not -path '/home/*'`
+  - `find / -not -path '/mnt/*' -name python -not -path '/home/*'`
 - git config core.editor=code --wait --new-window
-- nv show .files
-- nvf current dir or sudo or ignore /proc etc
+- n* aliases
+  - review them
+  - nv show .files
+  - nvf current dir or sudo or ignore /proc etc
 - llt ls tree
   - or lll
 - proto outdated --update
+- yt-dlp
+  - `yt-dlp -F {id}`
+  - `cd ~/storage/downloads/ && yt-dlp -N 16 -R inf -f 135+251 {id}`
+- rsync termux alias
+- bat for zcat
+- pastebin=`echo "something" | curl -F 'file=@-' 0x0.st`
+- speedtest
 
 #### other
 

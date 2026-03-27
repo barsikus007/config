@@ -58,5 +58,4 @@ alias wgs='systemctl status wg-quick-awg0'
 alias wgu='sudo systemctl start wg-quick-awg0'
 alias wgw='sudo watch -c '\''WG_COLOR_MODE=always awg show'\'''
 alias yt-dlpa='yt-dlp --concurrent-fragments=16 --retries=inf'
-alias yy=yazi
 alias zps='zpool status -v'

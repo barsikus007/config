@@ -1,4 +1,6 @@
-# shellcheck disable=SC1091
+export XDG_BIN_HOME=$HOME/.local/bin
+export PATH=$XDG_BIN_HOME:$PATH
+
 for file in "$XDG_CONFIG_HOME"/shell/*.sh; do
   # shellcheck source=/dev/null
   source "$file"
@@ -7,33 +9,37 @@ done
 HISTSIZE=100000
 HISTFILESIZE=100000
 PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
-# default settings
+#? default settings
 HISTCONTROL=ignoreboth
 shopt -s histappend
 
-# If not running interactively, don't do anything
+#? If not running interactively, don't do anything
 case $- in
   (*i*) ;;
   (*) return;;
 esac
 
+
+#? eza/exa/ls lazy usage
+alias ll=lllazy
+alias l=llazy
+
+#? editor
 if hash nvim &> /dev/null; then
+  alias editor=nvim
   export EDITOR=nvim
   export VISUAL=nvim
   export MANPAGER='nvim +Man!'
 fi
-export SYSTEMD_EDITOR=$EDITOR
 
-export PATH=~/.local/bin:$PATH
-
-# https://starship.rs/guide/#🚀-installation
+#? https://starship.rs/guide/#🚀-installation
 if hash starship &> /dev/null; then
   eval "$(starship init bash)"
 fi
 
-# https://yazi-rs.github.io/docs/quick-start/
+#? https://yazi-rs.github.io/docs/quick-start/
 if hash yazi &> /dev/null; then
-  function yy() {
+  function y() {
     local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
     yazi "$@" --cwd-file="$tmp"
     IFS= read -r -d '' cwd < "$tmp"
@@ -42,6 +48,7 @@ if hash yazi &> /dev/null; then
   }
 fi
 
+#? pager
 if hash batcat &> /dev/null; then
   alias bat=batcat
   alias cat=batcat
@@ -55,24 +62,25 @@ fi
 export BAT_THEME="Coldark-Dark"
 export LESS="--mouse"
 
-# https://www.shellcheck.net/wiki/SC2155
-# proto
+#? proto and tools
 export PROTO_HOME=$XDG_CONFIG_HOME/proto
 export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH"
-# go
+#? go
 export GOBIN="$HOME/go/bin"
 export PATH="$GOBIN:$PATH"
-# rust
+#? rust
+# shellcheck source=/dev/null
 source "$HOME/.cargo/env" &> /dev/null
 
+#? https://junegunn.github.io/fzf/shell-integration/
 if hash fzf &> /dev/null; then
-  FZF_VERSION=$(fzf --version | awk '{print $1}')
-  FZF_VERSION_MAJOR=$(echo "$FZF_VERSION" | cut -d. -f1)
-  FZF_VERSION_MINOR=$(echo "$FZF_VERSION" | cut -d. -f2)
-  # ubuntu 2204 and lower moment
-  if [ "$FZF_VERSION_MAJOR" == 0 ] && [ "$FZF_VERSION_MINOR" -le 47 ]; then
+  _FZF_VERSION=$(fzf --version | awk '{print $1}')
+  _FZF_VERSION_MAJOR=$(echo "$_FZF_VERSION" | cut -d. -f1)
+  _FZF_VERSION_MINOR=$(echo "$_FZF_VERSION" | cut -d. -f2)
+  #? ubuntu 2204 and lower moment
+  if [ "$_FZF_VERSION_MAJOR" == 0 ] && [ "$_FZF_VERSION_MINOR" -le 47 ]; then
     source /usr/share/doc/fzf/examples/key-bindings.bash
-    if [ "$FZF_VERSION_MINOR" -ge 21 ]; then
+    if [ "$_FZF_VERSION_MINOR" -ge 21 ]; then
       source /usr/share/bash-completion/completions/fzf
     else
       source /usr/share/doc/fzf/examples/completion.bash
@@ -82,27 +90,7 @@ if hash fzf &> /dev/null; then
   fi
 fi
 
+#? https://github.com/ajeetdsouza/zoxide#installation
 if hash zoxide &> /dev/null; then
   eval "$(zoxide init --cmd cd bash)"
 fi
-
-
-# uv, hatch autocomplete
-# TODO autocompletions resolver
-# TODO move to setup_completions
-# TODO file or folder?
-# uv generate-shell-completion bash > /etc/bash_completion.d/uv.bash-completion
-# https://python-poetry.org/docs/#bash
-# https://github.com/BurntSushi/ripgrep/blob/master/FAQ.md#complete
-# if hash uv &> /dev/null; then
-#   eval "$(uv generate-shell-completion bash)"
-# fi
-# if hash hatch &> /dev/null; then
-#   eval "$(_HATCH_COMPLETE=bash_source hatch)"
-# fi
-# or
-# {
-#   uv generate-shell-completion bash;
-#   _HATCH_COMPLETE=bash_source hatch;
-#   starship completions bash;
-# } >> ~/.bash_completion

@@ -68,7 +68,6 @@ rec {
       wgw = "sudo watch -c 'WG_COLOR_MODE=always ${wgExec} show'";
     };
   otherAliases = {
-    yy = "yazi";
     gdu = "gdu -I ^/mnt";
     zps = "zpool status -v";
     sex = "explorer.exe .";
