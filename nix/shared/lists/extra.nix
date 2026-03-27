@@ -7,6 +7,7 @@ with pkgs;
   git-lfs
   isd
   file
+  prek # pre-commit alternative
   tlrc
   aria2
   sbctl # for systemd-boot (and lumine) secure boot

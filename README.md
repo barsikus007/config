@@ -18,27 +18,6 @@
 
 ## Cross-platform
 
-### aliases
-
-```shell
-nix eval --impure --raw --expr '
-  with import <nixpkgs> { };
-  lib.concatStringsSep "\n" (
-    lib.mapAttrsToList (k: v: "alias ${k}=${lib.escapeShellArg v}") (
-      (builtins.getFlake "github:barsikus007/config?dir=nix")
-      .nixosConfigurations.ROG14.config.home-manager.users.ogurez.programs.bash.shellAliases))
-' > ~/.bash_aliases
-
-nix eval --impure --raw --expr '
-  with import <nixpkgs> { };
-  lib.concatStringsSep "\n" (
-    lib.mapAttrsToList (k: v: "alias -- ${k}=${lib.escapeShellArg v}") (
-      lib.filterAttrs (k: v: v != null) (
-        (builtins.getFlake "github:barsikus007/config?dir=nix")
-        .nixosConfigurations.ROG14.config.home-manager.users.ogurez.programs.zsh.shellAliases)))
-' > ~/.zsh_aliases
-```
-
 ### [git config (`~/.config/git/config`)](https://git-scm.com/docs/git-config)
 
 [nix code to fill](nix/home/default.nix#:~:text=%23%20%7D;-,userName):

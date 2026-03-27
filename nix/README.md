@@ -14,6 +14,9 @@ cd ~/config/nix/
 sed -i 's/ogurez/YOUR_USERNAME/' flake.nix
 sudo nixos-rebuild switch --flake .
 home-manager switch --flake .
+
+cd ..
+prek install
 ```
 
 Set user password and TODO other steps from [NixOS installation manual](https://nixos.org/manual/nixos/stable/#ch-installation)
