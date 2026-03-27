@@ -32,6 +32,7 @@
   #? power management: like in plasma module
   services.power-profiles-daemon.enable = lib.mkDefault true;
   services.upower.enable = config.powerManagement.enable;
+  services.fwupd.enable = lib.mkDefault true;
 
   programs.niri.useNautilus = false;
 

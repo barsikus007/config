@@ -49,7 +49,7 @@ adb shell -t 'su $(su -c "stat -c %U /data/data/com.termux.nix") -c /data/data/c
 
 ```shell
 nix shell nixpkgs#rsync
-rsync -avz --delete --chmod=F0600 --no-owner --no-group storage/shared/Documents/Sync/home/.ssh/ ~/.ssh/
+rsync --verbose --archive --delete --chmod=F0600 --no-owner --no-group storage/shared/Documents/Sync/home/.ssh/ ~/.ssh/
 ```
 
 ## vanilla setup

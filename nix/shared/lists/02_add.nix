@@ -9,6 +9,7 @@ with pkgs;
   lsof
   mosh
   tmux
+  rsync
   zellij
   tree
   yazi # ? no ubuntu

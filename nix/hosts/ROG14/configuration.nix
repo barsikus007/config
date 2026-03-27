@@ -61,6 +61,8 @@
 
   #? https://asus-linux.org/guides/nixos/
   services = {
+    #! I want to manage GPU myself
+    supergfxd.enable = false;
     asusd = {
       enable = true;
       #! https://gitlab.com/asus-linux/asusctl/-/issues/530#note_2101255275

@@ -8,13 +8,14 @@
 #? https://nix-community.github.io/preservation/impermanence-migration.html maybe
 let
   inherit (config.fileSystems."/nix") device;
+  persistentDir = "/persistent";
 in
 {
   imports = [
     inputs.impermanence.nixosModules.impermanence
   ];
   #? sudo btrfs subvolume create /@persistent
-  fileSystems."/persistent" = {
+  fileSystems.${persistentDir} = {
     inherit device;
     fsType = "btrfs";
     neededForBoot = true;
@@ -51,11 +52,12 @@ in
   '';
 
   # TODO: secrets
-  users.users.${username}.hashedPasswordFile = "/persistent/etc/nixos/passwords/${username}.hash";
+  users.users.${username}.hashedPasswordFile =
+    "${persistentDir}/etc/nixos/passwords/${username}.hash";
 
   # sudo mkdir -p /persistent/etc/NetworkManager /persistent/var/{db,log,lib}
   # sudo cp -ax --reflink=always ...
-  environment.persistence."/persistent" = {
+  environment.persistence."${persistentDir}" = {
     # enable = false; # ? NB: Defaults to true, not needed
     hideMounts = true;
 
@@ -79,17 +81,14 @@ in
       "/var/lib/bluetooth"
       "/var/lib/btrfs"
       "/var/lib/cups"
-      # "/var/lib/fwupd" # TODO: is this needed? firewall; fwupd-refresh:fwupd-refresh
       "/var/lib/fprint" # ? enrolled fingers
-      # "/var/lib/lastlog" # TODO: is this needed? sddm
       "/var/lib/libvirt"
       # "/var/lib/misc" # TODO: is this needed? dnsmasq waydroid
       # "/var/lib/NetworkManager" # TODO: is this needed?
       "/var/lib/nixos"
-      # "/var/lib/power-profiles-daemon" # TODO: is this needed? my experiments with power toggling
+      "/var/lib/power-profiles-daemon" # ? to persist power-profile
       # "/var/lib/private" # TODO: is this needed? rustdesk
       # "/var/lib/sbctl" # TODO: is this needed? secure boot
-      # "/var/lib/swtpm-localca" # TODO: is this needed? tpm for libvirtd
       # "/var/lib/systemd/backlight" # TODO: is this needed? keyboard backlight
       # "/var/lib/systemd/catalog" # TODO: is this needed? creates auto, binary database for the Journal Message Catalog (extended log descriptions)
       "/var/lib/systemd/coredump"
@@ -189,7 +188,6 @@ in
         ".android"
         ".gemini"
         ".mozilla"
-        ".ocat" # TODO: macos opencore
         ".thunderbird"
         ".vscode"
 
@@ -228,10 +226,11 @@ in
     "L+ /home/${username}/.ssh 0700 ${username} users - /home/${username}/Sync/home/.ssh/"
     "L+ /home/${username}/projects 0700 ${username} users - /run/media/${username}/Data/projects/"
 
-    "L+ /home/${username}/awg0.conf 0600 ${username} users - /home/${username}/Sync/wg/donstux-linux-49.conf"
+    # "L+ /home/${username}/awg0.conf 0600 ${username} users - /home/${username}/Sync/wg/donstux-linux-49.conf"
+    "L+ /home/${username}/awg0.conf 0600 ${username} users - ${persistentDir}/home/${username}/awg0.conf"
 
-    # "L+ /home/${username}/.config/plasmashellrc 0600 ${username} users - /persistent/home/${username}/.config/plasmashellrc" # ??????? desktop
-    # "L+ /home/${username}/.config/plasma-org.kde.plasma.desktop-appletsrc 0600 ${username} users - /persistent/home/${username}/.config/plasma-org.kde.plasma.desktop-appletsrc" # ??????? desktop
-    # "L+ /home/${username}/.config/syncthingtray.ini 0600 ${username} users - /persistent/home/${username}/.config/syncthingtray.ini" # TODO: config?
+    # "L+ /home/${username}/.config/plasmashellrc 0600 ${username} users - ${persistentDir}/home/${username}/.config/plasmashellrc" # ??????? desktop
+    # "L+ /home/${username}/.config/plasma-org.kde.plasma.desktop-appletsrc 0600 ${username} users - ${persistentDir}/home/${username}/.config/plasma-org.kde.plasma.desktop-appletsrc" # ??????? desktop
+    # "L+ /home/${username}/.config/syncthingtray.ini 0600 ${username} users - ${persistentDir}/home/${username}/.config/syncthingtray.ini" # TODO: config?
   ];
 }

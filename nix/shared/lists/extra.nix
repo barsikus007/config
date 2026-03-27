@@ -17,7 +17,6 @@ with pkgs;
   hadolint # Dockerfile
   pciutils # lspci
   usbutils # lssub
-  rsync
   strace # files monitoring
   qrencode
   inotify-tools # files monitoring
