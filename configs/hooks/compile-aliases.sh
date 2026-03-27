@@ -2,7 +2,6 @@
 # shellcheck disable=SC2016
 
 #? nix code was borrowed from home modules itself
-# TODO: a lot of hardcode here
 
 {
   echo "#!/bin/sh"
@@ -15,8 +14,8 @@ nix eval --impure --raw --expr '
   with import <nixpkgs> { };
   lib.concatStringsSep "\n" (
     lib.mapAttrsToList (k: v: "alias ${k}=${lib.escapeShellArg v}") (
-      (builtins.getFlake (toString ./nix))
-      .nixosConfigurations.ROG14.config.home-manager.users.ogurez.programs.bash.shellAliases))
+      (import ./nix/home/shell/aliases.nix { inherit lib pkgs; flakePath = toString ./nix; }).sharedAliases
+    ))
 ' >> ./configs/.config/shell/aliases.sh
 
 git add ./configs/.config/shell/aliases.sh
@@ -27,8 +26,8 @@ git add ./configs/.config/shell/aliases.sh
 #   lib.concatStringsSep "\n" (
 #     lib.mapAttrsToList (k: v: "alias -- ${k}=${lib.escapeShellArg v}") (
 #       lib.filterAttrs (k: v: v != null) (
-#         (builtins.getFlake "github:barsikus007/config?dir=nix")
-#         .nixosConfigurations.ROG14.config.home-manager.users.ogurez.programs.zsh.shellAliases)))
+#         (import ./nix/home/shell/aliases.nix { inherit lib pkgs; flakePath = toString ./nix; }).sharedAliases
+#       )))
 # ' > ./configs/.config/zsh/aliases.sh
 
 # git add ./configs/.config/zsh/aliases.sh

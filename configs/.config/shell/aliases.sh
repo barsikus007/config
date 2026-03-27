@@ -29,7 +29,6 @@ alias grep='grep --color=auto'
 alias grp='grep -Fin -C 7'
 alias h=history
 alias hf='h | grp'
-alias iusenixbtw=fastfetch
 alias jctl=journalctl
 alias jctlb='jctl --boot=0'
 alias jctld='jctlb --dmesg'
@@ -40,21 +39,6 @@ alias lls='\command ls'
 alias ls='ls --group-directories-first --color=auto --hyperlink'
 alias lzd=lazydocker
 alias lzg=lazygit
-alias n='nh home switch /home/ogurez/config/nix'
-alias ncode='code --reuse-window $(nix eval -f '\''<nixpkgs>'\'' path)/pkgs/top-level/all-packages.nix'
-alias nd='nh clean all'
-alias ndiff='/nix/store/h4ksvpjsw7ns33b4wnd4pbql3bbk5mb4-nvd-0.2.4/bin/nvd diff ~/.local/state/nix/profiles/$(command ls -t ~/.local/state/nix/profiles | fzf) ~/.local/state/nix/profiles/home-manager'
-alias ne='editor /home/ogurez/config/nix'
-alias nix-shell='nix-shell --run zsh'
-alias nn='nh os switch /home/ogurez/config/nix'
-alias nndiff='/nix/store/h4ksvpjsw7ns33b4wnd4pbql3bbk5mb4-nvd-0.2.4/bin/nvd diff /nix/var/nix/profiles/$(command ls -t /nix/var/nix/profiles/ | fzf) /nix/var/nix/profiles/system'
-alias nr='nix repl --file /home/ogurez/config/nix/repl.nix'
-alias nrr='nh home repl /home/ogurez/config/nix'
-alias nrrr='nixos-rebuild repl --flake /home/ogurez/config/nix'
-alias ns='nix-shell -p'
-alias nss=nix_shell_exec
-alias nu='nix flake update --flake /home/ogurez/config/nix'
-alias nuu='nix flake update nixpkgs --override-input nixpkgs nixpkgs/$(nixos-version --hash)'
 alias nv='nvim +"lua vim.schedule(function() require('\''telescope.builtin'\'').oldfiles() end)"'
 alias nvf='nvim +"lua vim.schedule(function() require('\''telescope.builtin'\'').find_files({hidden=true}) end)"'
 alias nvg='nvim +"lua vim.schedule(function() require('\''telescope.builtin'\'').live_grep({hidden=true}) end)"'
