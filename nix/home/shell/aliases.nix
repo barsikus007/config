@@ -67,6 +67,16 @@ rec {
       wgr = "sudo systemctl restart wg-quick-${wgExec}0";
       wgw = "sudo watch -c 'WG_COLOR_MODE=always ${wgExec} show'";
     };
+  xrayAliases =
+    let
+      xrayService = "dae";
+    in
+    {
+      xru = "sudo systemctl start ${xrayService}";
+      xrs = "systemctl status ${xrayService}";
+      xrd = "sudo systemctl stop ${xrayService}";
+      xrr = "sudo systemctl restart ${xrayService}";
+    };
   otherAliases = {
     gdu = "gdu -I ^/mnt";
     zps = "zpool status -v";
@@ -115,6 +125,7 @@ rec {
     // dockerAliases
     // pythonAliases
     // wgAliases
+    // xrayAliases
     // otherAliases
     // ezaAliases
     // nvimAliases
