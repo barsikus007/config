@@ -187,6 +187,7 @@ in
         #? apps
         ".android"
         ".gemini"
+        ".claude"
         ".mozilla"
         ".thunderbird"
         ".vscode"
@@ -208,6 +209,8 @@ in
       ];
 
       files = [
+        ".claude.json"
+
         ".config/kwin_dialogsrc"
         ".config/kwinoutputconfig.json" # ? monitors
         ".config/syncthingtray.ini" # TODO: config?

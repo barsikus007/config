@@ -21,8 +21,8 @@ let
         "pipe-operators"
       ];
 
-      stalled-download-timeout = 4;
-      connect-timeout = 4;
+      stalled-download-timeout = 3;
+      connect-timeout = 3;
 
       substituters = lib.mkBefore [
         "https://cache.nixos.org"

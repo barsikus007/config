@@ -7,7 +7,7 @@ rec {
   baseAliases = {
     #? https://askubuntu.com/a/22043
     #? https://superuser.com/a/1655578
-    sudo="sudo env PATH=$PATH ";
+    sudo = "sudo env PATH=$PATH ";
     editor = "nano";
     grep = "grep --color=auto";
     grp = "grep -Fin -C 7";
@@ -21,16 +21,18 @@ rec {
     nv = "editor $(fzf)";
     nvf = ''editor $(find "/" | fzf)'';
     nvs = "editor $(rg -n . | fzf | awk -F: '{print \"+\"$2,$1}')";
+    cu = "cd ${flakePath} && git pull && cd -";
+    diff = "diff --color";
+    #? https://www.cyberciti.biz/faq/unix-linux-check-if-port-is-in-use-command/
+    open-ports = "sudo lsof -i -P -n | grep LISTEN";
+  };
+  networkTestAliases = {
     "1ip" = "wget -qO - icanhazip.com";
     "2ip" = "curl 2ip.ru";
     "3ip" = "curl -so- ipinfo.io | jq";
     "4ip" = "curl -so- wtfismyip.com/json | jq";
-    cu = "cd ${flakePath} && git pull && cd -";
-    #? nix have ip with prebuilt color, alias brokes autocmpletion
-    # ip = "ip --color";
-    diff = "diff --color";
-    #? https://www.cyberciti.biz/faq/unix-linux-check-if-port-is-in-use-command/
-    open-ports = "sudo lsof -i -P -n | grep LISTEN";
+    speedtest = "curl https://speedtest.selectel.ru/100MB --output /dev/null";
+    speedtest-as-youtube = "curl --insecure --connect-to ::speedtest.selectel.ru https://www.youtube.com/100MB --output /dev/null";
   };
   dockerAliases = {
     lzd = "lazydocker";
@@ -76,6 +78,7 @@ rec {
       xrs = "systemctl status ${xrayService}";
       xrd = "sudo systemctl stop ${xrayService}";
       xrr = "sudo systemctl restart ${xrayService}";
+      xrw = "journalctl --follow --unit=${xrayService}";
     };
   otherAliases = {
     gdu = "gdu -I ^/mnt";
@@ -100,7 +103,7 @@ rec {
     jctl = "journalctl";
     jctlb = "jctl --boot=0";
     jctld = "jctlb --dmesg";
-    jctlf = "jctlb --follow";
+    jctlf = "jctl --follow";
   };
   nixAliases = {
     iusenixbtw = "fastfetch";
@@ -122,6 +125,7 @@ rec {
   };
   sharedAliases =
     baseAliases
+    // networkTestAliases
     // dockerAliases
     // pythonAliases
     // wgAliases
@@ -132,7 +136,7 @@ rec {
     // journalCtlAliases;
   zshAliases = {
     #? https://bbs.archlinux.org/viewtopic.php?id=132830
-    sudo="nocorrect sudo env PATH=$PATH ";
+    sudo = "nocorrect sudo env PATH=$PATH ";
     "?" = "type_colored_and_nix_truncate";
     "??" = "type_colored";
     history-cat = "nvim -R +'set filetype=bash' ~/.config/zsh/.zsh_history";

@@ -16,7 +16,6 @@ with pkgs;
   # openvas-scanner
   # burpsuite
   # caido
-  wireshark
   #? wifi specialised
   mdk4
   wifite2
@@ -26,6 +25,8 @@ with pkgs;
   # networking tools
   zmap
   iperf
+  tcpdump
+  wireshark
   rustscan # nmap
   bind
   ldns # have drill like dig

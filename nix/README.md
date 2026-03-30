@@ -15,6 +15,7 @@ sed -i 's/ogurez/YOUR_USERNAME/' flake.nix
 sudo nixos-rebuild switch --flake .
 home-manager switch --flake .
 
+#? enable pre-commit
 cd ..
 prek install
 ```
@@ -212,7 +213,6 @@ sudo $(nix build ~/config/nix#libs.goodix-patch-521d --print-out-paths)/bin/run_
 - rsync termux alias
 - bat for zcat
 - pastebin=`echo "something" | curl -F 'file=@-' 0x0.st`
-- speedtest
 
 #### other
 

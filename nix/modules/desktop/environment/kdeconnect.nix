@@ -10,5 +10,8 @@
     kdePackages.krfb
     #? https://noctalia.dev/plugins/kde-connect/
     kdePackages.qttools
+
+    #? for non-dolphin mounting
+    sshfs
   ];
 }

@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, username, ... }:
 {
   boot.initrd = {
     #! lspci -v | grep -iA8 'network\|ethernet'
@@ -10,7 +10,7 @@
       ssh = {
         enable = true;
         port = 22222;
-        authorizedKeys = config.users.users.root.openssh.authorizedKeys.keys;
+        authorizedKeys = config.users.users.${username}.openssh.authorizedKeys.keys;
         #! sudo mkdir -p /etc/secrets/initrd/ && sudo ssh-keygen -t ed25519 -N "" -f /etc/secrets/initrd/ssh_host_ed25519_key
         hostKeys = [ "/etc/secrets/initrd/ssh_host_ed25519_key" ];
       };

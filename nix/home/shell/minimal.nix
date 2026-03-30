@@ -15,6 +15,7 @@ in
   imports = [
     ./bat.nix
   ];
+  home.packages = with pkgs; [ zsh-completions ];
   # TODO: finer way to do it
   xdg.configFile."shell/".source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/shell/";
   programs.zsh = {
@@ -28,10 +29,10 @@ in
     # enableCompletion = true; #? default
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
-    plugins = [
+    plugins = with pkgs; [
       {
         name = "zsh-fzf-tab";
-        src = pkgs.zsh-fzf-tab;
+        src = zsh-fzf-tab;
         file = "share/fzf-tab/fzf-tab.plugin.zsh";
       }
     ];

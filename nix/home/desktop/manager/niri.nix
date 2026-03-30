@@ -23,7 +23,8 @@
   #! https://github.com/sodiboo/niri-flake/issues/1393
   xdg.configFile."niri/config.kdl".source =
     config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/niri/config.kdl";
-  xdg.configFile.niri-config.target = lib.mkForce "niri/nix-generated-config.kdl";
+  #? to make it overridable by dms-flake
+  xdg.configFile.niri-config.target = lib.mkOverride 75 "niri/nix-generated-config.kdl";
   xdg.portal.enable = lib.mkForce false; # ! handled by nixos module
   programs.niri = {
     enable = true;
@@ -46,22 +47,6 @@
           accel-speed = -0.1;
           scroll-factor = 0.3;
         };
-      };
-      # TODO: asus
-      outputs."eDP-1" = {
-        mode.width = 1920;
-        mode.height = 1080;
-        mode.refresh = 120.003;
-
-        scale = 1;
-        position.x = 0;
-        position.y = 360;
-        # scale = 1.2;
-        # position.x = 0;
-        # position.y = 540;
-        # scale = 1.5;
-        # position.x = 0;
-        # position.y = 720;
       };
 
       #? https://niri-wm.github.io/niri/Configuration:-Layout

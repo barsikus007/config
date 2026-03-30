@@ -15,7 +15,7 @@ confirm() {
 }
 
 soft_envs() {
-  soft_unix="git curl wget"
+  soft_unix="git curl wget unzip"
   soft_base="bat duf gdu fzf btop neovim zoxide ripgrep"
   # fd make bzip2
   soft_add="eza tmux tree"
@@ -98,7 +98,7 @@ setup_ubuntu() {
     soft_envs
     echo "Installing nala and $soft_unix $soft_base $soft_add $soft_add_ubuntu..."
     sudo apt install nala && \
-    sudo nala fetch --auto && \
+    sudo nala fetch --auto
     uuu && \
     sudo nala install $soft_unix $soft_base $soft_add $soft_add_ubuntu -y
     confirm "Do you want to remove $soft_to_purge?" && sudo nala purge $soft_to_purge -y

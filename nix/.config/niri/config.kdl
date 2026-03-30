@@ -24,6 +24,24 @@ debug {
     ignore-drm-device "/dev/dri/by-path/pci-0000:01:00.0-render"
 }
 
+// TODO: asus
+output "eDP-1" {
+    mode "1920x1080@120.003"
+
+    // scale 1.0
+    // position x=0 y=0
+
+    //? docked modes
+    scale 1.0
+    position x=0 y=360
+
+    // scale 1.2
+    // position x=0 y=540
+
+    // scale 1.5
+    // position x=0 y=720
+}
+
 //#region window-rules
 // Window rules let you adjust behavior for individual windows.
 // Find more information on the wiki:
@@ -34,6 +52,11 @@ debug {
 window-rule {
     geometry-corner-radius 16
     clip-to-geometry true
+}
+
+window-rule {
+    match app-id=r#"^org\.wezfurlong\.wezterm$"#
+    default-column-width { proportion 0.5; }
 }
 
 // Open the apps as floating by default.

@@ -29,6 +29,7 @@
   ];
 
   services.displayManager.gdm.enable = !config.services.displayManager.sddm.enable;
+
   #? power management: like in plasma module
   services.power-profiles-daemon.enable = lib.mkDefault true;
   services.upower.enable = config.powerManagement.enable;
@@ -37,8 +38,10 @@
   programs.niri.useNautilus = false;
 
   environment.systemPackages = with pkgs; [
+    wdisplays
     kdePackages.qt6ct
   ];
+
   services.gnome.gnome-keyring.enable = false;
   xdg.portal = {
     extraPortals = with pkgs; [

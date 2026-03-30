@@ -20,6 +20,8 @@ case $- in
 esac
 
 
+alias ip='ip -color=auto'
+
 #? eza/exa/ls lazy usage
 alias ll=lllazy
 alias l=llazy

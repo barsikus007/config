@@ -17,9 +17,4 @@
   environment.systemPackages = with pkgs; [
     xwayland-satellite
   ];
-
-  programs.dms-shell = {
-    # enable = true;
-    systemd.enable = false;
-  };
 }

@@ -131,6 +131,7 @@
           "browser.translations.neverTranslateLanguages" = "ru";
           # "devtools.chrome.enabled" = true; # Allow executing JS in the dev console
           # "browser.uitour.enabled" = false; # no tutorial please
+          "browser.compactmode.show" = true;
           "layers.acceleration.force-enabled" = true;
           "gfx.webrender.all" = true;
           "gfx.webrender.enabled" = true;
@@ -458,6 +459,23 @@
               iconMapObj."32" =
                 "https://www.gstatic.com/lamda/images/gemini_sparkle_aurora_33f86dc0c0257da337c63.svg";
               definedAliases = [ "ge" ];
+            };
+            # TODOL needs violentmonkey script which doesn't exist yet
+            "Claude" = {
+              urls = [
+                {
+                  template = "https://claude.ai/new";
+                  params = [
+                    {
+                      name = "q";
+                      value = "{searchTerms}";
+                    }
+                  ];
+                }
+              ];
+
+              iconMapObj."32" = "https://claude.ai/favicon.svg";
+              definedAliases = [ "cl" ];
             };
             "GitHub" = {
               urls = [
