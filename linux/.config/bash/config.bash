@@ -80,8 +80,13 @@ if hash fzf &> /dev/null; then
   _FZF_VERSION_MAJOR=$(echo "$_FZF_VERSION" | cut -d. -f1)
   _FZF_VERSION_MINOR=$(echo "$_FZF_VERSION" | cut -d. -f2)
   #? ubuntu 2204 and lower moment
+  # shellcheck source=/dev/null
   if [ "$_FZF_VERSION_MAJOR" == 0 ] && [ "$_FZF_VERSION_MINOR" -le 47 ]; then
-    source /usr/share/doc/fzf/examples/key-bindings.bash
+    if [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
+      source /usr/share/doc/fzf/examples/key-bindings.bash
+    else
+      echo 'sudo curl https://raw.githubusercontent.com/junegunn/fzf/refs/tags/0.44.1/shell/key-bindings.bash --output /usr/share/doc/fzf/examples/key-bindings.bash'
+    fi
     if [ "$_FZF_VERSION_MINOR" -ge 21 ]; then
       source /usr/share/bash-completion/completions/fzf
     else

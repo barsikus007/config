@@ -6,7 +6,7 @@
     #! https://github.com/nix-community/home-manager/pull/8707
     # settings = {
     #   general = {
-    #     enableNotifications = true;
+    #     enableNotifications = true; #? macos only wtf google
     #   };
     #   modelConfigs = {
     #     customOverrides = [

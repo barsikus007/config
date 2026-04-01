@@ -70,6 +70,7 @@ lurkmore.media##.sitenotice
   - [SponsorBlock for YouTube - Skip Sponsorships](https://sponsor.ajay.app)
   - ^[Disable Stopping Popup](https://github.com/lawfx/YoutubeNonStop)
   - [Auto FullHD](https://github.com/avi12/youtube-auto-hd)
+    - set 720p for youtube music
 - [Search by Image](https://github.com/dessant/search-by-image)
 - ^[Refined GitHub](https://github.com/refined-github/refined-github)
 - [Ruffle](https://ruffle.rs/)
