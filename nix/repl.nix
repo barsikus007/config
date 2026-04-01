@@ -1,6 +1,10 @@
+{
+  #? nr --argstr configurationName "coolvm"
+  configurationName ? "ROG14",
+}:
 let
   flake = builtins.getFlake (toString ./.);
-  nixos = flake.nixosConfigurations."ROG14";
+  nixos = flake.nixosConfigurations.${configurationName};
   inherit (nixos) config options;
 in
 nixos
