@@ -12,6 +12,7 @@
     ../style/qt-for-gtk.nix
     ../environment/explorer/dolphin.nix
     ../environment/kdeconnect.nix
+    ../environment/kwallet.nix
     ../environment/win-apps.nix
   ];
   home-manager.users.${username}.imports = [
@@ -39,10 +40,6 @@
     wdisplays
     kdePackages.qt6ct
   ];
-
-  services.gnome.gnome-keyring.enable = false;
-  xdg.portal.extraPortals = with pkgs; [ kdePackages.kwallet ];
-  xdg.portal.config.common."org.freedesktop.impl.portal.Secret" = [ "kwallet" ];
 
   #? Fix unpopulated MIME menus in dolphin: https://discourse.nixos.org/t/dolphin-does-not-have-mime-associations/48985/8
   environment.etc."/xdg/menus/applications.menu".text =

@@ -18,6 +18,7 @@ nix eval --impure --raw --expr '
     ))
 ' >> ./linux/.config/shell/aliases.sh
 
+chmod +x ./linux/.config/shell/aliases.sh
 git add ./linux/.config/shell/aliases.sh
 
 
