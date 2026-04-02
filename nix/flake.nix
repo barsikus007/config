@@ -205,6 +205,15 @@
         ];
       };
 
+      #? nix run github:nix-community/nixos-anywhere -- --flake ./nix#generic-VPS --generate-hardware-config nixos-generate-config ./hardware-configuration.nix <hostname>
+      nixosConfigurations."generic-VPS" = nixpkgs.lib.nixosSystem {
+        inherit system pkgs;
+        specialArgs = mkSpecialArgs "nixos";
+        modules = [
+          ./hosts/vps
+        ];
+      };
+
       #? subset of my desktop system for testing purposes
       nixosConfigurations."coolvm" = nixpkgs.lib.nixosSystem {
         #? nh os build-vm --hostname coolvm && ./result/bin/run-*-vm
