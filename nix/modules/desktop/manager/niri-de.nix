@@ -10,9 +10,9 @@
   imports = [
     ./niri.nix
     ../style/qt-for-gtk.nix
-    ../environment/win-apps.nix
     ../environment/explorer/dolphin.nix
     ../environment/kdeconnect.nix
+    ../environment/win-apps.nix
   ];
   home-manager.users.${username}.imports = [
     ../../../home/desktop/environment/kde-settings.nix

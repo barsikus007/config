@@ -1,5 +1,17 @@
 #!/bin/bash
 
+#? package managers and updaters
+# TODO u functions which will resolve all
+# TODO pacman color=auto ?
+alias i='sudo apt install'
+alias ii='sudo nala install'
+alias uu='sudo apt update && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt clean'
+alias uuu='sudo nala update && sudo nala upgrade -y && sudo nala autoremove -y && sudo nala clean'
+alias u=uu
+alias pacman='pacman --color=always'
+alias cu='cd ~/config/ && git pull && ./linux/install.sh && cd -'
+
+
 confirm() {
   printf "%s [Y/n] " "$1"
   read -r resp < /dev/tty
@@ -46,6 +58,7 @@ setup_docker() {
 
 setup_user() {
   (
+    echo "Creating $USER/.local/bin/ directory"
     mkdir -p ~/.local/bin/
     if ! hash bat; then
       if hash batcat; then
@@ -57,7 +70,7 @@ setup_user() {
     fi
     if ! hash starship; then
       echo "Setting up starship..."
-      curl -sS https://starship.rs/install.sh | sh
+      curl -sS https://starship.rs/install.sh | sh -s -- --yes --bin-dir="$HOME/.local/bin/"
     fi
     if ! hash yazi; then
       echo "Setting up yazi..."
@@ -97,8 +110,10 @@ setup_ubuntu() {
   (
     soft_envs
     echo "Installing nala and $soft_unix $soft_base $soft_add $soft_add_ubuntu..."
-    sudo apt install nala && \
-    sudo nala fetch --auto
+    sudo apt install nala
+    if [ ! -f /etc/apt/sources.list.d/nala-sources.list ]; then
+      sudo nala fetch --auto
+    fi
     uuu && \
     sudo nala install $soft_unix $soft_base $soft_add $soft_add_ubuntu -y
     confirm "Do you want to remove $soft_to_purge?" && sudo nala purge $soft_to_purge -y
@@ -115,18 +130,6 @@ setup_arch() {
     setup_linux
   )
 }
-
-
-#? package managers and updaters
-# TODO u functions which will resolve all
-# TODO pacman color=auto ?
-alias i='sudo apt install'
-alias ii='sudo nala install'
-alias uu='sudo apt update && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt clean'
-alias uuu='sudo nala update && sudo nala upgrade -y && sudo nala autoremove -y && sudo nala clean'
-alias u=uu
-alias pacman='pacman --color=always'
-alias cu='cd ~/config/ && git pull && ./linux/install.sh && cd -'
 
 
 #? ls replacement

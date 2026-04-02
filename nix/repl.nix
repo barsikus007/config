@@ -9,6 +9,7 @@ let
 in
 nixos
 // {
+  c = config;
   inherit flake;
   lightThemeConfig = config.specialisation.light.configuration;
   home = builtins.head (builtins.attrValues config.home-manager.users) // {

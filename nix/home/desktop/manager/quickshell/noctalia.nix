@@ -60,9 +60,9 @@ in
             }
 
             {
-              # id = "ActiveWindow";
-              id = "Taskbar";
-              showTitle = true;
+              id = "ActiveWindow";
+              # id = "Taskbar";
+              # showTitle = true;
             }
           ];
           center = [

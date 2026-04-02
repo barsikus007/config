@@ -60,6 +60,10 @@
       url = "github:MakiseKurisu/dewclaw";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     niri = {
       url = "github:sodiboo/niri-flake";
@@ -214,8 +218,8 @@
           # ./hosts/vm/paravirt-spiced.nix
           # ./hosts/vm/vfio-pass.nix
 
-          # ./hosts/vm/niri-paravirt.nix
-          ./hosts/vm/kde-sunshined.nix
+          ./hosts/vm/niri-paravirt.nix
+          # ./hosts/vm/kde-sunshined.nix
           #! ./result/bin/run-*-vm -device virtio-vga
           # ./hosts/vm/kde-sunshined-vfio.nix
           {
@@ -235,7 +239,7 @@
           }
           # ./shared
 
-          # ./modules/desktop/manager/niri-de.nix
+          ./modules/desktop/manager/niri-de.nix
           # ./modules/desktop/manager/plasma.nix
           #? link current nixpkgs source to store to avoid refetching it withing guest
           (
@@ -397,6 +401,7 @@
         {
           #? nix {build,run} ./nix# <tab>
 
+          coolvm = self.nixosConfigurations."coolvm".config.system.build.vm;
           nixosMinimalIso = self.nixosConfigurations."minimalIso-${system}".config.system.build.isoImage;
           nixosPlasmaIso = self.nixosConfigurations."plasmaIso-${system}".config.system.build.isoImage;
           windowsBootstrapIso = callPackage ./packages/windows { };

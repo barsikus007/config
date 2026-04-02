@@ -7,10 +7,10 @@
     #? it lacks of compose zsh completions
     ./podman.nix
 
-    # ./docker.nix
     # (import ./docker.nix {
     #   inherit username;
-    #   rootless = true;
+    #   # rootless = true;
+    #   storageDriver = "btrfs";
     # })
   ];
 

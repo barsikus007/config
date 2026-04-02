@@ -134,8 +134,11 @@ window-rule {
 // so it doesn't get auto-focused by default.
 window-rule {
     match app-id=r#"^org\.keepassxc\.KeePassXC$"# title="^KeePassXC - Browser Access Request$"
+    match app-id=r#"^org\.keepassxc\.KeePassXC$"# title="^KeePassXC - Update Entry$"
     match app-id=r#"^org\.keepassxc\.KeePassXC$"# title="^Unlock Database - KeePassXC$"
+    match app-id=r#"^org\.keepassxc\.KeePassXC$"# title="^Generate Password$"
     open-focused true
+    open-floating true
 }
 
 //? https://niri-wm.github.io/niri/Configuration%3A-Named-Workspaces.html
@@ -202,6 +205,7 @@ binds {
     Mod+F2    hotkey-overlay-title="Run an Application" { spawn-sh "noctalia-shell ipc call launcher toggle"; }
     Alt+Space hotkey-overlay-title="Run an Application" { spawn-sh "noctalia-shell ipc call launcher toggle"; }
     Mod+S     hotkey-overlay-title="Run an Application" { spawn "anyrun"; }
+    Mod+D     hotkey-overlay-title="Run an Application" { spawn "fuzzel"; }
     // Mod+Shift+D hotkey-overlay-title="Run an Application" { spawn-sh "tmux new -s xd -d 'scrcpy -K --render-driver=opengles2 --no-audio --video-bit-rate=1M --serial=OnePlus-15.lan:5555'"; }
     // Mod+D hotkey-overlay-title="Run an Application" { spawn-sh "tmux kill-session -t xd"; }
     Mod+L hotkey-overlay-title="Lock the Screen" allow-when-locked=true { spawn-sh "noctalia-shell ipc call lockScreen lock"; }

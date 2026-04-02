@@ -10,6 +10,7 @@
 
 {
   imports = [
+    #? https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/installer/scan/not-detected.nix
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 

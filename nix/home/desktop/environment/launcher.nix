@@ -5,6 +5,7 @@
   ...
 }:
 {
+  programs.fuzzel.enable = true;
   programs.anyrun = {
     enable = true;
     config = {

@@ -124,6 +124,31 @@ sudo btrfs subvolume snapshot -r /btrfs_tmp/@persistent "/btrfs_tmp/@persistent-
 sudo btrfs send "/btrfs_tmp/@persistent-backup-$BACKUP_DATE" | zstd | pv | ssh admin "cat > /tank/storage/backups/@persistent-backup-$BACKUP_DATE.btrfs.zst"
 ```
 
+## wireguard
+
+### exclude private ips from routing through wg tunnel
+
+```shell
+[Interface]
+PostUp = DEFRT=$(ip route show default | cut -d ' ' -f 2-); for NET in 192.168.0.0/16 169.254.0.0/16 172.16.0.0/12 100.64.0.0/10 10.0.0.0/8; do ip route add $NET $DEFRT protocol 127; done
+PreDown = ip route flush protocol 127
+#! Also allow your DNS in AllowedPeers with /32 it its in wg network
+```
+
+[or one of the cool ways to do that](https://www.wireguard.com/netns/)
+
+```shell
+PostUp =  awg set %i fwmark 51820
+PostUp =  ip -4 rule add not fwmark 51820 table 51820
+PostUp =  ip -4 rule add table main suppress_prefixlength 0
+PreDown = ip -4 rule del not fwmark 51820 table 51820
+PreDown = ip -4 rule del table main suppress_prefixlength 0
+PostUp =  ip -6 rule add not fwmark 51820 table 51820
+PostUp =  ip -6 rule add table main suppress_prefixlength 0
+PreDown = ip -6 rule del not fwmark 51820 table 51820
+PreDown = ip -6 rule del table main suppress_prefixlength 0
+```
+
 ## distrobox
 
 ```shell

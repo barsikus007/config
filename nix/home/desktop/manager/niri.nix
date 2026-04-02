@@ -26,6 +26,7 @@
   #? to make it overridable by dms-flake
   xdg.configFile.niri-config.target = lib.mkOverride 75 "niri/nix-generated-config.kdl";
   xdg.portal.enable = lib.mkForce false; # ! handled by nixos module
+  services.gnome-keyring.enable = lib.mkForce false; # ! handled by nixos module
   programs.niri = {
     enable = true;
     package = with pkgs; niri;
