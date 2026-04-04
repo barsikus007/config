@@ -35,7 +35,6 @@ with pkgs;
   shfmt
   iotop
   fatrace # sudo fatrace . 2>&1 | grep firefox
-  systemctl-tui
 
   yaak
   bruno

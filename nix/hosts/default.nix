@@ -27,9 +27,7 @@
   };
   environment.variables.VISUAL = "nvim";
 
-  # TODO: unstable: https://github.com/NixOS/nixpkgs/pull/361716
-  # boot.kernelPackages = lib.mkDefault (with pkgs; linuxPackages_latest);
-  boot.kernelPackages = lib.mkDefault (with pkgs; linuxPackages_6_18);
+  boot.kernelPackages = lib.mkDefault (with pkgs; linuxPackages_latest);
 
   #! 150Mb
   fonts.packages = with pkgs; [

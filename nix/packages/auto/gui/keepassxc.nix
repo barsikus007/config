@@ -1,22 +1,35 @@
 {
+  lib,
+  stdenv,
   keepassxc,
   fetchFromGitHub,
   keyutils,
+  fetchpatch2,
   ...
 }:
-(keepassxc.overrideAttrs (old: {
-  version = "2.8.0-snapshot";
+#? https://github.com/hey2022/dotfiles/blob/67109c6ce326163a192059a660e87e7fa30d87cf/pkgs/keepassxc-snapshot/default.nix
+(keepassxc.overrideAttrs (previousAttrs: {
+  version = "2.8.0-unstable-2026-03-15";
 
   src = fetchFromGitHub {
     owner = "keepassxreboot";
-    rev = "967dc5937f1f69e601f7aecbc600ef9027cc5043";
-    sha256 = "sha256-Nfp5B8OZ3NIZIHkR/aVwdnose61gPVEEFsRjEyUm7uw=";
+    rev = "379be00127db60b1ddee9c67f4bfc49c15db8236";
+    hash = "sha256-Lf0fNflOMYU3WSzPmia2l3urp0/s3UHZOPx5MzDUPFs=";
     repo = "keepassxc";
   };
 
-  cmakeFlags = old.cmakeFlags ++ [
-    "-DWITH_XC_ALL=ON"
+  env =
+    (lib.optionalAttrs stdenv.cc.isGNU {
+      NIX_CFLAGS_COMPILE = "-Wno-error=deprecated-enum-enum-conversion";
+    })
+    // previousAttrs.env;
+
+  patches = previousAttrs.patches ++ [
+    (fetchpatch2 {
+      url = "https://patch-diff.githubusercontent.com/raw/keepassxreboot/keepassxc/pull/13161.patch";
+      hash = "sha256-HjFuaJZwcr8JZLtdIlet7lYRWmHpoXqPg/0eC9LIjH8=";
+    })
   ];
 
-  buildInputs = old.buildInputs ++ [ keyutils ];
+  buildInputs = previousAttrs.buildInputs ++ [ keyutils ];
 }))

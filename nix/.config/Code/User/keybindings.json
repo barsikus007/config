@@ -15,7 +15,7 @@
         "when": "editorTextFocus"
     },
     {
-        "key": "ctrl+shift+-",
+        "key": "ctrl+shift+[Minus]",
         "command": "-workbench.action.zoomOut"
     },
     {
@@ -34,7 +34,7 @@
         "when": "editorTextFocus"
     },
     {
-        "key": "ctrl+alt+-",
+        "key": "ctrl+alt+[Minus]",
         "command": "editor.foldRecursively",
         "when": "editorTextFocus && foldingEnabled"
     },
@@ -44,7 +44,7 @@
         "when": "editorTextFocus && foldingEnabled"
     },
     {
-        "key": "ctrl+alt+=",
+        "key": "ctrl+alt+[Equal]",
         "command": "editor.unfoldRecursively",
         "when": "editorTextFocus && foldingEnabled"
     },
@@ -54,7 +54,7 @@
         "when": "editorTextFocus && foldingEnabled"
     },
     {
-        "key": "ctrl+-",
+        "key": "ctrl+[Minus]",
         "command": "editor.fold",
         "when": "editorTextFocus && foldingEnabled"
     },
@@ -64,7 +64,7 @@
         "when": "editorTextFocus && foldingEnabled"
     },
     {
-        "key": "ctrl+=",
+        "key": "ctrl+[Equal]",
         "command": "editor.unfold",
         "when": "editorTextFocus && foldingEnabled"
     },
@@ -74,7 +74,7 @@
         "when": "editorTextFocus && foldingEnabled"
     },
     {
-        "key": "ctrl+shift+=",
+        "key": "ctrl+shift+[Equal]",
         "command": "editor.unfoldAll",
         "when": "editorTextFocus && foldingEnabled"
     },
@@ -84,19 +84,19 @@
         "when": "editorTextFocus && foldingEnabled"
     },
     {
-        "key": "ctrl+shift+=",
+        "key": "ctrl+shift+[Equal]",
         "command": "-workbench.action.zoomIn"
     },
     {
-        "key": "ctrl+=",
+        "key": "ctrl+[Equal]",
         "command": "-workbench.action.zoomIn"
     },
     {
-        "key": "ctrl+-",
+        "key": "ctrl+[Minus]",
         "command": "-workbench.action.zoomOut"
     },
     {
-        "key": "ctrl+shift+-",
+        "key": "ctrl+shift+[Minus]",
         "command": "editor.foldAll",
         "when": "editorTextFocus && foldingEnabled"
     },
@@ -106,7 +106,7 @@
         "when": "editorTextFocus && foldingEnabled"
     },
     {
-        "key": "ctrl+-",
+        "key": "ctrl+[Minus]",
         "command": "notebook.fold",
         "when": "notebookEditorFocused && !inputFocus && activeEditor == 'workbench.editor.notebook'"
     },
@@ -121,7 +121,7 @@
         "when": "notebookEditorFocused && !inputFocus && activeEditor == 'workbench.editor.notebook'"
     },
     {
-        "key": "ctrl+=",
+        "key": "ctrl+[Equal]",
         "command": "notebook.unfold",
         "when": "notebookEditorFocused && !inputFocus && activeEditor == 'workbench.editor.notebook'"
     },

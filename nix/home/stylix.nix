@@ -21,6 +21,7 @@
       #? due to font troubles; theme isn't working
       firefox.enable = false;
       #? theme is unreadable
+      gdu.enable = false;
       nixcord.enable = false;
     };
   };

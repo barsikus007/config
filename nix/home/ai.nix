@@ -1,5 +1,4 @@
 {
-  programs.codex.enable = true;
   programs.gemini-cli = {
     enable = true;
     # defaultModel = "gemini-3.1-pro-preview";

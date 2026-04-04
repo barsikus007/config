@@ -15,6 +15,7 @@ with pkgs;
   yazi # ? no ubuntu
   starship
   fastfetch
+  systemctl-tui
   lazygit
   lazydocker
 

@@ -25,9 +25,9 @@ let
       connect-timeout = 3;
 
       substituters = lib.mkBefore [
+        "https://mirror.yandex.ru/nixos"
         "https://cache.nixos.org"
         # "https://cache.nixos.kz" # ? returned a lot "Timeout was reached" errors
-        "https://mirror.yandex.ru/nixos"
         # "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store" # ? https://github.com/dramforever/mirror-web/blob/d7e263d4fe9a9e3078f819468cec18e1c11cf832/_posts/help/2019-02-17-nix.md
         "https://ncproxy.vizqq.cc"
         "https://nixos-cache-proxy.cofob.dev" # ? cloudflare mirror, uses original keys

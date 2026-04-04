@@ -7,6 +7,7 @@
       swtpm.enable = true;
       # https://wiki.archlinux.org/title/Libvirt#Virtio-FS
       vhostUserPackages = with pkgs; [
+        # TODO: unstable: https://gitlab.com/virtio-fs/virtiofsd/-/releases
         #? https://gitlab.com/virtio-fs/virtiofsd/-/work_items/96#note_2957238906
         #! THANKS FOR THIS DUCKED UP WAY: https://nea.moe/blog/patching-nix-packages/
         (virtiofsd.override {

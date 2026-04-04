@@ -24,15 +24,15 @@
     [
       {
         oldDependency = qt6.qtbase;
-        newDependency = qt6.qtbase.overrideAttrs (oldAttrs: {
-          patches = (oldAttrs.patches or [ ]) ++ qtbasePatches;
+        newDependency = qt6.qtbase.overrideAttrs (previousAttrs: {
+          patches = (previousAttrs.patches or [ ]) ++ qtbasePatches;
         });
       }
       {
         oldDependency = qt6.qtwayland;
-        newDependency = qt6.qtwayland.overrideAttrs (oldAttrs: {
+        newDependency = qt6.qtwayland.overrideAttrs (previousAttrs: {
           patches =
-            (oldAttrs.patches or [ ])
+            (previousAttrs.patches or [ ])
             ++ [ (builtins.elemAt qtwaylandPatches 0) ]
             ++ [ (builtins.elemAt qtwaylandPatches 1) ]
             # ++ [ (builtins.elemAt qtwaylandPatches 2) ] # compilation error

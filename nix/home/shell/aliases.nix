@@ -3,6 +3,22 @@
   pkgs,
   flakePath,
 }:
+let
+  mkVpnAliases = args: {
+    "${args.prefix}u" = "sudo systemctl start ${args.service}";
+    "${args.prefix}s" = "systemctl status ${args.service}";
+    "${args.prefix}d" = "sudo systemctl stop ${args.service}";
+    "${args.prefix}r" = "sudo systemctl restart ${args.service}";
+    "${args.prefix}w" = args.watchCommand;
+  };
+  mKWgAliases =
+    args:
+    mkVpnAliases {
+      prefix = args.wgExec;
+      service = "wg-quick-${args.wgIface}";
+      watchCommand = "sudo watch -c 'WG_COLOR_MODE=always ${args.wgExec} show'";
+    };
+in
 rec {
   baseAliases = {
     #? https://askubuntu.com/a/22043
@@ -58,27 +74,22 @@ rec {
     pyt = "ptpython";
     pyta = "pyt --asyncio";
   };
-  wgAliases =
-    let
-      wgExec = "awg";
-    in
-    {
-      wgu = "sudo systemctl start wg-quick-${wgExec}0";
-      wgs = "systemctl status wg-quick-${wgExec}0";
-      wgd = "sudo systemctl stop wg-quick-${wgExec}0";
-      wgr = "sudo systemctl restart wg-quick-${wgExec}0";
-      wgw = "sudo watch -c 'WG_COLOR_MODE=always ${wgExec} show'";
-    };
+  wgAliases = mKWgAliases rec {
+    wgExec = "wg";
+    wgIface = "${wgExec}0";
+  };
+  awgAliases = mKWgAliases rec {
+    wgExec = "awg";
+    wgIface = "${wgExec}0";
+  };
   xrayAliases =
     let
-      xrayService = "dae";
+      service = "dae";
     in
-    {
-      xru = "sudo systemctl start ${xrayService}";
-      xrs = "systemctl status ${xrayService}";
-      xrd = "sudo systemctl stop ${xrayService}";
-      xrr = "sudo systemctl restart ${xrayService}";
-      xrw = "journalctl --follow --unit=${xrayService}";
+    mkVpnAliases {
+      inherit service;
+      prefix = "xr";
+      watchCommand = "journalctl --follow --unit=${service}";
     };
   otherAliases = {
     gdu = "gdu -I ^/mnt";
@@ -110,7 +121,7 @@ rec {
     nu = "nix flake update --flake ${flakePath}";
     nuu = "nix flake update nixpkgs --override-input nixpkgs nixpkgs/$(nixos-version --hash)";
     n = "nh home switch ${flakePath}";
-    nn = "nh os switch ${flakePath}";
+    nn = "nh os switch ${flakePath} --keep-going";
     nd = "nh clean all";
     nr = "nix repl --file ${flakePath}/repl.nix";
     nrr = "nh home repl ${flakePath}";
@@ -129,6 +140,7 @@ rec {
     // dockerAliases
     // pythonAliases
     // wgAliases
+    // awgAliases
     // xrayAliases
     // otherAliases
     // ezaAliases

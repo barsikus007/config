@@ -1,8 +1,28 @@
 {
   lib,
   pkgs,
+  config,
   ...
 }:
+let
+  configDir = "${config.xdg.configHome}/BraveSoftware/Brave-Browser";
+
+  extensionJson = ext: {
+    name = "${configDir}/External Extensions/${ext}.json";
+    value.text = builtins.toJSON {
+      external_update_url = "https://clients2.google.com/service/update2/crx";
+    };
+  };
+
+  extensions = [
+    # https://chromewebstore.google.com/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm
+    "cjpalhdlnbpafiamejdnhcphjbkeiagm"
+    # https://chromewebstore.google.com/detail/violentmonkey/jinjaccalgkegednnccohejagnlnfdag
+    "jinjaccalgkegednnccohejagnlnfdag"
+    # https://chromewebstore.google.com/detail/keepassxc-browser/oboonakemofpalcgghocfoadofidjkkk
+    "oboonakemofpalcgghocfoadofidjkkk"
+  ];
+in
 {
   xdg.mimeApps =
     let
@@ -36,16 +56,11 @@
       associations.added = mappedDefaults;
     };
 
+  #? https://github.com/tuxdotrs/nix-config/blob/99863948b4d6d97f44ea8cba12a7e5a88369126e/modules/home/brave/default.nix#L26
+  home.file = builtins.listToAttrs (map extensionJson extensions);
   programs.chromium = {
+    inherit extensions;
     enable = true;
-    extensions = [
-      # https://chromewebstore.google.com/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm
-      "cjpalhdlnbpafiamejdnhcphjbkeiagm"
-      # https://chromewebstore.google.com/detail/violentmonkey/jinjaccalgkegednnccohejagnlnfdag
-      "jinjaccalgkegednnccohejagnlnfdag"
-      # https://chromewebstore.google.com/detail/keepassxc-browser/oboonakemofpalcgghocfoadofidjkkk
-      "oboonakemofpalcgghocfoadofidjkkk"
-    ];
     package = (
       #? no thorium? https://github.com/NixOS/nixpkgs/pull/336138#issuecomment-2299603455
       # pkgs.microsoft-edge.override {
@@ -519,6 +534,26 @@
 
               iconMapObj."32" = "https://github.com/favicons/favicon.svg";
               definedAliases = [ "gin" ];
+            };
+            "GitHub NixPkgs" = {
+              urls = [
+                {
+                  template = "https://github.com/search";
+                  params = [
+                    {
+                      name = "q";
+                      value = "repo:NixOS/nixpkgs {searchTerms}";
+                    }
+                    {
+                      name = "type";
+                      value = "code";
+                    }
+                  ];
+                }
+              ];
+
+              iconMapObj."32" = "https://github.com/favicons/favicon.svg";
+              definedAliases = [ "nixp" ];
             };
             "Ozon" = {
               urls = [
