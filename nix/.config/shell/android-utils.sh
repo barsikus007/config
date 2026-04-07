@@ -8,16 +8,55 @@ _get_android_device() {
 }
 
 adb_connect() {
-  local ANDROID_DEVICES=(
-    "192.168.1.7:5555"
-    "Pixel-7-Pro.lan:5555"
-    "192.168.1.15:5555"
-    "OnePlus-15.lan:5555"
-  )
-  local ANDROID_DEVICE
-  ANDROID_DEVICE=$(printf "%s\n" "${ANDROID_DEVICES[@]}" | fzf)
-  [ -z "$ANDROID_DEVICE" ] && echo "No device selected" && return 1
-  adb connect "$ANDROID_DEVICE"
+  local INTERFACE
+  # Try finding interface from default route
+  INTERFACE=$(ip -o -4 route show default | head -n 1 | awk '{for(i=1;i<=NF;i++) if($i=="dev") {print $(i+1); exit}}')
+  # Fallback to first global interface
+  [ -z "$INTERFACE" ] && INTERFACE=$(ip -o -4 addr show scope global | head -n 1 | awk '{print $2}')
+
+  if [ -z "$INTERFACE" ]; then
+    echo "Error: Could not determine local interface"
+    echo "ip route output:"
+    ip -o -4 route show default
+    return 1
+  fi
+
+  local SUBNET
+  SUBNET=$(ip -o -f inet addr show "$INTERFACE" | head -n 1 | awk '{print $4}')
+
+  if [ -z "$SUBNET" ]; then
+    echo "Error: Could not determine local subnet on interface $INTERFACE"
+    return 1
+  fi
+
+  echo "Scanning $SUBNET on $INTERFACE for ADB devices (port 5555)..."
+  local DEVICES
+  if command -v nmap &> /dev/null; then
+    DEVICES=$(nmap -p 5555 --open -T5 -n --max-retries 0 "$SUBNET" -oG - | awk '/5555\/open/ {print $2}')
+  else
+    echo "nmap not found, attempting fallback scan using nc..."
+    local PREFIX
+    PREFIX=$(echo "$SUBNET" | cut -d'/' -f1 | cut -d'.' -f1-3)
+    # Fast parallel scan using nc
+    DEVICES=$(
+      for i in {1..254}; do
+        (
+          timeout 0.2 nc -z "$PREFIX.$i" 5555 2>/dev/null && echo "$PREFIX.$i"
+        ) &
+      done
+      wait
+    )
+  fi
+
+  if [ -z "$DEVICES" ] || [ "$DEVICES" = "" ]; then
+    echo "No devices found with port 5555 open"
+    return 0
+  fi
+
+  local SELECTED
+  SELECTED=$(echo "$DEVICES" | sed 's/$/:5555/' | fzf --prompt="ADB device> ")
+  [ -z "$SELECTED" ] && return 1
+  adb connect "$SELECTED"
 }
 
 adb_disconnect() {
