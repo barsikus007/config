@@ -7,8 +7,6 @@
     ../../home/shell
     ../../home/editors.nix
 
-    ../../home/hardware/anime.nix
-
     ../../home/ai.nix
 
     ../../home/gui
