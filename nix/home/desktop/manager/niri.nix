@@ -104,8 +104,12 @@
         # TODO: specific quickshell depent hotkeys; maybe make cli for unification?
         # TODO: asus
         "XF86Launch1" = {
-          hotkey-overlay.title = "Asus: Toggle Bad Apple";
+          hotkey-overlay.title = "Asus: Show Something";
           action.spawn-sh = "zsh -c asus_demotoggle";
+        };
+        "Ctrl+XF86Launch1" = {
+          hotkey-overlay.title = "Asus: Choose Something";
+          action.spawn-sh = "zsh -c asus_demo_select_interactive";
         };
         "XF86Launch4" = {
           hotkey-overlay.title = "Asus: Cycle Power Profiles";
