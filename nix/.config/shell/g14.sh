@@ -1,7 +1,9 @@
 #!/bin/bash
 
-asus_demo_select() {
-  #? use fzf (default) or rofi (--interactive) to pick a subfolder and link its frames.gif / sound.mp3 into ~/.config/rog/
+#? ROG G14 specific
+#? deps: tmux asusctl sox(play)
+asus_anime_demo_select() {
+  # use fzf (default) or rofi (--interactive) to pick a subfolder and link its frames.gif / sound.mp3 into ~/.config/rog/
   local ROG_ANIME_DIR=~/.config/rog
   local SELECTED_VIDEO
   SELECTED_VIDEO=$(
@@ -19,9 +21,9 @@ asus_demo_select() {
   [ -f "$SELECTED_VIDEO_DIR/frames.gif" ] && ln -sf "$SELECTED_VIDEO_DIR/frames.gif" "$ROG_ANIME_DIR/frames.gif" && echo "frames -> $SELECTED_VIDEO/frames.gif"
   [ -f "$SELECTED_VIDEO_DIR/sound.mp3" ]  && ln -sf "$SELECTED_VIDEO_DIR/sound.mp3"  "$ROG_ANIME_DIR/sound.mp3"  && echo "sound  -> $SELECTED_VIDEO/sound.mp3"
 }
-asus_demo_select_interactive() { asus_demo_select --interactive; }
+asus_anime_demo_select_interactive() { asus_anime_demo_select --interactive; }
 
-asus_demo_download() {
+asus_anime_demo_download() {
   local VIDEO_ID VIDEO_TITLE VIDEO_FOLDER
   if [ -n "$1" ]; then
     VIDEO_ID=$1
@@ -40,34 +42,31 @@ asus_demo_download() {
   yt-dlp "$VIDEO_ID" --output - | ffmpeg -i - -filter_complex "[0:v]fps=30,scale=66:-1,setpts=0.645*PTS[v]" -map '[v]' -loop 0 "$VIDEO_FOLDER/frames.gif" "$VIDEO_FOLDER/sound.mp3" -y
 }
 
-#? ROG G14 specific
-#? deps: tmux asusctl sox(play)
-#! https://gitlab.com/asus-linux/asusctl/-/issues/530#note_2101255275
-alias asus_animeclr='asusctl anime --enable-display false > /dev/null'
-#! alias asus_noanime='systemctl --user stop asusd-user && asus_animeclr'
-alias asus_noanime='tmux kill-session -t anime 2> /dev/null; asus_animeclr'
-#! alias asus_yesanime='systemctl --user start asusd-user'
-alias asus_yesanime='tmux new -s anime -d "asusctl anime gif --path ~/.config/rog/frames.gif"'
-alias asus_anime='asus_animeclr && asus_yesanime'
-alias asus_demosplash='asusctl anime pixel-image --path ~/.config/rog/bad-apple.png'
-alias asus_nodemo_sound='tmux kill-session -t sound 2> /dev/null'
-alias asus_nodemo='asus_nodemo_sound; asus_noanime'
-alias asus_demo_sound='tmux new -s sound -d "PULSE_SINK=alsa_output.pci-0000_04_00.6.analog-stereo play ~/.config/rog/sound.mp3 repeat -"'
+alias asus_anime_clear='asusctl anime --enable-display false > /dev/null'
+alias asus_anime_demo_stop_cleanup='asus_anime_clear && asusctl anime --enable-powersave-anim true > /dev/null'
+alias asus_anime_demo_stop_gif='tmux kill-session -t anime 2> /dev/null'
+alias asus_anime_demo_start_prepare='asus_anime_clear && asusctl anime --enable-powersave-anim false > /dev/null'
+alias asus_anime_demo_start_gif='tmux new -s anime -d "asusctl anime gif --path ~/.config/rog/frames.gif"'
+alias asus_anime_demo_show_splash='asusctl anime pixel-image --path ~/.config/rog/bad-apple.png'
+alias asus_anime_demo_stop_sound='tmux kill-session -t sound 2> /dev/null'
+alias asus_anime_demo_stop='asus_anime_demo_stop_sound; asus_anime_demo_stop_gif; asus_anime_demo_stop_cleanup'
+alias asus_anime_demo_start_sound='tmux new -s sound -d "PULSE_SINK=alsa_output.pci-0000_04_00.6.analog-stereo play ~/.config/rog/sound.mp3 repeat -"'
 #? 0.5s for matrix to start
-alias asus_demo='asus_nodemo && asus_anime && sleep 0.5 && asus_demo_sound'
-asus_demotoggle() {
+alias asus_anime_demo_start='asus_anime_demo_stop && asus_anime_demo_start_prepare && asus_anime_demo_start_gif && sleep 0.5 && asus_anime_demo_start_sound'
+asus_anime_demo_toggle() {
   # demo toggle function (for dedicated key)
   (
     DEMO_FILE=/tmp/asus-is-demo-working
     if [ -f "$DEMO_FILE" ]; then
-      asus_nodemo && rm "$DEMO_FILE"
+      asus_anime_demo_stop && rm "$DEMO_FILE"
     else
-      asus_demo && touch "$DEMO_FILE"
+      asus_anime_demo_start && touch "$DEMO_FILE"
     fi
   )
 }
 
-#? asus general
+
+#? asusctl specific
 asus_fan() {
   # fan switch function (for Fn+F5 key)
   (
@@ -81,7 +80,8 @@ asus_fan() {
   )
 }
 
-#? laptop general
+
+#? laptop specific
 dgpu_check_processes() {
   lsof /dev/nvidia*
   cat /sys/bus/pci/devices/0000:0{1,4}:00.0/power{_state,/runtime_status}

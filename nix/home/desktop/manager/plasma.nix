@@ -58,7 +58,7 @@ in
       "laptop-button-rog" = {
         name = "Laptop ROG Button";
         key = "Launch (1)";
-        command = "zsh -c asus_demotoggle";
+        command = "zsh -c asus_anime_demo_toggle";
       };
       #? done by plasma natively now
       # "laptop-button-f5" = {
@@ -66,11 +66,12 @@ in
       #   key = "Launch (4)";
       #   command = "zsh -c asus_fan";
       # };
-      "laptop-button-f6" = {
-        name = "Laptop F6 Button";
-        key = "Meta+Shift+S";
-        command = "zsh -c \"asus_noanime && asus_anime\"";
-      };
+      # TODO: start gpu-screen-record
+      # "laptop-button-f6" = {
+      #   name = "Laptop F6 Button";
+      #   key = "Meta+Shift+S";
+      #   command = "zsh -c ";
+      # };
     };
     kscreenlocker.timeout = 15;
     powerdevil = {

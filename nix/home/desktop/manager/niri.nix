@@ -105,11 +105,11 @@
         # TODO: asus
         "XF86Launch1" = {
           hotkey-overlay.title = "Asus: Show Something";
-          action.spawn-sh = "zsh -c asus_demotoggle";
+          action.spawn-sh = "zsh -c asus_anime_demo_toggle";
         };
         "Ctrl+XF86Launch1" = {
           hotkey-overlay.title = "Asus: Choose Something";
-          action.spawn-sh = "zsh -c asus_demo_select_interactive";
+          action.spawn-sh = "zsh -c asus_anime_demo_select_interactive";
         };
         "XF86Launch4" = {
           hotkey-overlay.title = "Asus: Cycle Power Profiles";
