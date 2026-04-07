@@ -26,3 +26,5 @@ result
 node_modules/
 dist/
 #endregion node
+
+**/.claude/settings.local.json

@@ -37,6 +37,9 @@ inputs.openwrt-imagebuilder.lib.build (
       "amneziawg-tools"
       "luci-proto-amneziawg"
 
+      #? doh dot
+      "drill"
+
       #? other
       "luci-app-sqm"
       "luci-app-wol"

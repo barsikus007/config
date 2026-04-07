@@ -229,8 +229,8 @@ in
     "L+ /home/${username}/.ssh 0700 ${username} users - /home/${username}/Sync/home/.ssh/"
     "L+ /home/${username}/projects 0700 ${username} users - /run/media/${username}/Data/projects/"
 
-    # "L+ /home/${username}/awg0.conf 0600 ${username} users - /home/${username}/Sync/wg/donstux-linux-49.conf"
     "L+ /home/${username}/awg0.conf 0600 ${username} users - ${persistentDir}/home/${username}/awg0.conf"
+    "L+ /home/${username}/wg0local.conf 0600 ${username} users - ${persistentDir}/home/${username}/wg0local.conf"
 
     # "L+ /home/${username}/.config/plasmashellrc 0600 ${username} users - ${persistentDir}/home/${username}/.config/plasmashellrc" # ??????? desktop
     # "L+ /home/${username}/.config/plasma-org.kde.plasma.desktop-appletsrc 0600 ${username} users - ${persistentDir}/home/${username}/.config/plasma-org.kde.plasma.desktop-appletsrc" # ??????? desktop
