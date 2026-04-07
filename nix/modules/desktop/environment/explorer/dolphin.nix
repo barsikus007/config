@@ -4,7 +4,7 @@
   programs.niri.useNautilus = false;
 
   xdg.portal.extraPortals = with pkgs; [ kdePackages.xdg-desktop-portal-kde ];
-  xdg.portal.config.common."org.freedesktop.impl.portal.FileChooser" = lib.mkForce [ "kde" ];
+  xdg.portal.config.common."org.freedesktop.impl.portal.FileChooser" = [ "kde" ];
 
   environment.systemPackages = with pkgs; [
     kdePackages.dolphin
