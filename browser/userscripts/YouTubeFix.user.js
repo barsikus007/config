@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         YouTube Fix
 // @namespace    https://github.com/barsikus007/
-// @version      2.1.1
-// @author       XpucT & AngusWR & barsikus007
+// @version      2.1.2
+// @author       XpucT & barsikus007
 // @description  Force focus and scroll to player when mouse enters it & 'Video paused. Continue watching?' auto confirmer
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=youtube.com
 // @downloadURL  https://raw.githubusercontent.com/barsikus007/config/master/browser/userscripts/YouTubeFix.user.js
@@ -21,23 +21,8 @@ if (player) {
   };
 }
 
-//! Credits: https://greasyfork.org/en/scripts/377506-youtube-video-paused-continue-watching-auto-confirmer
-const continueTexts = [
-  'Video paused. Continue watching?',
-  'Воспроизведение приостановлено. Продолжить?',
-];
-
 const selectors = {
-  //? youtube.com
-  '.line-text.style-scope.yt-confirm-dialog-renderer': {
-    popupTexts: continueTexts,
-    confirmSelector: '#confirm-button',
-  },
-  //? music.youtube.com
-  'ytmusic-you-there-renderer': {
-    popupTexts: continueTexts,
-    confirmSelector: '[dialog-confirm]',
-  },
+  //? https://music.youtube.com/watch?v=q_mvEsO_yiM
   //? https://music.youtube.com/watch?v=eBo3LU7Do9o
   'div#info.style-scope.yt-player-error-message-renderer': {
     popupTexts: [

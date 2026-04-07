@@ -2,8 +2,10 @@
 
 ## Userscripts
 
-- [longs](https://greasyfork.org/en/scripts/439993-youtube-shorts-redirect)
-- [TODO remove si youtube](https://github.com/Xenorio/YTShareAntiTrack)
+- YouTube
+  - [shorts to longs](https://greasyfork.org/en/scripts/439993-youtube-shorts-redirect)
+  - [play songs forever](https://greasyfork.org/en/scripts/390352-youtube-stay-active-and-play-forever)
+  - [TODO remove si](https://github.com/Xenorio/YTShareAntiTrack)
 - [VK](http://greasyfork.org/scripts/518509)
 - [own](./userscripts)
 - TODO
@@ -57,6 +59,8 @@ lurkmore.media##.sitenotice
   - <edge://flags/#edge-workspaces-skype-entry-point> -> `Enabled Hub chat icon`
 
 ## Extensions
+
+(^ is for disabled)
 
 - ShitBlockers
   - [uBlock Origin](https://ublockorigin.com)
