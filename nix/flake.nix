@@ -65,6 +65,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
     niri = {
       url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -145,6 +146,7 @@
           ./modules/hardware/logi-mx3.nix
           ./modules/hardware/xbox.nix
 
+          ./modules/cachyos-kernel.nix
           ./modules/containers
           ./modules/silent-boot.nix
           ./modules/locale.nix
@@ -205,12 +207,14 @@
         ];
       };
 
-      #? nix run github:nix-community/nixos-anywhere -- --flake ./nix#generic-VPS --generate-hardware-config nixos-generate-config ./hardware-configuration.nix <hostname>
+      #? nix run github:nix-community/nixos-anywhere -- --flake ./nix#generic-VPS --generate-hardware-config nixos-generate-config ./nix/hardware-configuration.nix <hostname>
       nixosConfigurations."generic-VPS" = nixpkgs.lib.nixosSystem {
         inherit system pkgs;
         specialArgs = mkSpecialArgs "nixos";
         modules = [
           ./hosts/vps
+          ./hosts/vps/disk-config.nix # TODO: separate
+          ./hardware-configuration.nix
         ];
       };
 

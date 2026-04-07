@@ -74,6 +74,14 @@ rec {
     pyt = "ptpython";
     pyta = "pyt --asyncio";
   };
+  npxAliases =
+    let
+      npxExec = "bunx";
+    in
+    {
+      claude-preview = "${npxExec} @anthropic-ai/claude-code@next";
+      gemini-preview = "${npxExec} @google/gemini-cli@preview";
+    };
   wgAliases = mKWgAliases rec {
     wgExec = "wg";
     wgIface = "${wgExec}0";
@@ -92,7 +100,8 @@ rec {
       watchCommand = "journalctl --follow --unit=${service}";
     };
   otherAliases = {
-    gdu = "gdu -I ^/mnt";
+    st = "systemctl-tui";
+    sst = "sudo systemctl-tui";
     zps = "zpool status -v";
     sex = "explorer.exe .";
     lzg = "lazygit";
@@ -139,6 +148,7 @@ rec {
     // networkTestAliases
     // dockerAliases
     // pythonAliases
+    // npxAliases
     // wgAliases
     // awgAliases
     // xrayAliases

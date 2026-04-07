@@ -9,10 +9,10 @@ let
   hmConfig = config.home-manager.users.${username};
 in
 {
+  # TODO: DoH/DoT: https://wiki.nixos.org/wiki/Systemd/resolved
   networking.networkmanager.enable = true;
   #? dns
   services.resolved.enable = true;
-  networking.networkmanager.dns = "systemd-resolved";
   # networking.nameservers = [
   #   "8.8.8.8"
   #   "4.4.4.4"

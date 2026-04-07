@@ -51,7 +51,12 @@
     };
 
     targets = {
+      #? I don't like how it looks
       plymouth.enable = false;
+      #? it triggers gdm and gnome-shell rebuilds
+      gnome.enable = false;
+      #? nixos-icons -> gschema.override -> gdm -> gnome-shell chain causes cache misses
+      nixos-icons.enable = false;
     };
   };
 }

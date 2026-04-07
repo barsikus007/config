@@ -27,8 +27,6 @@
   };
   environment.variables.VISUAL = "nvim";
 
-  boot.kernelPackages = lib.mkDefault (with pkgs; linuxPackages_latest);
-
   #! 150Mb
   fonts.packages = with pkgs; [
     cascadia-code
