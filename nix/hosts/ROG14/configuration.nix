@@ -6,6 +6,16 @@
   username,
   ...
 }:
+let
+  onDC = pkgs.writeShellScript "on-dc" ''
+    ${lib.getExe config.boot.kernelPackages.cpupower} frequency-set -g powersave
+    ${pkgs.asusctl}/bin/asusctl anime --enable-display false
+  '';
+  onAC = pkgs.writeShellScript "on-ac" ''
+    ${lib.getExe config.boot.kernelPackages.cpupower} frequency-set -g performance
+    ${pkgs.asusctl}/bin/asusctl anime --enable-display true
+  '';
+in
 {
   #? https://nixos.org/manual/nixos/unstable/release-notes
   system.stateVersion = "26.05";
@@ -71,12 +81,26 @@
   };
 
   # TODO: laptop specific
-  #! after reboot with/out powersupply it is set to perfomance/schedutil: cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
   powerManagement.cpuFreqGovernor = "schedutil";
   services.udev.extraRules = ''
-    ACTION=="add|change", SUBSYSTEM=="power_supply", ATTR{online}=="0", RUN+="${lib.getExe config.boot.kernelPackages.cpupower} frequency-set -g powersave"
-    ACTION=="add|change", SUBSYSTEM=="power_supply", ATTR{online}=="1", RUN+="${lib.getExe config.boot.kernelPackages.cpupower} frequency-set -g performance"
+    ACTION=="add|change", SUBSYSTEM=="power_supply", ATTR{online}=="0", RUN+="${onDC}"
+    ACTION=="add|change", SUBSYSTEM=="power_supply", ATTR{online}=="1", RUN+="${onAC}"
   '';
+  #? apply correct power profile at boot (cause udev rules only fire on change, not at startup)
+  systemd.services.power-supply-init = {
+    description = "Apply power profile based on AC state at boot";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "asusd.service" ];
+    serviceConfig.Type = "oneshot";
+    script = ''
+      if [ "$(cat /sys/class/power_supply/AC0/online)" = "1" ]; then
+        ${onAC}
+      else
+        ${onDC}
+      fi
+    '';
+  };
+
   #? disable 4.2 GHz boost
   systemd.tmpfiles.rules = [
     "w /sys/devices/system/cpu/cpufreq/boost - - - - 0"
