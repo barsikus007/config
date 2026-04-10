@@ -35,9 +35,7 @@ in
       #   "X-LXQt-Need-Tray" = true;
       # };
 
-      (replaceDesktopItem config.programs.keepassxc.package "org.keepassxc.KeePassXC.desktop"
-        "keepassxc"
-      )
+      (replaceDesktopItem config.programs.keepassxc.package "org.keepassxc.KeePassXC.desktop" "keepassxc")
     ];
   };
 }

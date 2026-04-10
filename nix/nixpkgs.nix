@@ -53,9 +53,7 @@ import nixpkgs {
         )
         (
           inputs
-          |> nixpkgs.lib.attrsets.filterAttrs (
-            inputName: _: inputName |> lib.strings.hasPrefix "nixpkgs-"
-          )
+          |> nixpkgs.lib.attrsets.filterAttrs (inputName: _: inputName |> lib.strings.hasPrefix "nixpkgs-")
           |> lib.attrsets.mapAttrs' (
             inputName: input: {
               name = "${inputName |> lib.strings.removePrefix "nixpkgs-"}";

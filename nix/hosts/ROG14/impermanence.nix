@@ -77,7 +77,6 @@ in
       "/etc/ssh" # TODO: secrets
       "/var/db" # ? ./sudo/lectured/$(id -u)
       "/var/log"
-      # "/var/lib/AccountsService/users" # TODO: is this needed? plasma
       "/var/lib/bluetooth"
       "/var/lib/btrfs"
       "/var/lib/cups"
@@ -85,15 +84,15 @@ in
       "/var/lib/libvirt"
       # "/var/lib/misc" # TODO: is this needed? dnsmasq waydroid
       # "/var/lib/NetworkManager" # TODO: is this needed?
-      "/var/lib/nixos"
-      "/var/lib/power-profiles-daemon" # ? to persist power-profile
+      "/var/lib/nixos" # ? https://github.com/nix-community/impermanence/issues/178
+      "/var/lib/power-profiles-daemon" # ? selected power-profile
       # "/var/lib/private" # TODO: is this needed? rustdesk
       # "/var/lib/sbctl" # TODO: is this needed? secure boot
-      # "/var/lib/systemd/backlight" # TODO: is this needed? keyboard backlight
+      # "/var/lib/systemd/backlight" # ? state of displays & keyboard backlight
       # "/var/lib/systemd/catalog" # TODO: is this needed? creates auto, binary database for the Journal Message Catalog (extended log descriptions)
       "/var/lib/systemd/coredump"
       "/var/lib/systemd/pstore"
-      # "/var/lib/systemd/rfkill" # TODO: is this needed? state (enabled/disabled) of radio devices (Wi-Fi, Bluetooth)
+      # "/var/lib/systemd/rfkill" # ? state (enabled/disabled) of radio devices (Wi-Fi, Bluetooth)
       "/var/lib/systemd/timers"
       "/var/lib/upower" # ? history of power usage
       "/var/lib/waydroid"
@@ -102,6 +101,8 @@ in
       # "/etc/adjtime" # TODO: is this needed? hwclock
       # "/etc/logrotate.status" # TODO: is this needed? /var/log/{b,w}tmp
       "/etc/machine-id" # TODO: secrets
+      "/var/lib/systemd/credential.secret" # ? for apps, like libvirt, which relay on persistent secret
+      "/var/lib/systemd/random-seed" # ? AI: helps the kernel maintain entropy across reboots, which speeds up the initialization of cryptographic services during boot
     ];
     users.${username} = {
       # sudo mkdir -p /persistent/home/ogurez && sudo chown ogurez: /persistent/home/ogurez
@@ -122,6 +123,7 @@ in
         ".cache/cliphist"
         ".cache/cloud-code" # ? gemini auth
         ".cache/danksearch" # ? index
+        ".cache/nix" # ? URL -> store path / narHash mapping
         ".cache/noctalia" # ? to disable prompt on startup
         ".cache/tlrc"
 
@@ -225,8 +227,9 @@ in
     };
   };
   systemd.tmpfiles.rules = [
-    # Syntax: Type Path Mode User Group Age Argument
-    # L+ = Create symlink, remove existing file if necessary
+    #? Syntax: Type Path Mode User Group Age Argument
+    #? man tmpfiles.d
+    #? L+ = Create symlink, remove existing file if necessary
     "L+ /home/${username}/.ssh 0700 ${username} users - /home/${username}/Sync/home/.ssh/"
     "L+ /home/${username}/projects 0700 ${username} users - /run/media/${username}/Data/projects/"
 

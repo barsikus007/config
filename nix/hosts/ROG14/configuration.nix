@@ -70,7 +70,7 @@
     };
   };
 
-  # TODO: laptop generic
+  # TODO: laptop specific
   #! after reboot with/out powersupply it is set to perfomance/schedutil: cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
   powerManagement.cpuFreqGovernor = "schedutil";
   services.udev.extraRules = ''

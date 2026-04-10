@@ -4,7 +4,7 @@
   inputs = {
     # nixpkgs-previous.url = "nixpkgs/commit_hash";
     # nixpkgs-fix-for-<smth>.url = "nixpkgs/pull/1488/head";
-    nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz"; # Smaller then github tarball, less api hits
+    nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz"; #? Smaller then github tarball, less api hits: https://discourse.nixos.org/t/use-channels-as-flake-inputs/75261
     # nixpkgs-master.url = "nixpkgs";
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
@@ -145,6 +145,7 @@
 
           ./modules/hardware/logi-mx3.nix
           ./modules/hardware/xbox.nix
+          ./modules/hardware/esp32.nix
 
           ./modules/cachyos-kernel.nix
           ./modules/containers

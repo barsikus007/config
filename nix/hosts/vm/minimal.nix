@@ -18,7 +18,6 @@
   #? autologin
   security.sudo.wheelNeedsPassword = false;
   services.getty.autologinUser = username;
-  services.displayManager.autoLogin.enable = true;
   services.displayManager.autoLogin.user = username;
 
   #? guest tools

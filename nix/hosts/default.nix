@@ -19,6 +19,7 @@
   programs.yazi.enable = true;
 
   #! 40Mb
+  programs.nano.enable = false;
   programs.neovim = {
     enable = true;
     defaultEditor = true;
