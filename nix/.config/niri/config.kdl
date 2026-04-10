@@ -4,6 +4,9 @@
 // https://niri-wm.github.io/niri/Configuration:-Introduction
 include "nix-generated-config.kdl"
 
+//! fix dms hardcode
+layout { border { off; }; }
+
 prefer-no-csd
 
 animations {
@@ -40,6 +43,13 @@ output "eDP-1" {
 
     // scale 1.5
     // position x=0 y=720
+}
+
+//! not implemented in niri-flake
+recent-windows {
+    highlight {
+        corner-radius 12
+    }
 }
 
 //#region window-rules
@@ -202,19 +212,12 @@ binds {
     Mod+Grave  hotkey-overlay-title="Open a Terminal: wezterm floating" { spawn-sh "wezterm start --class org.wezfurlong.wezterm.floating"; }
     Mod+T      hotkey-overlay-title="Open a Terminal: wezterm" { spawn "wezterm"; }
     Ctrl+Alt+T hotkey-overlay-title="Open a Terminal: wezterm" { spawn "wezterm"; }
-    Mod+F2    hotkey-overlay-title="Run an Application" { spawn-sh "noctalia-shell ipc call launcher toggle"; }
-    Alt+Space hotkey-overlay-title="Run an Application" { spawn-sh "noctalia-shell ipc call launcher toggle"; }
     Mod+S     hotkey-overlay-title="Run an Application" { spawn "anyrun"; }
     Mod+D     hotkey-overlay-title="Run an Application" { spawn "fuzzel"; }
-    // Mod+Shift+D hotkey-overlay-title="Run an Application" { spawn-sh "tmux new -s xd -d 'scrcpy -K --render-driver=opengles2 --no-audio --video-bit-rate=1M --serial=OnePlus-15.lan:5555'"; }
+    // Mod+Shift+D hotkey-overlay-title="Run an Application" { spawn-sh "tmux new -s xd -d 'scrcpy -K --render-driver=opengles2 --no-audio --video-bit-rate=1M'"; }
     // Mod+D hotkey-overlay-title="Run an Application" { spawn-sh "tmux kill-session -t xd"; }
-    Mod+L hotkey-overlay-title="Lock the Screen" allow-when-locked=true { spawn-sh "noctalia-shell ipc call lockScreen lock"; }
     Mod+E hotkey-overlay-title="Run a File Manager" { spawn "dolphin"; }
-    Mod+V hotkey-overlay-title="Open Clipboard Manager" { spawn-sh "noctalia-shell ipc call launcher clipboard"; }
-    // Mod+V hotkey-overlay-title="Open Clipboard Manager" { spawn-sh "dms ipc call clipboard toggle"; }
-    Mod+Alt+I hotkey-overlay-title="Open Settings" { spawn-sh "noctalia-shell ipc call settings open"; }
     Ctrl+Shift+Escape hotkey-overlay-title="Open \"Task\" Manager" { spawn-sh "wezterm start --class org.wezfurlong.wezterm.floating btop"; }
-    Ctrl+Alt+Delete hotkey-overlay-title="Open Power Actions" { spawn-sh "noctalia-shell ipc call sessionMenu toggle"; }
     // Mod+Period hotkey-overlay-title="Open Emoji Picker" { spawn-sh "noctalia-shell ipc call launcher emoji"; }
     Mod+Semicolon hotkey-overlay-title="Open Emoji Picker 🤓" { spawn-sh "noctalia-shell ipc call launcher emoji"; }
     Mod+Shift+T hotkey-overlay-title="OCR Screen Region" { spawn "ocr-screen-region"; }
@@ -229,26 +232,6 @@ binds {
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
     // For example, this is a standard bind to toggle the screen reader (orca).
     // Super+Alt+S allow-when-locked=true hotkey-overlay-title=null { spawn-sh "pkill orca || exec orca"; }
-
-    // Volume keys mappings for PipeWire & WirePlumber.
-    // The allow-when-locked=true property makes them work even when the session is locked.
-    // Using spawn-sh allows to pass multiple arguments together with the command.
-    // "-l 1.0" limits the volume to 100%.
-    XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+" "-l" "1.5"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-"; }
-    XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
-    XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
-    // Media keys mapping using playerctl.
-    // This will work with any MPRIS-enabled media player.
-    XF86AudioPlay        allow-when-locked=true { spawn  "playerctl" "play-pause"; }
-    XF86AudioStop        allow-when-locked=true { spawn  "playerctl" "stop"; }
-    XF86AudioPrev        allow-when-locked=true { spawn  "playerctl" "previous"; }
-    XF86AudioNext        allow-when-locked=true { spawn  "playerctl" "next"; }
-    // Brightness key mappings for brightnessctl.
-    // You can use regular spawn with multiple arguments too (to avoid going through "sh"),
-    // but you need to manually put each argument in separate "" quotes.
-    XF86MonBrightnessUp   allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
 
     // Open/close the Overview: a zoomed-out view of workspaces and windows.
     // You can also move the mouse into the top-left hot corner,

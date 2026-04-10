@@ -1,15 +1,10 @@
-{
-  pkgs,
-  config,
-  username,
-  ...
-}:
-#! +1.1Gb
+{ pkgs, username, ... }:
+#! +?Gb
 {
   imports = [
     ./niri.nix
     ../../hardware/ddcutil.nix
-    ../style/qt-for-gtk.nix
+    # ../style/qt-for-gtk.nix
     ../environment/explorer/dolphin.nix
     ../environment/kde-dbus.nix
     ../environment/kdeconnect.nix
@@ -18,22 +13,20 @@
   ];
   home-manager.users.${username}.imports = [
     ../../../home/desktop/environment/kde-settings.nix
-    ../../../home/desktop/manager/quickshell/noctalia.nix
-    {
-      programs.niri.settings.spawn-at-startup = [
-        {
-          command = [
-            "noctalia-shell"
-          ];
-        }
-      ];
-    }
+    ../../../home/desktop/manager/quickshell/dms.nix
   ];
 
-  services.displayManager.gdm.enable = !config.services.displayManager.sddm.enable;
+  services.displayManager.dms-greeter = {
+    enable = true;
+    compositor.name = "niri";
+    configHome = "/home/${username}";
+  };
+  #? cause fprint is fucked up in dms
+  security.pam.services.greetd.fprintAuth = false;
+
+  programs.dsearch.enable = true;
 
   environment.systemPackages = with pkgs; [
-    wdisplays
     kdePackages.qt6ct
   ];
 

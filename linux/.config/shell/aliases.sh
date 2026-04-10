@@ -14,6 +14,7 @@ alias awgu='sudo systemctl start wg-quick-awg0'
 alias awgw='sudo watch -c '\''WG_COLOR_MODE=always awg show'\'''
 alias c=clear
 alias claude-preview='bunx @anthropic-ai/claude-code@next'
+alias cpr='rsync --verbose --archive --compress --partial --progress'
 alias cu='cd /home/ogurez/config/nix && git pull && cd -'
 alias dc='docker compose'
 alias dcd='dc down'
@@ -42,6 +43,7 @@ alias jctlf='jctl --follow'
 alias l='eza -F -bghM --smart-group --group-directories-first --color=auto --color-scale --icons=always --no-quotes --hyperlink'
 alias ll='eza -F -labghM --smart-group --group-directories-first --color=auto --color-scale --icons=always --no-quotes --hyperlink'
 alias lls='\command ls'
+alias llt='ll --tree'
 alias ls='ls --group-directories-first --color=auto --hyperlink'
 alias lzd=lazydocker
 alias lzg=lazygit
@@ -50,6 +52,8 @@ alias nvf='nvim +"lua vim.schedule(function() require('\''telescope.builtin'\'')
 alias nvg='nvim +"lua vim.schedule(function() require('\''telescope.builtin'\'').live_grep({hidden=true}) end)"'
 alias nvs='editor $(rg -n . | fzf | awk -F: '\''{print "+"$2,$1}'\'')'
 alias open-ports='sudo lsof -i -P -n | grep LISTEN'
+alias openclaude='bunx @gitlawb/openclaude'
+alias openclaude-preview='bunx github:Gitlawb/openclaude#main'
 alias pipi='uv pip install -r requirements.txt || uv pip install -r pyproject.toml'
 alias pyt=ptpython
 alias pyta='pyt --asyncio'

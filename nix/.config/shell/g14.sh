@@ -67,7 +67,7 @@ asus_anime_demo_toggle() {
 
 
 #? asusctl specific
-asus_fan() {
+asus_profile_toggle() {
   # fan switch function (for Fn+F5 key)
   (
     asusctl profile next

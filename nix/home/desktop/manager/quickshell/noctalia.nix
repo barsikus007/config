@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   config,
   inputs,
@@ -13,7 +14,71 @@ in
     inputs.noctalia.homeModules.default
   ];
 
-  # "QT_QPA_PLATFORM=wayland;xcb"
+  programs.niri.settings = {
+    binds =
+      with config.lib.niri.actions;
+      let
+        noctalia-ipc = spawn "noctalia-shell" "ipc" "call";
+      in
+      {
+        "Alt+Space" = {
+          action = noctalia-ipc "launcher" "toggle";
+          hotkey-overlay.title = "Toggle Application Launcher";
+        };
+        "Mod+Alt+I" = {
+          action = noctalia-ipc "settings" "toggle";
+          hotkey-overlay.title = "Toggle Settings";
+        };
+        "Mod+L" = {
+          action = noctalia-ipc "lockScreen" "lock";
+          hotkey-overlay.title = "Lock Screen";
+          allow-when-locked = true;
+        };
+        "Ctrl+Alt+Delete" = {
+          action = noctalia-ipc "sessionMenu" "toggle";
+          hotkey-overlay.title = "Toggle Power Menu";
+          allow-when-locked = true;
+        };
+        "XF86AudioRaiseVolume" = {
+          allow-when-locked = true;
+          action = noctalia-ipc "volume" "increase";
+        };
+        "XF86AudioLowerVolume" = {
+          allow-when-locked = true;
+          action = noctalia-ipc "volume" "decrease";
+        };
+        "XF86AudioMute" = {
+          allow-when-locked = true;
+          action = noctalia-ipc "audio" "muteOutput";
+        };
+        "XF86AudioMicMute" = {
+          allow-when-locked = true;
+          action = noctalia-ipc "audio" "muteInput";
+        };
+        "XF86MonBrightnessUp" = {
+          allow-when-locked = true;
+          action = noctalia-ipc "brightness" "increase";
+        };
+        "XF86MonBrightnessDown" = {
+          allow-when-locked = true;
+          action = noctalia-ipc "brightness" "decrease";
+        };
+        "Mod+V" = {
+          action = noctalia-ipc "launcher" "clipboard";
+          hotkey-overlay.title = "Toggle Clipboard Manager";
+        };
+      }
+      // lib.attrsets.optionalAttrs config.custom.isAsus {
+        "XF86Launch4" = {
+          hotkey-overlay.title = "Asus: Cycle Power Profiles";
+          action.spawn-sh = "noctalia-shell ipc call powerProfile cycle";
+        };
+        "Mod+Shift+S" = {
+          hotkey-overlay.title = "Quick ScreenCapture";
+          action.spawn-sh = "noctalia-shell ipc call plugin:screen-recorder toggle";
+        };
+      };
+  };
   # "QT_QPA_PLATFORMTHEME=qt6ct"
   #? fix some icons
   #! "QT_QPA_PLATFORMTHEME=gtk3"
@@ -127,6 +192,7 @@ in
           ];
         };
       };
+      brightness.enableDdcSupport = true;
       dock = {
         pinnedStatic = true;
         inactiveIndicators = true;
@@ -228,8 +294,8 @@ in
           }
           {
             timeout = 5 * 60;
-            on-timeout = "${is_locked} || ${lib.getExe brightnessctl} -s set 10";
-            on-resume = "${is_locked} || ${lib.getExe brightnessctl} -r";
+            on-timeout = "${is_locked} || ${lib.getExe noctalia-shell} ipc call brightness set 0";
+            on-resume = "${is_locked} || ${lib.getExe noctalia-shell} ipc call brightness set 100";
           }
           {
             timeout = 10 * 60;
@@ -237,7 +303,7 @@ in
           }
           {
             timeout = 15 * 60;
-            on-timeout = "${is_locked} || ${lib.getExe brightnessctl} -r && loginctl lock-session";
+            on-timeout = "${is_locked} || ${lib.getExe noctalia-shell} ipc call brightness set 100 && loginctl lock-session";
           }
         ];
       };

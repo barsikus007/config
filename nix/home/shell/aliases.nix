@@ -31,6 +31,7 @@ rec {
     h = "history";
     hf = "h | grp";
     ls = "ls --group-directories-first --color=auto --hyperlink";
+    lls = ''\command ls'';
     l = "ls -CFbh";
     ll = "ls -laFbgh";
     sshe = "editor ~/.ssh/config";
@@ -39,6 +40,7 @@ rec {
     nvs = "editor $(rg -n . | fzf | awk -F: '{print \"+\"$2,$1}')";
     cu = "cd ${flakePath} && git pull && cd -";
     diff = "diff --color";
+    cpr = "rsync --verbose --archive --compress --partial --progress";
     #? https://www.cyberciti.biz/faq/unix-linux-check-if-port-is-in-use-command/
     open-ports = "sudo lsof -i -P -n | grep LISTEN";
   };
@@ -81,6 +83,8 @@ rec {
     {
       claude-preview = "${npxExec} @anthropic-ai/claude-code@next";
       gemini-preview = "${npxExec} @google/gemini-cli@preview";
+      openclaude = "${npxExec} @gitlawb/openclaude";
+      openclaude-preview = "${npxExec} github:Gitlawb/openclaude#main";
     };
   wgAliases = mKWgAliases rec {
     wgExec = "wg";
@@ -111,7 +115,7 @@ rec {
   ezaAliases = {
     l = "eza -F -bghM --smart-group --group-directories-first --color=auto --color-scale --icons=always --no-quotes --hyperlink";
     ll = "eza -F -labghM --smart-group --group-directories-first --color=auto --color-scale --icons=always --no-quotes --hyperlink";
-    lls = ''\command ls'';
+    llt = "ll --tree";
   };
   nvimAliases = {
     editor = "nvim";

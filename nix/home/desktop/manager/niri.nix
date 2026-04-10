@@ -49,7 +49,8 @@
           scroll-factor = 0.3;
         };
       };
-
+      #! not implemented in niri-flake
+      # recent-windows.highlight.corner-radius = 12;
       #? https://niri-wm.github.io/niri/Configuration:-Layout
       layout = {
         background-color = "transparent";
@@ -101,8 +102,95 @@
       # prefer-no-csd = true;
 
       binds = {
+        "XF86AudioRaiseVolume" = lib.mkDefault {
+          allow-when-locked = true;
+          action.spawn = [
+            "wpctl"
+            "set-volume"
+            "@DEFAULT_AUDIO_SINK@"
+            "5%+"
+            "-l"
+            "1.5"
+          ];
+        };
+        "XF86AudioLowerVolume" = lib.mkDefault {
+          allow-when-locked = true;
+          action.spawn = [
+            "wpctl"
+            "set-volume"
+            "@DEFAULT_AUDIO_SINK@"
+            "5%-"
+          ];
+        };
+        "XF86AudioMute" = lib.mkDefault {
+          allow-when-locked = true;
+          action.spawn = [
+            "wpctl"
+            "set-mute"
+            "@DEFAULT_AUDIO_SINK@"
+            "toggle"
+          ];
+        };
+        "XF86AudioMicMute" = lib.mkDefault {
+          allow-when-locked = true;
+          action.spawn = [
+            "wpctl"
+            "set-mute"
+            "@DEFAULT_AUDIO_SOURCE@"
+            "toggle"
+          ];
+        };
+
+        "XF86AudioPlay" = lib.mkDefault {
+          allow-when-locked = true;
+          action.spawn = [
+            "playerctl"
+            "play-pause"
+          ];
+        };
+        "XF86AudioStop" = lib.mkDefault {
+          allow-when-locked = true;
+          action.spawn = [
+            "playerctl"
+            "stop"
+          ];
+        };
+        "XF86AudioPrev" = lib.mkDefault {
+          allow-when-locked = true;
+          action.spawn = [
+            "playerctl"
+            "previous"
+          ];
+        };
+        "XF86AudioNext" = lib.mkDefault {
+          allow-when-locked = true;
+          action.spawn = [
+            "playerctl"
+            "next"
+          ];
+        };
+
+        "XF86MonBrightnessUp" = lib.mkDefault {
+          allow-when-locked = true;
+          action.spawn = [
+            "brightnessctl"
+            "--class=backlight"
+            "set"
+            "+10%"
+          ];
+        };
+        "XF86MonBrightnessDown" = lib.mkDefault {
+          allow-when-locked = true;
+          action.spawn = [
+            "brightnessctl"
+            "--class=backlight"
+            "set"
+            "10%-"
+          ];
+        };
+      }
+      // lib.attrsets.optionalAttrs config.custom.isAsus {
         # TODO: specific quickshell depent hotkeys; maybe make cli for unification?
-        # TODO: asus
         "XF86Launch1" = {
           hotkey-overlay.title = "Asus: Show Something";
           action.spawn-sh = "zsh -c asus_anime_demo_toggle";
@@ -111,13 +199,14 @@
           hotkey-overlay.title = "Asus: Choose Something";
           action.spawn-sh = "zsh -c asus_anime_demo_select_interactive";
         };
-        "XF86Launch4" = {
+        "XF86Launch4" = lib.mkDefault {
           hotkey-overlay.title = "Asus: Cycle Power Profiles";
-          action.spawn-sh = "noctalia-shell ipc call powerProfile cycle";
+          action.spawn-sh = "zsh -c asus_profile_toggle";
         };
-        "Mod+Shift+S" = {
+        "Mod+Shift+S" = lib.mkDefault {
           hotkey-overlay.title = "Quick ScreenCapture";
-          action.spawn-sh = "noctalia-shell ipc call plugin:screen-recorder toggle";
+          # TODO
+          action.spawn-sh = "gpu-screen-recorder -w portal -c mp4";
         };
         # "XF86KbdBrightnessUp".action.spawn-sh = "ydotool key 104:1 104:0";
         # "XF86KbdBrightnessDown".action.spawn-sh = "ydotool key 109:1 109:0";

@@ -2,6 +2,8 @@
   imports = [
     ./wayland.nix
     ./fonts.nix
+
+    ./style/account.nix
   ];
 
   #? https://wiki.archlinux.org/title/Java#Java_applications_cannot_open_external_links

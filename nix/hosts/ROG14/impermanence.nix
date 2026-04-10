@@ -121,6 +121,7 @@ in
 
         ".cache/cliphist"
         ".cache/cloud-code" # ? gemini auth
+        ".cache/danksearch" # ? index
         ".cache/noctalia" # ? to disable prompt on startup
         ".cache/tlrc"
 

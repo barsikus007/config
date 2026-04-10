@@ -64,7 +64,7 @@ in
       # "laptop-button-f5" = {
       #   name = "Laptop F5 Button";
       #   key = "Launch (4)";
-      #   command = "zsh -c asus_fan";
+      #   command = "zsh -c asus_profile_toggle";
       # };
       # TODO: start gpu-screen-record
       # "laptop-button-f6" = {
