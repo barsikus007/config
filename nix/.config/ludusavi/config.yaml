@@ -1,6 +1,7 @@
 ---
 runtime:
   threads: ~
+  networkSecurity: safe
 release:
   check: true
 manifest:

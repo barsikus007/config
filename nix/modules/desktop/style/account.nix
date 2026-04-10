@@ -11,8 +11,7 @@ in
     #? notice the "\\n" we don't want nix to insert a new line in our string, just pass it as \n to systemd
     "f+ /var/lib/AccountsService/users/${username} - - - - [User]\\nIcon=/var/lib/AccountsService/icons/${username}\\n"
     "L+ /var/lib/AccountsService/icons/${username} - - - - ${userIcon}"
-    # TODO: check if plasma will get it from accountservice
-    # "L+ /home/${username}/.face.icon - - - - ${userIcon}"
-    # "L+ /home/${username}/.face.icon - ${username} users - ${userIcon}"
+    #? for noctalia-shell
+    "L+ /home/${username}/.face - ${username} users - ${userIcon}"
   ];
 }

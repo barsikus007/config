@@ -199,7 +199,6 @@ in
         pinnedApps = meta.dock;
       };
       general = {
-        avatarImage = "~/.face.icon";
         showScreenCorners = true;
         forceBlackScreenCorners = true;
         lockScreenAnimations = true;

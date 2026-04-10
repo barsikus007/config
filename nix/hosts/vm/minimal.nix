@@ -6,6 +6,7 @@
     #? to compile completions at NixOS buildtime
     ../../shared/zsh-compinit.nix
   ];
+  home-manager.users.${username}.imports = [ ../../shared/zsh-compinit.nix ];
   virtualisation.vmVariant.virtualisation.forwardPorts = [
     #? ssh localhost -p 22222 -o StrictHostKeychecking=no -o ConnectionAttempts=60
     {

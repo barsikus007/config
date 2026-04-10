@@ -230,6 +230,7 @@
         # nix path-info --closure-size --human-readable ./result
         modules = [
           # ./hosts/vm/minimal.nix
+          # ./hosts/vm
           # ./hosts/vm/paravirt-spiced.nix
           # ./hosts/vm/vfio-pass.nix
 
@@ -297,7 +298,7 @@
             {
               imports = [
                 (modulesPath + "/installer/cd-dvd/installation-cd-minimal-combined.nix")
-                ./hosts/iso/.
+                ./hosts/iso
               ];
             }
           )
