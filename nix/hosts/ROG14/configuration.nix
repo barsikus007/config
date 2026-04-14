@@ -9,11 +9,11 @@
 let
   onDC = pkgs.writeShellScript "on-dc" ''
     ${lib.getExe config.boot.kernelPackages.cpupower} frequency-set -g powersave
-    ${pkgs.asusctl}/bin/asusctl anime --enable-display false
+    ${pkgs.asusctl}/bin/asusctl anime --enable-powersave-anim false
   '';
   onAC = pkgs.writeShellScript "on-ac" ''
     ${lib.getExe config.boot.kernelPackages.cpupower} frequency-set -g performance
-    ${pkgs.asusctl}/bin/asusctl anime --enable-display true
+    ${pkgs.asusctl}/bin/asusctl anime --enable-powersave-anim true
   '';
 in
 {

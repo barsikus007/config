@@ -50,7 +50,16 @@
       };
     };
 
+    icons = {
+      enable = true;
+      light = "breeze";
+      dark = "breeze-dark";
+      package = with pkgs; kdePackages.breeze-icons;
+    };
+
     targets = {
+      #! `qt.platform` is ignored, and calculates from real system state
+      # qt.enable = false;
       #? I don't like how it looks
       plymouth.enable = false;
       #? it triggers gdm and gnome-shell rebuilds

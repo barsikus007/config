@@ -62,6 +62,21 @@ adb_disconnect() {
   adb disconnect "$ANDROID_DEVICE"
 }
 
+adb_shell_as_root() {
+  local ANDROID_DEVICE
+  ANDROID_DEVICE=$(_get_android_device)
+  [ -z "$ANDROID_DEVICE" ] && echo "No device selected" && return 1
+  adb -s "$ANDROID_DEVICE" shell -t "su -c /data/data/com.termux/files/home/.adbrc"
+}
+
+adb_shell_as_termux() {
+  local ANDROID_DEVICE
+  ANDROID_DEVICE=$(_get_android_device)
+  [ -z "$ANDROID_DEVICE" ] && echo "No device selected" && return 1
+  # shellcheck disable=SC2016
+  adb -s "$ANDROID_DEVICE" shell -t 'su $(su -c "stat -c %U /data/data/com.termux") -c /data/data/com.termux/files/home/.adbrc'
+}
+
 adbfs_connect() {
   local ANDROID_DEVICE_LINE
   ANDROID_DEVICE_LINE=$(adb devices -l | tail --lines +2 | fzf)

@@ -6,9 +6,8 @@
     targets = {
       # TODO: unstable: https://github.com/nix-community/stylix/issues/869: user profile: stylix: qt: `config.stylix.targets.qt.platform` other than 'qtct' are currently unsupported: kde. Support may be added in the future.
       # TODO: unstable: https://github.com/NixOS/nixpkgs/issues/359129
-      #! qtct,qt6ct breaks plasma
-      #? others, probably, too qt5ct,gtk3,gtk4
-      # qt.platform = "qtct";
+      #! values others from "kde" breaks plasma
+      # qt.platform = "kde";
 
       #? conflicts with custom theme
       bat.enable = false;

@@ -12,11 +12,12 @@
   ];
   home-manager.users.${username}.imports = [ ../../../home/desktop/manager/plasma.nix ];
 
-  xdg.portal.config.common.default = [ "kde" ];
-
+  services.desktopManager.plasma6.enable = true;
   #! still raw in terms of fprintd things
   # services.displayManager.plasma-login-manager.enable = true;
-  services.desktopManager.plasma6.enable = true;
+
+  xdg.portal.config.common.default = [ "kde" ];
+
   environment.systemPackages = with pkgs; [
     #? xdotool for plasma
     kdotool

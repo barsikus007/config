@@ -13,6 +13,7 @@
   home-manager.users.${username}.imports = [ ../../../home/desktop/manager/niri.nix ];
 
   services.displayManager.defaultSession = "niri";
+  services.displayManager.dms-greeter.compositor.name = "niri";
   programs.niri.enable = true;
 
   #? cause it it set by module with no configuration, overriding the common settings

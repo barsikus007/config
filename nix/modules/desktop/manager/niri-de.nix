@@ -32,10 +32,7 @@
 
   services.displayManager.gdm.enable = !config.services.displayManager.sddm.enable;
 
-  environment.systemPackages = with pkgs; [
-    wdisplays
-    kdePackages.qt6ct
-  ];
+  environment.systemPackages = with pkgs; [ wdisplays ];
 
   #? Fix unpopulated MIME menus in dolphin: https://discourse.nixos.org/t/dolphin-does-not-have-mime-associations/48985/8
   environment.etc."/xdg/menus/applications.menu".text =

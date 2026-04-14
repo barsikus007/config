@@ -90,6 +90,7 @@ in
 
     workspace = {
       # clickItemTo = "open"; #? breaks type to search func in dolphin
+      #? sets only if plasma launches
       #? stylix sets it
       # theme = "breeze-dark";
       # colorScheme = "BreezeDark";
@@ -98,8 +99,7 @@ in
       # lookAndFeel =
       #   if (config.stylix.targets.kde.enable) then
       #     "stylix"
-      #   else
-      #   if (config.stylix.polarity == "light") then
+      #   else if (config.stylix.polarity == "light") then
       #     "org.kde.breeze.desktop"
       #   else
       #     "org.kde.breezedark.desktop";

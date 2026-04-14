@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 #? https://wiki.nixos.org/wiki/Dolphin
 {
   programs.niri.useNautilus = false;

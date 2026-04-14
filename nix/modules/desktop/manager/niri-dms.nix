@@ -4,7 +4,7 @@
   imports = [
     ./niri.nix
     ../../hardware/ddcutil.nix
-    # ../style/qt-for-gtk.nix
+    ../style/qt-for-gtk.nix
     ../environment/explorer/dolphin.nix
     ../environment/kde-dbus.nix
     ../environment/kdeconnect.nix
@@ -18,17 +18,12 @@
 
   services.displayManager.dms-greeter = {
     enable = true;
-    compositor.name = "niri";
     configHome = "/home/${username}";
   };
   #? cause fprint is fucked up in dms
   security.pam.services.greetd.fprintAuth = false;
 
   programs.dsearch.enable = true;
-
-  environment.systemPackages = with pkgs; [
-    kdePackages.qt6ct
-  ];
 
   #? Fix unpopulated MIME menus in dolphin: https://discourse.nixos.org/t/dolphin-does-not-have-mime-associations/48985/8
   environment.etc."/xdg/menus/applications.menu".text =
