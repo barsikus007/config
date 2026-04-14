@@ -7,6 +7,8 @@ nix run --override-input nixpkgs nixpkgs github:barsikus007/config?dir=nix# <tab
 
 ## coolvm example for non NixOS
 
+user passwd is `0`
+
 ```shell
 nix --extra-experimental-features "nix-command flakes" run --impure 'github:nix-community/nixGL' -- nix --extra-experimental-features "nix-command flakes pipe-operators" run --impure --override-input nixpkgs nixpkgs 'github:barsikus007/config?dir=nix#coolvm'
 ```

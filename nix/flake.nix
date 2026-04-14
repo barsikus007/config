@@ -66,6 +66,10 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
     niri = {
@@ -149,6 +153,7 @@
           ./modules/hardware/xbox.nix
           ./modules/hardware/esp32.nix
 
+          ./modules/sops.nix
           ./modules/cachyos-kernel.nix
           ./modules/containers
           ./modules/silent-boot.nix
@@ -285,6 +290,8 @@
                   }
                 ];
               };
+
+              users.users.${username}.initialPassword = "0";
             }
           )
         ];

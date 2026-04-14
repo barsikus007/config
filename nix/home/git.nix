@@ -29,7 +29,6 @@
       gpg.format = "ssh";
     };
     # TODO: only on main machine
-    # TODO: secrets: https://wiki.nixos.org/wiki/Git#Using_your_public_SSH_key_as_a_signing_key
     signing.key = "~/.ssh/id_ed25519.pub";
     signing.signByDefault = true;
   };

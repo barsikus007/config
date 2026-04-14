@@ -93,8 +93,7 @@
         automount_opts = "noauto,x-systemd.automount,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,soft";
       in
       [
-        # TODO: secrets
-        "${automount_opts},credentials=/etc/nixos/smb-secrets"
+        "${automount_opts},credentials=${config.sops.secrets."hosts/NAS/smb".path}"
         "rw"
         "uid=1000"
         "gid=100"

@@ -51,10 +51,6 @@ in
     umount /btrfs_tmp
   '';
 
-  # TODO: secrets
-  users.users.${username}.hashedPasswordFile =
-    "${persistentDir}/etc/nixos/passwords/${username}.hash";
-
   # sudo mkdir -p /persistent/etc/NetworkManager /persistent/var/{db,log,lib}
   # sudo cp -ax --reflink=always ...
   environment.persistence."${persistentDir}" = {
@@ -73,7 +69,6 @@ in
       }
       "/etc/asusd" # TODO: config it?
       "/etc/NetworkManager/system-connections"
-      "/etc/nixos" # TODO: secrets
       "/etc/ssh" # TODO: secrets
       "/var/db" # ? ./sudo/lectured/$(id -u)
       "/var/log"
@@ -214,6 +209,7 @@ in
       files = [
         ".claude.json"
 
+        ".config/sops/age/keys.txt"
         ".config/kwin_dialogsrc"
         ".config/kwinoutputconfig.json" # ? monitors
         ".config/syncthingtray.ini" # TODO: config?

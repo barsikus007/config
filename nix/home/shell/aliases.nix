@@ -40,7 +40,7 @@ rec {
     nvs = "editor $(rg -n . | fzf | awk -F: '{print \"+\"$2,$1}')";
     cu = "cd ${flakePath} && git pull && cd -";
     diff = "diff --color";
-    cpr = "rsync --verbose --archive --compress --partial --progress";
+    cpr = "rsync --verbose --archive --compress --partial --progress --mkpath";
     #? https://www.cyberciti.biz/faq/unix-linux-check-if-port-is-in-use-command/
     open-ports = "sudo lsof -i -P -n | grep LISTEN";
   };
