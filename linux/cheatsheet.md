@@ -121,7 +121,9 @@ sudo btrfs scrub status /
 sudo mkdir -p /btrfs_tmp && sudo mount /dev/disk/by-uuid/afb30336-18f3-4359-bebb-39c51e8f7b45 /btrfs_tmp
 BACKUP_DATE=$(date +%Y-%m-%d)
 sudo btrfs subvolume snapshot -r /btrfs_tmp/@persistent "/btrfs_tmp/@persistent-backup-$BACKUP_DATE"
-sudo btrfs send "/btrfs_tmp/@persistent-backup-$BACKUP_DATE" | zstd | pv | ssh admin "cat > /tank/storage/backups/@persistent-backup-$BACKUP_DATE.btrfs.zst"
+sudo btrfs send "/btrfs_tmp/@persistent-backup-$BACKUP_DATE" | zstd | pv | ssh admin "cat > /tank/storage/backups/hosts/desktops/ROG14/@persistent-backup-$BACKUP_DATE.btrfs.zst"
+#? delete previous with
+# sudo btrfs subvolume delete /btrfs_tmp/...
 ```
 
 ## wireguard

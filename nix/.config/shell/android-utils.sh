@@ -29,24 +29,20 @@ adb_connect() {
     return 1
   fi
 
-  echo "Scanning $SUBNET on $INTERFACE for ADB devices (port 5555)..."
+  echo "Scanning $SUBNET on $INTERFACE for ADB devices (port 5555) with nc..."
   local DEVICES
-  if command -v nmap &> /dev/null; then
-    DEVICES=$(nmap -p 5555 --open -T5 -n --max-retries 0 "$SUBNET" -oG - | awk '/5555\/open/ {print $2}')
-  else
-    echo "nmap not found, attempting fallback scan using nc..."
-    local PREFIX
-    PREFIX=$(echo "$SUBNET" | cut -d'/' -f1 | cut -d'.' -f1-3)
-    # Fast parallel scan using nc
-    DEVICES=$(
-      for i in {1..254}; do
-        (
-          timeout 0.2 nc -z "$PREFIX.$i" 5555 2>/dev/null && echo "$PREFIX.$i"
-        ) &
-      done
-      wait
-    )
-  fi
+  # DEVICES=$(nmap -p 5555 --open -T aggressive -n --max-retries 0 "$SUBNET" -oG - | awk '/5555\/open/ {print $2}')
+  local PREFIX
+  PREFIX=$(echo "$SUBNET" | cut -d'/' -f1 | cut -d'.' -f1-3)
+  #? Fast parallel scan using nc
+  DEVICES=$(
+    for i in {1..254}; do
+      (
+        timeout 0.5 nc -z "$PREFIX.$i" 5555 2>/dev/null && echo "$PREFIX.$i"
+      ) &
+    done
+    wait
+  )
 
   if [ -z "$DEVICES" ] || [ "$DEVICES" = "" ]; then
     echo "No devices found with port 5555 open"

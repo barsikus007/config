@@ -140,6 +140,24 @@
             "toggle"
           ];
         };
+        "Alt+XF86AudioRaiseVolume" = lib.mkDefault {
+          allow-when-locked = true;
+          action.spawn = [
+            "wpctl"
+            "set-volume"
+            "@DEFAULT_AUDIO_SOURCE@"
+            "5%+"
+          ];
+        };
+        "Alt+XF86AudioLowerVolume" = lib.mkDefault {
+          allow-when-locked = true;
+          action.spawn = [
+            "wpctl"
+            "set-volume"
+            "@DEFAULT_AUDIO_SOURCE@"
+            "5%-"
+          ];
+        };
 
         "XF86AudioPlay" = lib.mkDefault {
           allow-when-locked = true;
@@ -198,6 +216,10 @@
         "Ctrl+XF86Launch1" = {
           hotkey-overlay.title = "Asus: Choose Something";
           action.spawn-sh = "zsh -c asus_anime_demo_select_interactive";
+        };
+        "Alt+XF86Launch1" = {
+          hotkey-overlay.title = "Asus: Toggle Anime";
+          action.spawn-sh = "zsh -c asus_anime_toggle";
         };
         "XF86Launch4" = lib.mkDefault {
           hotkey-overlay.title = "Asus: Cycle Power Profiles";

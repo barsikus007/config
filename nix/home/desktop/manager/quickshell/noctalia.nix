@@ -55,6 +55,14 @@ in
           allow-when-locked = true;
           action = noctalia-ipc "audio" "muteInput";
         };
+        "Alt+XF86AudioRaiseVolume" = {
+          allow-when-locked = true;
+          action = noctalia-ipc "volume" "increaseInput";
+        };
+        "Alt+XF86AudioLowerVolume" = {
+          allow-when-locked = true;
+          action = noctalia-ipc "volume" "decreaseInput";
+        };
         "XF86MonBrightnessUp" = {
           allow-when-locked = true;
           action = noctalia-ipc "brightness" "increase";

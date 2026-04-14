@@ -168,7 +168,7 @@ window-rule {
     // open-focused false
 }
 window-rule {
-    match app-id=r#"^Minecraft 1\.\d{1,2}\.\d*$"#
+    match app-id=r#"^Minecraft 1\.\d{1,2}\.\d*"#
     match app-id=r#"^GT: New Horizons "#
     match app-id=r#"^qemu$"#
     open-on-workspace "games"

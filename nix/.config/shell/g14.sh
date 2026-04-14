@@ -53,6 +53,16 @@ alias asus_anime_demo_stop='asus_anime_demo_stop_sound; asus_anime_demo_stop_gif
 alias asus_anime_demo_start_sound='tmux new -s sound -d "PULSE_SINK=alsa_output.pci-0000_04_00.6.analog-stereo play ~/.config/rog/sound.mp3 repeat -"'
 #? 0.5s for matrix to start
 alias asus_anime_demo_start='asus_anime_demo_stop && asus_anime_demo_start_prepare && asus_anime_demo_start_gif && sleep 0.5 && asus_anime_demo_start_sound'
+asus_anime_toggle() {
+  if grep -q 'builtin_anims_enabled: true' /etc/asusd/anime.ron; then
+  # if grep -q 'display_enabled: true' /etc/asusd/anime.ron; then
+    asusctl anime --enable-powersave-anim false
+    # asusctl anime --enable-display false
+  else
+    asusctl anime --enable-powersave-anim true
+    # asusctl anime --enable-display true
+  fi
+}
 asus_anime_demo_toggle() {
   # demo toggle function (for dedicated key)
   (
