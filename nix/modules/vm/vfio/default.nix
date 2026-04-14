@@ -53,6 +53,7 @@
       "10de:1ada" # USB
       "10de:1adb" # Serial (Type-C)
     ];
+    blacklistNvidia = true;
   };
 
   virtualisation.kvmfr = {
