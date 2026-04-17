@@ -329,9 +329,8 @@
         ];
       };
 
-      homeConfigurations =
-        { }
-        // mkHomeCfg "nixos" [
+      homeConfigurations = nixpkgs.lib.attrsets.mergeAttrsList [
+        (mkHomeCfg "nixos" [
           ./shared
           ./shared/nix.nix
           ./shared/nh.nix
@@ -339,8 +338,8 @@
           ./home
           ./home/shell/minimal.nix
           ./home/editors.nix
-        ]
-        // mkHomeCfg "nixd" [
+        ])
+        (mkHomeCfg "nixd" [
           #! https://github.com/nix-community/nixd/issues/705#issuecomment-3103731843
           inputs.nixcord.homeModules.default
           inputs.nvf.homeManagerModules.default
@@ -348,7 +347,8 @@
           inputs.niri.homeModules.niri
           inputs.noctalia.homeModules.default
           inputs.dms.homeModules.dank-material-shell
-        ];
+        ])
+      ];
 
       nixOnDroidConfigurations.default = inputs.nix-on-droid.lib.nixOnDroidConfiguration {
         pkgs = import ./nixpkgs.nix {

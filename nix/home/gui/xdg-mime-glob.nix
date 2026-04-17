@@ -34,16 +34,9 @@ in
         in
         lib.genAttrs mimeTypes (_: application);
     in
-    { }
-    // (generateGlobAssociations "image" "sha256-VlpdQZ0QH2iD0hoI8othK2M3LAlOd7AEWXxtWSDRjIU="
-      imageApps
-    )
-    // (generateGlobAssociations "video" "sha256-pvWEsjrN0MA/Pagd8/X9SSFBGkGNP2zE6frbtU/m4y8="
-      videoApps
-    )
-    // (generateGlobAssociations "audio" "sha256-jVSMMnBH/f+9ltf9WZDRuKaCREO+wQKyLPzEOQamL6Y="
-      audioApps
-    )
-  #
-  ;
+    lib.attrsets.mergeAttrsList [
+      (generateGlobAssociations "image" "sha256-VlpdQZ0QH2iD0hoI8othK2M3LAlOd7AEWXxtWSDRjIU=" imageApps)
+      (generateGlobAssociations "video" "sha256-pvWEsjrN0MA/Pagd8/X9SSFBGkGNP2zE6frbtU/m4y8=" videoApps)
+      (generateGlobAssociations "audio" "sha256-jVSMMnBH/f+9ltf9WZDRuKaCREO+wQKyLPzEOQamL6Y=" audioApps)
+    ];
 }

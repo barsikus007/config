@@ -173,9 +173,6 @@ in
               displayMode = "alwaysShow";
             }
             {
-              id = "PowerProfile";
-            }
-            {
               id = "Battery";
               displayMode = "graphic";
               alwaysShowPercentage = true;

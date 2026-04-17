@@ -148,19 +148,20 @@ rec {
     nss = "nix_shell_exec";
     ncode = "code --reuse-window $(nix eval -f '<nixpkgs>' path)/pkgs/top-level/all-packages.nix";
   };
-  sharedAliases =
+  sharedAliases = lib.attrsets.mergeAttrsList [
     baseAliases
-    // networkTestAliases
-    // dockerAliases
-    // pythonAliases
-    // npxAliases
-    // wgAliases
-    // awgAliases
-    // xrayAliases
-    // otherAliases
-    // ezaAliases
-    // nvimAliases
-    // journalCtlAliases;
+    networkTestAliases
+    dockerAliases
+    pythonAliases
+    npxAliases
+    wgAliases
+    awgAliases
+    xrayAliases
+    otherAliases
+    ezaAliases
+    nvimAliases
+    journalCtlAliases
+  ];
   zshAliases = {
     #? https://bbs.archlinux.org/viewtopic.php?id=132830
     sudo = "nocorrect sudo ";
