@@ -23,7 +23,8 @@ rec {
   baseAliases = {
     #? https://askubuntu.com/a/22043
     #? https://superuser.com/a/1655578
-    sudo = "sudo env PATH=$PATH ";
+    sudo = "sudo ";
+    sudoe = "sudo env PATH=$PATH ";
     editor = "nano";
     grep = "grep --color=auto";
     grp = "grep -Fin -C 7";
@@ -162,7 +163,8 @@ rec {
     // journalCtlAliases;
   zshAliases = {
     #? https://bbs.archlinux.org/viewtopic.php?id=132830
-    sudo = "nocorrect sudo env PATH=$PATH ";
+    sudo = "nocorrect sudo ";
+    sudoe = "nocorrect sudo env PATH=$PATH ";
     "?" = "type_colored_and_nix_truncate";
     "??" = "type_colored";
     history-cat = "nvim -R +'set filetype=bash' ~/.config/zsh/.zsh_history";

@@ -198,6 +198,10 @@ in
       };
       brightness.enableDdcSupport = true;
       dock = {
+        dockType = "attached";
+        showDockIndicator = true;
+        indicatorThickness = 6;
+        showLauncherIcon = true;
         pinnedStatic = true;
         inactiveIndicators = true;
         pinnedApps = meta.dock;

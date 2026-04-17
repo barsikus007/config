@@ -65,7 +65,8 @@ alias speedtest-as-youtube='curl --insecure --connect-to ::speedtest.selectel.ru
 alias sshe='editor ~/.ssh/config'
 alias sst='sudo systemctl-tui'
 alias st=systemctl-tui
-alias sudo='sudo env PATH=$PATH '
+alias sudo='sudo '
+alias sudoe='sudo env PATH=$PATH '
 alias wgd='sudo systemctl stop wg-quick-wg0'
 alias wgr='sudo systemctl restart wg-quick-wg0'
 alias wgs='systemctl status wg-quick-wg0'

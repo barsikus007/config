@@ -67,15 +67,15 @@ in
         user = username;
         group = "users";
       }
-      "/etc/asusd" # TODO: config it?
+      "/etc/asusd" # ? current anime state
       "/etc/NetworkManager/system-connections"
-      "/etc/ssh" # TODO: secrets
+      "/etc/ssh"
       "/var/db" # ? ./sudo/lectured/$(id -u)
       "/var/log"
       "/var/lib/bluetooth"
       "/var/lib/btrfs"
       "/var/lib/cups"
-      "/var/lib/fprint" # ? enrolled fingers
+      "/var/lib/fprint" # ? enrolled fingerprints
       "/var/lib/libvirt"
       # "/var/lib/misc" # TODO: is this needed? dnsmasq waydroid
       # "/var/lib/NetworkManager" # TODO: is this needed?
@@ -95,7 +95,7 @@ in
     files = [
       # "/etc/adjtime" # TODO: is this needed? hwclock
       # "/etc/logrotate.status" # TODO: is this needed? /var/log/{b,w}tmp
-      "/etc/machine-id" # TODO: secrets
+      "/etc/machine-id" # ! no way to pass secrets to initrd
       "/var/lib/systemd/credential.secret" # ? for apps, like libvirt, which relay on persistent secret
       "/var/lib/systemd/random-seed" # ? AI: helps the kernel maintain entropy across reboots, which speeds up the initialization of cryptographic services during boot
     ];
@@ -151,7 +151,7 @@ in
         ".config/r2modman" # TODO: ??
         ".config/r2modmanPlus-local"
         ".config/rog" # TODO: asus
-        ".config/rustdesk" # TODO: secrets
+        ".config/rustdesk"
         ".config/session" # ? KDE persist (dolphin and windows)
         ".config/sourcery" # ? auth
         ".config/sunshine" # ? auth
@@ -174,7 +174,7 @@ in
         # ".local/share/konsole"
         # ".local/share/kscreen"
         # ".local/share/kwalletd"
-        # ".local/share/kxmlgui5"
+        # ".local/share/kxmlgui5" #? keymaps (and more ?) for some kde/qt apps
         # ".local/share/RecentDocuments"
         # ".local/share/nix/repl-history"
 

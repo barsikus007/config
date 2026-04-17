@@ -41,6 +41,8 @@ Set user password and TODO other steps from [NixOS installation manual](https://
 
 ~~Too lazy to write this on nix~~
 
+(`OSError: [Errno 30] Read-only file system: 'clear-0.pgm'` output is <ins>__normal__</ins>)
+
 ```shell
 sudo $(nix build 'github:barsikus007/config?dir=nix#libs.goodix-patch-521d' --print-out-paths)/bin/run_521d
 sudo $(nix build ~/config/nix#libs.goodix-patch-521d --print-out-paths)/bin/run_521d

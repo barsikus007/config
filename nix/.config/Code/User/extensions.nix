@@ -47,7 +47,10 @@ let
     "moshfeu.compare-folders" = [ "essential" ];
     "ms-vscode.hexeditor" = [ "essential" ];
     "qwtel.sqlite-viewer" = [ "essential" ];
-    "mgesbert.indent-nested-dictionary" = [ "essential" ]; # ? will format even broken json
+    "mgesbert.indent-nested-dictionary" = [
+      "essential"
+      "python"
+    ]; # ? will format even broken json
     "ruschaaf.extended-embedded-languages" = [ "essential" ]; # TODO: comment-syntax
     "semanticdiff.semanticdiff" = [ "essential" ];
     "sourcery.sourcery" = [ "essential" ]; # ? ai

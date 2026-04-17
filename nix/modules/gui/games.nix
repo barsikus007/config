@@ -17,7 +17,7 @@ in
       );
     };
     protontricks.enable = true;
-    gamescopeSession.enable = true;
+    # gamescopeSession.enable = true;
   };
 
   programs.gamemode.enable = true;

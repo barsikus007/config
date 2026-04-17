@@ -30,9 +30,10 @@ fi
 
 ### misc
 
-- ventoy: `NIXPKGS_ALLOW_UNFREE=1 NIXPKGS_ALLOW_INSECURE=1 nix shell --impure nixpkgs#ventoy-full-qt`
-  - `sudo ventoy-gui /dev/...`
-  - `sudo ventoy-plugson /dev/...`
+- ventoy: `NIXPKGS_ALLOW_UNFREE=1 NIXPKGS_ALLOW_INSECURE=1 nix shell --impure nixpkgs#ventoy-full`
+  - `sudo ventoy-web`
+  - `mkdir tmp && sudo mount /dev/sdX1 tmp && sudo ventoy-plugson /dev/sdX`
+    - `sudo umount tmp; rm --dir tmp/`
 
 ## nixos
 

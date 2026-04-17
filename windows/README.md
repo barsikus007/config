@@ -15,7 +15,7 @@ cd && git clone https://github.com/barsikus007/config --depth 1 && cd -
 # Install/Update
 # sudo is needed for New-Item -ItemType SymbolicLink
 # TODO split initial and incremental setup
-cd ~\config\ && git pull && sudo .\windows\pwsh.ps1 &&.\windows\install.ps1 && cd -
+cd ~\config\ && git pull && sudo .\windows\pwsh.ps1 && cd -
 ```
 
 ## Post-install
@@ -29,6 +29,15 @@ sudo reg add "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\TimeZoneInform
 
 ```powershell
 PowerShell.exe -ExecutionPolicy Bypass -File <filename>
+```
+
+## Override system apps with user within shell context
+
+```powershell
+${env:Path} = @(
+  [Environment]::GetEnvironmentVariable('Path', 'User')
+  [Environment]::GetEnvironmentVariable('Path', 'Machine')
+) -join ';'
 ```
 
 ## [Soft](./soft.md)

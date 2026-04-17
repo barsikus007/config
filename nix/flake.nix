@@ -171,8 +171,8 @@
           ./modules/printer.nix
 
           # ./modules/desktop/manager/plasma.nix
-          # ./modules/desktop/manager/niri-de.nix
-          ./modules/desktop/manager/niri-dms.nix
+          ./modules/desktop/manager/niri-de.nix
+          # ./modules/desktop/manager/niri-dms.nix
           ./modules/gui/sound.nix
           ./modules/gui/games.nix
           ./modules/gui/throne.nix
