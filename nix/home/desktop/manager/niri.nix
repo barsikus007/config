@@ -12,6 +12,7 @@
     inputs.niri.homeModules.stylix
 
     ../.
+    ../../gui/xdg-mime-glob.nix
   ];
   home.packages = with pkgs; [
     grim
