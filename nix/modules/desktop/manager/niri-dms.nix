@@ -13,6 +13,7 @@
   ];
   home-manager.users.${username}.imports = [
     ../../../home/desktop/environment/kde-settings.nix
+    ../../../home/desktop/environment/kde-stylix.nix
     ../../../home/desktop/manager/quickshell/dms.nix
   ];
 
