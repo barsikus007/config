@@ -44,6 +44,7 @@ rec {
     cpr = "rsync --verbose --archive --compress --partial --progress --mkpath";
     #? https://www.cyberciti.biz/faq/unix-linux-check-if-port-is-in-use-command/
     open-ports = "sudo lsof -i -P -n | grep LISTEN";
+    # TODO: open-ports = "sudo netstat --listening";
   };
   networkTestAliases = {
     "1ip" = "wget -qO - icanhazip.com";
@@ -82,7 +83,7 @@ rec {
       npxExec = "bunx";
     in
     {
-      claude-preview = "${npxExec} @anthropic-ai/claude-code@next";
+      claude-preview = "${npxExec} @anthropic-ai/claude-code@2.1.112";
       gemini-preview = "${npxExec} @google/gemini-cli@preview";
       openclaude = "${npxExec} @gitlawb/openclaude";
       openclaude-preview = "${npxExec} github:Gitlawb/openclaude#main";

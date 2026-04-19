@@ -35,6 +35,8 @@ let
     "davinci-resolve-studio"
 
     "hytale-launcher"
+
+    "xnconvert"
   ];
   lib = nixpkgs.lib;
 in

@@ -13,7 +13,7 @@ alias awgs='systemctl status wg-quick-awg0'
 alias awgu='sudo systemctl start wg-quick-awg0'
 alias awgw='sudo watch -c '\''WG_COLOR_MODE=always awg show'\'''
 alias c=clear
-alias claude-preview='bunx @anthropic-ai/claude-code@next'
+alias claude-preview='bunx @anthropic-ai/claude-code@2.1.112'
 alias cpr='rsync --verbose --archive --compress --partial --progress --mkpath'
 alias cu='cd /home/ogurez/config/nix && git pull && cd -'
 alias dc='docker compose'

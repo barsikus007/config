@@ -162,8 +162,7 @@ distrobox create --name astra --image registry.astralinux.ru/astra/ubi18:latest
 
 - `sudo cfdisk /dev/...`
   - `sudo parted`
-- `nix shell nixpkgs#ntfs3g --command sudo ntfsfix /dev/nvme0n1p3`
-  - `nix shell nixpkgs#ntfs3g --command sudo ntfsfix /dev/nvme0n1p3 --clear-dirty`
+- `nix shell nixpkgs#ntfsprogs-plus --command sudo ntfsck /dev/nvme0n1p3 --repair-auto`
 
 ## commands
 

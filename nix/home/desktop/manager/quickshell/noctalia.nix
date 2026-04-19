@@ -279,12 +279,11 @@ in
   services.hypridle = {
     enable = true;
     settings =
-      with pkgs;
       let
-        lock_cmd = "${
-          lib.getExe inputs.noctalia.packages.${stdenv.hostPlatform.system}.default
-        } ipc call lockScreen lock";
-        power_off_monitors_cmd = "${lib.getExe niri} msg action power-off-monitors";
+        noctalia_ipc_call = "${config.programs.noctalia-shell.package} ipc call";
+        # lock_cmd = "loginctl lock-session";
+        lock_cmd = "${noctalia_ipc_call} lockScreen lock";
+        power_off_monitors_cmd = "${config.programs.niri.package} msg action power-off-monitors";
         is_locked = ''[ $(loginctl show-session $XDG_SESSION_ID -p LockedHint --value) == "yes" ]'';
       in
       {
@@ -298,8 +297,8 @@ in
           }
           {
             timeout = 5 * 60;
-            on-timeout = "${is_locked} || ${lib.getExe noctalia-shell} ipc call brightness set 0";
-            on-resume = "${is_locked} || ${lib.getExe noctalia-shell} ipc call brightness set 100";
+            on-timeout = "${is_locked} || ${noctalia_ipc_call} brightness set 0";
+            on-resume = "${is_locked} || ${noctalia_ipc_call} brightness set 100";
           }
           {
             timeout = 10 * 60;
@@ -307,7 +306,7 @@ in
           }
           {
             timeout = 15 * 60;
-            on-timeout = "${is_locked} || ${lib.getExe noctalia-shell} ipc call brightness set 100 && loginctl lock-session";
+            on-timeout = "${is_locked} || ${noctalia_ipc_call} brightness set 100 && ${lock_cmd}";
           }
         ];
       };

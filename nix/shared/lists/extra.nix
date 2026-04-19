@@ -73,4 +73,9 @@ with pkgs;
 
   # GUI automation
   xclicker
+
+  #! https://learn.microsoft.com/en-us/windows/powertoys/ analogs
+  xnconvert # ? Image Resizer
+  krename # ? PowerRename
+  #? ocr-screen-region # ? Text Extractor
 ]

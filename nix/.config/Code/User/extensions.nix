@@ -146,7 +146,8 @@ let
     "myriad-dreamin.tinymist" = [ "generic language" ];
     "ahmadalli.vscode-nginx-conf" = [ "generic language" ];
     "raynigon.nginx-formatter" = [ "generic language" ];
-    "kdl-org.kdl" = [ "generic language" ];
+    #? v1 is for niri
+    "kdl-org.kdl-v1" = [ "generic language" ];
     "redhat.vscode-xml" = [ "generic language" ];
     "redhat.vscode-yaml" = [ "generic language" ];
     "rust-lang.rust-analyzer" = [ "generic language" ];
