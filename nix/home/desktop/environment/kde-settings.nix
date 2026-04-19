@@ -1,4 +1,9 @@
-{ inputs, ... }:
+{
+  lib,
+  config,
+  inputs,
+  ...
+}:
 #? non-specific KDE settings, used by KDE apps even without KDE itself
 {
   imports = [
@@ -46,6 +51,21 @@
 
       # "kiorc"."Confirmations"."ConfirmDelete" = true;
       # "kiorc"."Executable scripts"."behaviourOnLaunch" = "execute";
+
+      #? QFileDialog (used by xdg-desktop-portal-kde for directory=true) reads shortcuts from QtProject.conf
+      #? it replaces with dolphin when kdePackages.plasma-integration is added
+      "QtProject.conf"."FileDialog"."shortcuts" = lib.concatStringsSep ", " [
+        "file:"
+        "file://${config.home.homeDirectory}"
+        "file://${config.home.homeDirectory}/Desktop"
+        "file://${config.home.homeDirectory}/Downloads"
+        "file://${config.home.homeDirectory}/Sync"
+        "file://${config.home.homeDirectory}/projects"
+        "file://${config.home.homeDirectory}/Games"
+        "file://${config.home.homeDirectory}/Pictures"
+        "file://${config.home.homeDirectory}/Videos"
+        "file:///run/media/${config.home.username}"
+      ];
     };
     dataFile = {
       # "dolphin/view_properties/global/.directory"."Dolphin"."ViewMode" = 1;

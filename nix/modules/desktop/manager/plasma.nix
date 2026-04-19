@@ -4,7 +4,7 @@
   imports = [
     ../default.nix
     ../dm/sddm.nix
-    ../style/qt-for-gtk.nix
+    ../style/uniform-look.nix
     ../environment/explorer/dolphin.nix
     ../environment/kdeconnect.nix
     ../environment/kwallet.nix

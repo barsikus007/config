@@ -9,7 +9,7 @@
   imports = [
     ./niri.nix
     ../../hardware/ddcutil.nix
-    ../style/qt-for-gtk.nix
+    ../style/uniform-look.nix
     ../environment/explorer/dolphin.nix
     ../environment/kde-dbus.nix
     ../environment/kdeconnect.nix
