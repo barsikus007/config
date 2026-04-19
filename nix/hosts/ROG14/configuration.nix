@@ -23,7 +23,7 @@ in
 
   environment.systemPackages = (
     import ../../shared/lists { inherit pkgs; }
-    ++ import ../../shared/lists/extra.nix { inherit pkgs; }
+    ++ import ../../shared/lists/10_extra.nix { inherit pkgs; }
     ++ import ../../shared/lists/test.nix { inherit pkgs; }
   );
 

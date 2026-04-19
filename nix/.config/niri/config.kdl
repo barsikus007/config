@@ -97,9 +97,11 @@ window-rule {
 }
 window-rule {
     //? status windows at noctalia OSD location
+    match app-id=r#"^org\.kde\.dolphin$"# title="^Progress Dialog — Dolphin$"
     match app-id=r#"^org\.kde\.dolphin$"# title="^Copying — Dolphin$"
-    match app-id=r#"^org\.kde\.ark$"# title=r"^Loading archive .*— Ark$"
-    match app-id=r#"^org\.kde\.ark$"# title=r"^Extracting one file — Ark$"
+    match app-id=r#"^org\.kde\.dolphin$"# title="^Moving .*— Dolphin$"
+    match app-id=r#"^org\.kde\.ark$"# title="^Loading archive .*— Ark$"
+    match app-id=r#"^org\.kde\.ark$"# title="^Extracting one file — Ark$"
     open-floating true
     //? focus-ring width x3
     default-floating-position x=24 y=24 relative-to="top-right"

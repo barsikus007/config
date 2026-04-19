@@ -52,6 +52,7 @@ alias nvf='nvim +"lua vim.schedule(function() require('\''telescope.builtin'\'')
 alias nvg='nvim +"lua vim.schedule(function() require('\''telescope.builtin'\'').live_grep({hidden=true}) end)"'
 alias nvs='editor $(rg -n . | fzf | awk -F: '\''{print "+"$2,$1}'\'')'
 alias open-ports='sudo lsof -i -P -n | grep LISTEN'
+alias open-ports-netstat='netstat --listening'
 alias openclaude='bunx @gitlawb/openclaude'
 alias openclaude-preview='bunx github:Gitlawb/openclaude#main'
 alias pipi='uv pip install -r requirements.txt || uv pip install -r pyproject.toml'

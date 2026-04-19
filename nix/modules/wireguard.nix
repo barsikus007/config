@@ -22,6 +22,8 @@
     wireguard-tools
     amneziawg-tools
   ];
+
+  sops.secrets."hosts/NAS/router/ssid" = { };
   networking.networkmanager.dispatcherScripts = [
     {
       source = pkgs.writeScript "local-wg-auto" ''

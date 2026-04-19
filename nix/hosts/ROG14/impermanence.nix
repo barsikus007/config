@@ -133,7 +133,6 @@ in
         ".config/fsearch"
         ".config/GIMP" # TODO: config
         ".config/glib-2.0" # TODO: generate?
-        ".config/google-chrome" # TODO: ??
         ".config/hatch" # TODO: generate
         ".config/heroic" # TODO: more
         ".config/kdeconnect"
@@ -141,8 +140,6 @@ in
         ".config/libreoffice"
         ".config/litecli"
         ".config/ludusavi"
-        ".config/microsoft-edge" # TODO: ??
-        ".config/nix" # ? gh token
         ".config/noctalia/plugins"
         ".config/obs-studio"
         ".config/obsidian" # TODO: ??

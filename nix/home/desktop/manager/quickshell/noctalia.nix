@@ -199,6 +199,8 @@ in
         showDockIndicator = true;
         indicatorThickness = 6;
         showLauncherIcon = true;
+        launcherPosition = "start";
+        launcherUseDistroLogo = true;
         pinnedStatic = true;
         inactiveIndicators = true;
         pinnedApps = meta.dock;

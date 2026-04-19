@@ -10,7 +10,7 @@ with pkgs;
   unzip
   gawk
   procps # watch
-  psmisc # killall pstree
+  psmisc # fuser killall pstree
   gnused
   gnugrep
   openssh

@@ -1,0 +1,6 @@
+#!/bin/sh
+#? https://openwrt.org/docs/guide-user/base-system/hotplug
+if [ "$INTERFACE" = "awg0" ]; then
+    logger -t pbr "Reloading $INTERFACE due to $ACTION of $INTERFACE ($DEVICE)"
+    /etc/init.d/pbr on_interface_reload "$INTERFACE"
+fi

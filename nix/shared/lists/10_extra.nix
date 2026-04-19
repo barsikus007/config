@@ -1,6 +1,7 @@
 { pkgs, ... }:
 with pkgs;
-[
+import ./11_powertoys.nix { inherit pkgs; }
+++ [
   # other (specific cli tools)
   _7zz-rar
   gcc
@@ -73,9 +74,4 @@ with pkgs;
 
   # GUI automation
   xclicker
-
-  #! https://learn.microsoft.com/en-us/windows/powertoys/ analogs
-  xnconvert # ? Image Resizer
-  krename # ? PowerRename
-  #? ocr-screen-region # ? Text Extractor
 ]

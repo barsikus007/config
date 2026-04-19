@@ -28,3 +28,4 @@ dist/
 #endregion node
 
 **/.claude/settings.local.json
+**/.gemini/settings.json
