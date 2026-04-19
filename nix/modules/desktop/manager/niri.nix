@@ -2,11 +2,25 @@
   lib,
   pkgs,
   config,
+  inputs,
   username,
   ...
 }:
 #? https://wiki.nixos.org/wiki/Niri
 {
+  #? https://github.com/sodiboo/niri-flake/blob/c175f415488243723dc1a5514b286abbea6f93c1/flake.nix#L479
+  nix.settings.substituters = lib.mkAfter [ "https://niri.cachix.org" ];
+  nix.settings.trusted-public-keys = lib.mkAfter [
+    "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
+  ];
+  nixpkgs.overlays = [
+    (final: prev: {
+      niri = inputs.niri.packages.${prev.stdenv.hostPlatform.system}.niri-unstable;
+      xwayland-satellite =
+        inputs.niri.packages.${prev.stdenv.hostPlatform.system}.xwayland-satellite-unstable;
+    })
+  ];
+
   imports = [
     ../default.nix
   ];
@@ -33,5 +47,6 @@
 
   environment.systemPackages = with pkgs; [
     xwayland-satellite
+    xlsclients
   ];
 }
