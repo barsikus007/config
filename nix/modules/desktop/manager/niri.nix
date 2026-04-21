@@ -9,8 +9,8 @@
 #? https://wiki.nixos.org/wiki/Niri
 {
   #? https://github.com/sodiboo/niri-flake/blob/c175f415488243723dc1a5514b286abbea6f93c1/flake.nix#L479
-  nix.settings.substituters = lib.mkAfter [ "https://niri.cachix.org" ];
-  nix.settings.trusted-public-keys = lib.mkAfter [
+  nix.settings.extra-substituters = [ "https://niri.cachix.org" ];
+  nix.settings.extra-trusted-public-keys = [
     "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
   ];
   nixpkgs.overlays = [

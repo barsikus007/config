@@ -25,8 +25,5 @@
     efiInstallAsRemovable = true;
   };
 
-  environment.systemPackages = map lib.lowPrio [
-    pkgs.curl
-    pkgs.gitMinimal
-  ];
+  environment.systemPackages = import ../../shared/lists/00_essential.nix { inherit pkgs; };
 }

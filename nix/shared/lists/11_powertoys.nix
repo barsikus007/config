@@ -2,7 +2,7 @@
 #? https://learn.microsoft.com/en-us/windows/powertoys/ analogs
 with pkgs;
 [
-  caffeine-ng # ? Awake
+  # systemd-inhibit cat # ? Awake
   hyprpicker # --autocopy --notify # ? Color Picker
   # ? File Locksmith
   lsof

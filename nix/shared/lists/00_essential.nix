@@ -15,6 +15,7 @@ with pkgs;
   gnugrep
   openssh
   iproute2
+  iputils # ping tracepath
   inetutils # ping telnet traceroute whois
   diffutils
   findutils

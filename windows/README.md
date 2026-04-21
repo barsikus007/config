@@ -53,7 +53,18 @@ $oldvids = Get-ChildItem -Filter "*.mkv" -Recurse
 
 foreach ($oldvid in $oldvids) {
     $newvid = [io.path]::ChangeExtension($oldvid, '.mp4')
-    ffmpeg.exe -i $oldvid-y -s 960x544 -c:v copy -c:a aac $newvid
+    ffmpeg.exe -i $oldvid -s 960x544 -c:v copy -c:a aac -y $newvid
+}
+```
+
+### Convert all webp to png with ffmpeg
+
+```powershell
+$oldvids = Get-ChildItem -Filter "*.webp" -Recurse
+
+foreach ($oldvid in $oldvids) {
+    $newvid = [io.path]::ChangeExtension($oldvid, '.png')
+    ffmpeg.exe -i $oldvid -y $newvid
 }
 ```
 

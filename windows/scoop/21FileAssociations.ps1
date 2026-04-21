@@ -11,3 +11,7 @@ Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw
     Set-FTA Notepad++$_ $_
     Register-FTA "$SCOOP_HOME\apps\notepadplusplus\current\notepad++.exe" $_ -ProgId "Notepad++$_" -Icon "$SCOOP_HOME\apps\notepadplusplus\current\notepad++.exe,0"
 }
+
+'.jpg','.jpeg','.jpe','.png','.gif','.bmp','.tif','.tiff','.ico','.psd','.tga','.wmf','.emf','.webp','.heic','.avif' | ForEach-Object {
+    Register-FTA "$SCOOP_HOME\apps\irfanview\current\i_view64.exe" $_ -ProgId "IrfanView$_" -Icon "$SCOOP_HOME\apps\irfanview\current\i_view64.exe,0"
+}
