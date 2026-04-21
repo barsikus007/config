@@ -27,25 +27,7 @@
 - Frameless window
   - `javascript:window.open(location.href, '_blank', 'menubar=no,location=no,status=no,toolbar=no')`
 
-## uBlock
-
-### Enable `AdGuard,ru` filters
-
-<extension://odfafepnkmbhccpbejgmiehpchacaeak/dashboard.html#3p-filters.html>
-
-### My filters
-
-<extension://odfafepnkmbhccpbejgmiehpchacaeak/dashboard.html#1p-filters.html>
-
-```css
-! 2022-02-22 https://lurkmore.media
-lurkmore.media##.sitenotice
-
-! 2025-10-21 stop reddit translation
-||reddit.com^$removeparam=tl
-```
-
-[VK](https://github.com/vtosters/adblock)
+## [uBlock](nix/home/gui/browser.nix#L200)
 
 ## Flags
 

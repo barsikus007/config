@@ -44,8 +44,6 @@
     userDirs.enable = true;
   };
 
-  services.caffeine.enable = true;
-
   programs.keepassxc = {
     enable = true;
     package = self.packages.${pkgs.stdenv.hostPlatform.system}.gui.keepassxc;

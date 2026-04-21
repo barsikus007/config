@@ -196,6 +196,45 @@ in
           hash = "sha256-xP2UqInVthDB67/hU9/rY1jEYXJs+R+i1qDn3LVts6Y=";
         };
 
+        extensions = {
+          # force = true;
+          # settings."uBlock0@raymondhill.net".settings = {
+          #   #? Enable `AdGuard,ru` filters
+          #   #? extension://odfafepnkmbhccpbejgmiehpchacaeak/dashboard.html#3p-filters.html
+          #   selectedFilterLists = [
+          #     "user-filters"
+          #     "ublock-filters"
+          #     "ublock-badware"
+          #     "ublock-privacy"
+          #     "ublock-quick-fixes"
+          #     "ublock-unbreak"
+          #     "easylist"
+          #     "adguard-generic"
+          #     "adguard-mobile"
+          #     "easyprivacy"
+          #     "adguard-spyware-url"
+          #     "urlhaus-1"
+          #     "plowe-0"
+          #     "adguard-cookies"
+          #     "adguard-social"
+          #     "adguard-mobile-app-banners"
+          #     "adguard-other-annoyances"
+          #     "adguard-popup-overlays"
+          #     "adguard-widgets"
+          #     "RUS-0"
+          #     "RUS-1"
+          #     "https://filters.adtidy.org/extension/ublock/filters/3.txt"
+          #   ];
+          #   #? extension://odfafepnkmbhccpbejgmiehpchacaeak/dashboard.html#1p-filters.html
+          #   userFilters = ''
+          #     ! 2022-02-22 https://lurkmore.media
+          #     lurkmore.media##.sitenotice
+
+          #     ! 2025-10-21 stop reddit translation
+          #     ||reddit.com^$removeparam=tl
+          #   '';
+          # };
+        };
         search = {
           force = true;
           default = "google";

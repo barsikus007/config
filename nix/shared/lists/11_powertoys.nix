@@ -2,7 +2,7 @@
 #? https://learn.microsoft.com/en-us/windows/powertoys/ analogs
 with pkgs;
 [
-  # services.caffeine.enable = true; #? Awake
+  caffeine-ng # ? Awake
   hyprpicker # --autocopy --notify # ? Color Picker
   # ? File Locksmith
   lsof
