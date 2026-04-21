@@ -75,7 +75,7 @@
           enable = true;
           format.type = [ "ruff" ];
         };
-        ts.enable = true;
+        typescript.enable = true;
         css.enable = true;
       };
 
