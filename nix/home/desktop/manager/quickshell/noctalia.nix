@@ -21,24 +21,29 @@ in
         noctalia-ipc = spawn "noctalia-shell" "ipc" "call";
       in
       {
+        "Mod+F1" = {
+          hotkey-overlay.title = "Show Important Hotkeys";
+          action = noctalia-ipc "plugin:keybind-cheatsheet" "toggle";
+        };
         "Alt+Space" = {
-          action = noctalia-ipc "launcher" "toggle";
           hotkey-overlay.title = "Toggle Application Launcher";
+          action = noctalia-ipc "launcher" "toggle";
         };
         "Mod+Alt+I" = {
-          action = noctalia-ipc "settings" "toggle";
           hotkey-overlay.title = "Toggle Settings";
+          action = noctalia-ipc "settings" "toggle";
         };
         "Mod+L" = {
-          action = noctalia-ipc "lockScreen" "lock";
           hotkey-overlay.title = "Lock Screen";
+          action = noctalia-ipc "lockScreen" "lock";
           allow-when-locked = true;
         };
         "Ctrl+Alt+Delete" = {
-          action = noctalia-ipc "sessionMenu" "toggle";
           hotkey-overlay.title = "Toggle Power Menu";
+          action = noctalia-ipc "sessionMenu" "toggle";
           allow-when-locked = true;
         };
+
         "XF86AudioRaiseVolume" = {
           allow-when-locked = true;
           action = noctalia-ipc "volume" "increase";
@@ -71,9 +76,15 @@ in
           allow-when-locked = true;
           action = noctalia-ipc "brightness" "decrease";
         };
+
         "Mod+V" = {
-          action = noctalia-ipc "launcher" "clipboard";
           hotkey-overlay.title = "Toggle Clipboard Manager";
+          action = noctalia-ipc "launcher" "clipboard";
+        };
+        #? "Mod+Period"
+        "Mod+Semicolon" = {
+          hotkey-overlay.title = "Toggle Emoji Picker 🤓";
+          action = noctalia-ipc "launcher" "emoji";
         };
       }
       // lib.attrsets.optionalAttrs config.custom.isAsus {
@@ -308,6 +319,7 @@ in
           }
           {
             timeout = 15 * 60;
+            # TODO: stopped locking
             on-timeout = "${is_locked} || ${noctalia_ipc_call} brightness set 100 && ${lock_cmd}";
           }
         ];

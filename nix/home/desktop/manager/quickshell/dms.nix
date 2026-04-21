@@ -183,7 +183,7 @@ in
         };
         "Ctrl+Shift+Escape" = {
           action = dms-ipc "processlist" "toggle";
-          hotkey-overlay.title = "Toggle Process List";
+          hotkey-overlay.title = "Toggle Task Manager";
         };
       };
   };

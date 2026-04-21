@@ -6,6 +6,20 @@
   flakePath,
   ...
 }:
+let
+  meta = import ../meta.nix;
+  mkNiriBinds =
+    shortcuts:
+    builtins.listToAttrs (
+      map (shortcut: {
+        name = shortcut.keys;
+        value = lib.mkDefault {
+          action.spawn = lib.splitString " " shortcut.command;
+          hotkey-overlay.title = shortcut.name;
+        };
+      }) shortcuts
+    );
+in
 {
   imports = [
     inputs.niri.homeModules.niri
@@ -102,138 +116,150 @@
       #? enable csd for consistency cause this isn't possible to disable csd for all windows
       # prefer-no-csd = true;
 
-      binds = {
-        "XF86AudioRaiseVolume" = lib.mkDefault {
-          allow-when-locked = true;
-          action.spawn = [
-            "wpctl"
-            "set-volume"
-            "@DEFAULT_AUDIO_SINK@"
-            "5%+"
-            "-l"
-            "1.5"
-          ];
-        };
-        "XF86AudioLowerVolume" = lib.mkDefault {
-          allow-when-locked = true;
-          action.spawn = [
-            "wpctl"
-            "set-volume"
-            "@DEFAULT_AUDIO_SINK@"
-            "5%-"
-          ];
-        };
-        "XF86AudioMute" = lib.mkDefault {
-          allow-when-locked = true;
-          action.spawn = [
-            "wpctl"
-            "set-mute"
-            "@DEFAULT_AUDIO_SINK@"
-            "toggle"
-          ];
-        };
-        "XF86AudioMicMute" = lib.mkDefault {
-          allow-when-locked = true;
-          action.spawn = [
-            "wpctl"
-            "set-mute"
-            "@DEFAULT_AUDIO_SOURCE@"
-            "toggle"
-          ];
-        };
-        "Alt+XF86AudioRaiseVolume" = lib.mkDefault {
-          allow-when-locked = true;
-          action.spawn = [
-            "wpctl"
-            "set-volume"
-            "@DEFAULT_AUDIO_SOURCE@"
-            "5%+"
-          ];
-        };
-        "Alt+XF86AudioLowerVolume" = lib.mkDefault {
-          allow-when-locked = true;
-          action.spawn = [
-            "wpctl"
-            "set-volume"
-            "@DEFAULT_AUDIO_SOURCE@"
-            "5%-"
-          ];
-        };
+      binds = lib.attrsets.mergeAttrsList [
+        (mkNiriBinds meta.shortcuts)
+        {
+          "Mod+F1" = lib.mkDefault {
+            hotkey-overlay.title = "Show Important Hotkeys";
+            action.show-hotkey-overlay = true;
+          };
+          "Ctrl+Shift+Escape" = lib.mkDefault {
+            hotkey-overlay.title = "Open Task Manager";
+            action.spawn-sh = "wezterm start --class org.wezfurlong.wezterm.floating btop";
+          };
 
-        "XF86AudioPlay" = lib.mkDefault {
-          allow-when-locked = true;
-          action.spawn = [
-            "playerctl"
-            "play-pause"
-          ];
-        };
-        "XF86AudioStop" = lib.mkDefault {
-          allow-when-locked = true;
-          action.spawn = [
-            "playerctl"
-            "stop"
-          ];
-        };
-        "XF86AudioPrev" = lib.mkDefault {
-          allow-when-locked = true;
-          action.spawn = [
-            "playerctl"
-            "previous"
-          ];
-        };
-        "XF86AudioNext" = lib.mkDefault {
-          allow-when-locked = true;
-          action.spawn = [
-            "playerctl"
-            "next"
-          ];
-        };
+          "XF86AudioRaiseVolume" = lib.mkDefault {
+            allow-when-locked = true;
+            action.spawn = [
+              "wpctl"
+              "set-volume"
+              "@DEFAULT_AUDIO_SINK@"
+              "5%+"
+              "-l"
+              "1.5"
+            ];
+          };
+          "XF86AudioLowerVolume" = lib.mkDefault {
+            allow-when-locked = true;
+            action.spawn = [
+              "wpctl"
+              "set-volume"
+              "@DEFAULT_AUDIO_SINK@"
+              "5%-"
+            ];
+          };
+          "XF86AudioMute" = lib.mkDefault {
+            allow-when-locked = true;
+            action.spawn = [
+              "wpctl"
+              "set-mute"
+              "@DEFAULT_AUDIO_SINK@"
+              "toggle"
+            ];
+          };
+          "XF86AudioMicMute" = lib.mkDefault {
+            allow-when-locked = true;
+            action.spawn = [
+              "wpctl"
+              "set-mute"
+              "@DEFAULT_AUDIO_SOURCE@"
+              "toggle"
+            ];
+          };
+          "Alt+XF86AudioRaiseVolume" = lib.mkDefault {
+            allow-when-locked = true;
+            action.spawn = [
+              "wpctl"
+              "set-volume"
+              "@DEFAULT_AUDIO_SOURCE@"
+              "5%+"
+            ];
+          };
+          "Alt+XF86AudioLowerVolume" = lib.mkDefault {
+            allow-when-locked = true;
+            action.spawn = [
+              "wpctl"
+              "set-volume"
+              "@DEFAULT_AUDIO_SOURCE@"
+              "5%-"
+            ];
+          };
 
-        "XF86MonBrightnessUp" = lib.mkDefault {
-          allow-when-locked = true;
-          action.spawn = [
-            "brightnessctl"
-            "--class=backlight"
-            "set"
-            "+10%"
-          ];
-        };
-        "XF86MonBrightnessDown" = lib.mkDefault {
-          allow-when-locked = true;
-          action.spawn = [
-            "brightnessctl"
-            "--class=backlight"
-            "set"
-            "10%-"
-          ];
-        };
-      }
-      // lib.attrsets.optionalAttrs config.custom.isAsus {
-        # TODO: specific quickshell depent hotkeys; maybe make cli for unification?
-        "XF86Launch1" = {
-          hotkey-overlay.title = "Asus: Show Something";
-          action.spawn-sh = "zsh -c asus_anime_demo_toggle";
-        };
-        "Ctrl+XF86Launch1" = {
-          hotkey-overlay.title = "Asus: Choose Something";
-          action.spawn-sh = "zsh -c asus_anime_demo_select_interactive";
-        };
-        "Alt+XF86Launch1" = {
-          hotkey-overlay.title = "Asus: Toggle Anime";
-          action.spawn-sh = "zsh -c asus_anime_toggle";
-        };
-        "XF86Launch4" = lib.mkDefault {
-          hotkey-overlay.title = "Asus: Cycle Power Profiles";
-          action.spawn-sh = "zsh -c asus_profile_toggle";
-        };
-        "Mod+Shift+S" = lib.mkDefault {
-          hotkey-overlay.title = "Quick ScreenCapture";
-          # TODO
-          action.spawn-sh = "gpu-screen-recorder -w portal -c mp4";
-        };
-        # "XF86KbdBrightnessUp".action.spawn-sh = "ydotool key 104:1 104:0";
-        # "XF86KbdBrightnessDown".action.spawn-sh = "ydotool key 109:1 109:0";
-      };
+          "XF86AudioPlay" = lib.mkDefault {
+            allow-when-locked = true;
+            action.spawn = [
+              "playerctl"
+              "play-pause"
+            ];
+          };
+          "XF86AudioStop" = lib.mkDefault {
+            allow-when-locked = true;
+            action.spawn = [
+              "playerctl"
+              "stop"
+            ];
+          };
+          "XF86AudioPrev" = lib.mkDefault {
+            allow-when-locked = true;
+            action.spawn = [
+              "playerctl"
+              "previous"
+            ];
+          };
+          "XF86AudioNext" = lib.mkDefault {
+            allow-when-locked = true;
+            action.spawn = [
+              "playerctl"
+              "next"
+            ];
+          };
+
+          "XF86MonBrightnessUp" = lib.mkDefault {
+            allow-when-locked = true;
+            action.spawn = [
+              "brightnessctl"
+              "--class=backlight"
+              "set"
+              "+10%"
+            ];
+          };
+          "XF86MonBrightnessDown" = lib.mkDefault {
+            allow-when-locked = true;
+            action.spawn = [
+              "brightnessctl"
+              "--class=backlight"
+              "set"
+              "10%-"
+            ];
+          };
+        }
+        (lib.attrsets.optionalAttrs config.custom.isAsus {
+          # TODO: specific quickshell depent hotkeys; maybe make cli for unification?
+          "XF86Launch1" = {
+            hotkey-overlay.title = "Asus: Show Something";
+            action.spawn-sh = "zsh -c asus_anime_demo_toggle";
+          };
+          "Ctrl+XF86Launch1" = {
+            hotkey-overlay.title = "Asus: Choose Something";
+            action.spawn-sh = "zsh -c asus_anime_demo_select_interactive";
+          };
+          "Alt+XF86Launch1" = {
+            hotkey-overlay.title = "Asus: Toggle Anime";
+            action.spawn-sh = "zsh -c asus_anime_toggle";
+          };
+          "XF86Launch4" = lib.mkDefault {
+            hotkey-overlay.title = "Asus: Cycle Power Profiles";
+            action.spawn-sh = "zsh -c asus_profile_toggle";
+          };
+          "Mod+Shift+S" = lib.mkDefault {
+            hotkey-overlay.title = "Quick ScreenCapture";
+            # TODO
+            action.spawn-sh = "gpu-screen-recorder -w portal -c mp4";
+          };
+          # "XF86KbdBrightnessUp".action.spawn-sh = "ydotool key 104:1 104:0";
+          # "XF86KbdBrightnessDown".action.spawn-sh = "ydotool key 109:1 109:0";
+        })
+      ];
 
       clipboard.disable-primary = true;
 

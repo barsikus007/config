@@ -6,6 +6,18 @@
 }:
 let
   meta = import ../meta.nix;
+  mkPlasmaBinds =
+    shortcuts:
+    builtins.listToAttrs (
+      map (shortcut: {
+        name = builtins.replaceStrings [ " " ] [ "-" ] shortcut.name;
+        value = {
+          name = shortcut.name;
+          command = shortcut.command;
+          key = builtins.replaceStrings [ "Mod" ] [ "Meta" ] shortcut.keys;
+        };
+      }) shortcuts
+    );
 in
 {
   imports = [
@@ -17,23 +29,7 @@ in
   #? https://nix-community.github.io/plasma-manager/options.xhtml
   programs.plasma = {
     hotkeys.commands = lib.attrsets.mergeAttrsList [
-      {
-        "search" = {
-          name = "Open Search";
-          key = "Meta+S";
-          command = "anyrun";
-        };
-        "inspect-window" = {
-          name = "Open Current Window in btop";
-          key = "Meta+Ctrl+`";
-          command = "inspect-window";
-        };
-        "ocr-screen-region" = {
-          name = "Capture Screen Region then Extract Text with OCR";
-          key = "Meta+Shift+T";
-          command = "ocr-screen-region";
-        };
-      }
+      (mkPlasmaBinds meta.shortcuts)
       (lib.attrsets.optionalAttrs config.programs.rofi.enable {
         "rofi" = {
           name = "chuvak eto rofis";

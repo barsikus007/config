@@ -100,8 +100,8 @@ window-rule {
     match app-id=r#"^org\.kde\.dolphin$"# title="^Progress Dialog — Dolphin$"
     match app-id=r#"^org\.kde\.dolphin$"# title="^Copying — Dolphin$"
     match app-id=r#"^org\.kde\.dolphin$"# title="^Moving .*— Dolphin$"
-    match app-id=r#"^org\.kde\.ark$"# title="^Loading archive .*— Ark$"
-    match app-id=r#"^org\.kde\.ark$"# title="^Extracting one file — Ark$"
+    match app-id=r#"^org\.kde\.ark$"#     title="^Loading archive .*— Ark$"
+    match app-id=r#"^org\.kde\.ark$"#     title="^Extracting one file — Ark$"
     open-floating true
     //? focus-ring width x3
     default-floating-position x=24 y=24 relative-to="top-right"
@@ -173,6 +173,7 @@ window-rule {
     match app-id=r#"^Minecraft 1\.\d{1,2}\.\d*"#
     match app-id=r#"^GT: New Horizons "#
     match app-id=r#"^qemu$"#
+    match app-id=r#"^looking-glass-client$"#
     open-on-workspace "games"
     open-maximized true
 }
@@ -205,30 +206,19 @@ binds {
     // Most actions that you can bind here can also be invoked programmatically with
     // `niri msg action do-something`.
 
-    // Mod-Shift-/, which is usually the same as Mod-?,
-    // shows a list of important hotkeys.
-    Mod+Shift+Slash { show-hotkey-overlay; }
-    Mod+F1 { spawn-sh "noctalia-shell ipc call plugin:keybind-cheatsheet toggle"; }
-
     // Suggested binds for running programs: terminal, app launcher, screen locker, file manager.
-    Mod+Grave  hotkey-overlay-title="Open a Terminal: wezterm floating" { spawn-sh "wezterm start --class org.wezfurlong.wezterm.floating"; }
-    Mod+T      hotkey-overlay-title="Open a Terminal: wezterm" { spawn "wezterm"; }
-    Ctrl+Alt+T hotkey-overlay-title="Open a Terminal: wezterm" { spawn "wezterm"; }
-    Mod+S     hotkey-overlay-title="Run an Application" { spawn "anyrun"; }
-    Mod+D     hotkey-overlay-title="Run an Application" { spawn "fuzzel"; }
-    // Mod+Shift+D hotkey-overlay-title="Run an Application" { spawn-sh "tmux new -s xd -d 'scrcpy -K --render-driver=opengles2 --no-audio --video-bit-rate=1M'"; }
-    // Mod+D hotkey-overlay-title="Run an Application" { spawn-sh "tmux kill-session -t xd"; }
-    Mod+E hotkey-overlay-title="Run a File Manager" { spawn "dolphin"; }
-    Ctrl+Shift+Escape hotkey-overlay-title="Open \"Task\" Manager" { spawn-sh "wezterm start --class org.wezfurlong.wezterm.floating btop"; }
-    // Mod+Period hotkey-overlay-title="Open Emoji Picker" { spawn-sh "noctalia-shell ipc call launcher emoji"; }
-    Mod+Semicolon hotkey-overlay-title="Open Emoji Picker 🤓" { spawn-sh "noctalia-shell ipc call launcher emoji"; }
-    Mod+Shift+T hotkey-overlay-title="OCR Screen Region" { spawn "ocr-screen-region"; }
-    Mod+Ctrl+Grave hotkey-overlay-title="Inspect Focused Window" { spawn "inspect-window"; }
+    Mod+Grave         hotkey-overlay-title="Open floating <b>wezterm</b> Terminal" { spawn-sh "wezterm start --class org.wezfurlong.wezterm.floating"; }
+    Mod+T             hotkey-overlay-title="Open <b>wezterm</b> Terminal" { spawn "wezterm"; }
+    Ctrl+Alt+T        hotkey-overlay-title="Open <b>wezterm</b> Terminal" { spawn "wezterm"; }
+    Mod+D             hotkey-overlay-title="Run <b>fuzzel</b> Application Picker" { spawn "fuzzel"; }
+    // Mod+Shift+D       hotkey-overlay-title="Run an Application" { spawn-sh "tmux new -s xd -d 'scrcpy -K --render-driver=opengles2 --no-audio --video-bit-rate=1M'"; }
+    // Mod+D             hotkey-overlay-title="Run an Application" { spawn-sh "tmux kill-session -t xd"; }
+    Mod+E             hotkey-overlay-title="Run a File Manager" { spawn "dolphin"; }
 
-    XF86Launch6 { focus-column-left; }
-    XF86Launch7 { focus-workspace-down; }
-    XF86Launch8 { focus-workspace-up; }
-    XF86Launch9 { focus-column-right; }
+    XF86Launch6 hotkey-overlay-title=null { focus-column-left; }
+    XF86Launch7 hotkey-overlay-title=null { focus-workspace-down; }
+    XF86Launch8 hotkey-overlay-title=null { focus-workspace-up; }
+    XF86Launch9 hotkey-overlay-title=null { focus-column-right; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
@@ -238,11 +228,11 @@ binds {
     // Open/close the Overview: a zoomed-out view of workspaces and windows.
     // You can also move the mouse into the top-left hot corner,
     // or do a four-finger swipe up on a touchpad.
-    Mod+O repeat=false { toggle-overview; }
+    Mod+O   repeat=false { toggle-overview; }
     Mod+Tab repeat=false { toggle-overview; }
 
-    Mod+Q repeat=false { close-window; }
-    Alt+F4 repeat=false { close-window; }
+    Mod+Q   repeat=false { close-window; }
+    Alt+F4  repeat=false { close-window; }
 
     //? default move keys (except some vim-specific)
     Mod+Left  { focus-column-left; }
@@ -270,8 +260,8 @@ binds {
     // Mod+Ctrl+J     { move-window-down-or-to-workspace-down; }
     // Mod+Ctrl+K     { move-window-up-or-to-workspace-up; }
 
-    Mod+Home { focus-column-first; }
-    Mod+End  { focus-column-last; }
+    Mod+Home      { focus-column-first; }
+    Mod+End       { focus-column-last; }
     Mod+Ctrl+Home { move-column-to-first; }
     Mod+Ctrl+End  { move-column-to-last; }
 
@@ -310,14 +300,14 @@ binds {
     Mod+Ctrl+U         { move-column-to-workspace-down; }
     Mod+Ctrl+I         { move-column-to-workspace-up; }
 
-    Mod+Alt+Down      { focus-workspace-down; }
-    Mod+Alt+Up        { focus-workspace-up; }
-    Mod+Alt+Right     { focus-column-right; }
-    Mod+Alt+Left      { focus-column-left; }
-    Mod+Ctrl+Alt+Down { move-column-to-workspace-down; }
-    Mod+Ctrl+Alt+Up   { move-column-to-workspace-up; }
-    Mod+Ctrl+Alt+Right{ move-column-right; }
-    Mod+Ctrl+Alt+Left { move-column-left; }
+    Mod+Alt+Down       { focus-workspace-down; }
+    Mod+Alt+Up         { focus-workspace-up; }
+    Mod+Alt+Right      { focus-column-right; }
+    Mod+Alt+Left       { focus-column-left; }
+    Mod+Ctrl+Alt+Down  { move-column-to-workspace-down; }
+    Mod+Ctrl+Alt+Up    { move-column-to-workspace-up; }
+    Mod+Ctrl+Alt+Right { move-column-right; }
+    Mod+Ctrl+Alt+Left  { move-column-left; }
 
     // Alternatively, there are commands to move just a single window:
     // Mod+Ctrl+Page_Down { move-window-to-workspace-down; }
@@ -460,9 +450,9 @@ binds {
     // Mod+Space       { switch-layout "next"; }
     // Mod+Shift+Space { switch-layout "prev"; }
 
-    Print { spawn "slurp-grim-screenshot"; }
-    Alt+Print { screenshot; }
-    Mod+Print { screenshot-window; }
+    Print           { spawn "slurp-grim-screenshot"; }
+    Alt+Print       { screenshot; }
+    Mod+Print       { screenshot-window; }
     Mod+Shift+Print { screenshot-screen; }
 
     // Applications such as remote-desktop clients and software KVM switches may
