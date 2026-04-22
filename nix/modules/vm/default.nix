@@ -34,6 +34,7 @@
       ];
     };
   };
+  networking.firewall.trustedInterfaces = [ "virbr0" ];
   users.users.${username}.extraGroups = [
     "kvm"
     "libvirtd"

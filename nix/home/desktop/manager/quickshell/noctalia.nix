@@ -1,8 +1,8 @@
 {
   lib,
-  pkgs,
   config,
   inputs,
+  options,
   ...
 }:
 #? https://github.com/noctalia-dev/noctalia-shell
@@ -15,6 +15,7 @@ in
   ];
 
   programs.niri.settings = {
+    spawn-at-startup = [ { command = [ "noctalia-shell" ]; } ];
     binds =
       with config.lib.niri.actions;
       let
@@ -195,12 +196,16 @@ in
               id = "KeyboardLayout";
               showIcon = false;
             }
-            {
-              id = "Clock";
-              formatHorizontal = "yyyy-MM-dd HH:mm:ss";
-              useCustomFont = true;
-              customFont = config.stylix.fonts.monospace.name;
-            }
+            (
+              {
+                id = "Clock";
+                formatHorizontal = "yyyy-MM-dd HH:mm:ss";
+                useCustomFont = true;
+              }
+              // lib.attrsets.optionalAttrs (options ? stylix) {
+                customFont = config.stylix.fonts.monospace.name;
+              }
+            )
           ];
         };
       };
@@ -293,10 +298,10 @@ in
     enable = true;
     settings =
       let
-        noctalia_ipc_call = "${config.programs.noctalia-shell.package} ipc call";
+        noctalia_ipc_call = "${lib.getExe config.programs.noctalia-shell.package} ipc call";
         # lock_cmd = "loginctl lock-session";
         lock_cmd = "${noctalia_ipc_call} lockScreen lock";
-        power_off_monitors_cmd = "${config.programs.niri.package} msg action power-off-monitors";
+        power_off_monitors_cmd = "${lib.getExe config.programs.niri.package} msg action power-off-monitors";
         is_locked = ''[ $(loginctl show-session $XDG_SESSION_ID -p LockedHint --value) == "yes" ]'';
       in
       {
@@ -319,7 +324,6 @@ in
           }
           {
             timeout = 15 * 60;
-            # TODO: stopped locking
             on-timeout = "${is_locked} || ${noctalia_ipc_call} brightness set 100 && ${lock_cmd}";
           }
         ];

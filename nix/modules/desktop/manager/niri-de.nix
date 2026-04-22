@@ -24,22 +24,9 @@
     ../../../home/desktop/environment/kde-settings.nix
     ../../../home/desktop/environment/kde-stylix.nix
     ../../../home/desktop/manager/quickshell/noctalia.nix
-    {
-      programs.niri.settings.spawn-at-startup = [
-        {
-          command = [
-            "noctalia-shell"
-          ];
-        }
-      ];
-    }
   ];
 
   services.displayManager.gdm.enable = !config.services.displayManager.sddm.enable;
 
   environment.systemPackages = with pkgs; [ wdisplays ];
-
-  #? Fix unpopulated MIME menus in dolphin: https://discourse.nixos.org/t/dolphin-does-not-have-mime-associations/48985/8
-  environment.etc."/xdg/menus/applications.menu".text =
-    builtins.readFile "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
 }

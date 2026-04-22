@@ -15,13 +15,14 @@
     "thunderbird"
   ];
   shortcuts = [
+    #? name is alphanumeric and -
     {
       name = "Open Launcher";
       command = "anyrun";
       keys = "Mod+S";
     }
     {
-      name = "Open Focused Window's PID in `btop`";
+      name = "Open PID of Focused Window in btop";
       command = "inspect-window";
       keys = "Mod+Ctrl+Grave"; # ? `
     }

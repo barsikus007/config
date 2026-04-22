@@ -1,4 +1,4 @@
-{ pkgs, username, ... }:
+{ username, ... }:
 #! +?Gb
 {
   imports = [
@@ -25,8 +25,4 @@
   security.pam.services.greetd.fprintAuth = false;
 
   programs.dsearch.enable = true;
-
-  #? Fix unpopulated MIME menus in dolphin: https://discourse.nixos.org/t/dolphin-does-not-have-mime-associations/48985/8
-  environment.etc."/xdg/menus/applications.menu".text =
-    builtins.readFile "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
 }
