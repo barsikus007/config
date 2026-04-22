@@ -4,12 +4,7 @@ codename `Windows-Resurrect`
 
 ## Toggle GPU
 
-- host on
-  - `sudo modprobe --remove vfio-pci && sudo modprobe --all nvidia{,_modeset,_uvm,_drm}`
-- host off
-  - `sudo kill --verbose --signal QUIT --timeout 1000 TERM --timeout 1000 KILL --timeout 1000 KILL $(sudo lsof -t /dev/nvidia*); sudo modprobe --remove --all nvidia{_drm,_uvm,_modeset,} && sudo modprobe vfio-pci`
-  - check what uses gpu
-    - `sudo fuser --verbose /dev/nvidia*`
+- `dgpu_<tab>` will show my functions (now in `g14.sh`)
 
 ## Windows 10 ISO and setup
 
@@ -18,7 +13,7 @@ codename `Windows-Resurrect`
    1. mount it
    2. also mount [this iso](https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/latest-virtio/virtio-win.iso) on virtual machine to install VM tools
 3. run in pwsh **as user** `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/installOnWin10LTSC.ps1 | iex`([content](../../../../windows/installOnWin10LTSC.ps1))
-   1. optional tweaks `irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/99Tweaks.ps1 | iex` ([content](../../../../windows/99Tweaks.ps1))
+   1. optional tweaks `sudo pwsh.exe -Command "iex (irm 'https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/99Tweaks.ps1')"'` ([content](../../../../windows/99Tweaks.ps1))
 4. [soft to install](../../../packages/windows/AdditionalVMSetup.ps1)
 
 ## virt-manager setup
@@ -28,6 +23,7 @@ codename `Windows-Resurrect`
   - 20 minimal
   - 25 good
   - 30+ best
+  - !but real drive is the most optimal solution
 - pass needed devices from GPU iommu_group to vm
 - add tpm-crb
 

@@ -95,7 +95,7 @@ asus_profile_toggle() {
 
 #? laptop specific
 dgpu_check_processes() {
-  lsof /dev/nvidia*
+  fuser --verbose /dev/nvidia*
   cat /sys/bus/pci/devices/0000:0{1,4}:00.0/power{_state,/runtime_status}
 }
 dgpu_switch_to_integrated/vfio() {

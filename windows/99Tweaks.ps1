@@ -2,6 +2,7 @@ Function Test-Command ($commandName) {
     if (Get-Command $commandName -ErrorAction SilentlyContinue) { return $true }
     return $false
 }
+$SCOOP_HOME = $(If (Test-Path env:SCOOP) { $env:SCOOP } Else { ($env:GIT_INSTALL_ROOT -split "scoop")[0]+"scoop" })
 
 Write-Host "disable UAC prompts" -ForegroundColor Green
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "ConsentPromptBehaviorAdmin" -Value 0
@@ -18,14 +19,16 @@ if (Test-Command wt) {
   Write-Host "Default terminal set to Windows Terminal."
 }
 
-Write-Host "set ru region" -ForegroundColor Green
+Write-Host "set ru region and timezone" -ForegroundColor Green
 Set-Culture ru-RU
+Set-TimeZone -Id "Russian Standard Time"
 
 Write-Host "enable seconds in taskbar" -ForegroundColor Green
 Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name ShowSecondsInSystemClock -Value 1 -Force
 
+Write-Host "set default ssh shell to pwsh.exe (if installed)" -ForegroundColor Green
 if (Test-Path "C:\Program Files\PowerShell\7\pwsh.exe") {
-  Write-Host "default ssh shell to pwsh.exe" -ForegroundColor Green
+  Write-Host "pwsh.exe installed" -ForegroundColor Gray
   New-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell -Value "C:\Program Files\PowerShell\7\pwsh.exe" -PropertyType String -Force
 }
 
@@ -54,8 +57,10 @@ Set-ItemProperty -Path $ThemePath -Name "ColorPrevalence" -Value 1
 Write-Host "set VirtIO network as private" -ForegroundColor Green
 Get-NetAdapter | Where-Object InterfaceDescription -like "*VirtIO*" | Get-NetConnectionProfile | Set-NetConnectionProfile -NetworkCategory Private
 
+#? https://learn.microsoft.com/en-us/windows/configuration/taskbar/pinned-apps
 Write-Host "set taskbar icons (explorer.exe, wt.exe, edge.exe)" -ForegroundColor Green
 # 1. Define the XML content with the specific AppIDs you requested
+#? get app id with Get-StartApps
 $XmlContent = @'
 <?xml version="1.0" encoding="utf-8"?>
 <LayoutModificationTemplate
@@ -69,7 +74,7 @@ $XmlContent = @'
       <taskbar:TaskbarPinList>
         <taskbar:DesktopApp DesktopApplicationID="Microsoft.Windows.Explorer" />
         <taskbar:UWA AppUserModelID="Microsoft.WindowsTerminal_8wekyb3d8bbwe!App" />
-        <taskbar:DesktopApp DesktopApplicationID="Microsoft.MicrosoftEdge.Stable_8wekyb3d8bbwe!App" />
+        <taskbar:DesktopApp DesktopApplicationID="MSEdge" />
       </taskbar:TaskbarPinList>
     </defaultlayout:TaskbarLayout>
   </CustomTaskbarLayoutCollection>
@@ -98,16 +103,42 @@ $Path = "HKCU:\Software\Microsoft\Clipboard"
 if (-not (Test-Path $Path)) { New-Item -Path $Path -Force | Out-Null }
 Set-ItemProperty -Path $Path -Name "EnableClipboardHistory" -Value 1 -Type DWord -Force
 
-
 #? https://superuser.com/a/1848995
-Write-Host "enable 'Beta: Use Unicode UTF-8 for worldwide language support' in win+i -> region -> additional -> change -> administrative -> locale"
+Write-Host "enable 'Beta: Use Unicode UTF-8 for worldwide language support' in Win+R -> `intl.cpl` -> Administrative -> Change system locale..."
 $Path = "HKLM:\SYSTEM\CurrentControlSet\Control\Nls\CodePage"
-sudo Set-ItemProperty -Path $Path -Name "ACP"   -Value "65001"
-sudo Set-ItemProperty -Path $Path -Name "OEMCP" -Value "65001"
-sudo Set-ItemProperty -Path $Path -Name "MACCP" -Value "65001"
+Set-ItemProperty -Path $Path -Name "ACP"   -Value "65001"
+Set-ItemProperty -Path $Path -Name "OEMCP" -Value "65001"
+Set-ItemProperty -Path $Path -Name "MACCP" -Value "65001"
 Write-Host "Global UTF-8 enabled. A system reboot is required to apply the changes." -ForegroundColor Red
+
+Write-Host "pin user folder in explorer" -ForegroundColor Green
+# Define the path to your user folder
+$Path = $env:USERPROFILE
+# Create the Windows Shell COM object
+$Shell = New-Object -ComObject Shell.Application
+# Target the user folder
+$Folder = $Shell.Namespace($Path)
+# Invoke the "Pin to Quick access" native shell verb
+$Folder.Self.InvokeVerb("pintohome")
+
+Write-Host "msedge tweaks" -ForegroundColor Green
+# Set Alt+Tab to show "Open windows only" (Value = 3)
+Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "MultiTaskingAltTabFilter" -Value 3 -Type DWord
+
+
+Write-Host "autostart important scoop apps (altsnap,everything,systeminformer)" -ForegroundColor Green
+# Define the registry path for user startup apps
+$RegPath = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run"
+# 1. Add AltSnap
+$AltSnapPath = "`"$SCOOP_HOME\apps\altsnap\current\AltSnap.exe`""
+Set-ItemProperty -Path $RegPath -Name "AltSnap" -Value $AltSnapPath
+# 2. Add Everything (with the -startup flag so it opens quietly in the background)
+$EverythingPath = "`"$SCOOP_HOME\apps\everything\current\Everything.exe`" -startup -admin"
+Set-ItemProperty -Path $RegPath -Name "Everything" -Value $EverythingPath
+# 3. Add System Informer (with the -hide flag so it opens quietly in the background)
+$SysInformerPath = "`"$SCOOP_HOME\apps\systeminformer\current\SystemInformer.exe`" -hide -elevate"
+Set-ItemProperty -Path $RegPath -Name "SystemInformer" -Value $SysInformerPath
 
 
 Write-Host "TODO: 2nd: https://win10tweaker.ru/twikinarium/system" -ForegroundColor DarkYellow
-Write-Host "TODO: edge.exe: fix pin; start at empty page;google search; no tabs in recents" -ForegroundColor DarkYellow
-Write-Host "TODO: everything,altsnap,systeminformer autostart" -ForegroundColor DarkYellow
+Write-Host "TODO: edge.exe: start at empty page;google search" -ForegroundColor DarkYellow
