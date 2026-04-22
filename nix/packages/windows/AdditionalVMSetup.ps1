@@ -8,8 +8,8 @@
             return;
         }
     }
-    'VirtIO Guest Tools image (virtio-win-*.iso) is not attached to this VM.';
-} *>&1 | Out-String -Stream >> 'C:\Windows\Setup\Scripts\VirtIoGuestTools.log';
+    'VirtIO Guest Tools (virtio-win-guest-tools.exe) not found on any drive.';
+} *>&1 | Out-String -Width 1KB -Stream >> 'C:\Windows\Setup\Scripts\VirtIoGuestTools.log';
 #endregion VirtIoGuestTools
 
 #region winfsp

@@ -3,6 +3,7 @@
   callPackage,
   runCommand,
   xorriso,
+  virtio-win,
 }:
 #? alternatives:
 # https://git.m-labs.hk/M-Labs/wfvm
@@ -41,6 +42,10 @@ let
   # TODO: https://www.reddit.com/r/techsupport/comments/ehgbmu/windows_10_oemcustomizations/
   isoDir = runCommand "iso-content" { } ''
     mkdir -p $out
+
+    cp -r ${virtio-win}/* $out/
+    chmod -R +w $out/
+
     cp ${unattend} $out/autounattend.xml
 
     mkdir -p $out/\$OEM\$/\$\$/Setup/Scripts

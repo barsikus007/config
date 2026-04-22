@@ -9,11 +9,12 @@ codename `Windows-Resurrect`
 ## Windows 10 ISO and setup
 
 1. [LTSC](https://massgrave.dev/windows10_eol#windows-10-iot-enterprise-ltsc-2021)
+   1. mount it 1st (as SATA SDROM, like others)
+   2. optional integrate updates/drivers (see below)
 2. `nix build ./nix#windowsBootstrapIso -o unattend-win10-iot-ltsc-vrt.iso --print-build-logs` ([content](../../../packages/windows/default.nix))
-   1. mount it
-   2. also mount [this iso](https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/latest-virtio/virtio-win.iso) on virtual machine to install VM tools
+   1. mount it 2nd
 3. run in pwsh **as user** `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/installOnWin10LTSC.ps1 | iex`([content](../../../../windows/installOnWin10LTSC.ps1))
-   1. optional tweaks `sudo pwsh.exe -Command "iex (irm 'https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/99Tweaks.ps1')"'` ([content](../../../../windows/99Tweaks.ps1))
+   1. optional tweaks: launch `sudo pwsh.exe` and run `irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/99Tweaks.ps1 | iex` ([content](../../../../windows/99Tweaks.ps1))
 4. [soft to install](../../../packages/windows/AdditionalVMSetup.ps1)
 
 ## virt-manager setup
