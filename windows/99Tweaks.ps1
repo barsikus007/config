@@ -98,6 +98,16 @@ $Path = "HKCU:\Software\Microsoft\Clipboard"
 if (-not (Test-Path $Path)) { New-Item -Path $Path -Force | Out-Null }
 Set-ItemProperty -Path $Path -Name "EnableClipboardHistory" -Value 1 -Type DWord -Force
 
+
+#? https://superuser.com/a/1848995
+Write-Host "enable 'Beta: Use Unicode UTF-8 for worldwide language support' in win+i -> region -> additional -> change -> administrative -> locale"
+$Path = "HKLM:\SYSTEM\CurrentControlSet\Control\Nls\CodePage"
+sudo Set-ItemProperty -Path $Path -Name "ACP"   -Value "65001"
+sudo Set-ItemProperty -Path $Path -Name "OEMCP" -Value "65001"
+sudo Set-ItemProperty -Path $Path -Name "MACCP" -Value "65001"
+Write-Host "Global UTF-8 enabled. A system reboot is required to apply the changes." -ForegroundColor Red
+
+
 Write-Host "TODO: 2nd: https://win10tweaker.ru/twikinarium/system" -ForegroundColor DarkYellow
-Write-Host "TODO: edge.exe: google search; no tabs in recents" -ForegroundColor DarkYellow
+Write-Host "TODO: edge.exe: fix pin; start at empty page;google search; no tabs in recents" -ForegroundColor DarkYellow
 Write-Host "TODO: everything,altsnap,systeminformer autostart" -ForegroundColor DarkYellow

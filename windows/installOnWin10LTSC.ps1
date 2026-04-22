@@ -7,23 +7,23 @@ powershell.exe -Command 'Invoke-RestMethod https://get.scoop.sh | Invoke-Express
 $env:Path += ";C:\Program Files\PowerShell\7\;$HOME\scoop\shims"
 
 Write-Host "scoop inital packages installation..." -ForegroundColor Green
-Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/scoop/00Bootstrap.ps1 | Invoke-Expression
+Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/00Bootstrap.ps1 | Invoke-Expression
 #? part of the 99Tweaks.ps1
 Write-Host "disable UAC prompts" -ForegroundColor Green
 sudo Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "ConsentPromptBehaviorAdmin" -Value 0
 # TODO: is needed?: dotnet-sdk
 Write-Host "System packages installation..." -ForegroundColor Green
-Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/scoop/01System.ps1 | Invoke-Expression
+Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/01System.ps1 | Invoke-Expression
 
 
 Write-Host "Shell packages installation..." -ForegroundColor Green
-pwsh.exe -Command 'Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/scoop/10Shell.ps1 | Invoke-Expression'
-pwsh.exe -Command 'Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/scoop/11ShellHeavy.ps1 | Invoke-Expression'
+pwsh.exe -Command 'Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/10Shell.ps1 | Invoke-Expression'
+pwsh.exe -Command 'Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/11ShellHeavy.ps1 | Invoke-Expression'
 
 Write-Host "GUI packages installation..." -ForegroundColor Green
-pwsh.exe -Command 'Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/scoop/20SoftHighPriority.ps1 | Invoke-Expression'
-pwsh.exe -Command 'Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/scoop/21FileAssociations.ps1 | Invoke-Expression'
-pwsh.exe -Command 'Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/scoop/22Tweaks.ps1 | Invoke-Expression'
+pwsh.exe -Command 'Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/20SoftHighPriority.ps1 | Invoke-Expression'
+pwsh.exe -Command 'Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/21FileAssociations.ps1 | Invoke-Expression'
+pwsh.exe -Command 'Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/22TweaksUser.ps1 | Invoke-Expression'
 
 
 Write-Host "Notes from scoop packages" -ForegroundColor Green
