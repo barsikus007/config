@@ -7,6 +7,9 @@ $SCOOP_HOME = $(If (Test-Path env:SCOOP) { $env:SCOOP } Else { ($env:GIT_INSTALL
 Write-Host "disable UAC prompts" -ForegroundColor Green
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "ConsentPromptBehaviorAdmin" -Value 0
 
+Write-Host "remove path limit" -ForegroundColor Green
+New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" -Name "LongPathsEnabled" -Value 1 -PropertyType DWORD -Force
+
 if (Test-Command wt) {
   Write-Host "set wt.exe as default" -ForegroundColor Green
   $registryPath = "HKCU:\Console\%%Startup"
@@ -27,9 +30,9 @@ Write-Host "enable seconds in taskbar" -ForegroundColor Green
 Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name ShowSecondsInSystemClock -Value 1 -Force
 
 Write-Host "set default ssh shell to pwsh.exe (if installed)" -ForegroundColor Green
-if (Test-Path "C:\Program Files\PowerShell\7\pwsh.exe") {
+if (Test-Command pwsh) {
   Write-Host "pwsh.exe installed" -ForegroundColor Gray
-  New-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell -Value "C:\Program Files\PowerShell\7\pwsh.exe" -PropertyType String -Force
+  New-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell -Value $(Get-Command pwsh).Source -PropertyType String -Force
 }
 
 Write-Host "set wallpaper to https://www.wallpaperhub.app/wallpapers/5512" -ForegroundColor Green

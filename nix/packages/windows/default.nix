@@ -43,13 +43,13 @@ let
   isoDir = runCommand "iso-content" { } ''
     mkdir -p $out
 
-    cp -r ${virtio-win}/* $out/
-    chmod -R +w $out/
-
     cp ${unattend} $out/autounattend.xml
 
     mkdir -p $out/\$OEM\$/\$\$/Setup/Scripts
     cp ${additionalVMSetupPs1} $out/\$OEM\$/\$\$/Setup/Scripts/AdditionalVMSetup.ps1
+
+    cp -r ${virtio-win}/* $out/
+    chmod -R +w $out/
 
     mkdir -p $out/\$OEM\$/\$\$/Temp
     cp ${massgrave} $out/\$OEM\$/\$\$/Setup/Scripts/MAS_AIO.cmd

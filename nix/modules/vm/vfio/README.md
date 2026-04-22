@@ -13,9 +13,9 @@ codename `Windows-Resurrect`
    2. optional integrate updates/drivers (see below)
 2. `nix build ./nix#windowsBootstrapIso -o unattend-win10-iot-ltsc-vrt.iso --print-build-logs` ([content](../../../packages/windows/default.nix))
    1. mount it 2nd
+   2. [soft which will be installed](../../../packages/windows/AdditionalVMSetup.ps1)
 3. run in pwsh **as user** `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/installOnWin10LTSC.ps1 | iex`([content](../../../../windows/installOnWin10LTSC.ps1))
    1. optional tweaks: launch `sudo pwsh.exe` and run `irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/99Tweaks.ps1 | iex` ([content](../../../../windows/99Tweaks.ps1))
-4. [soft to install](../../../packages/windows/AdditionalVMSetup.ps1)
 
 ## virt-manager setup
 
@@ -169,11 +169,10 @@ sudo dmidecode --type chassis | awk  -F  ': ' '
 ## misc
 
 - useful soft
-  - [notepad++](https://notepad-plus-plus.org/downloads/)
-  - [wiztree](https://www.diskanalyzer.com/download)
-  - [everything](https://www.voidtools.com/downloads/)
   - [latest nvidia drivers](https://www.nvidia.com/en-us/drivers/)
     - [CLI](https://docs.nvidia.com/datacenter/tesla/driver-installation-guide/windows.html)
+- connect to SSH
+  - `ssh Admin@192.168.122.120 -o StrictHostKeychecking=no -o ConnectionAttempts=60`
 
 ### TODO
 
@@ -202,9 +201,9 @@ sudo dmidecode --type chassis | awk  -F  ': ' '
           - [581.80](https://www.nvidia.com/en-us/drivers/details/257496/)
             - click on latest game drivers, they are the same lol (from GTX 7XX)
             - [cli]
-              - `7zz x *-win10-win11-64bit-international-dch-whql.exe Display.Driver NVI2 EULA.txt ListDevices.txt setup.cfg setup.exe -odrivers`
+              - `7zz x *-win10-win11-64bit-international-dch-whql.exe Display.Driver NvApp NVI2 EULA.txt ListDevices.txt setup.cfg setup.exe -odrivers`
               - `.\setup.exe -s -n Display.Driver -log:c:\logs -loglevel:6`
-              - `-log:logs`
+              - `-log:.\logs`
         - [cab](https://www.catalog.update.microsoft.com/Search.aspx?q=nvidia%2021H2)
           - `32.0.15.8134`
 
