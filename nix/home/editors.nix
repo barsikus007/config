@@ -32,7 +32,7 @@
       };
 
       lsp = {
-        enable = false;
+        enable = lib.mkDefault false;
         formatOnSave = true;
         inlayHints.enable = true;
         # https://github.com/onsails/lspkind.nvim

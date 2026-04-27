@@ -1,25 +1,26 @@
 { config, username, ... }:
+#? https://wiki.nixos.org/wiki/ZFS#Remote_unlock
+#? https://wiki.nixos.org/wiki/Remote_disk_unlocking
 {
-  boot.initrd = {
-    #! lspci -v | grep -iA8 'network\|ethernet'
-    availableKernelModules = [ "r8169" ];
-    network = {
+  #! add network modules to boot.initrd.availableKernelModules inside of hardware-configuration.nix
+  #! lspci -v | grep -iA8 'network\|ethernet'
+  boot.initrd.network = {
+    enable = true;
+    ssh = {
       enable = true;
-      udhcpc.enable = true;
-      flushBeforeStage2 = true;
-      ssh = {
-        enable = true;
-        port = 22222;
-        authorizedKeys = config.users.users.${username}.openssh.authorizedKeys.keys;
-        #! sudo mkdir -p /etc/secrets/initrd/ && sudo ssh-keygen -t ed25519 -N "" -f /etc/secrets/initrd/ssh_host_ed25519_key
-        hostKeys = [ "/etc/secrets/initrd/ssh_host_ed25519_key" ];
-      };
-      postCommands = ''
-        # Import all pools
-        zpool import -a
-        # Add the load-key command to the .profile
-        echo "zfs load-key -a; killall zfs; exit" >> /root/.profile
-      '';
+      port = 22222;
+      authorizedKeys = config.users.users.${username}.openssh.authorizedKeys.keys;
+      #! https://nix-community.github.io/nixos-anywhere/howtos/secrets.html#example-decrypting-an-openssh-host-key-with-pass
+      #? ssh-keygen -t ed25519 -N "" -f ./ssh_host_ed25519_key
+      #? temp=$(mktemp -d)
+      #? install -d -m755 "$temp/persistent/etc/ssh/initrd"
+      #? cp ./ssh_host_ed25519_key* "$temp/persistent/etc/ssh/initrd/"
+      #? nix run github:nix-community/nixos-anywhere -- --extra-files "$temp" --disk-encryption-keys /tmp/secret.key /tmp/secret.key --flake ./nix#VPS --target-host VPS
+      hostKeys = [ "/persistent/etc/ssh/initrd/ssh_host_ed25519_key" ];
     };
   };
+  boot.initrd.systemd.contents."/var/empty/.profile".text = ''
+    systemd-tty-ask-password-agent
+    exit
+  '';
 }

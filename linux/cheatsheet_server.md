@@ -149,8 +149,21 @@ sudo /sbin/modprobe zfs
 ### Zpool setup
 
 ```shell
-# TODO: migrate to formC: https://bbs.archlinux.org/viewtopic.php?id=289465
-sudo zpool create -O normalization=formD -O compression=lz4 -O atime=no tank raidz sda sdb sdc sdd
+#? ashift=12 cause 12 is current standard
+
+# TODO: make it encrypted by keyfile
+#? normalization=formC: https://bbs.archlinux.org/viewtopic.php?id=289465
+#? compression=zstd is the current fastest and efficient compression
+#? atime=off cause access time is useless
+#? acltype=posixacl: https://wiki.archlinux.org/title/ZFS#Access_Control_Lists
+#? xattr=sa: https://forums.truenas.com/t/why-zfs-xattr-on-instead-sa/12733
+sudo zpool create \
+  -o ashift=12 \
+  -O encryption=on -O keyformat=passphrase \
+  -O normalization=formC -O compression=zstd -O atime=off \
+  -O acltype=posixacl -O xattr=sa \
+  tank raidz \
+  /dev/disk/by-id/ata...
 
 sudo zfs create tank/apps
 sudo zfs create tank/storage

@@ -21,7 +21,7 @@ a() {
   print -z -- $(
     alias | awk -F= '{print $1}' |
     fzf --height 40% --border --prompt="Alias: " \
-        --preview "zsh  -c 'source ~/.zshrc && alias {} | cut --delimiter== --fields=2-' | tr --delete \' | bat --language sh --style=plain --color=always" \
+        --preview "zsh  -c 'source ~/.config/zsh/.zshrc && alias {} | cut --delimiter== --fields=2-' | tr --delete \' | bat --language sh --style=plain --color=always" \
         --preview-window 80%
   )
 }
@@ -39,12 +39,6 @@ s () {
 
 type_colored() {
   type -afs "$@" | sed 's/is an alias for/is an alias for:\n/' | bat -l sh --style=plain --color=always
-}
-
-export_aliases() {  # TODO WIP
-  # export aliases
-  # alias | awk -F'[ =]' '{print "alias "$2"='\''"$3"'\''"}'
-  alias | sed -z 's/\n/\&\&/g' | sed -e 's/[^(alias)] /\\\\ /g'
 }
 
 # ripgrep->fzf->vim [QUERY]

@@ -14,6 +14,7 @@
   ];
   environment.systemPackages = import ../../shared/lists { inherit pkgs; };
 
+  services.openssh.settings.PermitRootLogin = "yes";
   users.users.root.openssh.authorizedKeys.keys =
     config.users.users.${username}.openssh.authorizedKeys.keys;
 }

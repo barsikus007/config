@@ -1,8 +1,9 @@
+{ lib, ... }:
 {
   #? https://wiki.nixos.org/wiki/Plymouth
   boot = {
     plymouth.enable = true;
-    consoleLogLevel = 3;
+    consoleLogLevel = lib.mkDefault 3;
     initrd.verbose = false;
     kernelParams = [
       "quiet"

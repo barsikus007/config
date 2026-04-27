@@ -1,4 +1,4 @@
-{ lib, custom, ... }:
+{ custom, ... }:
 {
   imports = [
     ../../shared
@@ -28,7 +28,7 @@
     ../../home/gui/games
     ../../home/gui/games/minecraft.nix
     {
-      programs.nvf.settings.vim.lsp.enable = lib.mkForce true;
+      programs.nvf.settings.vim.lsp.enable = true;
     }
     {
       inherit custom;

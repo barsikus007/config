@@ -1,5 +1,9 @@
-alias -s ts="bun"
-alias -s py="python"
+#? https://github.com/ohmyzsh/ohmyzsh/issues/31#issuecomment-359728582
+unsetopt nomatch
+
+#? type aliases breaks shebang
+# alias -s ts="bun"
+# alias -s py="python"
 
 autoload -Uz select-word-style
 select-word-style bash

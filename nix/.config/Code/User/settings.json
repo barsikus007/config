@@ -341,6 +341,9 @@
         "**/.trunk/*plugins/": true
     },
     "security.promptForLocalFileProtocolHandling": false,
+    "json.schemaDownload.trustedDomains": {
+        "https://aka.ms/": true,
+    },
     "diffEditor.renderSideBySide": true,
     "diffEditor.maxComputationTime": 10000,
     "diffEditor.hideUnchangedRegions.enabled": true,
