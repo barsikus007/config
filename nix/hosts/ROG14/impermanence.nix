@@ -1,18 +1,16 @@
 {
   pkgs,
   config,
-  inputs,
   username,
   ...
 }:
-#? https://nix-community.github.io/preservation/impermanence-migration.html maybe
 let
   inherit (config.fileSystems."/nix") device;
   persistentDir = "/persistent";
 in
 {
   imports = [
-    inputs.impermanence.nixosModules.impermanence
+    ../../modules/impermanence
   ];
   #? sudo btrfs subvolume create /@persistent
   fileSystems.${persistentDir} = {
@@ -96,12 +94,8 @@ in
   # sudo cp -ax --reflink=always ...
   environment.persistence."${persistentDir}" = {
     # enable = false; # ? NB: Defaults to true, not needed
-    hideMounts = true;
 
-    # sudo cp -ax --reflink=always /var/lib{bluetooth,btrfs,cups,fwupd,fprint,lastlog,misc,NetworkManager,nixos,power-profiles-daemon,private,sbctl,sddm,swtpm-localca,upower,waydroid} /persistent/var/lib
-    # sudo mkdir /var/lib/{AccountsService,systemd}
-    # sudo cp -ax --reflink=always /var/lib/AccountsService/users /persistent/var/lib/AccountsService
-    # sudo cp -ax --reflink=always /var/lib/systemd/{backlight,catalog,coredump,pstore,rfkill,timers} /persistent/var/lib/systemd
+    # sudo cp -ax --reflink=always /var/lib{bluetooth,...,waydroid} /persistent/var/lib
     directories = [
       {
         directory = ".Trash-1000";
@@ -112,7 +106,7 @@ in
       "/etc/NetworkManager/system-connections"
       "/etc/ssh"
       "/var/db" # ? ./sudo/lectured/$(id -u)
-      "/var/log"
+      "/var/log" # ? https://nixos.org/manual/nixos/unstable/#sec-var-journal
       "/var/lib/bluetooth"
       "/var/lib/btrfs"
       "/var/lib/cups"
@@ -120,25 +114,15 @@ in
       "/var/lib/libvirt"
       # "/var/lib/misc" # TODO: is this needed? dnsmasq waydroid
       # "/var/lib/NetworkManager" # TODO: is this needed?
-      "/var/lib/nixos" # ? https://github.com/nix-community/impermanence/issues/178
       "/var/lib/power-profiles-daemon" # ? selected power-profile
       # "/var/lib/private" # TODO: is this needed? rustdesk
       # "/var/lib/sbctl" # TODO: is this needed? secure boot
-      # "/var/lib/systemd/backlight" # ? state of displays & keyboard backlight
-      # "/var/lib/systemd/catalog" # TODO: is this needed? creates auto, binary database for the Journal Message Catalog (extended log descriptions)
-      "/var/lib/systemd/coredump"
-      "/var/lib/systemd/pstore"
-      # "/var/lib/systemd/rfkill" # ? state (enabled/disabled) of radio devices (Wi-Fi, Bluetooth)
-      "/var/lib/systemd/timers"
       "/var/lib/upower" # ? history of power usage
       "/var/lib/waydroid"
     ];
     files = [
       # "/etc/adjtime" # TODO: is this needed? hwclock
       # "/etc/logrotate.status" # TODO: is this needed? /var/log/{b,w}tmp
-      "/etc/machine-id" # ! no way to pass secrets to initrd
-      "/var/lib/systemd/credential.secret" # ? for apps, like libvirt, which relay on persistent secret
-      "/var/lib/systemd/random-seed" # ? AI: helps the kernel maintain entropy across reboots, which speeds up the initialization of cryptographic services during boot
     ];
     users.${username} = {
       # sudo mkdir -p /persistent/home/ogurez && sudo chown ogurez: /persistent/home/ogurez
@@ -159,7 +143,6 @@ in
         ".cache/cliphist"
         ".cache/cloud-code" # ? gemini auth
         ".cache/danksearch" # ? index
-        ".cache/nix" # ? URL -> store path / narHash mapping
         ".cache/noctalia" # ? to disable prompt on startup
         ".cache/tlrc"
 
@@ -200,7 +183,6 @@ in
         ".config/vesktop" # TODO: ??
         ".config/waydroid-helper" # TODO: ??
         ".config/xsettingsd" # TODO: ????????????
-        ".config/zsh"
 
         ".local/share" # TODO: more
         # ".local/share/Trash"
