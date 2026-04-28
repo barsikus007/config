@@ -86,8 +86,8 @@
   #? https://wiki.nixos.org/wiki/Samba#CIFS_mount_configuration
   sops.secrets."hosts/NAS/smb" = { };
   fileSystems."/run/media/ogurez/NAS" = {
-    # device = "//admin.lan/storage";
-    device = "//192.168.1.4/storage";
+    # device = "//NAS.lan/storage";
+    device = "//192.168.1.2/storage";
     fsType = "cifs";
     options =
       let

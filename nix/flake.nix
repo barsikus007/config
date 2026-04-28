@@ -209,6 +209,34 @@
               #? needs 8.4 GiB * 3 (or more) space to build, takes ~12.2 GiB, and ~18 minutes to download
               (callPackage ./packages/auto/gui/davinci-resolve-studio.nix { })
             ];
+            imports = [
+              inputs.disko.nixosModules.disko
+            ];
+          }
+        ];
+      };
+
+      #? nix run github:nix-community/nixos-anywhere -- --flake ./nix#generic-VPS --generate-hardware-config nixos-generate-config ./nix/hardware-configuration.nix --target-host <hostname>
+      nixosConfigurations."NAS" = nixpkgs.lib.nixosSystem {
+        inherit system pkgs;
+        specialArgs = mkSpecialArgs "admin" // {
+          inherit custom;
+        };
+        modules = [
+          ./hosts/NAS/configuration.nix
+
+          ./modules/silent-boot.nix
+          (
+            { username, ... }:
+            import ./modules/containers/docker.nix {
+              inherit username;
+              storageDriver = "zfs";
+            }
+          )
+          {
+            environment.systemPackages = with pkgs; [
+              litecli
+            ];
           }
         ];
       };
