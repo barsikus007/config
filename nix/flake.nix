@@ -75,11 +75,9 @@
     niri.url = "github:sodiboo/niri-flake";
     noctalia-qs = {
       url = "github:noctalia-dev/noctalia-qs";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";
-      inputs.nixpkgs.follows = "nixpkgs";
       inputs.noctalia-qs.follows = "noctalia-qs";
     };
     dms = {
@@ -343,11 +341,16 @@
         specialArgs = mkSpecialArgs "nixos";
         modules = [
           (
-            { modulesPath, ... }:
+            { username, modulesPath, ... }:
             {
               imports = [
                 (modulesPath + "/installer/cd-dvd/installation-cd-base.nix")
                 ./hosts/iso/plasma.nix
+              ];
+              home-manager.users.${username}.imports = [
+                ./home/shell/minimal.nix
+
+                ./home/gui/terminal.nix
               ];
             }
           )

@@ -8,7 +8,7 @@
     enable = true;
     ssh = {
       enable = true;
-      port = 22222;
+      port = 22220;
       authorizedKeys = config.users.users.${username}.openssh.authorizedKeys.keys;
       #! https://nix-community.github.io/nixos-anywhere/howtos/secrets.html#example-decrypting-an-openssh-host-key-with-pass
       #? ssh-keygen -t ed25519 -N "" -f ./ssh_host_ed25519_key

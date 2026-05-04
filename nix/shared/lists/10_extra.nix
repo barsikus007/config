@@ -65,6 +65,7 @@ import ./11_powertoys.nix { inherit pkgs; }
   audacity
   obsidian
   qdirstat
+  handbrake
   parsec-bin
   qbittorrent
   moonlight-qt

@@ -22,7 +22,7 @@
   ];
 
   imports = [
-    ../default.nix
+    ../.
   ];
   home-manager.users.${username}.imports = [ ../../../home/desktop/manager/niri.nix ];
 

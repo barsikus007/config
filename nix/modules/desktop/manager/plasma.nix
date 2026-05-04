@@ -2,7 +2,7 @@
 #? https://wiki.nixos.org/wiki/KDE
 {
   imports = [
-    ../default.nix
+    ../.
     ../dm/sddm.nix
     ../style/uniform-look.nix
     ../environment/explorer/dolphin.nix
