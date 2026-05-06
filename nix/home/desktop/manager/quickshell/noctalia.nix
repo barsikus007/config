@@ -236,6 +236,24 @@ in
         use12hourFormat = false;
       };
       plugins.autoUpdate = true;
+      idle =
+        let
+          noctalia_ipc_call = "${lib.getExe config.programs.noctalia-shell.package} ipc call";
+          is_locked =
+            builtins.replaceStrings [ ''"'' ] [ ''\"'' ]
+              ''[ $(loginctl show-session $XDG_SESSION_ID -p LockedHint --value) == "yes" ]'';
+          power_off_monitors_cmd = "${lib.getExe config.programs.niri.package} msg action power-off-monitors";
+
+          lockscreen_command = ''{"name":"Lockscreen turn off displays","timeout":30,"command":"${is_locked} && ${power_off_monitors_cmd}"}'';
+          dim_command = ''{"name":"Dim monitors","timeout":300,"command":"${noctalia_ipc_call} brightness set 0","resumeCommand":"${noctalia_ipc_call} brightness set 100"}'';
+        in
+        {
+          enabled = true;
+          screenOffTimeout = 600;
+          lockTimeout = 900;
+          suspendTimeout = 0;
+          customCommands = "[${lockscreen_command},${dim_command}]";
+        };
     };
     plugins = {
       sources = [
@@ -294,39 +312,4 @@ in
   services.polkit-gnome.enable = false;
   #? screenshot annotation for clipboard history
   programs.satty.enable = true;
-  services.hypridle = {
-    enable = true;
-    settings =
-      let
-        noctalia_ipc_call = "${lib.getExe config.programs.noctalia-shell.package} ipc call";
-        # lock_cmd = "loginctl lock-session";
-        lock_cmd = "${noctalia_ipc_call} lockScreen lock";
-        power_off_monitors_cmd = "${lib.getExe config.programs.niri.package} msg action power-off-monitors";
-        is_locked = ''[ $(loginctl show-session $XDG_SESSION_ID -p LockedHint --value) == "yes" ]'';
-      in
-      {
-        general = {
-          inherit lock_cmd;
-        };
-        listener = [
-          {
-            timeout = 30;
-            on-timeout = "${is_locked} && ${power_off_monitors_cmd}";
-          }
-          {
-            timeout = 5 * 60;
-            on-timeout = "${is_locked} || ${noctalia_ipc_call} brightness set 0";
-            on-resume = "${is_locked} || ${noctalia_ipc_call} brightness set 100";
-          }
-          {
-            timeout = 10 * 60;
-            on-timeout = "${is_locked} || ${power_off_monitors_cmd}";
-          }
-          {
-            timeout = 15 * 60;
-            on-timeout = "${is_locked} || ${noctalia_ipc_call} brightness set 100 && ${lock_cmd}";
-          }
-        ];
-      };
-  };
 }
