@@ -245,7 +245,7 @@
         specialArgs = mkSpecialArgs "nixos";
         modules = [
           ./hosts/vps
-          ./hosts/vps/disk-config.nix # TODO: separate
+          ./hosts/vps/disk-config.nix
           ./hardware-configuration.nix
         ];
       };
@@ -326,14 +326,11 @@
         specialArgs = mkSpecialArgs "nixos";
         modules = [
           (
-            { username, modulesPath, ... }:
+            { modulesPath, ... }:
             {
               imports = [
                 (modulesPath + "/installer/cd-dvd/installation-cd-minimal-combined.nix")
                 ./hosts/iso
-              ];
-              home-manager.users.${username}.imports = [
-                ./home/shell/minimal.nix
               ];
             }
           )

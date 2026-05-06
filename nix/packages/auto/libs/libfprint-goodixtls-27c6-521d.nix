@@ -55,6 +55,8 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   mesonBuildType = "release";
+  __structuredAttrs = true;
+  strictDeps = true;
 
   # https://gcc.gnu.org/gcc-14/porting_to.html#incompatible-pointer-types
   env.NIX_CFLAGS_COMPILE = "-Wno-error=incompatible-pointer-types";

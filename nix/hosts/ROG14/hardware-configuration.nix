@@ -89,19 +89,23 @@
     # device = "//NAS.lan/storage";
     device = "//192.168.1.2/storage";
     fsType = "cifs";
-    options =
-      let
-        #? this line prevents hanging on network split
-        automount_opts = "noauto,x-systemd.automount,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,soft";
-      in
-      [
-        "${automount_opts},credentials=${config.sops.secrets."hosts/NAS/smb".path}"
-        "rw"
-        "uid=1000"
-        "gid=100"
+    options = [
+      #? this section prevents hanging on network split
+      "_netdev"
+      "noauto"
+      "x-systemd.automount"
+      "x-systemd.device-timeout=5s"
+      "x-systemd.mount-timeout=5s"
+      "x-systemd.requires=network-online.target"
 
-        "noserverino"
-      ];
+      #? https://man7.org/linux/man-pages/man8/mount.cifs.8.html
+      "soft" # ? disable program locking if mount unaccessible
+      "credentials=${config.sops.secrets."hosts/NAS/smb".path}"
+      "rw"
+      "uid=1000"
+      "gid=100"
+      "noserverino"
+    ];
   };
 
   swapDevices = [ ];

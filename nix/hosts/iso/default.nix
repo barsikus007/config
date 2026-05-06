@@ -12,6 +12,9 @@
     #? to compile completions at NixOS buildtime
     ../../shared/zsh-compinit.nix
   ];
+  home-manager.users.${username}.imports = [
+    ./home/shell/minimal.nix
+  ];
   environment.systemPackages = import ../../shared/lists { inherit pkgs; };
 
   services.openssh.settings.PermitRootLogin = "yes";

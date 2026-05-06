@@ -1,9 +1,8 @@
-{
-  username,
-  rootless ? false,
-  storageDriver ? null,
-  ...
-}:
+{ username, ... }@args:
+let
+  rootless = if args ? rootless then args.rootless else false;
+  storageDriver = if args ? storageDriver then args.storageDriver else null;
+in
 {
   users.users.${username}.extraGroups = [ "docker" ];
   virtualisation.docker = {

@@ -22,6 +22,8 @@
     kdePackages.kio-fuse
     kdePackages.kio-extras
 
+    kdePackages.kompare
+
     #? have issues with focus, it should focus to explorer every time
     # alias explorer.exe='kioclient exec'
     (writeShellScriptBin "explorer.exe" ''
