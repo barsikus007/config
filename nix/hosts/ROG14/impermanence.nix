@@ -164,6 +164,7 @@ in
         ".config/libreoffice"
         ".config/litecli"
         ".config/ludusavi"
+        ".config/mozilla/firefox"
         ".config/noctalia/plugins"
         ".config/obs-studio"
         ".config/obsidian" # TODO: ??
@@ -174,6 +175,7 @@ in
         ".config/rog" # TODO: asus
         ".config/rustdesk"
         ".config/session" # ? KDE persist (dolphin and windows)
+        ".config/sops/age"
         ".config/sourcery" # ? auth
         ".config/sunshine" # ? auth
         ".config/systemd/user/waydroid-monitor.service.d" # ? links to storage
@@ -206,7 +208,6 @@ in
         ".android"
         ".gemini"
         ".claude"
-        ".mozilla"
         ".thunderbird"
         ".vscode"
 
@@ -229,7 +230,6 @@ in
       files = [
         ".claude.json"
 
-        ".config/sops/age/keys.txt"
         ".config/kwin_dialogsrc"
         ".config/kwinoutputconfig.json" # ? monitors
         ".config/syncthingtray.ini" # TODO: config?

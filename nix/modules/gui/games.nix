@@ -39,7 +39,8 @@ in
     # native wayland support (unstable)
     winePkg
     winetricks
-    bottles
+    # TODO: unstable: https://github.com/NixOS/nixpkgs/pull/515956
+    # bottles
 
     gpu-screen-recorder
     gpu-screen-recorder-gtk

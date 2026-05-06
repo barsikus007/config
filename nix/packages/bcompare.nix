@@ -7,12 +7,12 @@
   gobject-introspection,
   kdePackages,
   python3,
-  qt6,
-  runtimeShell,
   stdenv,
+  runtimeShell,
   unzip,
   wrapGAppsHook3,
 }:
+
 let
   pname = "bcompare";
   version = "5.2.0.31950";
@@ -60,11 +60,13 @@ let
 
         cp -R usr/{bin,lib,share} $out/
 
-        # Remove non Qt5 libs
+        # Remove library that refuses to be autoPatchelf'ed
+        #  - bcompare_ext_kde.amd64.so is linked with Qt4
+        #  - bcompare_ext_kde5.amd64.so is linked with Qt5
         rm $out/lib/beyondcompare/ext/bcompare_ext_kde.amd64.so
         rm $out/lib/beyondcompare/ext/bcompare_ext_kde5.amd64.so
 
-        substituteInPlace $out/bin/${pname} \
+        substituteInPlace $out/bin/bcompare \
           --replace-fail "/usr/lib/beyondcompare" "$out/lib/beyondcompare" \
           --replace-fail "ldd" "${glibc.bin}/bin/ldd" \
           --replace-fail "/bin/bash" "${runtimeShell}"
@@ -81,20 +83,19 @@ let
 
       buildInputs = [
         (lib.getLib stdenv.cc.cc)
-        bzip2
-        kdePackages.kconfig
-        kdePackages.kconfigwidgets
-        kdePackages.kcoreaddons
-        kdePackages.ki18n
         kdePackages.kio
         kdePackages.kservice
-        qt6.qtbase
-        qt6.qtsvg
+        kdePackages.ki18n
+        kdePackages.kcoreaddons
+        bzip2
       ];
 
       dontBuild = true;
       dontConfigure = true;
       dontWrapQtApps = true;
+
+      __structuredAttrs = true;
+      strictDeps = true;
     };
 
   darwin = stdenv.mkDerivation {
@@ -110,9 +111,12 @@ let
       mkdir -p $out/Applications/BCompare.app
       cp -R . $out/Applications/BCompare.app
     '';
+
+    __structuredAttrs = true;
+    strictDeps = true;
   };
 
-  meta = with lib; {
+  meta = {
     description = "GUI application that allows to quickly and easily compare files and folders";
     longDescription = ''
       Beyond Compare is focused. Beyond Compare allows you to quickly and easily compare your files and folders.
@@ -120,12 +124,11 @@ let
       You can then merge the changes, synchronize your files, and generate reports for your records.
     '';
     homepage = "https://www.scootersoftware.com";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.unfree;
-    maintainers = with maintainers; [
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    license = lib.licenses.unfree;
+    maintainers = with lib.maintainers; [
       ktor
       arkivm
-      barsikus007
     ];
     platforms = builtins.attrNames srcs;
     mainProgram = "bcompare";

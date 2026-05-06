@@ -326,11 +326,14 @@
         specialArgs = mkSpecialArgs "nixos";
         modules = [
           (
-            { modulesPath, ... }:
+            { username, modulesPath, ... }:
             {
               imports = [
                 (modulesPath + "/installer/cd-dvd/installation-cd-minimal-combined.nix")
                 ./hosts/iso
+              ];
+              home-manager.users.${username}.imports = [
+                ./home/shell/minimal.nix
               ];
             }
           )
@@ -348,8 +351,6 @@
                 ./hosts/iso/plasma.nix
               ];
               home-manager.users.${username}.imports = [
-                ./home/shell/minimal.nix
-
                 ./home/gui/terminal.nix
               ];
             }

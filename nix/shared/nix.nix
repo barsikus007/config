@@ -29,16 +29,20 @@ let
         "https://cache.nixos.org"
         # "https://cache.nixos.kz" # ? returned a lot "Timeout was reached" errors
         # "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store" # ? https://github.com/dramforever/mirror-web/blob/d7e263d4fe9a9e3078f819468cec18e1c11cf832/_posts/help/2019-02-17-nix.md
-        "https://ncproxy.vizqq.cc"
-        "https://nixos-cache-proxy.cofob.dev" # ? cloudflare mirror, uses original keys
+        # "https://ncproxy.vizqq.cc" # ? returned a lot "Timeout was reached" errors when I tried to install nix on nas
+        # "https://nixos-cache-proxy.cofob.dev" # ? cloudflare mirror, uses original keys # ? returned a lot "Timeout was reached" errors when I tried to install nix on nas
         # "https://nixos-cache-proxy.sweetdogs.ru" # ? seems died
 
         "https://nix-community.cachix.org"
+
+        "https://cache.garnix.io"
       ];
       trusted-public-keys = lib.mkBefore [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
 
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+
+        "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
       ];
     };
   };
