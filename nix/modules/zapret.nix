@@ -10,7 +10,6 @@ let
 in
 {
   services.zapret = {
-    enable = false;
     udpSupport = true;
     udpPorts = [
       "443"

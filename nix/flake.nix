@@ -159,8 +159,7 @@
           ./modules/stylix.nix
           ./modules/security.nix
           ./modules/wireguard.nix
-          ./modules/proxy-server.nix
-          ./modules/zapret.nix
+          ./modules/proxy-client.nix
           ./modules/android.nix
           ./modules/diagnostic.nix
           ./modules/printer.nix

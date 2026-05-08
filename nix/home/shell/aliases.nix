@@ -11,7 +11,7 @@ let
     "${args.prefix}r" = "sudo systemctl restart ${args.service}";
     "${args.prefix}w" = args.watchCommand;
   };
-  mKWgAliases =
+  mkWgAliases =
     args:
     mkVpnAliases {
       prefix = args.wgExec;
@@ -83,16 +83,16 @@ rec {
       npxExec = "bunx";
     in
     {
-      claude-preview = "${npxExec} @anthropic-ai/claude-code@2.1.112";
+      claude-preview = "${npxExec} @anthropic-ai/claude-code@next";
       gemini-preview = "${npxExec} @google/gemini-cli@preview";
       openclaude = "${npxExec} @gitlawb/openclaude";
       openclaude-preview = "${npxExec} github:Gitlawb/openclaude#main";
     };
-  wgAliases = mKWgAliases rec {
+  wgAliases = mkWgAliases rec {
     wgExec = "wg";
     wgIface = "${wgExec}0";
   };
-  awgAliases = mKWgAliases rec {
+  awgAliases = mkWgAliases rec {
     wgExec = "awg";
     wgIface = "${wgExec}0";
   };

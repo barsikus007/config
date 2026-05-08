@@ -27,9 +27,10 @@
                 "home-manager": {
                     "expr": "(builtins.getFlake (''git+file://'' + toString ./. + ''?dir=nix'')).nixosConfigurations.ROG14.options.home-manager.users.type.getSubOptions [] // (builtins.getFlake (''git+file://'' + toString ./. + ''?dir=nix'')).homeConfigurations.nixd.options",
                 },
-                "nix-on-droid": {
-                    "expr": "(builtins.getFlake (''git+file://'' + toString ./. + ''?dir=nix'')).nixOnDroidConfigurations.default.options",
-                },
+                //! this breaks other nixd options providers
+                // "nix-on-droid": {
+                //     "expr": "(builtins.getFlake (''git+file://'' + toString ./. + ''?dir=nix'')).nixOnDroidConfigurations.default.options",
+                // },
             },
         }
     },
@@ -48,6 +49,6 @@
     "Lua.workspace.library": [
         "/etc/profiles/per-user/ogurez/share/nvim/runtime/lua",
         //? git clone https://github.com/DrKJeff16/wezterm-types
-        "/run/media/ogurez/Data/projects/.clones/wezterm-types/lua/wezterm/types",
+        "/run/media/ogurez/Data/projects/clones/wezterm-types/lua/wezterm/types",
     ],
 }

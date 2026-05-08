@@ -13,6 +13,7 @@ let
       # master.flake = inputs.nixpkgs-master;
     };
     settings = {
+      warn-dirty = false;
       auto-optimise-store = true;
       use-xdg-base-directories = true;
       experimental-features = [
