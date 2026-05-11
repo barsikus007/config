@@ -63,6 +63,30 @@ window-rule {
     clip-to-geometry true
 }
 
+// TODO: options: blur
+// Apps: blur them all without xray for a better look
+window-rule {
+    background-effect {
+        blur true
+        xray false
+    }
+}
+// Enable blur behind the fuzzel launcher.
+layer-rule {
+    match namespace="^launcher$"
+
+    background-effect {
+        blur true
+    }
+}
+// Noctalia: blur everywhere without xray for a better look
+layer-rule {
+    match namespace="^noctalia-(background|launcher-overlay|dock)-.*$"
+    background-effect {
+        xray false
+    }
+}
+
 window-rule {
     match app-id=r#"^org\.wezfurlong\.wezterm$"#
     default-column-width { proportion 0.5; }

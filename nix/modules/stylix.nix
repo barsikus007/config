@@ -29,6 +29,12 @@
       package = with pkgs; kdePackages.breeze;
       name = "breeze_cursors";
     };
+    # TODO: options: blur
+    opacity = {
+      desktop = 0.75;
+      popups = 0.75;
+      terminal = 0.85;
+    };
     polarity = "dark";
 
     fonts = with pkgs; {
