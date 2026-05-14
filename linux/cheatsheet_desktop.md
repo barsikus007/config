@@ -15,8 +15,8 @@
   - after system startup `systemctl --user start waydroid-monitor`
   - mount dirs
     - `sudo waydroid shell mkdir /data/adb/modules/<module_id>`
-    - `/run/media/admin/Data/projects/<module_id>` host
-    - `/home/admin/.local/share/waydroid/data/adb/modules/<module_id>` waydroid
+    - `/run/media/$USER/Data/projects/<module_id>` host
+    - `/home/$USER/.local/share/waydroid/data/adb/modules/<module_id>` waydroid
 - props
   - `waydroid prop set persist.waydroid.multi_windows true`
     - funny, uses android windowed mode

@@ -246,10 +246,10 @@ nix-store --export $(nix-store --query --requisites $(realpath $(which $PACKAGE_
 zstdcat $PACKAGE_NAME.closure.zst | nix-store --import
 zstdcat $PACKAGE_NAME.closure.zst | sudo nix-store --import --no-require-sigs
 
-zstdcat $PACKAGE_NAME.closure.zst | ssh admin "nix-store --import"
+zstdcat $PACKAGE_NAME.closure.zst | ssh NAS "nix-store --import"
  REMOTE_PASSWORD=toor
 #? /nix/var/nix/profiles/default/bin/nix-store
-(echo $REMOTE_PASSWORD; zstdcat $PACKAGE_NAME.closure.zst) | ssh admin "sudo -S nix-store --import --no-require-sigs"
+(echo $REMOTE_PASSWORD; zstdcat $PACKAGE_NAME.closure.zst) | ssh NAS "sudo -S nix-store --import --no-require-sigs"
 ```
 
 ## python development
