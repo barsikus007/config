@@ -29,6 +29,10 @@ nix_copy_edit() {
   nvim "$1"
 }
 
+nix_find_libs() {
+  ldd "$1" | grep 'not found' | awk '{print $1}' | sort -u | xargs -I {} sh -c 'echo "Lib: {}"; nix-locate "{}"; echo'
+}
+
 _nn() {
   if [ -f ~/.cache/darkman/mode.txt ]; then
     echo "Current theme is: $(cat ~/.cache/darkman/mode.txt)"

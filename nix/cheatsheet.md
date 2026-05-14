@@ -169,12 +169,6 @@ nix-hash --type sha256 --sri --flat <filename>
 nix hash convert sha256:<full-sha256>
 ```
 
-### resolve libs
-
-```shell
-ldd ./result/bin/executable | grep 'not found' | awk '{print $1}' | sort -u | xargs -I {} sh -c 'echo "Lib: {}"; nix-locate "{}"'
-```
-
 ### don't stop build on hash mismatch (to mass-replace hashes)
 
 ```nix

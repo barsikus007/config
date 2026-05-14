@@ -150,6 +150,7 @@
 
           ./modules/sops.nix
           ./modules/cachyos-kernel.nix
+          ./modules/nix-ld.nix
           ./modules/containers
           ./modules/silent-boot.nix
           ./modules/locale.nix
@@ -178,25 +179,6 @@
           ./modules/vm/vfio
           {
             inherit custom;
-            programs.nix-ld.libraries = with pkgs; [
-              #? nix-index
-              #? nix-locate lib/libgobject-2.0.so.0
-              #? https://unix.stackexchange.com/a/522823
-              #? https://wiki.nixos.org/wiki/Nix-ld
-
-              # fuse3
-              # icu
-              # nss
-              # expat
-              libx11
-              # vulkan-headers
-              # vulkan-loader
-              # vulkan-tools
-
-              glib
-              freetype
-              #? https://github.com/NixOS/nixpkgs/blob/cf468dffe856afaf83e755de82d20e72ccf183c2/pkgs/by-name/st/steam/package.nix#L72
-            ]; # ++ pkgs.steam-run.args.multiPkgs pkgs;
 
             environment.systemPackages = with pkgs; [
               self.packages.${stdenv.hostPlatform.system}.games.hytale
