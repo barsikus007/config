@@ -13,7 +13,9 @@
     ../../shared/zsh-compinit.nix
   ];
   home-manager.users.${username}.imports = [
-    ./home/shell/minimal.nix
+    ../../home
+    ../../home/shell/minimal.nix
+    { home.stateVersion = "26.05"; }
   ];
   environment.systemPackages = import ../../shared/lists { inherit pkgs; };
 

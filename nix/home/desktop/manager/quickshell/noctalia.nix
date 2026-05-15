@@ -55,11 +55,11 @@ in
         };
         "XF86AudioMute" = {
           allow-when-locked = true;
-          action = noctalia-ipc "audio" "muteOutput";
+          action = noctalia-ipc "volume" "muteOutput";
         };
         "XF86AudioMicMute" = {
           allow-when-locked = true;
-          action = noctalia-ipc "audio" "muteInput";
+          action = noctalia-ipc "volume" "muteInput";
         };
         "Alt+XF86AudioRaiseVolume" = {
           allow-when-locked = true;

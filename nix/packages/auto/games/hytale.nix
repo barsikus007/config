@@ -113,7 +113,7 @@ let
 
   # Fetch the Hytale icon
   hytaleIcon = pkgs.fetchurl {
-    url = "https://hytale.com/favicon.ico";
+    url = "https://hytale.com/images/favicon.png";
     hash = "sha256-eniMb/wct+vjtzXF2z8Z1XPBmwabjV8RCDyd8J1QLT0=";
   };
 

@@ -19,8 +19,8 @@ import ./11_powertoys.nix { inherit pkgs; }
   hadolint # Dockerfile
   pciutils # lspci
   usbutils # lssub
-  strace # files monitoring
   qrencode
+  strace # files monitoring
   inotify-tools # files monitoring
 
   # CLI python

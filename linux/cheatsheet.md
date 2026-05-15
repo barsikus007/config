@@ -141,9 +141,7 @@ sudo mkdir -p /mnt/btrfs_tmp
 sudo mount /mnt/btrfs_restore.img /mnt/btrfs_tmp
 
 BACKUP_DATE=2026-05-14
-ssh NAS "zstd -d -c /tank/storage/backups/hosts/desktops/ROG14/@persistent-backup-$BACKUP_DATE.btrfs.zst" | pv | sudo btrfs receive /mnt/btrfs_tmp
-
-ssh NAS "cat /tank/storage/backups/hosts/desktops/ROG14/@persistent-backup-$BACKUP_DATE.btrfs.zst" | pv | zstd - -d -c | sudo btrfs receive /mnt/btrfs_tmp
+ssh NAS "cat /tank/storage/backups/hosts/desktops/ROG14/@persistent-backup-$BACKUP_DATE.btrfs.zst" | pv | zstdcat | sudo btrfs receive /mnt/btrfs_tmp
 
 sudo rsync --verbose --archive --compress --partial --progress --mkpath --acls --xattrs --hard-links /mnt/btrfs_tmp/@persistent-backup-2026-05-14/ /mnt/persistent/
 
