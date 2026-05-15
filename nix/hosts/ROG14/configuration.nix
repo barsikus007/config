@@ -17,6 +17,9 @@ let
   '';
 in
 {
+  #? ZFS requires networking.hostId to be set
+  networking.hostId = "707c2d72";
+
   #? https://nixos.org/manual/nixos/unstable/release-notes
   system.stateVersion = "26.05";
   networking.hostName = "ROG14";
@@ -33,7 +36,12 @@ in
     #? https://github.com/NixOS/nixos-hardware/blob/master/asus/zephyrus/ga401iv/default.nix
     inputs.nixos-hardware.nixosModules.asus-zephyrus-ga401iv
     ./hardware-configuration.nix
+    ./disk-config.nix
     ./impermanence.nix
+
+    # ../../modules/zfs-kernel.nix
+    ../../modules/cachyos-kernel.nix
+
     ../../modules/hardware/fingerprint.nix
     ../../modules/hardware/wifi-unlimited.nix
   ];
@@ -53,10 +61,10 @@ in
       #? NixOS param which enables root-shell when stage 1 fails
       "boot.shell_on_fail"
     ];
-
-    #? https://wiki.nixos.org/wiki/NTFS
-    supportedFilesystems = [ "ntfs" ];
   };
+
+  services.zfs.autoScrub.enable = true;
+  services.zfs.autoSnapshot.enable = true;
 
   hardware = {
     amdgpu.opencl.enable = true;

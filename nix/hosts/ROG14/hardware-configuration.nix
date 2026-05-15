@@ -26,33 +26,6 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
-  services.btrfs.autoScrub = {
-    enable = true;
-    # interval = "weekly";
-    fileSystems = [ "/" ];
-  };
-
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/afb30336-18f3-4359-bebb-39c51e8f7b45";
-    fsType = "btrfs";
-    options = [
-      "subvol=@"
-      "noatime"
-      "compress=zstd"
-    ];
-  };
-  #? sudo btrfs subvolume create /@nix
-  fileSystems."/nix" = {
-    device = "/dev/disk/by-uuid/afb30336-18f3-4359-bebb-39c51e8f7b45";
-    fsType = "btrfs";
-    # neededForBoot = true;
-    options = [
-      "subvol=@nix"
-      "noatime"
-      "compress=zstd"
-    ];
-  };
-
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/5099-6DA0";
     fsType = "vfat";
@@ -73,7 +46,7 @@
     ];
   };
   fileSystems."/run/media/ogurez/System" = {
-    # device = "/dev/disk/by-uuid/01DC45437F7A9E60";
+    # device = "/dev/disk/by-uuid/01DCD272E968DAA0";
     label = "System";
     fsType = "ntfs-3g";
     options = [
@@ -107,8 +80,6 @@
       "noserverino"
     ];
   };
-
-  swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's

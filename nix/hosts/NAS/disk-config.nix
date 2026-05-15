@@ -127,7 +127,6 @@
       # tank = {
       #   type = "zpool";
       #   mode = "mirror";
-      #   # Твои параметры ashift=12 и нормализация
       #   options = {
       #     ashift = "12";
       #   };

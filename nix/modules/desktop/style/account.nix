@@ -3,7 +3,7 @@
 let
   userIcon = builtins.fetchurl {
     url = "https://github.com/barsikus007.png";
-    sha256 = "sha256-ifkRxN8PTXOp7zkM8NcEWptT7scvMVkGZlcUs6B+0Dk=";
+    sha256 = "sha256-9uVU2KzX97TGS51lgwL8JqdSbX7kbl1uJRDTWo3Mpsg=";
   };
 in
 {

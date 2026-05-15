@@ -149,7 +149,6 @@
           ./modules/hardware/esp32.nix
 
           ./modules/sops.nix
-          ./modules/cachyos-kernel.nix
           ./modules/nix-ld.nix
           ./modules/containers
           ./modules/silent-boot.nix
@@ -187,9 +186,6 @@
               # self.packages.${stdenv.hostPlatform.system}.kompas3d-fhs
               #? needs 8.4 GiB * 3 (or more) space to build, takes ~12.2 GiB, and ~18 minutes to download
               (callPackage ./packages/auto/gui/davinci-resolve-studio.nix { })
-            ];
-            imports = [
-              inputs.disko.nixosModules.disko
             ];
           }
         ];

@@ -16,6 +16,5 @@
   # boot.kernelPackages = lib.mkForce pkgs.cachyosKernels.linuxPackages-cachyos-bore;
   boot.kernelPackages = lib.mkForce pkgs.cachyosKernels.linuxPackages-cachyos-bore-lto;
 
-  # boot.supportedFilesystems.zfs = true;
   boot.zfs.package = config.boot.kernelPackages.zfs_cachyos;
 }

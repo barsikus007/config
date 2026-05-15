@@ -21,7 +21,4 @@ in
 {
   #? Note this might jump back and forth as kernels are added or removed.
   boot.kernelPackages = latestKernelPackage;
-
-  #? ZFS requires networking.hostId to be set
-  networking.hostId = lib.mkDefault "c0febabe";
 }
