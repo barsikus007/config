@@ -1,6 +1,6 @@
 { inputs, ... }:
 #? Disks is NOT managed by disko — nvme0n1 has NTFS partitions (Data, System) that must be preserved.
-#? ZFS pool was created manually on nvme0n1p4 (ex-btrfs):
+#? ZFS pool was created manually on nvme0n1p4:
 #?
 #?   echo -n "PASSPHRASE" > /tmp/secret.key && chmod 600 /tmp/secret.key
 #?   zpool create -f \
