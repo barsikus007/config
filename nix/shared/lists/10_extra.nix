@@ -4,6 +4,7 @@ import ./11_powertoys.nix { inherit pkgs; }
 ++ [
   # other (specific cli tools)
   _7zz-rar
+  gh
   gcc
   git-lfs
   isd
@@ -61,6 +62,7 @@ import ./11_powertoys.nix { inherit pkgs; }
   # GUI
   gimp3
   scrcpy
+  bluetui
   neovide
   audacity
   obsidian

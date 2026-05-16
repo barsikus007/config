@@ -23,6 +23,7 @@
 
     # ../../modules/zfs-kernel.nix
     ../../modules/cachyos-kernel.nix
+    ../../modules/zfs.nix
 
     #! read warning inside module below
     ../../modules/ssh-initrd.nix
@@ -44,8 +45,6 @@
   networking.useDHCP = true;
   networking.nftables.enable = true;
 
-  services.zfs.autoScrub.enable = true;
-  services.zfs.autoSnapshot.enable = true;
   virtualisation.docker.daemon.settings."data-root" = "/tank/docker";
 
   hardware.bluetooth.enable = true;

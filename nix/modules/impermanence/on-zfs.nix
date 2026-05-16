@@ -1,14 +1,11 @@
-{ pkgs, ... }:
+{ config, ... }@args:
 let
-  # TODO: config: persistentDir
-  persistentDir = "/persistent";
+  persistentDir = if args ? persistentDir then args.persistentDir else "/persistent";
 in
 {
   imports = [
     ../../modules/impermanence
   ];
-
-  fileSystems.${persistentDir}.neededForBoot = true;
 
   #? https://github.com/nix-community/impermanence/issues/320#issuecomment-4260870035
   boot.initrd.systemd.services.rollback-zroot = {
@@ -22,7 +19,7 @@ in
     # Should complete before any file systems are mounted
     before = [ "sysroot.mount" ];
 
-    path = with pkgs; [ zfs ];
+    path = [ config.boot.zfs.package ];
     script = "zfs rollback -r zroot/root@blank";
   };
 

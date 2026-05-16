@@ -1,25 +1,13 @@
-{ pkgs, config, ... }:
+{ pkgs, config, ... }@args:
 #! unmaintaned
 let
-  # TODO: config: persistentDir
   inherit (config.fileSystems."/nix") device;
-  persistentDir = "/persistent";
+  persistentDir = if args ? persistentDir then args.persistentDir else "/persistent";
 in
 {
   imports = [
     ../../modules/impermanence
   ];
-  #? sudo btrfs subvolume create /@persistent
-  fileSystems.${persistentDir} = {
-    inherit device;
-    fsType = "btrfs";
-    neededForBoot = true;
-    options = [
-      "subvol=@persistent"
-      "noatime"
-      "compress=zstd"
-    ];
-  };
   #? https://github.com/nix-community/impermanence/issues/320#issuecomment-4260870035
   boot.initrd.systemd = {
     services.impermance-btrfs-rolling-root = {

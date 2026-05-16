@@ -191,7 +191,7 @@
         ];
       };
 
-      #? nix run github:nix-community/nixos-anywhere -- --flake ./nix#generic-VPS --generate-hardware-config nixos-generate-config ./nix/hardware-configuration.nix --target-host <hostname>
+      #? nixos-anywhere --flake ./nix#generic-VPS --generate-hardware-config nixos-generate-config ./nix/hardware-configuration.nix --target-host <hostname>
       nixosConfigurations."NAS" = nixpkgs.lib.nixosSystem {
         inherit system pkgs;
         specialArgs = mkSpecialArgs "admin" // {
@@ -215,7 +215,7 @@
         ];
       };
 
-      #? nix run github:nix-community/nixos-anywhere -- --flake ./nix#generic-VPS --generate-hardware-config nixos-generate-config ./nix/hardware-configuration.nix --target-host <hostname>
+      #? nixos-anywhere --flake ./nix#generic-VPS --generate-hardware-config nixos-generate-config ./nix/hardware-configuration.nix --target-host <hostname>
       nixosConfigurations."generic-VPS" = nixpkgs.lib.nixosSystem {
         inherit system pkgs;
         specialArgs = mkSpecialArgs "nixos";

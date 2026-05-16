@@ -8,6 +8,8 @@ in
     inputs.impermanence.nixosModules.impermanence
   ];
 
+  fileSystems.${persistentDir}.neededForBoot = true;
+
   environment.persistence."${persistentDir}" = {
     hideMounts = true;
 

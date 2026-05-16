@@ -30,6 +30,7 @@ in
     ++ import ../../shared/lists/test.nix { inherit pkgs; }
   );
 
+  #! modules here are bound to specific hardware features (including disks)
   imports = [
     ./..
     # TODO: PR: file for whole 2020th ga401, not just iv; https://github.com/NixOS/nixos-hardware/issues/1450
@@ -41,6 +42,7 @@ in
 
     # ../../modules/zfs-kernel.nix
     ../../modules/cachyos-kernel.nix
+    ../../modules/zfs.nix
 
     ../../modules/hardware/fingerprint.nix
     ../../modules/hardware/wifi-unlimited.nix
@@ -62,9 +64,6 @@ in
       "boot.shell_on_fail"
     ];
   };
-
-  services.zfs.autoScrub.enable = true;
-  services.zfs.autoSnapshot.enable = true;
 
   hardware = {
     amdgpu.opencl.enable = true;

@@ -15,7 +15,7 @@
       #? temp=$(mktemp -d)
       #? install -d -m755 "$temp/persistent/etc/ssh/initrd"
       #? cp ./ssh_host_ed25519_key* "$temp/persistent/etc/ssh/initrd/"
-      #? nix run github:nix-community/nixos-anywhere -- --extra-files "$temp" --disk-encryption-keys /tmp/secret.key /tmp/secret.key --flake ./nix#VPS --target-host VPS
+      #? nixos-anywhere --extra-files "$temp" --disk-encryption-keys /tmp/secret.key /tmp/secret.key --flake ./nix#VPS --target-host VPS
       hostKeys = [ "/persistent/etc/ssh/initrd/ssh_host_ed25519_key" ];
     };
   };
