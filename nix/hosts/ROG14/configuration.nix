@@ -39,6 +39,7 @@ in
     ./hardware-configuration.nix
     ./disk-config.nix
     ./impermanence.nix
+    ./sops.nix
 
     # ../../modules/zfs-kernel.nix
     ../../modules/cachyos-kernel.nix

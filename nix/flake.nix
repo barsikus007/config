@@ -148,7 +148,6 @@
           ./modules/hardware/xbox.nix
           ./modules/hardware/esp32.nix
 
-          ./modules/sops.nix
           ./modules/nix-ld.nix
           ./modules/containers
           ./modules/silent-boot.nix
@@ -200,6 +199,7 @@
         modules = [
           ./hosts/NAS/configuration.nix
 
+          ./modules/samba.nix
           (
             { username, ... }:
             import ./modules/containers/docker.nix {

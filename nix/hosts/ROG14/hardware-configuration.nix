@@ -57,7 +57,6 @@
   };
 
   #? https://wiki.nixos.org/wiki/Samba#CIFS_mount_configuration
-  sops.secrets."hosts/NAS/smb" = { };
   fileSystems."/run/media/ogurez/NAS" = {
     # device = "//NAS.lan/storage";
     device = "//192.168.1.2/storage";
@@ -73,7 +72,7 @@
 
       #? https://man7.org/linux/man-pages/man8/mount.cifs.8.html
       "soft" # ? disable program locking if mount unaccessible
-      "credentials=${config.sops.secrets."hosts/NAS/smb".path}"
+      "credentials=${config.sops.templates."smb-credentials".path}"
       "rw"
       "uid=1000"
       "gid=100"

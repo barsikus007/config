@@ -23,7 +23,6 @@
     amneziawg-tools
   ];
 
-  sops.secrets."hosts/NAS/router/ssid" = { };
   networking.networkmanager.dispatcherScripts =
     let
       wifiIface = "wlp2s0";
