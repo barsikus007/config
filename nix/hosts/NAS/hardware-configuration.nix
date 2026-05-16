@@ -26,32 +26,7 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/tank" = {
-    device = "tank";
-    fsType = "zfs";
-    options = [ "zfsutil" ];
-  };
-
-  fileSystems."/tank/docker" = {
-    device = "tank/docker";
-    fsType = "zfs";
-    options = [ "zfsutil" ];
-  };
   virtualisation.docker.daemon.settings."data-root" = "/tank/docker";
-
-  fileSystems."/tank/apps" = {
-    device = "tank/apps";
-    fsType = "zfs";
-    options = [ "zfsutil" ];
-  };
-
-  fileSystems."/tank/storage" = {
-    device = "tank/storage";
-    fsType = "zfs";
-    options = [ "zfsutil" ];
-  };
-
-  swapDevices = [ ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;

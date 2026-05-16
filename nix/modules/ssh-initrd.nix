@@ -19,8 +19,5 @@
       hostKeys = [ "/persistent/etc/ssh/initrd/ssh_host_ed25519_key" ];
     };
   };
-  boot.initrd.systemd.contents."/var/empty/.profile".text = ''
-    systemd-tty-ask-password-agent
-    exit
-  '';
+  boot.initrd.systemd.users.root.shell = "/bin/systemd-tty-ask-password-agent";
 }

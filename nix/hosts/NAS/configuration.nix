@@ -21,8 +21,9 @@
     ./disk-config.nix
     ./impermanence.nix
 
-    ../../modules/zfs-kernel.nix
-    # ../../modules/cachyos-kernel.nix
+    # ../../modules/zfs-kernel.nix
+    ../../modules/cachyos-kernel.nix
+
     #! read warning inside module below
     ../../modules/ssh-initrd.nix
   ];
@@ -30,6 +31,7 @@
 
   boot = {
     loader = {
+      timeout = 0;
       systemd-boot = {
         enable = true;
         editor = false;

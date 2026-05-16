@@ -24,7 +24,7 @@
 
   disko.devices = {
     zpool = {
-      zroot = {
+      "zroot" = {
         type = "zpool";
         options = {
           ashift = "12";

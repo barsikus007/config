@@ -200,7 +200,6 @@
         modules = [
           ./hosts/NAS/configuration.nix
 
-          ./modules/silent-boot.nix
           (
             { username, ... }:
             import ./modules/containers/docker.nix {

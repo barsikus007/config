@@ -67,7 +67,43 @@
       # };
     };
     zpool = {
-      zroot = {
+      "tank" = {
+        type = "zpool";
+        options = {
+          ashift = "12";
+        };
+        rootFsOptions = {
+          mountpoint = "/tank";
+          compression = "zstd";
+          normalization = "formC";
+          atime = "off";
+          xattr = "sa";
+          acltype = "posixacl";
+          encryption = "aes-256-gcm";
+          keyformat = "passphrase";
+          keylocation = "file:///etc/zfs/keys/tank.key";
+        };
+
+        datasets = {
+          "apps" = {
+            type = "zfs_fs";
+            mountpoint = "/tank/apps";
+            options."com.sun:auto-snapshot" = "true";
+          };
+          "docker" = {
+            type = "zfs_fs";
+            mountpoint = "/tank/docker";
+            options."com.sun:auto-snapshot" = "false";
+          };
+          "storage" = {
+            type = "zfs_fs";
+            mountpoint = "/tank/storage";
+            options."com.sun:auto-snapshot" = "true";
+          };
+        };
+      };
+
+      "zroot" = {
         type = "zpool";
         options = {
           ashift = "12";
@@ -92,19 +128,19 @@
             postCreateHook = "zfs list -t snapshot | grep -q zroot/root@blank || zfs snapshot zroot/root@blank";
             options."com.sun:auto-snapshot" = "false";
           };
-          "root/nix" = {
+          "nix" = {
             type = "zfs_fs";
             mountpoint = "/nix";
             options."com.sun:auto-snapshot" = "false";
           };
-          "root/persistent" = {
+          "persistent" = {
             type = "zfs_fs";
             mountpoint = "/persistent";
             options."com.sun:auto-snapshot" = "true";
           };
 
           #? README MORE: https://wiki.archlinux.org/title/ZFS#Swap_volume
-          "root/swap" = {
+          "swap" = {
             type = "zfs_volume";
             size = "16G";
             content = {
