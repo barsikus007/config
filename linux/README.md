@@ -2,10 +2,6 @@
 
 ## [Command Cheat Sheet](./cheatsheet.md)
 
-### [Server](./cheatsheet_server.md)
-
-### [Desktop](./cheatsheet_desktop.md)
-
 ## [WSL Hints](./wsl.md)
 
 ## [ethical hacking](./hax.md)
@@ -25,9 +21,6 @@
 #? ubuntu
 sudo apt install git -y
 
-#? arch
-sudo pacman -S git
-
 #? all
 chsh -s /bin/bash
 ```
@@ -45,8 +38,6 @@ cd && git clone https://github.com/barsikus007/config --depth 1 && cd -
 cd ~/config/ && git pull && ./linux/install.sh && cd -
 
 setup_ubuntu
-
-setup_arch
 
 #? others
 setup_linux

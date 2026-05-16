@@ -2,13 +2,15 @@
 
 `а` in folder name is cyrillic letter
 
+## [Ubuntu](./ubuntu.md)
+
 ## [Fedora on GA401IV](./fedora.md)
 
 ## [Linux on Rock3A](./rock3a.md)
 
 ## [OpenWrt on Xiaomi AX3600](./ax3600.md)
 
-## Android
+## android
 
 ### DriveDroid fix on Pixel 7 Pro (better use [module](https://github.com/overzero-git/DriveDroid-fix-Magisk-module))
 

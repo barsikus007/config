@@ -70,15 +70,15 @@
       "tank" = {
         type = "zpool";
         options = {
-          ashift = "12";
+          ashift = "12"; # ? cause 12 is current standard
         };
         rootFsOptions = {
-          mountpoint = "/tank";
-          compression = "zstd";
-          normalization = "formC";
-          atime = "off";
-          xattr = "sa";
-          acltype = "posixacl";
+          mountpoint = "none";
+          compression = "zstd"; # ? zstd is the current fastest and efficient compression
+          normalization = "formC"; # ? https://bbs.archlinux.org/viewtopic.php?id=289465
+          atime = "off"; # ? cause access time is useless and overhead
+          acltype = "posixacl"; # ? https://wiki.archlinux.org/title/ZFS#Access_Control_Lists
+          xattr = "sa"; # ? https://forums.truenas.com/t/why-zfs-xattr-on-instead-sa/12733
           encryption = "aes-256-gcm";
           keyformat = "passphrase";
           keylocation = "file:///etc/zfs/keys/tank.key";
@@ -107,14 +107,14 @@
         type = "zpool";
         options = {
           ashift = "12";
-          autotrim = "on";
+          autotrim = "on"; # ? for SSDs
         };
         rootFsOptions = {
           mountpoint = "none";
           compression = "zstd";
           atime = "off";
-          xattr = "sa";
           acltype = "posixacl";
+          xattr = "sa";
           encryption = "aes-256-gcm";
           keyformat = "passphrase";
           keylocation = "file:///tmp/secret.key";

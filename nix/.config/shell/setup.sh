@@ -2,13 +2,11 @@
 
 #? package managers and updaters
 # TODO u functions which will resolve all
-# TODO pacman color=auto ?
 alias i='sudo apt install'
 alias ii='sudo nala install'
 alias uu='sudo apt update && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt clean'
 alias uuu='sudo nala update && sudo nala upgrade -y && sudo nala autoremove -y && sudo nala clean'
 alias u=uu
-alias pacman='pacman --color=always'
 alias cu='cd ~/config/ && git pull && ./linux/install.sh && cd -'
 
 
@@ -117,16 +115,6 @@ setup_ubuntu() {
     uuu && \
     sudo nala install $soft_unix $soft_base $soft_add $soft_add_ubuntu -y
     confirm "Do you want to remove $soft_to_purge?" && sudo nala purge $soft_to_purge -y
-    setup_linux
-  )
-}
-
-setup_arch() {
-  # shellcheck disable=SC2086
-  (
-    soft_envs
-    sudo pacman -S $soft_unix $soft_base $soft_add -y
-    sudo pacman -Rsn $soft_to_purge -y
     setup_linux
   )
 }

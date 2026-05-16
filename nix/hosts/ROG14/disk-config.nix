@@ -6,7 +6,7 @@
 #?   zpool create -f \
 #?     -o ashift=12 -o autotrim=on \
 #?     -O mountpoint=none -O compression=zstd -O atime=off \
-#?     -O xattr=sa -O acltype=posixacl \
+#?     -O acltype=posixacl -O xattr=sa \
 #?     -O encryption=aes-256-gcm -O keyformat=passphrase \
 #?     -O keylocation=file:///tmp/secret.key \
 #?     zroot \
@@ -34,8 +34,8 @@
           mountpoint = "none";
           compression = "zstd";
           atime = "off";
-          xattr = "sa";
           acltype = "posixacl";
+          xattr = "sa";
           encryption = "aes-256-gcm";
           keyformat = "passphrase";
           keylocation = "file:///tmp/secret.key";

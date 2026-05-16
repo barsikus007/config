@@ -3,6 +3,31 @@
 - `Ctrl+Alt+Delete` to force systemd shutdown
 - `Alt+PrtSc h` to print SysRq help to dmesg
 
+## Desktop
+
+### plasma
+
+- `kioclient exec <file>.desktop`
+
+### waydroid
+
+- <https://wiki.nixos.org/wiki/Waydroid#Installation>
+  - `sudo waydroid init`
+    - you can download OTA images located in `/var/lib/waydroid/waydroid.cfg` manually
+    - extract them to `/var/lib/waydroid/images/`
+    - and edit `waydroid.cfg` accordingly (set datetime variables)
+- <https://wiki.nixos.org/wiki/Waydroid#Mount_host_directories>
+  - after system startup `systemctl --user start waydroid-monitor`
+  - mount dirs
+    - `sudo waydroid shell mkdir /data/adb/modules/<module_id>`
+    - `/run/media/$USER/Data/projects/<module_id>` host
+    - `/home/$USER/.local/share/waydroid/data/adb/modules/<module_id>` waydroid
+- props
+  - `waydroid prop set persist.waydroid.multi_windows true`
+    - funny, uses android windowed mode
+  - `waydroid prop set persist.waydroid.width 480`
+  - `waydroid prop set persist.waydroid.height 800`
+
 ## ssh
 
 ### [add git key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent?platform=linux)
@@ -36,53 +61,6 @@ apt-mark showmanual
 zgrep 'Commandline: apt' /var/log/apt/history.log /var/log/apt/history.log.*.gz
 # or
 zgrep -E "Commandline: apt(|-get)" /var/log/apt/history.log*
-```
-
-### pacman
-
-#### Update old enough arch
-
-```shell
-sudo pacman --noconfirm --needed --color always -Sy archlinux-keyring
-sudo pacman --noconfirm --needed --color always -Syu
-# sudo pacman --needed --color always -Syu
-```
-
-#### tune parallel downloads
-
-```shell
-sudo sed -i 's/^#ParallelDownloads = [0-9]\+/ParallelDownloads = 7/' /etc/pacman.conf
-```
-
-##### revert
-
-```shell
-sudo sed -i 's/^ParallelDownloads = [0-9]\+/#ParallelDownloads = 7/' /etc/pacman.conf
-```
-
-#### AUR
-
-```shell
-sudo pacman --noconfirm --needed --color always -S git base-devel && git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si --noconfirm && cd - && rm -rf yay-bin
-```
-
-#### [mirrors choose](https://wiki.archlinux.org/title/mirrors#Fetching_and_ranking_a_live_mirror_list)
-
-```shell
-sudo yay -S --color always rate-mirrors-bin
-export TMPFILE="$(mktemp)"; \
-    sudo true; \
-    rate-mirrors --save=$TMPFILE arch --max-delay=43200 \
-      && sudo mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist-backup \
-      && sudo mv $TMPFILE /etc/pacman.d/mirrorlist
-```
-
-### dnf
-
-#### clean
-
-```shell
-sudo dnf clean all
 ```
 
 ### rust
@@ -144,6 +122,15 @@ distrobox create --name astra --image registry.astralinux.ru/astra/ubi18:latest
 - `sudo cfdisk /dev/...`
   - `sudo parted`
 - `nix shell nixpkgs#ntfsprogs-plus --command sudo ntfsck /dev/nvme0n1p3 --repair-auto`
+
+## ZFS
+
+### Commands
+
+- [Clear arc cache](https://netpoint-dc.com/blog/zfs-caching-arc-l2arc-linux/)
+  - `sync && sudo sysctl vm/drop_caches=3`
+- Find corrupted data, sent with `zfs_send_corrupt_data` module param
+  - `rg --text --files-with-matches --no-ignore --hidden '(?-u:\x0c\xb1\xdd\xba\xf5\x02\x00\x00)' ./`
 
 ## commands
 
@@ -292,4 +279,14 @@ inotifywait --event modify,create,delete,move --monitor --recursive ~/ @/home/$U
 
 ```shell
 find . -type d -empty -delete
+```
+
+### docker watchtower
+
+```shell
+docker run -d \
+--name watchtower \
+--restart always \
+-v /var/run/docker.sock:/var/run/docker.sock \
+nickfedor/watchtower --cleanup --remove-volumes
 ```

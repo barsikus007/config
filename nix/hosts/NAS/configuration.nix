@@ -46,6 +46,7 @@
 
   services.zfs.autoScrub.enable = true;
   services.zfs.autoSnapshot.enable = true;
+  virtualisation.docker.daemon.settings."data-root" = "/tank/docker";
 
   hardware.bluetooth.enable = true;
 

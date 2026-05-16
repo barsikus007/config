@@ -1,34 +1,6 @@
-# [cheatsheet for server](./README.md)
+# [Ubuntu](./README.md)
 
 ## set new password for root
-
-### arch
-
-```shell
-# change root user passwd
-sudo passwd root
-sudo passwd arch
-
-# create sudo user
-export username="ogurez"
-sudo useradd -mG wheel $username
-sudo passwd $username
-
-# pacman errors workaround
-# https://wiki.archlinux.org/title/Mirrors
-# sudo pacman-key --init
-# sudo pacman-key --populate archlinux
-# sudo pacman-key --refresh-keys
-# sudo pacman -S archlinux-keyring; sudo pacman -Su
-
-sudo pacman -Suy neovim
-EDITOR=nvim sudo visudo
-# uncomment wheel lines
-
-su $username
-```
-
-### ubuntu
 
 ```shell
 # change root user passwd
@@ -135,43 +107,12 @@ sudo /sbin/modprobe zfs
 
 ### Commands
 
-- [Clear arc cache](https://netpoint-dc.com/blog/zfs-caching-arc-l2arc-linux/)
-  - `sync && sudo sysctl vm/drop_caches=3`
 - Add auto snapshot package
   - `sudo apt install zfs-auto-snapshot -y`
 - Enable scrub timer
   - `sudo systemctl enable --now zfs-scrub-weekly@tank.timer`
   - Cron-based alternative (`0 3 * * * /sbin/zpool scrub tank`)
     - `sudo crontab -l | cat - <(echo "0 3 * * * /sbin/zpool scrub tank") | sudo crontab -`
-- Find corrupted data, sent with `zfs_send_corrupt_data` module param
-  - `rg --text --files-with-matches --no-ignore --hidden '(?-u:\x0c\xb1\xdd\xba\xf5\x02\x00\x00)' ./`
-
-### Zpool setup
-
-```shell
-#? ashift=12 cause 12 is current standard
-
-# TODO: make it encrypted by keyfile
-#? normalization=formC: https://bbs.archlinux.org/viewtopic.php?id=289465
-#? compression=zstd is the current fastest and efficient compression
-#? atime=off cause access time is useless
-#? acltype=posixacl: https://wiki.archlinux.org/title/ZFS#Access_Control_Lists
-#? xattr=sa: https://forums.truenas.com/t/why-zfs-xattr-on-instead-sa/12733
-sudo zpool create \
-  -o ashift=12 \
-  -O encryption=on -O keyformat=passphrase \
-  -O normalization=formC -O compression=zstd -O atime=off \
-  -O acltype=posixacl -O xattr=sa \
-  tank raidz \
-  /dev/disk/by-id/ata...
-
-sudo zfs create tank/apps
-sudo zfs create tank/storage
-
-sudo zfs create tank/git?lab
-# TODO idk if it's needed
-sudo chown -R $USER:$USER /tank/storage/
-```
 
 ### Docker on ZFS
 
@@ -189,48 +130,15 @@ sudo ln -s /tank/docker /var/lib/docker
 sudo service docker start
 ```
 
-### SMB TODO (OpenZFS doesn't have all options of vanilla ZFS)
-
-```shell
-# sudo zfs get sharesmb tank/storage
-sudo zfs set nbmand=on tank/storage
-# sudo zfs share -o sharesmb=on tank/storage%storage
-sudo zfs share smb tank/storage%storage
-zfs get share.smb.all tank/storage%storage
-```
-
-### TODO
-
-- maybe need to create docker service trigger on ZFS mount?
-  - <https://www.reddit.com/r/docker/comments/my6p90/docker_zfs_storage_driver_vs_storing_docker_data/>
-  - <https://www.reddit.com/r/zfs/comments/10e0rkx/for_anyone_using_zfsol_with_docker/>
-- weekly cron to backup compressed backup of zpool to 5th 2tb disk
-- backup / and /boot volumes disk (emmc)
-
 ## tools
 
 ### Docker
 
 ```shell
-# install
-#? ubuntu
+#? install
 curl -sSL https://get.docker.com | sh
-# seems like it's not needed
+#? seems like it's not needed
 # sudo groupadd docker
 sudo usermod -aG docker $USER
 newgrp docker; exit
-
-#? arch
-sudo pacman -S docker docker-compose
-sudo systemctl restart docker
-```
-
-#### Watchtower
-
-```shell
-docker run -d \
---name watchtower \
---restart always \
--v /var/run/docker.sock:/var/run/docker.sock \
-nickfedor/watchtower --cleanup --remove-volumes
 ```
