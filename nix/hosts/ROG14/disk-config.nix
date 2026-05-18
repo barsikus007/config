@@ -1,4 +1,9 @@
-{ inputs, ... }:
+{
+  config,
+  inputs,
+  username,
+  ...
+}:
 #? Disks is NOT managed by disko — nvme0n1 has NTFS partitions (Data, System) that must be preserved.
 #? ZFS pool was created manually on nvme0n1p4:
 #?
@@ -23,6 +28,59 @@
   ];
 
   disko.devices = {
+    nodev = {
+      "/boot" = {
+        fsType = "vfat";
+        device = "/dev/disk/by-uuid/5099-6DA0";
+        mountOptions = [
+          "umask=0077"
+        ];
+      };
+      "/run/media/${username}/Data" = {
+        fsType = "ntfs-3g";
+        device = "/dev/disk/by-label/Data";
+        # device = "/dev/disk/by-uuid/01DC4611808524F0";
+        mountOptions = [
+          "rw"
+          "uid=1000"
+          "gid=100"
+        ];
+      };
+      "/run/media/${username}/System" = {
+        fsType = "ntfs-3g";
+        device = "/dev/disk/by-label/System";
+        # device = "/dev/disk/by-uuid/01DCD272E968DAA0";
+        mountOptions = [
+          "rw"
+          "uid=1000"
+          "gid=100"
+        ];
+      };
+      "/run/media/${username}/NAS" = {
+        #? https://wiki.nixos.org/wiki/Samba#CIFS_mount_configuration
+        #! sudo systemctl restart run-media-$USER-NAS.automount
+        fsType = "cifs";
+        # device = "//NAS.lan/storage";
+        device = "//192.168.1.2/storage";
+        mountOptions = [
+          #? this section prevents hanging on network split
+          "_netdev"
+          "noauto"
+          "x-systemd.automount"
+          "x-systemd.device-timeout=5s"
+          "x-systemd.mount-timeout=5s"
+          "x-systemd.requires=network-online.target"
+
+          #? https://man7.org/linux/man-pages/man8/mount.cifs.8.html
+          "soft" # ? disable program locking if mount unaccessible
+          "credentials=${config.sops.templates."smb-credentials".path}"
+          "rw"
+          "uid=1000"
+          "gid=100"
+          "noserverino"
+        ];
+      };
+    };
     zpool = {
       "zroot" = {
         type = "zpool";
