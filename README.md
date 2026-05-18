@@ -1,5 +1,7 @@
 # config
 
+One repo to rule them all!
+
 ## [NixOS](./nix/README.md)
 
 ### [packages](./nix/packages/README.md)

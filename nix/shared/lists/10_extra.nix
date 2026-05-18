@@ -1,6 +1,7 @@
 { pkgs, ... }:
 with pkgs;
 import ./11_powertoys.nix { inherit pkgs; }
+++ import ./12_python.nix { inherit pkgs; }
 ++ [
   # other (specific cli tools)
   _7zz-rar
@@ -23,21 +24,6 @@ import ./11_powertoys.nix { inherit pkgs; }
   qrencode
   strace # files monitoring
   inotify-tools # files monitoring
-
-  # CLI python
-  python-launcher
-  # (python314FreeThreading.withPackages (
-  (python3.withPackages (
-    python-pkgs: with python-pkgs; [
-      tkinter
-      ptpython
-      ipython
-      #? certifi
-    ]
-  ))
-  uv
-  hatch
-  ruff
 
   # CLI node
   bun

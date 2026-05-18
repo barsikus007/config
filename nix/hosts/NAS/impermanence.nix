@@ -19,8 +19,6 @@ in
       directories = [
         "Downloads"
 
-        "config"
-
         ".cache/tlrc"
 
         ".config/litecli"

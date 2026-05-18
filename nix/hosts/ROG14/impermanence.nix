@@ -14,11 +14,6 @@ in
 
     # sudo cp -ax /var/lib{bluetooth,...,waydroid} /persistent/var/lib
     directories = [
-      {
-        directory = ".Trash-1000";
-        user = username;
-        group = "users";
-      }
       "/etc/asusd" # ? current anime state
       "/etc/NetworkManager/system-connections"
       "/etc/ssh"
@@ -103,7 +98,6 @@ in
         ".config/xsettingsd" # TODO: ????????????
 
         ".local/share" # TODO: more
-        # ".local/share/Trash"
         # ".local/share/baloo"
         # ".local/share/dolphin"
         # ".local/share/kactivitymanagerd"

@@ -199,6 +199,7 @@
         modules = [
           ./hosts/NAS/configuration.nix
 
+          ./modules/copy-flake.nix
           ./modules/samba.nix
           (
             { username, ... }:

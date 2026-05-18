@@ -41,4 +41,7 @@
     enable = true;
     binfmt = true;
   };
+
+  #? many tools (Python stdlib, uv) hardcode /etc/ssl/cert.pem
+  environment.etc."ssl/cert.pem".source = "/etc/ssl/certs/ca-bundle.crt";
 }

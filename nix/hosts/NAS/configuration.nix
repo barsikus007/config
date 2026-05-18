@@ -13,7 +13,9 @@
   networking.hostName = "NAS";
   time.timeZone = "Europe/Moscow";
 
-  environment.systemPackages = (import ../../shared/lists { inherit pkgs; });
+  environment.systemPackages =
+    (import ../../shared/lists { inherit pkgs; })
+    ++ (import ../../shared/lists/12_python.nix { inherit pkgs; });
 
   imports = [
     ./..
