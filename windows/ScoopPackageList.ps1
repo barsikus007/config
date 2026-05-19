@@ -134,7 +134,6 @@ qemu
 qtifw
 reqable
 simplex-chat
-streamlink
 superfile
 syncthingtray
 terminal-icons

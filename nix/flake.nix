@@ -202,6 +202,28 @@
           ./modules/copy-flake.nix
           ./modules/samba.nix
           (
+            {
+              lib,
+              pkgs,
+              username,
+              ...
+            }:
+            {
+              imports = [
+                (import ./modules/services/ytarchive.nix {
+                  inherit lib pkgs username;
+                  channels = [
+                  ];
+                })
+                (import ./modules/services/streamlink.nix {
+                  inherit lib pkgs username;
+                  channels = [
+                  ];
+                })
+              ];
+            }
+          )
+          (
             { username, ... }:
             import ./modules/containers/docker.nix {
               inherit username;
