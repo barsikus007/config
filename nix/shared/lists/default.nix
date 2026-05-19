@@ -9,6 +9,7 @@ import ./00_essential.nix { inherit pkgs; }
   nvd
   nurl
   nix-tree
+  hydra-check
   nixos-anywhere
   nix-output-monitor
 

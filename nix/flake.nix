@@ -178,6 +178,8 @@
           {
             inherit custom;
 
+            programs.nh.clean.enable = nixpkgs.lib.mkForce false;
+
             environment.systemPackages = with pkgs; [
               self.packages.${stdenv.hostPlatform.system}.games.hytale
               (callPackage ./packages/shdotenv.nix { })
@@ -232,6 +234,7 @@
           )
           {
             environment.systemPackages = with pkgs; [
+              bun
               litecli
             ];
           }

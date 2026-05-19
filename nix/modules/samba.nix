@@ -21,11 +21,15 @@
     package = with pkgs; samba4Full;
     openFirewall = true;
     settings = {
+      #! https://www.samba.org/samba/docs/current/man-html/smb.conf.5.html
       global = {
         #? acl_xattr: store Windows ACLs as xattr
         #? fruit+streams_xattr: macOS SMB quirks and resource fork support
         #? io_uring: async I/O for better throughput (must be last parameter)
         "vfs objects" = "acl_xattr fruit streams_xattr io_uring";
+
+        #? loopback + RFC1918 + link-local + IPv6 loopback/ULA/link-local
+        "hosts allow" = "127.0.0.0/8 10.0.0.0/8 172.16.0.0/12 169.254.0.0/16 192.168.0.0/16 ::1 fc00::/7 fe80::/10";
       };
 
       "storage" = {

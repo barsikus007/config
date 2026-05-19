@@ -47,6 +47,11 @@
 
   networking.useDHCP = true;
   networking.nftables.enable = true;
+  networking.dhcpcd.denyInterfaces = [
+    "veth*"
+    "br-*"
+    "docker*"
+  ];
 
   virtualisation.docker.daemon.settings."data-root" = "/tank/docker";
 
