@@ -47,12 +47,6 @@ sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
 ```
 
-### microsoft-edge
-
-```shell
-TODO
-```
-
 ### other
 
 #### wifite
@@ -65,7 +59,6 @@ cd ~/projects
 git clone https://github.com/kimocoder/wifite2.git
 ```
 
-- TODO `sudo dnf copr enable phracek/PyCharm`
 - Apply gnome workarounds if used
 - flatpak
   - <https://flatpak.org/setup/Fedora>
@@ -104,7 +97,7 @@ sudo patch /etc/pam.d/login login.patch
  -session   optional     pam_ck_connector.so
 ```
 
-### TODO
+### NEver DO
 
 - `sudo dnf install cascadia-code-nf-fonts`
 - fuck gnomes all my homies use KDE
@@ -252,10 +245,10 @@ sudo btrfs subvolume delete /swap
   - FN+F5 -> `bash -c 'fan'`
   - FN+F6 -> `bash -c 'noanime && anime'`
 - Show the notification list Super+V -> Super+N
-  - TODO ? Super+N -> None
+  - ? Super+N -> None
 - Home folder -> Super+E
-- TODO move windows and workspaces shortcuts
-  - TODO Move to workspace on the left Ctrl+Super_Left
+- move windows and workspaces shortcuts
+  - Move to workspace on the left Ctrl+Super_Left
 - fix language change
   - `gsettings set org.gnome.desktop.wm.keybindings switch-input-source-backward "['<Shift>Alt_L', '<Shift>XF86Keyboard']"`
   - revert `gsettings set org.gnome.desktop.wm.keybindings switch-input-source-backward "['<Shift><Super>space', '<Shift>XF86Keyboard']"`
@@ -278,14 +271,14 @@ sudo systemctl reload ydotool && systemctl status ydotool
 
 ### GNOME 46/47 workarounds
 
-- TODO Control_R as modifier in gnome
+- Control_R as modifier in gnome
 - file-roller-nautilus
   - `sudo dnf install file-roller-nautilus`
 - [GNOME moment fix](https://dausruddin.com/how-to-update-gnome-extension-properly-get-rid-of-error/)
   - wtf, no way to restart under wayland...
 - [Extension Manager](https://github.com/mjakeman/extension-manager)
-- TODO gnome tweaks
-- TODO [adwaita for GTK3](https://github.com/lassekongo83/adw-gtk3)
+- gnome tweaks
+- [adwaita for GTK3](https://github.com/lassekongo83/adw-gtk3)
 - [GNOME Shell Extensions](https://extensions.gnome.org/local)
   - default
     - [for telegram and docker desktop badges](https://extensions.gnome.org/extension/615/appindicator-support/)

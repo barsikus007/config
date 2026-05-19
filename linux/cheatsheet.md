@@ -50,39 +50,15 @@ ssh-copy-id -i $key_file.pub user@host
 # or mkdir -p ~/.ssh/ && editor ~/.ssh/authorized_keys
 ```
 
-## package managers
-
-### apt
+## apt
 
 ```shell
-# show installed https://askubuntu.com/q/2389
+#? show installed https://askubuntu.com/q/2389
 apt-mark showmanual
-# or better
+#? or better
 zgrep 'Commandline: apt' /var/log/apt/history.log /var/log/apt/history.log.*.gz
-# or
+#? or
 zgrep -E "Commandline: apt(|-get)" /var/log/apt/history.log*
-```
-
-### rust
-
-#### rustup
-
-##### TODO
-
-- [profile](https://rust-lang.github.io/rustup/concepts/profiles.html)
-  - minimal?
-- PATH
-
-```shell
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-# or proto install rust
-```
-
-#### software
-
-```shell
-cargo install cargo-update
-cargo install-update -a
 ```
 
 ## wireguard
@@ -132,7 +108,7 @@ distrobox create --name astra --image registry.astralinux.ru/astra/ubi18:latest
 - Find corrupted data, sent with `zfs_send_corrupt_data` module param
   - `rg --text --files-with-matches --no-ignore --hidden '(?-u:\x0c\xb1\xdd\xba\xf5\x02\x00\x00)' ./`
 
-## commands
+## other commands
 
 ### [drop ram caches](https://linuxconfig.org/clear-cache-on-linux)
 
@@ -186,12 +162,6 @@ sudo bleachbit --list | grep -E "[a-z0-9_\-]+\.[a-z0-9_\-]+" | grep -v system.fr
 sudo sh -c "truncate -s 0 /var/lib/docker/containers/*/*-json.log"
 ```
 
-### [show motd](https://askubuntu.com/q/319528)
-
-```shell
-run-parts /etc/update-motd.d
-```
-
 ### kill died terminals
 
 unknown source
@@ -218,7 +188,7 @@ sudo crontab -e
 yes > no
 ```
 
-### Ping whole subnet
+### Ping whole /24 subnet
 
 ```shell
 subnet='192.168.1'; for i in {0..255}; do timeout 0.5 ping -c1 $subnet.$i; done

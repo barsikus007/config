@@ -83,7 +83,7 @@ locale -a
 sudo apt install locales
 sudo locale-gen C.UTF-8 en_US.UTF-8
 sudo localectl set-locale C.UTF-8
-# TODO or update-locale?
+# update-locale?
 # set ru time https://stackoverflow.com/a/30480596/15844518
 # sudo locale-gen ru_RU.UTF-8 && sudo localectl set-locale LC_TIME=ru_RU.UTF-8
 ```
@@ -141,4 +141,10 @@ curl -sSL https://get.docker.com | sh
 # sudo groupadd docker
 sudo usermod -aG docker $USER
 newgrp docker; exit
+```
+
+## [show motd](https://askubuntu.com/q/319528)
+
+```shell
+run-parts /etc/update-motd.d
 ```
