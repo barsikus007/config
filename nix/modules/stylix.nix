@@ -1,4 +1,6 @@
 {
+  lib,
+  config,
   pkgs,
   inputs,
   username,
@@ -29,8 +31,7 @@
       package = with pkgs; kdePackages.breeze;
       name = "breeze_cursors";
     };
-    # TODO: options: blur
-    opacity = {
+    opacity = lib.mkIf config.custom.blur.enable {
       desktop = 0.75;
       popups = 0.75;
       terminal = 0.85;

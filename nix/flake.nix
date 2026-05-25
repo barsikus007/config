@@ -92,7 +92,10 @@
     let
       system = "x86_64-linux";
       pkgs = import ./nixpkgs.nix { inherit system inputs; };
-      custom.isAsus = true;
+      custom = {
+        isAsus = true;
+      # blur.enable = true;
+      };
 
       mkSpecialArgs = username: {
         inherit

@@ -8,5 +8,6 @@ in
 {
   options.custom = {
     isAsus = mkEnableOption "Whether the machine is an ASUS laptop";
+    blur.enable = mkEnableOption "Enable blur";
   };
 }

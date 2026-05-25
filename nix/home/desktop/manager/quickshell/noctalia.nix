@@ -235,6 +235,11 @@ in
         monthBeforeDay = false;
         use12hourFormat = false;
       };
+      notifications.sounds = {
+        enabled = true;
+        respectExpireTimeout = true;
+        separateSounds = true;
+      };
       plugins.autoUpdate = true;
       idle =
         let

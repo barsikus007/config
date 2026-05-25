@@ -40,6 +40,44 @@ in
     config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/niri/config.kdl";
   #? to make it overridable by dms-flake
   xdg.configFile.niri-config.target = lib.mkOverride 75 "niri/nix-generated-config.kdl";
+  #? https://github.com/sodiboo/niri-flake/issues/1721 — append raw KDL for options niri-flake hasn't typed yet
+  xdg.configFile.niri-config.source =
+    let
+      inherit (inputs.niri.lib.internal) validated-config-for;
+      inherit (config.programs.niri) finalConfig package;
+      blurKdl = lib.optionalString config.custom.blur.enable ''
+        // syntax: kdl
+        //? Apps: blur them all without xray for a better look
+        window-rule {
+            background-effect {
+                blur true
+                xray false
+            }
+        }
+        //? Enable blur behind the fuzzel launcher.
+        layer-rule {
+            match namespace="^launcher$"
+
+            background-effect {
+                blur true
+            }
+        }
+        //? Noctalia: blur everywhere without xray for a better look
+        layer-rule {
+            match namespace="^noctalia-(background|launcher-overlay|dock)-.*$"
+            background-effect {
+                xray false
+            }
+        }
+      '';
+    in
+    lib.mkForce (
+      validated-config-for pkgs package ''
+        ${finalConfig}
+
+        ${blurKdl}
+      ''
+    );
   xdg.portal.enable = lib.mkForce false; # ! handled by nixos module
   services.gnome-keyring.enable = lib.mkForce false; # ! handled by nixos module
   programs.niri = {
