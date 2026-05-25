@@ -132,7 +132,7 @@
         inherit system pkgs;
         specialArgs = mkSpecialArgs "nixos";
         modules = [
-          ./shared
+          ./shared/options.nix
 
           ./hosts/NixOS-WSL/configuration.nix
         ];
@@ -143,7 +143,7 @@
           inherit custom;
         };
         modules = [
-          ./shared
+          ./shared/options.nix
 
           ./hosts/ROG14/configuration.nix
 
@@ -288,7 +288,7 @@
               ];
             };
           }
-          # ./shared
+          # ./shared/options.nix
 
           ./modules/desktop/manager/niri-de.nix
           # ./modules/desktop/manager/niri-dms.nix
@@ -305,7 +305,7 @@
               #! 11Mb initial size
               home-manager.users.${username} = {
                 imports = [
-                  ./shared
+                  ./shared/options.nix
 
                   ./home
                   ./home/shell
@@ -362,7 +362,7 @@
 
       homeConfigurations = nixpkgs.lib.attrsets.mergeAttrsList [
         (mkHomeCfg "nixos" [
-          ./shared
+          ./shared/options.nix
           ./shared/nix.nix
           ./shared/nh.nix
 

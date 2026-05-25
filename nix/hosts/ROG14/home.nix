@@ -1,7 +1,7 @@
 { custom, ... }:
 {
   imports = [
-    ../../shared
+    ../../shared/options.nix
 
     ../../home
     ../../home/shell
