@@ -14,7 +14,7 @@
       # minecraft-like fonts
       monocraft
       miracode
-      (callPackage ../../packages/minecraftia.nix { })
+      self.packages.${stdenv.hostPlatform.system}.fonts.minecraftia
     ];
   };
 }

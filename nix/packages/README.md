@@ -23,7 +23,7 @@ nix --extra-experimental-features "nix-command flakes" run --impure 'github:nix-
   - `sed -i '/CheckID/d' ~/.config/bcompare5/BCState.xml.bak`
 - [davinci-resolve communism edition](./auto/gui/davinci-resolve-studio.nix)
 - TODO
-- [minecraftia 2 font](./minecraftia.nix)
+- [minecraftia 2 font](./auto/fonts/minecraftia.nix)
 - TODO
 
 ### [kompas3d](./kompas3d)
