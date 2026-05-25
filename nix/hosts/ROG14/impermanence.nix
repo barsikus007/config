@@ -157,7 +157,6 @@ in
     #? man tmpfiles.d
     #? L+ = Create symlink, remove existing file if necessary
     "L+ /home/${username}/.ssh 0700 ${username} users - /home/${username}/Sync/home/.ssh/"
-    "L+ /home/${username}/projects 0700 ${username} users - /run/media/${username}/Data/projects/"
 
     "L+ /home/${username}/awg0.conf 0600 ${username} users - ${persistentDir}/home/${username}/awg0.conf"
     "L+ /home/${username}/wg0local.conf 0600 ${username} users - ${persistentDir}/home/${username}/wg0local.conf"

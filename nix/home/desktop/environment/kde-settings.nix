@@ -60,7 +60,7 @@
         "file://${config.home.homeDirectory}/Desktop"
         "file://${config.home.homeDirectory}/Downloads"
         "file://${config.home.homeDirectory}/Sync"
-        "file://${config.home.homeDirectory}/projects"
+        "file:///run/media/${config.home.username}/Data/projects"
         "file://${config.home.homeDirectory}/Games"
         "file://${config.home.homeDirectory}/Pictures"
         "file://${config.home.homeDirectory}/Videos"
