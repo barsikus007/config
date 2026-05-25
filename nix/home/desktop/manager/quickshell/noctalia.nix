@@ -243,21 +243,26 @@ in
       plugins.autoUpdate = true;
       idle =
         let
-          noctalia_ipc_call = "${lib.getExe config.programs.noctalia-shell.package} ipc call";
+          # noctalia_ipc_call = "${lib.getExe config.programs.noctalia-shell.package} ipc call";
           is_locked =
             builtins.replaceStrings [ ''"'' ] [ ''\"'' ]
               ''[ $(loginctl show-session $XDG_SESSION_ID -p LockedHint --value) == "yes" ]'';
           power_off_monitors_cmd = "${lib.getExe config.programs.niri.package} msg action power-off-monitors";
 
           lockscreen_command = ''{"name":"Lockscreen turn off displays","timeout":30,"command":"${is_locked} && ${power_off_monitors_cmd}"}'';
-          dim_command = ''{"name":"Dim monitors","timeout":300,"command":"${noctalia_ipc_call} brightness set 0","resumeCommand":"${noctalia_ipc_call} brightness set 100"}'';
+          # dim_command = ''{"name":"Dim monitors","timeout":300,"command":"${noctalia_ipc_call} brightness set 0","resumeCommand":"${noctalia_ipc_call} brightness set 100"}'';
         in
         {
           enabled = true;
           screenOffTimeout = 600;
           lockTimeout = 900;
           suspendTimeout = 0;
-          customCommands = "[${lockscreen_command},${dim_command}]";
+          customCommands = "[${
+            lib.strings.concatStringsSep "," [
+              lockscreen_command
+              # dim_command
+            ]
+          }]";
         };
     };
     plugins = {
