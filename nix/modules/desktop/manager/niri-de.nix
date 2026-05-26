@@ -29,4 +29,6 @@
   services.displayManager.gdm.enable = !config.services.displayManager.sddm.enable;
 
   environment.systemPackages = with pkgs; [ wdisplays ];
+
+  programs.dsearch.enable = true;
 }

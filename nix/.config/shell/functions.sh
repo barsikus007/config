@@ -37,6 +37,18 @@ s () {
   )
 }
 
+ds() {
+  # Starts fzf in phony mode (ignores internal filtering)
+  # and reloads the danksearch query on every keystroke.
+  fzf --phony \
+      --prompt="DankSearch> " \
+      --bind "change:reload(dsearch search {q} --limit 100 --json | jq -r '.hits[].id' || true)" \
+      --preview 'bat --color=always --style=numbers,changes --line-range :500 {}' \
+      --preview-window="right:60%:border-left" \
+      --layout=reverse \
+      --info=inline
+}
+
 type_colored() {
   type -afs "$@" | sed 's/is an alias for/is an alias for:\n/' | bat -l sh --style=plain --color=always
 }
