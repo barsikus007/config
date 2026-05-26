@@ -311,7 +311,7 @@
                   ./home/shell
 
                   ./home/gui/neovide.nix
-                  ./home/gui/browser.nix
+                  ./home/gui/browser/firefox.nix
                   {
                     inherit custom;
                     home.stateVersion = "26.05";
@@ -354,6 +354,7 @@
               ];
               home-manager.users.${username}.imports = [
                 ./home/gui/terminal.nix
+                ./home/gui/browser/firefox.nix
               ];
             }
           )
