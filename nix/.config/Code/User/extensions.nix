@@ -122,8 +122,8 @@ let
     "esbenp.prettier-vscode" = [ "javascript" ]; # TODO: prettier-eslint
     "rvest.vs-code-prettier-eslint" = [ "javascript" ]; # TODO: prettier-eslint
 
-    "coopermaruyama.nix-embedded-languages" = [ "nix" ];
     "jnoortheen.nix-ide" = [ "nix" ];
+    "barsikus007.vscode-nix-injection" = [ "nix" ];
     "mkhl.direnv" = [ "nix" ];
 
     "docker.docker" = [ "devops" ];

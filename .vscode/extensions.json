@@ -3,7 +3,7 @@
         "sumneko.lua",
         "editorconfig.editorconfig",
         "jnoortheen.nix-ide",
-        "coopermaruyama.nix-embedded-languages",
+        "barsikus007.vscode-nix-injection",
         "christian-kohler.path-intellisense",
         "aaron-bond.better-comments",
     ]

@@ -37,8 +37,7 @@ in
       }
     ];
     defaultKeymap = "emacs";
-    envExtra = ''
-      # syntax: shell
+    envExtra = /* shell */ ''
       for file in "$XDG_CONFIG_HOME"/shell/*.sh; do
         source "$file"
       done
@@ -50,8 +49,7 @@ in
     shellAliases = sharedAliases;
     historySize = 100000;
     historyControl = [ "ignoreboth" ];
-    initExtra = ''
-      # syntax: shell
+    initExtra = /* shell */ ''
       for file in "$XDG_CONFIG_HOME"/shell/*.sh; do
         source "$file"
       done
@@ -145,10 +143,7 @@ in
       };
     };
     #? https://github.com/sxyazi/yazi/blob/157156b5b8f36db15b2ba425c7d15589039a9e1e/yazi-plugin/preset/components/linemode.lua#L25
-    initLua = ''
-      --[[
-      # syntax: lua
-      ]]
+    initLua = /* lua */ ''
       function strip_date_year(time_to_format)
         local time = math.floor(time_to_format or 0)
         if time == 0 then

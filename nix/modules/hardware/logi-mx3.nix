@@ -82,8 +82,7 @@ in
   #? KEY_F22 XF86TouchpadOn
   #? KEY_F23 XF86TouchpadOff
   #? KEY_F24 NoSymbol
-  environment.etc."logid.cfg".text = ''
-    // syntax: js
+  environment.etc."logid.cfg".text = /* javascript */ ''
     devices: ({
       name: "Wireless Mouse MX Master 3";
       smartshift: {

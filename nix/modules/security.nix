@@ -6,8 +6,7 @@
   security.polkit = {
     enable = true;
     # debug = true;
-    extraConfig = ''
-      // syntax: javascript
+    extraConfig = /* javascript */ ''
       /* Allow members of the wheel group to execute the defined actions
        * without password authentication, similar to "sudo NOPASSWD:"
        */

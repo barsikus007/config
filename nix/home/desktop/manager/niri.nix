@@ -45,8 +45,7 @@ in
     let
       inherit (inputs.niri.lib.internal) validated-config-for;
       inherit (config.programs.niri) finalConfig package;
-      blurKdl = lib.optionalString config.custom.blur.enable ''
-        // syntax: kdl
+      blurKdl = lib.optionalString config.custom.blur.enable /* kdl */ ''
         //? Apps: blur them all without xray for a better look
         window-rule {
             background-effect {
