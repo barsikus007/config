@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # unused shebang
 #! /usr/bin/env nix-shell

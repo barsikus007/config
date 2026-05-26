@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #? ROG G14 specific
 #? deps: tmux asusctl sox(play)

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 _get_android_device() {
   local ANDROID_DEVICE

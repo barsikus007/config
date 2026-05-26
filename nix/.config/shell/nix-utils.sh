@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 type_colored_and_nix_truncate() {
   type_colored "$@" | nix_truncate

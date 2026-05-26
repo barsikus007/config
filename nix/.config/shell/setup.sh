@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #? package managers and updaters
 # TODO u functions which will resolve all

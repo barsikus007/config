@@ -140,6 +140,7 @@ in
       files = [
         ".claude.json"
 
+        ".config/gh/hosts.yml"
         ".config/kwin_dialogsrc"
         ".config/kwinoutputconfig.json" # ? monitors
         ".config/syncthingtray.ini" # TODO: config?
