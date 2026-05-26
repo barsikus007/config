@@ -155,6 +155,20 @@ in
 lib.unique (lib.filter isUnfree allExplicitPkgs)
 ```
 
+### recover NixOS-on-ZFS system with liveUSB
+
+```shell
+sudo su
+
+zpool import -fR /mnt zroot
+zfs load-key -a
+zfs mount -a
+
+mount /dev/disk/by-partlabel/disk-nvme-ESP /mnt/boot
+
+nixos-enter
+```
+
 ## nix
 
 ### hash

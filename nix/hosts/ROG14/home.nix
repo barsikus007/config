@@ -19,7 +19,7 @@
     ../../home/gui/rofi.nix
     ../../home/gui/mpv.nix
     ../../home/gui/vscode.nix
-    ../../home/gui/browser.nix
+    ../../home/gui/browser
     ../../home/gui/social.nix
     ../../home/gui/office.nix
     ../../home/gui/bcompare.nix

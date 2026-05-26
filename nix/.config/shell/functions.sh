@@ -1,11 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 mkcd() { mkdir -p "$@" && cd "$@" || exit; }
-
-batman() {
-    BAT_THEME="Solarized (dark)" \command batman "$@"
-    return $?
-}
 
 ssht() {
   (

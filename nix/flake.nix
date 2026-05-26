@@ -94,7 +94,7 @@
       pkgs = import ./nixpkgs.nix { inherit system inputs; };
       custom = {
         isAsus = true;
-      # blur.enable = true;
+        # blur.enable = true;
       };
 
       mkSpecialArgs = username: {

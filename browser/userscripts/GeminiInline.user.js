@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Gemini URL Param Pre-fill
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.1
 // @description  Allows ?q=query in URL to auto-fill Gemini chat
 // @author       You
 // @match        https://gemini.google.com/*
@@ -37,9 +37,9 @@
 
         // 4. Auto-send after a delay
         setTimeout(() => {
-            const sendBtn = document.querySelector('button[aria-label*="Send"]'); // Selector may vary
+            const sendBtn = document.querySelector('button[aria-label*="Send message"]'); // Selector may vary
             if (sendBtn) sendBtn.click();
-        }, 500);
+        }, 2000);
 
     }, 500); // Checks every 500ms
 })();
