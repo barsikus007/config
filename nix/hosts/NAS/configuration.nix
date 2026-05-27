@@ -24,6 +24,7 @@
     ./impermanence.nix
     ./sops.nix
 
+    ../../modules/systemd-boot.nix
     # ../../modules/zfs-kernel.nix
     ../../modules/cachyos-kernel.nix
     ../../modules/zfs.nix
@@ -32,18 +33,6 @@
     ../../modules/ssh-initrd.nix
   ];
   home-manager.users.${username} = ./home.nix;
-
-  boot = {
-    loader = {
-      timeout = 0;
-      systemd-boot = {
-        enable = true;
-        editor = false;
-        configurationLimit = 5;
-      };
-      efi.canTouchEfiVariables = true;
-    };
-  };
 
   networking.useDHCP = true;
   networking.nftables.enable = true;

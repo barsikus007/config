@@ -41,6 +41,7 @@ in
     ./impermanence.nix
     ./sops.nix
 
+    ../../modules/systemd-boot.nix
     # ../../modules/zfs-kernel.nix
     ../../modules/cachyos-kernel.nix
     ../../modules/zfs.nix
@@ -50,21 +51,8 @@ in
   ];
   home-manager.users.${username} = ./home.nix;
 
-  boot = {
-    loader = {
-      systemd-boot = {
-        enable = true;
-        editor = false;
-        configurationLimit = 5;
-      };
-      efi.canTouchEfiVariables = true;
-    };
-
-    kernelParams = [
-      #? NixOS param which enables root-shell when stage 1 fails
-      "boot.shell_on_fail"
-    ];
-  };
+  #? NixOS param which enables root-shell when stage 1 fails
+  boot.kernelParams = [ "boot.shell_on_fail" ];
 
   hardware = {
     amdgpu.opencl.enable = true;
