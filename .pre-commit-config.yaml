@@ -6,3 +6,7 @@ repos:
         entry: ./linux/hooks/compile-aliases.sh
         language: script
         pass_filenames: false
+  - repo: https://github.com/editorconfig-checker/editorconfig-checker
+    rev: "v3.7.0"
+    hooks:
+      - id: editorconfig-checker

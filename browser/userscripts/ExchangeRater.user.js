@@ -12,53 +12,53 @@
 // @run-at       document-body
 // ==/UserScript==
 
-const defaultTargetCurrency = "RUB";
+const defaultTargetCurrency = 'RUB';
 const defaultRates = {
   RUB: 1,
   USD: 0.01,
   EUR: 0.009,
 };
 const currencyAliases = {
-  RUB: "₽", // Russian Ruble
-  USD: "$", // US Dollar
-  EUR: "€", // Euro
-  CRC: "₡", // Costa Rican Colón
-  GBP: "£", // British Pound Sterling
-  ILS: "₪", // Israeli New Sheqel
-  INR: "₹", // Indian Rupee
-  JPY: "¥", // Japanese Yen
-  KRW: "₩", // South Korean Won
-  NGN: "₦", // Nigerian Naira
-  PHP: "₱", // Philippine Peso
-  PLN: "zł", // Polish Zloty
-  PYG: "₲", // Paraguayan Guarani
-  THB: "฿", // Thai Baht
-  UAH: "₴", // Ukrainian Hryvnia
-  VND: "₫", // Vietnamese Dong
+  RUB: '₽', // Russian Ruble
+  USD: '$', // US Dollar
+  EUR: '€', // Euro
+  CRC: '₡', // Costa Rican Colón
+  GBP: '£', // British Pound Sterling
+  ILS: '₪', // Israeli New Sheqel
+  INR: '₹', // Indian Rupee
+  JPY: '¥', // Japanese Yen
+  KRW: '₩', // South Korean Won
+  NGN: '₦', // Nigerian Naira
+  PHP: '₱', // Philippine Peso
+  PLN: 'zł', // Polish Zloty
+  PYG: '₲', // Paraguayan Guarani
+  THB: '฿', // Thai Baht
+  UAH: '₴', // Ukrainian Hryvnia
+  VND: '₫', // Vietnamese Dong
 };
 
-const contextDivId = "exchange-rate-context";
+const contextDivId = 'exchange-rate-context';
 const refreshRate = 1000 * 60 * 60 * 24; // 24 hours
 // const apiEndpoint = "https://api.exchangerate-api.com/v6/latest/";
-const apiEndpoint = "https://open.er-api.com/v6/latest/";
+const apiEndpoint = 'https://open.er-api.com/v6/latest/';
 
-GM_registerMenuCommand("Choose Currency", () => {
-  GM_setValue("targetCurrency", prompt("Type your Currency (RUB,USD,EUR)", "RUB"));
+GM_registerMenuCommand('Choose Currency', () => {
+  GM_setValue('targetCurrency', prompt('Type your Currency (RUB,USD,EUR)', 'RUB'));
 });
 
-GM_registerMenuCommand("Update Rates", async () => {
+GM_registerMenuCommand('Update Rates', async () => {
   await updateCurrency();
-  const rates = GM_getValue("rates", defaultRates);
+  const rates = GM_getValue('rates', defaultRates);
   alert(`Updated:\n${JSON.stringify(rates)}`);
 });
 
 const updateCurrency = async () => {
-  const targetCurrency = GM_getValue("targetCurrency", defaultTargetCurrency);
+  const targetCurrency = GM_getValue('targetCurrency', defaultTargetCurrency);
   const response = await fetch(apiEndpoint + targetCurrency);
   const data = await response.json();
   // console.log('data.rates: ', data.rates);
-  GM_setValue("rates", data.rates);
-  GM_setValue("lastUpdateTime", Date.now());
+  GM_setValue('rates', data.rates);
+  GM_setValue('lastUpdateTime', Date.now());
 };
 
 /**
@@ -66,12 +66,12 @@ const updateCurrency = async () => {
  * @param {string} currencyId
  */
 const convertCurrency = async (amount, currencyId) => {
-  const targetCurrency = GM_getValue("targetCurrency", defaultTargetCurrency);
-  if (GM_getValue("lastUpdateTime", 0) + refreshRate < Date.now()) {
-    console.log("[ExchangeRater] Rates are outdated. Updating...");
+  const targetCurrency = GM_getValue('targetCurrency', defaultTargetCurrency);
+  if (GM_getValue('lastUpdateTime', 0) + refreshRate < Date.now()) {
+    console.log('[ExchangeRater] Rates are outdated. Updating...');
     await updateCurrency();
   }
-  const rates = GM_getValue("rates", defaultRates);
+  const rates = GM_getValue('rates', defaultRates);
   return parseFloat(((amount / rates[currencyId]) * rates[targetCurrency]).toFixed(2));
 };
 
@@ -93,29 +93,29 @@ const renderContext = (e, popupText, textToCopy) => {
 
   // TODO replace with https://violentmonkey.github.io/guide/using-modern-syntax/
   document.getElementById(contextDivId)?.remove();
-  const contextDiv = document.createElement("div");
-  const contextDivText = document.createElement("div");
+  const contextDiv = document.createElement('div');
+  const contextDivText = document.createElement('div');
   contextDiv.id = contextDivId;
   // TODO use stylesheet with !important instead ?
-  contextDiv.style.position = "absolute !important";
-  contextDiv.style.top = posY + "px !important";
-  contextDiv.style.left = Math.abs(posX) + "px !important";
+  contextDiv.style.position = 'absolute !important';
+  contextDiv.style.top = posY + 'px !important';
+  contextDiv.style.left = Math.abs(posX) + 'px !important';
 
-  contextDiv.style.color = "white !important";
-  contextDiv.style.backgroundColor = "#363636 !important";
-  contextDiv.style.border = "1px solid #636363 !important";
-  contextDiv.style.borderRadius = "8px !important";
-  contextDiv.style.padding = "4px !important";
+  contextDiv.style.color = 'white !important';
+  contextDiv.style.backgroundColor = '#363636 !important';
+  contextDiv.style.border = '1px solid #636363 !important';
+  contextDiv.style.borderRadius = '8px !important';
+  contextDiv.style.padding = '4px !important';
 
   contextDivText.innerHTML = popupText;
-  contextDivText.style.borderRadius = "4px !important";
-  contextDivText.style.padding = "4px !important";
-  contextDivText.style.lineHeight = "20px !important";
-  contextDivText.style.fontFamily = "Segoe UI, sans-serif !important";
-  contextDivText.style.cursor = "default !important";
+  contextDivText.style.borderRadius = '4px !important';
+  contextDivText.style.padding = '4px !important';
+  contextDivText.style.lineHeight = '20px !important';
+  contextDivText.style.fontFamily = 'Segoe UI, sans-serif !important';
+  contextDivText.style.cursor = 'default !important';
 
   contextDivText.onmouseover = () => {
-    contextDivText.style.backgroundColor = "#444 !important";
+    contextDivText.style.backgroundColor = '#444 !important';
   };
   contextDivText.onmouseout = () => {
     contextDivText.style.backgroundColor = null;
@@ -126,11 +126,11 @@ const renderContext = (e, popupText, textToCopy) => {
     // console.log("textToCopy: ", textToCopy);
   };
   contextDiv.appendChild(contextDivText);
-  document.body.insertAdjacentElement("beforeend", contextDiv);
+  document.body.insertAdjacentElement('beforeend', contextDiv);
   // console.log("popupText: ", popupText);
 };
 
-window.addEventListener("mouseup", async (e) => {
+window.addEventListener('mouseup', async (e) => {
   const selection = window.getSelection().toString();
   if (!selection.length) {
     document.getElementById(contextDivId)?.remove();
@@ -142,15 +142,15 @@ window.addEventListener("mouseup", async (e) => {
         continue;
       }
       const processedSelection = selection
-        .replace(currency, " ")
-        .replace(/[^\d. ]/g, "")
+        .replace(currency, ' ')
+        .replace(/[^\d. ]/g, '')
         .trim();
       const amount = parseFloat(processedSelection);
       if (isNaN(amount)) {
         continue;
       }
       const convertedAmount = await convertCurrency(amount, currencyId);
-      const targetCurrency = GM_getValue("targetCurrency", defaultTargetCurrency);
+      const targetCurrency = GM_getValue('targetCurrency', defaultTargetCurrency);
       const popupText = `${amount} ${currencyAliases[currencyId]} ≈ ${convertedAmount} ${currencyAliases[targetCurrency]}`;
       renderContext(e, popupText, convertedAmount);
       return;

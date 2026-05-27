@@ -12,28 +12,34 @@
 // ==/UserScript==
 
 (async function () {
-  сonsole.log('This script is deprecated. Use https://github.com/vypivshiy/ani-cli-ru instead.')
-  let aniboomURL
-  const videoElement = document.getElementById('video')
+  сonsole.log('This script is deprecated. Use https://github.com/vypivshiy/ani-cli-ru instead.');
+  let aniboomURL;
+  const videoElement = document.getElementById('video');
   try {
-    aniboomURL = JSON.parse(JSON.parse(videoElement?.getAttribute('data-parameters'))?.dash)?.src
+    aniboomURL = JSON.parse(JSON.parse(videoElement?.getAttribute('data-parameters'))?.dash)?.src;
   } catch {}
-  let sibnetURL = document.querySelector('video')?.src || ''
-  const url = aniboomURL || (sibnetURL || undefined)
-  if (!url) { return console.log('Failed to extract url') }
-  sibnetURL = sibnetURL ? 'https://video.sibnet.ru' : ' '
-  let mpvBase = `mpv '${url}' --no-border --snap-window --save-position-on-quit --referrer='${sibnetURL}'`
-  console.log('Just download with yt-dlp')
+  let sibnetURL = document.querySelector('video')?.src || '';
+  const url = aniboomURL || sibnetURL || undefined;
+  if (!url) {
+    return console.log('Failed to extract url');
+  }
+  sibnetURL = sibnetURL ? 'https://video.sibnet.ru' : ' ';
+  let mpvBase = `mpv '${url}' --no-border --snap-window --save-position-on-quit --referrer='${sibnetURL}'`;
+  console.log('Just download with yt-dlp');
   // https://github.com/ytdl-org/youtube-dl/issues/15384#issuecomment-359654155
-  console.log(`yt-dlp '${url}' --referer='${sibnetURL}' --no-part -N 16"`)
-  console.log('or with aria2c')
-  console.log(`yt-dlp '${url}' --referer='${sibnetURL}' --no-part --external-downloader aria2c --external-downloader-args "-x 16 -s 16 -k 1M"`)
-  console.log('MPV max quality ("_" key for switch quality)')
-  console.log(mpvBase)
-  if (sibnetURL) { return }
+  console.log(`yt-dlp '${url}' --referer='${sibnetURL}' --no-part -N 16"`);
+  console.log('or with aria2c');
+  console.log(
+    `yt-dlp '${url}' --referer='${sibnetURL}' --no-part --external-downloader aria2c --external-downloader-args "-x 16 -s 16 -k 1M"`,
+  );
+  console.log('MPV max quality ("_" key for switch quality)');
+  console.log(mpvBase);
+  if (sibnetURL) {
+    return;
+  }
   [1080, 720, 480].forEach((height) => {
-    console.log(`MPV ${height}p (if available)`)
-    console.log(`${mpvBase} --ytdl-raw-options=referer='' --ytdl-format='bestaudio+bestvideo[height<=?${height}]'`)
-  })
-  сonsole.log('This script is deprecated. Use https://github.com/vypivshiy/ani-cli-ru instead.')
-})()
+    console.log(`MPV ${height}p (if available)`);
+    console.log(`${mpvBase} --ytdl-raw-options=referer='' --ytdl-format='bestaudio+bestvideo[height<=?${height}]'`);
+  });
+  сonsole.log('This script is deprecated. Use https://github.com/vypivshiy/ani-cli-ru instead.');
+})();

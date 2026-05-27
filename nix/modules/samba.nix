@@ -29,7 +29,8 @@
         "vfs objects" = "acl_xattr fruit streams_xattr io_uring";
 
         #? loopback + RFC1918 + link-local + IPv6 loopback/ULA/link-local
-        "hosts allow" = "127.0.0.0/8 10.0.0.0/8 172.16.0.0/12 169.254.0.0/16 192.168.0.0/16 ::1 fc00::/7 fe80::/10";
+        "hosts allow" =
+          "127.0.0.0/8 10.0.0.0/8 172.16.0.0/12 169.254.0.0/16 192.168.0.0/16 ::1 fc00::/7 fe80::/10";
       };
 
       "storage" = {
