@@ -249,6 +249,7 @@ inotifywait --event modify,create,delete,move --monitor --recursive ~/ @/home/$U
 
 ```shell
 find . -type d -empty -delete
+fd --type=directory --type=empty --exec-batch=rmdir
 ```
 
 ### docker watchtower

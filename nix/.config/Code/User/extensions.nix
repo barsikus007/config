@@ -3,6 +3,7 @@ let
 
   tags = [
     "essential"
+    "ai"
     "pack"
     "theme"
     "github"
@@ -53,8 +54,6 @@ let
     ]; # ? will format even broken json
     "ruschaaf.extended-embedded-languages" = [ "essential" ]; # TODO: comment-syntax
     "semanticdiff.semanticdiff" = [ "essential" ];
-    "sourcery.sourcery" = [ "essential" ]; # ? ai
-    "google.gemini-cli-vscode-ide-companion" = [ "essential" ]; # ? ai
 
     "timonwong.shellcheck" = [
       "essential"
@@ -72,6 +71,11 @@ let
       "essential"
       "generic language"
     ];
+
+    "sourcery.sourcery" = [ "ai" ];
+    "google.gemini-cli-vscode-ide-companion" = [ "ai" ];
+    "anthropic.claude-code" = [ "ai" ];
+    "singularityinc.claude-notifier" = [ "ai" ];
 
     "eamodio.gitlens" = [ "github" ];
     "github.vscode-github-actions" = [ "github" ];
@@ -123,7 +127,7 @@ let
     "rvest.vs-code-prettier-eslint" = [ "javascript" ]; # TODO: prettier-eslint
 
     "jnoortheen.nix-ide" = [ "nix" ];
-    "barsikus007.vscode-nix-injection" = [ "nix" ];
+    "barsikus007.nix-injection" = [ "nix" ];
     "mkhl.direnv" = [ "nix" ];
 
     "docker.docker" = [ "devops" ];
@@ -152,6 +156,7 @@ let
     "redhat.vscode-yaml" = [ "generic language" ];
     "rust-lang.rust-analyzer" = [ "generic language" ];
     "sumneko.lua" = [ "generic language" ];
+    "ombratteng.nftables" = [ "generic language" ];
 
     "astral-sh.ty" = [
       "disabled"

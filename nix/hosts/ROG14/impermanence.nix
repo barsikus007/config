@@ -58,7 +58,7 @@ in
         ".cache/tlrc"
 
         ".config/bcompare5"
-        ".config/chromium" # TODO: ??
+        ".config/BraveSoftware"
         ".config/Code"
         ".config/copyq" # TODO: ??
         ".config/dconf" # TODO: ??
@@ -69,7 +69,7 @@ in
         ".config/GIMP" # TODO: config
         ".config/glib-2.0" # TODO: generate?
         ".config/hatch" # TODO: generate
-        ".config/heroic" # TODO: more
+        ".config/heroic"
         ".config/kdeconnect"
         ".config/kdedefaults" # TODO: unneded!!!!!?
         ".config/libreoffice"
@@ -78,12 +78,12 @@ in
         ".config/mozilla/firefox"
         ".config/noctalia/plugins"
         ".config/obs-studio"
-        ".config/obsidian" # TODO: ??
-        ".config/Podman Desktop" # TODO: ??
-        ".config/qBittorrent" # TODO: ??
-        ".config/r2modman" # TODO: ??
+        ".config/obsidian"
+        ".config/Podman Desktop" # TODO: electron
+        ".config/qBittorrent"
+        ".config/r2modman" # TODO: electron
         ".config/r2modmanPlus-local"
-        ".config/rog" # TODO: asus
+        ".config/rog" # ? asus anime
         ".config/rustdesk"
         ".config/session" # ? KDE persist (dolphin and windows)
         ".config/sops/age"
@@ -91,11 +91,10 @@ in
         ".config/sunshine" # ? auth
         ".config/systemd/user/waydroid-monitor.service.d" # ? links to storage
         ".config/Throne"
-        ".config/unity3d" # TODO: game saves
+        ".config/unity3d" # ? game saves
         ".config/VESC"
-        ".config/vesktop" # TODO: ??
+        ".config/vesktop"
         ".config/waydroid-helper" # TODO: ??
-        ".config/xsettingsd" # TODO: ????????????
 
         ".local/share" # TODO: more
         # ".local/share/baloo"
