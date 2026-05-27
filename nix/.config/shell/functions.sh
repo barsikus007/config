@@ -44,6 +44,110 @@ ds() {
       --info=inline
 }
 
+capture_wezterm_zsh_cmd() {
+  local cmd="$1"
+  # Time limit in seconds: how long to let the command run before screenshotting.
+  # Short commands are captured as soon as they finish; interactive/never-exiting
+  # apps (htop, vim, ...) are captured once this elapses. Bump it for slow commands.
+  local timeout="${2:-3}"
+
+  if [[ -z "$cmd" ]]; then
+    echo "Error: no command given."
+    return 1
+  fi
+
+  if ! command -v tmux >/dev/null 2>&1; then
+    echo "Error: tmux is required to measure the 2D geometry."
+    return 1
+  fi
+
+  echo "Rendering output in tmux (command runs exactly once)..."
+
+  local session="wez_measure_$$"
+  local dump_colored="/tmp/wez_dump_$$.ansi"
+  local done_file="/tmp/wez_done_$$"
+
+  # 1. Launch tmux in the background (it provides a real pty).
+  # zsh -i loads the interactive config (aliases, functions, colors, the real
+  # PS1), prints the actual prompt + command and runs it exactly once; inside a
+  # pty the zle/precmd hooks work without errors and eval expands aliases.
+  # The command and the marker path go through the session environment (-e):
+  # this avoids quote-escaping headaches and does not leak variables into the
+  # parent shell. When the command finishes it creates the marker file, then the
+  # session sleeps so we still have time to grab the screen.
+  tmux new-session -d -s "$session" -x 240 -y 80 \
+    -e "CMD_TO_RUN=$cmd" -e "DONE_FILE=$done_file" \
+    'zsh -i -c '\''print -Pn "$PS1"; echo " $CMD_TO_RUN"; eval "$CMD_TO_RUN"; touch "$DONE_FILE"; sleep 600'\'''
+
+  # 2. Wait until the command finishes OR the time limit elapses, whichever comes
+  # first. Interactive apps never create the marker, so the limit is what lets us
+  # screenshot them after they have rendered.
+  local deadline=$(( SECONDS + timeout ))
+  while [[ ! -f "$done_file" ]]; do
+    (( SECONDS >= deadline )) && break
+    sleep 0.1
+  done
+  rm -f "$done_file"
+
+  # 3. Plain-text screen dump, used only to measure the geometry.
+  local screen_dump=$(tmux capture-pane -p -t "$session")
+
+  # Last non-empty line number — trims the empty blackness at the bottom.
+  local rows=$(echo "$screen_dump" | awk '/[^[:space:]]/{last=NR} END{print last}')
+  local cols=$(echo "$screen_dump" | wc -L)
+
+  [[ -z "$rows" || "$rows" == "0" ]] && rows=1
+
+  # Single padding knob (in cells), needed for two reasons:
+  #  - a space-only line is treated as empty by awk, yet in the colored dump it
+  #    may carry a background fill — without slack such lines get clipped;
+  #  - a margin around the text so it does not touch the window edges.
+  local pad=4
+
+  # 4. Colored dump. tmux numbers lines from 0, so the last content line is
+  # (rows-1); we add `pad` lines of slack below it.
+  tmux capture-pane -e -p -t "$session" -S 0 -E $((rows - 1 + pad)) > "$dump_colored"
+
+  # Kill tmux — no longer needed.
+  tmux kill-session -t "$session" 2>/dev/null
+
+  # Window geometry = content + the same margin on each side.
+  rows=$((rows + pad))
+  cols=$((cols + pad))
+
+  # [[ $rows -lt 5 ]] && rows=5
+  # [[ $cols -lt 40 ]] && cols=40
+  # [[ $rows -gt 60 ]] && rows=60
+  # [[ $cols -gt 240 ]] && cols=240
+
+  echo "Chosen size: $cols columns, $rows rows. Launching WezTerm..."
+
+  # 5. Open WezTerm. Instead of running the command, it just prints the colored
+  # dump and waits 2 seconds.
+  wezterm \
+    --config initial_cols=$cols \
+    --config initial_rows=$rows \
+    start --always-new-process --class org.wezfurlong.wezterm.floating \
+    -- zsh -c "cat \"$dump_colored\"; sleep 2; rm -f \"$dump_colored\"" &
+
+  # Give the window manager time to draw the window.
+  sleep 2
+
+  # 6. Screenshot.
+  if [[ "$XDG_CURRENT_DESKTOP" == *"KDE"* ]]; then
+    spectacle -a -b
+    echo "Window screenshot (KDE) saved."
+
+  elif command -v niri >/dev/null 2>&1; then
+    niri msg action screenshot-window
+    echo "Window screenshot (Niri) taken."
+
+  else
+    grim ~/Pictures/Screenshots/wezterm_exec_$(date +%Y%m%d_%H%M%S).png
+    echo "Screenshot taken via grim."
+  fi
+}
+
 type_colored() {
   type -afs "$@" | sed 's/is an alias for/is an alias for:\n/' | bat -l sh --style=plain --color=always
 }
@@ -69,6 +173,62 @@ rfv() (
       --query "$*"
 )
 
+
+smb_trash() {
+  fd --hidden --no-ignore \
+    --regex '^(\._.*|\.apdisk|\.AppleDouble|\.DS_Store|\.TemporaryItems|\.Trashes|desktop\.ini|ehthumbs\.db|Network Trash Folder|Temporary Items|Thumbs\.db)$' \
+    "${@:-.}"  # args or . if none
+}
+
+zcd() {
+  local current_dir
+  current_dir=$(pwd)
+
+  # 1. Get the dataset name from the first column of df
+  dataset=$(df -P "$current_dir" | awk 'NR==2 {print $1}')
+
+  # Verify it is actually a ZFS dataset
+    if ! zfs list "$dataset" >/dev/null 2>&1; then
+        echo "Error: Filesystem '$dataset' is not recognized as a ZFS dataset."
+        return 1
+    fi
+
+  # 2. Check its mountpoint via zfs get
+  local zfs_mountroot=$(zfs get -H -o value mountpoint "$dataset")
+
+  # Handle cases where ZFS delegates mounting (e.g., fstab)
+  if [[ "$zfs_mountroot" == "legacy" || "$zfs_mountroot" == "none" ]]; then
+    zfs_mountroot=$(df -P "$current_dir" | awk 'NR==2 {print $6}')
+  fi
+
+  local snap_dir="${zfs_mountroot%/}/.zfs/snapshot"
+
+  if [ ! -d "$snap_dir" ]; then
+    echo "Error: No ZFS snapshots found for this dataset at $snap_dir."
+    return 1
+  fi
+
+  # Calculate the path relative to the mountpoint
+  local rel_path="${current_dir#"$mnt_point"}"
+  rel_path="${rel_path#/}" # Remove leading slash
+
+  # Select snapshot using fzf
+  local selected_snap=$(\command ls -1 "$snap_dir" | fzf --prompt="Select ZFS Snapshot: ")
+
+  if [ -z "$selected_snap" ]; then
+    return 0
+  fi
+
+  local target_dir="$snap_dir/$selected_snap/$rel_path"
+
+  if [ -d "$target_dir" ]; then
+    cd "$target_dir" || return 1
+    echo "Moved to snapshot: $selected_snap"
+  else
+    echo "Error: This directory does not exist in the selected snapshot."
+    return 1
+  fi
+}
 
 desc() {  # TODO WIP
   # TODO warp all funcs with ()
