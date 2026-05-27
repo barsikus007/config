@@ -21,6 +21,24 @@ EOF
 chmod +x /data/data/com.termux/files/home/.adbrc
 ```
 
+`com.termux.nix` version
+
+```shell
+cat > /data/data/com.termux.nix/files/home/.adbrc << "EOF"
+#!/data/data/com.termux.nix/files/usr/bin/bash
+
+export PREFIX="/data/data/com.termux.nix/files"
+export HOME="$PREFIX/home"
+export LD_LIBRARY_PATH="$PREFIX/usr/lib"
+export PATH="$PATH:$HOME/.local/bin:$PREFIX/usr/bin"
+export LANG="en_US.UTF-8"
+cd $HOME
+
+/data/data/com.termux.nix/files/usr/bin/login
+EOF
+chmod +x /data/data/com.termux.nix/files/home/.adbrc
+```
+
 essential aliases
 
 ```shell
