@@ -2,6 +2,7 @@
 #? https://wiki.nixos.org/wiki/Nix-ld
 #? https://unix.stackexchange.com/a/522823
 {
+  programs.nix-ld.enable = true;
   programs.nix-ld.libraries =
     with pkgs;
     builtins.concatLists [

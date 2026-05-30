@@ -19,7 +19,7 @@ HASH=$(readlink -f /run/current-system/kernel | grep -oP '/nix/store/\K[a-z0-9]{
 # 2. Получаем прямой URL к .nar архиву из кэша
 NAR_URL=$(curl -s https://cache.nixos.org/$HASH.narinfo | grep -oP 'URL: \K.*')
 
-# 3. Если файл найден в кэше — качаем и замеряем скорость
+# 3. Если файл найден в кэше - качаем и замеряем скорость
 if [ -z "$NAR_URL" ]; then
   echo "Ваше ядро собрано локально или отсутствует в кэше. Попробуйте другой пакет."
 else

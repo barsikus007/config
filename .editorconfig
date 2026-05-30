@@ -9,7 +9,8 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 
 [*.md]
-indent_size = 2
+#? disabled cause lang block's indents counts as invalid
+# indent_size = 2
 
 [*.nix]
 indent_size = 2

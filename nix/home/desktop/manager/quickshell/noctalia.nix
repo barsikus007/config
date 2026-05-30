@@ -290,10 +290,10 @@ in
           enabled = true;
           sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
         };
-        kde-connect = {
-          enabled = true;
-          sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
-        };
+        # kde-connect = {
+        #   enabled = true;
+        #   sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+        # };
         polkit-agent = {
           enabled = true;
           sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";

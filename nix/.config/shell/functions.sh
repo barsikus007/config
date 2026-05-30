@@ -92,7 +92,7 @@ capture_wezterm_zsh_cmd() {
   # 3. Plain-text screen dump, used only to measure the geometry.
   local screen_dump=$(tmux capture-pane -p -t "$session")
 
-  # Last non-empty line number — trims the empty blackness at the bottom.
+  # Last non-empty line number - trims the empty blackness at the bottom.
   local rows=$(echo "$screen_dump" | awk '/[^[:space:]]/{last=NR} END{print last}')
   local cols=$(echo "$screen_dump" | wc -L)
 
@@ -100,7 +100,7 @@ capture_wezterm_zsh_cmd() {
 
   # Single padding knob (in cells), needed for two reasons:
   #  - a space-only line is treated as empty by awk, yet in the colored dump it
-  #    may carry a background fill — without slack such lines get clipped;
+  #    may carry a background fill - without slack such lines get clipped;
   #  - a margin around the text so it does not touch the window edges.
   local pad=4
 
@@ -108,7 +108,7 @@ capture_wezterm_zsh_cmd() {
   # (rows-1); we add `pad` lines of slack below it.
   tmux capture-pane -e -p -t "$session" -S 0 -E $((rows - 1 + pad)) > "$dump_colored"
 
-  # Kill tmux — no longer needed.
+  # Kill tmux - no longer needed.
   tmux kill-session -t "$session" 2>/dev/null
 
   # Window geometry = content + the same margin on each side.

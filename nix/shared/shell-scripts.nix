@@ -30,6 +30,17 @@ with pkgs;
   (writeShellScriptBin "slurp-grim-screenshot" ''
     ${lib.getExe grim} -g "$(${lib.getExe slurp})" -l 0 - | ${pkgs.wl-clipboard}/bin/wl-copy
   '')
+  #! https://github.com/niri-wm/niri/pull/3316
+  (writeShellScriptBin "niri-toggle-touchpad" ''
+    DROPIN="''${XDG_CONFIG_HOME:-$HOME/.config}/niri/touchpad-off.kdl"
+    if [ -f "$DROPIN" ]; then
+      rm -f "$DROPIN"
+      ${lib.getExe libnotify} -a niri "Touchpad enabled"
+    else
+      printf 'input {\n    touchpad {\n        off\n    }\n}\n' > "$DROPIN"
+      ${lib.getExe libnotify} -a niri "Touchpad disabled"
+    fi
+  '')
   (writeShellScriptBin "ocr-screen-region" ''
     if [ "$XDG_CURRENT_DESKTOP" = "KDE" ]; then
       SCREENSHOT=$(mktemp)
