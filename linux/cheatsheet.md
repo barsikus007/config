@@ -101,7 +101,18 @@ distrobox create --name astra --image registry.astralinux.ru/astra/ubi18:latest
 
 ## ZFS
 
-### Commands
+### mount encrypted backup
+
+```shell
+sudo zfs load-key tank/backups/ROG14/persistent
+
+sudo mkdir -p /mnt/backup
+sudo mount -t zfs -o zfsutil,ro tank/backups/ROG14/persistent /mnt/backup
+
+sudo zfs umount -u tank/backups/ROG14/persistent
+```
+
+### short ommands
 
 - [Clear arc cache](https://netpoint-dc.com/blog/zfs-caching-arc-l2arc-linux/)
   - `sync && sudo sysctl vm/drop_caches=3`

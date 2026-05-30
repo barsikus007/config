@@ -4,30 +4,34 @@
   username,
   ...
 }:
-#? Disks is NOT managed by disko — nvme0n1 has NTFS partitions (Data, System) that must be preserved.
 #? ZFS pool was created manually on nvme0n1p4:
 #?
-#?   echo -n "PASSPHRASE" > /tmp/secret.key && chmod 600 /tmp/secret.key
-#?   zpool create -f \
-#?     -o ashift=12 -o autotrim=on \
-#?     -O mountpoint=none -O compression=zstd -O atime=off \
-#?     -O acltype=posixacl -O xattr=sa \
-#?     -O encryption=aes-256-gcm -O keyformat=passphrase \
-#?     -O keylocation=file:///tmp/secret.key \
-#?     zroot \
-#?     /dev/disk/by-id/nvme-Force_MP510_210482470001292050F3_1-part4
+#? echo -n "PASSPHRASE" > /tmp/secret.key && chmod 600 /tmp/secret.key
+#? # remove -R /mnt
+#? {
+#?   grep "zpool create" $(nix build ./nix#nixosConfigurations.ROG14.config.system.build.diskoScript --print-out-paths) --after-context=4
+#?   echo zroot /dev/disk/by-id/nvme-Force_MP510_210482470001292050F3-part4
+#? }
+#? zfs snapshot zroot/root@blank
 #?
-#?   zfs create -o mountpoint=/ -o com.sun:auto-snapshot=false zroot/root
-#?   zfs snapshot zroot/root@blank
-#?   zfs create -o mountpoint=/nix -o com.sun:auto-snapshot=false zroot/nix
-#?   zfs create -o mountpoint=/persistent -o com.sun:auto-snapshot=true  zroot/persistent
-#?   zfs change-key -o keylocation=prompt zroot
+#? grep "zfs create" $(nix build ./nix#nixosConfigurations.ROG14.config.system.build.diskoScript --print-out-paths) --after-context=2
+#? zfs change-key -o keylocation=prompt zroot
 {
   imports = [
     inputs.disko.nixosModules.disko
   ];
 
   disko.devices = {
+    disk = {
+      nvme = {
+        device = "/dev/disk/by-id/nvme-Force_MP510_210482470001292050F3";
+        destroy = false;
+        content = {
+          type = "gpt";
+          # TODO
+        };
+      };
+    };
     nodev = {
       "/boot" = {
         fsType = "vfat";
@@ -83,7 +87,6 @@
     };
     zpool = {
       "zroot" = {
-        type = "zpool";
         options = {
           ashift = "12";
           autotrim = "on";

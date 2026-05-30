@@ -45,11 +45,16 @@ in
     # ../../modules/zfs-kernel.nix
     ../../modules/cachyos-kernel.nix
     ../../modules/zfs.nix
+    ../../modules/zfs-backup-source.nix
 
     ../../modules/hardware/fingerprint.nix
     ../../modules/hardware/wifi-unlimited.nix
   ];
   home-manager.users.${username} = ./home.nix;
+
+  services.sanoid.datasets = lib.genAttrs [ "zroot/persistent" ] (_: {
+    use_template = [ "default" ];
+  });
 
   #? NixOS param which enables root-shell when stage 1 fails
   boot.kernelParams = [ "boot.shell_on_fail" ];

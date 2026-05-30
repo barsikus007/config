@@ -28,11 +28,16 @@
     # ../../modules/zfs-kernel.nix
     ../../modules/cachyos-kernel.nix
     ../../modules/zfs.nix
+    ../../modules/zfs-backup-target.nix
 
     #! read warning inside module below
     ../../modules/ssh-initrd.nix
   ];
   home-manager.users.${username} = ./home.nix;
+
+  services.sanoid.datasets = lib.genAttrs [ "tank/apps" "tank/storage" "zroot/persistent" ] (_: {
+    use_template = [ "default" ];
+  });
 
   networking.useDHCP = true;
   networking.nftables.enable = true;

@@ -6,10 +6,9 @@
 
   disko.devices = {
     disk = {
-      #? SSD
       nvme = {
-        type = "disk";
         device = "/dev/disk/by-id/nvme-SAMSUNG_MZVLB512HAJQ-00000_S3W8NA0M675571";
+        destroy = false;
         content = {
           type = "gpt";
           partitions = {
@@ -33,42 +32,42 @@
           };
         };
       };
-      # exos_master = {
-      #   type = "disk";
-      #   device = "/dev/disk/by-id/ata-ST8000NM017B-2TJ103_WWZ4N3WQ";
-      #   content = {
-      #     type = "gpt";
-      #     partitions = {
-      #       zfs = {
-      #         size = "100%";
-      #         content = {
-      #           type = "zfs";
-      #           pool = "tank";
-      #         };
-      #       };
-      #     };
-      #   };
-      # };
-      # exos_mirror = {
-      #   type = "disk";
-      #   device = "/dev/disk/by-id/ata-ST8000NM0105-1VS112_ZA1NGMKF";
-      #   content = {
-      #     type = "gpt";
-      #     partitions = {
-      #       zfs = {
-      #         size = "100%";
-      #         content = {
-      #           type = "zfs";
-      #           pool = "tank";
-      #         };
-      #       };
-      #     };
-      #   };
-      # };
+      exos_master = {
+        device = "/dev/disk/by-id/ata-ST8000NM017B-2TJ103_WWZ4N3WQ";
+        destroy = false;
+        content = {
+          type = "gpt";
+          partitions = {
+            zfs = {
+              size = "100%";
+              content = {
+                type = "zfs";
+                pool = "tank";
+              };
+            };
+          };
+        };
+      };
+      exos_mirror = {
+        device = "/dev/disk/by-id/ata-ST8000NM0105-1VS112_ZA1NGMKF";
+        destroy = false;
+        content = {
+          type = "gpt";
+          partitions = {
+            zfs = {
+              size = "100%";
+              content = {
+                type = "zfs";
+                pool = "tank";
+              };
+            };
+          };
+        };
+      };
     };
     zpool = {
       "tank" = {
-        type = "zpool";
+        mode = "mirror";
         options = {
           ashift = "12"; # ? cause 12 is current standard
         };
@@ -88,23 +87,34 @@
           "apps" = {
             type = "zfs_fs";
             mountpoint = "/tank/apps";
-            options."com.sun:auto-snapshot" = "true";
           };
           "docker" = {
             type = "zfs_fs";
             mountpoint = "/tank/docker";
-            options."com.sun:auto-snapshot" = "false";
           };
           "storage" = {
             type = "zfs_fs";
             mountpoint = "/tank/storage";
-            options."com.sun:auto-snapshot" = "true";
+          };
+
+          "backups" = {
+            type = "zfs_fs";
+            options = {
+              canmount = "off";
+            };
+          };
+          # TODO: shared
+          "backups/ROG14" = {
+            type = "zfs_fs";
+            options = {
+              canmount = "off";
+              readonly = "on";
+            };
           };
         };
       };
 
       "zroot" = {
-        type = "zpool";
         options = {
           ashift = "12";
           autotrim = "on"; # ? for SSDs
@@ -126,17 +136,14 @@
             type = "zfs_fs";
             mountpoint = "/";
             postCreateHook = "zfs list -t snapshot | grep -q zroot/root@blank || zfs snapshot zroot/root@blank";
-            options."com.sun:auto-snapshot" = "false";
           };
           "nix" = {
             type = "zfs_fs";
             mountpoint = "/nix";
-            options."com.sun:auto-snapshot" = "false";
           };
           "persistent" = {
             type = "zfs_fs";
             mountpoint = "/persistent";
-            options."com.sun:auto-snapshot" = "true";
           };
 
           #? README MORE: https://wiki.archlinux.org/title/ZFS#Swap_volume
@@ -154,46 +161,10 @@
               sync = "always";
               primarycache = "metadata";
               secondarycache = "none";
-              "com.sun:auto-snapshot" = "false";
             };
           };
         };
       };
-
-      # tank = {
-      #   type = "zpool";
-      #   mode = "mirror";
-      #   options = {
-      #     ashift = "12";
-      #   };
-      #   rootFsOptions = {
-      #     compression = "zstd";
-      #     canmount = "off";
-      #     # Шифрование
-      #     encryption = "aes-256-gcm";
-      #     keyformat = "passphrase";
-      #     keylocation = "file:///etc/zfs/keys/tank_simple.key";
-      #     normalization = "formC";
-      #   };
-
-      #   datasets = {
-      #     storage = {
-      #       type = "zfs_fs";
-      #       mountpoint = "/tank/storage";
-      #       options."com.sun:auto-snapshot" = "true";
-      #     };
-      #     apps = {
-      #       type = "zfs_fs";
-      #       mountpoint = "/tank/apps";
-      #       options."com.sun:auto-snapshot" = "true";
-      #     };
-      #     docker = {
-      #       type = "zfs_fs";
-      #       mountpoint = "/tank/docker";
-      #       options."com.sun:auto-snapshot" = "false";
-      #     };
-      #   };
-      # };
     };
   };
 }
