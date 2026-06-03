@@ -19,6 +19,7 @@ in
       directories = [
         "Downloads"
 
+        ".cache/.bun" # ? tools installed with bunx
         ".cache/tlrc"
 
         ".config/litecli"

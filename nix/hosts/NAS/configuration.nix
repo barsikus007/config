@@ -76,5 +76,5 @@
   };
 
   #? https://wiki.nixos.org/wiki/Linux_kernel#Enable_SysRq
-  boot.kernel.sysctl."kernel.sysrq" = 1;
+  boot.kernel.sysctl."kernel.sysrq" = true;
 }

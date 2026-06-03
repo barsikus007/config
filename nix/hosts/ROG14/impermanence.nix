@@ -51,6 +51,7 @@ in
         "hax"
         "Sync"
 
+        ".cache/.bun" # ? tools installed with bunx
         ".cache/cliphist"
         ".cache/cloud-code" # ? gemini auth
         ".cache/danksearch" # ? index

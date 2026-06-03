@@ -81,6 +81,11 @@ in
     };
   };
 
+  systemd.settings.Manager.DefaultTimeoutStopSec = "20s";
+  systemd.user.extraConfig = ''
+    DefaultTimeoutStopSec=15s
+  '';
+
   # TODO: laptop specific
   powerManagement.cpuFreqGovernor = "schedutil";
   services.udev.extraRules = ''
@@ -118,5 +123,5 @@ in
 
   #? https://wiki.nixos.org/wiki/Linux_kernel#Enable_SysRq
   #? it have same security level as having force-reset power-button
-  boot.kernel.sysctl."kernel.sysrq" = 1;
+  boot.kernel.sysctl."kernel.sysrq" = true;
 }
