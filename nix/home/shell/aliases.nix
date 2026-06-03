@@ -90,7 +90,7 @@ rec {
     };
   wgAliases = mkWgAliases rec {
     wgExec = "wg";
-    wgIface = "${wgExec}0";
+    wgIface = "${wgExec}0local";
   };
   awgAliases = mkWgAliases rec {
     wgExec = "awg";
@@ -147,7 +147,7 @@ rec {
     nix-shell = "nix-shell --run zsh";
     ns = "nix-shell -p";
     nss = "nix_shell_exec";
-    ncode = "code --reuse-window $(nix eval -f '<nixpkgs>' path)/pkgs/top-level/all-packages.nix";
+    ncode = "code --reuse-window $(nix eval --offline --file '<nixpkgs>' path)/pkgs/top-level/all-packages.nix";
   };
   sharedAliases = lib.attrsets.mergeAttrsList [
     baseAliases

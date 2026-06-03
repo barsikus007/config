@@ -178,6 +178,31 @@
           ./modules/vm
           ./modules/vm/gui.nix
           ./modules/vm/vfio
+          (
+            { lib, config, ... }:
+            {
+              # TODO: unstable: https://github.com/nix-community/stylix/pull/2337
+              stylix.targets.kmscon.enable = false;
+
+              # TODO: unstable: https://github.com/NixOS/nixpkgs/pull/523948
+              security.pam.services.gdm-launch-environment.rules.session.env-greeter =
+                lib.mkIf config.services.displayManager.gdm.enable
+                  {
+                    control = "required";
+                    modulePath = "${config.security.pam.package}/lib/security/pam_env.so";
+                    order = 10250; # between upstream `env` (10200) and `systemd` (10300)
+                    settings.conffile =
+                      let
+                        env = config.services.displayManager.generic.environment;
+                      in
+                      pkgs.writeText "gdm-launch-environment-env-conf" ''
+                        PATH          DEFAULT="''${PATH}:${pkgs.gnome-session}/bin"
+                        XDG_DATA_DIRS DEFAULT="''${XDG_DATA_DIRS}:${env.XDG_DATA_DIRS}"
+                      '';
+                    settings.readenv = 0;
+                  };
+            }
+          )
           {
             inherit custom;
 

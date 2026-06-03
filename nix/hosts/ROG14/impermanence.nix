@@ -119,6 +119,7 @@ in
         ".claude"
         ".thunderbird"
         ".vscode"
+        ".vscode-shared"
 
         #? dev
         # "go"

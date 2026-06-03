@@ -99,23 +99,23 @@ in
       mgr.show_hidden = true;
       plugin.prepend_previewers = [
         {
-          name = "*.csv";
+          url = "*.csv";
           run = "rich-preview";
         } # for csv files
         {
-          name = "*.md";
+          url = "*.md";
           run = "rich-preview";
         } # for markdown (.md) files
         {
-          name = "*.rst";
+          url = "*.rst";
           run = "rich-preview";
         } # for restructured text (.rst) files
         {
-          name = "*.ipynb";
+          url = "*.ipynb";
           run = "rich-preview";
         } # for jupyter notebooks (.ipynb)
         {
-          name = "*.json";
+          url = "*.json";
           run = "rich-preview";
         } # for json (.json) files
       ];
