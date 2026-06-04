@@ -10,6 +10,9 @@
     ../shared/nh.nix
   ];
 
+  #? https://nixos.org/manual/nixos/unstable/release-notes
+  system.stateVersion = lib.mkDefault "26.05";
+
   hardware.ksm.enable = true;
 
   # TODO: extract to locales.nix

@@ -111,18 +111,7 @@
           inherit pkgs;
           extraSpecialArgs = mkSpecialArgs username;
           modules = modules ++ [
-            (
-              { lib, ... }:
-              {
-                home = {
-                  inherit username;
-                  homeDirectory = "/home/${username}";
-
-                  #? https://nix-community.github.io/home-manager/release-notes.xhtml
-                  stateVersion = lib.mkDefault "26.05";
-                };
-              }
-            )
+            ./home
           ];
         };
       };
@@ -299,7 +288,6 @@
           #! ./result/bin/run-*-vm -device virtio-vga
           # ./hosts/vm/kde-sunshined-vfio.nix
           {
-            system.stateVersion = "26.05";
             networking.hostName = "coolvm";
 
             virtualisation.vmVariant.virtualisation = {
@@ -339,7 +327,6 @@
                   ./home/gui/browser/firefox.nix
                   {
                     inherit custom;
-                    home.stateVersion = "26.05";
                   }
                 ];
               };
@@ -484,7 +471,7 @@
         {
           #? nix {build,run} ./nix# <tab>
 
-          coolvm = self.nixosConfigurations."coolvm".config.system.build.vm;
+          default = self.nixosConfigurations."coolvm".config.system.build.vm;
           nixosMinimalIso = self.nixosConfigurations."minimalIso-${system}".config.system.build.isoImage;
           nixosPlasmaIso = self.nixosConfigurations."plasmaIso-${system}".config.system.build.isoImage;
           windowsBootstrapIso = callPackage ./packages/windows { };

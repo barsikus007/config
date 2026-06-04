@@ -10,7 +10,7 @@ nix run --override-input nixpkgs nixpkgs github:barsikus007/config?dir=nix# <tab
 user passwd is `0`
 
 ```shell
-nix --extra-experimental-features "nix-command flakes" run --impure 'github:nix-community/nixGL' -- nix --extra-experimental-features "nix-command flakes pipe-operators" run --impure --override-input nixpkgs nixpkgs 'github:barsikus007/config?dir=nix#coolvm'
+nix --extra-experimental-features "nix-command flakes" run --impure 'github:nix-community/nixGL' -- nix --extra-experimental-features "nix-command flakes pipe-operators" run --impure --override-input nixpkgs nixpkgs 'github:barsikus007/config?dir=nix'
 ```
 
 - on WSL Ubuntu disable pipewire QEMU section and launch with pulseaudio

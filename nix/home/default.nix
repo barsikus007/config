@@ -1,9 +1,10 @@
-{ username, ... }:
+{ lib, username, ... }:
 {
   imports = [ ./git.nix ];
   home = {
-    # Home Manager needs a bit of information about you and the
-    # paths it should manage.
+    #? https://nix-community.github.io/home-manager/release-notes.xhtml
+    stateVersion = lib.mkDefault "26.05";
+
     inherit username;
     homeDirectory = "/home/${username}";
 

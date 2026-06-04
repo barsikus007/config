@@ -32,14 +32,9 @@
     }
     {
       inherit custom;
-      home = {
-        #? https://nix-community.github.io/home-manager/release-notes.xhtml
-        stateVersion = "26.05";
-        sessionVariables = {
-          # fuck the firefox
-          LC_TIME = "en_GB.UTF-8";
-        };
-      };
+
+      # TODO: fuck the firefox ?
+      home.sessionVariables.LC_TIME = "en_GB.UTF-8";
     }
   ];
 }

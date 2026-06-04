@@ -8,8 +8,6 @@
   #? ZFS requires networking.hostId to be set
   networking.hostId = "20260425";
 
-  #? https://nixos.org/manual/nixos/unstable/release-notes
-  system.stateVersion = "26.05";
   networking.hostName = "NAS";
   time.timeZone = "Europe/Moscow";
 

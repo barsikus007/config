@@ -5,8 +5,6 @@
   ...
 }:
 {
-  #? https://nixos.org/manual/nixos/unstable/release-notes
-  system.stateVersion = "25.05";
   networking.hostName = "NixOS-WSL";
 
   environment.systemPackages = (
