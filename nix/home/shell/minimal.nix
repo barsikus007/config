@@ -38,7 +38,8 @@ in
     ];
     defaultKeymap = "emacs";
     envExtra = /* shell */ ''
-      for file in "$XDG_CONFIG_HOME"/shell/*.sh; do
+      #! XDG_CONFIG_HOME is unset this early in .zshenv
+      for file in "''${XDG_CONFIG_HOME:-$HOME/.config}"/shell/*.sh; do
         source "$file"
       done
     '';

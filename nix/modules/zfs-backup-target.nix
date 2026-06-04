@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   config,
   username,
@@ -11,6 +12,14 @@ in
 {
   #? syncoid "WARNING: mbuffer not available on target" fix
   environment.systemPackages = with pkgs; [ mbuffer ];
+
+  #? with default `true` it tries to unlock recieved backups
+  boot.zfs.requestEncryptionCredentials = lib.attrNames (
+    lib.filterAttrs (
+      _: pool: (pool.rootFsOptions.encryption or null) != null
+    ) config.disko.devices.zpool
+  );
+
   systemd.services.zfs-recv-setup = {
     description = "Delegate dataset perms to ${username}";
     wantedBy = [ "multi-user.target" ];

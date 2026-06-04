@@ -120,7 +120,7 @@ in
         ".claude"
         ".thunderbird"
         ".vscode"
-        ".vscode-shared"
+        ".vscode-shared" # ? recent and trust folders
 
         #? dev
         # "go"
