@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   config,
   inputs,
   options,
@@ -16,6 +17,12 @@ in
 
   programs.niri.settings = {
     spawn-at-startup = [ { command = [ "noctalia-shell" ]; } ];
+    # TODO: noctalia v5: shitty shit, it doesn't handle loginctl lock-session
+    switch-events.lid-close.action.spawn = [
+      "sh"
+      "-c"
+      "[ $(niri msg --json outputs | ${lib.getExe pkgs.jq} 'keys | length') == '1' ] && noctalia-shell ipc call lockScreen lock"
+    ];
     binds =
       with config.lib.niri.actions;
       let

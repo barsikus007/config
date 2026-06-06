@@ -26,8 +26,8 @@ debug {
     ignore-drm-device "/dev/dri/by-path/pci-0000:01:00.0-render"
 }
 
-// TODO: asus
-output "eDP-1" {
+//? asus
+/- output "eDP-1" {
     mode "1920x1080@120.003"
 
     // scale 1.0

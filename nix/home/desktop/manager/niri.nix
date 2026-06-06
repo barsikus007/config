@@ -153,6 +153,14 @@ in
       #? enable csd for consistency cause this isn't possible to disable csd for all windows
       # prefer-no-csd = true;
 
+      switch-events.lid-close = lib.mkDefault {
+        action.spawn = [
+          "sh"
+          "-c"
+          "[ $(niri msg --json outputs | ${lib.getExe pkgs.jq} 'keys | length') == '1' ] && loginctl lock-session"
+        ];
+      };
+
       binds = lib.attrsets.mergeAttrsList [
         (mkNiriBinds meta.shortcuts)
         {

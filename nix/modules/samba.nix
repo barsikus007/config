@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   config,
   username,
@@ -7,12 +8,19 @@
 {
   sops.secrets."hosts/${config.system.name}/smb/passwd" = { };
 
-  system.activationScripts.samba-passwd = {
-    deps = [ "setupSecrets" ];
-    text = ''
+  systemd.services.samba-passwd = {
+    description = "provision samba password for ${username} from sops secret";
+    wantedBy = [ "multi-user.target" ];
+    before = [ "samba-smbd.service" ];
+    unitConfig.ConditionPathExists = config.sops.secrets."hosts/${config.system.name}/smb/passwd".path;
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+    script = /* shell */ ''
       password=$(cat ${config.sops.secrets."hosts/${config.system.name}/smb/passwd".path})
       printf "$password\n$password\n" \
-        | ${config.services.samba.package}/bin/smbpasswd -sa ${username}
+        | ${lib.getExe' config.services.samba.package "smbpasswd"} -sa ${username}
     '';
   };
 

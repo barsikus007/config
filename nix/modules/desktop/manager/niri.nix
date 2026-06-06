@@ -49,4 +49,10 @@
     xwayland-satellite
     xlsclients
   ];
+
+  #? perms for `niri-toggle-touchpad`
+  users.users.${username}.extraGroups = [ "input" ];
+  services.udev.extraRules = ''
+    ACTION=="add|change", SUBSYSTEM=="input", ATTR{name}=="*Touchpad*", RUN+="${lib.getExe' pkgs.coreutils "chgrp"} input /sys%p/inhibited", RUN+="${lib.getExe' pkgs.coreutils "chmod"} g+w /sys%p/inhibited"
+  '';
 }

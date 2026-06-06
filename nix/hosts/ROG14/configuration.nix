@@ -105,6 +105,14 @@ in
     '';
   };
 
+  systemd.services.kbd-backlight-off-resume = {
+    description = "Turn off keyboard backlight after resume";
+    wantedBy = [ "post-resume.target" ];
+    after = [ "post-resume.target" ];
+    serviceConfig.Type = "oneshot";
+    script = "${lib.getExe' pkgs.asusctl "asusctl"} leds set off";
+  };
+
   #? disable 4.2 GHz boost
   systemd.tmpfiles.rules = [
     "w /sys/devices/system/cpu/cpufreq/boost - - - - 0"

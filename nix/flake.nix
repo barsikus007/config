@@ -170,9 +170,6 @@
           (
             { lib, config, ... }:
             {
-              # TODO: unstable: https://github.com/nix-community/stylix/pull/2337
-              stylix.targets.kmscon.enable = false;
-
               # TODO: unstable: https://github.com/NixOS/nixpkgs/pull/523948
               security.pam.services.gdm-launch-environment.rules.session.env-greeter =
                 lib.mkIf config.services.displayManager.gdm.enable
