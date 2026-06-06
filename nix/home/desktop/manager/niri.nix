@@ -330,5 +330,70 @@ in
     };
   };
 
+  services.kanshi = {
+    enable = true;
+    settings =
+      let
+        #! niri 25.02 named workspaces are sticky, need to move it manually
+        repinWorkspaces =
+          output:
+          let
+            niri = lib.getExe config.programs.niri.package;
+            move = workspace: "${niri} msg action move-workspace-to-monitor --reference ${workspace} ${output}";
+          in
+          #!  move social first to leave games on top
+          [ "${move "social"} && ${move "games"}" ];
+      in
+      [
+        {
+          profile.name = "standalone";
+          profile.outputs = [
+            {
+              criteria = "eDP-1";
+              mode = "1920x1080@120.003";
+              scale = 1.0;
+            }
+          ];
+        }
+        {
+          profile.name = "home-samsung";
+          profile.exec = repinWorkspaces "HDMI-A-1";
+          profile.outputs = [
+            {
+              criteria = "Samsung Electric Company C27JG5x HTOM700073";
+            }
+            {
+              criteria = "eDP-1";
+              mode = "1920x1080@120.003";
+              position = "0,360";
+              scale = 1.0;
+
+              # position = "0,540";
+              # scale = 1.2;
+
+              # position = "0,720";
+              # scale = 1.5;
+            }
+          ];
+        }
+        {
+          profile.name = "home-TV";
+          profile.exec = repinWorkspaces "HDMI-A-1";
+          profile.outputs = [
+            {
+              criteria = "eDP-1";
+              mode = "1920x1080@120.003";
+              position = "0,1080";
+              scale = 1.0;
+            }
+            {
+              criteria = "Samsung Electric Company SAMSUNG 0x01000000";
+              mode = "1920x1080@60";
+            }
+          ];
+        }
+      ];
+  };
+
   services.polkit-gnome.enable = lib.mkDefault true; # ? polkit from wiki
 }
