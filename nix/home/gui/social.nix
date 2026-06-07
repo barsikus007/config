@@ -56,6 +56,7 @@
       plugins = {
         #? restrictions
         fakeNitro.enable = true;
+        webScreenShareFixes.enable = true;
         showHiddenChannels.enable = true;
         showConnections.enable = true;
         silentTyping.enable = true;

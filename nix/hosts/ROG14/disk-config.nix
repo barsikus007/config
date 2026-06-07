@@ -108,17 +108,14 @@
             type = "zfs_fs";
             mountpoint = "/";
             postCreateHook = "zfs list -t snapshot | grep -q zroot/root@blank || zfs snapshot zroot/root@blank";
-            options."com.sun:auto-snapshot" = "false";
           };
           "nix" = {
             type = "zfs_fs";
             mountpoint = "/nix";
-            options."com.sun:auto-snapshot" = "false";
           };
           "persistent" = {
             type = "zfs_fs";
             mountpoint = "/persistent";
-            options."com.sun:auto-snapshot" = "true";
           };
         };
       };

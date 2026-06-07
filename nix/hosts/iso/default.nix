@@ -18,6 +18,8 @@
   ];
   environment.systemPackages = import ../../shared/lists { inherit pkgs; };
 
+  system.stateVersion = config.system.nixos.release;
+
   services.openssh.settings.PermitRootLogin = "yes";
   users.users.root.openssh.authorizedKeys.keys =
     config.users.users.${username}.openssh.authorizedKeys.keys;

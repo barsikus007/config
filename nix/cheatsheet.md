@@ -266,6 +266,12 @@ zstdcat $PACKAGE_NAME.closure.zst | ssh NAS "nix-store --import"
 (echo $REMOTE_PASSWORD; zstdcat $PACKAGE_NAME.closure.zst) | ssh NAS "sudo -S nix-store --import --no-require-sigs"
 ```
 
+### check closure size (can be used to check nixos module overhead)
+
+```shell
+nix path-info --closure-size --human-readable ./result
+```
+
 ## python development
 
 ### [flake devShell](flake.nix)

@@ -61,14 +61,19 @@ return {
         {
             key = 'v',
             mods = 'CTRL',
-            action = act.PasteFrom('Clipboard')
+            action = act.PasteFrom('Clipboard'),
         },
         {
             key = 'v',
             mods = 'CTRL|SHIFT',
-            --! fucked up with noctalia-shell cliphist paste
-            -- action = act.SendKey { key = 'v', mods = 'CTRL' }
-            action = act.PasteFrom('Clipboard')
+            action = act.SendKey { key = 'v', mods = 'CTRL' },
+        },
+        --! for claude-code
+        --? https://github.com/wezterm/wezterm/discussions/2891
+        {
+            key = 'Enter',
+            mods = 'ALT',
+            action = wezterm.action.DisableDefaultAssignment,
         },
     },
     key_tables = {

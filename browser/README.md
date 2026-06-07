@@ -8,6 +8,7 @@
   - [TODO remove si](https://github.com/Xenorio/YTShareAntiTrack)
 - [VK](http://greasyfork.org/scripts/518509)
 - [shikimori 404](https://greasyfork.org/scripts/555555)
+- [gemini auto pro](https://greasyfork.org/scripts/564382)
 - [own](./userscripts)
 - TODO
   - ExchangeRater.user imperial units converter

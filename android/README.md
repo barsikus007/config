@@ -29,6 +29,10 @@
 - Design and Tweak Mods
   - <https://github.com/Mahmud0808/Iconify>
 
+### OnePlus 15
+
+- [Recovery](https://orangefox.download/device/69b830b992ddd30a0d733660)
+
 ## instructions
 
 ### [YouTube ReVanced](./revanced.md)

@@ -15,4 +15,13 @@ in
   # services.libinput.enable = mkDefault true;
   # services.geoclue2.enable = mkDefault true;
   services.fwupd.enable = mkDefault true;
+  #? fwupd-refresh.service crashes without that
+  security.polkit.extraConfig = /* javascript */ ''
+    polkit.addRule(function(action, subject) {
+      if (action.id == "org.freedesktop.fwupd.refresh-remote" &&
+          subject.user == "fwupd-refresh") {
+        return polkit.Result.YES;
+      }
+    });
+  '';
 }

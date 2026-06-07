@@ -7,7 +7,8 @@ _get_android_device() {
   echo "$ANDROID_DEVICE"
 }
 
-adb_connect() {
+adb_scan() {
+  #? scan local subnet for hosts with adb port 5555 open, print one ip per line
   local INTERFACE
   # Try finding interface from default route
   INTERFACE=$(ip -o -4 route show default | head -n 1 | awk '{for(i=1;i<=NF;i++) if($i=="dev") {print $(i+1); exit}}')
@@ -15,9 +16,7 @@ adb_connect() {
   [ -z "$INTERFACE" ] && INTERFACE=$(ip -o -4 addr show scope global | head -n 1 | awk '{print $2}')
 
   if [ -z "$INTERFACE" ]; then
-    echo "Error: Could not determine local interface"
-    echo "ip route output:"
-    ip -o -4 route show default
+    echo "Error: Could not determine local interface" >&2
     return 1
   fi
 
@@ -25,26 +24,27 @@ adb_connect() {
   SUBNET=$(ip -o -f inet addr show "$INTERFACE" | head -n 1 | awk '{print $4}')
 
   if [ -z "$SUBNET" ]; then
-    echo "Error: Could not determine local subnet on interface $INTERFACE"
+    echo "Error: Could not determine local subnet on interface $INTERFACE" >&2
     return 1
   fi
 
-  echo "Scanning $SUBNET on $INTERFACE for ADB devices (port 5555) with nc..."
-  local DEVICES
-  # DEVICES=$(nmap -p 5555 --open -T aggressive -n --max-retries 0 "$SUBNET" -oG - | awk '/5555\/open/ {print $2}')
+  echo "Scanning $SUBNET on $INTERFACE for ADB devices (port 5555) with nc..." >&2
   local PREFIX
   PREFIX=$(echo "$SUBNET" | cut -d'/' -f1 | cut -d'.' -f1-3)
   #? Fast parallel scan using nc
-  DEVICES=$(
-    for i in {1..254}; do
-      (
-        timeout 0.5 nc -z "$PREFIX.$i" 5555 2>/dev/null && echo "$PREFIX.$i"
-      ) &
-    done
-    wait
-  )
+  for i in {1..254}; do
+    (
+      timeout 0.5 nc -z "$PREFIX.$i" 5555 2>/dev/null && echo "$PREFIX.$i"
+    ) &
+  done
+  wait
+}
 
-  if [ -z "$DEVICES" ] || [ "$DEVICES" = "" ]; then
+adb_connect() {
+  local DEVICES
+  DEVICES=$(adb_scan) || return 1
+
+  if [ -z "$DEVICES" ]; then
     echo "No devices found with port 5555 open"
     return 0
   fi
@@ -125,6 +125,23 @@ scrcpy_connect() {
   local ANDROID_DEVICE
   ANDROID_DEVICE=$(_get_android_device)
   [ -z "$ANDROID_DEVICE" ] && echo "No device selected" && return 1
+  scrcpy -K --render-driver=opengles2 --no-audio --video-bit-rate=1M --serial="$ANDROID_DEVICE" "$@"
+}
+
+scrcpy_fast() {
+  #? connect to the first and only device, no picker
+  local ANDROID_DEVICE
+  ANDROID_DEVICE=$(adb devices | tail --lines +2 | grep --word-regexp device | head --lines 1 | cut --fields 1)
+
+  #? nothing connected: scan the network and auto-connect to the first found
+  if [ -z "$ANDROID_DEVICE" ]; then
+    local FOUND
+    FOUND=$(adb_scan | head --lines 1)
+    [ -z "$FOUND" ] && echo "No device connected or found" && return 1
+    ANDROID_DEVICE="$FOUND:5555"
+    adb connect "$ANDROID_DEVICE" || return 1
+  fi
+
   scrcpy -K --render-driver=opengles2 --no-audio --video-bit-rate=1M --serial="$ANDROID_DEVICE" "$@"
 }
 

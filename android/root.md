@@ -103,9 +103,8 @@
   - [another one - momo](https://t.me/magiskalpha/529)
 - Hide Applists - `https://github.com/frknkrc44/HMA-OSS`
   - Checker - `https://github.com/Dr-TSNG/ApplistDetector`
+- [cool boot animation](https://github.com/Chainfire/liveboot)
 - [TODO](https://github.com/stars/barsikus007/lists/neckbeard-android)
-  - [cool boot animation](https://github.com/Chainfire/liveboot)
-    - I prefer Pixel's stock one
 
 ## HBM
 
