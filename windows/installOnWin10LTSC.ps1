@@ -36,4 +36,4 @@ reg import "$SCOOP_HOME\apps\notepadplusplus\current\install-context.reg"
 winget install -e --id Microsoft.Edge -h --force
 
 
-pwsh.exe -Command 'cd && git clone https://github.com/barsikus007/config --depth 1 && cd ~\config\ && sudo .\windows\pwsh.ps1 && cd -'
+pwsh.exe -Command 'cd && git clone --depth 1 https://github.com/barsikus007/config && cd ~\config\ && sudo .\windows\pwsh.ps1 && cd -'

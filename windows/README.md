@@ -11,7 +11,7 @@
 ```powershell
 # Clone
 pwsh.exe
-cd && git clone https://github.com/barsikus007/config --depth 1 && cd -
+cd && git clone --depth 1 https://github.com/barsikus007/config && cd -
 # Install/Update
 # sudo is needed for New-Item -ItemType SymbolicLink
 # TODO split initial and incremental setup

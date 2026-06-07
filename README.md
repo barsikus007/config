@@ -41,39 +41,6 @@ nix eval --impure --raw --expr '
 1. [Upload key](https://github.com/settings/ssh/new)
 2. Configure git (code above fills values)
 
-### [proto](https://moonrepo.dev/proto)
-
-#### usage
-
-```shell
-# TODO https://moonrepo.dev/docs/proto/commands/completions
-proto install go
-# then clean ~/.bashrc
-proto install node lts
-proto install pnpm
-proto install bun
-# TODO proto install rust -- --profile minimal
-```
-
-#### install
-
-##### Linux
-
-```shell
-curl -fsSL https://moonrepo.dev/install/proto.sh | PROTO_INSTALL_DIR=$XDG_CONFIG_HOME/proto/bin bash -s -- --no-profile
-rm -rf ~/.proto/
-```
-
-##### Windows
-
-```powershell
-$env:PROTO_INSTALL_DIR = "~\.config\proto\bin"
-# irm https://moonrepo.dev/install/proto.ps1 | iex
-& ([scriptblock]::Create((irm https://moonrepo.dev/install/proto.ps1))) --no-profile
-Remove-Item -Recurse ~\.proto\
-# TODO add proto to scoop
-```
-
 ### python
 
 ```shell
@@ -158,42 +125,17 @@ hatch run true
     - Experimental settings
       - Add "View Profile"
       - Show Peer IDs in Profile
-      - Send large photos
+      - Show Channel Joined Date in Profile
       - Enable webview inspecting
+      - Unlimited recent stickers
   - AyuGram > General
     - Show Message Seconds
 - [CH340/CH341 driver (chinese Arduino)](https://web.archive.org/https://www.wch-ic.com/downloads/ch341ser_zip.html)
 
-### TODO
+## TODO
 
 - meta
   - check all `*.md` and `*.nix` code sections with `shellcheck`
-  - [clone single dir](https://stackoverflow.com/questions/600079/how-do-i-clone-a-subdirectory-only-of-a-git-repository/52269934#52269934)
-    - `git clone --no-checkout --depth=1 --filter=tree:0 https://github.com/barsikus007/config && cd config && git sparse-checkout set --no-cone /nix && git checkout`
   - nuke media from git history
     - save refs somehow
-      - new branch
-
-### archive
-
-- Docker Desktop Extensions
-  - Ddosify
-  - Disk usage
-- PyCharm
-  - Settings Sync
-  - Terminal | pwsh.exe -NoLogo
-  - File > Settings > Appearance & Behavior > File Colors >> Non-Project Files -> Use in editor tabs
-- YtMusic
-  - adblocker
-  - blur-nav-bar
-  - lyrics-genius
-  - navigation
-  - picture-in-picture
-  - precise-volume
-  - shortcuts
-  - sponsorblock
-  - video-toggle
-- IOS dualboot
-  - <https://github.com/MatthewPierson/Divise>
-  - <https://www.youtube.com/watch?v=_owhlPukE_A>
-  - <https://dualbootfun.github.io/dualboot/>
+      - new branch or repo for that

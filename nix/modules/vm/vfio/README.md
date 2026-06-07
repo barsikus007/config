@@ -214,7 +214,7 @@ cd "win10-ltsc-$UPDATE_ID"
 aria2c -x16 -s16 -j5 -c -R -i <(curl -s "https://uupdump.net/get.php?id=$UPDATE_ID&pack=en-us&edition=core%3Bprofessional&aria2=2" | grep --extended-regexp "(Windows10|SSU)" --context 2 --no-group-separator)
 wget "https://raw.githubusercontent.com/mariahlamb31/BatUtil/27ab2d01e2d2cf47c87835c90a0991ca4d7c5f64/W10UI/W10UI.cmd"
 
-BACKUP_DIR=/run/media/ogurez/NAS/Desktop/1VM/qcows/win10-1st
+BACKUP_DIR=/run/media/$USER/NAS/Desktop/1VM/qcows/win10-1st
 mkdir -p "$BACKUP_DIR"
 sudo sh -c "cp /var/lib/libvirt/images/* $BACKUP_DIR"
 sudo cp /var/lib/libvirt/qemu/win10.xml "$BACKUP_DIR"

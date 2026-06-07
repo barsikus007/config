@@ -8,7 +8,7 @@ Goal is to provide modular close to windows-godlike desktop experience
 
 ```shell
 cd
-git clone https://github.com/barsikus007/config
+git clone --depth=1 https://github.com/barsikus007/config
 # cp config/nix/ ~/ && cd nix/
 cd ~/config/nix/
 sed -i 's/ogurez/YOUR_USERNAME/' flake.nix
@@ -30,7 +30,7 @@ Set user password and TODO other steps from [NixOS installation manual](https://
    1. add `pipe-operators` to `experimental-features`
    2. add `git` to `environment.packages`
 3. `nix-on-droid switch --flake ~/.config/nix-on-droid`
-4. `cd && git clone https://github.com/barsikus007/config && cd -`
+4. `cd && git clone --depth=1 https://github.com/barsikus007/config && cd -`
 5. `nix-on-droid switch --flake ~/config/nix`
 
 ### Asus ROG G14 2020-2021 specific

@@ -272,3 +272,11 @@ docker run -d \
 -v /var/run/docker.sock:/var/run/docker.sock \
 nickfedor/watchtower --cleanup --remove-volumes
 ```
+
+### [git: clone single dir](https://stackoverflow.com/questions/600079/how-do-i-clone-a-subdirectory-only-of-a-git-repository/52269934#52269934)
+
+```shell
+git clone --depth=1 --no-checkout --filter=tree:0 https://github.com/barsikus007/config && cd config && git sparse-checkout set --no-cone /nix && git checkout
+#? undo
+git sparse-checkout disable
+```

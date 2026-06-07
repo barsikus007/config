@@ -28,7 +28,7 @@ chsh -s /bin/bash
 #### Clone
 
 ```shell
-cd && git clone https://github.com/barsikus007/config --depth 1 && cd -
+cd && git clone --depth=1 https://github.com/barsikus007/config && cd -
 ```
 
 #### Install/Update

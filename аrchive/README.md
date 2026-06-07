@@ -62,3 +62,56 @@ sudo btrfs subvolume delete /mnt/btrfs_tmp/@persistent-backup-2026-05-14
 sudo umount /mnt/btrfs_tmp
 sudo rm /mnt/btrfs_restore.img
 ```
+
+## [proto](https://moonrepo.dev/proto)
+
+### usage
+
+```shell
+# TODO https://moonrepo.dev/docs/proto/commands/completions
+proto install go
+# then clean ~/.bashrc
+proto install node lts
+proto install pnpm
+proto install bun
+# TODO proto install rust -- --profile minimal
+```
+
+### install
+
+#### Linux
+
+```shell
+curl -fsSL https://moonrepo.dev/install/proto.sh | PROTO_INSTALL_DIR=$XDG_CONFIG_HOME/proto/bin bash -s -- --no-profile
+rm -rf ~/.proto/
+```
+
+#### Windows
+
+```powershell
+$env:PROTO_INSTALL_DIR = "~\.config\proto\bin"
+# irm https://moonrepo.dev/install/proto.ps1 | iex
+& ([scriptblock]::Create((irm https://moonrepo.dev/install/proto.ps1))) --no-profile
+Remove-Item -Recurse ~\.proto\
+# TODO add proto to scoop
+```
+
+## other
+
+- Docker Desktop Extensions
+  - Ddosify
+  - Disk usage
+- PyCharm
+  - Settings Sync
+  - Terminal | pwsh.exe -NoLogo
+  - File > Settings > Appearance & Behavior > File Colors >> Non-Project Files -> Use in editor tabs
+- YtMusic
+  - adblocker
+  - blur-nav-bar
+  - lyrics-genius
+  - navigation
+  - picture-in-picture
+  - precise-volume
+  - shortcuts
+  - sponsorblock
+  - video-toggle
