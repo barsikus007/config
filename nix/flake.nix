@@ -167,6 +167,9 @@
           ./modules/vm
           ./modules/vm/gui.nix
           ./modules/vm/vfio
+
+          ./modules/services/networking/wireguard-ui.nix
+          # TODO: ./modules/system/activation
           (
             { lib, config, ... }:
             {
