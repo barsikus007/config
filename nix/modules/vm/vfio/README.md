@@ -11,7 +11,7 @@ codename `Windows-Resurrect`
 1. [LTSC](https://massgrave.dev/windows10_eol#windows-10-iot-enterprise-ltsc-2021)
    1. mount it 1st (as SATA SDROM, like others)
    2. optional integrate updates/drivers (see below)
-2. `nix build ./nix#windowsBootstrapIso -o unattend-win10-iot-ltsc-vrt.iso --print-build-logs` ([content](../../../packages/windows/default.nix))
+2. `nix build ./nix#windows-bootstrapIso -o unattend-win10-iot-ltsc-vrt.iso --print-build-logs` ([content](../../../packages/windows/default.nix))
    1. mount it 2nd
    2. [soft which will be installed](../../../packages/windows/AdditionalVMSetup.ps1)
 3. run in pwsh **as user** `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/installOnWin10LTSC.ps1 | iex`([content](../../../../windows/installOnWin10LTSC.ps1))

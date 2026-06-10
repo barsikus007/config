@@ -1,5 +1,5 @@
 {
-  #? nr --argstr configurationName "coolvm"
+  #? nr --argstr configurationName "coolvm-niri"
   configurationName ? "ROG14",
 }:
 let

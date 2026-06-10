@@ -115,6 +115,57 @@
           ];
         };
       };
+
+      mkCoolVm =
+        name: username: modules:
+        nixpkgs.lib.nixosSystem {
+          inherit system pkgs;
+          specialArgs = mkSpecialArgs username;
+          modules = modules ++ [
+            #? link current nixpkgs source to store to avoid refetching it withing guest
+            ./shared/options.nix
+            (
+              { username, ... }:
+              {
+                networking.hostName = "coolvm";
+
+                virtualisation.vmVariant.virtualisation = {
+                  diskImage = null;
+                  memorySize = 8 * 1024;
+                  cores = 8;
+                  #! sharedDirectories
+                  qemu.options = [
+                    "-monitor stdio"
+                    # "-full-screen"
+                  ];
+                };
+
+                #! 152Mb
+                environment.systemPackages = import ./shared/lists/02_add.nix { inherit pkgs; };
+                #! +720Mb for nix tools, wtf
+                # environment.systemPackages = import ./shared/lists { inherit pkgs; };
+
+                #! 11Mb initial size
+                home-manager.users.${username} = {
+                  imports = [
+                    ./shared/options.nix
+
+                    ./home
+                    ./home/shell
+
+                    ./home/gui/neovide.nix
+                    ./home/gui/browser/firefox.nix
+                    {
+                      inherit custom;
+                    }
+                  ];
+                };
+
+                users.users.${username}.initialPassword = "0";
+              }
+            )
+          ];
+        };
     in
     {
       nixosConfigurations."NixOS-WSL" = nixpkgs.lib.nixosSystem {
@@ -269,73 +320,21 @@
         ];
       };
 
-      #? subset of my desktop system for testing purposes
-      nixosConfigurations."coolvm" = nixpkgs.lib.nixosSystem {
-        #? nh os build-vm --hostname coolvm && ./result/bin/run-*-vm
-        # TODO: sunshine; vfio
-        inherit system pkgs;
-        specialArgs = mkSpecialArgs "ogurez";
-        #? check every module impact on closure size:
-        # nix path-info --closure-size --human-readable ./result
-        modules = [
-          # ./hosts/vm/minimal.nix
-          # ./hosts/vm
-          # ./hosts/vm/paravirt-spiced.nix
-          # ./hosts/vm/vfio-pass.nix
+      #? subsets of my desktop systems for testing purposes
+      nixosConfigurations."coolvm-niri" = mkCoolVm "niri" "ogurez" [
+        ./hosts/vm/niri-paravirt.nix
 
-          ./hosts/vm/niri-paravirt.nix
-          # ./hosts/vm/kde-sunshined.nix
-          #! ./result/bin/run-*-vm -device virtio-vga
-          # ./hosts/vm/kde-sunshined-vfio.nix
-          {
-            networking.hostName = "coolvm";
+        ./modules/desktop/manager/niri-de.nix
+        # ./modules/desktop/manager/niri-dms.nix
+      ];
+      nixosConfigurations."coolvm-plasma" = mkCoolVm "plasma" "ogurez" [
+        # ./hosts/vm/vfio-pass.nix
+        ./hosts/vm/kde-sunshined.nix
+        #! ./result/bin/run-*-vm -device virtio-vga
+        # ./hosts/vm/kde-sunshined-vfio.nix
 
-            virtualisation.vmVariant.virtualisation = {
-              diskImage = null;
-              memorySize = 8 * 1024;
-              cores = 8;
-              #! sharedDirectories
-              qemu.options = [
-                "-monitor stdio"
-                "-full-screen"
-              ];
-            };
-          }
-          # ./shared/options.nix
-
-          ./modules/desktop/manager/niri-de.nix
-          # ./modules/desktop/manager/niri-dms.nix
-          # ./modules/desktop/manager/plasma.nix
-          #? link current nixpkgs source to store to avoid refetching it withing guest
-          (
-            { username, ... }:
-            {
-              #! 152Mb
-              environment.systemPackages = import ./shared/lists/02_add.nix { inherit pkgs; };
-              #! +720Mb for nix tools, wtf
-              # environment.systemPackages = import ./shared/lists { inherit pkgs; };
-
-              #! 11Mb initial size
-              home-manager.users.${username} = {
-                imports = [
-                  ./shared/options.nix
-
-                  ./home
-                  ./home/shell
-
-                  ./home/gui/neovide.nix
-                  ./home/gui/browser/firefox.nix
-                  {
-                    inherit custom;
-                  }
-                ];
-              };
-
-              users.users.${username}.initialPassword = "0";
-            }
-          )
-        ];
-      };
+        ./modules/desktop/manager/plasma.nix
+      ];
 
       #? https://github.com/NixOS/nixpkgs/tree/master/nixos/modules/installer/cd-dvd
       nixosConfigurations."minimalIso-${system}" = nixpkgs.lib.nixosSystem {
@@ -471,11 +470,13 @@
         {
           #? nix {build,run} ./nix# <tab>
 
-          default = self.nixosConfigurations."coolvm".config.system.build.vm;
-          nixosMinimalIso = self.nixosConfigurations."minimalIso-${system}".config.system.build.isoImage;
-          nixosPlasmaIso = self.nixosConfigurations."plasmaIso-${system}".config.system.build.isoImage;
-          windowsBootstrapIso = callPackage ./packages/windows { };
-          # nix build ./nix#windowsBootstrapIso -o unattend-win10-iot-ltsc-vrt.iso
+          default = self.packages."coolvm-niri";
+          coolvm-niri = self.nixosConfigurations."coolvm-niri".config.system.build.vm;
+          coolvm-plasma = self.nixosConfigurations."coolvm-plasma".config.system.build.vm;
+          nixos-minimalIso = self.nixosConfigurations."minimalIso-${system}".config.system.build.isoImage;
+          nixos-plasmaIso = self.nixosConfigurations."plasmaIso-${system}".config.system.build.isoImage;
+          windows-bootstrapIso = callPackage ./packages/windows { };
+          # nix build ./nix#windows-bootstrapIso -o unattend-win10-iot-ltsc-vrt.iso
 
           bcompare = (callPackage ./packages/bcompare.nix { }).overrideAttrs {
             #? sorry, I can't buy this software right now (and trial doesn't work)
