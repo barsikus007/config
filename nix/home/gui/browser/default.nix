@@ -3,6 +3,7 @@
   imports = [
     ./chromium.nix
     ./firefox.nix
+    ./furryfox.nix
   ];
   xdg.mimeApps =
     let
