@@ -57,7 +57,6 @@
       "QtProject.conf"."FileDialog"."shortcuts" = lib.concatStringsSep ", " [
         "file:"
         "file://${config.home.homeDirectory}"
-        "file://${config.home.homeDirectory}/Desktop"
         "file://${config.home.homeDirectory}/Downloads"
         "file://${config.home.homeDirectory}/Sync"
         "file:///run/media/${config.home.username}/Data/projects"

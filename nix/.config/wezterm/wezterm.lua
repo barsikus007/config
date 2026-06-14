@@ -35,7 +35,7 @@ return {
         { key = 'q',   mods = 'CTRL',       action = act.CloseCurrentTab { confirm = false } },
         --! it slightly differs from usual MRU
         --? https://github.com/wezterm/wezterm/issues/4518
-        { key = "Tab", mods = 'CTRL',       action = "ActivateLastTab" },
+        -- { key = "Tab", mods = 'CTRL',       action = "ActivateLastTab" },
         { key = 'Tab', mods = 'CTRL',       action = act.ActivateTabRelative(1) },
         { key = 'Tab', mods = 'CTRL|SHIFT', action = act.ActivateTabRelative(-1) },
 

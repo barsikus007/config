@@ -73,6 +73,7 @@ window-rule {
     match app-id=r#"^org\.wezfurlong\.wezterm\.floating$"#
     match app-id=r#"^com\.ayugram\.desktop$"# title="^Media viewer$"
     match app-id="scrcpy"
+    match app-id=r#"\.exe$"#
     open-floating true
 }
 // window-rule {
@@ -102,6 +103,7 @@ window-rule {
     match app-id=r#"^org\.kde\.ark$"#     title="^Loading archive .*— Ark$"
     match app-id=r#"^org\.kde\.ark$"#     title="^Extracting one file — Ark$"
     open-floating true
+    open-focused false
     //? focus-ring width x3
     default-floating-position x=24 y=24 relative-to="top-right"
     // default-window-height { proportion 0.5; }

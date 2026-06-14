@@ -14,6 +14,9 @@
             # fuse3
             # vulkan-headers
             # vulkan-tools
+
+            #? libQt6PrintSupport for cheat-engine
+            kdePackages.qtbase
           ]
           (steam-run.args.targetPkgs pkgs)
           (steam-run.args.multiPkgs pkgs)

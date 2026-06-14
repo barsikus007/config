@@ -8,11 +8,11 @@ in
     ../../modules/impermanence/on-zfs.nix
   ];
 
-  # sudo mkdir -p /persistent/etc/NetworkManager /persistent/var/{db,log,lib}
+  #? sudo mkdir -p /persistent/etc/NetworkManager /persistent/var/{db,log,lib}
   environment.persistence."${persistentDir}" = {
     # enable = false; # ? NB: Defaults to true, not needed
 
-    # sudo cp -ax /var/lib{bluetooth,...,waydroid} /persistent/var/lib
+    #? sudo cp -ax /var/lib{bluetooth,...,waydroid} /persistent/var/lib
     directories = [
       "/etc/asusd" # ? current anime state
       "/etc/NetworkManager/system-connections"
@@ -36,10 +36,10 @@ in
       # "/etc/logrotate.status" # TODO: is this needed? /var/log/{b,w}tmp
     ];
     users.${username} = {
-      # sudo mkdir -p /persistent/home/$USER && sudo chown $USER: /persistent/home/$USER
-      # cp -ax /home/$USER/{...} /persistent/home/$USER/
+      #? sudo mkdir -p /persistent/home/$USER && sudo chown $USER: /persistent/home/$USER
+      #? cp -ax /home/$USER/{...} /persistent/home/$USER/
       directories = [
-        "Desktop"
+        # "Desktop"
         "Documents"
         "Downloads"
         "Games"
