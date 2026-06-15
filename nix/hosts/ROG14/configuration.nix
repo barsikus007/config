@@ -30,7 +30,7 @@ in
 
   #! modules here are bound to specific hardware features (including disks)
   imports = [
-    ./..
+    ../extra.nix
     # TODO: PR: file for whole 2020th ga401, not just iv; https://github.com/NixOS/nixos-hardware/issues/1450
     #? https://github.com/NixOS/nixos-hardware/blob/master/asus/zephyrus/ga401iv/default.nix
     inputs.nixos-hardware.nixosModules.asus-zephyrus-ga401iv

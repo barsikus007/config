@@ -1,5 +1,5 @@
 { pkgs, ... }:
-#! 970Mb
+#! 470Mb
 {
   imports = [
     ./minimal.nix
@@ -27,20 +27,6 @@
     vimAlias = true;
   };
   environment.variables.VISUAL = "nvim";
-
-  #! 150Mb
-  fonts.packages = with pkgs; [
-    cascadia-code
-  ];
-  fonts.fontconfig.defaultFonts.monospace = [
-    "Cascadia Code NF"
-  ];
-
-  #! 350Mb
-  programs.appimage = {
-    enable = true;
-    binfmt = true;
-  };
 
   #? many tools (Python stdlib, uv) hardcode /etc/ssl/cert.pem
   environment.etc."ssl/cert.pem".source = "/etc/ssl/certs/ca-bundle.crt";

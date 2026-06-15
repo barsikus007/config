@@ -16,7 +16,7 @@
     ++ (import ../../shared/lists/12_python.nix { inherit pkgs; });
 
   imports = [
-    ./..
+    ../extra.nix
     ./hardware-configuration.nix
     ./disk-config.nix
     ./impermanence.nix
