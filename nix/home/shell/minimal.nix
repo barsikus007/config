@@ -12,17 +12,16 @@ let
   inherit (aliases) zshAliases;
 in
 {
-  imports = [
-    ./bat.nix
-  ];
-  home.packages = with pkgs; [ zsh-completions ];
-  # TODO: finer way to do it
+  imports = [ ./bat.nix ];
+
   xdg.configFile."shell/".source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/shell/";
+  home.shellAliases = sharedAliases;
+  home.packages = with pkgs; [ zsh-completions ];
   programs.zsh = {
     enable = true;
-    shellAliases = sharedAliases // zshAliases;
+    shellAliases = zshAliases;
     history = {
-      #? cp ~/.config/zsh/.zsh_history ~/Sync/backup/.zsh_history_$(date +%Y-%m-%d'_'%H_%M_%S).bak
+      #? cp ~/.config/zsh/.zsh_history ~/Sync/backup/.zsh_history_$(hostname)_$(date +%Y-%m-%d'_'%H_%M_%S).bak
       size = 100000;
     };
     autocd = true;
@@ -47,7 +46,6 @@ in
   };
   programs.bash = {
     enable = true;
-    shellAliases = sharedAliases;
     historySize = 100000;
     historyControl = [ "ignoreboth" ];
     initExtra = /* shell */ ''
@@ -56,10 +54,6 @@ in
       done
     '';
   };
-  # programs.fish = {
-  #   enable = true;
-  #   shellAliases = sharedAliases;
-  # };
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;

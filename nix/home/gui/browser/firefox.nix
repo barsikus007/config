@@ -101,10 +101,6 @@
           #? https://github.com/FirefoxCSS-Store/FirefoxCSS-Store.github.io/blob/main/README.md#generic-installation
           "sidebar.revamp" = false;
           "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-
-          #! fuck wayland, I guess?
-          #? https://www.reddit.com/r/firefox/comments/1qkp6ib/comment/occi226
-          "widget.wayland.fractional-scale.enabled" = false;
         };
 
         # visit

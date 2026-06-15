@@ -334,15 +334,30 @@ in
     enable = true;
     settings =
       let
-        #! niri 25.02 named workspaces are sticky, need to move it manually
+        #! niri 25.02 named workspaces are sticky, need to move them manually
+        #! kanshi fires exec right after sending the output config, before niri finished
+        #! bringing the head up, so a separate script waits for the output then moves them
         repinWorkspaces =
           output:
           let
             niri = lib.getExe config.programs.niri.package;
+            jq = lib.getExe pkgs.jq;
             move = workspace: "${niri} msg action move-workspace-to-monitor --reference ${workspace} ${output}";
           in
-          #!  move social first to leave games on top
-          [ "${move "social"} && ${move "games"}" ];
+          [
+            (lib.getExe (
+              pkgs.writeShellScriptBin "niri-repin-workspaces" /* shell */ ''
+                #! wait until niri has the docked output configured (logical set), not just the connector
+                for _ in $(seq 1 50); do
+                    ${niri} msg --json outputs | ${jq} -e '."${output}".logical != null' >/dev/null 2>&1 && break
+                    sleep 0.1
+                done
+                #!  move social first to leave games on top
+                ${move "social"}
+                ${move "games"}
+              ''
+            ))
+          ];
       in
       [
         {
@@ -389,6 +404,7 @@ in
             {
               criteria = "Samsung Electric Company SAMSUNG 0x01000000";
               mode = "1920x1080@60";
+              position = "0,0";
             }
           ];
         }

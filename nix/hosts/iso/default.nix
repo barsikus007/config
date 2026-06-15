@@ -20,6 +20,8 @@
 
   system.stateVersion = config.system.nixos.release;
 
+  users.defaultUserShell = with pkgs; lib.mkForce bashInteractive;
+
   services.openssh.settings.PermitRootLogin = "yes";
   users.users.root.openssh.authorizedKeys.keys =
     config.users.users.${username}.openssh.authorizedKeys.keys;

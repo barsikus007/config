@@ -69,7 +69,9 @@ let
         substituteInPlace $out/bin/bcompare \
           --replace-fail "/usr/lib/beyondcompare" "$out/lib/beyondcompare" \
           --replace-fail "ldd" "${glibc.bin}/bin/ldd" \
-          --replace-fail "/bin/bash" "${runtimeShell}"
+          --replace-fail "/bin/bash" "${runtimeShell}" \
+          `# prefer native wayland (fixes DnD via xwayland bridge), fall back to xcb on X sessions` \
+          --replace-fail "QT_QPA_PLATFORM=xcb" "QT_QPA_PLATFORM=\"wayland;xcb\""
 
         substituteInPlace $out/lib/beyondcompare/bcmount.sh \
           --replace-fail "python3" "${python.interpreter}"

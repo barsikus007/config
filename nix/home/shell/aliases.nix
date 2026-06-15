@@ -167,8 +167,8 @@ rec {
   ];
   zshAliases = {
     #? https://bbs.archlinux.org/viewtopic.php?id=132830
-    sudo = "nocorrect sudo ";
-    sudoe = "nocorrect sudo env PATH=$PATH ";
+    sudo = lib.mkForce "nocorrect sudo ";
+    sudoe = lib.mkForce "nocorrect sudo env PATH=$PATH ";
     "?" = "type_colored_and_nix_truncate";
     "??" = "type_colored";
     history-cat = "nvim -R +'set filetype=bash' ~/.config/zsh/.zsh_history";

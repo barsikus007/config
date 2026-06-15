@@ -59,6 +59,8 @@
         "ru": true
     },
     "editor.foldingMaximumRegions": 50000,
+    //? to open settings.json as normal tab
+    "workbench.editor.useModal": "off",
     "terminal.integrated.stickyScroll.enabled": false,
     "terminal.integrated.scrollback": 50000,
     "terminal.integrated.initialHint": false,
@@ -101,8 +103,10 @@
     "dev.containers.dockerPath": "podman",
     //! AI AI AI
     "chat.agent.enabled": true,
-    //? friendship end with copilot, now I use genimi
+    //? friendship end with copilot, now I use claude
     "chat.disableAIFeatures": true,
+    "claudeCode.hideOnboarding": true,
+    "claudeCode.disableLoginPrompt": true,
     // #endregion misc
     // #region nix
     "nix.enableLanguageServer": true,

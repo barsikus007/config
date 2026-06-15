@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   imports = [ ./wine.nix ];
+
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
