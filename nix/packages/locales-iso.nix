@@ -8,8 +8,8 @@
   locales = locales;
 }).overrideAttrs
   (previousAttrs: {
-    patchPhase = (previousAttrs.patchPhase or "") + ''
-      substituteInPlace localedata/locales/en_GB \
-        --replace-fail 'd_fmt       "%d//%m//%y"' 'd_fmt       "%F"'
+    postPatch = (previousAttrs.postPatch or "") + /* shell */ ''
+      cp localedata/locales/en_DK localedata/locales/en_SE
+      echo 'en_SE.UTF-8/UTF-8 \' >> localedata/SUPPORTED
     '';
   })

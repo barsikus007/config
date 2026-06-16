@@ -2,7 +2,10 @@
 #! 970Mb
 {
   #! 470Mb
-  imports = [ ./. ];
+  imports = [
+    ./.
+    ../modules/locale.nix
+  ];
 
   #! 150Mb
   fonts.packages = with pkgs; [

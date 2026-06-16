@@ -28,13 +28,9 @@
     ../../home/gui/games
     ../../home/gui/games/minecraft.nix
     {
-      programs.nvf.settings.vim.lsp.enable = true;
-    }
-    {
       inherit custom;
 
-      # TODO: fuck the firefox ?
-      home.sessionVariables.LC_TIME = "en_GB.UTF-8";
+      programs.nvf.settings.vim.lsp.enable = true;
     }
   ];
 }

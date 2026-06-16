@@ -194,7 +194,6 @@
           ./modules/nix-ld.nix
           ./modules/containers
           ./modules/silent-boot.nix
-          ./modules/locale.nix
           ./modules/network.nix
           ./modules/swap.nix
           ./modules/java.nix
