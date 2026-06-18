@@ -1,8 +1,4 @@
-{
-  pkgs,
-  config,
-  ...
-}:
+{ pkgs, config, ... }:
 #? comfort and rational settings for locales
 {
   time.timeZone = "Europe/Moscow";
