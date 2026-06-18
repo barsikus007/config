@@ -74,6 +74,7 @@ window-rule {
     match app-id=r#"^com\.ayugram\.desktop$"# title="^Media viewer$"
     match app-id="scrcpy"
     match app-id=r#"\.exe$"#
+    match app-id=r#"^cheatengine"#
     open-floating true
 }
 // window-rule {
@@ -98,8 +99,7 @@ window-rule {
 window-rule {
     //? status windows at noctalia OSD location
     match app-id=r#"^org\.kde\.dolphin$"# title="^Progress Dialog — Dolphin$"
-    match app-id=r#"^org\.kde\.dolphin$"# title="^Copying .*— Dolphin$"
-    match app-id=r#"^org\.kde\.dolphin$"# title="^Moving .*— Dolphin$"
+    match app-id=r#"^org\.kde\.dolphin$"# title="^(Copying|Moving|Deleting|Extracting) .*— Dolphin$"
     match app-id=r#"^org\.kde\.ark$"#     title="^Loading archive .*— Ark$"
     match app-id=r#"^org\.kde\.ark$"#     title="^Extracting one file — Ark$"
     open-floating true
@@ -232,7 +232,7 @@ binds {
     Mod+Tab repeat=false { toggle-overview; }
 
     Mod+Q   repeat=false { close-window; }
-    Alt+F4  repeat=false { close-window; }
+    Alt+F4  repeat=false { spawn "kill-focused-window-pid"; }
 
     //? default move keys (except some vim-specific)
     Mod+Left  { focus-column-left; }

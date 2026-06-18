@@ -1,4 +1,5 @@
 {
+  pkgs,
   config,
   inputs,
   username,
@@ -16,6 +17,14 @@
 #?
 #? grep "zfs create" $(nix build ./nix#nixosConfigurations.ROG14.config.system.build.diskoScript --print-out-paths) --after-context=2
 #? zfs change-key -o keylocation=prompt zroot
+let
+  #? https://wiki.archlinux.org/title/NTFS-3G#Linux_compatible_permissions
+  ntfsUserMapping = pkgs.writeText "ntfs-usermapping" ''
+    1000::S-1-5-21-2891596990-1220146427-2962973337-1001
+    :100:S-1-5-21-2891596990-1220146427-2962973337-513
+    ::S-1-5-21-2891596990-1220146427-2962973337-10000
+  '';
+in
 {
   imports = [
     inputs.disko.nixosModules.disko
@@ -46,8 +55,7 @@
         # device = "/dev/disk/by-uuid/01DC4611808524F0";
         mountOptions = [
           "rw"
-          "uid=1000"
-          "gid=100"
+          "usermapping=${ntfsUserMapping}"
         ];
       };
       "/run/media/${username}/System" = {
@@ -56,8 +64,7 @@
         # device = "/dev/disk/by-uuid/01DCD272E968DAA0";
         mountOptions = [
           "rw"
-          "uid=1000"
-          "gid=100"
+          "usermapping=${ntfsUserMapping}"
         ];
       };
       "/run/media/${username}/NAS" = {

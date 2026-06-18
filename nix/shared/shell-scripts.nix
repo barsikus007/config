@@ -27,6 +27,15 @@ with pkgs;
 
     ${lib.getExe wezterm} start --always-new-process -- ${lib.getExe btop} --filter "$PID"
   '')
+  (writeShellScriptBin "kill-focused-window-pid" /* shell */ ''
+    PID=$(get-focused-window-pid)
+    if [ -z "$PID" ]; then
+      ${lib.getExe libnotify} "Error" "No valid PID obtained for window ID $WINDOW_ID." --urgency=critical
+      exit 1
+    fi
+
+    kill "$PID"
+  '')
   (writeShellScriptBin "slurp-grim-screenshot" /* shell */ ''
     ${lib.getExe grim} -g "$(${lib.getExe slurp})" -l 0 - | ${pkgs.wl-clipboard}/bin/wl-copy
   '')

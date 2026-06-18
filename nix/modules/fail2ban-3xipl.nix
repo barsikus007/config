@@ -10,6 +10,8 @@ in
     enable = true;
     extraPackages = with pkgs; [ iptables ];
 
+    #! sudo fail2ban-client status --all
+    #! sudo fail2ban-client unban --all
     jails.x3ipl = {
       filter.Definition = {
         datepattern = "^%%Y/%%m/%%d %%H:%%M:%%S";

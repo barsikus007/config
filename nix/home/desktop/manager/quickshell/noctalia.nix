@@ -237,7 +237,8 @@ in
         allowPasswordWithFprintd = true;
       };
       location = {
-        #? to make `autoLocate` work, add `api.noctalia.dev` to PBR
+        #? to make this work, add `api.noctalia.dev` to PBR
+        autoLocate = true;
         firstDayOfWeek = 1;
         monthBeforeDay = false;
         use12hourFormat = false;
