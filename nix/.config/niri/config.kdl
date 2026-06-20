@@ -96,19 +96,27 @@ window-rule {
     default-window-height { proportion 0.5; }
     default-column-width { proportion 0.5; }
 }
+
+//? notifications
 window-rule {
+    match app-id="" title="^Syncthing Tray$"
     //? status windows at noctalia OSD location
-    match app-id=r#"^org\.kde\.dolphin$"# title="^Progress Dialog — Dolphin$"
-    match app-id=r#"^org\.kde\.dolphin$"# title="^(Copying|Moving|Deleting|Extracting) .*— Dolphin$"
+    match app-id=r#"^org\.kde\.dolphin$"# title="^(Progress Dialog|Copying|Moving|Deleting|Extracting) .*— Dolphin$"
     match app-id=r#"^org\.kde\.ark$"#     title="^Loading archive .*— Ark$"
     match app-id=r#"^org\.kde\.ark$"#     title="^Extracting one file — Ark$"
+    //? https://niri-wm.github.io/niri/Application-Issues.html#steam
+    match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
     open-floating true
     open-focused false
     //? focus-ring width x3
     default-floating-position x=24 y=24 relative-to="top-right"
-    // default-window-height { proportion 0.5; }
-    // default-column-width { proportion 0.5; }
 }
+//? tray items
+window-rule {
+    match app-id="" title="^Syncthing Tray$"
+    open-focused true
+}
+
 window-rule {
     match app-id=r#"^org\.keepassxc\.KeePassXC$"#
     match app-id=r#"^com\.obsproject\.Studio$"#
@@ -167,6 +175,8 @@ workspace "games" {
 window-rule {
     match app-id=r#"^org\.prismlauncher\.PrismLauncher$"#
     match app-id=r#"^steam$"#
+    match app-id=r#"^gamescope$"#
+    match app-id=r#"^\.gamescope-wrapped$"#
     open-on-workspace "games"
     // open-focused false
 }

@@ -48,7 +48,6 @@ in
         "Videos"
 
         "config"
-        "hax"
         "Sync"
 
         ".cache/.bun" # ? tools installed with bunx

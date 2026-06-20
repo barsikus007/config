@@ -68,6 +68,7 @@
         biggerStreamPreview.enable = true;
         greetStickerPicker.enable = true;
         volumeBooster.enable = true;
+        youtubeAdblock.enable = true;
 
         #? additions
         shikiCodeblocks.enable = true;

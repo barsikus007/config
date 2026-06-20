@@ -4,8 +4,6 @@
 
 ## [WSL Hints](./wsl.md)
 
-## [ethical hacking](./hax.md)
-
 ## [raspberry pi zero w](./devices/rpi-zero.md)
 
 ## Archive

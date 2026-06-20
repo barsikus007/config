@@ -47,7 +47,8 @@
 
   environment.systemPackages = with pkgs; [
     xwayland-satellite
-    xlsclients
+    #? xwininfo -root -tree | grep -v '(has no name): ()'
+    xwininfo
   ];
 
   #? perms for `niri-toggle-touchpad`
