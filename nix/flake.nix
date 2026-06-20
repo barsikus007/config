@@ -335,6 +335,9 @@
         ./modules/desktop/manager/plasma.nix
       ];
 
+      #? nix run ./nix\#checks.x86_64-linux.circus.driver --offline
+      checks.${system}.circus = import ./tests/circus.nix { inherit pkgs; };
+
       #? https://github.com/NixOS/nixpkgs/tree/master/nixos/modules/installer/cd-dvd
       nixosConfigurations."minimalIso-${system}" = nixpkgs.lib.nixosSystem {
         inherit system;

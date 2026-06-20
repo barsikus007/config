@@ -10,5 +10,7 @@
 
     ../../modules/wireguard/server/multihop.nix
     ../../modules/wireguard/server/multihop-egress.nix
+    ../../modules/wireguard/server/dns.nix
+    ../../modules/wireguard/server/ui.nix
   ];
 }

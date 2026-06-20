@@ -6,7 +6,7 @@ let
       args.outInterfaceCfg
     else
       { configFile = "/etc/wireguard/${outInterface}.conf"; };
-  outInterfaceTable = if args ? outInterfaceTable then args.outInterfaceTable else 120;
+  outInterfaceTable = toString (if args ? outInterfaceTable then args.outInterfaceTable else 120);
 in
 {
   networking.wg-quick.interfaces.${outInterface} = outInterfaceCfg // {
