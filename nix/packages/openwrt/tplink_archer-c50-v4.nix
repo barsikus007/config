@@ -14,7 +14,7 @@ let
     }
   );
   arch = "mipsel_24kc";
-  inherit (import ./. { }) mkAmneziaPackages;
+  inherit (import ./. { inherit (pkgs) fetchurl; }) mkAmneziaPackages;
 in
 inputs.openwrt-imagebuilder.lib.build (
   profile

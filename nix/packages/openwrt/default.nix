@@ -1,4 +1,4 @@
-{ }:
+{ fetchurl }:
 rec {
   amneziaPackages = {
     #? nix hash convert sha256:hash
@@ -57,7 +57,7 @@ rec {
       inherit (amneziaPkg) depends;
       type = "real";
       filename = "${name}_v${release_string}.ipk";
-      file = builtins.fetchurl {
+      file = fetchurl {
         url = "https://github.com/Slava-Shchipunov/awg-openwrt/releases/download/v${profile.release}/${filename}";
         sha256 = amneziaPkg.hash.${release_string};
       };

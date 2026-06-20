@@ -1,7 +1,7 @@
 { pkgs, config, ... }:
 #? stolen from https://github.com/Spliterash/nix-config/blob/78aec7fd5e0bca659c2e205fc7e1291b5d6e734b/home/soft/furryfox/furryfox.nix
 let
-  furryIcon = builtins.fetchurl {
+  furryIcon = pkgs.fetchurl {
     name = "furryicon";
     #? https://e621.net/posts/5480197
     # url = "https://drive.usercontent.google.com/download?id=1DRqgAnzfJS2Q911biLPUOpd28HCH1F2A&export=download&authuser=0&confirm=t&uuid=04a8ef2f-a1db-4e6f-8ec4-71f45e5f4adb&at=AAINaILDKbY86gTaXEpyEDYpAKWR:1781380863359";

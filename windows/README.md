@@ -77,7 +77,7 @@ foreach ($oldvid in $oldvids) {
 ## TODO
 
 - install windows soft with auto update from winget (think about config sync of that apps)
-- ask scoop maintaners about FAQ about tools with autoupdate
+- ask scoop maintainers about FAQ about tools with autoupdate
 - `~/Documents/PowerShell/profile.ps1`
 - winget
   - `https://builds.parsec.app/package/parsec-windows.exe`

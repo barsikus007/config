@@ -1,5 +1,5 @@
 {
-  lib,
+  fetchurl,
   callPackage,
   runCommand,
   xorriso,
@@ -13,26 +13,20 @@ let
   unattend = callPackage ./unattend.nix { };
 
   additionalVMSetupPs1 = ./AdditionalVMSetup.ps1;
-  massgrave = builtins.fetchurl {
+  massgrave = fetchurl {
     name = "MAS_AIO.cmd";
     url = "https://dev.azure.com/massgrave/Microsoft-Activation-Scripts/_apis/git/repositories/Microsoft-Activation-Scripts/items?path=/MAS/All-In-One-Version-KL/MAS_AIO.cmd&download=true";
-    sha256 = "sha256-1hl89jQf2p+RtE3ue/+cZevSoz7Ra3p3u350aE/Xy74=";
+    sha256 = "sha256-2UsavLok0mxfvhFKFbU6VYaE10oazP95u7JAe+cQKok=";
   };
 
-  openSshServerPackage = builtins.fetchurl {
+  openSshServerPackage = fetchurl {
     url = "https://github.com/PowerShell/Win32-OpenSSH/releases/download/10.0.0.0p2-Preview/OpenSSH-Win64.zip";
     sha256 = "sha256-I/UPNFjExdCxIhfGpd394BNyEKMPqHDpiymCf3tDq6U=";
   };
-  authorizedKeys = [
-    (lib.strings.removeSuffix "\n" (
-      builtins.readFile (
-        builtins.fetchurl {
-          url = "https://github.com/barsikus007.keys";
-          sha256 = "sha256-Tnf/WxeYOikI9i5l4e0ABDk33I5z04BJFApJpUplNi0=";
-        }
-      )
-    ))
-  ];
+  authorizedKeys = fetchurl {
+    url = "https://github.com/barsikus007.keys";
+    sha256 = "sha256-Tnf/WxeYOikI9i5l4e0ABDk33I5z04BJFApJpUplNi0=";
+  };
 
   # scoop = callPackage ./scoop.nix { };
   # mkdir -p $out/\$OEM\$/\$1/Users/Default
@@ -56,7 +50,7 @@ let
     cp ${openSshServerPackage} $out/\$OEM\$/\$\$/Temp/OpenSSH-Win64.zip
 
     mkdir -p $out/\$OEM\$/\$1/ProgramData/ssh
-    echo "${lib.strings.concatStringsSep "\n" authorizedKeys}" >  $out/\$OEM\$/\$1/ProgramData/ssh/administrators_authorized_keys
+    cp ${authorizedKeys} $out/\$OEM\$/\$1/ProgramData/ssh/administrators_authorized_keys
   '';
 in
 runCommand "unattend-win10-iot-ltsc-vrt.iso"

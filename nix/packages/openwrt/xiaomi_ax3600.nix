@@ -12,7 +12,7 @@ let
     }
   );
   arch = "aarch64_cortex-a53";
-  inherit (import ./. { }) mkAmneziaPackages;
+  inherit (import ./. { inherit (pkgs) fetchurl; }) mkAmneziaPackages;
 in
 inputs.openwrt-imagebuilder.lib.build (
   profile

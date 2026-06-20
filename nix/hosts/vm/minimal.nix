@@ -26,4 +26,11 @@
   services.qemuGuest.enable = true;
   services.spice-vdagentd.enable = true;
   services.spice-autorandr.enable = true;
+
+  #! nix flake check: it assert these values for every nixos config
+  fileSystems."/" = {
+    device = "/dev/disk/by-label/nixos";
+    fsType = "ext4";
+  };
+  boot.loader.grub.device = "nodev";
 }

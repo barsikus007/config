@@ -23,6 +23,6 @@
   };
 
   environment.systemPackages = [
-    self.packages.${pkgs.stdenv.hostPlatform.system}.gui.keepassxc
+    self.packages.${pkgs.stdenv.hostPlatform.system}.keepassxc
   ];
 }

@@ -14,6 +14,6 @@
   environment.systemPackages = with pkgs; [
     android-tools
     android-file-transfer
-    self.packages.${stdenv.hostPlatform.system}.soft.adbfs-rootless-libfuse-3
+    self.packages.${stdenv.hostPlatform.system}.adbfs-rootless-libfuse-3
   ];
 }

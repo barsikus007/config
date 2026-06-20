@@ -46,7 +46,7 @@
 
   programs.keepassxc = {
     enable = true;
-    package = self.packages.${pkgs.stdenv.hostPlatform.system}.gui.keepassxc;
+    package = self.packages.${pkgs.stdenv.hostPlatform.system}.keepassxc;
     settings = {
       Browser = {
         Enabled = true;

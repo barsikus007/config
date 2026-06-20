@@ -124,6 +124,7 @@
           modules = modules ++ [
             #? link current nixpkgs source to store to avoid refetching it withing guest
             ./shared/options.nix
+            ./hosts/vm
             (
               { username, ... }:
               {
@@ -248,9 +249,9 @@
             programs.nh.clean.enable = nixpkgs.lib.mkForce false;
 
             environment.systemPackages = with pkgs; [
-              self.packages.${stdenv.hostPlatform.system}.games.hytale
+              self.packages.${stdenv.hostPlatform.system}.hytale
               (callPackage ./packages/shdotenv.nix { })
-              self.packages.${stdenv.hostPlatform.system}.libs.libspeedhack
+              self.packages.${stdenv.hostPlatform.system}.libspeedhack
               # self.packages.${stdenv.hostPlatform.system}.kompas3d-fhs
               #? needs 8.4 GiB * 3 (or more) space to build, takes ~12.2 GiB, and ~18 minutes to download
               (callPackage ./packages/auto/gui/davinci-resolve-studio.nix { })
@@ -308,14 +309,14 @@
         ];
       };
 
-      #? nixos-anywhere --flake ./nix#generic-VPS --generate-hardware-config nixos-generate-config ./nix/hardware-configuration.nix --target-host <hostname>
+      #? nixos-anywhere --flake ./nix#generic-VPS --generate-hardware-config nixos-generate-config ./nix/hosts/empty-hardware-configuration.nix --target-host <hostname>
       nixosConfigurations."generic-VPS" = nixpkgs.lib.nixosSystem {
         inherit system pkgs;
         specialArgs = mkSpecialArgs "nixos";
         modules = [
           ./hosts/vps
           ./hosts/vps/disk-config.nix
-          ./hardware-configuration.nix
+          ./hosts/empty-hardware-configuration.nix
         ];
       };
 
@@ -469,10 +470,21 @@
       };
       packages.${system} =
         with pkgs;
+        let
+          flattenPkgs = lib.concatMapAttrs (
+            name: v:
+            if lib.isDerivation v then
+              { ${name} = v; }
+            else if lib.isAttrs v then
+              flattenPkgs v
+            else
+              { }
+          );
+        in
         {
           #? nix {build,run} ./nix# <tab>
 
-          default = self.packages."coolvm-niri";
+          default = self.packages.${system}.coolvm-niri;
           coolvm-niri = self.nixosConfigurations."coolvm-niri".config.system.build.vm;
           coolvm-plasma = self.nixosConfigurations."coolvm-plasma".config.system.build.vm;
           nixos-minimalIso = self.nixosConfigurations."minimalIso-${system}".config.system.build.isoImage;
@@ -488,46 +500,50 @@
             '';
           };
 
-          telegram-desktop-patched = callPackage ./packages/telegram-desktop-patched.nix { };
-          ayugram-desktop-patched = callPackage ./packages/telegram-desktop-patched.nix {
-            telegram-desktop-client = ayugram-desktop;
-          };
-
           kompas3d = kdePackages.callPackage ./packages/kompas3d { };
           kompas3d-fhs = callPackage ./packages/kompas3d/fhs.nix { };
           grdcontrol = callPackage ./packages/grdcontrol.nix { };
 
-          #? https://github.com/emmanuelrosa/erosanix/tree/master/pkgs/mkwindowsapp
-          # link src.zip to flake dir
-          # `nvidia-offload nix run ./nix#photoshop`
-          photoshop = callPackage ./packages/photoshop.nix {
-            inherit (inputs.erosanix.lib."${system}") mkWindowsAppNoCC copyDesktopIcons makeDesktopIcon;
-            # TODO: retest that it was fucked with unstable wine
-            # wine = wineWow64Packages.unstableFull;
-            wine = wineWow64Packages.stable;
-            scale = 192;
-            src = ./src.zip;
-          };
-
-          openwrt = {
-            xiaomi_ax3600 = import ./packages/openwrt/xiaomi_ax3600.nix { inherit pkgs inputs; };
-            tplink_archer-c50-v4 = (
-              import ./packages/openwrt/tplink_archer-c50-v4.nix { inherit pkgs inputs; }
-            );
-            dewclaw-env = callPackage inputs.dewclaw {
-              configuration = import ./packages/openwrt/dewclaw.nix;
-            };
-          };
-
-          # nix build ./nix#openwrt
-          # or if hash mismatch
-          # nix run <locally cloned nix-openwrt-imagebuilder>#generate-hashes <openwrt version>
-          # nix build --override-input openwrt-imagebuilder <locally cloned nix-openwrt-imagebuilder> ./nix#openwrt
         }
-        // lib.filesystem.packagesFromDirectoryRecursive {
-          inherit callPackage;
-          directory = ./packages/auto;
+        // flattenPkgs (
+          lib.filesystem.packagesFromDirectoryRecursive {
+            inherit callPackage;
+            directory = ./packages/auto;
+          }
+        );
+      legacyPackages.${system} = with pkgs; {
+        #! nix flake check: need to update patches everytime
+        telegram-desktop-patched = callPackage ./packages/telegram-desktop-patched.nix { };
+        ayugram-desktop-patched = callPackage ./packages/telegram-desktop-patched.nix {
+          telegram-desktop-client = ayugram-desktop;
         };
+
+        #! nix flake check: local src
+        #? https://github.com/emmanuelrosa/erosanix/tree/master/pkgs/mkwindowsapp
+        # link src.zip to flake dir
+        # `nvidia-offload nix run ./nix#photoshop`
+        photoshop = callPackage ./packages/photoshop.nix {
+          inherit (inputs.erosanix.lib."${system}") mkWindowsAppNoCC copyDesktopIcons makeDesktopIcon;
+          # TODO: retest that it was fucked with unstable wine
+          # wine = wineWow64Packages.unstableFull;
+          wine = wineWow64Packages.stable;
+          scale = 192;
+          src = ./src.zip;
+        };
+
+        #! nix flake check: openwrt hash drifts
+        # nix build ./nix#openwrt
+        # or if hash mismatch
+        # nix run <locally cloned nix-openwrt-imagebuilder>#generate-hashes <openwrt version>
+        # nix build --override-input openwrt-imagebuilder <locally cloned nix-openwrt-imagebuilder> ./nix#openwrt
+        openwrt-xiaomi_ax3600 = import ./packages/openwrt/xiaomi_ax3600.nix { inherit pkgs inputs; };
+        openwrt-tplink_archer-c50-v4 = (
+          import ./packages/openwrt/tplink_archer-c50-v4.nix { inherit pkgs inputs; }
+        );
+        openwrt-dewclaw-env = callPackage inputs.dewclaw {
+          configuration = import ./packages/openwrt/dewclaw.nix;
+        };
+      };
       formatter.${system} = with pkgs; nixfmt-tree;
     };
 }

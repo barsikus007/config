@@ -1,7 +1,7 @@
-{ username, ... }:
+{ pkgs, username, ... }:
 #? https://github.com/nix-community/nur-combined/blob/301a494ecb37bafb1a31d588844c7999b90c5821/repos/mich-adams/modules/user-icon.nix
 let
-  userIcon = builtins.fetchurl {
+  userIcon = pkgs.fetchurl {
     url = "https://github.com/barsikus007.png";
     sha256 = "sha256-9uVU2KzX97TGS51lgwL8JqdSbX7kbl1uJRDTWo3Mpsg=";
   };
