@@ -61,12 +61,12 @@ stdenv.mkDerivation {
       }
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Script to hack captive portals via MAC spoofing";
     homepage = "https://github.com/crishoj/hack-captive-portals";
-    license = licenses.mit;
-    platforms = platforms.linux;
-    maintainers = [ ];
+    platforms = lib.platforms.linux;
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ barsikus007 ];
     mainProgram = "hack-captive-portals";
   };
 }

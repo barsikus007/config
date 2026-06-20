@@ -54,12 +54,12 @@ stdenv.mkDerivation (finalAttrs: {
     "raster-tspl"
   ];
 
-  meta = with lib; {
+  meta = {
     description = "MPrint drivers for label printers";
     homepage = "https://help.mertech.ru/label_printers/Общее/Установка_пакета_драйверов_для_принтеров.html";
-    platforms = with platforms; lists.intersectLists x86_64 linux;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.unfree;
-    maintainers = with maintainers; [ barsikus007 ];
+    platforms = [ "x86_64-linux" ];
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    license = lib.licenses.unfree;
+    maintainers = with lib.maintainers; [ barsikus007 ];
   };
 })

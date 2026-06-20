@@ -47,13 +47,13 @@ stdenv.mkDerivation {
 
   dontBuild = true;
 
-  meta = with lib; {
+  meta = {
     description = "Professional solutions for software monetization and protection";
     homepage = "https://www.guardant.com/support/users/control-center/";
-    platforms = with platforms; lists.intersectLists x86_64 linux;
-    license = licenses.unfree;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    maintainers = with maintainers; [ barsikus007 ];
+    platforms = [ "x86_64-linux" ];
+    license = lib.licenses.unfree;
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    maintainers = with lib.maintainers; [ barsikus007 ];
     mainProgram = "../opt/guardant/grdcontrol/grdcontrold";
   };
 }

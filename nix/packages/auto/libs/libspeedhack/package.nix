@@ -34,12 +34,12 @@ multiStdenv.mkDerivation (finalAttrs: {
     cp ${finalAttrs.meta.mainProgram} $out/bin
   '';
 
-  meta = with lib; {
+  meta = {
     description = "A simple dynamic library to slowdown or speedup games on Linux Resources";
     homepage = "https://github.com/evg-zhabotinsky/libspeedhack";
-    platforms = with platforms; lists.intersectLists x86_64 linux;
-    license = licenses.mit;
-    maintainers = with maintainers; [
+    platforms = [ "x86_64-linux" ];
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [
       tilcreator
       barsikus007
     ];

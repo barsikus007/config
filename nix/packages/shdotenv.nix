@@ -39,13 +39,12 @@ stdenv.mkDerivation (finalAttrs: {
       }
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Dotenv for shells with support for POSIX-compliant and multiple .env file syntax";
     homepage = "https://github.com/ko1nksm/shdotenv";
-    platforms = platforms.all;
-    license = licenses.mit;
-    sourceProvenance = with sourceTypes; [ fromSource ];
-    maintainers = with maintainers; [
+    platforms = lib.platforms.all;
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [
       hadrienmp
       barsikus007
     ];

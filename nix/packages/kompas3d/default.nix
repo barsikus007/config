@@ -244,7 +244,7 @@ stdenv.mkDerivation {
 
   dontBuild = true;
 
-  meta = with lib; {
+  meta = {
     description = "КОМПАС-3D для машиностроения и приборостроения";
     longDescription = ''
       КОМПАС-3D для машиностроения и приборостроения
@@ -264,10 +264,10 @@ stdenv.mkDerivation {
         * Стандартные Изделия для КОМПАС
     '';
     homepage = "https://ascon.ru/products/kompas-3d/";
-    platforms = with platforms; lists.intersectLists x86_64 linux;
-    license = licenses.unfree;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    maintainers = with maintainers; [ barsikus007 ];
+    platforms = [ "x86_64-linux" ];
+    license = lib.licenses.unfree;
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    maintainers = with lib.maintainers; [ barsikus007 ];
     mainProgram = "kompas-v24";
   };
 }

@@ -18,7 +18,7 @@
   libgudev,
   libfprint,
 
-  withTests ? false,
+  withTests ? true,
   cairo,
 }:
 stdenv.mkDerivation (finalAttrs: {
@@ -76,11 +76,11 @@ stdenv.mkDerivation (finalAttrs: {
     sed -i "36c       value: false)" ./meson_options.txt
   '';
 
-  meta = with lib; {
+  meta = {
     homepage = "https://github.com/infinytum/libfprint/tree/driver/goodix-521d";
     description = "(27c6:521d) Library for fingerprint readers";
-    license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ barsikus007 ];
-    platforms = platforms.linux;
+    license = lib.licenses.lgpl21Only;
+    maintainers = with lib.maintainers; [ barsikus007 ];
+    platforms = lib.platforms.linux;
   };
 })

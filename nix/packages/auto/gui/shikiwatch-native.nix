@@ -46,12 +46,12 @@ flutter329.buildFlutterApplication rec {
     # cp lib/secret.example.dart lib/secret.dart
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Unofficial Android and Windows application for Shikimori";
     homepage = "https://github.com/wheremyfiji/ShikiWatch";
     downloadPage = "https://github.com/wheremyfiji/ShikiWatch/releases";
-    platforms = with platforms; lists.intersectLists x86_64 linux;
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ barsikus007 ];
+    platforms = [ "x86_64-linux" ];
+    license = with lib.licenses; [ mit ];
+    maintainers = with lib.maintainers; [ barsikus007 ];
   };
 }
