@@ -66,93 +66,18 @@ in console to `sendkey ctrl-alt-f2`
 Add `-monitor stdio` to open QEMU console in terminal, where script is launching
 Add `-serial stdio` to open serial console in terminal, where script is launching
 
-### show only enabled programs/services
+### config introspector
+
+(use `NIXPKGS_ALLOW_BROKEN=1 NIXPKGS_ALLOW_UNFREE=1 NIXPKGS_ALLOW_INSECURE=1 NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 nixos-rebuild repl`)
+
+- show enabled programs/services
+- show programs/services which can be enabled (based on packages in PATH)
+- show unfree (paid) apps
 
 ```nix
-let
-  lib = pkgs.lin;
-  toCheck = config.programs;
-  # toCheck = config.services;
-  blacklist = [ "redis" ];
-in
-let
-  names = builtins.attrNames toCheck;
-  getEnable =
-    n:
-    let
-      modEval = builtins.tryEval (toCheck.${n});
-    in
-    if modEval.success then
-      let
-        enableEval = builtins.tryEval (modEval.value.enable or false);
-      in
-      if enableEval.success then enableEval.value else false
-    else
-      false;
-  enabledNames = builtins.filter (n: getEnable n == true) (lib.lists.subtractLists blacklist names);
-in
-lib.attrsets.getAttrs enabledNames toCheck
-```
-
-### show programs/services which can be enabled
-
-use `NIXPKGS_ALLOW_UNFREE=1 NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1`
-
-```nix
-let
-  lib = pkgs.lib;
-  toCheck = config.programs;
-  toCompare = config.environment.systemPackages;
-  # toCompare = config.home.packages;
-  blacklist = [ "redis" ];
-in
-let
-  names = builtins.attrNames toCheck;
-  getEnable =
-    n:
-    let
-      modEval = builtins.tryEval (toCheck.${n});
-    in
-    if modEval.success then
-      let
-        enableEval = builtins.tryEval (modEval.value.enable or null);
-      in
-      if enableEval.success then enableEval.value else false
-    else
-      false;
-  enabledNames = builtins.filter (n: getEnable n == false) (lib.lists.subtractLists blacklist names);
-in
-let
-  disabledSmth = lib.attrsets.getAttrs enabledNames toCheck;
-  comparePackages =
-    n:
-    let
-      modEval = builtins.tryEval (n.package or null);
-    in
-    if modEval.success then builtins.elem modEval.value toCompare else false;
-in
-lib.attrsets.filterAttrs (_: v: comparePackages v) disabledSmth
-```
-
-### show unfree (paid) apps
-
-```nix
-let
-  allExplicitPkgs =
-    config.environment.systemPackages
-    ++ lib.concatMap (u: u.home.packages) (lib.attrValues config.home-manager.users)
-    ++ lib.concatMap (u: u.packages) (lib.attrValues config.users.users)
-    ++ config.fonts.packages
-    ++ [ config.boot.kernelPackages.kernel ];
-
-  isUnfree =
-    pkg:
-    let
-      licenses = lib.toList (pkg.meta.license or [ ]);
-    in
-    lib.any (l: !(l.free or true)) licenses;
-in
-lib.unique (lib.filter isUnfree allExplicitPkgs)
+#! nixos-rebuild repl
+introspected = (import ./nix/lib/utils/config-introspector.nix { inherit pkgs config; })
+introspected.<tab>
 ```
 
 ### recover NixOS-on-ZFS system with liveUSB
