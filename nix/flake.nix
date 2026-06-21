@@ -77,7 +77,7 @@
       url = "github:noctalia-dev/noctalia-qs";
     };
     noctalia = {
-      url = "github:noctalia-dev/noctalia-shell";
+      url = "github:noctalia-dev/noctalia-shell/legacy-v4";
       inputs.noctalia-qs.follows = "noctalia-qs";
     };
     dms = {
@@ -221,28 +221,29 @@
 
           ./modules/services/networking/wireguard-ui.nix
           # TODO: ./modules/system/activation
-          (
-            { lib, config, ... }:
-            {
-              # TODO: unstable: https://github.com/NixOS/nixpkgs/pull/523948
-              security.pam.services.gdm-launch-environment.rules.session.env-greeter =
-                lib.mkIf config.services.displayManager.gdm.enable
-                  {
-                    control = "required";
-                    modulePath = "${config.security.pam.package}/lib/security/pam_env.so";
-                    order = 10250; # between upstream `env` (10200) and `systemd` (10300)
-                    settings.conffile =
-                      let
-                        env = config.services.displayManager.generic.environment;
-                      in
-                      pkgs.writeText "gdm-launch-environment-env-conf" ''
-                        PATH          DEFAULT="''${PATH}:${pkgs.gnome-session}/bin"
-                        XDG_DATA_DIRS DEFAULT="''${XDG_DATA_DIRS}:${env.XDG_DATA_DIRS}"
-                      '';
-                    settings.readenv = 0;
-                  };
-            }
-          )
+          {
+            # TODO: unstable: https://github.com/amnezia-vpn/amneziawg-linux-kernel-module/pull/176#issuecomment-4757244261
+            nixpkgs.overlays = [
+              (_: prev: {
+                cachyosKernels = prev.cachyosKernels // {
+                  linuxPackages-cachyos-bore-lto = prev.cachyosKernels.linuxPackages-cachyos-bore-lto.extend (
+                    _: lpsuper: {
+                      amneziawg = lpsuper.amneziawg.overrideAttrs (old: {
+                        patches = (old.patches or [ ]) ++ [
+                          (prev.fetchpatch2 {
+                            name = "tmp-fix-for-new-kernel-without-ipv6-stub.patch";
+                            url = "https://github.com/amnezia-vpn/amneziawg-linux-kernel-module/commit/2a764691e22f15770aa1551ecae12c0431dbd651.patch?full_index=1";
+                            stripLen = 1;
+                            hash = "sha256-0BcCDBu5XHk1kTrx/24Nwq15n01tCRqnQfBkEvzJmxs=";
+                          })
+                        ];
+                      });
+                    }
+                  );
+                };
+              })
+            ];
+          }
           {
             inherit custom;
 

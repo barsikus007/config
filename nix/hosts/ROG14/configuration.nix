@@ -80,9 +80,7 @@ in
   };
 
   systemd.settings.Manager.DefaultTimeoutStopSec = "20s";
-  systemd.user.extraConfig = ''
-    DefaultTimeoutStopSec=15s
-  '';
+  systemd.user.settings.Manager.DefaultTimeoutStopSec = "15s";
 
   # TODO: laptop specific
   powerManagement.cpuFreqGovernor = "schedutil";

@@ -18,6 +18,7 @@
         monthly = 12;
       };
       default_backup = {
+        autosnap = false;
         autoprune = true;
         frequently = 4 * 2;
         hourly = 24 * 2;
