@@ -1,6 +1,8 @@
 { pkgs, lib, ... }@args:
 let
   inInterface = if args ? inInterface then args.inInterface else "wg0";
+  #? wg0 server address, web panel binds here so it stays reachable over wg0 only
+  inInterfaceAddress = if args ? inInterfaceAddress then args.inInterfaceAddress else "10.69.228.1";
 in
 {
   services.pihole-ftl = {
@@ -56,6 +58,17 @@ in
 
       misc.dnsmasq_lines = import ../../nftset.nix { inherit lib; };
     };
+  };
+
+  #? localhost bind is required: the setup service and `pihole` CLI hit the API
+  #? over 127.0.0.1; wg0 bind ('o' = optional, in case wg0 is not up yet) serves
+  #? clients. neither listens on WAN => panel reachable over wg0 only
+  services.pihole-web = {
+    enable = true;
+    ports = [
+      "127.0.0.1:80"
+      "${inInterfaceAddress}:80o"
+    ];
   };
 
   systemd.services.pihole-ftl.after = [

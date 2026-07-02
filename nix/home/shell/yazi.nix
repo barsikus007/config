@@ -1,9 +1,28 @@
 { pkgs, ... }:
 {
+  home.packages = with pkgs; [
+    #? CLI renders for yazi
+    exiftool
+    ueberzugpp
+
+    #? optional deps from yazi package
+    jq
+    poppler-utils
+    _7zz
+    ffmpeg-headless
+    fd
+    ripgrep
+    fzf
+    zoxide
+    imagemagick
+    chafa
+    resvg
+  ];
   programs.yazi = {
     enable = true;
     settings = {
       mgr.show_hidden = true;
+      mgr.linemode = "size_mtime";
       plugin.prepend_previewers = [
         {
           url = "*.csv";
@@ -46,6 +65,14 @@
             run = "plugin --sync smart-enter";
             desc = "Enter the child directory, or open the file";
           }
+          {
+            on = [
+              "m"
+              "a"
+            ];
+            run = "linemode size_mtime";
+            desc = "Linemode: size and mtime";
+          }
         ];
       };
     };
@@ -66,6 +93,13 @@
       end
       function Linemode:mtime()
         return strip_date_year(self._file.cha.mtime)
+      end
+
+      function Linemode:size_mtime()
+        local SIZE_WIDTH = 7
+        local DATE_WIDTH = 11 -- "01-01 09:41"
+        local format_str = "%" .. SIZE_WIDTH .. "s  %" .. DATE_WIDTH .. "s"
+        return string.format(format_str, self:size(), self:mtime())
       end
     '';
   };

@@ -34,17 +34,6 @@ import ./11_powertoys.nix { inherit pkgs; }
   pgcli
   litecli
 
-  # CLI renders for yazi
-  exiftool
-  poppler
-  resvg
-  imagemagick
-  ueberzugpp
-
-  # sound
-  # for play command for asus
-  sox
-
   # GUI
   gimp3
   scrcpy

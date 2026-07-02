@@ -68,5 +68,5 @@ in
 {
   nixos = getUntrospection config systemPackages;
   home = getUntrospection hmConfig homePackages;
-  unfreeApps = lib.unique (lib.filter isUnfree allExplicitPkgs);
+  unfreeApps = map lib.strings.getName (lib.unique (lib.filter isUnfree allExplicitPkgs));
 }

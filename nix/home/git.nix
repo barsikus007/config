@@ -27,9 +27,18 @@
       rebase.autoStash = "true";
 
       gpg.format = "ssh";
+      url."ssh://git@github.com/".insteadOf = "https://github.com/";
     };
-    # TODO: only on main machine
-    signing.key = "~/.ssh/id_ed25519.pub";
+    signing.key = "key::${
+      lib.strings.removeSuffix "\n" (
+        builtins.readFile (
+          builtins.fetchurl {
+            url = "https://github.com/barsikus007.keys";
+            sha256 = "sha256-Tnf/WxeYOikI9i5l4e0ABDk33I5z04BJFApJpUplNi0=";
+          }
+        )
+      )
+    }";
     signing.signByDefault = true;
   };
   xdg.configFile."git/ignore".source =

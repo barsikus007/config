@@ -9,6 +9,8 @@
     "settingsSync.keybindingsPerPlatform": false,
     "update.mode": "manual",
     "terminal.external.linuxExec": "wezterm",
+    //? https://github.com/microsoft/vscode/issues/312087#issuecomment-4689580280
+    "terminal.integrated.gpuAcceleration": "off",
     // #region appearence
     "terminal.integrated.fontFamily": "Cascadia Code NF",
     "editor.fontFamily": "Cascadia Code NF",
@@ -16,7 +18,6 @@
     "workbench.iconTheme": "vscode-icons",
     "window.autoDetectColorScheme": true,
     "window.commandCenter": false,
-    "chat.commandCenter.enabled": false,
     "workbench.layoutControl.enabled": false,
     "workbench.preferredLightColorTheme": "Shades of Purple",
     // "workbench.preferredDarkColorTheme": "Shades of Purple",
@@ -64,6 +65,10 @@
     "terminal.integrated.stickyScroll.enabled": false,
     "terminal.integrated.scrollback": 50000,
     "terminal.integrated.initialHint": false,
+    "terminal.integrated.enableVisualBell": true,
+    "accessibility.signals.terminalBell": {
+        "sound": "on"
+    },
     // "editor.maxTokenizationLineLength": 200000,
     // #endregion behavior
     // #region misc
@@ -250,7 +255,6 @@
             "siblings_only": true,
         },
     },
-    "markdown-preview-enhanced.liveUpdate": true,
     "[markdown]": {
         "editor.tabSize": 2,
         "editor.defaultFormatter": "yzhang.markdown-all-in-one"
@@ -301,16 +305,11 @@
     // gitlens blame
     // #endregion todo2
     // #region sexperimental
-    "python.analysis.supportRestructuredText": true,
-    "terminal.integrated.suggest.enabled": true,
     "debugpy.showPythonInlineValues": true,
-    "python.terminal.shellIntegration.enabled": true,
-    "python.analysis.usePullDiagnostics": true,
     // #endregion sexperimental
     // #region auto
     "diffEditor.ignoreTrimWhitespace": false, //! (true is default)
     "editor.suggestSelection": "first",
-    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
     "explorer.fileNesting.patterns": {
         "*.ts": "${capture}.js",
         "*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts",

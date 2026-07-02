@@ -247,6 +247,10 @@ in
         enabled = true;
         respectExpireTimeout = true;
         separateSounds = true;
+        criticalSoundFile = pkgs.fetchurl {
+          url = "https://deltarune.wiki/images/Snd_ominous_music.wav";
+          hash = "sha256-Dv1sO1/Se90U8S7sIuRxMihKgctm/j/q/ccvxATYSOM=";
+        };
       };
       plugins.autoUpdate = true;
       idle =

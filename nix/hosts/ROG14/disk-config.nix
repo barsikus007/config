@@ -37,22 +37,33 @@ in
         destroy = false;
         content = {
           type = "gpt";
-          # TODO
+          partitions = {
+            ESP = {
+              size = "1G";
+              type = "EF00";
+              content = {
+                type = "filesystem";
+                format = "vfat";
+                mountpoint = "/boot";
+                mountOptions = [ "umask=0077" ];
+              };
+            };
+            # TODO
+            # zfs = {
+            #   size = "100%";
+            #   content = {
+            #     type = "zfs";
+            #     pool = "zroot";
+            #   };
+            # };
+          };
         };
       };
     };
     nodev = {
-      "/boot" = {
-        fsType = "vfat";
-        device = "/dev/disk/by-uuid/5099-6DA0";
-        mountOptions = [
-          "umask=0077"
-        ];
-      };
       "/run/media/${username}/Data" = {
         fsType = "ntfs-3g";
         device = "/dev/disk/by-label/Data";
-        # device = "/dev/disk/by-uuid/01DC4611808524F0";
         mountOptions = [
           "rw"
           "usermapping=${ntfsUserMapping}"
@@ -61,7 +72,6 @@ in
       "/run/media/${username}/System" = {
         fsType = "ntfs-3g";
         device = "/dev/disk/by-label/System";
-        # device = "/dev/disk/by-uuid/01DCD272E968DAA0";
         mountOptions = [
           "rw"
           "usermapping=${ntfsUserMapping}"

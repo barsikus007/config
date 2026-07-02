@@ -75,6 +75,7 @@ in
         ".config/libreoffice"
         ".config/litecli"
         ".config/ludusavi"
+        ".config/Moonlight Game Streaming Project"
         ".config/mozilla/firefox"
         ".config/noctalia/plugins"
         ".config/obs-studio"
@@ -140,6 +141,8 @@ in
       files = [
         ".claude.json"
 
+        ".cache/fuzzel" # ? recent entries
+
         ".config/gh/hosts.yml"
         ".config/kwin_dialogsrc"
         ".config/kwinoutputconfig.json" # ? monitors
@@ -161,6 +164,7 @@ in
 
     "L+ /home/${username}/awg0.conf 0600 ${username} users - ${persistentDir}/home/${username}/awg0.conf"
     "L+ /home/${username}/wg0local.conf 0600 ${username} users - ${persistentDir}/home/${username}/wg0local.conf"
+    "L+ /home/${username}/.lmstudio 0755 ${username} users - /run/media/${username}/Data/downloads/.lmstudio"
 
     # "L+ /home/${username}/.config/plasmashellrc 0600 ${username} users - ${persistentDir}/home/${username}/.config/plasmashellrc" # ??????? desktop
     # "L+ /home/${username}/.config/plasma-org.kde.plasma.desktop-appletsrc 0600 ${username} users - ${persistentDir}/home/${username}/.config/plasma-org.kde.plasma.desktop-appletsrc" # ??????? desktop

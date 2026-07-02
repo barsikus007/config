@@ -23,8 +23,8 @@
     ./sops.nix
 
     ../../modules/systemd-boot.nix
-    # ../../modules/zfs-kernel.nix
-    ../../modules/cachyos-kernel.nix
+    ../../modules/zfs-lts-kernel.nix
+    # ../../modules/cachyos-kernel.nix
     ../../modules/zfs.nix
     ../../modules/zfs-backup-target.nix
 

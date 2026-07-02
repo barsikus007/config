@@ -2,61 +2,41 @@
 {
   home.packages = with pkgs; [ mcp-nixos ];
 
-  programs.gemini-cli = {
+  programs.antigravity-cli = {
     enable = true;
     # defaultModel = "gemini-3.1-pro-preview";
-    settings = {
-      #! https://github.com/nix-community/home-manager/pull/8707
-      #? onboarding setted settings
-      general.sessionRetention = {
-        warningAcknowledged = true;
-        enabled = true;
-        maxAge = "120d";
-      };
-      security.auth.selectedType = "oauth-personal";
-      ide.hasSeenNudge = true;
-
-      general.enableNotifications = true;
-      mcpServers = {
-        nixos.command = "mcp-nixos";
-      };
-      modelConfigs = {
-        customOverrides = [
-          {
-            match = {
-              model = "gemini-3-flash-preview";
-            };
-            modelConfig = {
-              generateContentConfig = {
-                thinkingConfig = {
-                  thinkingLevel = "HIGH";
-                  includeThoughts = true;
-                };
-              };
-            };
-          }
-        ];
-      };
+    settings.enableTelemetry = false;
+    mcpServers = {
+      nixos.command = "mcp-nixos";
     };
-    policies."allowed_run_shell_commands".rule =
-      map
-        (command: {
-          toolName = "run_shell_command";
-          commandPrefix = command;
-          decision = "allow";
-          priority = 100;
-        })
-        [
-          "ls"
-          "cat"
-          "curl"
-          "find"
-          "grep"
-          "head"
-          "git status"
-          "git log"
-          # "notify-send"
-        ];
-    #? or settings.tools.allowed = [ "run_shell_command(ls)" ... ];
+    permissions.allow = [
+      #? WebFetch(domain -> read_url
+      #? Bash -> command
+      #? Read -> read_file
+      "read_url(github.com)"
+      "read_url(raw.githubusercontent.com)"
+      "read_url(readthedocs.io)"
+      # "WebSearch"
+      # "mcp__voicemode__converse"
+      # "mcp__voicemode__service"
+      "mcp(mcp-nixos/*)"
+      # "mcp__mcp-nixos__nix_versions"
+      "read_file(//nix/store/**)"
+      "command(nixd --version)"
+      "command(nix --version)"
+      "command(nix search *)"
+      "command(nixos-rebuild dry-build *)"
+      "read_file(//tmp/**)"
+      "command(curl:*)"
+      "command(* --version)"
+      "command(* --help *)"
+      "command(fd *)"
+      "command(rg *)"
+      "command(gh search *)"
+      "command(git status *)"
+      "command(systemctl show *)"
+      "command(systemctl status *)"
+      "command(journalctl *)"
+    ];
   };
 }

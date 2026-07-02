@@ -3,7 +3,19 @@
 #? https://docs.mossdef.org/pbr/#a-word-about-interface-hotplug-script
 
 [ "$INTERFACE" = "awg0" ] || exit 0
-[ "$ACTION" = "ifup" ] || exit 0
+
+. /lib/functions/network.sh
+network_get_ipaddr wan_ip wan
+
+#? while white-ip-miner is still rolling for a white IP, wan keeps flapping;
+#? reloading pbr on each grey/empty attempt thrashes its state (gw 0.0.0.0, nft races)
+#? skip until wan holds a white IP, then awg0 (with 10.8.0.47) gets one clean reload
+case "$wan_ip" in
+    ""|100.6[4-9].*|100.[7-9][0-9].*|100.1[0-1][0-9].*|100.12[0-7].*)
+        logger -t pbr "skip awg0 reload: wan still grey/empty ($wan_ip)"
+        exit 0
+        ;;
+esac
 
 logger -t pbr "Reloading $INTERFACE due to $ACTION of $INTERFACE ($DEVICE)"
 /etc/init.d/pbr on_interface_reload "$INTERFACE"

@@ -26,17 +26,16 @@ let
     "vscode"
     "discord"
     "obsidian"
+    "xnconvert"
     "parsec-bin"
+    "antigravity-cli"
 
     "mprint"
     "bcompare"
     "grdcontrol"
+    "hytale-launcher"
     "kompas3d-v24-full"
     "davinci-resolve-studio"
-
-    "hytale-launcher"
-
-    "xnconvert"
   ];
   lib = nixpkgs.lib;
 in

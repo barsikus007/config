@@ -4,7 +4,9 @@
   inputs = {
     # nixpkgs-previous.url = "nixpkgs/commit_hash";
     # nixpkgs-fix-for-<smth>.url = "nixpkgs/pull/1488/head";
-    nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz"; # ? Smaller then github tarball, less api hits: https://discourse.nixos.org/t/use-channels-as-flake-inputs/75261
+    #? smaller then github tarball, less api hits: https://discourse.nixos.org/t/use-channels-as-flake-inputs/75261
+    #? more secure: https://determinate.systems/blog/nixpkgs-cooldown/
+    nixpkgs.url = "https://flakehub.com/f/DeterminateSystems/nixpkgs-weekly/0.1";
     # nixpkgs-master.url = "nixpkgs";
     nix-index-database = {
       url = "github:nix-community/nix-index-database";

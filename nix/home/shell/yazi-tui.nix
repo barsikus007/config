@@ -9,6 +9,12 @@
 #? https://github.com/s0me1newithhand7s/reNixos/blob/2b1c380c75363a5d4e18a365fe675786428a0c58/hand7s/programs/yazi.nix
 let
   mpvEnabled = config.programs.mpv.enable;
+  defaultText = [
+    "edit"
+    "hex"
+    "open"
+    "reveal"
+  ];
 in
 {
   home.packages = with pkgs; [
@@ -54,6 +60,8 @@ in
         "hex" = [
           {
             run = "${lib.getExe pkgs.hexyl} %s";
+            block = true;
+            for = "unix";
           }
         ];
         "exfil" = [
@@ -76,12 +84,7 @@ in
       rules = [
         {
           mime = "text/*";
-          use = [
-            "edit"
-            "hex"
-            "open"
-            "reveal"
-          ];
+          use = defaultText;
         }
         {
           mime = "image/*";
@@ -92,11 +95,23 @@ in
           ];
         }
         {
-          mime = "{audio,video}/*";
+          mime = "audio/*";
           use =
             lib.optionals mpvEnabled [
               "play_mpv_tui"
               "play_mpv"
+            ]
+            ++ [
+              "open"
+              "reveal"
+            ];
+        }
+        {
+          mime = "video/*";
+          use =
+            lib.optionals mpvEnabled [
+              "play_mpv"
+              "play_mpv_tui"
             ]
             ++ [
               "open"
@@ -110,6 +125,10 @@ in
             "edit"
             "reveal"
           ];
+        }
+        {
+          mime = "application/{json,ndjson,javascript,wine-extension-ini}";
+          use = defaultText;
         }
         {
           mime = "application/epub+zip";
@@ -153,6 +172,14 @@ in
             "extract"
             "reveal"
           ];
+        }
+        {
+          mime = "inode/empty";
+          use = defaultText;
+        }
+        {
+          mime = "vfs/{absent,stale}";
+          use = "download";
         }
         {
           url = "*";

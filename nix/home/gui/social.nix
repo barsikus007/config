@@ -25,7 +25,7 @@
     discord = {
       # enable = false;
       # branch = "canary";
-      autoscroll.enable = true;
+      commandLineArgs = [ "--enable-blink-features=MiddleClickAutoscroll" ];
       openASAR.enable = false;
     };
     vesktop = {
@@ -63,7 +63,8 @@
         forceOwnerCrown.enable = true;
         platformIndicators.enable = true;
         permissionFreeWill.enable = true;
-        noMosaic.enable = true;
+        #! breaks loading for now
+        # noMosaic.enable = true;
         voiceMessages.enable = true;
         biggerStreamPreview.enable = true;
         greetStickerPicker.enable = true;
@@ -82,7 +83,7 @@
         quickReply.enable = true;
         previewMessage.enable = true;
         pictureInPicture.enable = true;
-        CopyUserURLs.enable = true;
+        copyUserUrls.enable = true;
 
         #? idk
         alwaysAnimate.enable = true;

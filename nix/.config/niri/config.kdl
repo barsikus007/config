@@ -175,6 +175,7 @@ workspace "games" {
 window-rule {
     match app-id=r#"^org\.prismlauncher\.PrismLauncher$"#
     match app-id=r#"^steam$"#
+    match app-id=r#"^steam_app_"#
     match app-id=r#"^gamescope$"#
     match app-id=r#"^\.gamescope-wrapped$"#
     open-on-workspace "games"

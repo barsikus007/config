@@ -47,7 +47,7 @@ alias llt='ll --tree'
 alias ls='ls --group-directories-first --color=auto --hyperlink'
 alias lzd=lazydocker
 alias lzg=lazygit
-alias noctalia-restart='killall .quickshell-wrapper && sleep 2 && noctalia-shell & disown'
+alias noctalia-restart='killall .quickshell-wrapper; sleep 2 && noctalia-shell & disown'
 alias nv='nvim +"lua vim.schedule(function() require('\''telescope.builtin'\'').oldfiles() end)"'
 alias nvf='nvim +"lua vim.schedule(function() require('\''telescope.builtin'\'').find_files({hidden=true}) end)"'
 alias nvg='nvim +"lua vim.schedule(function() require('\''telescope.builtin'\'').live_grep({hidden=true}) end)"'

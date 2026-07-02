@@ -18,11 +18,10 @@
   i18n.defaultLocale = "C.UTF-8";
   #? ISO time
   i18n.extraLocaleSettings.LC_TIME = lib.mkDefault "en_DK.UTF-8";
+  console.font = "LatArCyrHeb-16";
   services.xserver.xkb = {
     layout = "us,ru";
-    options = "grp:win_space_toggle";
-    # ,grp:lalt_lshift_toggle
-    # ,ctrl:nocaps
+    options = "grp:win_space_toggle,grp:caps_toggle";
   };
   #! https://github.com/NixOS/nixpkgs/issues/529189
   console.useXkbConfig = true;
