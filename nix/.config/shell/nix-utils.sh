@@ -51,6 +51,14 @@ nnn() {
   sudo true && _nn "$@" && notify-send 'System build success' && exec $SHELL || notify-send 'System build failed'
 }
 
+nix_home_manager_build_and_activate() {
+  local NIX_EVAL="$NH_FLAKE#nixosConfigurations.$HOST.config.home-manager.users.$USER.home.activationPackage"
+  echo "building $NIX_EVAL..."
+  OUT=$(nom build --option substitute false --no-link --print-out-paths "$NIX_EVAL")
+  echo "built $OUT"
+  "$OUT/activate"
+}
+
 nix_build_and_link() {
   NIX_REPL=$1
 

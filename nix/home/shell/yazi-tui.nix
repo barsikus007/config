@@ -9,12 +9,16 @@
 #? https://github.com/s0me1newithhand7s/reNixos/blob/2b1c380c75363a5d4e18a365fe675786428a0c58/hand7s/programs/yazi.nix
 let
   mpvEnabled = config.programs.mpv.enable;
+  default = [
+    "reveal"
+    "nix_copy_edit"
+  ];
   defaultText = [
     "edit"
     "hex"
     "open"
-    "reveal"
-  ];
+  ]
+  ++ default;
 in
 {
   home.packages = with pkgs; [
@@ -30,6 +34,7 @@ in
         "play_mpv_tui" = [
           {
             run = "${lib.getExe config.programs.mpv.finalPackage} --vo=tct %s";
+            desc = "Play video TUI";
             block = true;
             for = "unix";
           }
@@ -37,6 +42,7 @@ in
         "play_mpv" = [
           {
             run = "${lib.getExe config.programs.mpv.finalPackage} %s";
+            desc = "Play video";
             block = true;
             for = "unix";
           }
@@ -46,6 +52,7 @@ in
         "view_image_tui" = [
           {
             run = "${lib.getExe pkgs.viu} --transparent %s; read _";
+            desc = "View image TUI";
             block = true;
             for = "unix";
           }
@@ -53,20 +60,23 @@ in
         "doc" = [
           {
             run = "${lib.getExe pkgs.tdf} %s";
+            desc = "View PDF";
             block = true;
             for = "unix";
           }
         ];
         "hex" = [
           {
-            run = "${lib.getExe pkgs.hexyl} %s";
+            run = "${lib.getExe pkgs.hexyl} %s | bat --style=plain; read _";
+            desc = "View HEX";
             block = true;
             for = "unix";
           }
         ];
         "exfil" = [
           {
-            run = "${lib.getExe pkgs.ouch} d %s";
+            run = "${lib.getExe pkgs.ouch} decompress %s";
+            desc = "Extract here";
             block = true;
             for = "unix";
           }
@@ -74,6 +84,15 @@ in
         "book" = [
           {
             run = "${lib.getExe pkgs.epr} %s";
+            desc = "View EPUB";
+            block = true;
+            for = "unix";
+          }
+        ];
+        "nix_copy_edit" = [
+          {
+            run = "zsh -c 'nix_copy_edit %s'";
+            desc = "Nix copy and edit";
             block = true;
             for = "unix";
           }
@@ -91,8 +110,8 @@ in
           use = [
             "view_image_tui"
             "open"
-            "reveal"
-          ];
+          ]
+          ++ default;
         }
         {
           mime = "audio/*";
@@ -103,8 +122,8 @@ in
             ]
             ++ [
               "open"
-              "reveal"
-            ];
+            ]
+            ++ default;
         }
         {
           mime = "video/*";
@@ -115,16 +134,16 @@ in
             ]
             ++ [
               "open"
-              "reveal"
-            ];
+            ]
+            ++ default;
         }
         {
           mime = "font/*";
           use = [
             "open"
             "edit"
-            "reveal"
-          ];
+          ]
+          ++ default;
         }
         {
           mime = "application/{json,ndjson,javascript,wine-extension-ini}";
@@ -136,16 +155,16 @@ in
             "book"
             "edit"
             "open"
-            "reveal"
-          ];
+          ]
+          ++ default;
         }
         {
           mime = "application/pdf";
           use = [
             "doc"
             "open"
-            "reveal"
-          ];
+          ]
+          ++ default;
         }
         {
           mime = "application/{octet-stream,x-executable,x-sharedlib,x-pie-executable}";
@@ -153,16 +172,16 @@ in
             "hex"
             "edit"
             "open"
-            "reveal"
-          ];
+          ]
+          ++ default;
         }
         {
           mime = "application/vnd.*";
           use = [
             "open"
             "edit"
-            "reveal"
-          ];
+          ]
+          ++ default;
         }
         {
           mime = "application/{zip,rar,7z*,tar*,x-tar,x-bzip*,x-gzip,x-xz}";
@@ -170,8 +189,8 @@ in
             "exfil"
             "open"
             "extract"
-            "reveal"
-          ];
+          ]
+          ++ default;
         }
         {
           mime = "inode/empty";
@@ -187,8 +206,8 @@ in
             "open"
             "edit"
             "hex"
-            "reveal"
-          ];
+          ]
+          ++ default;
         }
       ];
     };

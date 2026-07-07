@@ -245,5 +245,10 @@
         "key": "ctrl+`",
         "command": "-workbench.action.terminal.toggleTerminal",
         "when": "terminal.active"
+    },
+    //! wtype Ctrl+Shift+V misfires in Electron: V counts as Escape -> Ctrl+Shift+Escape
+    {
+        "key": "ctrl+shift+escape",
+        "command": "-claude-vscode.editor.open"
     }
 ]

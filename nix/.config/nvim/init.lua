@@ -46,6 +46,13 @@ vim.o.wildignore = "*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xls
 
 --? languages
 vim.o.commentstring = "# %s"
+--? json has no commentstring by default, native gc needs one (jsonc style)
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "json", "jsonc" },
+    callback = function()
+        vim.bo.commentstring = "// %s"
+    end,
+})
 vim.diagnostic.config({ virtual_lines = { current_line = true } })
 vim.keymap.set('n', "gd", vim.lsp.buf.definition, { noremap = true, silent = true, desc = "Go to definition" })
 --?  https://neovim.io/doc/user/lsp.html#lsp-quickstart

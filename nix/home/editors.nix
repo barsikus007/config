@@ -177,9 +177,15 @@
 
       comments = {
         # https://github.com/numToStr/Comment.nvim
-        # gcc
-        # gbc
-        comment-nvim.enable = true;
+        # (gb/gbc)
+        comment-nvim = {
+          enable = true;
+          mappings = {
+            toggleCurrentLine = null; # gcc -> native
+            toggleOpLeaderLine = null; # gc -> native
+            toggleSelectedLine = null; # visual gc -> native
+          };
+        };
       };
     };
   };

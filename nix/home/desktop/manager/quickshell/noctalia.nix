@@ -114,6 +114,9 @@ in
         overviewLayer = true;
         enableClipboardHistory = true;
         autoPasteClipboard = true;
+        #? already handled by services.cliphist
+        clipboardWatchTextCommand = "";
+        clipboardWatchImageCommand = "";
         screenshotAnnotationTool = "satty -f -";
         terminalCommand = "wezterm start --always-new-process --";
       };
@@ -263,6 +266,30 @@ in
 
           lockscreen_command = ''{"name":"Lockscreen turn off displays","timeout":30,"command":"${is_locked} && ${power_off_monitors_cmd}"}'';
           # dim_command = ''{"name":"Dim monitors","timeout":300,"command":"${noctalia_ipc_call} brightness set 0","resumeCommand":"${noctalia_ipc_call} brightness set 100"}'';
+
+          #! vibecoded shitfix for https://bugzilla.mozilla.org/show_bug.cgi?id=2033358
+          #? firefox wayland popups break after monitors power-cycle (screenOff/lock) and lose gtk workarea
+          #? only a logical-geometry change makes firefox recompute; nudge eDP-1 position 1px and back on resume
+          #? position is read live so it stays correct across output profiles; runs after monitors are back on
+          ff_popup_recover = pkgs.writeShellScript "ff-popup-recover" /* shell */ ''
+            niri=${lib.getExe config.programs.niri.package}
+            jq=${lib.getExe pkgs.jq}
+            #? resume is racy: monitors/firefox may still be waking, so a single early nudge gets missed
+            #? settle first, then nudge a few times spaced out so at least one lands after everything is back
+            sleep 2
+            for _ in 1 2 3; do
+              out=$("$niri" msg --json outputs)
+              x=$(printf '%s' "$out" | "$jq" -r '."eDP-1".logical.x')
+              y=$(printf '%s' "$out" | "$jq" -r '."eDP-1".logical.y')
+              "$niri" msg output eDP-1 position set "$x" "$((y + 1))"
+              sleep 0.5
+              "$niri" msg output eDP-1 position set "$x" "$y"
+              sleep 1
+            done
+          '';
+          #? timeout below screenOffTimeout so this timer is armed before monitors power off,
+          #? guaranteeing its resumeCommand fires when they come back
+          ff_recover_command = ''{"name":"Firefox popup recovery","timeout":590,"command":":","resumeCommand":"${ff_popup_recover}"}'';
         in
         {
           enabled = true;
@@ -272,6 +299,7 @@ in
           customCommands = "[${
             lib.strings.concatStringsSep "," [
               lockscreen_command
+              ff_recover_command
               # dim_command
             ]
           }]";

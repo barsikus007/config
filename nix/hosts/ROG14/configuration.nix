@@ -85,8 +85,8 @@ in
   # TODO: laptop specific
   powerManagement.cpuFreqGovernor = "schedutil";
   services.udev.extraRules = ''
-    ACTION=="add|change", SUBSYSTEM=="power_supply", ATTR{online}=="0", RUN+="${onDC}"
-    ACTION=="add|change", SUBSYSTEM=="power_supply", ATTR{online}=="1", RUN+="${onAC}"
+    ACTION=="add|change", SUBSYSTEM=="power_supply", ATTR{type}!="Battery", ATTR{online}=="0", RUN+="${onDC}"
+    ACTION=="add|change", SUBSYSTEM=="power_supply", ATTR{type}!="Battery", ATTR{online}=="1", RUN+="${onAC}"
   '';
   #? apply correct power profile at boot (cause udev rules only fire on change, not at startup)
   systemd.services.power-supply-init = {
@@ -103,13 +103,12 @@ in
     '';
   };
 
-  systemd.services.kbd-backlight-off-resume = {
-    description = "Turn off keyboard backlight after resume";
-    wantedBy = [ "post-resume.target" ];
-    after = [ "post-resume.target" ];
-    serviceConfig.Type = "oneshot";
-    script = "${lib.getExe' pkgs.asusctl "asusctl"} leds set off";
-  };
+  #! vibecoded shitfix for keyboard backlight enabling after resume
+  powerManagement.resumeCommands = ''
+    for _ in 1 2 3 4 5; do
+      ${lib.getExe' pkgs.asusctl "asusctl"} leds set off && sleep 0.5
+    done
+  '';
 
   #? disable 4.2 GHz boost
   systemd.tmpfiles.rules = [

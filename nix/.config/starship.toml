@@ -1,5 +1,6 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
+#? https://starship.rs/config/#default-prompt-format
 format = """
 $username\
 $os\
@@ -8,6 +9,7 @@ $localip\
 $shlvl\
 $singularity\
 $kubernetes\
+$nats\
 $directory\
 $vcsh\
 $fossil_branch\
@@ -18,67 +20,20 @@ $git_state\
 $git_metrics\
 $git_status\
 $hg_branch\
+$hg_state\
 $pijul_channel\
 $docker_context\
 $package\
-$c\
-$cmake\
-$cobol\
-$daml\
-$dart\
-$deno\
-$dotnet\
-$elixir\
-$elm\
-$erlang\
-$fennel\
-$gleam\
-$golang\
 $guix_shell\
-$haskell\
-$haxe\
-$helm\
-$java\
-$julia\
-$kotlin\
-$gradle\
-$lua\
-$nim\
-$nodejs\
-$ocaml\
-$opa\
-$perl\
-$php\
-$pulumi\
-$purescript\
-$python\
-$quarto\
-$raku\
-$rlang\
-$red\
-$ruby\
-$rust\
-$scala\
-$solidity\
-$swift\
-$terraform\
-$typst\
-$vlang\
-$vagrant\
-$zig\
-$buf\
 $nix_shell\
-$conda\
-$meson\
-$spack\
 $memory_usage\
 $aws\
 $gcloud\
 $openstack\
 $azure\
-$nats\
 $direnv\
 $env_var\
+$mise\
 $crystal\
 $custom\
 $sudo\
@@ -90,6 +45,7 @@ $battery\
 $time\
 $status\
 $container\
+$netns\
 $shell\
 $character"""
 
@@ -162,7 +118,7 @@ windows_starship = "starship.exe"
 [custom.git_host]
 command = '$XDG_CONFIG_HOME/starship/starship.bash'
 detect_folders = [".git"]
-when = 'git rev-parse --is-inside-work-tree'
+when = 'git rev-parse --is-inside-work-tree && git ls-remote --get-url'
 os = "linux"
 shell = ["bash","--norc","--noprofile"]
 style = "bright-yellow bold"
@@ -171,7 +127,7 @@ format = "in [$output]($style) "
 [custom.git_host_win]
 command = '%userprofile%\.config\starship\starship.bat'
 detect_folders = [".git"]
-when = 'git rev-parse --is-inside-work-tree'
+when = 'git rev-parse --is-inside-work-tree && git ls-remote --get-url'
 os = "windows"
 shell = ["cmd"]
 style = "bright-yellow bold"

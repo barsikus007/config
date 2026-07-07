@@ -20,22 +20,24 @@ let
   ];
   mkIcon =
     size:
-    pkgs.runCommandLocal "furryfox-icon-${size}.png" {
-      nativeBuildInputs = [ pkgs.imagemagick ];
-    # } "magick ${furryIcon} -resize ${size} png:$out";
-    } /* shell */ ''
-      read -r W H < <(magick identify -format "%w %h\n" ${furryIcon})
-      magick ${furryIcon} \
-        -fill white -draw "ellipse 450,330 410,350 0,360" \
-        -alpha set -fill none -fuzz 15% \
-        -draw "color 0,0 floodfill" \
-        -draw "color $((W-1)),0 floodfill" \
-        -draw "color 0,$((H-1)) floodfill" \
-        -draw "color $((W-1)),$((H-1)) floodfill" \
-        -trim +repage \
-        -resize ${size} \
-        png:$out
-    '';
+    pkgs.runCommandLocal "furryfox-icon-${size}.png"
+      {
+        nativeBuildInputs = [ pkgs.imagemagick ];
+        # } "magick ${furryIcon} -resize ${size} png:$out";
+      }
+      /* shell */ ''
+        read -r W H < <(magick identify -format "%w %h\n" ${furryIcon})
+        magick ${furryIcon} \
+          -fill white -draw "ellipse 450,330 410,350 0,360" \
+          -alpha set -fill none -fuzz 15% \
+          -draw "color 0,0 floodfill" \
+          -draw "color $((W-1)),0 floodfill" \
+          -draw "color 0,$((H-1)) floodfill" \
+          -draw "color $((W-1)),$((H-1)) floodfill" \
+          -trim +repage \
+          -resize ${size} \
+          png:$out
+      '';
 in
 {
   xdg.dataFile =

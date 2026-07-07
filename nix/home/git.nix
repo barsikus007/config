@@ -1,4 +1,9 @@
-{ config, flakePath, ... }:
+{
+  lib,
+  config,
+  flakePath,
+  ...
+}:
 #! 21Mb
 {
   programs.git = {

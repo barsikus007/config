@@ -24,7 +24,7 @@ indent_size = 4
 [*.{json,code-workspace}]
 indent_size = 4
 
-[**/{.config/Code/User,.vscode}/settings.json]
+[**/{.config/Code/User,.vscode}/{keybindings.json,settings.json}]
 insert_final_newline = false
 
 [*.{cjs,js,jsx,ts,tsx}]

@@ -1,6 +1,6 @@
-{ pkgs, ... }:
+{ pkgs, username, ... }:
 {
-  # rdp
+  #? rdp
   # networking.firewall.allowedTCPPorts = [ 3389 ];
   # networking.firewall.allowedUDPPorts = [ 3389 ];
 
@@ -12,10 +12,12 @@
   services.sunshine = {
     enable = true;
     autoStart = true;
-    capSysAdmin = true; # only needed for Wayland -- omit this when using with Xorg
+    capSysAdmin = true; # ? needed for running on Wayland
     openFirewall = true;
-    # TODO https://search.nixos.org/options?query=services.sunshine.applications
   };
+
+  #! sunshine.service WantedBy = graphical-session.target fix
+  systemd.user.services.sunshine.unitConfig.ConditionUser = username;
 
   environment.systemPackages = with pkgs; [
     rustdesk-flutter

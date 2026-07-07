@@ -36,6 +36,41 @@ let
     sudo ${config.systemd.package}/bin/systemctl start syncoid-zroot-persistent.service
     exec ${config.systemd.package}/bin/journalctl -fu syncoid-zroot-persistent.service
   '';
+
+  #? notify the desktop when a single push is unusually big (normal hourly ~<400 MB)
+  largeSendThresholdMiB = 2 * 1024; #? 2 GiB
+
+  #? syncoid logs one size estimate per send: "... (~ 357.9 MB):". After the unit
+  #? stops we read that back from THIS invocation's journal and, on a big push,
+  #? pop a notify-send. Must be ExecStopPost, not ExecStartPost: the unit is
+  #? Type=simple, so ExecStartPost would fire before anything is actually sent
+  notifyLargeSend = pkgs.writeShellScript "syncoid-notify-large" /* shell */ ''
+    set -euo pipefail
+
+    #? successful pushes only, and only when a live graphical session exists
+    [ "''${SERVICE_RESULT:-}" = success ] || exit 0
+    bus="/run/user/$(${pkgs.coreutils}/bin/id -u)/bus"
+    [ -S "$bus" ] || exit 0
+
+    #? syncoid's own estimate for this run, e.g. "2.3 GB"
+    size=$(${config.systemd.package}/bin/journalctl \
+        _SYSTEMD_INVOCATION_ID="''${INVOCATION_ID:-}" --output=cat 2>/dev/null \
+      | ${pkgs.gnugrep}/bin/grep -oP '\(~ \K[0-9.]+ [KMGT]?B(?=\))' \
+      | ${pkgs.coreutils}/bin/tail -n1)
+    [ -n "$size" ] || exit 0
+
+    #? syncoid steps are 1024-based but labelled KB/MB/GB; fold to MiB
+    mib=$(echo "$size" | ${lib.getExe pkgs.gawk} '{
+      f["B"] = 1 / 1048576; f["KB"] = 1 / 1024; f["MB"] = 1;
+      f["GB"] = 1024; f["TB"] = 1048576;
+      printf "%d", $1 * f[$2]
+    }')
+    [ "$mib" -ge ${toString largeSendThresholdMiB} ] || exit 0
+
+    DBUS_SESSION_BUS_ADDRESS="unix:path=$bus" \
+      ${pkgs.libnotify}/bin/notify-send --app-name=Syncoid --urgency=normal \
+      "Крупный бэкап на NAS" "zroot/persistent: ~$size"
+  '';
 in
 {
   services.syncoid = {
@@ -75,6 +110,13 @@ in
     #? /home becomes an empty tmpfs, .ssh bind layers on top
     ProtectHome = lib.mkForce "tmpfs";
     BindPaths = [ "/home/${username}/.ssh" ];
+    #? ProtectHome=tmpfs also masks /run/user; re-expose it read-only so the
+    #? notifier below can reach the session bus. /run/user always exists as a
+    #? dir, so the bind never fails even with no session (notifier then skips)
+    BindReadOnlyPaths = [ "/run/user" ];
+    #? big-send notifier; `-` = ignore_errors so it never fails the backup.
+    #? merges with upstream's zfs-unallow ExecStopPost (unitOption list concat)
+    ExecStopPost = [ "-${notifyLargeSend}" ];
   };
 
   #? catch up a tick that was skipped while offline, once back online

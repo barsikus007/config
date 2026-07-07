@@ -92,7 +92,10 @@ in
   };
   xdg.configFile."starship.toml".source = # TODO stylix conflict
     lib.mkForce (config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/starship.toml");
-  xdg.configFile."starship/starship.bash".source = ../../.config/starship/starship.bash;
+  xdg.configFile."starship/starship.bash" = {
+    source = ../../.config/starship/starship.bash;
+    executable = true;
+  };
 
   programs.lazygit.enable = true;
   programs.btop = {
