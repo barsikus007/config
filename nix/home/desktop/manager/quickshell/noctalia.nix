@@ -108,6 +108,16 @@ in
   };
   programs.noctalia-shell = {
     enable = true;
+    #! vibecoded shitfix for clipboard
+    #! autoPaste делает `wl-copy && wtype` без паузы -> Ctrl+Shift+V прилетает раньше возврата фокуса в niri
+    #? добавляем задержку перед wtype, чтобы синтетическая вставка попадала в целевое окно
+    package = inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs (old: {
+      postPatch = (old.postPatch or "") + /* shell */ ''
+        substituteInPlace Services/Keyboard/ClipboardService.qml \
+          --replace-fail 'wtype -M ctrl -k v' 'sleep 0.12; wtype -M ctrl -k v' \
+          --replace-fail 'wtype -M ctrl -M shift v' 'sleep 0.12; wtype -M ctrl -M shift v'
+      '';
+    });
     settings = {
       #? https://docs.noctalia.dev/getting-started/nixos/#config-ref
       appLauncher = {
@@ -236,8 +246,15 @@ in
         forceBlackScreenCorners = true;
         lockScreenAnimations = true;
         autoStartAuth = true;
-        # TODO: breaks fprintd auth if authorized with pass?
         allowPasswordWithFprintd = true;
+      };
+      #! vibecoded shitfix for fprint pam
+      hooks = {
+        enabled = true;
+        #? allowPasswordWithFprintd's occupy-verify leaves the goodix driver with a phantom sensor claim; killing that process doesn't release it, only tearing down fprintd does
+        #! SIGKILL instead of `restart`: fprintd's graceful stop hangs on the wedged verify until its 20s TimeoutStopSec, and it is dbus-activated so the next sudo/noctalia spawns a fresh one in ~1s
+        #? passwordless kill is granted by a polkit rule in modules/desktop/manager/niri-de.nix
+        screenUnlock = "${lib.getExe' pkgs.systemd "systemctl"} kill --signal=KILL fprintd.service";
       };
       location = {
         #? to make this work, add `api.noctalia.dev` to PBR

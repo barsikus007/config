@@ -166,7 +166,7 @@ in
         {
           "Mod+F1" = lib.mkDefault {
             hotkey-overlay.title = "Show Important Hotkeys";
-            action.show-hotkey-overlay = true;
+            action = config.lib.niri.actions.show-hotkey-overlay;
           };
           "Ctrl+Shift+Escape" = lib.mkDefault {
             hotkey-overlay.title = "Open Task Manager";

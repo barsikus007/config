@@ -114,6 +114,7 @@ in
     #? notifier below can reach the session bus. /run/user always exists as a
     #? dir, so the bind never fails even with no session (notifier then skips)
     BindReadOnlyPaths = [ "/run/user" ];
+    # TODO: vibecoded shitscript untested
     #? big-send notifier; `-` = ignore_errors so it never fails the backup.
     #? merges with upstream's zfs-unallow ExecStopPost (unitOption list concat)
     ExecStopPost = [ "-${notifyLargeSend}" ];
