@@ -6,9 +6,32 @@
   options,
   ...
 }:
-#? https://github.com/noctalia-dev/noctalia-shell
+#? https://github.com/noctalia-dev/noctalia
 let
   meta = import ../../meta.nix;
+
+  nixos_logo = "${config.programs.noctalia.package}/share/noctalia/assets/images/distros/nixos.svg";
+
+  #! vibecoded shitfix for https://bugzilla.mozilla.org/show_bug.cgi?id=2033358
+  #? firefox wayland popups break after monitors power-cycle (screenOff/lock) and lose gtk workarea
+  #? only a logical-geometry change makes firefox recompute; nudge eDP-1 position 1px and back on resume
+  #? position is read live so it stays correct across output profiles; runs after monitors are back on
+  ff_popup_recover = pkgs.writeShellScript "ff-popup-recover" /* shell */ ''
+    niri=${lib.getExe config.programs.niri.package}
+    jq=${lib.getExe pkgs.jq}
+    #? resume is racy: monitors/firefox may still be waking, so a single early nudge gets missed
+    #? settle first, then nudge a few times spaced out so at least one lands after everything is back
+    sleep 2
+    for _ in 1 2 3; do
+      out=$("$niri" msg --json outputs)
+      x=$(printf '%s' "$out" | "$jq" -r '."eDP-1".logical.x')
+      y=$(printf '%s' "$out" | "$jq" -r '."eDP-1".logical.y')
+      "$niri" msg output eDP-1 position set "$x" "$((y + 1))"
+      sleep 0.5
+      "$niri" msg output eDP-1 position set "$x" "$y"
+      sleep 1
+    done
+  '';
 in
 {
   imports = [
@@ -16,367 +39,249 @@ in
   ];
 
   programs.niri.settings = {
-    spawn-at-startup = [ { command = [ "noctalia-shell" ]; } ];
-    # TODO: noctalia v5: shitty shit, it doesn't handle loginctl lock-session
     switch-events.lid-close.action.spawn = [
       "sh"
       "-c"
-      "[ $(niri msg --json outputs | ${lib.getExe pkgs.jq} 'keys | length') == '1' ] && noctalia-shell ipc call lockScreen lock"
+      "[ $(niri msg --json outputs | ${lib.getExe pkgs.jq} 'keys | length') == '1' ] && loginctl lock-session"
     ];
     binds =
       with config.lib.niri.actions;
       let
-        noctalia-ipc = spawn "noctalia-shell" "ipc" "call";
+        noctalia-ipc = spawn "noctalia" "msg";
       in
       {
-        "Mod+F1" = {
-          hotkey-overlay.title = "Show Important Hotkeys";
-          action = noctalia-ipc "plugin:keybind-cheatsheet" "toggle";
-        };
+        # TODO: noctalia-v5: plugin: keybind-cheatsheet for Mod+F1
         "Alt+Space" = {
           hotkey-overlay.title = "Toggle Application Launcher";
-          action = noctalia-ipc "launcher" "toggle";
+          action = noctalia-ipc "panel-toggle" "launcher";
         };
         "Mod+Alt+I" = {
           hotkey-overlay.title = "Toggle Settings";
-          action = noctalia-ipc "settings" "toggle";
-        };
-        "Mod+L" = {
-          hotkey-overlay.title = "Lock Screen";
-          action = noctalia-ipc "lockScreen" "lock";
-          allow-when-locked = true;
+          action = noctalia-ipc "settings-toggle";
         };
         "Ctrl+Alt+Delete" = {
           hotkey-overlay.title = "Toggle Power Menu";
-          action = noctalia-ipc "sessionMenu" "toggle";
+          action = noctalia-ipc "panel-toggle" "session";
           allow-when-locked = true;
         };
 
         "XF86AudioRaiseVolume" = {
           allow-when-locked = true;
-          action = noctalia-ipc "volume" "increase";
+          action = noctalia-ipc "volume-up";
         };
         "XF86AudioLowerVolume" = {
           allow-when-locked = true;
-          action = noctalia-ipc "volume" "decrease";
+          action = noctalia-ipc "volume-down";
         };
         "XF86AudioMute" = {
           allow-when-locked = true;
-          action = noctalia-ipc "volume" "muteOutput";
+          action = noctalia-ipc "volume-mute";
         };
         "XF86AudioMicMute" = {
           allow-when-locked = true;
-          action = noctalia-ipc "volume" "muteInput";
+          action = noctalia-ipc "mic-mute";
         };
         "Alt+XF86AudioRaiseVolume" = {
           allow-when-locked = true;
-          action = noctalia-ipc "volume" "increaseInput";
+          action = noctalia-ipc "mic-volume-up";
         };
         "Alt+XF86AudioLowerVolume" = {
           allow-when-locked = true;
-          action = noctalia-ipc "volume" "decreaseInput";
+          action = noctalia-ipc "mic-volume-down";
         };
         "XF86MonBrightnessUp" = {
           allow-when-locked = true;
-          action = noctalia-ipc "brightness" "increase";
+          action = noctalia-ipc "brightness-up";
         };
         "XF86MonBrightnessDown" = {
           allow-when-locked = true;
-          action = noctalia-ipc "brightness" "decrease";
+          action = noctalia-ipc "brightness-down";
         };
 
         "Mod+V" = {
           hotkey-overlay.title = "Toggle Clipboard Manager";
-          action = noctalia-ipc "launcher" "clipboard";
+          action = noctalia-ipc "panel-toggle" "clipboard";
         };
         #? "Mod+Period"
         "Mod+Semicolon" = {
           hotkey-overlay.title = "Toggle Emoji Picker 🤓";
-          action = noctalia-ipc "launcher" "emoji";
+          action = noctalia-ipc "panel-toggle" "launcher" "/emo";
         };
       }
       // lib.attrsets.optionalAttrs config.custom.isAsus {
         "XF86Launch4" = {
           hotkey-overlay.title = "Asus: Cycle Power Profiles";
-          action.spawn-sh = "noctalia-shell ipc call powerProfile cycle";
+          action = noctalia-ipc "power-cycle";
         };
         "Mod+Shift+S" = {
           hotkey-overlay.title = "Quick ScreenCapture";
-          action.spawn-sh = "noctalia-shell ipc call plugin:screen-recorder toggle";
+          action = noctalia-ipc "plugin" "noctalia/screen_recorder:service" "all" "toggle";
         };
       };
   };
-  programs.noctalia-shell = {
+  programs.noctalia = {
     enable = true;
-    #! vibecoded shitfix for clipboard
-    #! autoPaste делает `wl-copy && wtype` без паузы -> Ctrl+Shift+V прилетает раньше возврата фокуса в niri
-    #? добавляем задержку перед wtype, чтобы синтетическая вставка попадала в целевое окно
-    package = inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs (old: {
-      postPatch = (old.postPatch or "") + /* shell */ ''
-        substituteInPlace Services/Keyboard/ClipboardService.qml \
-          --replace-fail 'wtype -M ctrl -k v' 'sleep 0.12; wtype -M ctrl -k v' \
-          --replace-fail 'wtype -M ctrl -M shift v' 'sleep 0.12; wtype -M ctrl -M shift v'
-      '';
-    });
+    systemd.enable = true;
     settings = {
-      #? https://docs.noctalia.dev/getting-started/nixos/#config-ref
-      appLauncher = {
-        overviewLayer = true;
-        enableClipboardHistory = true;
-        autoPasteClipboard = true;
-        #? already handled by services.cliphist
-        clipboardWatchTextCommand = "";
-        clipboardWatchImageCommand = "";
-        screenshotAnnotationTool = "satty -f -";
-        terminalCommand = "wezterm start --always-new-process --";
-      };
-      bar = {
-        density = "comfortable";
-        position = "top";
-        floating = true;
-        widgets = {
-          left = [
-            {
-              id = "ControlCenter";
-              useDistroLogo = true;
-            }
-            {
-              id = "SystemMonitor";
-            }
-            {
-              id = "plugin:screen-recorder";
-              defaultSettings = {
-                copyToClipboard = true;
-                frameRate = 144;
-                videoCodec = "hevc";
-                audioSource = "both";
-              };
-            }
-            # TODO
-            {
-              id = "plugin:pomodoro";
-            }
-            {
-              id = "plugin:kde-connect";
-            }
-
-            {
-              id = "ActiveWindow";
-              # id = "Taskbar";
-              # showTitle = true;
-            }
-          ];
-          center = [
-            {
-              id = "Workspace";
-              showApplications = true;
-            }
-          ];
-          right = [
-            {
-              id = "CustomButton";
-              icon = "music-pin";
-              leftClickExec = "dbus-send --type=method_call --dest=org.kde.plasma.browser_integration /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Raise";
-            }
-            {
-              id = "MediaMini";
-              showVisualizer = true;
-            }
-            {
-              id = "Tray";
-              # drawerEnabled = false;
-            }
-            {
-              id = "plugin:privacy-indicator";
-              defaultSettings.hideInactive = false;
-            }
-            {
-              id = "NotificationHistory";
-            }
-            {
-              id = "Network";
-            }
-            {
-              id = "Brightness";
-              displayMode = "alwaysShow";
-            }
-            {
-              id = "Volume";
-              displayMode = "alwaysShow";
-            }
-            {
-              id = "Battery";
-              displayMode = "graphic";
-              alwaysShowPercentage = true;
-              warningThreshold = 30;
-              showNoctaliaPerformance = true;
-              showPowerProfiles = true;
-            }
-            {
-              id = "KeyboardLayout";
-              showIcon = false;
-            }
-            (
-              {
-                id = "Clock";
-                formatHorizontal = "yyyy-MM-dd HH:mm:ss";
-                useCustomFont = true;
-              }
-              // lib.attrsets.optionalAttrs (options ? stylix) {
-                customFont = config.stylix.fonts.monospace.name;
-              }
-            )
-          ];
-        };
-      };
-      brightness.enableDdcSupport = true;
-      dock = {
-        dockType = "attached";
-        showDockIndicator = true;
-        indicatorThickness = 6;
-        showLauncherIcon = true;
-        launcherPosition = "start";
-        launcherUseDistroLogo = true;
-        pinnedStatic = true;
-        inactiveIndicators = true;
-        pinnedApps = meta.dock;
-      };
-      general = {
-        showScreenCorners = true;
-        forceBlackScreenCorners = true;
-        lockScreenAnimations = true;
-        autoStartAuth = true;
-        allowPasswordWithFprintd = true;
-      };
-      #! vibecoded shitfix for fprint pam
-      hooks = {
-        enabled = true;
-        #? allowPasswordWithFprintd's occupy-verify leaves the goodix driver with a phantom sensor claim; killing that process doesn't release it, only tearing down fprintd does
-        #! SIGKILL instead of `restart`: fprintd's graceful stop hangs on the wedged verify until its 20s TimeoutStopSec, and it is dbus-activated so the next sudo/noctalia spawns a fresh one in ~1s
-        #? passwordless kill is granted by a polkit rule in modules/desktop/manager/niri-de.nix
-        screenUnlock = "${lib.getExe' pkgs.systemd "systemctl"} kill --signal=KILL fprintd.service";
-      };
-      location = {
-        #? to make this work, add `api.noctalia.dev` to PBR
-        autoLocate = true;
-        firstDayOfWeek = 1;
-        monthBeforeDay = false;
-        use12hourFormat = false;
-      };
-      notifications.sounds = {
-        enabled = true;
-        respectExpireTimeout = true;
-        separateSounds = true;
-        criticalSoundFile = pkgs.fetchurl {
+      audio = {
+        enable_sounds = true;
+        enable_overdrive = true;
+        # TODO: noctalia-v5: this is critical notification sound
+        notification_sound = pkgs.fetchurl {
           url = "https://deltarune.wiki/images/Snd_ominous_music.wav";
           hash = "sha256-Dv1sO1/Se90U8S7sIuRxMihKgctm/j/q/ccvxATYSOM=";
         };
       };
-      plugins.autoUpdate = true;
-      idle =
-        let
-          # noctalia_ipc_call = "${lib.getExe config.programs.noctalia-shell.package} ipc call";
-          is_locked =
-            builtins.replaceStrings [ ''"'' ] [ ''\"'' ]
-              ''[ $(loginctl show-session $XDG_SESSION_ID -p LockedHint --value) == "yes" ]'';
-          power_off_monitors_cmd = "${lib.getExe config.programs.niri.package} msg action power-off-monitors";
-
-          lockscreen_command = ''{"name":"Lockscreen turn off displays","timeout":30,"command":"${is_locked} && ${power_off_monitors_cmd}"}'';
-          # dim_command = ''{"name":"Dim monitors","timeout":300,"command":"${noctalia_ipc_call} brightness set 0","resumeCommand":"${noctalia_ipc_call} brightness set 100"}'';
-
-          #! vibecoded shitfix for https://bugzilla.mozilla.org/show_bug.cgi?id=2033358
-          #? firefox wayland popups break after monitors power-cycle (screenOff/lock) and lose gtk workarea
-          #? only a logical-geometry change makes firefox recompute; nudge eDP-1 position 1px and back on resume
-          #? position is read live so it stays correct across output profiles; runs after monitors are back on
-          ff_popup_recover = pkgs.writeShellScript "ff-popup-recover" /* shell */ ''
-            niri=${lib.getExe config.programs.niri.package}
-            jq=${lib.getExe pkgs.jq}
-            #? resume is racy: monitors/firefox may still be waking, so a single early nudge gets missed
-            #? settle first, then nudge a few times spaced out so at least one lands after everything is back
-            sleep 2
-            for _ in 1 2 3; do
-              out=$("$niri" msg --json outputs)
-              x=$(printf '%s' "$out" | "$jq" -r '."eDP-1".logical.x')
-              y=$(printf '%s' "$out" | "$jq" -r '."eDP-1".logical.y')
-              "$niri" msg output eDP-1 position set "$x" "$((y + 1))"
-              sleep 0.5
-              "$niri" msg output eDP-1 position set "$x" "$y"
-              sleep 1
-            done
-          '';
-          #? timeout below screenOffTimeout so this timer is armed before monitors power off,
-          #? guaranteeing its resumeCommand fires when they come back
-          ff_recover_command = ''{"name":"Firefox popup recovery","timeout":590,"command":":","resumeCommand":"${ff_popup_recover}"}'';
-        in
-        {
-          enabled = true;
-          screenOffTimeout = 600;
-          lockTimeout = 900;
-          suspendTimeout = 0;
-          customCommands = "[${
-            lib.strings.concatStringsSep "," [
-              lockscreen_command
-              ff_recover_command
-              # dim_command
-            ]
-          }]";
-        };
-    };
-    plugins = {
-      sources = [
-        {
-          enabled = true;
-          name = "Official Noctalia Plugins";
-          url = "https://github.com/noctalia-dev/noctalia-plugins";
-        }
-      ];
-      states = {
-        keybind-cheatsheet = {
-          enabled = true;
-          sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
-        };
-        niri-overview-launcher = {
-          enabled = true;
-          sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
-        };
-        privacy-indicator = {
-          enabled = true;
-          sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
-        };
-        screen-recorder = {
-          enabled = true;
-          sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
-        };
-        # kde-connect = {
-        #   enabled = true;
-        #   sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
-        # };
-        polkit-agent = {
-          enabled = true;
-          sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
-        };
-
-        #? appLauncher
-        currency-exchange = {
-          enabled = true;
-          sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
-        };
-        kaomoji-provider = {
-          enabled = true;
-          sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
-        };
-
-        #? bar: https://noctalia.dev/plugins/pomodoro/
-        pomodoro = {
-          enabled = true;
-          sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+      bar = {
+        order = [ "main" ];
+        main = {
+          capsule = true;
+          margin_ends = 10;
+          padding = 4;
+          start = [
+            "control-center"
+            "cpu"
+            "ram"
+            "temp"
+            "noctalia/screen_recorder:recorder"
+            "active_window"
+          ];
+          center = [ "workspaces" ];
+          end = [
+            "music_button"
+            "media"
+            "tray"
+            "privacy"
+            "notifications"
+            "network"
+            "brightness"
+            "volume"
+            "battery"
+            "keyboard_layout"
+            "clock"
+          ];
         };
       };
-      version = 2;
+      battery.warning_threshold = 30;
+      brightness.enable_ddcutil = true;
+      # TODO: desktop_widgets = { };
+      dock = {
+        enabled = true;
+        auto_hide = true;
+        launcher_custom_image = nixos_logo;
+        launcher_position = "start";
+        pinned = meta.dock;
+        position = "bottom";
+        reserve_space = false;
+        show_dots = true;
+        show_running = true;
+      };
+      idle = {
+        pre_action_fade_seconds = 5;
+        behavior_order = [
+          "lock"
+          "screen-off"
+          "ff-recover"
+        ];
+        behavior = {
+          lock = {
+            enabled = true;
+            action = "lock";
+            timeout = 900.0;
+          };
+          "screen-off" = {
+            enabled = true;
+            action = "screen_off";
+            timeout = 600.0;
+          };
+          "ff-recover" = {
+            enabled = true;
+            action = "command";
+            timeout = 590.0;
+            command = ":";
+            resume_command = "${ff_popup_recover}";
+          };
+        };
+      };
+      #? to make this work, add `api.noctalia.dev` to PBR
+      location.auto_locate = true;
+      lockscreen.blurred_desktop = true;
+      # TODO: lockscreen_widgets = { };
+      osd = {
+        position = "top_right";
+        kinds = {
+          lock_keys = false;
+          media = false;
+        };
+      };
+      plugin_settings."noctalia/screen_recorder" = {
+        copy_to_clipboard = true;
+        frame_rate = 144;
+        video_codec = "hevc";
+        audio_source = "both";
+      };
+      plugins = {
+        enabled = [
+          "noctalia/screen_recorder"
+          "noctalia/kaomoji"
+          "noctalia/timer"
+        ];
+        source = [
+          {
+            name = "official";
+            kind = "git";
+            location = "https://github.com/noctalia-dev/official-plugins";
+            auto_update = true;
+            enabled = true;
+          }
+        ];
+        # TODO: noctalia-v5: keybind-cheatsheet, currency-exchange, kde-connect, pomodoro
+      };
+      shell = {
+        clipboard_enabled = true;
+        clipboard_auto_paste = "auto";
+        clipboard_image_action_command = "satty -f -";
+        clipboard_history_max_entries = 500;
+        niri_overview_type_to_launch_enabled = true;
+        password_style = "random";
+        screen_time_enabled = true;
+        polkit_agent = true;
+        launch_apps_as_systemd_services = true;
+        screen_corners.enabled = true;
+        panel.transparency_mode = "glass";
+      };
+      widget = {
+        battery = {
+          type = "battery";
+          display_mode = "graphic";
+        };
+        clock = {
+          type = "clock";
+          format = "{:%Y-%m-%d %H:%M:%S}";
+        }
+        // lib.attrsets.optionalAttrs (options ? stylix) {
+          font_family = config.stylix.fonts.monospace.name;
+        };
+        control-center.custom_image = nixos_logo;
+        keyboard_layout = {
+          type = "keyboard_layout";
+          show_icon = false;
+          custom_labels = {
+            "English (US)" = "🇺🇸";
+            Russian = "🇷🇺";
+          };
+        };
+        music_button = {
+          type = "custom_button";
+          glyph = "music-pin";
+          command = "dbus-send --type=method_call --dest=org.kde.plasma.browser_integration /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Raise";
+        };
+        tray.drawer = true;
+      };
     };
   };
   #? noctalia have own polkit now
   services.polkit-gnome.enable = false;
-  #? screenshot annotation for clipboard history
+  #? screenshot annotation for clipboard history (shell.clipboard_image_action_command)
   programs.satty.enable = true;
 }

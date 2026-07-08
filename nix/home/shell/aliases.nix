@@ -113,7 +113,6 @@ rec {
     lzg = "lazygit";
     yt-dlpa = "yt-dlp --concurrent-fragments=16 --retries=inf";
     aria2ca = "aria2c --split=16 --max-connection-per-server=16 --continue";
-    noctalia-restart = "killall .quickshell-wrapper; sleep 2 && noctalia-shell & disown";
     windows-must-die = ''killall --signal=KILL --regexp ".*\.exe"'';
   };
   ezaAliases = {

@@ -51,7 +51,6 @@ in
         "Sync"
 
         ".cache/.bun" # ? tools installed with bunx
-        ".cache/cliphist"
         ".cache/cloud-code" # ? gemini auth
         ".cache/danksearch" # ? index
         ".cache/noctalia" # ? to disable prompt on startup
@@ -77,7 +76,6 @@ in
         ".config/ludusavi"
         ".config/Moonlight Game Streaming Project"
         ".config/mozilla/firefox"
-        ".config/noctalia/plugins"
         ".config/obs-studio"
         ".config/obsidian"
         ".config/Podman Desktop" # TODO: electron
@@ -112,6 +110,7 @@ in
 
         # ".local/share/direnv"
         ".local/state" # TODO: more
+        # ".local/state/noctalia"
         # ".local/state/mpv/watch_later/"
 
         #? apps

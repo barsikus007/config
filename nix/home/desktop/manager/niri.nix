@@ -168,6 +168,14 @@ in
             hotkey-overlay.title = "Show Important Hotkeys";
             action = config.lib.niri.actions.show-hotkey-overlay;
           };
+          "Mod+L" = lib.mkDefault {
+            hotkey-overlay.title = "Lock Screen";
+            action.spawn = [
+              "loginctl"
+              "lock-session"
+            ];
+            allow-when-locked = true;
+          };
           "Ctrl+Shift+Escape" = lib.mkDefault {
             hotkey-overlay.title = "Open Task Manager";
             action.spawn-sh = "wezterm start --class org.wezfurlong.wezterm.floating btop";

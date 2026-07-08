@@ -74,13 +74,7 @@
 
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
     niri.url = "github:sodiboo/niri-flake";
-    noctalia-qs = {
-      url = "github:noctalia-dev/noctalia-qs";
-    };
-    noctalia = {
-      url = "github:noctalia-dev/noctalia-shell/legacy-v4";
-      inputs.noctalia-qs.follows = "noctalia-qs";
-    };
+    noctalia.url = "github:noctalia-dev/noctalia-shell/cachix";
     dms = {
       url = "github:AvengeMedia/DankMaterialShell/stable";
       inputs.nixpkgs.follows = "nixpkgs";

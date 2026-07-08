@@ -21,8 +21,6 @@
     enable = true;
     configHome = "/home/${username}";
   };
-  #? cause fprint is fucked up in dms
-  security.pam.services.greetd.fprintAuth = false;
 
   programs.dsearch.enable = true;
 }
