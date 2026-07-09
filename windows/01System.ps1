@@ -12,8 +12,8 @@ if (-not (Test-Command winget)) {
 winget upgrade --accept-source-agreements
 
 if (-not (Test-Command wt)) {
-    winget install -e --id Microsoft.WindowsTerminal
+    winget install --exact --id Microsoft.WindowsTerminal
 }
 if (-not (Test-Command pwsh)) {
-    winget install -e --id Microsoft.PowerShell -h
+    winget install --exact --id Microsoft.PowerShell --silent
 }

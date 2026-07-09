@@ -11,7 +11,6 @@ Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/head
 #? part of the 99Tweaks.ps1
 Write-Host "disable UAC prompts" -ForegroundColor Green
 sudo Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "ConsentPromptBehaviorAdmin" -Value 0
-# TODO: is needed?: dotnet-sdk
 Write-Host "System packages installation..." -ForegroundColor Green
 Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/01System.ps1 | Invoke-Expression
 
@@ -33,7 +32,7 @@ reg import "$SCOOP_HOME\apps\everything\current\install-context.reg"
 reg import "$SCOOP_HOME\apps\notepadplusplus\current\install-context.reg"
 
 
-winget install -e --id Microsoft.Edge -h --force
+winget install --exact --id Microsoft.Edge --silent --force
 
 
 pwsh.exe -Command 'cd && git clone --depth 1 https://github.com/barsikus007/config && cd ~\config\ && sudo .\windows\pwsh.ps1 && cd -'

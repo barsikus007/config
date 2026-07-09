@@ -201,7 +201,7 @@ if (Get-Module -Name Microsoft.WinGet.CommandNotFound) {
 if ($PSVersionTable.PSVersion.Major -lt 7) {
     Write-Host "Limited profile loaded" -ForegroundColor Red
     Write-Host "PowerShell version 7 or higher is required" -ForegroundColor Red
-    Write-Host "winget install -e --id Microsoft.PowerShell" -ForegroundColor DarkGray
+    Write-Host "winget install --exact --id Microsoft.PowerShell" -ForegroundColor DarkGray
     exit
 } else {
     ~\Documents\PowerShell\extend.ps1 | Out-Null

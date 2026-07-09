@@ -46,7 +46,7 @@
 
 <https://winstall.app/apps/{id}>
 
-`winget install -e --id={id} -h`
+`winget install --exact --id={id} --silent`
 
 ### msstore
 
@@ -55,19 +55,19 @@
 ```powershell
 winget upgrade --accept-source-agreements
 # paint3d
-winget install -e --id=9NBLGGH5FV99 --accept-package-agreements
+winget install --exact --id=9NBLGGH5FV99 --accept-package-agreements
 # minecraft
-winget install -e --id=9NBLGGH2JHXJ --accept-package-agreements
+winget install --exact --id=9NBLGGH2JHXJ --accept-package-agreements
 # xbox, gamepad
-winget install -e --id=9MV0B5HZVK9Z --accept-package-agreements
-winget install -e --id=9NBLGGH30XJ3 --accept-package-agreements
+winget install --exact --id=9MV0B5HZVK9Z --accept-package-agreements
+winget install --exact --id=9NBLGGH30XJ3 --accept-package-agreements
 ```
 
 ### CORE APPS
 
 ```powershell
 winget upgrade --accept-source-agreements
-winget install -e --id Microsoft.PowerShell -h
+winget install --exact --id Microsoft.PowerShell --silent
 ```
 
 - Docker.DockerDesktop
@@ -78,11 +78,11 @@ winget install -e --id Microsoft.PowerShell -h
 
 ```powershell
 # dotnet for some apps, 6 is for powertoys, others are for TODO
-# sudo winget install -e --id Microsoft.dotnetRuntime.3-x64 -h
-# sudo winget install -e --id Microsoft.dotnetRuntime.5-x64 -h
-sudo winget install -e --id Microsoft.dotnetRuntime.6-x64 -h
+# sudo winget install --exact --id Microsoft.DotNet.DesktopRuntime.3 --silent
+# sudo winget install --exact --id Microsoft.DotNet.DesktopRuntime.5 --silent
+sudo winget install --exact --id Microsoft.DotNet.DesktopRuntime.6 --silent
 # Microsoft Visual C++ 14.0 or greater for some python packages
-sudo winget install -e --id Microsoft.VisualStudio.2022.BuildTools --override '--add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --add Microsoft.VisualStudio.Component.Windows10SDK.19041 --quiet --wait'
+sudo winget install --exact --id Microsoft.VisualStudio.2022.BuildTools --override '--add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --add Microsoft.VisualStudio.Component.Windows10SDK.19041 --quiet --wait'
 ```
 
 #### probably broken in scoop
@@ -102,6 +102,10 @@ sudo winget install -e --id Microsoft.VisualStudio.2022.BuildTools --override '-
 - Valve.Steam
 - Ubisoft.Connect
 - DolphinEmulator.Dolphin
+
+```powershell
+winget install --exact --id Microsoft.DirectX --silent
+```
 
 ### OTHER
 

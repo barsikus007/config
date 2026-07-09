@@ -164,12 +164,13 @@
 
       # TODO: unattend.iso;virtio.iso
       # cdroms = [];
-      devicesExtraXml = ''
-        <disk type='file' device='disk'>
-          <driver name='qemu' type='qcow2'/>
-          <source file='/var/lib/libvirt/images/win10.qcow2'/>
-          <target dev='sda' bus='sata'/>
-          <address type='drive' controller='0' bus='0' target='0' unit='0'/>
+      devicesExtraXml = /* xml */ ''
+        <disk type="block" device="disk">
+          <driver name="qemu" type="raw" cache="none" io="native" discard="unmap"/>
+          <source dev="/dev/zvol/zroot/vms/win10"/>
+          <target dev="vda" bus="virtio"/>
+          <boot order="1"/>
+          <address type="pci" domain="0x0000" bus="0x0d" slot="0x00" function="0x0"/>
         </disk>
 
         <tpm model="tpm-crb">

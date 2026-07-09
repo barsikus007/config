@@ -14,8 +14,10 @@ codename `Windows-Resurrect`
 2. `nix build ./nix#windows-bootstrapIso -o unattend-win10-iot-ltsc-vrt.iso --print-build-logs` ([content](../../../packages/windows/default.nix))
    1. mount it 2nd
    2. [soft which will be installed](../../../packages/windows/AdditionalVMSetup.ps1)
-3. run in pwsh **as user** `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/installOnWin10LTSC.ps1 | iex`([content](../../../../windows/installOnWin10LTSC.ps1))
-   1. optional tweaks: launch `sudo pwsh.exe` and run `irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/99Tweaks.ps1 | iex` ([content](../../../../windows/99Tweaks.ps1))
+3. Press any key to boot from ISO
+4. run in pwsh **as user** `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/installOnWin10LTSC.ps1 | iex`([content](../../../../windows/installOnWin10LTSC.ps1))
+   1. Wait for UAC prompt and agree
+   2. optional tweaks: launch `sudo pwsh.exe` and run `irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/99Tweaks.ps1 | iex` ([content](../../../../windows/99Tweaks.ps1))
 
 ## virt-manager setup
 
@@ -25,6 +27,9 @@ codename `Windows-Resurrect`
   - 25 good
   - 30+ best
   - !but real drive is the most optimal solution
+  - or use ZFS:
+    - `sudo zfs create -o mountpoint=none -o compression=zstd -o primarycache=metadata zroot/vms`
+    - `sudo zfs create -s -V 60G -o volblocksize=16k zroot/vms/win10`
 - pass needed devices from GPU iommu_group to vm
 - add tpm-crb
 
@@ -164,6 +169,7 @@ sudo dmidecode --type chassis | awk  -F  ': ' '
 #### hugepages memory backing for virtiofs
 
 - add `<memoryBacking><hugepages><page size='2048' unit='KiB'/></hugepages><access mode='shared'/></memoryBacking>` to `<domain>`
+  - to revert change it to `<memoryBacking><source type='memfd'/><access mode='shared'/><allocation mode='immediate'/></memoryBacking>` to `<domain>`
 - add `<numa><cell id='0' cpus='0-11' memory='8388608' unit='KiB' memAccess='shared'/></numa>` to `<domain><cpu>`
 
 ## misc
@@ -213,9 +219,4 @@ mkdir "win10-ltsc-$UPDATE_ID"
 cd "win10-ltsc-$UPDATE_ID"
 aria2c -x16 -s16 -j5 -c -R -i <(curl -s "https://uupdump.net/get.php?id=$UPDATE_ID&pack=en-us&edition=core%3Bprofessional&aria2=2" | grep --extended-regexp "(Windows10|SSU)" --context 2 --no-group-separator)
 wget "https://raw.githubusercontent.com/mariahlamb31/BatUtil/27ab2d01e2d2cf47c87835c90a0991ca4d7c5f64/W10UI/W10UI.cmd"
-
-BACKUP_DIR=/run/media/$USER/NAS/Desktop/1VM/qcows/win10-1st
-mkdir -p "$BACKUP_DIR"
-sudo sh -c "cp /var/lib/libvirt/images/* $BACKUP_DIR"
-sudo cp /var/lib/libvirt/qemu/win10.xml "$BACKUP_DIR"
 ```

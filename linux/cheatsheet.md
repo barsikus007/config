@@ -97,7 +97,7 @@ distrobox create --name astra --image registry.astralinux.ru/astra/ubi18:latest
 
 - `sudo cfdisk /dev/...`
   - `sudo parted`
-- `nix shell nixpkgs#ntfsprogs-plus --command sudo ntfsck /dev/nvme0n1p3 --repair-auto`
+- `nix shell nixpkgs#ntfsprogs-plus --command sudo ntfsck /dev/disk/by-label/System --repair-auto`
 
 ## ZFS
 

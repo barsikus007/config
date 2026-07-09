@@ -127,7 +127,6 @@ foreach ($oldvid in $oldvids) {
   - lazy eval of Test-Command
 - unsorted dump from TG
   - fix powertoys rmc
-  - fix dotnet
   - windows explorer path bar fix to old
   - diskpart windows нормальный
 

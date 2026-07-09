@@ -17,16 +17,16 @@
               finalAttrs:
               (oldAttrsGen finalAttrs)
               // {
-                version = "1.13.3";
+                version = "1.14.0";
 
                 src = fetchFromGitLab {
                   owner = "virtio-fs";
                   repo = "virtiofsd";
-                  rev = "7250c77366c964deccf21d97e0c0df161da40a93";
-                  hash = "sha256-3G9xM9s1tK5XsaEQLw/10KMpfIoMbo66Kxlbfo3APsY=";
+                  rev = "v${finalAttrs.version}";
+                  hash = "sha256-NeqeSqPeD3hjAcbck+g8bmarbUL1Nks8AMAi/WxwzwY=";
                 };
 
-                cargoHash = "sha256-2T2ky5h7N5VUga2Dcckhx0mXauFcMsz95fumrppnMH8=";
+                cargoHash = "sha256-7byiMT2/jf0R7zHr/HBeXKk2T+OQhlVhZ9QJHlEY/Ao=";
               }
             )
           );

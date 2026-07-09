@@ -5,10 +5,10 @@ Function Test-Command ($commandName) {
 $SCOOP_HOME = $(If (Test-Path env:SCOOP) { $env:SCOOP } Else { ($env:GIT_INSTALL_ROOT -split "scoop")[0]+"scoop" })
 
 Write-Host "disable UAC prompts" -ForegroundColor Green
-Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "ConsentPromptBehaviorAdmin" -Value 0
+sudo Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "ConsentPromptBehaviorAdmin" -Value 0
 
 Write-Host "remove path limit" -ForegroundColor Green
-New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" -Name "LongPathsEnabled" -Value 1 -PropertyType DWORD -Force
+sudo New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" -Name "LongPathsEnabled" -Value 1 -PropertyType DWORD -Force
 
 if (Test-Command wt) {
   Write-Host "set wt.exe as default" -ForegroundColor Green
@@ -32,7 +32,7 @@ Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\
 Write-Host "set default ssh shell to pwsh.exe (if installed)" -ForegroundColor Green
 if (Test-Command pwsh) {
   Write-Host "pwsh.exe installed" -ForegroundColor Gray
-  New-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell -Value $(Get-Command pwsh).Source -PropertyType String -Force
+  sudo New-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell -Value $(Get-Command pwsh).Source -PropertyType String -Force
 }
 
 Write-Host "set wallpaper to https://www.wallpaperhub.app/wallpapers/5512" -ForegroundColor Green
@@ -58,7 +58,7 @@ Set-ItemProperty -Path $ThemePath -Name "AppsUseLightTheme" -Value 0
 Set-ItemProperty -Path $ThemePath -Name "ColorPrevalence" -Value 1
 
 Write-Host "set VirtIO network as private" -ForegroundColor Green
-Get-NetAdapter | Where-Object InterfaceDescription -like "*VirtIO*" | Get-NetConnectionProfile | Set-NetConnectionProfile -NetworkCategory Private
+Get-NetAdapter | Where-Object InterfaceDescription -like "*VirtIO*" | Get-NetConnectionProfile | sudo Set-NetConnectionProfile -NetworkCategory Private
 
 #? https://learn.microsoft.com/en-us/windows/configuration/taskbar/pinned-apps
 Write-Host "set taskbar icons (explorer.exe, wt.exe, edge.exe)" -ForegroundColor Green
@@ -109,9 +109,9 @@ Set-ItemProperty -Path $Path -Name "EnableClipboardHistory" -Value 1 -Type DWord
 #? https://superuser.com/a/1848995
 Write-Host "enable 'Beta: Use Unicode UTF-8 for worldwide language support' in Win+R -> `intl.cpl` -> Administrative -> Change system locale..."
 $Path = "HKLM:\SYSTEM\CurrentControlSet\Control\Nls\CodePage"
-Set-ItemProperty -Path $Path -Name "ACP"   -Value "65001"
-Set-ItemProperty -Path $Path -Name "OEMCP" -Value "65001"
-Set-ItemProperty -Path $Path -Name "MACCP" -Value "65001"
+sudo Set-ItemProperty -Path $Path -Name "ACP"   -Value "65001"
+sudo Set-ItemProperty -Path $Path -Name "OEMCP" -Value "65001"
+sudo Set-ItemProperty -Path $Path -Name "MACCP" -Value "65001"
 Write-Host "Global UTF-8 enabled. A system reboot is required to apply the changes." -ForegroundColor Red
 
 Write-Host "pin user folder in explorer" -ForegroundColor Green

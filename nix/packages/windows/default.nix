@@ -16,7 +16,7 @@ let
   massgrave = fetchurl {
     name = "MAS_AIO.cmd";
     url = "https://dev.azure.com/massgrave/Microsoft-Activation-Scripts/_apis/git/repositories/Microsoft-Activation-Scripts/items?path=/MAS/All-In-One-Version-KL/MAS_AIO.cmd&download=true";
-    sha256 = "sha256-2UsavLok0mxfvhFKFbU6VYaE10oazP95u7JAe+cQKok=";
+    sha256 = "sha256-hQ+XlmX7k5mayuk/R5DB/47SBBUyBgt5ZqEhwtKaC/o=";
   };
 
   openSshServerPackage = fetchurl {
@@ -34,7 +34,7 @@ let
 
   # TODO: & ([ScriptBlock]::Create((irm https://get.activated.win))) /Z-Windows
   # TODO: https://www.reddit.com/r/techsupport/comments/ehgbmu/windows_10_oemcustomizations/
-  isoDir = runCommand "iso-content" { } ''
+  isoDir = runCommand "iso-content" { } /* shell */ ''
     mkdir -p $out
 
     cp ${unattend} $out/autounattend.xml
@@ -43,6 +43,10 @@ let
     cp ${additionalVMSetupPs1} $out/\$OEM\$/\$\$/Setup/Scripts/AdditionalVMSetup.ps1
 
     cp -r ${virtio-win}/* $out/
+
+    mkdir -p $out/\$WinPEDriver\$/viostor
+    cp ${virtio-win}/viostor/w10/amd64/* $out/\$WinPEDriver\$/viostor/
+
     chmod -R +w $out/
 
     mkdir -p $out/\$OEM\$/\$\$/Temp

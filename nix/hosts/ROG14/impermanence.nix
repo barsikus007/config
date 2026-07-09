@@ -125,7 +125,6 @@ in
         # "go"
         # ".cargo"
         # ".docker"
-        # ".dotnet"
         # ".java" # TODO: font cache
         # ".npm"
         # ".pki" # TODO: is this needed? certs
