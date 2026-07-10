@@ -49,5 +49,4 @@ import ./11_powertoys.nix { inherit pkgs; }
   antimicrox
   parsec-bin
   qbittorrent
-  moonlight-qt
 ]

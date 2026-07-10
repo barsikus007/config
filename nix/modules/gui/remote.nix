@@ -21,5 +21,6 @@
 
   environment.systemPackages = with pkgs; [
     rustdesk-flutter
+    moonlight-qt
   ];
 }

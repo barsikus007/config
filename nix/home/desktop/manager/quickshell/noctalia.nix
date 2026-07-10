@@ -123,6 +123,8 @@ in
     enable = true;
     systemd.enable = true;
     settings = {
+      #? https://github.com/noctalia-dev/noctalia/blob/main/example.toml
+      #? code --reuse-window ~/.local/state/noctalia/settings.toml
       audio = {
         enable_sounds = true;
         enable_overdrive = true;
@@ -131,6 +133,7 @@ in
           url = "https://deltarune.wiki/images/Snd_ominous_music.wav";
           hash = "sha256-Dv1sO1/Se90U8S7sIuRxMihKgctm/j/q/ccvxATYSOM=";
         };
+        sound_volume = 1.0;
       };
       bar = {
         order = [ "main" ];
@@ -171,10 +174,15 @@ in
         launcher_custom_image = nixos_logo;
         launcher_position = "start";
         pinned = meta.dock;
-        position = "bottom";
         reserve_space = false;
         show_dots = true;
-        show_running = true;
+      };
+      hooks = {
+        #! noctalia v5 драйвит fprintd-сенсор сам по D-Bus, но при разблокировке ПАРОЛЕМ не освобождает claim
+        #! -> сенсор виснет (goodix phantom claim), следующий verify не может заклеймить (dbus: AlreadyInUse)
+        #! SIGKILL: graceful stop висит на заклиненном verify (TimeoutStopSec); fprintd dbus-activated -> респавнится сам на след. локе
+        #? passwordless kill разрешён polkit-правилом в modules/desktop/manager/niri-de.nix
+        session_unlocked = "${lib.getExe' pkgs.systemd "systemctl"} kill --signal=KILL fprintd.service";
       };
       idle = {
         pre_action_fade_seconds = 5;
@@ -238,8 +246,7 @@ in
         # TODO: noctalia-v5: keybind-cheatsheet, currency-exchange, kde-connect, pomodoro
       };
       shell = {
-        clipboard_enabled = true;
-        clipboard_auto_paste = "auto";
+        clipboard_auto_paste = "ctrl_v";
         clipboard_image_action_command = "satty -f -";
         clipboard_history_max_entries = 500;
         niri_overview_type_to_launch_enabled = true;
@@ -276,6 +283,7 @@ in
           glyph = "music-pin";
           command = "dbus-send --type=method_call --dest=org.kde.plasma.browser_integration /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Raise";
         };
+        privacy.hide_inactive = true;
         tray.drawer = true;
       };
     };

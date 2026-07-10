@@ -45,6 +45,7 @@
         (extension "text-fragment" "text-fragment@example.com")
         (extension "clipboard2file" "{7343f7d1-e6ef-4d8a-8449-d4c18850f559}")
         (extension "user-agent-string-switcher" "{a6c4a591-f1b2-4f03-b3ff-767e5bedf4e7}")
+        (extension "2910149" "zakilo@syrnikovpavel.ru")
         # (extension "languagetool" "languagetool-webextension@languagetool.org")
         # (extension "bitwarden-password-manager" "{446900e4-71c2-419f-a6a7-df9c091e268b}")
         # (extension "umatrix" "uMatrix@raymondhill.net")
@@ -101,6 +102,8 @@
           #? https://github.com/FirefoxCSS-Store/FirefoxCSS-Store.github.io/blob/main/README.md#generic-installation
           "sidebar.revamp" = false;
           "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+
+          "media.videocontrols.picture-in-picture.enable-when-switching-tabs.enabled" = true;
         };
 
         # visit
