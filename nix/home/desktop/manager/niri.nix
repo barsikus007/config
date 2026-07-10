@@ -419,5 +419,42 @@ in
       ];
   };
 
+  #! vibecoded shitscript
+  #? capslock is remapped to layout switch, so its LED is free -> drive it from the active niri layout
+  #? lit on any non-default (non-US) layout; needs the `*::capslock/brightness` udev rule in modules/desktop/manager/niri.nix
+  systemd.user.services.capslock-layout-led = {
+    Unit = {
+      Description = "Drive Caps Lock LED from niri keyboard layout";
+      PartOf = [ "graphical-session.target" ];
+      After = [ "graphical-session.target" ];
+    };
+    Service = {
+      ExecStart =
+        let
+          niri = lib.getExe config.programs.niri.package;
+          jq = lib.getExe pkgs.jq;
+        in
+        lib.getExe (
+          pkgs.writeShellScriptBin "capslock-layout-led" /* shell */ ''
+            #? event-stream emits KeyboardLayoutsChanged on connect (initial sync) and KeyboardLayoutSwitched on toggle
+            #? --unbuffered keeps the pipe flowing per line; empty drops events we don't care about
+            ${niri} msg --json event-stream \
+              | ${jq} --unbuffered -r '(.KeyboardLayoutSwitched.idx) // (.KeyboardLayoutsChanged.keyboard_layouts.current_idx) // empty' \
+              | while read -r idx; do
+                  #? idx 0 == English (US); light the LED for anything else
+                  [ "$idx" -gt 0 ] && v=1 || v=0
+                  #? one `*::capslock` LED per keyboard, mirror to all writable ones
+                  for led in /sys/class/leds/*::capslock/brightness; do
+                      [ -w "$led" ] && printf '%s' "$v" > "$led"
+                  done
+              done
+          ''
+        );
+      Restart = "on-failure";
+      RestartSec = 2;
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
+  };
+
   services.polkit-gnome.enable = lib.mkDefault true; # ? polkit from wiki
 }

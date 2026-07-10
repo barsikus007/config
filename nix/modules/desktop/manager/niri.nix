@@ -51,9 +51,10 @@
     xwininfo
   ];
 
-  #? perms for `niri-toggle-touchpad`
+  #? perms for `niri-toggle-touchpad` and `capslock-layout-led` (both need group `input` write on sysfs)
   users.users.${username}.extraGroups = [ "input" ];
   services.udev.extraRules = ''
     ACTION=="add|change", SUBSYSTEM=="input", ATTR{name}=="*Touchpad*", RUN+="${lib.getExe' pkgs.coreutils "chgrp"} input /sys%p/inhibited", RUN+="${lib.getExe' pkgs.coreutils "chmod"} g+w /sys%p/inhibited"
+    ACTION=="add|change", SUBSYSTEM=="leds", KERNEL=="*::capslock", RUN+="${lib.getExe' pkgs.coreutils "chgrp"} input /sys%p/brightness", RUN+="${lib.getExe' pkgs.coreutils "chmod"} g+w /sys%p/brightness"
   '';
 }
