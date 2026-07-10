@@ -45,8 +45,6 @@
     "docker*"
   ];
 
-  virtualisation.docker.daemon.settings."data-root" = "/tank/docker";
-
   hardware.bluetooth.enable = true;
 
   #? https://wiki.nixos.org/wiki/AMD_GPU

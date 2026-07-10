@@ -88,10 +88,6 @@
             type = "zfs_fs";
             mountpoint = "/tank/apps";
           };
-          "docker" = {
-            type = "zfs_fs";
-            mountpoint = "/tank/docker";
-          };
           "storage" = {
             type = "zfs_fs";
             mountpoint = "/tank/storage";
@@ -144,6 +140,10 @@
           "persistent" = {
             type = "zfs_fs";
             mountpoint = "/persistent";
+          };
+          "docker" = {
+            type = "zfs_fs";
+            mountpoint = "/var/lib/docker";
           };
 
           #? README MORE: https://wiki.archlinux.org/title/ZFS#Swap_volume
