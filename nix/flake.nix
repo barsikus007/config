@@ -74,7 +74,7 @@
 
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
     niri.url = "github:sodiboo/niri-flake";
-    noctalia.url = "github:noctalia-dev/noctalia-shell/cachix";
+    noctalia.url = "github:noctalia-dev/noctalia/cachix";
     dms = {
       url = "github:AvengeMedia/DankMaterialShell/stable";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -185,6 +185,7 @@
 
           ./modules/hardware/logi-mx3.nix
           ./modules/hardware/xbox.nix
+          ./modules/hardware/gamepad-kbd.nix
           ./modules/hardware/esp32.nix
 
           ./modules/nix-ld.nix

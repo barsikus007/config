@@ -175,7 +175,7 @@ local function wrap(text, w, lines)
     end
     if #out < lines and cur ~= "" then out[#out + 1] = cur end
     for i, l in ipairs(out) do
-        if #l > w then out[i] = l:sub(1, math.max(1, w - 1)) .. "…" end
+        if #l > w then out[i] = l:sub(1, math.max(1, w - 1)) .. "..." end
     end
     return out
 end

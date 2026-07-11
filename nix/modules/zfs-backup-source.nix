@@ -5,8 +5,12 @@
   username,
   ...
 }:
+#! vibecoded shitscript which checks size of pending backup
 let
   nasSshHost = "NAS";
+
+  #? notify the desktop BEFORE a push when it's unusually big (normal hourly ~<400 MB)
+  largeSendThresholdBytes = 2 * 1024 * 1024 * 1024; # ? 2 GiB
 
   #? ExecCondition: exit 0 → run; 1-254 → clean skip. timeout→124, refused→1: both skip
   #? /dev/tcp is a bash builtin
@@ -32,44 +36,54 @@ let
       exit 1
     fi
 
-    echo "Forcing backup push to NAS…"
+    echo "Forcing backup push to ${nasSshHost}..."
     sudo ${config.systemd.package}/bin/systemctl start syncoid-zroot-persistent.service
     exec ${config.systemd.package}/bin/journalctl -fu syncoid-zroot-persistent.service
   '';
 
-  #? notify the desktop when a single push is unusually big (normal hourly ~<400 MB)
-  largeSendThresholdMiB = 2 * 1024; #? 2 GiB
-
-  #? syncoid logs one size estimate per send: "... (~ 357.9 MB):". After the unit
-  #? stops we read that back from THIS invocation's journal and, on a big push,
-  #? pop a notify-send. Must be ExecStopPost, not ExecStartPost: the unit is
-  #? Type=simple, so ExecStartPost would fire before anything is actually sent
+  #? runs as ExecStartPre, so it fires before syncoid streams anything. We can't
+  #? hook syncoid's own estimate (Type=simple → ExecStartPost fires before the
+  #? send, ExecStopPost only after it), so replicate it: ask the NAS for its
+  #? newest snapshot = the incremental base, then `zfs send -nP` a dry-run to
+  #? size the raw stream (-w matches sendOptions). On a big push, notify-send.
+  #! `-`-prefixed in the unit, so any failure here never blocks the backup
   notifyLargeSend = pkgs.writeShellScript "syncoid-notify-large" /* shell */ ''
     set -euo pipefail
 
-    #? successful pushes only, and only when a live graphical session exists
-    [ "''${SERVICE_RESULT:-}" = success ] || exit 0
+    zfs=${config.boot.zfs.package}/bin/zfs
+    dataset=zroot/persistent
+    target=tank/backups/ROG14/persistent
+
+    #? only meaningful inside a live graphical session
     bus="/run/user/$(${pkgs.coreutils}/bin/id -u)/bus"
     [ -S "$bus" ] || exit 0
 
-    #? syncoid's own estimate for this run, e.g. "2.3 GB"
-    size=$(${config.systemd.package}/bin/journalctl \
-        _SYSTEMD_INVOCATION_ID="''${INVOCATION_ID:-}" --output=cat 2>/dev/null \
-      | ${pkgs.gnugrep}/bin/grep -oP '\(~ \K[0-9.]+ [KMGT]?B(?=\))' \
+    #? newest local snapshot = what this run will push up to (ascending + tail
+    #? avoids the SIGPIPE that `sort -S | head` would trip under pipefail)
+    newest=$("$zfs" list -H -d1 -t snapshot -o name -s creation "$dataset" \
       | ${pkgs.coreutils}/bin/tail -n1)
-    [ -n "$size" ] || exit 0
+    [ -n "$newest" ] || exit 0
 
-    #? syncoid steps are 1024-based but labelled KB/MB/GB; fold to MiB
-    mib=$(echo "$size" | ${lib.getExe pkgs.gawk} '{
-      f["B"] = 1 / 1048576; f["KB"] = 1 / 1024; f["MB"] = 1;
-      f["GB"] = 1024; f["TB"] = 1048576;
-      printf "%d", $1 * f[$2]
-    }')
-    [ "$mib" -ge ${toString largeSendThresholdMiB} ] || exit 0
+    #? what the NAS already has → the common base for the incremental
+    tgt=$(${pkgs.coreutils}/bin/timeout 15 ${pkgs.openssh}/bin/ssh -o BatchMode=yes \
+      admin@${nasSshHost} -- zfs list -H -d1 -t snapshot -o name -s creation "$target" \
+      2>/dev/null | ${pkgs.coreutils}/bin/tail -n1 || true)
+    #? no base (empty target / ssh hiccup): skip rather than mis-size a "full" send
+    [ -n "$tgt" ] || exit 0
+    common="$dataset@''${tgt##*@}"
+    #? already in sync → nothing to send
+    [ "$common" != "$newest" ] || exit 0
 
+    #? dry-run the exact stream syncoid will push; `size <bytes>` is the estimate
+    bytes=$("$zfs" send -nPw -I "$common" "$newest" 2>/dev/null \
+      | ${lib.getExe pkgs.gawk} '/^size/ { print $2 }')
+    [ -n "''${bytes:-}" ] || exit 0
+    [ "$bytes" -ge ${toString largeSendThresholdBytes} ] || exit 0
+
+    size=$(${pkgs.coreutils}/bin/numfmt --to=iec --suffix=B "$bytes")
     DBUS_SESSION_BUS_ADDRESS="unix:path=$bus" \
       ${pkgs.libnotify}/bin/notify-send --app-name=Syncoid --urgency=normal \
-      "Крупный бэкап на NAS" "zroot/persistent: ~$size"
+      "Large ZFS backup to ${nasSshHost}" "zroot/persistent: ~$size, sending..."
   '';
 in
 {
@@ -114,10 +128,10 @@ in
     #? notifier below can reach the session bus. /run/user always exists as a
     #? dir, so the bind never fails even with no session (notifier then skips)
     BindReadOnlyPaths = [ "/run/user" ];
-    # TODO: vibecoded shitscript untested
-    #? big-send notifier; `-` = ignore_errors so it never fails the backup.
-    #? merges with upstream's zfs-unallow ExecStopPost (unitOption list concat)
-    ExecStopPost = [ "-${notifyLargeSend}" ];
+    #? big-send notifier, BEFORE the push; `-` = ignore_errors so it never
+    #? blocks the backup. Merges with upstream's zfs-allow ExecStartPre and runs
+    #? after it (unitOption list concat preserves definition order)
+    ExecStartPre = [ "-${notifyLargeSend}" ];
   };
 
   #? catch up a tick that was skipped while offline, once back online

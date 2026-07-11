@@ -4,8 +4,24 @@
   pkgs,
   ...
 }:
+let
+  #! packages ship desktop entries that pollute dolphin "Open With" (mpv ships umpv)
+  #! KDE ignores Hidden= and mimeapps removedAssociations for self-declared mimetypes,
+  #! but a valid same-name entry in XDG_DATA_HOME wins by storage-id
+  #? so redeclaring it with an empty MimeType de-associates it from every type, no package edit
+  neutralizedApplications = [
+    "umpv" # nonfunctional one-instance wrapper bundled with mpv
+  ];
+in
 {
   xdg = {
+    desktopEntries = lib.genAttrs neutralizedApplications (name: {
+      inherit name;
+      exec = "${name} %U";
+      noDisplay = true;
+      mimeType = [ ];
+    });
+
     #? \command ls /run/current-system/sw/share/applications /etc/profiles/per-user/$(id -n -u)/share/applications ~/.local/share/applications | grep -i <name>
     mimeApps.enable = true;
     mimeApps.defaultApplications = {
@@ -29,6 +45,8 @@
           "application/xml"
           "application/json"
           "application/x-shellscript"
+          "text/javascript"
+          "application/javascript"
           # default for unknown (binary) and text
           "text/plain"
           "application/octet-stream"
@@ -41,6 +59,10 @@
           "neovide.desktop"
           "nvim.desktop"
         ]);
+    mimeApps.associations.removed = lib.genAttrs [
+      "text/javascript"
+      "application/javascript"
+    ] (_: [ "writer.desktop" ]);
     userDirs.enable = true;
   };
 

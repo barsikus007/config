@@ -107,7 +107,7 @@ nix_hot_reload() {
     # если WATCH_PATH файл, то убедимся что он тронут
     if [[ -f "$NIX_FILE" || -d "$WATCH_PATH" ]]; then
       if ! nix_build_and_link $NIX_REPL $NIX_FILE $NIX_EVAL $CONFIG_LOCATION $CALLBACK; then
-        echo "build failed; waiting for next change…"
+        echo "build failed; waiting for next change..."
       fi
     fi
   done
@@ -117,7 +117,7 @@ nix_home_manager_reload() {
   NIX_REPL=/home/ogurez/config/nix/repl.nix
 
   NIX_FILE="/home/ogurez/config/nix/home"
-  CALLBACK="systemctl --user restart noctalia-shell"
+  CALLBACK="systemctl --user restart noctalia"
 
   nix_home_manager_build_and_link $NIX_REPL $NIX_FILE $CALLBACK
 }
@@ -128,7 +128,7 @@ nix_hot_reload_noctalia() {
   NIX_FILE="/home/ogurez/config/nix/home/desktop/manager/niri/quickshell/noctalia.nix"
   NIX_EVAL='home.xdg.configFile."noctalia/settings.json"'
   CONFIG_LOCATION=/home/ogurez/.config/noctalia/settings.json
-  CALLBACK="systemctl --user restart noctalia-shell"
+  CALLBACK="systemctl --user restart noctalia"
 
   nix_hot_reload $NIX_REPL $NIX_FILE $NIX_EVAL $CONFIG_LOCATION $CALLBACK
 }

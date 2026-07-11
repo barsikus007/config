@@ -139,7 +139,7 @@ in
         order = [ "main" ];
         main = {
           capsule = true;
-          margin_ends = 10;
+          margin_ends = 0;
           padding = 4;
           start = [
             "control-center"
@@ -247,16 +247,17 @@ in
         clipboard_auto_paste = "ctrl_v";
         clipboard_image_action_command = "satty -f -";
         clipboard_history_max_entries = 500;
+        launch_apps_as_systemd_services = true;
+        mpris.blacklist = [ "firefox.instance" ];
         niri_overview_type_to_launch_enabled = true;
         panel = {
           open_near_click_control_center = true;
           transparency_mode = "glass";
         };
         password_style = "random";
-        screen_time_enabled = true;
         polkit_agent = true;
-        launch_apps_as_systemd_services = true;
         screen_corners.enabled = true;
+        screen_time_enabled = true;
       };
       widget = {
         battery = {

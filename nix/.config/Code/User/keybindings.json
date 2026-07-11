@@ -225,30 +225,4 @@
         "command": "-extension.python-print-deleteall",
         "when": "editorTextFocus"
     },
-    // https://code.visualstudio.com/docs/configure/keybindings#_keyboard-layoutindependent-bindings
-    {
-        "key": "ctrl+[Slash]",
-        "command": "editor.action.commentLine",
-        "when": "editorTextFocus && !editorReadonly"
-    },
-    {
-        "key": "ctrl+/",
-        "command": "-editor.action.commentLine",
-        "when": "editorTextFocus && !editorReadonly"
-    },
-    {
-        "key": "ctrl+[Backquote]",
-        "command": "workbench.action.terminal.toggleTerminal",
-        "when": "terminal.active"
-    },
-    {
-        "key": "ctrl+`",
-        "command": "-workbench.action.terminal.toggleTerminal",
-        "when": "terminal.active"
-    },
-    //! wtype Ctrl+Shift+V misfires in Electron: V counts as Escape -> Ctrl+Shift+Escape
-    {
-        "key": "ctrl+shift+escape",
-        "command": "-claude-vscode.editor.open"
-    }
 ]
