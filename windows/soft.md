@@ -1,10 +1,5 @@
 # [Soft](./)
 
-## WSA
-
-- <https://github.com/LSPosed/MagiskOnWSALocal>
-- `scoop install wsa-pacman`
-
 ## Other soft
 
 - [system informer (process hacker)](https://systeminformer.sourceforge.io/nightly.php)

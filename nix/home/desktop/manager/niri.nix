@@ -168,6 +168,10 @@ in
             hotkey-overlay.title = "Show Important Hotkeys";
             action = config.lib.niri.actions.show-hotkey-overlay;
           };
+          "Mod+P" = lib.mkDefault {
+            hotkey-overlay.title = "Change Display Settings";
+            action.spawn = [ (lib.getExe pkgs.wdisplays) ];
+          };
           "Mod+L" = lib.mkDefault {
             hotkey-overlay.title = "Lock Screen";
             action.spawn = [
@@ -295,6 +299,7 @@ in
         (lib.attrsets.optionalAttrs config.custom.isAsus {
           # TODO: specific quickshell depent hotkeys; maybe make cli for unification?
           "XF86Launch1" = {
+            allow-when-locked = true;
             hotkey-overlay.title = "Asus: Show Something";
             action.spawn-sh = "zsh -c asus_anime_demo_toggle";
           };

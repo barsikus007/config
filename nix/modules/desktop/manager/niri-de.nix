@@ -51,6 +51,16 @@
 
   #! noctalia-v5 lockscreen fprint fix
   security.pam.services.login.fprintAuth = !config.services.fprintd.enable;
+  #? for hooks.session_unlocked (noctalia.nix)
+  security.polkit.extraConfig = /* javascript */ ''
+    polkit.addRule(function (action, subject) {
+      if (action.id === "org.freedesktop.systemd1.manage-units"
+        && action.lookup("unit") === "fprintd.service"
+        && subject.user === "${username}") {
+        return polkit.Result.YES;
+      }
+    });
+  '';
 
   environment.systemPackages = with pkgs; [ wdisplays ];
 

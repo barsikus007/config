@@ -167,6 +167,7 @@ in
       };
       battery.warning_threshold = 30;
       brightness.enable_ddcutil = true;
+      control_center.sidebar = "full";
       # TODO: desktop_widgets = { };
       dock = {
         enabled = true;
@@ -178,10 +179,7 @@ in
         show_dots = true;
       };
       hooks = {
-        #! noctalia v5 драйвит fprintd-сенсор сам по D-Bus, но при разблокировке ПАРОЛЕМ не освобождает claim
-        #! -> сенсор виснет (goodix phantom claim), следующий verify не может заклеймить (dbus: AlreadyInUse)
-        #! SIGKILL: graceful stop висит на заклиненном verify (TimeoutStopSec); fprintd dbus-activated -> респавнится сам на след. локе
-        #? passwordless kill разрешён polkit-правилом в modules/desktop/manager/niri-de.nix
+        #! noctalia password unlock locks frintd (polkit-rule needed)
         session_unlocked = "${lib.getExe' pkgs.systemd "systemctl"} kill --signal=KILL fprintd.service";
       };
       idle = {
@@ -250,12 +248,15 @@ in
         clipboard_image_action_command = "satty -f -";
         clipboard_history_max_entries = 500;
         niri_overview_type_to_launch_enabled = true;
+        panel = {
+          open_near_click_control_center = true;
+          transparency_mode = "glass";
+        };
         password_style = "random";
         screen_time_enabled = true;
         polkit_agent = true;
         launch_apps_as_systemd_services = true;
         screen_corners.enabled = true;
-        panel.transparency_mode = "glass";
       };
       widget = {
         battery = {

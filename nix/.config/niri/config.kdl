@@ -63,8 +63,11 @@ window-rule {
     clip-to-geometry true
 }
 
+//? force half-screen size
 window-rule {
     match app-id=r#"^org\.wezfurlong\.wezterm$"#
+    match app-id=r#"^dev\.noctalia\.Noctalia$"# title="^Noctalia Settings$"
+    match app-id=r#"^wdisplays$"# title="^wdisplays$"
     default-column-width { proportion 0.5; }
 }
 
@@ -199,6 +202,7 @@ workspace "social" {
     }
 }
 window-rule {
+    match app-id=r#"^discord$"#
     match app-id=r#"^vesktop$"#
     match app-id=r#"^com\.ayugram\.desktop$"#
     open-on-workspace "social"
@@ -225,6 +229,7 @@ binds {
     // Mod+Shift+D       hotkey-overlay-title="Run an Application" { spawn-sh "tmux new -s xd -d 'scrcpy -K --render-driver=opengles2 --no-audio --video-bit-rate=1M'"; }
     // Mod+D             hotkey-overlay-title="Run an Application" { spawn-sh "tmux kill-session -t xd"; }
     Mod+E             hotkey-overlay-title="Run a File Manager" { spawn "dolphin"; }
+    Mod+Shift+G       hotkey-overlay-title="Toggle <b>gamepad-as-keyboard</b>" { spawn "gamepad-kbd-toggle"; }
 
     XF86Launch6 hotkey-overlay-title=null { focus-column-left; }
     XF86Launch7 hotkey-overlay-title=null { focus-workspace-down; }
