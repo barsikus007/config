@@ -1,5 +1,7 @@
 {
   virtualisation.vmVariant.virtualisation.qemu.options = [
+    "-monitor stdio"
+
     #? https://wiki.archlinux.org/title/QEMU#virtio
     "-device virtio-vga-gl" # ? paravirt 3d gpu
 

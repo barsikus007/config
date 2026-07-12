@@ -1,7 +1,11 @@
+{ lib, ... }:
 {
   nixpkgs.overlays = [
     (_: prev: { fastfetch = prev.fastfetch.override { zfsSupport = true; }; })
   ];
+
+  # TODO: unstable: system.stateVersion = "26.11"
+  boot.zfs.forceImportRoot = lib.mkDefault false;
 
   services.zfs.autoScrub.enable = true;
   services.sanoid = {

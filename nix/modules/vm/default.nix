@@ -41,4 +41,18 @@
   ];
 
   virtualisation.spiceUSBRedirection.enable = true;
+
+  #? QEMU with VFIO pins the whole guest RAM
+  security.pam.loginLimits = [
+    {
+      domain = username;
+      item = "memlock";
+      type = "-";
+      value = "unlimited";
+    }
+  ];
+  #? same as libvirtd VFIO ACLs
+  services.udev.extraRules = ''
+    SUBSYSTEM=="vfio", OWNER="${username}", MODE="0600"
+  '';
 }

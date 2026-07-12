@@ -131,7 +131,6 @@
                   cores = 8;
                   #! sharedDirectories
                   qemu.options = [
-                    "-monitor stdio"
                     # "-full-screen"
                   ];
                 };
@@ -332,7 +331,6 @@
         # ./modules/desktop/manager/niri-dms.nix
       ];
       nixosConfigurations."coolvm-plasma" = mkCoolVm "plasma" "ogurez" [
-        # ./hosts/vm/vfio-pass.nix
         ./hosts/vm/kde-sunshined.nix
         #! ./result/bin/run-*-vm -device virtio-vga
         # ./hosts/vm/kde-sunshined-vfio.nix

@@ -45,11 +45,19 @@ ds() {
 }
 
 capture_wezterm_zsh_cmd() {
-  local cmd="$1"
   # Time limit in seconds: how long to let the command run before screenshotting.
   # Short commands are captured as soon as they finish; interactive/never-exiting
   # apps (htop, vim, ...) are captured once this elapses. Bump it for slow commands.
-  local timeout="${2:-3}"
+  local timeout=3
+  # optional leading -t/--timeout N; everything after is the command, so
+  # multi-word invocations work unquoted (e.g. capture_wezterm_zsh_cmd cat ~/smth)
+  while [[ "$1" == -* ]]; do
+    case "$1" in
+      (-t|--timeout) timeout="$2"; shift 2 ;;
+      (*) echo "Unknown option: $1"; return 1 ;;
+    esac
+  done
+  local cmd="$*"
 
   if [[ -z "$cmd" ]]; then
     echo "Error: no command given."
@@ -260,5 +268,44 @@ desc() {  # TODO WIP
       fi
     done
     # [[ "$URL" == "$PATTERN"* ]]
+  )
+}
+
+desksort() {
+  #? tidy ~/.local/share/applications: move matching *.desktop into category subdirs
+  #? cosmetic only - XDG scans the dir recursively, so menu/launcher entries stay the same
+  #? usage:
+  #?   desksort                      # apply built-in rules below
+  #?   desksort <regex> <category>   # move files whose body matches <regex> into <category>/
+  #?   desksort -n ...               # dry-run, only print what would move
+  (
+    local apps="${XDG_DATA_HOME:-$HOME/.local/share}/applications"
+    local dry=0
+    [[ $1 == -n || $1 == --dry-run ]] && { dry=1; shift; }
+    [[ -d $apps ]] || { echo "no such dir: $apps"; return 1; }
+
+    # move every top-level *.desktop whose body matches $1 into subdir $2
+    move_rule() {
+      local file
+      rg --files-with-matches --max-depth 1 --glob '*.desktop' --regexp "$1" "$apps" 2>/dev/null |
+      while IFS= read -r file; do
+        if (( dry )); then
+          echo "would move: ${file##*/} -> $2/"
+        else
+          mkdir --parent "$apps/$2"
+          mv --no-clobber --verbose "$file" "$apps/$2/"
+        fi
+      done
+    }
+
+    if [[ -n $1 ]]; then
+      #! manual mode: explicit pattern + target subdir
+      move_rule "$1" "${2:?usage: desksort [-n] <regex> <category>}"
+    else
+      #! built-in rules, first match wins (once moved into a subdir it drops out of the top-level scan)
+      move_rule '^Exec=steam'    steam
+      move_rule '^Exec=.*wine'   wine
+      move_rule '^Exec=waydroid' waydroid
+    fi
   )
 }
