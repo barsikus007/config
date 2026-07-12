@@ -306,6 +306,13 @@
         ];
       };
 
+      #? nixos-anywhere --flake ./nix#NAS-vmtest --vm-test
+      nixosConfigurations."NAS-vmtest" = self.nixosConfigurations."NAS".extendModules {
+        modules = [
+          ./hosts/NAS/vmtest.nix
+        ];
+      };
+
       #? nixos-anywhere --flake ./nix#generic-VPS --generate-hardware-config nixos-generate-config ./nix/hosts/empty-hardware-configuration.nix --target-host <hostname>
       nixosConfigurations."generic-VPS" = nixpkgs.lib.nixosSystem {
         inherit system pkgs;
