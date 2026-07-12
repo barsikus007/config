@@ -144,10 +144,6 @@ in
         };
       };
 
-      spawn-at-startup = [
-        { argv = [ "kwalletd6" ]; }
-      ];
-
       # hotkey-overlay.skip-at-startup = true;
 
       #? enable csd for consistency cause this isn't possible to disable csd for all windows
