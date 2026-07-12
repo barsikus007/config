@@ -330,10 +330,18 @@
         ./modules/desktop/manager/niri-de.nix
         # ./modules/desktop/manager/niri-dms.nix
       ];
+      nixosConfigurations."coolvm-niri-vfio" = mkCoolVm "niri-vfio" "ogurez" [
+        ./hosts/vm/niri-sunshined-vfio.nix
+
+        ./modules/desktop/manager/niri-de.nix
+      ];
       nixosConfigurations."coolvm-plasma" = mkCoolVm "plasma" "ogurez" [
         ./hosts/vm/kde-sunshined.nix
-        #! ./result/bin/run-*-vm -device virtio-vga
-        # ./hosts/vm/kde-sunshined-vfio.nix
+
+        ./modules/desktop/manager/plasma.nix
+      ];
+      nixosConfigurations."coolvm-plasma-vfio" = mkCoolVm "plasma" "ogurez" [
+        ./hosts/vm/kde-sunshined-vfio.nix
 
         ./modules/desktop/manager/plasma.nix
       ];
@@ -488,7 +496,9 @@
 
           default = self.packages.${system}.coolvm-niri;
           coolvm-niri = self.nixosConfigurations."coolvm-niri".config.system.build.vm;
+          coolvm-niri-vfio = self.nixosConfigurations."coolvm-niri-vfio".config.system.build.vm;
           coolvm-plasma = self.nixosConfigurations."coolvm-plasma".config.system.build.vm;
+          coolvm-plasma-vfio = self.nixosConfigurations."coolvm-plasma-vfio".config.system.build.vm;
           nixos-minimalIso = self.nixosConfigurations."minimalIso-${system}".config.system.build.isoImage;
           nixos-plasmaIso = self.nixosConfigurations."plasmaIso-${system}".config.system.build.isoImage;
           windows-bootstrapIso = callPackage ./packages/windows { };

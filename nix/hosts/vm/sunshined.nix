@@ -53,6 +53,11 @@
     settings.port = 57989;
   };
 
+  #? only start sunshine in the autologin user session, not for the sddm/gdm greeter user
+  systemd.user.services.sunshine.unitConfig.ConditionUser = username;
+
+  hardware.graphics.enable = true;
+
   hardware.uinput.enable = true;
   users.users.${username}.extraGroups = [
     "uinput"
