@@ -1,0 +1,21 @@
+system: "base16"
+name: "Shades of Purple Super Dark"
+author: "derived from ahmadawais/shades-of-purple-vscode (super-dark), base16-mapped"
+variant: "dark"
+palette:
+  base00: "#191830" # default background
+  base01: "#222145" # lighter background (status bar, alt rows)
+  base02: "#5706a2" # selection background
+  base03: "#7870ab" # comments, invisibles, line numbers
+  base04: "#a599e9" # dark foreground (secondary text)
+  base05: "#e1efff" # default foreground
+  base06: "#f0f5ff" # light foreground
+  base07: "#ffffff" # light background
+  base08: "#ec3a37" # red, variables, diff removed
+  base09: "#ff9d00" # orange, constants, numbers
+  base0A: "#fad000" # yellow, classes, search
+  base0B: "#a5ff90" # green, strings, diff added
+  base0C: "#80fcff" # cyan, support, regex
+  base0D: "#7857fe" # blue, functions, links
+  base0E: "#b362ff" # purple, keywords
+  base0F: "#ff2c70" # pink, deprecated

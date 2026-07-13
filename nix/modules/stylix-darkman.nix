@@ -1,10 +1,13 @@
 {
   lib,
   pkgs,
-  config,
   username,
   ...
 }:
+let
+  #! QT-based apps: https://github.com/telegramdesktop/tdesktop/issues/26370
+  notifyQtColorChange = "${lib.getExe' pkgs.glib "gdbus"} emit --session --object-path /KGlobalSettings --signal org.kde.KGlobalSettings.notifyChange 0 0";
+in
 {
   disabledModules = [
     "system/activation/bootspec.nix"
@@ -14,18 +17,26 @@
     ./system/activation/bootspec.nix
     ./system/activation/specialisation.nix
   ];
-  home-manager.users.${username}.services.darkman = {
-    enable = true;
-    darkModeScripts = {
-      switch-to-dark = "sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch";
-    };
-    lightModeScripts = {
-      switch-to-light = "sudo /nix/var/nix/profiles/system/specialisation/light/bin/switch-to-configuration switch";
-    };
-    settings = {
-      lat = 42;
-      lng = 40;
-      # usegeoclue = true;
+  home-manager.users.${username} = {
+    services.darkman = {
+      enable = true;
+      darkModeScripts = {
+        switch-to-dark = /* shell */ ''
+          sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch
+          ${notifyQtColorChange}
+        '';
+      };
+      lightModeScripts = {
+        switch-to-light = /* shell */ ''
+          sudo /nix/var/nix/profiles/system/specialisation/light/bin/switch-to-configuration switch
+          ${notifyQtColorChange}
+        '';
+      };
+      settings = {
+        lat = 42;
+        lng = 40;
+        # usegeoclue = true;
+      };
     };
   };
 
@@ -42,12 +53,8 @@
         );
         polarity = lib.mkForce "light";
       };
-      # TODO: module: help me
       home-manager.users.${username} = {
         programs.bat.config.theme = lib.mkForce "Coldark-Cold";
-        # TODO: niri cfg broken if plasma non-imported
-        # home.file.".themes/Breeze-Dark" =
-        #   config.home-manager.users.${username}.home.file.".themes/Breeze-Dark";
       };
     };
   };

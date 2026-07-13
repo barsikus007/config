@@ -45,8 +45,8 @@
 
       "dolphinrc"."General"."ShowFullPath" = true;
       "dolphinrc"."General"."BrowseThroughArchives" = true;
-      # TODO: "dolphinrc"."UiSettings"."ColorScheme" = "";
-      "dolphinrc"."UiSettings"."ColorScheme" = "BreezeDark";
+      #? to forbid ColorScheme to change by itself
+      "dolphinrc"."UiSettings"."ColorScheme" = "";
       "dolphinrc"."DetailsMode"."PreviewSize" = 16;
 
       # "kiorc"."Confirmations"."ConfirmDelete" = true;
