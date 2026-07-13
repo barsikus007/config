@@ -5,5 +5,18 @@
 [ "$INTERFACE" = "awg0" ] || exit 0
 [ "$ACTION" = "ifup" ] || exit 0
 
-logger -t pbr "Reloading $INTERFACE due to $ACTION of $INTERFACE ($DEVICE)"
-/etc/init.d/pbr on_interface_reload "$INTERFACE"
+#? debounce: a reconnect fires several awg0 ifup events; one restart per reconnect is enough
+lock=/tmp/pbr_reload.stamp
+now="$(cut -d. -f1 /proc/uptime)"
+if [ -f "$lock" ] && [ "$(( now - $(cat "$lock" 2>/dev/null || echo 0) ))" -lt 15 ]; then
+    logger -t pbr "skip: pbr restart already done recently"
+    exit 0
+fi
+echo "$now" > "$lock"
+
+#? full restart, NOT on_interface_reload: the light reload reuses the fw4 nft file and leaves
+#? LAN->awg0 forwarding stale after a reconnect (router keeps internet, LAN clients + their DNS
+#? via awg0 die). restart reinstalls the nft file - same as the pbr LuCI Restart button, which
+#? is the only thing that reliably fixes it
+logger -t pbr "Full pbr restart due to ifup of $INTERFACE ($DEVICE)"
+/etc/init.d/pbr restart

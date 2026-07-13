@@ -1,6 +1,6 @@
 # [Worst Nix/OS config ever](../README.md)
 
-Goal is to provide modular close to windows-godlike desktop experience
+Modular Nix configurations for desktops, servers, virtual machines, mobile devices, and custom packages
 
 ## [Command cheatsheet](./cheatsheet.md)
 

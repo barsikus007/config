@@ -68,6 +68,7 @@ window-rule {
     match app-id=r#"^org\.wezfurlong\.wezterm$"#
     match app-id=r#"^dev\.noctalia\.Noctalia$"# title="^Noctalia Settings$"
     match app-id=r#"^wdisplays$"# title="^wdisplays$"
+    match app-id=r#"^code$"#
     default-column-width { proportion 0.5; }
 }
 
@@ -450,6 +451,11 @@ binds {
     // Finer height adjustments when in column with other windows.
     Mod+Shift+Minus { set-window-height "-10%"; }
     Mod+Shift+Equal { set-window-height "+10%"; }
+
+    //? vibecoded libspeedhack speed control in 0.5x steps, state in speedhack_speed, pushed to control FIFO
+    Mod+Alt+Equal repeat=false hotkey-overlay-title="Speedhack <b>+0.5x</b>" { spawn-sh "f=/run/user/1000/speedhack_speed; p=/run/user/1000/speedhack_pipe; s=$(awk -v c=$(cat $f 2>/dev/null||echo 1) 'BEGIN{v=c+0.5;if(v>10)v=10;print v}'); printf '%s\\n' $s >$f; printf '%s\\n' $s | timeout 0.5 tee $p >/dev/null"; }
+    Mod+Alt+Minus repeat=false hotkey-overlay-title="Speedhack <b>-0.5x</b>" { spawn-sh "f=/run/user/1000/speedhack_speed; p=/run/user/1000/speedhack_pipe; s=$(awk -v c=$(cat $f 2>/dev/null||echo 1) 'BEGIN{v=c-0.5;if(v<0.5)v=0.5;print v}'); printf '%s\\n' $s >$f; printf '%s\\n' $s | timeout 0.5 tee $p >/dev/null"; }
+    Mod+Alt+0     repeat=false hotkey-overlay-title="Speedhack <b>reset 1x</b>" { spawn-sh "f=/run/user/1000/speedhack_speed; p=/run/user/1000/speedhack_pipe; printf '1\\n' >$f; printf '1\\n' | timeout 0.5 tee $p >/dev/null"; }
 
     // Move the focused window between the floating and the tiling layout.
     Mod+Ctrl+V  { toggle-window-floating; }

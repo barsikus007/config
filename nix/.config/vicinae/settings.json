@@ -5,36 +5,8 @@
         "./settings-static.json"
     ],
 
-    // Input monitoring/injection binary required to handle "paste to active window" actions and snippet expansion.
-    // If disabled, Vicinae will automatically fallback on copy instead of paste, and keyword expansion for snippets will no longer work.
-    // Note that conceptually, the input server is not uniquely related to snippets, so disabling snippets will not shutdown the input server process:
-    // only this key can.
-    "input_server": {
-        "enabled": true
-    },
-
-    // Whether root search should also search files directly.
-    // File search is performed asynchrounously: files may take an instant to appear after a query is entered.
-    // Turning this on results in an increase in CPU usage when searching.
-    // Note that vicinae has a built-in file search command that can be used to perform file search in isolation, accompanied with
-    // rich content preview. This should be more than enough for most users.
-    "search_files_in_root": false,
-
-    // activate list and grid items with only one click
-    "activate_on_single_click": false,
-
-    // Whether IME preedit strings should be searched in real time.
-    "consider_preedit": false,
-
     // Reset the navigation state every time the window is closed
-    // "pop_to_root_on_close": false,
-
-    "font": {
-        // Text rendering backend used by Qt Quick text.
-        // "native": uses platform/fontconfig rendering (can have better dark-mode weight/clarity)
-        // "qt": uses Qt distance-field rendering (typically better performance for heavy scaling/animation)
-        "rendering": "qt"
-    },
+    "pop_to_root_on_close": true,
 
     // Keybinds are serialized using a custom format.
     // It is recommended to edit them through the settings GUI, which will write them to this file.
@@ -46,7 +18,7 @@
 
         // used to assign shortcuts to generic actions
         // if an extension provides a specific kind of action, it is encouraged to use shortcuts as defined here.
-        "action.copy": "control+shift+C",
+        "action.copy": "control+C",
         "action.copy-name": "control+shift+.",
         "action.copy-path": "control+shift+,",
         "action.dangerous-remove": "control+shift+X",

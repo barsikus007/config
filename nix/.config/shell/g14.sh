@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #? ROG G14 specific
-#? deps: tmux asusctl sox(play)
+#? deps: tmux asusctl
 asus_anime_demo_select() {
   # use fzf (default) or vicinae dmenu (--interactive) to pick a subfolder and link its frames.gif / sound.mp3 into ~/.config/rog/
   local ROG_ANIME_DIR=~/.config/rog
@@ -33,12 +33,13 @@ asus_anime_demo_download() {
       "UkgK8eUdpAo bad-apple" \
       "dQw4w9WgXcQ rickroll" \
       | fzf --prompt="Download preset> ") || return 1
-    VIDEO_ID=$(echo "$VIDEO_ID_ENTRY" | awk '{print $}')
+    VIDEO_ID=$(echo "$VIDEO_ID_ENTRY" | awk '{print $1}')
   fi
 
   VIDEO_TITLE=$(yt-dlp --get-filename --output "%(title)s" "$VIDEO_ID" 2>/dev/null | tr ' /' '_-' | tr -cd '[:alnum:]_-')
   VIDEO_FOLDER=~/.config/rog/${VIDEO_ID}__${VIDEO_TITLE}
   mkdir --parents "$VIDEO_FOLDER"
+  # TODO: fix timings
   yt-dlp "$VIDEO_ID" --output - | ffmpeg -i - -filter_complex "[0:v]fps=30,scale=66:-1,setpts=0.645*PTS[v]" -map '[v]' -loop 0 "$VIDEO_FOLDER/frames.gif" "$VIDEO_FOLDER/sound.mp3" -y
 }
 
@@ -50,7 +51,7 @@ alias asus_anime_demo_start_gif='tmux new -s anime -d "asusctl anime gif --path 
 alias asus_anime_demo_show_splash='asusctl anime pixel-image --path ~/.config/rog/bad-apple.png'
 alias asus_anime_demo_stop_sound='tmux kill-session -t sound 2> /dev/null'
 alias asus_anime_demo_stop='asus_anime_demo_stop_sound; asus_anime_demo_stop_gif; asus_anime_demo_stop_cleanup'
-alias asus_anime_demo_start_sound='tmux new -s sound -d "PULSE_SINK=alsa_output.pci-0000_04_00.6.analog-stereo play ~/.config/rog/sound.mp3 repeat -"'
+alias asus_anime_demo_start_sound='tmux new -s sound -d "while true; do pw-play --target alsa_output.pci-0000_04_00.6.analog-stereo ~/.config/rog/sound.mp3; done"'
 #? 0.5s for matrix to start
 alias asus_anime_demo_start='asus_anime_demo_stop && asus_anime_demo_start_prepare && asus_anime_demo_start_gif && sleep 0.5 && asus_anime_demo_start_sound'
 asus_anime_toggle() {

@@ -39,11 +39,6 @@ in
   ];
 
   programs.niri.settings = {
-    switch-events.lid-close.action.spawn = [
-      "sh"
-      "-c"
-      "[ $(niri msg --json outputs | ${lib.getExe pkgs.jq} 'keys | length') == '1' ] && loginctl lock-session"
-    ];
     binds =
       with config.lib.niri.actions;
       let
@@ -91,11 +86,11 @@ in
         };
         "XF86MonBrightnessUp" = {
           allow-when-locked = true;
-          action = noctalia-ipc "brightness-up";
+          action = noctalia-ipc "brightness-up" "*";
         };
         "XF86MonBrightnessDown" = {
           allow-when-locked = true;
-          action = noctalia-ipc "brightness-down";
+          action = noctalia-ipc "brightness-down" "*";
         };
 
         "Mod+V" = {
@@ -149,7 +144,7 @@ in
             "noctalia/screen_recorder:recorder"
             "active_window"
           ];
-          center = [ "workspaces" ];
+          center = [ "taskbar" ];
           end = [
             "music_button"
             "media"
@@ -186,6 +181,7 @@ in
         pre_action_fade_seconds = 5;
         behavior_order = [
           "lock"
+          "lock-screen-off"
           "screen-off"
           "ff-recover"
         ];
@@ -194,6 +190,13 @@ in
             enabled = true;
             action = "lock";
             timeout = 900.0;
+          };
+          #? power off monitors 60s into idle, but only when session is already locked
+          "lock-screen-off" = {
+            enabled = true;
+            action = "command";
+            timeout = 60.0;
+            command = ''[ "$(loginctl show-session $XDG_SESSION_ID -p LockedHint --value)" = "yes" ] && ${lib.getExe config.programs.niri.package} msg action power-off-monitors'';
           };
           "screen-off" = {
             enabled = true;
@@ -230,7 +233,6 @@ in
         enabled = [
           "noctalia/screen_recorder"
           "noctalia/kaomoji"
-          "noctalia/timer"
         ];
         source = [
           {
@@ -241,7 +243,7 @@ in
             enabled = true;
           }
         ];
-        # TODO: noctalia-v5: keybind-cheatsheet, currency-exchange, kde-connect, pomodoro
+        # TODO: noctalia-v5: timer:bar-widget, keybind-cheatsheet, currency-exchange, kde-connect, pomodoro
       };
       shell = {
         clipboard_auto_paste = "ctrl_v";
@@ -286,7 +288,11 @@ in
           command = "dbus-send --type=method_call --dest=org.kde.plasma.browser_integration /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Raise";
         };
         privacy.hide_inactive = true;
-        tray.drawer = true;
+        taskbar.group_by_workspace = true;
+        tray = {
+          drawer = true;
+          pinned = [ "Syncthing Tray" ];
+        };
       };
     };
   };

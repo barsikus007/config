@@ -6,10 +6,10 @@
     # extensions = [];
     settings = {
       close_on_focus_loss = true;
+      activate_on_single_click = true;
+      launcher_window.layer_shell.layer = "overlay";
       #? controlled by niri
       launcher_window.client_side_decorations.enabled = true;
-
-      launcher_window.layer_shell.layer = "overlay";
     };
   };
   xdg.configFile."vicinae/settings.json".target = "vicinae/settings-static.json";

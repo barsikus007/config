@@ -12,8 +12,7 @@
 
   virtualisation.hugepages = {
     #? grep -i huge /proc/meminfo
-    #? sudo sysctl -w vm/nr_hugepages=4400
-    #?? sudo sysctl -w vm/compact_memory=1
+    #? sync && sudo sysctl -w vm.drop_caches=3 && sudo sysctl -w vm.compact_memory=1 && sudo sysctl -w vm.nr_hugepages=4400
     # enable = true;
     defaultPageSize = "2M";
     pageSize = "2M";

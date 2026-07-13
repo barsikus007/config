@@ -217,7 +217,7 @@ zcd() {
   fi
 
   # Calculate the path relative to the mountpoint
-  local rel_path="${current_dir#"$mnt_point"}"
+  local rel_path="${current_dir#"$zfs_mountroot"}"
   rel_path="${rel_path#/}" # Remove leading slash
 
   # Select snapshot using fzf

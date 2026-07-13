@@ -56,7 +56,17 @@ nix_home_manager_build_and_activate() {
   echo "building $NIX_EVAL..."
   OUT=$(nom build --option substitute false --no-link --print-out-paths "$NIX_EVAL")
   echo "built $OUT"
-  "$OUT/activate"
+  #? mirror _nn: pick specialisation from darkman theme
+  local ACTIVATE="$OUT/activate"
+  if [ -f ~/.cache/darkman/mode.txt ]; then
+    echo "Current theme is: $(cat ~/.cache/darkman/mode.txt)"
+    case "$(cat ~/.cache/darkman/mode.txt)" in
+      ("light") ACTIVATE="$OUT/specialisation/light/activate" ;;
+    esac
+  else
+    echo "No theme file found"
+  fi
+  "$ACTIVATE"
 }
 
 nix_build_and_link() {

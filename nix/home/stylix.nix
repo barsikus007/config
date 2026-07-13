@@ -17,13 +17,18 @@
       mpv.enable = false;
       #? conflicts with custom theme
       vscode.enable = false;
-      #? due to font troubles; theme isn't working
-      firefox.enable = false;
       #? theme is unreadable
       gdu.enable = false;
       nixcord.enable = false;
+
+      firefox.profileNames = [ "default" ];
+      firefox.fonts.enable = false;
     };
   };
+
+  #! this thing needs all extensions settings to be declared
+  # stylix.targets.firefox.colorTheme.enable = true;
+  # programs.firefox.profiles.default.extensions.force = true;
 
   programs.neovide.settings.font = {
     normal = [ config.stylix.fonts.monospace.name ];

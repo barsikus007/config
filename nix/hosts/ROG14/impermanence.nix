@@ -142,14 +142,25 @@ in
         ".config/gh/hosts.yml"
         ".config/kwin_dialogsrc"
         ".config/kwinoutputconfig.json" # ? monitors
-        ".config/syncthingtray.ini" # TODO: config?
         ".config/xclicker.conf"
 
         # ".local/share/krunnerstaterc"
         # ".local/share/user-places.xbel"
         # ".local/share/user-places.xbel.bak"
         # ".local/share/user-places.xbel.tbcache"
-      ];
+      ]
+      ++
+        # ? symlink needed files
+        map
+          (_: {
+            file = _;
+            method = "symlink";
+          })
+          [
+            # ".config/plasma-org.kde.plasma.desktop-appletsrc"
+            # ".config/plasmashellrc"
+            ".config/syncthingtray.ini"
+          ];
     };
   };
   systemd.tmpfiles.rules = [
@@ -158,12 +169,6 @@ in
     #? L+ = Create symlink, remove existing file if necessary
     "L+ /home/${username}/.ssh 0700 ${username} users - /home/${username}/Sync/home/.ssh/"
 
-    "L+ /home/${username}/awg0.conf 0600 ${username} users - ${persistentDir}/home/${username}/awg0.conf"
-    "L+ /home/${username}/wg0local.conf 0600 ${username} users - ${persistentDir}/home/${username}/wg0local.conf"
     "L+ /home/${username}/.lmstudio 0755 ${username} users - /run/media/${username}/Data/downloads/.lmstudio"
-
-    # "L+ /home/${username}/.config/plasmashellrc 0600 ${username} users - ${persistentDir}/home/${username}/.config/plasmashellrc" # ??????? desktop
-    # "L+ /home/${username}/.config/plasma-org.kde.plasma.desktop-appletsrc 0600 ${username} users - ${persistentDir}/home/${username}/.config/plasma-org.kde.plasma.desktop-appletsrc" # ??????? desktop
-    # "L+ /home/${username}/.config/syncthingtray.ini 0600 ${username} users - ${persistentDir}/home/${username}/.config/syncthingtray.ini" # TODO: config?
   ];
 }

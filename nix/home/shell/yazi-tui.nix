@@ -31,15 +31,13 @@ in
   programs.yazi.settings = {
     opener =
       lib.optionalAttrs mpvEnabled {
-        "play_mpv_tui" = [
+        "play_mpv" = [
           {
             run = "${lib.getExe config.programs.mpv.finalPackage} --vo=tct %s";
             desc = "Play video TUI";
             block = true;
             for = "unix";
           }
-        ];
-        "play_mpv" = [
           {
             run = "${lib.getExe config.programs.mpv.finalPackage} %s";
             desc = "Play video";
@@ -55,6 +53,28 @@ in
             desc = "View image TUI";
             block = true;
             for = "unix";
+          }
+        ];
+        "open" = [
+          {
+            run = "code --reuse-window %s";
+            desc = "Open in VSCode";
+            orphan = true;
+          }
+          {
+            run = "xdg-open %s1";
+            desc = "Open";
+            for = "linux";
+          }
+          {
+            run = "open %s";
+            desc = "Open";
+            for = "macos";
+          }
+          {
+            run = "termux-open %s1";
+            desc = "Open";
+            for = "android";
           }
         ];
         "doc" = [

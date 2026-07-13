@@ -280,3 +280,9 @@ git clone --depth=1 --no-checkout --filter=tree:0 https://github.com/barsikus007
 #? undo
 git sparse-checkout disable
 ```
+
+### reload udev rules
+
+```shell
+sudo udevadm control --reload-rules && sudo udevadm trigger
+```

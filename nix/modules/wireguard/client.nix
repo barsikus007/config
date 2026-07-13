@@ -7,14 +7,13 @@
 {
   networking.wg-quick.interfaces = {
     awg0 = {
-      autostart = false;
       type = "amneziawg";
-      configFile = "/home/${username}/awg0.conf";
+      autostart = false;
+      configFile = "/home/${username}/Sync/awg0.conf";
     };
     wg0local = {
       autostart = false;
-      # type = "amneziawg";
-      configFile = "/home/${username}/wg0local.conf";
+      configFile = "/home/${username}/Sync/wg0local.conf";
     };
   };
 

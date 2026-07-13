@@ -11,7 +11,7 @@
 #? # remove -R /mnt
 #? {
 #?   grep "zpool create" $(nix build ./nix#nixosConfigurations.ROG14.config.system.build.diskoScript --print-out-paths) --after-context=4
-#?   echo zroot /dev/disk/by-id/nvme-Force_MP510_210482470001292050F3-part4
+#?   echo /dev/disk/by-id/nvme-Force_MP510_210482470001292050F3-part4
 #? }
 #? zfs snapshot zroot/root@blank
 #?

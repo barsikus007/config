@@ -364,5 +364,13 @@
     "diffEditor.renderSideBySide": true,
     "diffEditor.maxComputationTime": 10000,
     "diffEditor.hideUnchangedRegions.enabled": true,
+    "yaml.disableSchemaDetection": [
+        "**/.github/workflows/*.yml",
+        "**/.github/workflows/*.yaml",
+        "**/.gitea/workflows/*.yml",
+        "**/.gitea/workflows/*.yaml",
+        "**/.forgejo/workflows/*.yml",
+        "**/.forgejo/workflows/*.yaml"
+    ],
     // #endregion auto
 }
