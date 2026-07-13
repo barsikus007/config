@@ -3,7 +3,7 @@
 #? ROG G14 specific
 #? deps: tmux asusctl sox(play)
 asus_anime_demo_select() {
-  # use fzf (default) or rofi (--interactive) to pick a subfolder and link its frames.gif / sound.mp3 into ~/.config/rog/
+  # use fzf (default) or vicinae dmenu (--interactive) to pick a subfolder and link its frames.gif / sound.mp3 into ~/.config/rog/
   local ROG_ANIME_DIR=~/.config/rog
   local SELECTED_VIDEO
   SELECTED_VIDEO=$(
@@ -11,7 +11,7 @@ asus_anime_demo_select() {
       -printf '%h\n' | sort -u \
       | sed "s|$ROG_ANIME_DIR/||" \
       | if [ "${1}" = "--interactive" ]; then
-          rofi -dmenu -p "ROG ANIME preset> "  # | fuzzel --dmenu --prompt="ROG ANIME preset: "
+          vicinae dmenu --placeholder "ROG ANIME preset> "
         else
           fzf --prompt="ROG ANIME preset> " --preview="ls $ROG_ANIME_DIR/{}"
         fi

@@ -139,8 +139,6 @@ in
       files = [
         ".claude.json"
 
-        ".cache/fuzzel" # ? recent entries
-
         ".config/gh/hosts.yml"
         ".config/kwin_dialogsrc"
         ".config/kwinoutputconfig.json" # ? monitors

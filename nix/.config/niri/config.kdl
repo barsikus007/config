@@ -225,7 +225,7 @@ binds {
     // Suggested binds for running programs: terminal, app launcher, screen locker, file manager.
     Mod+Grave         hotkey-overlay-title="Open floating <b>wezterm</b> Terminal" { spawn-sh "wezterm start --class org.wezfurlong.wezterm.floating"; }
     Mod+T             hotkey-overlay-title="Open <b>wezterm</b> Terminal" { spawn "wezterm"; }
-    Mod+D             hotkey-overlay-title="Run <b>fuzzel</b> Application Picker" { spawn "fuzzel"; }
+    Mod+D             hotkey-overlay-title="Run <b>vicinae</b> Application Picker" { spawn "vicinae" "deeplink" "vicinae://launch/applications?toggle=true"; }
     // Mod+Shift+D       hotkey-overlay-title="Run an Application" { spawn-sh "tmux new -s xd -d 'scrcpy -K --render-driver=opengles2 --no-audio --video-bit-rate=1M'"; }
     // Mod+D             hotkey-overlay-title="Run an Application" { spawn-sh "tmux kill-session -t xd"; }
     Mod+E             hotkey-overlay-title="Run a File Manager" { spawn "dolphin"; }

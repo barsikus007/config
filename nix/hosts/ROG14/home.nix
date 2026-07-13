@@ -16,7 +16,6 @@
     ../../home/gui/quickshare.nix
     ../../home/gui/terminal.nix
     ../../home/gui/neovide.nix
-    ../../home/gui/rofi.nix
     ../../home/gui/mpv.nix
     ../../home/gui/vscode.nix
     ../../home/gui/browser

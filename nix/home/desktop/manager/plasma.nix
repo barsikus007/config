@@ -30,39 +30,12 @@ in
   programs.plasma = {
     hotkeys.commands = lib.attrsets.mergeAttrsList [
       (mkPlasmaBinds meta.shortcuts)
-      (lib.attrsets.optionalAttrs config.programs.rofi.enable {
-        "rofi" = {
-          name = "chuvak eto rofis";
-          key = "Ctrl+Alt+Space";
-          # TODO https://github.com/svenstaro/rofi-calc/issues/33
-          command = "rofi -show combi -show-icons";
-        };
-        #! no other way vi klipper https://bugs.kde.org/show_bug.cgi?id=427214
-        # TODO disable klipper
-        # TODO pins https://github.com/sentriz/cliphist/issues/23
-        # TODO css big images
-        # TODO css split text
-        # TODO cancel on esc
-        # TODO appear under cursor or better - above focus
-        "rofi-cb" = {
-          name = "chuvak eto rofis-cb";
-          key = "Ctrl+Meta+V";
-          #? https://github.com/sentriz/cliphist/issues/111
-          command = "zsh -c \"rofi -modi clipboard:cliphist-rofi-img -show clipboard -show-icons && ${pkgs.ydotool} key 29:1 47:1 47:0 29:0\"";
-        };
-      })
       (lib.attrsets.optionalAttrs config.custom.isAsus {
         "laptop-button-rog" = {
           name = "Laptop ROG Button";
           key = "Launch (1)";
           command = "zsh -c asus_anime_demo_toggle";
         };
-        #? done by plasma natively now
-        # "laptop-button-f5" = {
-        #   name = "Laptop F5 Button";
-        #   key = "Launch (4)";
-        #   command = "zsh -c asus_profile_toggle";
-        # };
         # TODO: start gpu-screen-record
         # "laptop-button-f6" = {
         #   name = "Laptop F6 Button";

@@ -18,7 +18,7 @@
     #? name is alphanumeric and -
     {
       name = "Open Launcher";
-      command = "anyrun";
+      command = "vicinae toggle";
       keys = "Mod+S";
     }
     {

@@ -53,14 +53,6 @@ in
                 xray false
             }
         }
-        //? Enable blur behind the fuzzel launcher.
-        layer-rule {
-            match namespace="^launcher$"
-
-            background-effect {
-                blur true
-            }
-        }
         //? Noctalia: blur everywhere without xray for a better look
         layer-rule {
             match namespace="^noctalia-(background|launcher-overlay|dock)-.*$"
