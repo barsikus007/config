@@ -1,5 +1,7 @@
 { config, ... }:
 {
+  imports = [ ./gui/browser/firefox-stylix.nix ];
+
   stylix = {
     enable = true;
     # autoEnable = false;
