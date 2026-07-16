@@ -182,6 +182,92 @@ rfv() (
 )
 
 
+#? vibecoded markdown cheatsheet browser: fzf a .md file under ~/config (typing a query
+#? switches to a content grep across all of them), then fzf a heading in it with the
+#? matched section previewed, then jump to it in vim
+# shellcheck disable=SC2016
+cheats() (
+  #? fzf mangles literal backtick characters embedded directly in --bind/--preview
+  #? command strings, so anything with backticks has to be passed through the
+  #? environment and referenced by name instead of inlined
+  export CHEAT_FENCE_SED='s/^```shell/```bash/'
+  #? cheatsheet files first, fzf keeps input order when there is no query
+  local list_cmd='{ fd --extension md . "$HOME/config" | rg --ignore-case cheatsheet; fd --extension md . "$HOME/config" | rg --ignore-case --invert-match cheatsheet; }'
+  #? strip a leading ' - people expect fzf's own exact-match query syntax to still work here
+  local grep_cmd='q={q}; rg --line-number --no-heading --smart-case --color=never --glob "*.md" -- "${q#\'"'"'}" "$HOME/config"'
+  #? content-search hits jump straight to the matched line, not the top of the file
+  local preview_cmd='if [[ -n {2} ]]; then bat --style=numbers --color=always --highlight-line {2} --line-range {2}: {1}; else sed -E "$CHEAT_FENCE_SED" {1} | bat --style=numbers --color=always --language=markdown; fi'
+
+  local sel file
+  #? "|| :" keeps a no-match exit status from making fzf show a "Command failed" banner
+  sel=$(fzf --disabled --ansi \
+    --delimiter=':' \
+    --bind "start:reload:$list_cmd || :" \
+    --bind "change:reload:if [[ -z {q} ]]; then $list_cmd; else $grep_cmd; fi || :" \
+    --prompt="Cheatsheet> " \
+    --preview "$preview_cmd" \
+    --preview-window=right:60%)
+  if [[ $sel == *:*:* ]]; then
+    #? content-search hit ("path:line:text") - jump straight to the matched line
+    local line
+    IFS=':' read -r file line _ <<< "$sel"
+    nvim "+$line" "$file"
+    return 0
+  fi
+  file="$sel"
+  if [[ -n $file ]]; then
+    export CHEAT_FILE="$file"
+    #? print the heading line, then everything up to (not including) the next
+    #? heading of the same or shallower level; "#" inside fenced code blocks
+    #? (comments) must not be mistaken for a heading
+    export CHEAT_SECTION_AWK='
+      NR==start { lvl=level; print; next }
+      /^```/ { in_code = !in_code }
+      !in_code && /^#{1,6}[[:space:]]/ { match($0, /^#+/); if (RLENGTH <= lvl) exit }
+      NR>start { print }
+    '
+    export CHEAT_HEADING_AWK='
+      /^```/ { in_code = !in_code; next }
+      !in_code && /^#{1,6}[[:space:]]/ { match($0, /^#+/); print NR ":" RLENGTH ":" $0 }
+    '
+    #? headings, as "line:level:text"; fenced code blocks never count as headings
+    local heading_cmd='awk "$CHEAT_HEADING_AWK" "$CHEAT_FILE"'
+    #? fzf's --bind parser garbles command strings once nested quotes/regex get
+    #? complex enough (seen it mangle results, not just cosmetics) - past a
+    #? certain point a real script file is the only reliable way to feed it a
+    #? reload command; this one prints matching headings first, then body-text
+    #? hits ("line:-:text" keeps the same field count as headings, so the
+    #? preview below can tell the two kinds of row apart), skipping body hits
+    #? that are just a heading already listed above
+    local search_sh
+    search_sh=$(mktemp)
+    trap 'rm -f "$search_sh"' EXIT
+    cat > "$search_sh" <<'CHEAT_SEARCH_SH'
+q="${1#\'}"
+awk "$CHEAT_HEADING_AWK" "$CHEAT_FILE" | rg --smart-case --color=never -- "$q"
+rg --line-number --no-heading --smart-case --color=never -- "$q" "$CHEAT_FILE" \
+  | rg --invert-match --color=never '^[0-9]+:#{1,6}[[:space:]]' \
+  | awk '{ sub(/:/, ":-:"); print }'
+CHEAT_SEARCH_SH
+    local grep_cmd2="bash $search_sh {q}"
+    #? a numeric field 2 means a heading row -> show the bounded section;
+    #? otherwise it is a content-search hit -> show the file from that line on
+    local preview_cmd2='if [[ {2} =~ ^[0-9]+$ ]]; then awk -v start={1} -v level={2} "$CHEAT_SECTION_AWK" "$CHEAT_FILE" | sed -E "$CHEAT_FENCE_SED" | bat --style=plain --color=always --language=markdown; else bat --style=numbers --color=always --highlight-line {1} --line-range {1}: "$CHEAT_FILE"; fi'
+
+    local sel2
+    sel2=$(fzf --disabled --ansi \
+      --delimiter=':' --with-nth=3.. \
+      --bind "start:reload:$heading_cmd || :" \
+      --bind "change:reload:if [[ -z {q} ]]; then $heading_cmd; else $grep_cmd2; fi || :" \
+      --prompt="Section> " \
+      --preview "$preview_cmd2" \
+      --preview-window=right:60%)
+    if [[ -n $sel2 ]]; then
+      nvim "+${sel2%%:*}" "$file"
+    fi
+  fi
+)
+
 smb_trash() {
   fd --hidden --no-ignore \
     --regex '^(\._.*|\.apdisk|\.AppleDouble|\.DS_Store|\.TemporaryItems|\.Trashes|desktop\.ini|ehthumbs\.db|Network Trash Folder|Temporary Items|Thumbs\.db)$' \
@@ -238,39 +324,6 @@ zcd() {
   fi
 }
 
-desc() {  # TODO WIP
-  # TODO warp all funcs with ()
-  (
-    sudo=false
-    command=$1
-    i=3
-    if [ "$command" = "-" ]; then
-      command=""
-      for arg in "$@"; do
-        [ "$arg" = "-" ] && [ "$command" != "" ] && break
-        [ "$arg" = "-" ] && continue
-        i=$((i + 1))
-        command="$command $arg"
-      done
-    elif [ "$command" = "sudo" ]; then
-      sudo=true
-      command=$2
-      echo 123
-    fi
-    echo "$command" "${@:$i}"
-    echo "$command --help"
-    help=$($command --help)
-    for arg in "${@:$i}"; do
-      if [[ "$arg" = -* ]]; then
-        echo "$help" | grep --regexp=" $arg[, ]" -
-      else
-        echo "$arg"
-      fi
-    done
-    # [[ "$URL" == "$PATTERN"* ]]
-  )
-}
-
 desksort() {
   #? tidy ~/.local/share/applications: move matching *.desktop into category subdirs
   #? cosmetic only - XDG scans the dir recursively, so menu/launcher entries stay the same
@@ -292,7 +345,7 @@ desksort() {
         if (( dry )); then
           echo "would move: ${file##*/} -> $2/"
         else
-          mkdir --parent "$apps/$2"
+          mkdir --parents "$apps/$2"
           mv --no-clobber --verbose "$file" "$apps/$2/"
         fi
       done

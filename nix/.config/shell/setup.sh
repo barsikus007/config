@@ -7,7 +7,7 @@ alias ii='sudo nala install'
 alias uu='sudo apt update && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt clean'
 alias uuu='sudo nala update && sudo nala upgrade -y && sudo nala autoremove -y && sudo nala clean'
 alias u=uu
-alias cu='cd ~/config/ && git pull && ./linux/install.sh && cd -'
+alias cu='cd ~/config && git pull && ./linux/install.sh && cd -'
 
 
 confirm() {

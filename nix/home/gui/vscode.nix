@@ -12,9 +12,9 @@
     "Code/User/keybindings.json".source =
       config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/Code/User/keybindings.json";
   };
-  programs.vscode = with pkgs; {
+  programs.git.settings.core.editor = "code --wait";
+  programs.vscodium = with pkgs; {
     # enable = true;
-    package = vscodium;
     profiles.default = {
       enableUpdateCheck = false;
       keybindings = builtins.fromJSON (

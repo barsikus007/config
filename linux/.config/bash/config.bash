@@ -65,9 +65,6 @@ fi
 export BAT_THEME="Coldark-Dark"
 export LESS="--mouse"
 
-#? proto and tools
-export PROTO_HOME=$XDG_CONFIG_HOME/proto
-export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH"
 #? go
 export GOBIN="$HOME/go/bin"
 export PATH="$GOBIN:$PATH"

@@ -1,4 +1,5 @@
 @echo off
+@REM! THIS IS UNMAINTAINED
 chcp 65001 > nul
 setlocal EnableDelayedExpansion
 

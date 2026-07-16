@@ -1,8 +1,5 @@
-#!/usr/bin/env bash
-
-# unused shebang
-#! /usr/bin/env nix-shell
-#! nix-shell -p iproute2 iw wifite2 aircrack-ng
+#!/usr/bin/env --split-string nix shell nixpkgs#iproute2 nixpkgs#iw nixpkgs#wifite2 nixpkgs#aircrack-ng --command bash
+# shellcheck shell=bash
 
 alias get_first_iface="\command ls /sys/class/ieee80211/*/device/net/ | cut -d' ' -f1 | head -n 1"
 
@@ -68,6 +65,15 @@ wps_attack() {  # TODO WIP
     iface=${1:-wlp2s0}
     prepare_wifite "$iface" || return 1  # TODO WIP
     sudo wifite -ab -mac --skip-crack -ic --showb --showm -i "$iface"mon -inf -p 900 --wps-only --wps-timeouts 1000
+    restore_wifi "$iface"
+  )
+}
+
+pixiedust_attack() {
+  (
+    iface=${1:-$(get_first_iface)}
+    prepare_wifite "$iface" || return 1
+    sudo wifite -ab -mac --skip-crack -ic --showb --showm -i "$iface"mon --wps-only --pixie --bully --wps-time 300
     restore_wifi "$iface"
   )
 }

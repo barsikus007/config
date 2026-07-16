@@ -82,8 +82,8 @@ sudo $(nix build ~/config/nix#libs.goodix-patch-521d --print-out-paths)/bin/run_
         - extensions (based on tags)
         - settings (based on regions)
   - python
-    - -File activate envs
     - pycharm like run file
+      - without interactive shell loading
     - "python.analysis.autoImportCompletions": true
       - could stop work for no reason
     - debug inside python container
@@ -97,7 +97,6 @@ sudo $(nix build ~/config/nix#libs.goodix-patch-521d --print-out-paths)/bin/run_
     - <https://code.visualstudio.com/docs/copilot/copilot-customization>
     - <https://code.visualstudio.com/updates/v1_98#_task-rerun-action>
     - <https://github.com/microsoft/vscode/pull/248747>
-  - <https://github.com/kahole/edamagit>
 
 ### [mpv](.config/mpv/)
 
@@ -123,6 +122,7 @@ sudo $(nix build ~/config/nix#libs.goodix-patch-521d --print-out-paths)/bin/run_
       - don't save position
 - `input.conf`
   - patched ru keybinds
+  - `F1` to show keybinds visually
   - `middle-mouse-button` to pin window on top
   - `_/-` to cycle video tracks
   - `=/+` to cycle window sizes
@@ -159,72 +159,11 @@ sudo $(nix build ~/config/nix#libs.goodix-patch-521d --print-out-paths)/bin/run_
 - Throne (formerly known as nekoray/nekobox)
   - Routing -> Routing settings -> DNS -> Direct DNS: `8.8.8.8`
 
-## TODO
+## Other
 
-- parse `options.environment.systemPackages.files`, `home.packages` for added pkgs + use script to get all installed by `programs.*.enabled = true`
-  - same for `...packages.definitionsWithLocations`
 - nix-on-droid
   - [sudo](https://github.com/nix-community/nix-on-droid/issues/252)
     - not worth it, use [NixOS-AVF](https://github.com/nix-community/nixos-avf)
       - fuck snapdragon, I need to use `crosvm` binary for that, I can't even use `vm` one
 - [OpenWrt Image](./packages/openwrt/xiaomi_ax3600.nix)
   - [uci](./packages/openwrt/dewclaw.nix)
-    - make it)
-    - [disable IPV6](https://3os.org/infrastructure/openwrt/disable-ipv6/)
-
-### shell
-
-#### new software
-
-- zsh or fish (or bash lol)
-- [dive](https://github.com/wagoodman/dive)
-- [Mosh: the mobile shell](https://mosh.org/)
-- <https://github.com/pojntfx/octarchive>
-- test.nix
-  - lshw-gui
-  - new add security scanners
-    - nikto
-    - ffuf
-    - seclists
-    - frida-tools
-    - wifite2
-    - nmap alts
-      - rustscan
-      - zmap
-
-#### alias
-
-- fzf-based wgu selector
-  - best location for wg config files
-    - nix secrets?
-- grep config folder for cheatsheets
-  - parse mds to sections?
-- wsl `find / -not -path '/mnt/*'`
-  - `find / -not -path '/mnt/*' -name python -not -path '/home/*'`
-- git config core.editor=code --wait --new-window
-- n* aliases
-  - review them
-  - nv show .files
-  - nvf current dir or sudo or ignore /proc etc
-- llt ls tree
-  - or lll
-- proto outdated --update
-- yt-dlp
-  - `yt-dlp -F {id}`
-  - `cd ~/storage/downloads/ && yt-dlp -N 16 -R inf -f 135+251 {id}`
-- rsync termux alias
-- bat for zcat
-- pastebin=`echo "something" | curl -F 'file=@-' 0x0.st`
-
-#### other
-
-- [guix environment like](https://github.com/NixOS/nix/issues/8207)
-  - [containter](https://wiki.nixos.org/wiki/NixOS_Containers)
-    - [nixpak](https://github.com/nixpak/nixpak)
-  - [firejail](https://github.com/netblue30/firejail)
-- bat
-  - [zsh '--help' alias](https://github.com/sharkdp/bat#highlighting---help-messages)
-    - [explain command](https://github.com/learnbyexample/command_help)
-- nvim
-  - init.lua vim types
-- stylix

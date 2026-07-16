@@ -4,6 +4,7 @@ $base=@"
 # adb@33.0.3
 # adb@34.0.5
 adb
+altsnap
 anydesk
 audacity
 ayugram
@@ -38,6 +39,7 @@ yt-dlp
 
 $laptop=@"
 battery-care
+ghelper
 "@
 
 $gaming=@"

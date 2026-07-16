@@ -17,9 +17,20 @@ else
     ICON=" "
     URL="localhost"
 fi
-for PATTERN in "https" "http" "git" "://" "@"; do
-    [[ "$URL" == "$PATTERN"* ]] && URL="${URL##"$PATTERN"}"
-done
+if [[ "$URL" == *"://"* ]]; then
+    #? explicit scheme, e.g. ssh://git@host/path or https://host/path
+    SCHEME="${URL%%://*}"
+    URL="${URL#*://}"
+    URL="${URL#*@}"
+    if [[ "$SCHEME" != "http" && "$SCHEME" != "https" ]]; then
+        URL="${URL#*/}"
+        URL="$SCHEME:$URL"
+    fi
+else
+    #? scp-like syntax, e.g. git@host:path
+    URL="${URL#*@}"
+    URL="${URL#*:}"
+fi
 for PATTERN in "/" ".git"; do
     [[ "$URL" == *"$PATTERN" ]] && URL="${URL%%"$PATTERN"}"
 done

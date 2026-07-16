@@ -17,7 +17,6 @@
       };
       user.name = "barsikus007";
       user.email = "barsikus07@gmail.com";
-      core.editor = "code --wait";
       core.autocrlf = "input";
       core.ignoreCase = "false";
 
@@ -32,7 +31,7 @@
       rebase.autoStash = "true";
 
       gpg.format = "ssh";
-      url."ssh://git@github.com/".insteadOf = "https://github.com/";
+      url."git@github.com:".insteadOf = "https://github.com/";
     };
     signing.key = "key::${
       lib.strings.removeSuffix "\n" (

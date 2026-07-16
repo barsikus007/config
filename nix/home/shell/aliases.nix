@@ -37,8 +37,6 @@ rec {
     ll = "ls -laFbgh";
     sshe = "editor ~/.ssh/config";
     nv = "editor $(fzf)";
-    nvf = ''editor $(find "/" | fzf)'';
-    nvs = "editor $(rg -n . | fzf | awk -F: '{print \"+\"$2,$1}')";
     cu = "cd ${flakePath} && git pull && cd -";
     diff = "diff --color";
     cpr = "rsync --verbose --archive --compress --partial --progress --mkpath";
@@ -114,6 +112,8 @@ rec {
     yt-dlpa = "yt-dlp --concurrent-fragments=16 --retries=inf";
     aria2ca = "aria2c --split=16 --max-connection-per-server=16 --continue";
     windows-must-die = ''killall --signal=KILL --regexp ".*\.exe"'';
+    android-rsync-ssh = "cpr --delete --chmod=F0600 --no-owner --no-group storage/shared/Documents/Sync/home/.ssh/ ~/.ssh/";
+    android-yt-dlpa = "cd ~/storage/downloads && yt-dlpa";
   };
   ezaAliases = {
     l = "eza -F -bghM --smart-group --group-directories-first --color=auto --color-scale --icons=always --no-quotes --hyperlink";

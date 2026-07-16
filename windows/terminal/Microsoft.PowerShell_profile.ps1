@@ -68,9 +68,8 @@ Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory
 }).Milliseconds
 
 
-Debug-Log proto (Measure-Command {
-# proto & go
-$env:PROTO_HOME = [IO.Path]::Combine($HOME, ".config", "proto")
+Debug-Log path (Measure-Command {
+# go
 $env:GOBIN = [IO.Path]::Combine($HOME, "go", "bin")
 $env:PATH = @(
     (Join-Path $env:PROTO_HOME "shims"),
@@ -119,7 +118,7 @@ if (Test-Command eza) {
 Function suss { scoop update | scoop status }
 Function i { scoop install }
 Function u { suss | scoop update * }
-#* Function cu { cd ~/config/ && git pull && ./windows/install.ps1 && ./windows/pwsh.ps1 && cd - }
+#* Function cu { cd ~/config && git pull && ./windows/install.ps1 && ./windows/pwsh.ps1 && cd - }
 
 # docker
 $env:COMPOSE_BAKE=$true
@@ -168,9 +167,6 @@ Debug-Log autocompletions (Measure-Command {
 Invoke-Expression (&scoop-search --hook)
 Import-Module "$($(Get-Item $(Get-Command scoop.ps1).Path).Directory.Parent.FullName)\modules\scoop-completion"
 Import-Module "gsudoModule"
-if (Test-Command proto) {
-    Invoke-Expression (& { (proto completions | Out-String) })
-}
 if (Test-Command zoxide) {
     Invoke-Expression (& { (zoxide init --cmd cd powershell | Out-String) })
 }

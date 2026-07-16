@@ -28,9 +28,16 @@ in
 
         ".local/state" # TODO: more
 
+        #? apps
+        ".claude"
+
         #? dev
         ".ssh"
         ".vscode-server"
+      ];
+
+      files = [
+        ".claude.json"
       ];
     };
   };

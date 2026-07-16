@@ -1,5 +1,6 @@
 let
-  lib = (import <nixpkgs> { }).lib;
+  pkgs = import <nixpkgs> { };
+  lib = pkgs.lib;
 
   tags = [
     "essential"
@@ -52,7 +53,6 @@ let
       "essential"
       "python"
     ]; # ? will format even broken json
-    "ruschaaf.extended-embedded-languages" = [ "essential" ]; # TODO: comment-syntax
     "semanticdiff.semanticdiff" = [ "essential" ];
 
     "timonwong.shellcheck" = [
@@ -177,5 +177,35 @@ let
   checkedExtensions =
     assert lib.assertMsg (invalidTags == [ ]) "Unknown tags: ${builtins.toJSON invalidTags}";
     extensions;
+
+  allIds = builtins.attrNames checkedExtensions;
+
+  #? attrs to skip when walking pkgs.vscode-extensions, they are set-functor cruft, not publishers/extensions
+  skip = [
+    "override"
+    "overrideDerivation"
+    "recurseForDerivations"
+    "extend"
+    "newScope"
+    "callPackage"
+    "packages"
+  ];
+  vscodeExtensions = pkgs.vscode-extensions;
+  publishers = builtins.filter (p: !(builtins.elem p skip)) (builtins.attrNames vscodeExtensions);
+  tryNames =
+    p:
+    let
+      r = builtins.tryEval (builtins.attrNames vscodeExtensions.${p});
+    in
+    if r.success then r.value else [ ];
+  available = lib.flatten (
+    map (
+      p: map (n: lib.toLower "${p}.${n}") (builtins.filter (n: !(builtins.elem n skip)) (tryNames p))
+    ) publishers
+  );
+  inNixpkgs = builtins.filter (id: builtins.elem (lib.toLower id) available) allIds;
 in
-builtins.attrNames checkedExtensions
+{
+  all = allIds;
+  inNixpkgs = inNixpkgs;
+}

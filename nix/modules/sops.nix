@@ -6,7 +6,7 @@
   ...
 }:
 #? secrets speedrun
-# mkdir --parent ~/.config/sops/age && nix run nixpkgs#ssh-to-age -- -private-key -i ~/.ssh/id_ed25519 > ~/.config/sops/age/keys.txt
+# mkdir --parents ~/.config/sops/age && nix run nixpkgs#ssh-to-age -- -private-key -i ~/.ssh/id_ed25519 > ~/.config/sops/age/keys.txt
 # nix shell nixpkgs#age --command age-keygen -y ~/.config/sops/age/keys.txt
 # cd ~/config/nix && nix run nixpkgs#sops -- secrets/secrets.yaml
 #? other host age key

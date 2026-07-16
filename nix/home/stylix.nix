@@ -21,7 +21,8 @@
       vscode.enable = false;
       #? theme is unreadable
       gdu.enable = false;
-      nixcord.enable = false;
+      #! theme could be unreadable, but now it is ok
+      # nixcord.enable = false;
 
       firefox.profileNames = [ "default" ];
       firefox.fonts.enable = false;

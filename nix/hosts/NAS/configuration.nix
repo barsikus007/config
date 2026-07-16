@@ -56,17 +56,13 @@
   #? https://wiki.nixos.org/wiki/AMD_GPU#Radeon_500_series_(aka_Polaris)
   environment.variables.ROC_ENABLE_PRE_VEGA = "1";
 
-  #? https://wiki.nixos.org/wiki/OpenRGB
   hardware.i2c.enable = true;
-  services.hardware.openrgb.enable = true;
-  #? https://gitlab.com/OpenRGBDevelopers/OpenRGB-Wiki/-/blob/stable/User-Documentation/Frequently-Asked-Questions.md#can-i-set-up-openrgb-as-a-systemd-service
+  boot.kernelModules = [ "i2c-piix4" ]; # ? from `services.hardware.openrgb.enable`
   systemd.services.openrgb-turn-off = {
     description = "Turn off the lights via OpenRGB";
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "${lib.getExe pkgs.openrgb} --color 000000";
-      # User = "nobody";
-      Group = "i2c";
+      ExecStart = "${lib.getExe pkgs.openrgb} --noautoconnect --color 000000";
     };
     wantedBy = [ "multi-user.target" ];
   };
