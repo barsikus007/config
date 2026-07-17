@@ -1,4 +1,9 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  flakePath,
+  ...
+}:
 #! 170Mb
 let
   wezterm-run-script = pkgs.writeShellScript "wezterm-run-script" /* shell */ ''
@@ -38,6 +43,6 @@ in
   };
   programs.wezterm = {
     enable = true;
-    extraConfig = builtins.readFile ../../.config/wezterm/wezterm.lua;
+    extraConfig = "return dofile('${flakePath}/.config/wezterm/wezterm.lua')";
   };
 }

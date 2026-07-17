@@ -75,6 +75,11 @@ return {
             mods = 'ALT',
             action = wezterm.action.DisableDefaultAssignment,
         },
+        {
+            key = 'F3',
+            mods = 'NONE',
+            action = act.Search { CaseInSensitiveString = '' },
+        },
     },
     key_tables = {
         search_mode = {
@@ -92,12 +97,12 @@ return {
             {
                 key = 'F3',
                 mods = 'NONE',
-                action = act.CopyMode 'NextMatchPage',
+                action = act.CopyMode 'PriorMatch',
             },
             {
                 key = 'F3',
                 mods = 'SHIFT',
-                action = act.CopyMode 'PriorMatchPage',
+                action = act.CopyMode 'NextMatch',
             },
         },
     },
