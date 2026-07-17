@@ -6,6 +6,8 @@
 }:
 # Да.
 {
+  imports = [ inputs.nixcord.homeModules.default ];
+
   xdg.mimeApps = {
     defaultApplications = {
       "x-scheme-handler/discord" = [
@@ -19,7 +21,7 @@
       "x-scheme-handler/tonsite"
     ] (key: "com.ayugram.desktop.desktop");
   };
-  imports = [ inputs.nixcord.homeModules.default ];
+
   programs.nixcord = {
     enable = true;
     discord = {
@@ -105,9 +107,7 @@
 
   home.packages = with pkgs; [
     ayugram-desktop
-    # (callPackage ../../packages/telegram-desktop-patched.nix {
-    #   telegram-desktop-client = ayugram-desktop;
-    # })
+    # self.legacyPackages.${stdenv.hostPlatform.system}.ayugram-desktop-patched
     element-desktop
   ];
 }

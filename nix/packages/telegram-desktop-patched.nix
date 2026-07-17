@@ -12,34 +12,39 @@
   replacements =
     let
       patchesRepo = fetchFromGitHub {
-        # https://github.com/desktop-app/patches/tree/0b68b11048987a68d31b2d8380d9b7c5116aa961
+        #? https://github.com/desktop-app/patches/tree/7d591c8a4e38dbe58c5039473bd884d130704d97
         owner = "desktop-app";
         repo = "patches";
-        rev = "0b68b11048987a68d31b2d8380d9b7c5116aa961";
-        hash = "sha256-eSIO7ALsC8W4bR/KOk7kgDMd9/ABNN8EdCiJwVAK24g=";
+        rev = "7d591c8a4e38dbe58c5039473bd884d130704d97";
+        hash = "sha256-RwX7UNWbq24pArNnDb1rqDf/aHCr9yN10nDf2RvXTZo=";
       };
-      qtbasePatches = lib.filesystem.listFilesRecursive "${patchesRepo}/qtbase_6.10.0";
-      qtwaylandPatches = lib.filesystem.listFilesRecursive "${patchesRepo}/qtwayland_6.10.0";
+      qtbasePatches = lib.filesystem.listFilesRecursive "${patchesRepo}/qtbase_${qt6.qtbase.version}";
+      qtwaylandPatches = lib.filesystem.listFilesRecursive "${patchesRepo}/qtwayland_${qt6.qtwayland.version}";
+      qtwaylandFilteredPatches = lib.filter (
+        p:
+        !(lib.any (excluded: lib.hasInfix excluded (baseNameOf p)) [
+          "compositor-xkb-state-from-platform" # ! compilation error: 'struct QNativeInterface::QX11Application' has no member named 'xkbState'
+        ])
+      ) qtwaylandPatches;
     in
     [
       {
         oldDependency = qt6.qtbase;
         newDependency = qt6.qtbase.overrideAttrs (previousAttrs: {
-          patches = (previousAttrs.patches or [ ]) ++ qtbasePatches;
-        });
-      }
-      {
-        oldDependency = qt6.qtwayland;
-        newDependency = qt6.qtwayland.overrideAttrs (previousAttrs: {
           patches = builtins.concatLists [
             (previousAttrs.patches or [ ])
-            [
-              (builtins.elemAt qtwaylandPatches 0)
-              (builtins.elemAt qtwaylandPatches 1)
-              # (builtins.elemAt qtwaylandPatches 2) # compilation error
-            ]
+            qtbasePatches
           ];
         });
       }
-    ];
+    ]
+    ++ lib.optional (qtwaylandFilteredPatches != [ ]) {
+      oldDependency = qt6.qtwayland;
+      newDependency = qt6.qtwayland.overrideAttrs (previousAttrs: {
+        patches = builtins.concatLists [
+          (previousAttrs.patches or [ ])
+          qtwaylandFilteredPatches
+        ];
+      });
+    };
 })
