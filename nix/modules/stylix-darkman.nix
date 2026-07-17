@@ -7,6 +7,18 @@
 let
   #! QT-based apps: https://github.com/telegramdesktop/tdesktop/issues/26370
   notifyQtColorChange = "${lib.getExe' pkgs.glib "gdbus"} emit --session --object-path /KGlobalSettings --signal org.kde.KGlobalSettings.notifyChange 0 0";
+  #! xdg-desktop-portal-gnome caches color-scheme; restarting it unconditionally can kill ScreenCast
+  notifyPortalRestart = pkgs.writeShellScript "notify-portal-restart" ''
+    action=$(${lib.getExe pkgs.libnotify} -w -a darkman -A "restart=Restart portal" "Theme switched" "xdg-open windows kept the previous theme")
+    if [ "$action" = "restart" ]; then
+      ${lib.getExe' pkgs.systemd "systemctl"} --user restart xdg-desktop-portal-gnome.service
+    fi
+  '';
+  defaultSwitchScript = /* shell */ ''
+    ${notifyQtColorChange}
+    ${notifyPortalRestart} &
+    disown
+  '';
 in
 {
   disabledModules = [
@@ -23,13 +35,13 @@ in
       darkModeScripts = {
         switch-to-dark = /* shell */ ''
           sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch
-          ${notifyQtColorChange}
+          ${defaultSwitchScript}
         '';
       };
       lightModeScripts = {
         switch-to-light = /* shell */ ''
           sudo /nix/var/nix/profiles/system/specialisation/light/bin/switch-to-configuration switch
-          ${notifyQtColorChange}
+          ${defaultSwitchScript}
         '';
       };
       settings = {
