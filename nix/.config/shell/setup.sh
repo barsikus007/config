@@ -24,15 +24,6 @@ confirm() {
   return 1
 }
 
-soft_envs() {
-  soft_unix="git curl wget unzip"
-  soft_base="bat duf gdu fzf btop neovim zoxide ripgrep"
-  # fd make bzip2
-  soft_add="eza tmux tree"
-  soft_add_ubuntu="nala build-essential software-properties-common"
-  soft_to_purge="snapd"
-}
-
 setup_font() {
   (
     tmpfile=$(mktemp --suffix .zip)

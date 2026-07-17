@@ -13,6 +13,6 @@ with pkgs;
   zoxide
   ripgrep
 
-  ncurses # tput for convinient colors in scripts
+  ncurses # tput for convinient colors in scripts # * apt:ncurses-bin
   # net-tools # arp
 ]

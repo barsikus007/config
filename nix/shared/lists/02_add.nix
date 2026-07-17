@@ -3,21 +3,21 @@
 #! +152Mb to default host
 with pkgs;
 [
-  fd
+  fd # * apt:fd-find
   eza
-  croc
+  croc # * apt:-
   lsof
   mosh
   tmux
   rsync
-  zellij
+  zellij # * apt:-
   tree
-  yazi # ? no ubuntu
+  yazi # * apt:-
   starship
   fastfetch
-  systemctl-tui
-  lazygit
-  lazydocker
+  systemctl-tui # * apt:-
+  lazygit # * apt:-
+  lazydocker # * apt:-
 
   zsh
   # fish
