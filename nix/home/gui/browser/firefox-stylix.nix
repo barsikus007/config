@@ -58,10 +58,15 @@ let
       };
     };
   };
+  #? theme.json is rewritten by Home Manager on every activation (incl. darkman specialisation switch);
+  #? polling picks up the new content live, without a Firefox restart
+  themeFile = "${config.xdg.configHome}/firefox-stylix-theme.json";
+  themeFilePollIntervalMs = 3000;
   autoConfig = pkgs.writeText "firefox-stylix-theme.js" /* javascript */ ''
     {
       const extensionId = ${builtins.toJSON extensionId};
-      const settings = ${builtins.toJSON settings};
+      const themeFile = ${builtins.toJSON themeFile};
+      Cu.importGlobalProperties(["IOUtils"]);
       const { AddonManager } = ChromeUtils.importESModule(
         "resource://gre/modules/AddonManager.sys.mjs"
       );
@@ -71,7 +76,22 @@ let
       const { ExtensionStorageIDB } = ChromeUtils.importESModule(
         "resource://gre/modules/ExtensionStorageIDB.sys.mjs"
       );
+
+      let lastSettingsJSON = null;
+
       const applySettings = async () => {
+        let settings;
+        try {
+          settings = await IOUtils.readJSON(themeFile);
+        } catch (error) {
+          return;
+        }
+
+        const settingsJSON = JSON.stringify(settings);
+        if (settingsJSON === lastSettingsJSON) {
+          return;
+        }
+
         const extension = ExtensionParent.WebExtensionPolicy.getByID(extensionId)?.extension;
         if (!extension) {
           return;
@@ -88,6 +108,7 @@ let
         } finally {
           storage.close();
         }
+        lastSettingsJSON = settingsJSON;
         if (!changes) {
           return;
         }
@@ -96,10 +117,19 @@ let
         const addon = await AddonManager.getAddonByID(extensionId);
         await addon?.reload();
       };
+
       const observer = {
         observe() {
           Services.obs.removeObserver(observer, "browser-delayed-startup-finished");
           applySettings().catch(Cu.reportError);
+
+          const timer = Cc["@mozilla.org/timer;1"].createInstance(Ci.nsITimer);
+          timer.initWithCallback(
+            () => applySettings().catch(Cu.reportError),
+            ${builtins.toJSON themeFilePollIntervalMs},
+            Ci.nsITimer.TYPE_REPEATING_SLACK
+          );
+          this.timer = timer;
         },
       };
 
@@ -111,6 +141,8 @@ let
     ;
 in
 {
+  xdg.configFile."firefox-stylix-theme.json".text = builtins.toJSON settings;
+
   programs.firefox = {
     package =
       with pkgs;
