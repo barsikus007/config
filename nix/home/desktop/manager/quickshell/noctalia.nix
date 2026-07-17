@@ -163,15 +163,14 @@ in
       battery.warning_threshold = 30;
       brightness.enable_ddcutil = true;
       control_center.sidebar = "full";
-      # TODO: desktop_widgets = { };
       dock = {
         enabled = true;
-        auto_hide = true;
         launcher_custom_image = nixos_logo;
         launcher_position = "start";
         pinned = meta.dock;
         reserve_space = false;
         show_dots = true;
+        smart_auto_hide = true;
       };
       hooks = {
         #! noctalia password unlock locks frintd (polkit-rule needed)
@@ -233,12 +232,21 @@ in
         enabled = [
           "noctalia/screen_recorder"
           "noctalia/kaomoji"
+
+          "whyoolw/sharednd"
         ];
         source = [
           {
             name = "official";
             kind = "git";
             location = "https://github.com/noctalia-dev/official-plugins";
+            auto_update = true;
+            enabled = true;
+          }
+          {
+            name = "community";
+            kind = "git";
+            location = "https://github.com/noctalia-dev/community-plugins";
             auto_update = true;
             enabled = true;
           }
@@ -287,6 +295,7 @@ in
           glyph = "music-pin";
           command = "dbus-send --type=method_call --dest=org.kde.plasma.browser_integration /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Raise";
         };
+        network.show_label = false;
         privacy.hide_inactive = true;
         taskbar.group_by_workspace = true;
         tray = {

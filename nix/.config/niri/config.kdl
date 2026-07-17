@@ -122,6 +122,15 @@ window-rule {
     open-focused true
 }
 
+//? popups
+window-rule {
+    match app-id=r#"^org\.keepassxc\.KeePassXC$"# title="^KeePassXC - (Browser Access Request|Update Entry|Passkey credentials)$"
+    match app-id=r#"^org\.keepassxc\.KeePassXC$"# title="^Unlock Database - KeePassXC$"
+    match app-id=r#"^org\.keepassxc\.KeePassXC$"# title="^Generate Password$"
+    open-focused true
+    open-floating true
+}
+
 window-rule {
     match app-id=r#"^org\.keepassxc\.KeePassXC$"#
     match app-id=r#"^com\.obsproject\.Studio$"#
@@ -152,19 +161,6 @@ window-rule {
         active-color "#f38ba8"
         inactive-color "#7d0d2d"
     }
-}
-
-// Always focus the KeePassXC-Browser unlock dialog.
-//
-// This dialog opens parented to the KeePassXC window rather than the browser,
-// so it doesn't get auto-focused by default.
-window-rule {
-    match app-id=r#"^org\.keepassxc\.KeePassXC$"# title="^KeePassXC - Browser Access Request$"
-    match app-id=r#"^org\.keepassxc\.KeePassXC$"# title="^KeePassXC - Update Entry$"
-    match app-id=r#"^org\.keepassxc\.KeePassXC$"# title="^Unlock Database - KeePassXC$"
-    match app-id=r#"^org\.keepassxc\.KeePassXC$"# title="^Generate Password$"
-    open-focused true
-    open-floating true
 }
 
 //? https://niri-wm.github.io/niri/Configuration%3A-Named-Workspaces.html

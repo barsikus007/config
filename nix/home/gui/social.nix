@@ -9,8 +9,9 @@
   imports = [ inputs.nixcord.homeModules.default ];
 
   xdg.desktopEntries.discord-url = {
-    name = "Discord";
-    exec = "discord --url -- %u";
+    name = "Discord - URL Handler";
+    exec = "Discord --url -- %u";
+    icon = "discord";
     terminal = false;
     noDisplay = true;
     mimeType = [ "x-scheme-handler/discord" ];

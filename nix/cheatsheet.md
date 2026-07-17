@@ -47,14 +47,13 @@ nh os switch /home/ogurez/config/nix -- --option substitute false
 ### ISO with initial soft
 
 ```shell
-
-nom build ./nix#nixos-iso-minimalIso
+nom build ./nix#nixos-minimalIso
 dd bs=4M conv=fsync oflag=direct status=progress if=./result/iso/nixos-minimal- of=/dev/sd
 qemu-system-x86_64 -enable-kvm -m 256 -cdrom result/iso/nixos-minimal*.iso -nic user,hostfwd=tcp::22222-:2222
 qemu-system-x86_64 -enable-kvm -m 2048 -smp 4 -cdrom result/iso/nixos-graphical*.iso -nic user,hostfwd=tcp::22222-:2222
 ssh root@localhost -p 22222 -o StrictHostKeychecking=no -o ConnectionAttempts=60
 # or just
-nixos-rebuild build-vm --flake ./nix#minimalIso
+nixos-rebuild build-vm --flake ./nix#minimalIso-x86_64-linux
 nh os build-vm --hostname minimalIso-x86_64-linux
 nh os build-vm --hostname minimalIso-x86_64-linux && ./result/bin/run-nixos-vm -monitor stdio
 ```
@@ -205,6 +204,12 @@ nix path-info --all --json --json-format 1 | jq --raw-output '.[] | if (.signatu
 #? list all derivations which was provided by CACHE_NAME
 CACHE_NAME=cache.garnix.io
 nix path-info --all --json --json-format 1 | jq --raw-output --arg cache_name "$CACHE_NAME" 'to_entries[] | select(.value.signatures // [] | any(contains($cache_name))) | .key [44:]' | sort | uniq --count
+```
+
+### nom run
+
+```shell
+nix run <something> --log-format internal-json |& nom --json
 ```
 
 ## python development

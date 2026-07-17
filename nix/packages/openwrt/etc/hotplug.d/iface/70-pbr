@@ -5,18 +5,40 @@
 [ "$INTERFACE" = "awg0" ] || exit 0
 [ "$ACTION" = "ifup" ] || exit 0
 
-#? debounce: a reconnect fires several awg0 ifup events; one restart per reconnect is enough
+. /lib/functions/network.sh
+
+#? restart pbr ONLY when the tunnel is already up and stable - not mid-storm.
+#? if pbr (re)loads while awg0/wan are half-up it captures gateway 0.0.0.0 and blackholes all
+#? LAN traffic (marked -> table pbr_awg0), while the router itself (unmarked -> wan) stays online.
+#? so gate on both: awg0 holds its real address AND wan holds a white (non-CGNAT) IP.
+
+#? awg0 must already have its address (else pbr would grab 0.0.0.0 and blackhole LAN)
+network_get_ipaddr awg_ip awg0
+[ -n "$awg_ip" ] || {
+    logger -t pbr "skip restart: awg0 has no address yet"
+    exit 0
+}
+
+#? wan must hold a white IP; white-ip-miner keeps rolling on grey/empty, so wait it out
+network_get_ipaddr wan_ip wan
+case "$wan_ip" in
+    ""|100.6[4-9].*|100.[7-9][0-9].*|100.1[0-1][0-9].*|100.12[0-7].*)
+        logger -t pbr "skip restart: wan still grey/empty ($wan_ip)"
+        exit 0
+        ;;
+esac
+
+#? debounce: several awg0 ifup events fire per reconnect; one restart per settle window
 lock=/tmp/pbr_reload.stamp
 now="$(cut -d. -f1 /proc/uptime)"
-if [ -f "$lock" ] && [ "$(( now - $(cat "$lock" 2>/dev/null || echo 0) ))" -lt 15 ]; then
-    logger -t pbr "skip: pbr restart already done recently"
+if [ -f "$lock" ] && [ "$(( now - $(cat "$lock" 2>/dev/null || echo 0) ))" -lt 20 ]; then
+    logger -t pbr "skip restart: already done recently"
     exit 0
 fi
 echo "$now" > "$lock"
 
-#? full restart, NOT on_interface_reload: the light reload reuses the fw4 nft file and leaves
-#? LAN->awg0 forwarding stale after a reconnect (router keeps internet, LAN clients + their DNS
-#? via awg0 die). restart reinstalls the nft file - same as the pbr LuCI Restart button, which
-#? is the only thing that reliably fixes it
-logger -t pbr "Full pbr restart due to ifup of $INTERFACE ($DEVICE)"
+#? let any in-flight pbr reload finish first (avoids the race that clobbered the fw4 install),
+#? then one clean restart on the stable tunnel - the manual "click Restart once it's all up", automated
+sleep 5
+logger -t pbr "Full pbr restart (with wan white $wan_ip)"
 /etc/init.d/pbr restart

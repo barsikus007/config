@@ -24,5 +24,12 @@
     efiInstallAsRemovable = true;
   };
 
+  #? explicit DNS for all servers: 1.1.1.1 fastest, 9.9.9.9 independent fallback, 8.8.8.8 last resort
+  networking.nameservers = [
+    "1.1.1.1"
+    "9.9.9.9"
+    "8.8.8.8"
+  ];
+
   environment.systemPackages = import ../../shared/lists/00_essential.nix { inherit pkgs; };
 }

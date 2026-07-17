@@ -43,7 +43,7 @@ setup_linux
 
 #### Check Size
 
-TLDR: before: 162M; after: 424M; diff: 262M
+TLDR: before: 162M; after: 439M; diff: 277M
 
 ```shell
 docker run --rm ubuntu:latest bash -c '

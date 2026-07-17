@@ -29,6 +29,7 @@
   #? Don't forget to set a password with ‘passwd’.
   users.users.${username} = {
     isNormalUser = true;
+    uid = 1000;
     extraGroups = [ "wheel" ];
   };
   nix.settings.trusted-users = [ username ];

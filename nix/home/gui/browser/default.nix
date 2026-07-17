@@ -8,8 +8,9 @@
 
   #? handlr ships no .desktop file
   xdg.desktopEntries.handlr = {
-    name = "handlr";
+    name = "handlr - URL Handler";
     exec = "handlr open %u";
+    icon = "internet-web-browser";
     terminal = false;
     noDisplay = true;
     mimeType = [
