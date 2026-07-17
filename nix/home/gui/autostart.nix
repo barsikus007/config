@@ -22,9 +22,11 @@ in
       # outName = "Throne.desktop";
 
       (replaceDesktopItem pkgs.ayugram-desktop "com.ayugram.desktop.desktop" "AyuGram -autostart")
-      (replaceDesktopItem config.programs.nixcord.finalPackage.vesktop "vesktop.desktop"
-        "vesktop --start-minimized"
-      )
+      (replaceDesktopItem config.programs.nixcord.finalPackage.discord "discord.desktop" "Discord")
+      # (replaceDesktopItem config.programs.nixcord.finalPackage.vesktop "vesktop.desktop"
+      #   "vesktop --start-minimized"
+      # )
+
       #? Requires & After tray.target
       # (replaceDesktopItem pkgs.syncthingtray "syncthingtray.desktop"
       #   "syncthingtray qt-widgets-gui --single-instance --wait"

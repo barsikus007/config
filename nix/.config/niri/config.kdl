@@ -89,6 +89,7 @@ window-rule {
     //? picture-in-picture players
     match app-id=r#"^com\.ayugram\.desktop$"# title="^AyuGramDesktop$"
     match app-id=r#"^firefox$"# title="^Picture-in-Picture$"
+    match app-id=r#"^$"# title="^Picture in picture$"
     match app-id="^mpv$"
     open-floating true
     open-on-output "eDP-1"

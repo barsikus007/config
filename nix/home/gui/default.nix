@@ -14,7 +14,12 @@ let
   ];
 in
 {
+  #? handlr redirects URLs to some apps and only then to browsers
+  # TODO: use as xdg-utils replacement
+  home.packages = with pkgs; [ handlr-regex ];
+
   xdg = {
+    userDirs.enable = true;
     desktopEntries = lib.genAttrs neutralizedApplications (name: {
       inherit name;
       exec = "${name} %U";
@@ -22,7 +27,7 @@ in
       mimeType = [ ];
     });
 
-    #? \command ls /run/current-system/sw/share/applications /etc/profiles/per-user/$(id -n -u)/share/applications ~/.local/share/applications | grep -i <name>
+    #? find /run/current-system/sw/share/applications /etc/profiles/per-user/$USER/share/applications ~/.local/share/applications | grep -i <name>
     mimeApps.enable = true;
     mimeApps.defaultApplications = {
       "inode/directory" = [
@@ -63,7 +68,6 @@ in
       "text/javascript"
       "application/javascript"
     ] (_: [ "writer.desktop" ]);
-    userDirs.enable = true;
   };
 
   programs.keepassxc = {

@@ -7,6 +7,6 @@
   home-manager.useUserPackages = true;
   home-manager.extraSpecialArgs = specialArgs;
   home-manager.backupFileExtension = "hmbackup";
-  #? fd -H hmbackup
-  #? fd -H hmbackup | xargs rm
+  #? fd --hidden hmbackup ~
+  #? fd --hidden hmbackup ~ | xargs rm
 }

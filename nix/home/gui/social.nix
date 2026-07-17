@@ -8,11 +8,19 @@
 {
   imports = [ inputs.nixcord.homeModules.default ];
 
+  xdg.desktopEntries.discord-url = {
+    name = "Discord";
+    exec = "discord --url -- %u";
+    terminal = false;
+    noDisplay = true;
+    mimeType = [ "x-scheme-handler/discord" ];
+  };
+
   xdg.mimeApps = {
     defaultApplications = {
       "x-scheme-handler/discord" = [
-        # "discord.desktop"
-        "vesktop.desktop"
+        "discord-url.desktop"
+        # "vesktop.desktop"
         # "dorion.desktop"
       ];
     }
@@ -21,6 +29,12 @@
       "x-scheme-handler/tonsite"
     ] (key: "com.ayugram.desktop.desktop");
   };
+
+  xdg.configFile."handlr/handlr.toml".text = /* toml */ ''
+    [[handlers]]
+    exec = 'bash -c "x=%u; discord --url -- discord://''${x#*://}"'
+    regexes = ['^https://(www\.)?discord\.com/.*']
+  '';
 
   programs.nixcord = {
     enable = true;
