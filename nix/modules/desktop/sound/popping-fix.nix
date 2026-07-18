@@ -1,12 +1,4 @@
-{ pkgs, ... }:
 {
-  environment.systemPackages = with pkgs; [
-    #? visual sound nodes editor
-    qpwgraph
-  ];
-  #? rtkit (optional, recommended) allows Pipewire to use the realtime scheduler for increased performance.
-  security.rtkit.enable = true;
-  services.pipewire.enable = true;
   services.pipewire.extraConfig.pipewire = {
     "10-fix-popping" = {
       #? https://ventureo.codeberg.page/source/sound.html#choppy-audio

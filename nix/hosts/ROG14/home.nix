@@ -9,8 +9,9 @@
 
     ../../home/ai.nix
 
+    ../../home/desktop/sound/laptop-mic.nix
+
     ../../home/gui
-    ../../home/gui/sound.nix
     ../../home/gui/autostart.nix
     ../../home/gui/syncthing.nix
     ../../home/gui/quickshare.nix

@@ -204,7 +204,9 @@
           # ./modules/desktop/manager/plasma.nix
           ./modules/desktop/manager/niri-de.nix
           # ./modules/desktop/manager/niri-dms.nix
-          ./modules/gui/sound.nix
+          ./modules/desktop/sound
+          ./modules/desktop/sound/popping-fix.nix
+
           ./modules/gui/games.nix
           ./modules/gui/throne.nix
           ./modules/gui/remote.nix
