@@ -5,6 +5,56 @@
   ...
 }:
 # Да.
+let
+  #? t.me paths don't map 1:1 to tg:// - tg:// uses resolve?domain=/join?invite=/etc,
+  #? see https://core.telegram.org/api/links for the full mapping
+  tgClient = "AyuGram";
+  tgMeOpen = pkgs.writeShellApplication {
+    name = "tg-me-open";
+    text = /* shell */''
+      url=$1
+      rest=''${url#*://}
+      rest=''${rest#*/}
+      path="/''${rest%%\?*}"
+      query=""
+      [[ "$rest" == *\?* ]] && query="''${rest#*\?}"
+
+      case "$path" in
+        /+*)
+          tguri="tg://join?invite=''${path#/+}"
+          ;;
+        /joinchat/*)
+          tguri="tg://join?invite=''${path#/joinchat/}"
+          ;;
+        /c/*)
+          IFS='/' read -r _ _ channel post _ <<< "$path"
+          tguri="tg://privatepost?channel=''${channel}"
+          [[ -n "''${post:-}" ]] && tguri="''${tguri}&post=''${post}"
+          ;;
+        /addstickers/*)
+          tguri="tg://addstickers?set=''${path#/addstickers/}"
+          ;;
+        /addemoji/*)
+          tguri="tg://addemoji?set=''${path#/addemoji/}"
+          ;;
+        *)
+          IFS='/' read -r _ domain post _ <<< "$path"
+          tguri="tg://resolve?domain=''${domain}"
+          [[ "''${post:-}" =~ ^[0-9]+$ ]] && tguri="''${tguri}&post=''${post}"
+          ;;
+      esac
+
+      if [[ -n "$query" ]]; then
+        case "$tguri" in
+          *\?*) tguri="''${tguri}&''${query}" ;;
+          *) tguri="''${tguri}?''${query}" ;;
+        esac
+      fi
+
+      exec env DESKTOPINTEGRATION=1 ${tgClient} -- "$tguri"
+    '';
+  };
+in
 {
   imports = [ inputs.nixcord.homeModules.default ];
 
@@ -35,6 +85,10 @@
     [[handlers]]
     exec = 'bash -c "x=%u; discord --url -- discord://''${x#*://}"'
     regexes = ['^https://(www\.)?discord\.com/.*']
+
+    [[handlers]]
+    exec = "${lib.getExe tgMeOpen} %u"
+    regexes = ['^https://(www\.)?(t\.me|telegram\.(me|dog))/.*']
   '';
 
   programs.nixcord = {
