@@ -50,7 +50,6 @@
         (extension "gif-controls" "{69c2e11d-9cf2-44fa-85f2-a299dc027d77}")
         (extension "cookies-txt" "{12cf650b-1822-40aa-bff0-996df6948878}")
         # (extension "languagetool" "languagetool-webextension@languagetool.org")
-        # (extension "bitwarden-password-manager" "{446900e4-71c2-419f-a6a7-df9c091e268b}")
         # (extension "umatrix" "uMatrix@raymondhill.net")
         # (extension "libredirect" "7esoorv3@alefvanoon.anonaddy.me")
         # (extension "clearurls" "{74145f27-f039-47ce-a470-a662b129930a}")
@@ -105,6 +104,9 @@
           #? https://github.com/FirefoxCSS-Store/FirefoxCSS-Store.github.io/blob/main/README.md#generic-installation
           "sidebar.revamp" = false;
           "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+
+          #? https://developer.puter.com/labs/firefox-wasm/
+          "javascript.options.wasm_js_promise_integration" = true;
 
           "media.videocontrols.picture-in-picture.enable-when-switching-tabs.enabled" = true;
         };

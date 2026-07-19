@@ -320,10 +320,8 @@ in
         #? https://github.com/niri-wm/niri/issues/3265
         #? https://github.com/niri-wm/niri/issues/3610
         # hardware.nvidia.prime.amdgpuBusId
-        # render-drm-device = "/dev/dri/renderD128"
         # render-drm-device = "/dev/dri/by-path/pci-0000:04:00.0-render";
         # hardware.nvidia.prime.nvidiaBusId
-        # ignore-drm-device = "/dev/dri/renderD129"
         # ignore-drm-device = [ "/dev/dri/by-path/pci-0000:01:00.0-render" ];
         #? https://github.com/niri-wm/niri/issues/2955
         # honor-xdg-activation-with-invalid-serial = true;

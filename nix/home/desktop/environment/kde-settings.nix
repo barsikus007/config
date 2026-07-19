@@ -71,8 +71,19 @@
 
   #? dolphin global view properties live in a xattr, not a config file, to check:
   #? getfattr --name=user.kde.fm.viewproperties#1 --only-values --encoding=text ~/.local/share/dolphin/view_properties/global
-  home.activation.dolphinViewProperties = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    run mkdir --parents "$HOME/.local/share/dolphin/view_properties/global"
-    run ${lib.getExe' pkgs.attr "setfattr"} --name='user.kde.fm.viewproperties#1' --value=$'[Dolphin]\nViewMode=1\n[Settings]\nHiddenFilesShown=true' "$HOME/.local/share/dolphin/view_properties/global"
-  '';
+  home.activation.dolphinViewProperties =
+    let
+      dolphinViewPropertiesText = ''
+        [Dolphin]
+        ViewMode=1
+        VisibleRoles=Details_text,Details_size,Details_modificationtime,Details_type,CustomizedDetails
+
+        [Settings]
+        HiddenFilesShown=true
+      '';
+    in
+    (lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      run mkdir --parents "$HOME/.local/share/dolphin/view_properties/global"
+      run ${lib.getExe' pkgs.attr "setfattr"} --name='user.kde.fm.viewproperties#1' --value=$'${dolphinViewPropertiesText}' "$HOME/.local/share/dolphin/view_properties/global"
+    '');
 }

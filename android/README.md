@@ -24,8 +24,6 @@
 
 #### TODO
 
-- root detectors
-  - [momo](https://t.me/s/magiskalpha/529)
 - Design and Tweak Mods
   - <https://github.com/Mahmud0808/Iconify>
 

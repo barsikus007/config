@@ -7,7 +7,7 @@ ssht() {
     case "$1" in
       (-*) echo "Specify hostname first"; return 1 ;;
     esac
-    ssh "$@" -t "zellij attach -c $1 options --default-mode locked --session-serialization false || tmux new -As$1 || bash || sh"
+    ssh "$@" -t "zellij attach -c $1 options --default-mode locked --session-serialization false --theme blade-runner || tmux new -As$1 || bash || sh"
   )
 }
 
