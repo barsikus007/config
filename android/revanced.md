@@ -1,26 +1,15 @@
-# [YouTube ReVanced](./README.md)
+# [YouTube Morphe](./README.md)
 
-## correct update sequence
+[patch list](https://github.com/MorpheApp/morphe-patches#-patches-list)
 
-1. unmount app
-2. install new version
-3. patch and mount
+## settings
 
-## correct fix sequence
+- Material You
+- Hide Shorts
 
-if phone crashes, it causes base.apk of default apps reset their version
+## in-app settings
 
-1. install same version
-2. reboot/relaunch mount scripts
-
-## [YouTube](https://revanced.app/patches?pkg=com.google.android.youtube)
-
-- 5.46.0
-  - Theme
-    - Material You
-  - !GmsCore support (due to root)
-
-### settings
+### YouTube
 
 - Video quality preferences
   - \*
@@ -35,33 +24,26 @@ if phone crashes, it causes base.apk of default apps reset their version
 ```json
 "custom_speed_menu": false,
 "disable_precise_seeking_gesture": true,
-"disable_resuming_shorts_player": true,
+"disable_shorts_resuming_on_startup": true,
 "external_downloader": true,
-"force_original_audio": true,
-"hide_player_popup_panels": true,
-"miniplayer_type": "minimal",
+"hide_remix_button": true,
+"prioritize_video_quality": true,
+"replace_links_with_shortener": true,
 "ryd_toast_on_connection_error": false,
-"seekbar_tapping": true,
+"sb_local_time_saved_milliseconds": 9516230,
+"sb_local_time_saved_number_segments": 276,
+"sb_toast_on_connection_error": false,
 "shorts_player_type": "regular_player",
 "swipe_brightness": true,
 "swipe_lowest_value_enable_auto_brightness": true,
 "swipe_volume": true,
-"sb_local_time_saved_milliseconds": 4330921,
-"sb_local_time_saved_number_segments": 120,
-"sb_toast_on_connection_error": false
+"swipe_volume_sensitivity": 10,
+"tap_to_seek": true,
 ```
 
-## [YouTube Music](https://revanced.app/patches?pkg=com.google.android.apps.youtube.music)
+### YouTube Music
 
-- 5.46.0
-  - Theme
-    - Material You
-  - !Bypass certificate check (due to root)
-  - !GmsCore support (due to root)
-
-### settings
-
-- ReVanced
+- Morphe
   - Miscellaneous
     - Import / Export
 
@@ -70,4 +52,4 @@ if phone crashes, it causes base.apk of default apps reset their version
 "music_hide_navigation_bar_samples_button": true
 ```
 
-## updated 2025-11-29
+## updated 2026-07-21

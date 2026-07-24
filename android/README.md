@@ -33,7 +33,7 @@
 
 ## instructions
 
-### [YouTube ReVanced](./revanced.md)
+### [YouTube Morphe](./revanced.md)
 
 ### [Termux](./termux.md)
 
