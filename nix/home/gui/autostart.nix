@@ -22,7 +22,9 @@ in
       # outName = "Throne.desktop";
 
       (replaceDesktopItem pkgs.ayugram-desktop "com.ayugram.desktop.desktop" "AyuGram -autostart")
-      (replaceDesktopItem config.programs.nixcord.finalPackage.discord "discord.desktop" "Discord --start-minimized")
+      (replaceDesktopItem config.programs.nixcord.finalPackage.discord "discord.desktop"
+        "Discord --start-minimized"
+      )
       # (replaceDesktopItem config.programs.nixcord.finalPackage.vesktop "vesktop.desktop"
       #   "vesktop --start-minimized"
       # )

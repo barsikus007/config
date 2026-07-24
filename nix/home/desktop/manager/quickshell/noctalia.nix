@@ -11,27 +11,6 @@ let
   meta = import ../../meta.nix;
 
   nixos_logo = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-
-  #! vibecoded shitfix for https://bugzilla.mozilla.org/show_bug.cgi?id=2033358
-  #? firefox wayland popups break after monitors power-cycle (screenOff/lock) and lose gtk workarea
-  #? only a logical-geometry change makes firefox recompute; nudge eDP-1 position 1px and back on resume
-  #? position is read live so it stays correct across output profiles; runs after monitors are back on
-  ff_popup_recover = pkgs.writeShellScript "ff-popup-recover" /* shell */ ''
-    niri=${lib.getExe config.programs.niri.package}
-    jq=${lib.getExe pkgs.jq}
-    #? resume is racy: monitors/firefox may still be waking, so a single early nudge gets missed
-    #? settle first, then nudge a few times spaced out so at least one lands after everything is back
-    sleep 2
-    for _ in 1 2 3; do
-      out=$("$niri" msg --json outputs)
-      x=$(printf '%s' "$out" | "$jq" -r '."eDP-1".logical.x')
-      y=$(printf '%s' "$out" | "$jq" -r '."eDP-1".logical.y')
-      "$niri" msg output eDP-1 position set "$x" "$((y + 1))"
-      sleep 0.5
-      "$niri" msg output eDP-1 position set "$x" "$y"
-      sleep 1
-    done
-  '';
 in
 {
   imports = [
@@ -140,8 +119,8 @@ in
             "control-center"
             "cpu"
             "ram"
-            "temp"
             "noctalia/screen_recorder:recorder"
+            "thepunkoff/pomodoro:widget"
             "active_window"
           ];
           center = [ "taskbar" ];
@@ -182,10 +161,9 @@ in
           "lock"
           "lock-screen-off"
           "screen-off"
-          "ff-recover"
         ];
         behavior = {
-          lock = {
+          "lock" = {
             enabled = true;
             action = "lock";
             timeout = 900.0;
@@ -201,13 +179,6 @@ in
             enabled = true;
             action = "screen_off";
             timeout = 600.0;
-          };
-          "ff-recover" = {
-            enabled = true;
-            action = "command";
-            timeout = 590.0;
-            command = ":";
-            resume_command = "${ff_popup_recover}";
           };
         };
       };
@@ -232,8 +203,10 @@ in
         enabled = [
           "noctalia/screen_recorder"
           "noctalia/kaomoji"
+          "noctalia/timer"
 
           "whyoolw/sharednd"
+          "thepunkoff/pomodoro"
         ];
         source = [
           {
@@ -251,7 +224,7 @@ in
             enabled = true;
           }
         ];
-        # TODO: noctalia-v5: timer:bar-widget, keybind-cheatsheet, currency-exchange, kde-connect, pomodoro
+        # TODO: noctalia-v5: timer:bar-widget, kde-connect
       };
       shell = {
         clipboard_auto_paste = "ctrl_v";
@@ -261,6 +234,7 @@ in
         mpris.blacklist = [ "firefox.instance" ];
         niri_overview_type_to_launch_enabled = true;
         panel = {
+          list_item_background = true;
           open_near_click_control_center = true;
           transparency_mode = "glass";
         };
@@ -270,18 +244,27 @@ in
         screen_time_enabled = true;
       };
       widget = {
+        control-center.custom_image = nixos_logo;
+        cpu.display = "graph";
+        ram.display = "graph";
+
+        taskbar.group_by_workspace = true;
+
+        tray = {
+          drawer = true;
+          pinned = [ "Syncthing Tray" ];
+        };
+        music_button = {
+          type = "custom_button";
+          glyph = "music-pin";
+          command = "dbus-send --type=method_call --dest=org.kde.plasma.browser_integration /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Raise";
+        };
+        privacy.hide_inactive = true;
+        network.show_label = false;
         battery = {
           type = "battery";
           display_mode = "graphic";
         };
-        clock = {
-          type = "clock";
-          format = "{:%Y-%m-%d %H:%M:%S}";
-        }
-        // lib.attrsets.optionalAttrs (options ? stylix) {
-          font_family = config.stylix.fonts.monospace.name;
-        };
-        control-center.custom_image = nixos_logo;
         keyboard_layout = {
           type = "keyboard_layout";
           show_icon = false;
@@ -290,17 +273,12 @@ in
             Russian = "🇷🇺";
           };
         };
-        music_button = {
-          type = "custom_button";
-          glyph = "music-pin";
-          command = "dbus-send --type=method_call --dest=org.kde.plasma.browser_integration /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Raise";
-        };
-        network.show_label = false;
-        privacy.hide_inactive = true;
-        taskbar.group_by_workspace = true;
-        tray = {
-          drawer = true;
-          pinned = [ "Syncthing Tray" ];
+        clock = {
+          type = "clock";
+          format = "{:%Y-%m-%d %H:%M:%S}";
+        }
+        // lib.attrsets.optionalAttrs (options ? stylix) {
+          font_family = config.stylix.fonts.monospace.name;
         };
       };
     };

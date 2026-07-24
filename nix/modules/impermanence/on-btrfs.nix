@@ -75,12 +75,9 @@ in
     }; # NOTE: path = [...]; doesnt work for initrd, use full paths in your script or extraBin
   };
 
-  # sudo cp -ax --reflink=always ...
   environment.persistence."${persistentDir}" = {
-    # sudo cp -ax --reflink=always /var/lib{bluetooth,...,waydroid} /persistent/var/lib
     directories = [
       "/var/lib/btrfs"
     ];
   };
-  # cp -ax --reflink=always /home/$USER/{...} /persistent/home/$USER/
 }

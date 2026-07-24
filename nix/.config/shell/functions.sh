@@ -337,7 +337,7 @@ desksort() {
     [[ $1 == -n || $1 == --dry-run ]] && { dry=1; shift; }
     [[ -d $apps ]] || { echo "no such dir: $apps"; return 1; }
 
-    # move every top-level *.desktop whose body matches $1 into subdir $2
+    #? move every top-level *.desktop whose body matches $1 into subdir $2
     move_rule() {
       local file
       rg --files-with-matches --max-depth 1 --glob '*.desktop' --regexp "$1" "$apps" 2>/dev/null |
@@ -352,13 +352,14 @@ desksort() {
     }
 
     if [[ -n $1 ]]; then
-      #! manual mode: explicit pattern + target subdir
+      #? manual mode: explicit pattern + target subdir
       move_rule "$1" "${2:?usage: desksort [-n] <regex> <category>}"
     else
-      #! built-in rules, first match wins (once moved into a subdir it drops out of the top-level scan)
+      #? built-in rules, first match wins (once moved into a subdir it drops out of the top-level scan)
       move_rule '^Exec=steam'    steam
       move_rule '^Exec=.*wine'   wine
-      move_rule '^Exec=waydroid' waydroid
+      #! this is blindly recreates at boot
+      # move_rule '^Exec=waydroid' waydroid
     fi
   )
 }

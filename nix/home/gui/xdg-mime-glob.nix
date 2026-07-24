@@ -35,8 +35,8 @@ in
         lib.genAttrs mimeTypes (_: application);
     in
     lib.attrsets.mergeAttrsList [
-      (generateGlobAssociations "image" "sha256-VlpdQZ0QH2iD0hoI8othK2M3LAlOd7AEWXxtWSDRjIU=" imageApps)
-      (generateGlobAssociations "video" "sha256-pvWEsjrN0MA/Pagd8/X9SSFBGkGNP2zE6frbtU/m4y8=" videoApps)
-      (generateGlobAssociations "audio" "sha256-jVSMMnBH/f+9ltf9WZDRuKaCREO+wQKyLPzEOQamL6Y=" audioApps)
+      (generateGlobAssociations "image" "sha256-lGrLRjIeJQxljR4TU2NJbXlA7oPyPfnSuvN2D5GXyLw=" imageApps)
+      (generateGlobAssociations "video" "sha256-tjnyMpRhru4Rnghars3xGx3ymrD/hGBV0GpnTZmOnHQ=" videoApps)
+      (generateGlobAssociations "audio" "sha256-4yvqIbfwCQewIV257hUld9eB2XTNndBCOoLtqwwM8hc=" audioApps)
     ];
 }

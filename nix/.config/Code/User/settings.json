@@ -311,6 +311,7 @@
     // #endregion todo2
     // #region sexperimental
     "debugpy.showPythonInlineValues": true,
+    "workbench.experimental.modernUI": true,
     // #endregion sexperimental
     // #region auto
     "diffEditor.ignoreTrimWhitespace": false, //! (true is default)

@@ -3,12 +3,13 @@ let
 in
 {
   xdg.dataFile."easyeffects/autoload/input/${mic.pipewireNode}:${mic.deviceProfile}.json".text =
-    builtins.toJSON {
-      device = mic.pipewireNode;
-      preset-name = "LaptopMic";
-      device-profile = mic.deviceProfile;
-      device-description = mic.deviceDescription;
-    };
+    builtins.toJSON
+      {
+        device = mic.pipewireNode;
+        preset-name = "LaptopMic";
+        device-profile = mic.deviceProfile;
+        device-description = mic.deviceDescription;
+      };
 
   services.easyeffects.extraPresets = {
     #? only defaults

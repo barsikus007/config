@@ -17,11 +17,14 @@
       Type = "oneshot";
       RemainAfterExit = true;
     };
-    script = /* shell */ ''
-      password=$(cat ${config.sops.secrets."hosts/${config.system.name}/smb/passwd".path})
-      printf "$password\n$password\n" \
-        | ${lib.getExe' config.services.samba.package "smbpasswd"} -sa ${username}
-    '';
+    script =
+      let
+        smbpasswd = lib.getExe' config.services.samba.package "smbpasswd";
+      in
+      /* shell */ ''
+        password=$(cat ${config.sops.secrets."hosts/${config.system.name}/smb/passwd".path})
+        printf "$password\n$password\n" | ${smbpasswd} -sa ${username}
+      '';
   };
 
   services.samba = {

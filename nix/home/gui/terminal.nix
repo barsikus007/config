@@ -43,6 +43,11 @@ in
   };
   programs.wezterm = {
     enable = true;
-    extraConfig = "return dofile('${flakePath}/.config/wezterm/wezterm.lua')";
+    extraConfig = /* lua */ ''
+      local wezterm_config = '${flakePath}/.config/wezterm/wezterm.lua'
+      --! dofile'd files are not auto-watched, so register it for hot reload
+      wezterm.add_to_config_reload_watch_list(wezterm_config)
+      return dofile(wezterm_config)
+    '';
   };
 }

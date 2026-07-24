@@ -27,6 +27,9 @@ local SHIFT_SYM = {
     ["/"] = "?",
 }
 
+--! mpv keynames that differ from the literal char (# is the input.conf comment char)
+local MPV_KEYNAME = { ["#"] = "SHARP" }
+
 --! rows of the keyboard; entries are {name, label, w} or {spacer=units}
 --! name is the base (unshifted, latin) mpv key token; w defaults to 1
 local ROWS = {
@@ -125,6 +128,8 @@ end
 local function candidates(name, cyr, lay)
     local c = {}
     local is_letter = name:match("^%a$")
+    local sym = SHIFT_SYM[name]              -- shifted symbol (# _ + ...)
+    local special = sym and MPV_KEYNAME[sym] -- mpv alias for that symbol (SHARP)
     if lay == "base" then
         c[#c + 1] = name
         if cyr then c[#c + 1] = cyr end
@@ -133,15 +138,19 @@ local function candidates(name, cyr, lay)
         if cyr and cyr:match("%a") then c[#c + 1] = cyr:upper() end
         c[#c + 1] = "shift+" .. name
         if cyr then c[#c + 1] = "shift+" .. cyr end
-        local s = SHIFT_SYM[name]
-        if s then c[#c + 1] = s; c[#c + 1] = "shift+" .. s end
+        if sym then c[#c + 1] = sym; c[#c + 1] = "shift+" .. sym end
+        if special then c[#c + 1] = special end
     elseif lay == "alt" then
         c[#c + 1] = "alt+" .. name
         if is_letter then c[#c + 1] = "alt+" .. name:upper() end
         if cyr then c[#c + 1] = "alt+" .. cyr end
+        if sym then c[#c + 1] = "alt+" .. sym end
+        if special then c[#c + 1] = "alt+" .. special end
     elseif lay == "ctrl" then
         c[#c + 1] = "ctrl+" .. name
         if cyr then c[#c + 1] = "ctrl+" .. cyr end
+        if sym then c[#c + 1] = "ctrl+" .. sym end
+        if special then c[#c + 1] = "ctrl+" .. special end
     end
     return c
 end

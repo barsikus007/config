@@ -4,7 +4,7 @@ set -euo pipefail
 
 #? https://noctalia.dev/plugins
 #? https://github.com/noctalia-dev/community-plugins
-baseline_commit="ca07934"
+baseline_commit="efe8a1a"
 baseline_url="https://raw.githubusercontent.com/noctalia-dev/community-plugins/${baseline_commit}/catalog.toml"
 current_url="https://raw.githubusercontent.com/noctalia-dev/community-plugins/main/catalog.toml"
 

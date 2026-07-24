@@ -17,7 +17,6 @@
     - extract them to `/var/lib/waydroid/images/`
     - and edit `waydroid.cfg` accordingly (set datetime variables)
 - <https://wiki.nixos.org/wiki/Waydroid#Mount_host_directories>
-  - after system startup `systemctl --user start waydroid-monitor`
   - mount dirs
     - `sudo waydroid shell mkdir /data/adb/modules/<module_id>`
     - `/run/media/$USER/Data/projects/<module_id>` host
@@ -285,4 +284,13 @@ git sparse-checkout disable
 
 ```shell
 sudo udevadm control --reload-rules && sudo udevadm trigger
+```
+
+### ffmpeg drop-in converter for davinci
+
+```shell
+ext="mp3"
+for f in *."$ext"; do
+  ffmpeg -i "$f" -c:v copy -codec:a libmp3lame -b:a 320k "${f%."$ext"}_tmp.$ext" && mv "${f%."$ext"}_tmp.$ext" "$f"
+done
 ```

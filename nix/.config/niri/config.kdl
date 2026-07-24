@@ -67,6 +67,7 @@ window-rule {
 window-rule {
     match app-id=r#"^org\.wezfurlong\.wezterm$"#
     match app-id=r#"^dev\.noctalia\.Noctalia$"# title="^Noctalia Settings$"
+    match app-id=r#"^com\.jaoushingan\.WaydroidHelper$"# title="^waydroid-helper$"
     match app-id=r#"^wdisplays$"# title="^wdisplays$"
     match app-id=r#"^code$"#
     default-column-width { proportion 0.5; }
@@ -79,6 +80,7 @@ window-rule {
     match app-id="scrcpy"
     match app-id=r#"\.exe$"#
     match app-id=r#"^cheatengine"#
+    match app-id=r#"^resolve$"# title="^resolve$"
     open-floating true
 }
 // window-rule {
@@ -106,7 +108,7 @@ window-rule {
 window-rule {
     match app-id="" title="^Syncthing Tray$"
     //? status windows at noctalia OSD location
-    match app-id=r#"^org\.kde\.dolphin$"# title="^(Progress Dialog|Copying|Moving|Deleting|Extracting) .*— Dolphin$"
+    match app-id=r#"^org\.kde\.dolphin$"# title="^(Progress Dialog|Copying|Moving|Deleting|Extracting|Compressing) .*— Dolphin$"
     match app-id=r#"^org\.kde\.ark$"#     title="^Loading archive .*— Ark$"
     match app-id=r#"^org\.kde\.ark$"#     title="^Extracting one file — Ark$"
     //? https://niri-wm.github.io/niri/Application-Issues.html#steam
@@ -183,7 +185,7 @@ window-rule {
     // open-focused false
 }
 window-rule {
-    match app-id=r#"^Minecraft 1\.\d{1,2}\.\d*"#
+    match app-id=r#"^Minecraft\S* (1\.)?\d{1,2}\.\d*"#
     match app-id=r#"^GT: New Horizons "#
     match app-id=r#"^qemu$"#
     match app-id=r#"^looking-glass-client$"#

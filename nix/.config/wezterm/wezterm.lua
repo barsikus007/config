@@ -14,6 +14,7 @@ return {
     initial_cols = 120,
     initial_rows = 30,
     enable_scroll_bar = true,
+    adjust_window_size_when_changing_font_size = false,
 
     --! wayland have titlebar issues
     -- enable_wayland = false,

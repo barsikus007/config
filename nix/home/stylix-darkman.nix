@@ -1,15 +1,9 @@
 { lib, pkgs, ... }:
 let
-  #! xdg-desktop-portal-gnome caches color-scheme; restarting it unconditionally can kill ScreenCast
-  notifyPortalRestart = pkgs.writeShellScript "notify-portal-restart" ''
-    action=$(${lib.getExe pkgs.libnotify} -w -a darkman -A "restart=Restart portal" "Theme switched" "xdg-open windows kept the previous theme")
-    if [ "$action" = "restart" ]; then
-      ${lib.getExe' pkgs.systemd "systemctl"} --user restart xdg-desktop-portal-gnome.service
-    fi
-  '';
+  #! xdg-desktop-portal-gnome caches color-scheme at its process start
+  systemctl = lib.getExe' pkgs.systemd "systemctl";
   defaultSwitchScript = /* shell */ ''
-    ${notifyPortalRestart} &
-    disown
+    ${systemctl} --user restart xdg-desktop-portal-gnome.service
   '';
 in
 {

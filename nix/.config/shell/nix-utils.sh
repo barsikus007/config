@@ -22,6 +22,30 @@ nix_shell_exec() {
   nix-shell -p "$1" --run "$*"
 }
 
+nix_pkgs_only() {
+  #? filter a `nix build --dry-run` plan down to real nixpkgs builds,
+  #? hiding config glue (etc/hm/unit files, stylix assets, buildEnv) that never lands in the cache
+  #? no reliable derivation flag marks glue, so this is a name whitelist: keep name-version, drop config-file extensions
+  #? fast by default (uses eval-cache); on a dirty/uncommitted tree the plan may be STALE
+  #? pass -f to force a fresh eval (slow, ~1-2 min), or just commit your changes first
+  #? usage: nix_pkgs_only [-f] .#nixosConfigurations.ROG14.config.system.build.toplevel
+  local opts=()
+  [[ $1 == -f ]] && { opts=(--option eval-cache false); shift; }
+  nix build --dry-run "${opts[@]}" "$@" 2>&1 \
+    | rg -o '/nix/store/[a-z0-9]+-\S+\.drv' \
+    | rg -- '-[0-9]' \
+    | rg -v '\.(conf|json|png|css|xml|ini|sh|rules|pl|service|timer|pf2|theme)\.drv$' \
+    | rg -v -- '-env\.drv$|initrd-linux|dbus-[0-9]|nixos-system-'
+}
+
+nix_pkgs_only_host() {
+  #? same, targeting the current host toplevel (or pass a hostname: nix_pkgs_only_host KBH)
+  #? -f forwards the fresh-eval flag: nix_pkgs_only_host -f [hostname]
+  local fresh=()
+  [[ $1 == -f ]] && { fresh=(-f); shift; }
+  nix_pkgs_only "${fresh[@]}" "${NH_FLAKE:-.}#nixosConfigurations.${1:-$HOST}.config.system.build.toplevel"
+}
+
 nix_copy_edit() {
   #? fd -H '\.lnk$'
   mv "$1" "$1.lnk"
