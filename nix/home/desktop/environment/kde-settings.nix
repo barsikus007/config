@@ -73,8 +73,11 @@
   #? getfattr --name=user.kde.fm.viewproperties#1 --only-values --encoding=text ~/.local/share/dolphin/view_properties/global
   home.activation.dolphinViewProperties =
     let
+      viewPropsDir = "$HOME/.local/share/dolphin/view_properties/global";
+      viewPropsAttr = "user.kde.fm.viewproperties#1";
       dolphinViewPropertiesText = ''
         [Dolphin]
+        Version=4
         ViewMode=1
         VisibleRoles=Details_text,Details_size,Details_modificationtime,Details_type,CustomizedDetails
 
@@ -83,7 +86,7 @@
       '';
     in
     (lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      run mkdir --parents "$HOME/.local/share/dolphin/view_properties/global"
-      run ${lib.getExe' pkgs.attr "setfattr"} --name='user.kde.fm.viewproperties#1' --value=$'${dolphinViewPropertiesText}' "$HOME/.local/share/dolphin/view_properties/global"
+      run mkdir --parents "${viewPropsDir}"
+      run ${lib.getExe' pkgs.attr "setfattr"} --name='${viewPropsAttr}' --value=$'${dolphinViewPropertiesText}' "${viewPropsDir}"
     '');
 }
