@@ -1,6 +1,8 @@
 { username, ... }:
 #! +?Gb
 {
+  #! add this to flake inputs
+  #? dms = { url = "github:AvengeMedia/DankMaterialShell/stable"; inputs.nixpkgs.follows = "nixpkgs"; };
   imports = [
     ./niri.nix
     ../../hardware/ddcutil.nix

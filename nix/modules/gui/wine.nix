@@ -52,6 +52,7 @@ in
     winePkg
     winetricks
     bottles
+
     (pkgs.writeShellApplication {
       name = "wine-setup";
       runtimeInputs = [ winePkg ];

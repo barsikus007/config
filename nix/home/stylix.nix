@@ -2,6 +2,9 @@
 {
   imports = [ ./gui/browser/firefox-stylix.nix ];
 
+  #? to apply stylix setted cursors
+  home.pointerCursor.enable = true;
+
   stylix = {
     enable = true;
     # autoEnable = false;

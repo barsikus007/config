@@ -10,7 +10,7 @@
 let
   meta = import ../../meta.nix;
 
-  nixos_logo = "${config.programs.noctalia.package}/share/noctalia/assets/images/distros/nixos.svg";
+  nixos_logo = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
 
   #! vibecoded shitfix for https://bugzilla.mozilla.org/show_bug.cgi?id=2033358
   #? firefox wayland popups break after monitors power-cycle (screenOff/lock) and lose gtk workarea

@@ -2,6 +2,8 @@
 
 Modular Nix configurations for desktops, servers, virtual machines, mobile devices, and custom packages
 
+## [Packages](./nix/packages/README.md)
+
 ## [Command cheatsheet](./cheatsheet.md)
 
 ## Installation

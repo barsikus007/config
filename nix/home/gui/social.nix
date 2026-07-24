@@ -96,6 +96,7 @@ in
     discord = {
       # enable = false;
       # branch = "canary";
+      vencord.enable = true;
       commandLineArgs = [ "--enable-blink-features=MiddleClickAutoscroll" ];
       openASAR.enable = false;
     };

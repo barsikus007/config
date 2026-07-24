@@ -19,8 +19,8 @@
         let
           # https://github.com/gnif/LookingGlass/commits/master/
           # https://github.com/gnif/LookingGlass/compare/<ref>...gnif%3ALookingGlass%3Amaster
-          rev = "53bfb6547f2b7abd6c183192e13a57068c1677ea";
-          hash = "sha256-SakFCEXPsJW3zmNpmklK8ZCGpcJzJ/4v7TJDpjWqVeA=";
+          rev = "d3d1d48e97c47416e2e04662573d7484540e4a0a";
+          hash = "sha256-lsY/pT2Fsf2brS014fmUvRQX9q/EHDxXWZvlwFm5jgY=";
         in
         {
           version = "B7-g${builtins.substring 0 10 rev}";

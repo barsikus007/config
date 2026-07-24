@@ -212,6 +212,10 @@ nix path-info --all --json --json-format 1 | jq --raw-output --arg cache_name "$
 nix run <something> --log-format internal-json |& nom --json
 ```
 
+### override recipes
+
+- [rust](https://nea.moe/blog/patching-nix-packages/)
+
 ## python development
 
 ### [flake devShell](flake.nix)
