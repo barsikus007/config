@@ -48,6 +48,7 @@ in
         "Videos"
 
         "config"
+        "Share" # ? samba guest LAN share
         "Sync"
 
         ".cache/.bun" # ? tools installed with bunx

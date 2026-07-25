@@ -213,6 +213,7 @@
           ./modules/vm/gui.nix
           ./modules/vm/vfio
 
+          ./modules/services/network-filesystems/samba/local-share.nix
           ./modules/services/networking/wireguard-ui.nix
           # TODO: ./modules/system/activation
           {
