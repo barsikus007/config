@@ -117,8 +117,8 @@ rec {
     android-yt-dlpa = "cd ~/storage/downloads && yt-dlpa";
   };
   ezaAliases = {
-    l = "eza -F -bghM --smart-group --group-directories-first --color=auto --color-scale --icons=always --no-quotes --hyperlink";
-    ll = "eza -F -labghM --smart-group --group-directories-first --color=auto --color-scale --icons=always --no-quotes --hyperlink";
+    l = "eza -F -bghM --smart-group --group-directories-first --color-scale --icons=always --no-quotes --hyperlink=auto";
+    ll = "eza -F -labghM --smart-group --group-directories-first --color-scale --icons=always --no-quotes --hyperlink=auto";
     llt = "ll --tree";
   };
   nvimAliases = {

@@ -402,7 +402,7 @@
           inputs.plasma-manager.homeModules.plasma-manager
           inputs.niri.homeModules.niri
           inputs.noctalia.homeModules.default
-          inputs.dms.homeModules.dank-material-shell
+          # inputs.dms.homeModules.dank-material-shell
         ])
       ];
 

@@ -225,4 +225,23 @@
         "command": "-extension.python-print-deleteall",
         "when": "editorTextFocus"
     },
+    // https://code.visualstudio.com/docs/configure/keybindings#_keyboard-layoutindependent-bindings
+    {
+        "key": "ctrl+/",
+        "command": "-editor.action.commentLine",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+[Slash]",
+        "command": "editor.action.commentLine",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+[Backquote]",
+        "command": "workbench.action.terminal.toggleTerminal"
+    },
+    {
+        "key": "ctrl+shift+[Backquote]",
+        "command": "workbench.action.terminal.new"
+    },
 ]

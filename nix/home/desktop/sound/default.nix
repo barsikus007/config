@@ -3,7 +3,7 @@
   dconf.settings."com/github/wwmm/easyeffects" = {
     process-all-inputs = true;
   };
-  # https://github.com/Digitalone1/EasyEffects-Presets
+  #? https://github.com/Digitalone1/EasyEffects-Presets
   services.easyeffects.preset = "LoudnessEqualizer";
   services.easyeffects.extraPresets = {
     LoudnessEqualizer = builtins.fromJSON (
@@ -22,5 +22,11 @@
         }
       )
     );
+    Disabled = {
+      output = {
+        blocklist = [ ];
+        plugins_order = [ ];
+      };
+    };
   };
 }

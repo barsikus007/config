@@ -1,4 +1,7 @@
 { pkgs, ... }:
+let
+  nix-snowflake-svg = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+in
 {
   #? firefox pwa, if I ever need it
   # programs.firefoxpwa.enable = true;
@@ -49,6 +52,7 @@
         (extension "firefox-color" "FirefoxColor@mozilla.com")
         (extension "gif-controls" "{69c2e11d-9cf2-44fa-85f2-a299dc027d77}")
         (extension "cookies-txt" "{12cf650b-1822-40aa-bff0-996df6948878}")
+        (extension "vicinae" "firefox@vicinae.com")
         # (extension "languagetool" "languagetool-webextension@languagetool.org")
         # (extension "umatrix" "uMatrix@raymondhill.net")
         # (extension "libredirect" "7esoorv3@alefvanoon.anonaddy.me")
@@ -256,7 +260,7 @@
                 }
               ];
 
-              icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+              icon = nix-snowflake-svg;
               definedAliases = [ "pac" ];
             };
             "Nix Options" = {
@@ -276,7 +280,7 @@
                 }
               ];
 
-              icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+              icon = nix-snowflake-svg;
               definedAliases = [ "opt" ];
             };
             "Home Manager Options" = {
@@ -300,7 +304,7 @@
                 }
               ];
 
-              icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+              icon = nix-snowflake-svg;
               definedAliases = [ "hom" ];
             };
             "NixOS Wiki" = {
@@ -316,7 +320,7 @@
                 }
               ];
 
-              icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+              icon = nix-snowflake-svg;
               definedAliases = [ "wik" ];
             };
             "NixOS Hydra" = {
@@ -332,7 +336,7 @@
                 }
               ];
 
-              icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+              icon = nix-snowflake-svg;
               definedAliases = [ "hyd" ];
             };
             "Noogle" = {
@@ -348,7 +352,7 @@
                 }
               ];
 
-              icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+              icon = nix-snowflake-svg;
               definedAliases = [ "ng" ];
             };
             "scoop.sh" = {

@@ -118,6 +118,8 @@ in
         ".android"
         ".gemini"
         ".claude"
+        ".parsec"
+        ".parsec-persistent"
         ".thunderbird"
         ".vscode"
         ".vscode-shared" # ? recent and trust folders
@@ -128,7 +130,6 @@ in
         # ".docker"
         # ".java" # TODO: font cache
         # ".npm"
-        # ".pki" # TODO: is this needed? certs
 
         #? games
         # ".parsec" # TODO: is this needed?

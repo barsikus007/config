@@ -14,6 +14,7 @@
     "kvm"
     "libvirtd"
   ];
+  environment.sessionVariables.LIBVIRT_DEFAULT_URI = "qemu:///system";
 
   virtualisation.spiceUSBRedirection.enable = true;
 

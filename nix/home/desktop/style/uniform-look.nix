@@ -6,6 +6,11 @@
 }:
 #? https://wiki.archlinux.org/title/Uniform_look_for_Qt_and_GTK_applications
 {
+  #! hicolor/index.theme ships only in the system profile, so icon resolvers skip the
+  #! user-profile hicolor entirely and app icons from home.packages never resolve
+  #? symptom: ayugram tray icon (com.ayugram.desktop-attention-symbolic) falls back to a placeholder
+  home.packages = with pkgs; [ hicolor-icon-theme ];
+
   #? stylix uses kvantum for theming, hardcoding svg (which is used for element shapes)
   #? I don't like these shapes so I decided to just rollback to breeze
   qt = {

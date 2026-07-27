@@ -66,10 +66,13 @@ window-rule {
 //? force half-screen size
 window-rule {
     match app-id=r#"^org\.wezfurlong\.wezterm$"#
-    match app-id=r#"^dev\.noctalia\.Noctalia$"# title="^Noctalia Settings$"
-    match app-id=r#"^com\.jaoushingan\.WaydroidHelper$"# title="^waydroid-helper$"
-    match app-id=r#"^wdisplays$"# title="^wdisplays$"
     match app-id=r#"^code$"#
+
+    match app-id=r#"^dev\.noctalia\.Noctalia$"# title="^Noctalia Settings$"
+    match app-id=r#"^wdisplays$"# title="^wdisplays$"
+
+    match app-id=r#"^com\.jaoushingan\.WaydroidHelper$"# title="^waydroid-helper$"
+    match app-id=r"^\.virt-manager-wrapped$" title="^Virtual Machine Manager$"
     default-column-width { proportion 0.5; }
 }
 
@@ -181,12 +184,17 @@ window-rule {
     match app-id=r#"^steam_app_"#
     match app-id=r#"^gamescope$"#
     match app-id=r#"^\.gamescope-wrapped$"#
+    match app-id=r#"^r2modman$"#
+
+    match app-id=r"^$" title="^Parsec$"
+    match app-id=r"^\.virt-manager-wrapped$" title="^Virtual Machine Manager$"
     open-on-workspace "games"
     // open-focused false
 }
 window-rule {
     match app-id=r#"^Minecraft\S* (1\.)?\d{1,2}\.\d*"#
     match app-id=r#"^GT: New Horizons "#
+
     match app-id=r#"^qemu$"#
     match app-id=r#"^looking-glass-client$"#
     open-on-workspace "games"
