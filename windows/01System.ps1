@@ -1,6 +1,4 @@
 sudo scoop install vcredist-aio
-# TODO: is needed?: dotnet-sdk
-# scoop install dotnet-sdk
 
 Function Test-Command ($commandName) {
     if (Get-Command $commandName -ErrorAction SilentlyContinue) { return $true }

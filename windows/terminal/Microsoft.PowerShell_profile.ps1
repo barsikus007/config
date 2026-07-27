@@ -82,7 +82,7 @@ $env:PATH = @(
 
 Debug-Log aliases (Measure-Command {
 # init
-$env:BAT_PAGER="less -rF --mouse"
+$env:BAT_PAGER="less --RAW-CONTROL-CHARS --quit-if-one-screen --mouse"
 $env:BAT_THEME="Coldark-Dark"
 Set-Alias -Option AllScope cat bat
 Function Get-Full-History { bat (Get-PSReadlineOption).HistorySavePath -l powershell }
@@ -90,54 +90,60 @@ Set-Alias -Option AllScope history Get-Full-History
 Set-Alias -Option AllScope editor nvim
 
 # base
-Function grep { grep.exe --color=auto $args }
-# FUCK PWSH
-Function grp { grep.exe --color=auto -Fin -C 7 $args }
+#? pwsh does not forward stdin into native commands from a plain function
+Function grep {
+    if ($MyInvocation.ExpectingInput) { $input | grep.exe --color=auto @args }
+    else { grep.exe --color=auto @args }
+}
+Function grp {
+    if ($MyInvocation.ExpectingInput) { $input | grep.exe --color=auto -Fin -C 7 @args }
+    else { grep.exe --color=auto -Fin -C 7 @args }
+}
 Function c { clear }
 Set-Alias -Option AllScope h history
-# FUCK PWSH
-Function hf { h | grep.exe --color=auto -Fin -C 7 $args }
+Function hf { h | grp @args }
 Function sshe { editor $HOME\.ssh\config }
-Function ssht { ssh $args -t "tmux new -As0 || bash || sh" }
+Function ssht { ssh @args -t "tmux new -As0 || bash || sh" }
 #* Test-Path Alias:\nv && Remove-Item Alias:\nv -Force
 #* Function nv { editor $(fzf) }
 Function 1ip { wget -qO - icanhazip.com }
 Function 2ip { curl 2ip.ru }
-Function mkcd { New-Item $args -ItemType Directory -Force | Select-Object Name | Set-Location }
+Function mkcd { New-Item @args -ItemType Directory -Force | Select-Object Name | Set-Location }
 
 # ls
-Function l { ls -CF $args }
-Function ll { ls -la $args }
+Function l { ls -CF @args }
+Function ll { ls -la @args }
 if (Test-Command eza) {
     Set-Alias -Option AllScope ls eza
-    Function l { eza -F -bghM --smart-group --group-directories-first --color=auto --color-scale --icons=always --no-quotes --hyperlink $args }
-    Function ll { eza -F -labghM --smart-group --group-directories-first --color=auto --color-scale --icons=always --no-quotes --hyperlink $args }
+    Function l { eza -F -bghM --smart-group --group-directories-first --color=auto --color-scale --icons=always --no-quotes --hyperlink @args }
+    Function ll { eza -F -labghM --smart-group --group-directories-first --color=auto --color-scale --icons=always --no-quotes --hyperlink @args }
 }
 
 # package managers and updaters
 Function suss { scoop update | scoop status }
 Function i { scoop install }
-Function u { suss | scoop update * }
+#! shim priority, weakest first
+Function u { suss | scoop update *; scoop reset busybox microsoft-coreutils grep less wget }
 #* Function cu { cd ~/config && git pull && ./windows/install.ps1 && ./windows/pwsh.ps1 && cd - }
 
 # docker
 $env:COMPOSE_BAKE=$true
 Function lzd { lazydocker }
 Function lzdu { scoop update lazydocker }
-Function dc { docker compose $args }
-Function dsp { docker system prune $args }
-Function dspa { dsp --all $args }
-Function dcu { docker compose up -d $args }
-Function dcub { docker compose up -d --build $args }
-Function dcuo { docker compose up -d --remove-orphans $args }
-Function dcup { docker compose -f compose.prod.yaml up -d }
-Function dcp { docker compose ps $args }
-Function dcs { docker compose stop $args }
-Function dcd { docker compose down $args }
-Function dcl { docker compose logs $args }
-Function dcr { docker compose restart $args }
-Function dce { docker compose exec -it $args }
-Function dcsh { dce $args sh -c 'bash || sh' }
+Function dc { docker compose @args }
+Function dsp { docker system prune @args }
+Function dspa { dsp --all @args }
+Function dcu { dc up -d @args }
+Function dcub { dcu --build @args }
+Function dcuo { dcu --remove-orphans @args }
+Function dcup { dc -f compose.prod.yaml up -d }
+Function dcp { dc ps @args }
+Function dcs { dc stop @args }
+Function dcd { dc down @args }
+Function dcl { dc logs @args }
+Function dcr { dc restart @args }
+Function dce { dc exec -it @args }
+Function dcsh { dce @args sh -c 'bash || sh' }
 
 # python
 # TODO uv install alias?
@@ -153,7 +159,7 @@ Function sex { explorer.exe . }
 # https://yazi-rs.github.io/docs/quick-start/#shell-wrapper
 Function y {
     $tmp = (New-TemporaryFile).FullName
-    yazi $args --cwd-file="$tmp"
+    yazi @args --cwd-file="$tmp"
     $cwd = Get-Content -Path $tmp -Encoding UTF8
     if (-not [String]::IsNullOrEmpty($cwd) -and $cwd -ne $PWD.Path) {
         Set-Location -LiteralPath (Resolve-Path -LiteralPath $cwd).Path

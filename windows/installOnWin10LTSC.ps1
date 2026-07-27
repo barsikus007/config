@@ -18,6 +18,7 @@ Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/head
 Write-Host "Shell packages installation..." -ForegroundColor Green
 pwsh.exe -Command 'Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/10Shell.ps1 | Invoke-Expression'
 pwsh.exe -Command 'Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/11ShellHeavy.ps1 | Invoke-Expression'
+pwsh.exe -Command 'Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/12Dev.ps1 | Invoke-Expression'
 
 Write-Host "GUI packages installation..." -ForegroundColor Green
 pwsh.exe -Command 'Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/20SoftHighPriority.ps1 | Invoke-Expression'

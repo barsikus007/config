@@ -80,7 +80,7 @@ sudo winget install --exact --id Microsoft.DotNet.DesktopRuntime.6 --silent
 sudo winget install --exact --id Microsoft.VisualStudio.2022.BuildTools --override '--add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --add Microsoft.VisualStudio.Component.Windows10SDK.19041 --quiet --wait'
 ```
 
-#### probably broken in scoop
+#### probably broken in scoop (asks for updates)
 
 - AnyDeskSoftwareGmbH.AnyDesk
 - Microsoft.PowerToys

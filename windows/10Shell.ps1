@@ -1,26 +1,18 @@
 #! scoop addons
 scoop install scoop-search scoop-completion
 
-#! essential
-#? curl wget
-#! base
+# TODO: sync with nix packages like ubuntu
+#* base
 scoop install jq fd bat duf gdu fzf btop neovim zoxide ripgrep
-#? btop-lhm VERY SLOW
-#! add
+#? btop-lhm is VERY SLOW, needs ADMIN RIGHTS, but shows accurate temp
+#* add
 scoop install eza tlrc yazi starship fastfetch
-#! pwsh/cmd specific
+#* pwsh/cmd specific
 scoop install posh-git psfzf
 scoop install clink clink-completions
 
 scoop install lazydocker
-#? psreadline
-#! unix tools
-#? cmake
-scoop install busybox
-#! shim overrides
-# TODO: is still needed
-scoop install uutils-coreutils
-# scoop install which
-scoop install grep
-# scoop install less
+#* unix tools
+#! shim priority, weakest first
+scoop install busybox microsoft-coreutils grep less wget
 # TODO: clink inject; clink autorun install

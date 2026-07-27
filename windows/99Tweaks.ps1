@@ -32,7 +32,7 @@ Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\
 Write-Host "set default ssh shell to pwsh.exe (if installed)" -ForegroundColor Green
 if (Test-Command pwsh) {
   Write-Host "pwsh.exe installed" -ForegroundColor Gray
-  sudo New-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell -Value $(Get-Command pwsh).Source -PropertyType String -Force
+  gsudo { New-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell -Value $(Get-Command pwsh).Source -PropertyType String -Force }
 }
 
 Write-Host "set wallpaper to https://www.wallpaperhub.app/wallpapers/5512" -ForegroundColor Green

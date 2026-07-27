@@ -1,6 +1,6 @@
 $base=@"
 #? mitmproxy httptoolkit
-#? jetbrains-toolbox android-studio pycharm-professional
+#? android-studio
 # adb@33.0.3
 # adb@34.0.5
 adb
@@ -12,7 +12,6 @@ beyondcompare
 brave
 dbeaver
 dupeguru
-ffmpeg
 handbrake
 iperf3
 keepassxc
@@ -48,18 +47,15 @@ autoclicker
 cheat-engine
 ds4windows
 
-openjdk8-redhat
-openjdk17
-openjdk
-graalvm
-graalvm20-jdk8
-graalvm-oracle-17
-graalvm-oracle-21jdk
-graalvm-oracle-jdk
+temurin8-jdk
+temurin11-jdk
+temurin17-jdk
+temurin21-jdk
+temurin25-jdk
 prismlauncher
 amulet-map-editor
+nbtexplorer
 "@
-
 
 $bench=@"
 cpu-z
@@ -76,7 +72,6 @@ ddu
 gimp
 irfanview
 lessmsi
-touch
 #! laptop
 cuda
 cura
@@ -89,14 +84,11 @@ sharpkeys
 sophiapp
 #! soft
 apktool
-cmake
-curl
+#? curl
 dismplusplus
 exiftool
-gcc
 jd-gui
 jexiftoolgui
-make
 obsidian
 pe-bear
 sysinternals
@@ -106,45 +98,28 @@ x64dbg
 #! new
 ani-cli
 avidemux
-bind
 blender
 bulk-crap-uninstaller
 cinny
-cuda
-cursor
-ddu
-dotnet7-sdk
-ds4windows
 element
 f3d
 ffuf
 git-lfs
-httptoolkit
 hxd
-jetbrains-toolbox
+lmstudio
 lua
-mitmproxy
 mosh-client
-msiafterburner
-nbtexplorer
 nekoray
 nu
-ollama
-posh-git
-qbittorrent
-qemu
 qtifw
 reqable
 simplex-chat
-superfile
 syncthingtray
 terminal-icons
 universal-android-debloater
-uv
 vencord-installer
 wezterm
 winmtr
-winscp
 "@
 
 # # UNUSED
