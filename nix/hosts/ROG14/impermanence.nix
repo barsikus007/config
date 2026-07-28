@@ -8,11 +8,8 @@ in
     ../../modules/impermanence/on-zfs.nix
   ];
 
-  #? sudo mkdir -p /persistent/etc/NetworkManager /persistent/var/{db,log,lib}
   environment.persistence."${persistentDir}" = {
-    # enable = false; # ? NB: Defaults to true, not needed
-
-    #? sudo cp -ax /var/lib{bluetooth,...,waydroid} /persistent/var/lib
+    # enable = false;
     directories = [
       "/etc/asusd" # ? current anime state
       "/etc/NetworkManager/system-connections"
@@ -36,8 +33,6 @@ in
       # "/etc/logrotate.status" # TODO: is this needed? /var/log/{b,w}tmp
     ];
     users.${username} = {
-      #? sudo mkdir -p /persistent/home/$USER && sudo chown $USER: /persistent/home/$USER
-      #? cp -ax /home/$USER/{...} /persistent/home/$USER/
       directories = [
         # "Desktop"
         "Documents"
@@ -50,6 +45,19 @@ in
         "config"
         "Share" # ? samba guest LAN share
         "Sync"
+
+        #? apps
+        ".android"
+        ".gemini"
+        # ".java" # TODO: font cache
+        ".thunderbird"
+        ".vscode"
+        ".vscode-shared" # ? recent and trust folders
+
+        #? games
+        ".parsec"
+        ".parsec-persistent"
+        ".steam"
 
         ".cache/.bun" # ? tools installed with bunx
         ".cache/cloud-code" # ? gemini auth
@@ -120,19 +128,6 @@ in
         ".local/state" # TODO: more
         # ".local/state/noctalia"
         # ".local/state/mpv/watch_later/"
-
-        #? apps
-        ".android"
-        ".gemini"
-        # ".java" # TODO: font cache
-        ".thunderbird"
-        ".vscode"
-        ".vscode-shared" # ? recent and trust folders
-
-        #? games
-        ".parsec"
-        ".parsec-persistent"
-        ".steam"
       ];
 
       files = [
@@ -167,5 +162,6 @@ in
     "L+ /home/${username}/.ssh 0700 ${username} users - /home/${username}/Sync/home/.ssh/"
 
     "L+ /home/${username}/.lmstudio 0755 ${username} users - /run/media/${username}/Data/downloads/.lmstudio"
+    "L+ /home/${username}/.local/share/hyprwhspr-rs 0755 ${username} users - /run/media/${username}/Data/downloads/hyprwhspr-rs"
   ];
 }

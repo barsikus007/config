@@ -20,6 +20,4 @@ with pkgs;
   lazydocker # * apt:-
 
   zsh
-  # fish
-  # babelfish
 ]

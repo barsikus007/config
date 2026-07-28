@@ -39,7 +39,7 @@ in
   #? .parsec .parsec-persistent  closed source
 
   #? .pki  chromium hardcodes .pki/nssdb, the string sits right in the electron binary
-  #?   so any electron app from gui/autostart.nix recreates it a minute into boot,
+  #?   so any electron app from xdg/autostart.nix recreates it a minute into boot,
   #?   steam (CEF) is just one of many, not the first one
   #!   steam alone can be silenced with extraBwrapArgs = [ "--tmpfs /home/$USER/.pki" ],
   #!   but the dir still gets created: bwrap mkdirs the mountpoint into the bind-mounted $HOME

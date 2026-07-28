@@ -5,7 +5,6 @@
 
     ../../home
     ../../home/shell
-    ../../home/editors.nix
     {
       inherit custom;
 

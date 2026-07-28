@@ -58,15 +58,9 @@ in
     '';
   };
 
-  programs.fzf = {
-    enable = true;
-    enableZshIntegration = true;
-    enableFishIntegration = true;
-  };
+  programs.fzf.enable = true;
   programs.zoxide = {
     enable = true;
-    enableZshIntegration = true;
-    enableFishIntegration = true;
     options = [ "--cmd cd" ];
   };
 

@@ -395,7 +395,7 @@
 
           ./home
           ./home/shell/minimal.nix
-          ./home/editors.nix
+          ./home/shell/neovim.nix
         ])
         (mkHomeCfg "nixd" [
           #! https://github.com/nix-community/nixd/issues/705#issuecomment-3103731843

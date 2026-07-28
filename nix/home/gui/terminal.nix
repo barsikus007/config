@@ -35,8 +35,8 @@ in
     noDisplay = true;
     mimeType = [ "application/x-shellscript" ];
   };
-  xdg.mimeApps.associations.added."application/x-shellscript" = terminalApps;
-  xdg.mimeApps.defaultApplications."application/x-shellscript" = terminalApps;
+  xdg.mimeApps.associations.added."application/x-shellscript" = lib.mkBefore terminalApps;
+  xdg.mimeApps.defaultApplications."application/x-shellscript" = lib.mkBefore terminalApps;
   xdg.terminal-exec.settings.default = "org.wezfurlong.wezterm.desktop";
   programs.zsh.shellAliases = {
     wt = "wezterm start --cwd ./";
