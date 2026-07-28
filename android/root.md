@@ -1,4 +1,4 @@
-# [Root](./)
+# [root](./)
 
 ## ~~Magisk~~ ~~[KernelSU](https://github.com/tiann/KernelSU)~~ [APatch](https://github.com/bmax121/APatch) ~~[Kitsune Magisk](https://github.com/1q23lyc45/KitsuneMagisk)~~ ~~[KernelSU Next](https://github.com/KernelSU-Next/KernelSU-Next)~~
 
@@ -20,7 +20,7 @@
    1. Check inactive slot's kernel version
 4. Press "Restart Now" button
 
-### Modules
+### modules
 
 - Essential
   - ~~[Zygisk**Next**](https://github.com/Dr-TSNG/ZygiskNext/releases)~~ ~~[ReZygisk](https://github.com/PerformanC/ReZygisk/releases)~~ [NeoZygisk](https://github.com/JingMatrix/NeoZygisk/releases)
@@ -91,7 +91,7 @@
 - ~~[MirPay Patcher](https://github.com/Xposed-Modules-Repo/ru.bluecat.mirpaysecurity)~~ [PaySecurityBypass](https://github.com/vova7878-modules/PaySecurityBypass)
 - [allow downgrade](https://github.com/LSPosed/CorePatch)
 
-## Apps
+## apps
 
 - Kernel Flasher fork - `https://github.com/fatalcoder524/KernelFlasher`
 - [Swift Backup](https://play.google.com/store/apps/details?id=org.swiftapps.swiftbackup)
@@ -122,7 +122,7 @@ echo 2 >> /sys/class/backlight/panel0-backlight/hbm_mode
   - `local_hbm_mode` ? 0
   - `local_hbm_max_timeout` ? 300
 
-### References
+### references
 
 - <https://www.xda-developers.com/google-pixel-4-high-brightness-mode-fix/>
 - <https://xdaforums.com/t/hbm.4356189/>

@@ -1,4 +1,4 @@
-# [Archive](../README.md)
+# [аrchive](../README.md)
 
 `а` in folder name is cyrillic letter
 
@@ -10,7 +10,7 @@
 
 ## [OpenWrt on Xiaomi AX3600](./ax3600.md)
 
-## android
+## Android
 
 ### DriveDroid fix on Pixel 7 Pro (better use [module](https://github.com/overzero-git/DriveDroid-fix-Magisk-module))
 

@@ -1,19 +1,19 @@
 # [Linux](../README.md)
 
-## [Command Cheat Sheet](./cheatsheet.md)
+## [command cheat sheet](./cheatsheet.md)
 
-## [WSL Hints](./wsl.md)
+## [WSL hints](./wsl.md)
 
-## [raspberry pi zero w](./devices/rpi-zero.md)
+## [Raspberry Pi Zero W](./devices/rpi-zero.md)
 
-## Archive
+## archive
 
-### Install Config
+### install config
 
 > [!WARNING]
 > DEPRECATION WARNING!!! I USE NIX NOW
 
-#### Deps
+#### deps
 
 ```shell
 #? ubuntu
@@ -23,13 +23,13 @@ sudo apt install git -y
 chsh -s /bin/bash
 ```
 
-#### Clone
+#### clone
 
 ```shell
 cd && git clone --depth=1 https://github.com/barsikus007/config && cd -
 ```
 
-#### Install/Update
+#### install/update
 
 ```shell
 #? all
@@ -41,7 +41,7 @@ setup_ubuntu
 setup_linux
 ```
 
-#### Check Size
+#### check size
 
 TLDR: before: 162M; after: 439M; diff: 277M
 

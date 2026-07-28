@@ -35,7 +35,7 @@ sudo dpkg -i rknpu2-rk356x_latest_arm64.deb
 rm rknpu2-rk356x_latest_arm64.deb
 ```
 
-### Test
+### test
 
 ```shell
 git clone https://github.com/rockchip-linux/rknpu2
@@ -62,7 +62,7 @@ sudo armbian-add-overlay rk3568-pwm15-m0.dts
 sudo armbian-add-overlay rk3568-pwm8-m0-fan.dts
 ```
 
-## Other
+## other
 
 - OMV
   - <https://wiki.omv-extras.org/doku.php?id=omv6:armbian_bullseye_install#install_omv>
@@ -158,7 +158,7 @@ sudo apt-mark hold zfs-auto-snapshot
 sudo apt install smartmontools -y
 ```
 
-## Old Ubuntu-20.04-linux-4.19 setup
+## old Ubuntu-20.04-linux-4.19 setup
 
 ```shell
 sudoedit /etc/apt/sources.list.d/apt-radxa-com.list

@@ -88,13 +88,13 @@ sudo localectl set-locale C.UTF-8
 # sudo locale-gen ru_RU.UTF-8 && sudo localectl set-locale LC_TIME=ru_RU.UTF-8
 ```
 
-## Set timezone
+## set timezone
 
 `sudo timedatectl set-timezone Europe/Moscow`
 
 ## ZFS
 
-### Install
+### install
 
 ```shell
 sudo apt install zfsutils-linux -y
@@ -105,7 +105,7 @@ sudo reboot
 sudo /sbin/modprobe zfs
 ```
 
-### Commands
+### commands
 
 - Add auto snapshot package
   - `sudo apt install zfs-auto-snapshot -y`

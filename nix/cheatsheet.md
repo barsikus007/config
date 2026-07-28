@@ -58,7 +58,7 @@ nh os build-vm --hostname minimalIso-x86_64-linux
 nh os build-vm --hostname minimalIso-x86_64-linux && ./result/bin/run-nixos-vm -monitor stdio
 ```
 
-#### Paste How-To
+#### paste how-to
 
 QEMU console is `Ctrl+Shift+2`, to return `Ctrl+Shift+1` then idk
 in console to `sendkey ctrl-alt-f2`

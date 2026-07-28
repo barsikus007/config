@@ -1,12 +1,12 @@
 # [Windows](../README.md)
 
-## Pre-install
+## pre-install
 
 ```powershell
 # TODO
 ```
 
-## Install
+## install
 
 ```powershell
 # Clone
@@ -18,20 +18,20 @@ cd && git clone --depth 1 https://github.com/barsikus007/config && cd -
 cd ~\config\ && git pull && sudo .\windows\pwsh.ps1 && cd -
 ```
 
-## Post-install
+## post-install
 
 ```powershell
 #? https://wiki.archlinux.org/title/System_time#UTC_in_Microsoft_Windows
 sudo reg add "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\TimeZoneInformation" /v RealTimeIsUniversal /d 1 /t REG_DWORD /f
 ```
 
-## Powershell lifehack to bypas security policy
+## PowerShell lifehack to bypas security policy
 
 ```powershell
 PowerShell.exe -ExecutionPolicy Bypass -File <filename>
 ```
 
-## Override system apps with user within shell context
+## override system apps with user within shell context
 
 ```powershell
 ${env:Path} = @(
@@ -40,13 +40,13 @@ ${env:Path} = @(
 ) -join ';'
 ```
 
-## [Soft](./soft.md)
+## [soft](./soft.md)
 
 ## [ROG G14](./rog14.md)
 
-## PWSH cheatsheet
+## pwsh cheatsheet
 
-### Convert all mkv to mp4 with ffmpeg
+### convert all mkv to mp4 with ffmpeg
 
 ```powershell
 $oldvids = Get-ChildItem -Filter "*.mkv" -Recurse
@@ -57,7 +57,7 @@ foreach ($oldvid in $oldvids) {
 }
 ```
 
-### Convert all webp to png with ffmpeg
+### convert all webp to png with ffmpeg
 
 ```powershell
 $oldvids = Get-ChildItem -Filter "*.webp" -Recurse
@@ -70,7 +70,7 @@ foreach ($oldvid in $oldvids) {
 
 ## QuickLook
 
-### [Used Plugins](https://github.com/QL-Win/QuickLook/wiki/Available-Plugins)
+### [used plugins](https://github.com/QL-Win/QuickLook/wiki/Available-Plugins)
 
 - [stl](https://github.com/jeremyhart/QuickLook.Plugin.HelixViewer/releases)
 
@@ -130,7 +130,7 @@ foreach ($oldvid in $oldvids) {
   - windows explorer path bar fix to old
   - diskpart windows нормальный
 
-## Toggle new context menu (due to lack of 7zip and notepad++)
+## toggle new context menu (due to lack of 7zip and notepad++)
 
 - disable `reg.exe add “HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32” /f`
 - enable `reg.exe delete “HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}” /f`
@@ -155,9 +155,9 @@ Windows Registry Editor Version 5.00
 "1"="{\"file_extension\": \"exe\", \"domains\": [\"*\"]}"
 ```
 
-### [Another shitty edge warning disabler](https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies#disable-download-file-type-extension-based-warnings-for-specified-file-types-on-domains)
+### [another shitty edge warning disabler](https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies#disable-download-file-type-extension-based-warnings-for-specified-file-types-on-domains)
 
-## Shutdown commands
+## shutdown commands
 
 - `shutdown /t 0 /r`  # reload now
 - `shutdown /t 0 /s /f`  # full shutdown
@@ -182,7 +182,7 @@ Windows Registry Editor Version 5.00
 
 `steam -no-browser +open steam://open/minigameslist`
 
-## Sound Normalization
+## sound normalization
 
 Sound Source Settings -> Enhancements -> Loudness Equalization
 

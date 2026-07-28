@@ -53,7 +53,7 @@ sudo raspi-config --expand-rootfs
 passwd
 ```
 
-### Create files
+### create files
 
 #### /boot/ssh
 

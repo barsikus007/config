@@ -12,15 +12,15 @@ One repo to rule them all!
 
 ## [Windows](./windows/README.md)
 
-## [Browser](./browser/README.md)
+## [browser](./browser/README.md)
 
 ## [Versus](https://notes.ogurez.ipv64.net/Versus/)
 
 My opinion on random things, mostly comparisons between flaming objects
 
-## [Archive](./аrchive/README.md)
+## [archive](./аrchive/README.md)
 
-## Cross-platform
+## cross-platform
 
 ### [git config (`~/.config/git/config`)](https://git-scm.com/docs/git-config)
 
@@ -36,7 +36,7 @@ nix eval --impure --raw --expr '
 ' > ~/.config/git/config
 ```
 
-#### [Signing](https://docs.github.com/en/authentication/managing-commit-signature-verification/displaying-verification-statuses-for-all-of-your-commits)
+#### [signing](https://docs.github.com/en/authentication/managing-commit-signature-verification/displaying-verification-statuses-for-all-of-your-commits)
 
 1. [Upload key](https://github.com/settings/ssh/new)
 2. Configure git (code above fills values)

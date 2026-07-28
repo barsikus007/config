@@ -32,7 +32,7 @@
       - [Mods](https://computerelite.github.io/tools/Beat_Saber/questmods.html)
   - [Waltz of the Wizard](https://www.meta.com/experiences/2280285932034855/)
 
-## Guides
+## guides
 
 - [Link Setup](https://4pda.to/forum/index.php?showtopic=1025596&view=findpost&p=106966059)
   - Fix oculus laptop GPU shitcoding

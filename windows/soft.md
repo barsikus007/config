@@ -1,6 +1,6 @@
-# [Soft](./)
+# [soft](./)
 
-## Other soft
+## other soft
 
 - [system informer (process hacker)](https://systeminformer.sourceforge.io/nightly.php)
 - [USB test software](https://www.heise.de/download/product/h2testw-50539/download)
@@ -22,7 +22,7 @@
 - <https://setup.office.com/>
 - <https://c2rsetup.officeapps.live.com/c2r/download.aspx?ProductreleaseID=languagepack&language=ru-ru&platform=x86&source=O16LAP&version=O16GA>
 
-## Player alternative to mpv
+## player alternative to mpv
 
 - [PotPlayer XpucT](https://win10tweaker.ru/forum/topic/potplayer-portable)
   - [Direct Link](https://jailbreakvideo.ru/Files/Portable%20PotPlayer.exe)
@@ -32,7 +32,7 @@
 <https://www.microsoft.com/ru-ru/download/details.aspx?id=35>
 <https://download.microsoft.com/download/1/7/1/1718CCC4-6315-4D8E-9543-8E28A4E18C4C/dxwebsetup.exe>
 
-## Torrent Edition
+## torrent edition
 
 - `VMware.WorkstationPro`
   - try Hyper-V instead

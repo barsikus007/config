@@ -4,7 +4,7 @@
 
 ## Fedora
 
-### [Fedora Installation](https://asus-linux.org/guides/fedora-guide/)
+### [Fedora installation](https://asus-linux.org/guides/fedora-guide/)
 
 - Enabling Secure Boot
 - Switching from Nvidia GPU to AMD Integrated
@@ -97,7 +97,7 @@ sudo patch /etc/pam.d/login login.patch
  -session   optional     pam_ck_connector.so
 ```
 
-### NEver DO
+### NEVER DO
 
 - `sudo dnf install cascadia-code-nf-fonts`
 - fuck gnomes all my homies use KDE
@@ -107,7 +107,7 @@ sudo patch /etc/pam.d/login login.patch
     - <https://copr.fedorainfracloud.org/coprs/elxreno/libinput-gestures/>
     - <https://gitlab.com/cunidev/gestures>
 
-### [Fedora Hibernate](https://fedoramagazine.org/hibernation-in-fedora-36-workstation/)
+### [Fedora hibernate](https://fedoramagazine.org/hibernation-in-fedora-36-workstation/)
 
 - [New version](https://fedoramagazine.org/update-on-hibernation-in-fedora-workstation/)
   - no need to determine offset
@@ -236,7 +236,7 @@ sudo rm /swap/swapfile
 sudo btrfs subvolume delete /swap
 ```
 
-## Gnome
+## GNOME
 
 ### shortcuts (Keyboard -> View and Customize Shortcuts)
 
@@ -253,13 +253,13 @@ sudo btrfs subvolume delete /swap
   - `gsettings set org.gnome.desktop.wm.keybindings switch-input-source-backward "['<Shift>Alt_L', '<Shift>XF86Keyboard']"`
   - revert `gsettings set org.gnome.desktop.wm.keybindings switch-input-source-backward "['<Shift><Super>space', '<Shift>XF86Keyboard']"`
 
-#### Get keycodes
+#### get keycodes
 
 ```shell
 cat /usr/include/linux/input-event-codes.h | grep -E '_(HOME|END|PAGE(UP|DOWN))\s'
 ```
 
-#### Allow ydotool as non-root
+#### allow ydotool as non-root
 
 ```shell
 sed -i "s/ydotoold$/ydotoold --socket-path=\/run\/user\/$UID\/.ydotool_socket --socket-own=$(id -u):$(id -g)/g" /usr/lib/systemd/system/ydotool.service
@@ -299,7 +299,7 @@ sudo systemctl reload ydotool && systemctl status ydotool
     - [GPU in power menu](https://extensions.gnome.org/extension/5344/supergfxctl-gex/)
       - [GNOME moment](https://extensions.gnome.org/extension/7018/gpu-supergfxctl-switch/)
 
-## Grub tweak
+## GRUB tweak
 
 - Spam ESC key to open menu
 - `/etc/default/grub`

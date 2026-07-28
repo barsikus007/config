@@ -2,7 +2,7 @@
 
 codename `Windows-Resurrect`
 
-## Toggle GPU
+## toggle GPU
 
 - `dgpu_<tab>` will show my functions (now in `g14.sh`)
 

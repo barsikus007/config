@@ -1,4 +1,4 @@
-# [Worst Nix/OS packages ever](../README.md)
+# [worst Nix/OS packages ever](../README.md)
 
 ```shell
 # generic usage of autocompletion with your system nixpkgs

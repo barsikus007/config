@@ -58,7 +58,7 @@ vm run /data/local/tmp/vm/debian/vm_config.json
 wget https://github.com/nix-community/nixos-avf/releases/download/nixos-25.11/image-25.11-aarch64.tar.gz
 ```
 
-## References
+## references
 
 - [fix 12 error: out of memory](https://github.com/polygraphene/gunyah-on-sd-guide?tab=readme-ov-file#failed-to-initialize-virtual-machine-out-of-memory-os-error-12)
   - `ulimit -l unlimited`

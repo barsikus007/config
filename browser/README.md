@@ -1,6 +1,6 @@
-# [Browser](../README.md)
+# [browser](../README.md)
 
-## [Userscripts](https://violentmonkey.github.io/)
+## [userscripts](https://violentmonkey.github.io/)
 
 - YouTube
   - [shorts to longs](https://greasyfork.org/en/scripts/439993-youtube-shorts-redirect)
@@ -15,7 +15,7 @@
   - yt watch later icon on video card
   - open in webarchive (RCM)
 
-## Favorites
+## favorites
 
 - downdetector
   - `javascript:window.open(location.href.replace(/^(https?:\/\/)/i, "https://check-host.net/check-ping?host=$1"), "_blank")`
@@ -31,7 +31,7 @@
 
 ## [uBlock](nix/home/gui/browser.nix#L200)
 
-## Flags
+## flags
 
 - Flag for faster downloads
   - <edge://flags/#enable-parallel-downloading> -> `Enabled`
@@ -42,7 +42,7 @@
 - [Fix for workspaces sidebar](https://answers.microsoft.com/en-us/microsoftedge/forum/all/how-to-remove-the-edge-sidebar-from-edge-workspace/bde1ede5-12a3-4f99-ac16-50b0f9878054?page=5)
   - <edge://flags/#edge-workspaces-skype-entry-point> -> `Enabled Hub chat icon`
 
-## Extensions
+## extensions
 
 (^ is for disabled)
 
@@ -89,7 +89,7 @@
       - `chrome.developerPrivate.updateExtensionCommand({extensionId: "mcjciddpjefdpndgllejgcekmajmehnd", commandName: "1-previous-tab", keybinding: "Ctrl+Tab"});chrome.developerPrivate.updateExtensionCommand({extensionId: "mcjciddpjefdpndgllejgcekmajmehnd", commandName: "2-next-tab", keybinding: "Ctrl+Shift+Tab"});`
 - [PiP - Picture in Picture Plus](https://www.oinkandstuff.com/project/pip-picture-in-picture-plus/)
 
-## Dev Tools console
+## dev tools console
 
 ```js
 // YouTube get all links from playlist to compare then with python

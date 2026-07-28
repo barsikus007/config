@@ -3,7 +3,7 @@
 - `Ctrl+Alt+Delete` to force systemd shutdown
 - `Alt+PrtSc h` to print SysRq help to dmesg
 
-## Desktop
+## desktop
 
 ### plasma
 
@@ -198,7 +198,7 @@ sudo crontab -e
 yes > no
 ```
 
-### Ping whole /24 subnet
+### ping whole /24 subnet
 
 ```shell
 subnet='192.168.1'; for i in {0..255}; do timeout 0.5 ping -c1 $subnet.$i; done

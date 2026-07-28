@@ -1,12 +1,12 @@
-# [Worst Nix/OS config ever](../README.md)
+# [worst Nix/OS config ever](../README.md)
 
 Modular Nix configurations for desktops, servers, virtual machines, mobile devices, and custom packages
 
-## [Packages](./nix/packages/README.md)
+## [packages](./nix/packages/README.md)
 
-## [Command cheatsheet](./cheatsheet.md)
+## [command cheatsheet](./cheatsheet.md)
 
-## Installation
+## installation
 
 ```shell
 cd
@@ -37,7 +37,7 @@ Set user password and TODO other steps from [NixOS installation manual](https://
 
 ### Asus ROG G14 2020-2021 specific
 
-#### [Fingerprint scanner](https://github.com/knauth/goodix-521d-explanation)
+#### [fingerprint scanner](https://github.com/knauth/goodix-521d-explanation)
 
 <https://github.com/goodix-fp-linux-dev/goodix-fp-dump/blob/master/README.md>
 
@@ -67,7 +67,7 @@ sudo $(nix build ~/config/nix#libs.goodix-patch-521d --print-out-paths)/bin/run_
 - TLDR
   - `/nix/nix-installer uninstall`
 
-## Config reference
+## config reference
 
 ### [vscode](.config/Code/User/)
 
@@ -148,7 +148,7 @@ sudo $(nix build ~/config/nix#libs.goodix-patch-521d --print-out-paths)/bin/run_
 - [crop/encode scripts](https://github.com/occivink/mpv-scripts)
   - [crop fix](https://github.com/occivink/mpv-scripts/pull/77/files)
 
-## Imperative
+## imperative
 
 ### GUI
 
@@ -161,7 +161,7 @@ sudo $(nix build ~/config/nix#libs.goodix-patch-521d --print-out-paths)/bin/run_
 - Throne (formerly known as nekoray/nekobox)
   - Routing -> Routing settings -> DNS -> Direct DNS: `8.8.8.8`
 
-## Other
+## other
 
 - nix-on-droid
   - [sudo](https://github.com/nix-community/nix-on-droid/issues/252)

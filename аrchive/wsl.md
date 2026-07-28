@@ -68,13 +68,13 @@ or
 Win+S -> `Internet Options` -> Security -> Local intranet -> Sites -> Advanced -> `\\wsl.localhost` -> Add
 ```
 
-## [Get DISPLAY for old WSL (probably, useless now)](https://serverfault.com/q/47915)
+## [get DISPLAY for old WSL (probably, useless now)](https://serverfault.com/q/47915)
 
 ```shell
 ip r l default | awk '{print $3}'
 ```
 
-## Optimize VHD (or <https://github.com/microsoft/WSL/issues/4699>)
+## optimize VHD (or <https://github.com/microsoft/WSL/issues/4699>)
 
 REPLACE "Admin" WITH YOUR WINDOWS USERNAME
 
@@ -89,7 +89,7 @@ detach vdisk
 exit
 ```
 
-## Forward ports to WSL
+## forward ports to WSL
 
 ```shell
 # wsl host [0]
@@ -108,7 +108,7 @@ netsh.exe interface portproxy add v4tov4 listenport=19000 listenaddress=0.0.0.0 
 netsh.exe interface portproxy delete v4tov4 listenport=19000 listenaddress=0.0.0.0
 ```
 
-## [Mount external drive to WSL](https://learn.microsoft.com/en-us/windows/wsl/wsl2-mount-disk)
+## [mount external drive to WSL](https://learn.microsoft.com/en-us/windows/wsl/wsl2-mount-disk)
 
 ## [xanmod](https://github.com/Locietta/xanmod-kernel-WSL2)
 
