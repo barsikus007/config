@@ -2,15 +2,22 @@
   lib,
   self,
   pkgs,
+  config,
   ...
 }:
 let
-  #! packages ship desktop entries that pollute dolphin "Open With" (mpv ships umpv)
-  #! KDE ignores Hidden= and mimeapps removedAssociations for self-declared mimetypes,
-  #! but a valid same-name entry in XDG_DATA_HOME wins by storage-id
-  #? so redeclaring it with an empty MimeType de-associates it from every type, no package edit
-  neutralizedApplications = [
-    "umpv" # nonfunctional one-instance wrapper bundled with mpv
+  #! KDE "Open With" lists every app that self-declares a mimetype, ignoring Hidden= and
+  #! mimeapps removedAssociations; only dropping the MimeType= line removes it there
+  #? derive each entry from its own package (nothing hardcoded) into XDG_DATA_HOME, where it
+  #? wins by storage-id. umpv keeps its own NoDisplay=true, so it also stays out of the launcher
+  dropMimeType = pkg: file: {
+    name = "applications/${file}";
+    value.source = pkgs.runCommand file { } ''
+      grep -v '^MimeType=' ${pkg}/share/applications/${file} > $out
+    '';
+  };
+  unassociatedEntries = [
+    (dropMimeType config.programs.mpv.package "umpv.desktop") # nonfunctional wrapper bundled with mpv
   ];
 in
 {
@@ -20,12 +27,7 @@ in
 
   xdg = {
     userDirs.enable = true;
-    desktopEntries = lib.genAttrs neutralizedApplications (name: {
-      inherit name;
-      exec = "${name} %U";
-      noDisplay = true;
-      mimeType = [ ];
-    });
+    dataFile = builtins.listToAttrs unassociatedEntries;
 
     #? find /run/current-system/sw/share/applications /etc/profiles/per-user/$USER/share/applications ~/.local/share/applications | grep -i <name>
     mimeApps.enable = true;

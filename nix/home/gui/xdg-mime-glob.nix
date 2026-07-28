@@ -1,4 +1,4 @@
-{ lib, ... }@args:
+{ lib, pkgs, ... }@args:
 let
   imageApps = if args ? imageApps then args.imageApps else [ "org.kde.gwenview.desktop" ];
   videoApps = if args ? videoApps then args.videoApps else [ "mpv.desktop" ];
@@ -10,33 +10,20 @@ let
         "org.kde.elisa.desktop"
         "mpv.desktop"
       ];
+
+  mimeXml = "${pkgs.shared-mime-info}/share/mime/packages/freedesktop.org.xml";
+  mimeTypesUnder =
+    prefix:
+    let
+      lines = lib.splitString "\n" (builtins.readFile mimeXml);
+      decls = builtins.filter (l: lib.hasInfix ''<mime-type type="${prefix}/'' l) lines;
+    in
+    map (l: lib.head (lib.splitString ''"'' (lib.elemAt (lib.splitString ''type="'' l) 1))) decls;
 in
 {
-  xdg.mimeApps.defaultApplications =
-    let
-      generateGlobAssociations =
-        type: sha256: application:
-        let
-          #? https://www.iana.org/assignments/media-types/media-types.xhtml#image
-          csv = builtins.fetchurl {
-            url = "https://www.iana.org/assignments/media-types/${type}.csv";
-            inherit sha256;
-          };
-
-          mimeTypes = builtins.filter (s: s != "") (
-            map (s: builtins.elemAt (lib.splitString "," s) 1) (
-              builtins.filter (s: !lib.hasInfix "DEPRECATED" s) (
-                lib.lists.drop 1 (lib.lists.dropEnd 1 (lib.strings.splitString "\r\n" (builtins.readFile csv)))
-              )
-            )
-          );
-
-        in
-        lib.genAttrs mimeTypes (_: application);
-    in
-    lib.attrsets.mergeAttrsList [
-      (generateGlobAssociations "image" "sha256-lGrLRjIeJQxljR4TU2NJbXlA7oPyPfnSuvN2D5GXyLw=" imageApps)
-      (generateGlobAssociations "video" "sha256-tjnyMpRhru4Rnghars3xGx3ymrD/hGBV0GpnTZmOnHQ=" videoApps)
-      (generateGlobAssociations "audio" "sha256-4yvqIbfwCQewIV257hUld9eB2XTNndBCOoLtqwwM8hc=" audioApps)
-    ];
+  xdg.mimeApps.defaultApplications = lib.attrsets.mergeAttrsList [
+    (lib.genAttrs (mimeTypesUnder "image") (_: imageApps))
+    (lib.genAttrs (mimeTypesUnder "video") (_: videoApps))
+    (lib.genAttrs (mimeTypesUnder "audio") (_: audioApps))
+  ];
 }
