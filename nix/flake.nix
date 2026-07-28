@@ -203,6 +203,7 @@
           # ./modules/desktop/manager/niri-dms.nix
           ./modules/desktop/sound
           ./modules/desktop/sound/popping-fix.nix
+          ./modules/desktop/sound/laptop-mic.nix
 
           ./modules/gui/games.nix
           ./modules/gui/throne.nix
