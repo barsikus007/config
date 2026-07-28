@@ -412,6 +412,6 @@ in
   };
   programs.plasma.configFile."kwinrc".Plugins = {
     "auto-activeEnabled" = true;
-    # Add config, e.g., Whitelist = "sublime_text,org.kde.dolphin";
+    # add config, e.g., Whitelist = "sublime_text,org.kde.dolphin";
   };
 }

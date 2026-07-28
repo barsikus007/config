@@ -38,11 +38,11 @@ if (Test-Command pwsh) {
 Write-Host "set wallpaper to https://www.wallpaperhub.app/wallpapers/5512" -ForegroundColor Green
 $Url = "https://www.wallpaperhub.app/_next/image?url=https%3A%2F%2Fcdn.wallpaperhub.app%2Fcloudcache%2Fd%2F1%2F5%2F6%2F9%2F4%2Fd156944bf7f0d9d246b7e40e5abd72aec3bd8304.png&w=4500&q=100"
 $Dest = "$env:USERPROFILE\Pictures\current_wallpaper.png"
-# 1. Download the image
+# 1. download the image
 Write-Host "downloading 4K image..." -NoNewline
 Invoke-WebRequest -Uri $Url -OutFile $Dest -UseBasicParsing
 Write-Host "done."
-# 2. Set as Wallpaper
+# 2. set as Wallpaper
 $Code = @'
 [DllImport("user32.dll")]
 public static extern int SystemParametersInfo(int uAction, int uParam, string lpvParam, int fuWinIni);
@@ -62,7 +62,7 @@ Get-NetAdapter | Where-Object InterfaceDescription -like "*VirtIO*" | Get-NetCon
 
 #? https://learn.microsoft.com/en-us/windows/configuration/taskbar/pinned-apps
 Write-Host "set taskbar icons (explorer.exe, wt.exe, edge.exe)" -ForegroundColor Green
-# 1. Define the XML content with the specific AppIDs you requested
+# 1. define the XML content with the specific AppIDs you requested
 #? get app id with Get-StartApps
 $XmlContent = @'
 <?xml version="1.0" encoding="utf-8"?>
@@ -83,17 +83,17 @@ $XmlContent = @'
   </CustomTaskbarLayoutCollection>
 </LayoutModificationTemplate>
 '@
-# 2. Define Paths
-# Path for the CURRENT user (May require re-login to apply)
+# 2. define paths
+# path for the CURRENT user (may require re-login to apply)
 $CurrentPath = "$env:LOCALAPPDATA\Microsoft\Windows\Shell\LayoutModification.xml"
-# 3. Write the file to the Current User profile
+# 3. write the file to the Current User profile
 Write-Host "Configuring for Current User..." -ForegroundColor Cyan
 try {
-    # Create directory if missing
+    # create directory if missing
     $Dir = [System.IO.Path]::GetDirectoryName($CurrentPath)
     if (!(Test-Path $Dir)) { New-Item -ItemType Directory -Force -Path $Dir | Out-Null }
 
-    # Write File
+    # write file
     $XmlContent | Out-File -FilePath $CurrentPath -Encoding utf8 -Force
     Write-Host "Success. You must SIGN OUT and SIGN BACK IN to see changes." -ForegroundColor Yellow
 }
@@ -115,30 +115,30 @@ sudo Set-ItemProperty -Path $Path -Name "MACCP" -Value "65001"
 Write-Host "Global UTF-8 enabled. A system reboot is required to apply the changes." -ForegroundColor Red
 
 Write-Host "pin user folder in explorer" -ForegroundColor Green
-# Define the path to your user folder
+# define the path to your user folder
 $Path = $env:USERPROFILE
-# Create the Windows Shell COM object
+# create the Windows Shell COM object
 $Shell = New-Object -ComObject Shell.Application
-# Target the user folder
+# target the user folder
 $Folder = $Shell.Namespace($Path)
-# Invoke the "Pin to Quick access" native shell verb
+# invoke the "Pin to Quick access" native shell verb
 $Folder.Self.InvokeVerb("pintohome")
 
 Write-Host "msedge tweaks" -ForegroundColor Green
-# Set Alt+Tab to show "Open windows only" (Value = 3)
+# set Alt+Tab to show "Open windows only" (Value = 3)
 Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "MultiTaskingAltTabFilter" -Value 3 -Type DWord
 
 
 Write-Host "autostart important scoop apps (altsnap,everything,systeminformer)" -ForegroundColor Green
-# Define the registry path for user startup apps
+# define the registry path for user startup apps
 $RegPath = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run"
-# 1. Add AltSnap
+# 1. add AltSnap
 $AltSnapPath = "`"$SCOOP_HOME\apps\altsnap\current\AltSnap.exe`""
 Set-ItemProperty -Path $RegPath -Name "AltSnap" -Value $AltSnapPath
-# 2. Add Everything (with the -startup flag so it opens quietly in the background)
+# 2. add Everything (with the -startup flag so it opens quietly in the background)
 $EverythingPath = "`"$SCOOP_HOME\apps\everything\current\Everything.exe`" -startup -admin"
 Set-ItemProperty -Path $RegPath -Name "Everything" -Value $EverythingPath
-# 3. Add System Informer (with the -hide flag so it opens quietly in the background)
+# 3. add System Informer (with the -hide flag so it opens quietly in the background)
 $SysInformerPath = "`"$SCOOP_HOME\apps\systeminformer\current\SystemInformer.exe`" -hide -elevate"
 Set-ItemProperty -Path $RegPath -Name "SystemInformer" -Value $SysInformerPath
 

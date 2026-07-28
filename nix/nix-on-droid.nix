@@ -36,7 +36,7 @@
 
       yt-dlp
 
-      #? Some common stuff that people expect to have
+      #? some common stuff that people expect to have
       #util-linux
 
       #tzdata
@@ -55,7 +55,7 @@
     SHELL = config.user.shell;
   };
 
-  #? Backup etc files instead of failing to activate generation if a file already exists in /etc
+  #? backup etc files instead of failing to activate generation if a file already exists in /etc
   # environment.etcBackupExtension = ".nodbackup";
 
   #? https://github.com/nix-community/nix-on-droid/blob/master/CHANGELOG.md

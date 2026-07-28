@@ -1,7 +1,7 @@
 { pkgs, ... }:
 #? https://github.com/TNAZEP/HytaleLauncherFlake/blob/52bde7280b55863f9cc21cc1c063c7f657206fb6/flake.nix
 let
-  # Runtime dependencies for the Tauri/WebKit-based launcher
+  # runtime dependencies for the Tauri/WebKit-based launcher
   runtimeDeps = with pkgs; [
     glib
     gtk3
@@ -26,7 +26,7 @@ let
       pkgs:
       runtimeDeps
       ++ (with pkgs; [
-        # Additional runtime deps
+        # additional runtime deps
         libx11
         libxcursor
         libxrandr
@@ -44,7 +44,7 @@ let
         adwaita-icon-theme
         icu
         libGL
-        # Tools for downloading and patching
+        # tools for downloading and patching
         curl
         unzip
         patchelf
@@ -63,10 +63,10 @@ let
       LAUNCHER_BIN="$LAUNCHER_DIR/hytale-launcher"
       DOWNLOAD_URL="https://launcher.hytale.com/builds/release/linux/amd64/hytale-launcher-latest.zip"
 
-      # Create launcher directory
+      # create launcher directory
       mkdir -p "$LAUNCHER_DIR"
 
-      # Download and set up launcher if it doesn't exist
+      # download and set up launcher if it doesn't exist
       if [ ! -f "$LAUNCHER_BIN" ]; then
         echo "Downloading Hytale Launcher..."
         TEMP_DIR=$(mktemp -d)
@@ -80,7 +80,7 @@ let
         echo "Hytale Launcher installed successfully!"
       fi
 
-      # Run from mutable location (allows self-updates)
+      # run from mutable location (allows self-updates)
       cd "$LAUNCHER_DIR"
       exec "$LAUNCHER_BIN" "$@"
     '';
@@ -94,7 +94,7 @@ let
     };
   };
 
-  # Desktop entry file
+  # desktop entry file
   desktopItem = pkgs.makeDesktopItem {
     name = "hytale-launcher";
     desktopName = "Hytale Launcher";
@@ -111,13 +111,13 @@ let
     ];
   };
 
-  # Fetch the Hytale icon
+  # fetch the Hytale icon
   hytaleIcon = pkgs.fetchurl {
     url = "https://hytale.com/images/favicon.png";
     hash = "sha256-eniMb/wct+vjtzXF2z8Z1XPBmwabjV8RCDyd8J1QLT0=";
   };
 
-  # Convert ico to png for better compatibility
+  # convert ico to png for better compatibility
   hytaleIconPng =
     pkgs.runCommand "hytale-launcher-icon"
       {
@@ -125,7 +125,7 @@ let
       }
       ''
         mkdir -p $out
-        # Extract the largest icon from the ico file and convert to png
+        # extract the largest icon from the ico file and convert to png
         convert ${hytaleIcon} -thumbnail 256x256 -alpha on -background none -flatten $out/hytale-launcher.png
       '';
 in

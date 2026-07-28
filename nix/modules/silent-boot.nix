@@ -10,9 +10,9 @@
       "udev.log_level=3"
       "systemd.show_status=auto"
     ];
-    # Hide the OS choice for bootloaders.
-    # It's still possible to open the bootloader list by pressing any key
-    # It will just not appear on screen unless a key is pressed
+    # hide the OS choice for bootloaders;
+    # it's still possible to open the bootloader list by pressing any key,
+    # it will just not appear on screen unless a key is pressed
     loader.timeout = 0;
   };
 }

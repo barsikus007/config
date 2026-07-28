@@ -7,7 +7,7 @@
     syntaxHighlighting.enable = true;
     histSize = 100000;
     shellInit = ''
-      # Disable zsh's newuser startup script that prompts you to create
+      # disable zsh's newuser startup script that prompts you to create
       # a ~/.z* file if missing
       zsh-newuser-install() { :; }
     '';

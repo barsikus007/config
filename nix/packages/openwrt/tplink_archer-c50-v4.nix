@@ -49,9 +49,9 @@ inputs.openwrt-imagebuilder.lib.build (
 
     # disabledServices = [ "dnsmasq" ];
 
-    # include files in the images.
+    # include files in the images;
     # to set UCI configuration, create a uci-defaults scripts as per
-    # official OpenWrt ImageBuilder recommendation.
+    # official OpenWrt ImageBuilder recommendation
     #? https://openwrt.org/docs/guide-developer/uci-defaults
     files =
       pkgs.runCommand "image-files"

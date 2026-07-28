@@ -9,11 +9,11 @@ let
   #!   RTX:  large-v3-q5_0 2.3s "запушь/GitHub/Docker/задеплой/kubectl" | turbo 2.3s "kube.ctl"
   #!   Vega: large-v3-q5_0 10.3s (all terms right) | turbo-f16 10.0s "затеплой" | turbo-q5 8.0s "гитхаб/докер"
   #! resident server on the RTX, full 12-15s recordings, prompt sent (as -rs does): ~1s each, ie
-  #! ~15x realtime - large-v3 f16 1.2s/0.9s vs large-v3-q5_0 2.4s/1.8s, same text either way.
-  #! f16 needs 3.5G VRAM of the 6G, so nothing else fits alongside; q5_0 takes 1.4G.
-  #! cli (no resident model) is much slower: f16 3.7s, q5_0 2.4s on the same clips.
+  #! ~15x realtime - large-v3 f16 1.2s/0.9s vs large-v3-q5_0 2.4s/1.8s, same text either way;
+  #! f16 needs 3.5G VRAM of the 6G, so nothing else fits alongside; q5_0 takes 1.4G;
+  #! cli (no resident model) is much slower: f16 3.7s, q5_0 2.4s on the same clips
   #! NOTE the prompt does the heavy lifting, not the model - without it even f16 writes
-  #! "гитхаб/докер/кьюб ctl"; with it, "GitHub/Docker/kubectl" on every model tested.
+  #! "гитхаб/докер/кьюб ctl"; with it, "GitHub/Docker/kubectl" on every model tested
   #? so the same model everywhere; whisperModel stays as the fallback if the other is missing
   # whisperModelNvidia = "large-v3-q5_0";
   whisperModelNvidia = "large-v3";
@@ -28,9 +28,9 @@ let
   statusFile = "\${HOME}/.cache/hyprwhspr-rs/status.json";
   activityStamp = "\${XDG_RUNTIME_DIR}/hyprwhspr-last-activity";
 
-  #! prefer the nvidia dGPU when its driver is loaded, else fall back to the Vega iGPU.
-  #! measured on a 6s clip (q5_0): RTX 2060 ~0.3s encode, Vega ~3.2s, plain CPU ~25.5s.
-  #! the Max-Q ramps P8 -> P0 on its own during the first run, so no warm-up trick is needed.
+  #! prefer the nvidia dGPU when its driver is loaded, else fall back to the Vega iGPU;
+  #! measured on a 6s clip (q5_0): RTX 2060 ~0.3s encode, Vega ~3.2s, plain CPU ~25.5s;
+  #! the Max-Q ramps P8 -> P0 on its own during the first run, so no warm-up trick is needed
   #! first run on a cold ~/.cache/nvidia costs ~19s compiling vulkan pipelines (persisted, see
   #! hosts/ROG14/impermanence.nix); mesa/radv recompile fast, so the iGPU shows no such spike
   #? pick by NAME, not by index: vulkan enumeration order changes across dgpu_switch_* (g14.sh),
@@ -90,7 +90,7 @@ let
           -af "afade=t=out:st=0.05:d=0.04,volume=0.22" -ar 48000 "$out/tick.wav"
       '';
 
-  #! -rs writes {class: inactive|active|processing|error} to status.json (atomic, for inotify).
+  #! -rs writes {class: inactive|active|processing|error} to status.json (atomic, for inotify)
   #! watch it to (a) tick while transcribing - upstream only has start/stop pings, no processing
   #! sound - and (b) spin the resident server up as soon as recording starts, so the model is
   #! already loading while you speak
@@ -250,8 +250,8 @@ in
   #! (548M model reloaded every time: ~8.3s vs ~3.7s on the same 6s clip)
   #? started on demand by statusWatch when recording begins, stopped by the idle timer
   #? Restart=always covers a crash or `dgpu_switch_to_integrated/vfio` killing it off the dGPU
-  #? (it lsof-kills /dev/nvidia* holders) - it comes back on whatever GPU is available now.
-  #? an explicit `systemctl stop` (idle timer) is NOT a restart trigger, so it stays down.
+  #? (it lsof-kills /dev/nvidia* holders) - it comes back on whatever GPU is available now
+  #? an explicit `systemctl stop` (idle timer) is NOT a restart trigger, so it stays down
   systemd.user.services.whisper-server = {
     description = "Resident whisper.cpp server for hyprwhspr-rs";
     serviceConfig = {
@@ -313,6 +313,11 @@ in
       // the model every single time); language is set on the server side (--language ru)
       "transcription": {
         "provider": "custom.local",
+        // the server is started on demand when recording begins, and loading large-v3 takes a
+        // few seconds - with the default 2 retries the backoff window is only 0.5+1.0s, so a
+        // short dictation could outrun the model load and die on "connection refused";
+        // backoff doubles per attempt (500ms << n), so 6 retries covers ~31s of startup
+        "max_retries": 6,
         "custom": {
           "local": {
             "kind": "openai_audio_transcriptions",

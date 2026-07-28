@@ -3,7 +3,7 @@
   programs.gpu-screen-recorder.enable = true;
   programs.obs-studio = {
     #? https://wiki.nixos.org/wiki/OBS_Studio
-    #? Missing hardware acceleration: Sometimes you need to set "Output Mode" to Advanced in settings Output tab to see the hardware accelerated Video Encoders options.
+    #? missing hardware acceleration: sometimes you need to set "Output Mode" to Advanced in settings Output tab to see the hardware accelerated Video Encoders options
     enable = true;
     enableVirtualCamera = true;
     # optional Nvidia hardware acceleration

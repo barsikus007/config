@@ -14,7 +14,7 @@
   environment.systemPackages = with pkgs; [
     #? make qt.platform.theme=kde setting to work
     kdePackages.plasma-integration
-    #? The fallback for GNOME apps
+    #? the fallback for GNOME apps
     gnome-icon-theme
     #? gtk2 console warning fix
     gnome-themes-extra

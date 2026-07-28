@@ -60,8 +60,8 @@
         };
       };
 
-      # This section does not include a comprehensive list of available language modules.
-      # To list all available language module options, please visit the nvf manual.
+      # this section does not include a comprehensive list of available language modules;
+      # to list all available language module options, please visit the nvf manual
       languages = {
         enableFormat = true;
         enableTreesitter = true;

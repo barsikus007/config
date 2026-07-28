@@ -41,11 +41,11 @@ let
     exec ${config.systemd.package}/bin/journalctl -fu syncoid-zroot-persistent.service
   '';
 
-  #? runs as ExecStartPre, so it fires before syncoid streams anything. We can't
+  #? runs as ExecStartPre, so it fires before syncoid streams anything; we can't
   #? hook syncoid's own estimate (Type=simple → ExecStartPost fires before the
   #? send, ExecStopPost only after it), so replicate it: ask the NAS for its
   #? newest snapshot = the incremental base, then `zfs send -nP` a dry-run to
-  #? size the raw stream (-w matches sendOptions). On a big push, notify-send.
+  #? size the raw stream (-w matches sendOptions); on a big push, notify-send
   #! `-`-prefixed in the unit, so any failure here never blocks the backup
   notifyLargeSend = pkgs.writeShellScript "syncoid-notify-large" /* shell */ ''
     set -euo pipefail
@@ -109,27 +109,27 @@ in
   systemd.services."syncoid-zroot-persistent".serviceConfig = {
     ExecCondition = "${nasReachable}";
     #? upstream masks `+/run/syncoid/<unit>` (= RootDirectory) so it can't be
-    #? re-mounted into itself inside ExecStart's chroot. But systemd resolves
+    #? re-mounted into itself inside ExecStart's chroot; but systemd resolves
     #? WorkingDirectory= relative to RootDirectory for ALL Exec* lines (incl.
     #? ExecCondition / `-+`-ExecStopPost), even when RootDirectoryStartOnly=true
-    #? skips the actual chroot(). The mount-ns is still built, so any chdir
+    #? skips the actual chroot(); the mount-ns is still built, so any chdir
     #? lands on the masked path → EACCES (no `+`) / ENOENT (with `+`, because
-    #? the bind from StateDir isn't materialised yet at that stage). Drop the
+    #? the bind from StateDir isn't materialised yet at that stage); drop the
     #? mask: we have no other binds to re-target into the chroot root
     InaccessiblePaths = lib.mkForce [ ];
     #? upstream's @system-service seccomp whitelist trips ssh (-G uses
     #? prlimit/@resources) and bash /dev/tcp
     SystemCallFilter = lib.mkForce [ ];
-    #? need real ~/.ssh for `ssh -G`. ProtectHome=true mounts /home as noaccess
-    #? /home becomes an empty tmpfs, .ssh bind layers on top
+    #? need real ~/.ssh for `ssh -G`; ProtectHome=true mounts /home as noaccess;
+    #? with tmpfs /home becomes empty, .ssh bind layers on top
     ProtectHome = lib.mkForce "tmpfs";
     BindPaths = [ "/home/${username}/.ssh" ];
     #? ProtectHome=tmpfs also masks /run/user; re-expose it read-only so the
-    #? notifier below can reach the session bus. /run/user always exists as a
+    #? notifier below can reach the session bus; /run/user always exists as a
     #? dir, so the bind never fails even with no session (notifier then skips)
     BindReadOnlyPaths = [ "/run/user" ];
     #? big-send notifier, BEFORE the push; `-` = ignore_errors so it never
-    #? blocks the backup. Merges with upstream's zfs-allow ExecStartPre and runs
+    #? blocks the backup; merges with upstream's zfs-allow ExecStartPre and runs
     #? after it (unitOption list concat preserves definition order)
     ExecStartPre = [ "-${notifyLargeSend}" ];
   };

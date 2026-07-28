@@ -126,7 +126,7 @@ in
         # https://github.com/xarvex/dotfyls/blob/2dc848d0fc40809fc800ea414bcdd02bd9b24ee9/modules/home/browsers/firefox/extensions/canvasblocker.nix
         # https://github.com/iawaknahc/dotfiles/blob/00ac870113c68ce899f6b308471e4970db8ffaaa/home-manager/firefox/default.nix#L46
 
-        # Hide tab bar because we have tree style tabs
+        # hide tab bar because we have tree style tabs
         #? https://mrotherguy.github.io/firefox-csshacks/?file=hide_tabs_toolbar_v2.css
         userChrome = pkgs.fetchurl {
           url = "https://raw.githubusercontent.com/MrOtherGuy/firefox-csshacks/9bb5b59e3ad2b42483731203d51f6cb758fa6cb5/chrome/hide_tabs_toolbar_v2.css";
@@ -226,7 +226,7 @@ in
               iconMapObj."32" = "https://translate.google.com/favicon.ico";
               definedAliases = [ "tr" ];
             };
-            #? Search engines are now referenced by id instead of by name, use 'youtube' instead of 'YouTube' -_-
+            #? search engines are now referenced by id instead of by name, use 'youtube' instead of 'YouTube' -_-
             youtube = {
               urls = [
                 {

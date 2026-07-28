@@ -12,31 +12,31 @@ in
   boot.initrd.systemd = {
     services.impermance-btrfs-rolling-root = {
       description = "Archiving existing BTRFS root subvolume and creating a fresh one";
-      # Specify dependencies explicitly
+      # specify dependencies explicitly
       unitConfig.DefaultDependencies = false;
-      # The script needs to run to completion before this service is done
+      # the script needs to run to completion before this service is done
       serviceConfig = {
         Type = "oneshot";
         # NOTE: to be able to see errors in your script do this
         # StandardOutput = "journal+console";
         # StandardError = "journal+console";
       };
-      # This service is required for boot to succeed
+      # this service is required for boot to succeed
       requiredBy = [ "initrd.target" ];
-      # Should complete before any file systems are mounted
+      # should complete before any file systems are mounted
       before = [ "sysroot.mount" ];
 
-      # Wait until the root device is available
-      # If you're altering a different device, specify its device unit explicitly.
+      # wait until the root device is available
+      # if you're altering a different device, specify its device unit explicitly
       # see: systemd-escape(1)
       requires = [ "initrd-root-device.target" ];
       after = [
         "initrd-root-device.target"
-        # Allow hibernation to resume before trying to alter any data
+        # allow hibernation to resume before trying to alter any data
         "local-fs-pre.target"
       ];
 
-      # The body of the script. Make your changes to data here
+      # the body of the script; make your changes to data here
       script = ''
         mkdir /btrfs_tmp
         mount ${device} /btrfs_tmp

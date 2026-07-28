@@ -203,24 +203,24 @@ pkgs.testers.runNixOSTest {
     infranet_node.wait_for_unit("multi-user.target")
 
     # update-ru-routes is a oneshot (no RemainAfterExit); start it explicitly so the
-    # call blocks until completion, then confirm the INFRANET prefix landed in the set.
+    # call blocks until completion, then confirm the INFRANET prefix landed in the set
     infranet_node.succeed("systemctl start update-ru-routes.service")
     infranet_node.succeed("nft list set inet split-routing ru_ips | grep -F ${infranetWanSiteIp}")
 
-    # The wg1 policy routing must be in place (fwmark 0x78 == 120).
+    # the wg1 policy routing must be in place (fwmark 0x78 == 120)
     infranet_node.succeed("ip rule show | grep -F 'fwmark 0x78'")
     infranet_node.succeed("ip route show table 120 | grep -F wg1")
 
-    # Bring the tunnels to a known-good state before asserting reachability.
+    # bring the tunnels to a known-good state before asserting reachability
     infranet_node.wait_until_succeeds("ping -c1 ${exitWg}.2", timeout=30)
     infranet_client.wait_until_succeeds("ping -c1 ${clientWg}.1", timeout=30)
 
-    # INFRANET dst: in ru_ips, non-rfc1918 -> NOT marked -> direct egress from infranet_node.
-    # (internet_node has no route here, so success proves the bypass.)
+    # INFRANET dst: in ru_ips, non-rfc1918 -> NOT marked -> direct egress from infranet_node
+    # (internet_node has no route here, so success proves the bypass)
     infranet_client.succeed("curl --fail --max-time 10 http://${infranetWanSiteIp}/ | grep -F INFRANET_WAN_SITE")
 
-    # INTERNET dst: not INFRANET, not rfc1918 -> marked 120 -> table 120 -> wg1 -> exit.
-    # (infranet_node has no direct route here, so success proves the marking + routing.)
+    # INTERNET dst: not INFRANET, not rfc1918 -> marked 120 -> table 120 -> wg1 -> exit
+    # (infranet_node has no direct route here, so success proves the marking + routing)
     infranet_client.succeed("curl --fail --max-time 10 http://${foreignSiteIp}/ | grep -F INTERNET_WAN_SITE")
   '';
 }

@@ -8,7 +8,7 @@ let
 in
 {
   #! QT-based apps: https://github.com/telegramdesktop/tdesktop/issues/26370
-  #! Dolphin drops its view-props xattr on this reload, so it bounds to dolphinViewProperties
+  #! Dolphin drops its view-props xattr on this reload, so it binds to dolphinViewProperties
   home.activation.notifyQtColorChange =
     lib.hm.dag.entryBetween [ "dolphinViewProperties" ] [ "writeBoundary" ]
       ''

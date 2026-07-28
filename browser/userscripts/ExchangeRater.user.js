@@ -81,13 +81,13 @@ const convertCurrency = async (amount, currencyId) => {
  */
 const renderContext = (e, popupText, textToCopy) => {
   // https://stackoverflow.com/a/73196291
-  // Find out how much (if any) user has scrolled
+  // find out how much (if any) user has scrolled
   const scrollTop =
     window.scrollY !== undefined
       ? window.scrollY
       : (document.documentElement || document.body.parentNode || document.body).scrollTop;
 
-  // Get cursor position
+  // get cursor position
   const posX = e.clientX;
   const posY = e.clientY + 20 + scrollTop;
 

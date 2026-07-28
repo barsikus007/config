@@ -59,7 +59,7 @@ Set-PSReadLineOption -AddToHistoryHandler {
     if ($command -like ' *') {
         return $false
     }
-    # Add any other checks you want
+    # add any other checks you want
     return $true
 }
 Set-PSReadlineKeyHandler -Key ctrl+d -Function DeleteCharOrExit

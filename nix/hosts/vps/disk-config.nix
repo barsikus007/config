@@ -1,5 +1,5 @@
 { lib, inputs, ... }:
-#! Example to create a bios compatible gpt partition
+#! example to create a bios compatible gpt partition
 #? https://github.com/nix-community/nixos-anywhere-examples/blob/7f945ff0ae676c0eb77360b892add91328dd1f17/disk-config.nix
 {
   imports = [

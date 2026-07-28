@@ -44,9 +44,9 @@
   #?   1. xdg-desktop-portal D-Bus-activates before niri/xwayland-satellite export
   #?      DISPLAY + WAYLAND_DISPLAY, so it spawns OpenURI/xdg-open apps (Firefox from a
   #?      clicked link) with an empty display => "no DISPLAY environment variable"
-  #?   2. Auto-themed Qt apps (KeePassXC) query the portal appearance/color-scheme at
+  #?   2. auto-themed Qt apps (KeePassXC) query the portal appearance/color-scheme at
   #?      startup before it is up, and silently fall back to light
-  #? plain `After=` cannot fix (1): D-Bus activation bypasses ordering. So one oneshot
+  #? plain `After=` cannot fix (1): D-Bus activation bypasses ordering, so one oneshot
   #? anchors the chain `xwayland-satellite -> portal-env-fix -> autostart apps`: it
   #? imports the env, then restarts the portal so it is up WITH a display before any Qt
   #? app asks for the theme. restart (not try-restart) also starts a not-yet-running
@@ -73,12 +73,12 @@
   };
 
   #? `WantedBy=` pulls autostart apps but doesn't order them; the generator gives them
-  #? only `After=graphical-session.target`. Add a per-unit drop-in ordering each one
-  #? after portal-env-fix, so it sees a portal that is up and display-aware. List comes
-  #? from home-manager `xdg.autostart.entries`, so new entries get the drop-in for free.
-  #? Uses `systemd.user.units` with raw text, not `systemd.user.services`: the latter
+  #? only `After=graphical-session.target`; add a per-unit drop-in ordering each one
+  #? after portal-env-fix, so it sees a portal that is up and display-aware; list comes
+  #? from home-manager `xdg.autostart.entries`, so new entries get the drop-in for free;
+  #? uses `systemd.user.units` with raw text, not `systemd.user.services`: the latter
   #? auto-injects `[Service]` (PATH, Environment, ...) which under `asDropin` would
-  #? override the real unit env. Pattern matches `nixos/.../systemd/oomd.nix`
+  #? override the real unit env; pattern matches `nixos/.../systemd/oomd.nix`
   systemd.user.units = lib.listToAttrs (
     map (
       entry:

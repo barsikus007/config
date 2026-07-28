@@ -27,7 +27,7 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  # Runtime dependencies
+  # runtime dependencies
   buildInputs = [
     gnugrep
     gawk

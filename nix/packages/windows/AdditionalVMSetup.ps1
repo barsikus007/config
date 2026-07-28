@@ -26,31 +26,31 @@ Invoke-WebRequest `
 Expand-Archive -Path "C:\Windows\Temp\looking-glass-idd.zip" `
     -Destination "C:\Windows\Temp\looking-glass-idd" -Force
 
-# 1. Get the certificate object from the EXE signature
+# 1. get the certificate object from the EXE signature
 $cert = (Get-AuthenticodeSignature -FilePath "C:\Windows\Temp\looking-glass-idd\looking-glass-idd-setup.exe").SignerCertificate
-# 2. Check if we found a signature
+# 2. check if we found a signature
 if ($cert) {
-    # 3. Export to a temp file (Import-Certificate works best with files)
+    # 3. export to a temp file (Import-Certificate works best with files)
     $tempCertPath = "C:\Windows\Temp\looking-glass-idd\looking-glass-idd-driver.cer"
     Export-Certificate -Cert $cert -FilePath $tempCertPath -Type CERT -Force
 
-    # 4. Import into TrustedPublisher (LocalMachine scope requires Admin)
+    # 4. import into TrustedPublisher (LocalMachine scope requires Admin)
     Import-Certificate -FilePath $tempCertPath -CertStoreLocation Cert:\LocalMachine\TrustedPublisher
 
-    # Optional: Clean up
+    # optional: clean up
     Remove-Item $tempCertPath
     Write-Host "Certificate successfully imported to TrustedPublisher." -ForegroundColor Green
 } else {
     Write-Error "No signature found on looking-glass-idd-setup.exe. Check the file path."
 }
 
-# Create the path if it doesn't exist
+# create the path if it doesn't exist
 $regPath = "HKLM:\SOFTWARE\LookingGlass\IDD"
 if (!(Test-Path $regPath)) {
     New-Item -Path $regPath -Force | Out-Null
 }
-# Set the Multi-String value
-# The comma separates the lines in the MultiString
+# set the Multi-String value;
+# the comma separates the lines in the MultiString
 $modes = "1920x1080@120", "2560x1440@144"
 New-ItemProperty -Path $regPath -Name "Modes" -PropertyType MultiString -Value $modes -Force
 

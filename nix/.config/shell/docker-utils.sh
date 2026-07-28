@@ -11,8 +11,8 @@ dcsha() {
     return 1
   fi
 
-  # 1. Pipe host aliases and standard .bashrc sourcing directly into the container
-  # Sourcing ~/.bashrc ensures you don't lose the container's default paths and prompt.
+  # 1. pipe host aliases and standard .bashrc sourcing directly into the container;
+  # sourcing ~/.bashrc ensures you don't lose the container's default paths and prompt
   {
     echo '[[ -f ~/.bashrc ]] && source ~/.bashrc'
     if [[ -n "$ZSH_VERSION" ]]; then
@@ -22,7 +22,7 @@ dcsha() {
     fi
   } | docker exec -i "$container" bash -c 'cat > /tmp/.custom_rc'
 
-  # 2. Execute interactive bash using the injected rcfile
+  # 2. execute interactive bash using the injected rcfile
   docker exec -it "$container" bash --rcfile /tmp/.custom_rc
 }
 

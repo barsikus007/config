@@ -10,9 +10,9 @@ _get_android_device() {
 adb_scan() {
   #? scan local subnet for hosts with adb port 5555 open, print one ip per line
   local INTERFACE
-  # Try finding interface from default route
+  # try finding interface from default route
   INTERFACE=$(ip -o -4 route show default | head -n 1 | awk '{for(i=1;i<=NF;i++) if($i=="dev") {print $(i+1); exit}}')
-  # Fallback to first global interface
+  # fallback to first global interface
   [ -z "$INTERFACE" ] && INTERFACE=$(ip -o -4 addr show scope global | head -n 1 | awk '{print $2}')
 
   if [ -z "$INTERFACE" ]; then
@@ -31,7 +31,7 @@ adb_scan() {
   echo "Scanning $SUBNET on $INTERFACE for ADB devices (port 5555) with nc..." >&2
   local PREFIX
   PREFIX=$(echo "$SUBNET" | cut -d'/' -f1 | cut -d'.' -f1-3)
-  #? Fast parallel scan using nc
+  #? fast parallel scan using nc
   for i in {1..254}; do
     (
       timeout 0.5 nc -z "$PREFIX.$i" 5555 2>/dev/null && echo "$PREFIX.$i"

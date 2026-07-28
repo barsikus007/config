@@ -33,8 +33,8 @@ s () {
 }
 
 ds() {
-  # Starts fzf in phony mode (ignores internal filtering)
-  # and reloads the danksearch query on every keystroke.
+  # starts fzf in phony mode (ignores internal filtering)
+  # and reloads the danksearch query on every keystroke
   fzf --phony \
       --prompt="DankSearch> " \
       --bind "change:reload(dsearch search {q} --limit 100 --json | jq -r '.hits[].id' || true)" \
@@ -45,9 +45,9 @@ ds() {
 }
 
 capture_wezterm_zsh_cmd() {
-  # Time limit in seconds: how long to let the command run before screenshotting.
-  # Short commands are captured as soon as they finish; interactive/never-exiting
-  # apps (htop, vim, ...) are captured once this elapses. Bump it for slow commands.
+  # time limit in seconds: how long to let the command run before screenshotting;
+  # short commands are captured as soon as they finish; interactive/never-exiting
+  # apps (htop, vim, ...) are captured once this elapses, bump it for slow commands
   local timeout=3
   # optional leading -t/--timeout N; everything after is the command, so
   # multi-word invocations work unquoted (e.g. capture_wezterm_zsh_cmd cat ~/smth)
@@ -75,21 +75,21 @@ capture_wezterm_zsh_cmd() {
   local dump_colored="/tmp/wez_dump_$$.ansi"
   local done_file="/tmp/wez_done_$$"
 
-  # 1. Launch tmux in the background (it provides a real pty).
+  # 1. launch tmux in the background (it provides a real pty);
   # zsh -i loads the interactive config (aliases, functions, colors, the real
   # PS1), prints the actual prompt + command and runs it exactly once; inside a
-  # pty the zle/precmd hooks work without errors and eval expands aliases.
-  # The command and the marker path go through the session environment (-e):
+  # pty the zle/precmd hooks work without errors and eval expands aliases;
+  # the command and the marker path go through the session environment (-e):
   # this avoids quote-escaping headaches and does not leak variables into the
-  # parent shell. When the command finishes it creates the marker file, then the
-  # session sleeps so we still have time to grab the screen.
+  # parent shell; when the command finishes it creates the marker file, then the
+  # session sleeps so we still have time to grab the screen
   tmux new-session -d -s "$session" -x 240 -y 80 \
     -e "CMD_TO_RUN=$cmd" -e "DONE_FILE=$done_file" \
     'zsh -i -c '\''print -Pn "$PS1"; echo " $CMD_TO_RUN"; eval "$CMD_TO_RUN"; touch "$DONE_FILE"; sleep 600'\'''
 
-  # 2. Wait until the command finishes OR the time limit elapses, whichever comes
-  # first. Interactive apps never create the marker, so the limit is what lets us
-  # screenshot them after they have rendered.
+  # 2. wait until the command finishes OR the time limit elapses, whichever comes
+  # first; interactive apps never create the marker, so the limit is what lets us
+  # screenshot them after they have rendered
   local deadline=$(( SECONDS + timeout ))
   while [[ ! -f "$done_file" ]]; do
     (( SECONDS >= deadline )) && break
@@ -97,29 +97,29 @@ capture_wezterm_zsh_cmd() {
   done
   rm -f "$done_file"
 
-  # 3. Plain-text screen dump, used only to measure the geometry.
+  # 3. plain-text screen dump, used only to measure the geometry
   local screen_dump=$(tmux capture-pane -p -t "$session")
 
-  # Last non-empty line number - trims the empty blackness at the bottom.
+  # last non-empty line number - trims the empty blackness at the bottom
   local rows=$(echo "$screen_dump" | awk '/[^[:space:]]/{last=NR} END{print last}')
   local cols=$(echo "$screen_dump" | wc -L)
 
   [[ -z "$rows" || "$rows" == "0" ]] && rows=1
 
-  # Single padding knob (in cells), needed for two reasons:
+  # single padding knob (in cells), needed for two reasons:
   #  - a space-only line is treated as empty by awk, yet in the colored dump it
   #    may carry a background fill - without slack such lines get clipped;
-  #  - a margin around the text so it does not touch the window edges.
+  #  - a margin around the text so it does not touch the window edges
   local pad=4
 
-  # 4. Colored dump. tmux numbers lines from 0, so the last content line is
-  # (rows-1); we add `pad` lines of slack below it.
+  # 4. colored dump. tmux numbers lines from 0, so the last content line is
+  # (rows-1); we add `pad` lines of slack below it
   tmux capture-pane -e -p -t "$session" -S 0 -E $((rows - 1 + pad)) > "$dump_colored"
 
-  # Kill tmux - no longer needed.
+  # kill tmux - no longer needed
   tmux kill-session -t "$session" 2>/dev/null
 
-  # Window geometry = content + the same margin on each side.
+  # window geometry = content + the same margin on each side
   rows=$((rows + pad))
   cols=$((cols + pad))
 
@@ -130,18 +130,18 @@ capture_wezterm_zsh_cmd() {
 
   echo "Chosen size: $cols columns, $rows rows. Launching WezTerm..."
 
-  # 5. Open WezTerm. Instead of running the command, it just prints the colored
-  # dump and waits 2 seconds.
+  # 5. open WezTerm; instead of running the command, it just prints the colored
+  # dump and waits 2 seconds
   wezterm \
     --config initial_cols=$cols \
     --config initial_rows=$rows \
     start --always-new-process --class org.wezfurlong.wezterm.floating \
     -- zsh -c "cat \"$dump_colored\"; sleep 2; rm -f \"$dump_colored\"" &
 
-  # Give the window manager time to draw the window.
+  # give the window manager time to draw the window
   sleep 2
 
-  # 6. Screenshot.
+  # 6. screenshot
   if [[ "$XDG_CURRENT_DESKTOP" == *"KDE"* ]]; then
     spectacle -a -b
     echo "Window screenshot (KDE) saved."
@@ -278,19 +278,19 @@ zcd() {
   local current_dir
   current_dir=$(pwd)
 
-  # 1. Get the dataset name from the first column of df
+  # 1. get the dataset name from the first column of df
   dataset=$(df -P "$current_dir" | awk 'NR==2 {print $1}')
 
-  # Verify it is actually a ZFS dataset
+  # verify it is actually a ZFS dataset
     if ! zfs list "$dataset" >/dev/null 2>&1; then
         echo "Error: Filesystem '$dataset' is not recognized as a ZFS dataset."
         return 1
     fi
 
-  # 2. Check its mountpoint via zfs get
+  # 2. check its mountpoint via zfs get
   local zfs_mountroot=$(zfs get -H -o value mountpoint "$dataset")
 
-  # Handle cases where ZFS delegates mounting (e.g., fstab)
+  # handle cases where ZFS delegates mounting (e.g., fstab)
   if [[ "$zfs_mountroot" == "legacy" || "$zfs_mountroot" == "none" ]]; then
     zfs_mountroot=$(df -P "$current_dir" | awk 'NR==2 {print $6}')
   fi
@@ -302,11 +302,11 @@ zcd() {
     return 1
   fi
 
-  # Calculate the path relative to the mountpoint
+  # calculate the path relative to the mountpoint
   local rel_path="${current_dir#"$zfs_mountroot"}"
   rel_path="${rel_path#/}" # Remove leading slash
 
-  # Select snapshot using fzf
+  # select snapshot using fzf
   local selected_snap=$(\command ls -1 "$snap_dir" | fzf --prompt="Select ZFS Snapshot: ")
 
   if [ -z "$selected_snap" ]; then

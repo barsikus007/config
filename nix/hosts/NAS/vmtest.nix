@@ -1,14 +1,14 @@
-# Overlay applied on top of the real NAS config to make
-# `nixos-anywhere --flake ./nix#NAS-vmtest --vm-test` pass.
+# overlay applied on top of the real NAS config to make
+# `nixos-anywhere --flake ./nix#NAS-vmtest --vm-test` pass
 #
-# The disko vm-test harness runs fully non-interactively and only ever
-# provisions /tmp/secret.key (= "secretsecret"). The production config relies on
+# the disko vm-test harness runs fully non-interactively and only ever
+# provisions /tmp/secret.key (= "secretsecret"); the production config relies on
 # interactive / external-key ceremony that cannot run in that environment:
 #   * zroot does `change-key -o keylocation=prompt` (interactive at boot),
 #   * tank reads its key from /etc/zfs/keys/tank.key which nothing creates,
-#   * secrets come from sops, which cannot decrypt without the host key.
-# Here we neutralize those steps for the test only; the real NAS config stays
-# untouched.
+#   * secrets come from sops, which cannot decrypt without the host key
+# here we neutralize those steps for the test only; the real NAS config stays
+# untouched
 { lib, modulesPath, ... }:
 let
   #? key the disko vm-test seeds into /tmp/secret.key

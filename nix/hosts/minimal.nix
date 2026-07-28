@@ -26,7 +26,7 @@
   #! https://github.com/NixOS/nixpkgs/issues/529189
   console.useXkbConfig = true;
 
-  #? Don't forget to set a password with ‘passwd’.
+  #? don't forget to set a password with ‘passwd’
   users.users.${username} = {
     isNormalUser = true;
     uid = 1000;
