@@ -2,6 +2,7 @@
   lib,
   pkgs,
   inputs,
+  options,
   ...
 }:
 # Да.
@@ -54,6 +55,35 @@ let
       exec env DESKTOPINTEGRATION=1 ${tgClient} -- "$tguri"
     '';
   };
+
+  #! discord grabs the nvidia dGPU and never lets go: starting a stream makes its renderer
+  #! dlopen libcuda + libnvidia-encode (NVENC) and open /dev/nvidia0, and those fds survive
+  #! leaving the stream - the card stays in D0 until discord itself exits
+  #? three separate paths have to be shut, one env var each:
+  #?   CUDA_VISIBLE_DEVICES=""        - cuInit() returns 100 (no device), no /dev/nvidia* fds at all
+  #?   VK_LOADER_DRIVERS_DISABLE      - hides nvidia_icd from the vulkan loader (webgpu/ANGLE-vulkan)
+  #?   __EGL_VENDOR_LIBRARY_FILENAMES - glvnd sees only mesa, so EGL cannot land on nvidia
+  #! renderD128 (amdgpu) is left alone, so compositing still runs on the Vega iGPU as before
+  #? mesa path, not /run/opengl-driver: this is a home-manager module, no hardware.graphics here
+  igpuOnly = {
+    CUDA_VISIBLE_DEVICES = "";
+    VK_LOADER_DRIVERS_DISABLE = "*nvidia*";
+    __EGL_VENDOR_LIBRARY_FILENAMES = "${pkgs.mesa}/share/glvnd/egl_vendor.d/50_mesa.json";
+  };
+
+  #? postFixup on the package option, so nixcord still does its own .override on top
+  #? (vencord/openASAR/commandLineArgs) - the wrapper survives it
+  pinToIgpu =
+    package:
+    package.overrideAttrs (old: {
+      postFixup = (old.postFixup or "") + ''
+        for b in "$out"/bin/*; do
+          wrapProgram "$b" ${
+            lib.concatStringsSep " " (lib.mapAttrsToList (n: v: "--set ${n} '${v}'") igpuOnly)
+          }
+        done
+      '';
+    });
 in
 {
   imports = [ inputs.nixcord.homeModules.default ];
@@ -99,10 +129,16 @@ in
       vencord.enable = true;
       commandLineArgs = [ "--enable-blink-features=MiddleClickAutoscroll" ];
       openASAR.enable = false;
+      #! keep discord off the nvidia dGPU (see pinToIgpu)
+      #? wrap nixcord's own default package, not pkgs.discord - nixcord re-overrides it with
+      #? `branch`, which plain pkgs.discord does not accept
+      package = pinToIgpu options.programs.nixcord.discord.package.default;
     };
     vesktop = {
       enable = true;
       autoscroll.enable = true;
+      #! same dGPU grab as discord (see pinToIgpu)
+      package = pinToIgpu pkgs.vesktop;
       settings = {
         customTitleBar = true;
         # alo set default settings

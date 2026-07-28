@@ -100,12 +100,15 @@ dgpu_check_processes() {
   cat /sys/bus/pci/devices/0000:0{1,4}:00.0/power{_state,/runtime_status}
 }
 dgpu_switch_to_integrated/vfio() {
-  # TODO: wtf
-  sudo /run/current-system/sw/bin/kill --verbose --signal QUIT \
-                                    --timeout 1000 TERM \
-                                    --timeout 1000 KILL \
-                                    --timeout 2000 KILL \
-            $(lsof -t /dev/nvidia*); \
+  # TODO: wtf with kill
+  local HOLDERS
+  HOLDERS=$(lsof -t /dev/nvidia* 2>/dev/null)
+  # shellcheck disable=SC2086 #? word splitting is wanted, it is a pid list
+  [ -n "$HOLDERS" ] && sudo /run/current-system/sw/bin/kill --verbose --signal QUIT \
+    --timeout 1000 TERM \
+    --timeout 1000 KILL \
+    --timeout 2000 KILL \
+    $HOLDERS
   sudo modprobe --remove --all nvidia{_drm,_uvm,_modeset,} && sudo modprobe vfio-pci
 }
 dgpu_switch_to_hybrid() {
