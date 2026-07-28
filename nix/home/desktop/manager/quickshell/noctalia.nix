@@ -185,7 +185,46 @@ in
       #? to make this work, add `api.noctalia.dev` to PBR
       location.auto_locate = true;
       lockscreen.blurred_desktop = true;
-      # TODO: lockscreen_widgets = { };
+      #? login_box'es sets automatically
+      lockscreen_widgets =
+        let
+          monitors = {
+            "eDP-1" = {
+              width = 1920;
+              height = 1080;
+            };
+            "HDMI-A-1" = {
+              width = 2560;
+              height = 1440;
+            };
+          };
+          mkWidgets =
+            output:
+            { width, height }:
+            {
+              "clock@${output}" = {
+                type = "clock";
+                inherit output;
+                cx = width / 2.0;
+                cy = height / 6.0;
+                settings = {
+                  center_text = true;
+                  format = "{:%d %b %Y\\n%H:%M:%S}";
+                };
+              };
+              "visualizer@${output}" = {
+                type = "fancy_audio_visualizer";
+                inherit output;
+                cx = width / 2.0;
+                cy = height / 2.0;
+                settings.visualization_mode = "all";
+              };
+            };
+        in
+        {
+          enabled = true;
+          widget = lib.foldl' (acc: w: acc // w) { } (lib.mapAttrsToList mkWidgets monitors);
+        };
       osd = {
         position = "top_right";
         kinds = {
@@ -213,14 +252,12 @@ in
             name = "official";
             kind = "git";
             location = "https://github.com/noctalia-dev/official-plugins";
-            auto_update = true;
             enabled = true;
           }
           {
             name = "community";
             kind = "git";
             location = "https://github.com/noctalia-dev/community-plugins";
-            auto_update = true;
             enabled = true;
           }
         ];
@@ -257,7 +294,7 @@ in
         music_button = {
           type = "custom_button";
           glyph = "music-pin";
-          command = "dbus-send --type=method_call --dest=org.kde.plasma.browser_integration /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Raise";
+          actions.left = "exec dbus-send --type=method_call --dest=org.kde.plasma.browser_integration /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Raise";
         };
         privacy.hide_inactive = true;
         network.show_label = false;
