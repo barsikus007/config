@@ -8,11 +8,11 @@
   - [OVR Metrics Tool](https://developer.oculus.com/downloads/package/ovr-metrics-tool/)
   - [Quest Developer Hub](https://developer.oculus.com/downloads/native-android/)
 - Standalone
-  - [Launcher](https://github.com/threethan/LightningLauncher)
-  - [Browser](https://wolvic.com/dl/)
-- Paid
+  - [launcher](https://github.com/threethan/LightningLauncher)
+  - [browser](https://wolvic.com/dl/)
+- paid
   - [Virtual Desktop](https://www.vrdesktop.net)
-- Piracy
+- piracy
   - [qLoader](https://developer.oculus.com/downloads/native-android/)
   - [Rookie](https://wiki.vrpirates.club/en/home)
 
@@ -28,17 +28,17 @@
 - Standalone
   - [Beat Saber](https://www.meta.com/experiences/2448060205267927/)
     - [BMBF](https://sidequestvr.com/app/747/bmbf)
-      - [Backup](https://bsmg.wiki/quest-modding.html#backup-save-data-using-sidequest)
-      - [Mods](https://computerelite.github.io/tools/Beat_Saber/questmods.html)
+      - [backup](https://bsmg.wiki/quest-modding.html#backup-save-data-using-sidequest)
+      - [mods](https://computerelite.github.io/tools/Beat_Saber/questmods.html)
   - [Waltz of the Wizard](https://www.meta.com/experiences/2280285932034855/)
 
 ## guides
 
-- [Link Setup](https://4pda.to/forum/index.php?showtopic=1025596&view=findpost&p=106966059)
-  - Fix oculus laptop GPU shitcoding
-    - [Power Safe](https://4pda.to/forum/index.php?showtopic=1004805&view=findpost&p=116402181)
-    - [Disable](https://4pda.to/forum/index.php?showtopic=1004805&view=findpost&p=113255445)
-    - [Perfomance](https://4pda.to/forum/index.php?showtopic=1025596&view=findpost&p=107113365)
+- [Link setup](https://4pda.to/forum/index.php?showtopic=1025596&view=findpost&p=106966059)
+  - fix oculus laptop GPU shitcoding
+    - [power safe](https://4pda.to/forum/index.php?showtopic=1004805&view=findpost&p=116402181)
+    - [disable](https://4pda.to/forum/index.php?showtopic=1004805&view=findpost&p=113255445)
+    - [perfomance](https://4pda.to/forum/index.php?showtopic=1025596&view=findpost&p=107113365)
 
 ## 360 video
 
@@ -47,7 +47,7 @@
 
 ## [LIV](https://www.liv.tv/mixedreality)
 
-- Latest mobile app is archived, PM me if you need it
+- latest mobile app is archived, PM me if you need it
 - TODO DroidCam + SteamVR
 
 ## TODO

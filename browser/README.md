@@ -26,32 +26,32 @@
 - Shikimori to `yummy-anime.ru`
   - `javascript:window.open(location.href.replace(/https:\/\/shiki\.one\/animes\/\w?\d*-/i, "https://yummy-anime.ru/search?word="), "_blank")`
 - <https://www.syncwithtech.org/github-repos-size-creation-date/#bookmarklet>
-- Frameless window
+- frameless window
   - `javascript:window.open(location.href, '_blank', 'menubar=no,location=no,status=no,toolbar=no')`
 
 ## [uBlock](nix/home/gui/browser.nix#L200)
 
 ## flags
 
-- Flag for faster downloads
+- flag for faster downloads
   - <edge://flags/#enable-parallel-downloading> -> `Enabled`
-- Flag for QUIC protocol
+- flag for QUIC protocol
   - <edge://flags/#enable-quic> -> `Enabled`
-- Flag for passkeys Bluetooth in <https://passkeys-debugger.io>
+- flag for passkeys Bluetooth in <https://passkeys-debugger.io>
   - <edge://flags/#enable-experimental-web-platform-features> -> `Enabled`
-- [Fix for workspaces sidebar](https://answers.microsoft.com/en-us/microsoftedge/forum/all/how-to-remove-the-edge-sidebar-from-edge-workspace/bde1ede5-12a3-4f99-ac16-50b0f9878054?page=5)
+- [fix for workspaces sidebar](https://answers.microsoft.com/en-us/microsoftedge/forum/all/how-to-remove-the-edge-sidebar-from-edge-workspace/bde1ede5-12a3-4f99-ac16-50b0f9878054?page=5)
   - <edge://flags/#edge-workspaces-skype-entry-point> -> `Enabled Hub chat icon`
 
 ## extensions
 
 (^ is for disabled)
 
-- ShitBlockers
+- shitblockers
   - [uBlock Origin](https://ublockorigin.com)
     - [AdNauseam](https://adnauseam.io)
   - [I don't care about cookies](https://www.i-dont-care-about-cookies.eu)
   - [ClearURLs](https://docs.clearurls.xyz/)
-- Scripts
+- scripts
   - [Violentmonkey](https://violentmonkey.github.io/)
 - YouTube
   - [Return YouTube Dislike](https://www.returnyoutubedislike.com/)
@@ -77,7 +77,7 @@
     - <https://github.com/hermit-crab/ScrapeMate>
   - [skip bitly like sites](https://github.com/FastForwardTeam/FastForward)
   - <https://github.com/clipboard2file/clipboard2file/>
-  - [Grammar Check](https://languagetool.org/services#browsers)
+  - [grammar check](https://languagetool.org/services#browsers)
 
 ### Chromium (Edge)
 

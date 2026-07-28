@@ -98,7 +98,7 @@ Remove-Item -Recurse ~\.proto\
 
 ## other
 
-- Docker Desktop Extensions
+- Docker Desktop extensions
   - Ddosify
   - Disk usage
 - PyCharm

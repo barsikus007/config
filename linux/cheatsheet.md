@@ -113,9 +113,9 @@ sudo zfs umount -u tank/backups/ROG14/persistent
 
 ### short ommands
 
-- [Clear arc cache](https://netpoint-dc.com/blog/zfs-caching-arc-l2arc-linux/)
+- [clear arc cache](https://netpoint-dc.com/blog/zfs-caching-arc-l2arc-linux/)
   - `sync && sudo sysctl vm/drop_caches=3`
-- Find corrupted data, sent with `zfs_send_corrupt_data` module param
+- find corrupted data, sent with `zfs_send_corrupt_data` module param
   - `rg --text --files-with-matches --no-ignore --hidden '(?-u:\x0c\xb1\xdd\xba\xf5\x02\x00\x00)' ./`
 
 ## other commands

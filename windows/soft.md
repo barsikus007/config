@@ -8,7 +8,7 @@
 - [WiFiHotspot](https://mypublicwifi.com/publicwifi/en/index.html)
 - [Shadow Defender](http://www.shadowdefender.com/download/Setup.exe)
   - `VMACN-4MA3W-S4RHY-5HYT4-GZNN4`
-- [Virtual Monitor](https://github.com/nomi-san/parsec-vdd/releases/latest)
+- [virtual monitor](https://github.com/nomi-san/parsec-vdd/releases/latest)
   - [old](https://www.amyuni.com/forum/viewtopic.php?t=3030)
     - [died, but still able to download](https://www.amyuni.com/downloads/usbmmidd.zip)
       - [archive link btw](https://web.archive.org/web/20210108200957/https://www.amyuni.com/forum/viewtopic.php?t=3030)
@@ -25,7 +25,7 @@
 ## player alternative to mpv
 
 - [PotPlayer XpucT](https://win10tweaker.ru/forum/topic/potplayer-portable)
-  - [Direct Link](https://jailbreakvideo.ru/Files/Portable%20PotPlayer.exe)
+  - [direct link](https://jailbreakvideo.ru/Files/Portable%20PotPlayer.exe)
 
 ## TODO dxwebinstall
 

@@ -16,7 +16,7 @@
 
 #### DEPRECATED
 
-- Audio. Because no configuration and no difference.
+- audio -- because no configuration and no difference
   - [ViPERFX RE](https://github.com/AndroidAudioMods/ViPERFX_RE)
   - [ViPER4Android Repackaged](https://github.com/programminghoch10/ViPER4AndroidRepackaged)
   - [?Dolby Atmos](https://gitlab.com/reiryuki-the-fixer/dolby-atmos-magic-revision-magisk-module)
@@ -24,12 +24,12 @@
 
 #### TODO
 
-- Design and Tweak Mods
+- design and tweak mods
   - <https://github.com/Mahmud0808/Iconify>
 
 ### OnePlus 15
 
-- [Recovery](https://orangefox.download/device/69b830b992ddd30a0d733660)
+- [recovery](https://orangefox.download/device/69b830b992ddd30a0d733660)
 
 ## instructions
 
@@ -61,7 +61,7 @@ done
 ### persist WiFi ADB
 
 - shizuku
-  - Phone TODO
+  - phone TODO
     - [1](https://www.reddit.com/r/tasker/comments/1j7n1em/project_silently_start_adb_on_boot_without_root/?utm_medium=web3x&utm_term=1)
     - [2](https://www.reddit.com/r/tasker/comments/re8k68/howto_enable_adb_wifi_after_reboot_using_ladb_app/)
     - [3](https://www.reddit.com/r/tasker/comments/rceljk/enable_adb_wifi_on_device_boot_android_11/)
@@ -70,7 +70,7 @@ done
     - `adb connect $IP:$(nmap $IP -p 33000-46000 | awk "/\/tcp/" | cut -d/ -f1)`
       - [credits](https://stackoverflow.com/a/70878705)
 - root
-  - Phone
+  - phone
     - enable `setprop persist.adb.tcp.port 5555 && stop adbd && start adbd`
     - disable `resetprop -d persist.adb.tcp.port && stop adbd && start adbd`
   - PC `adb connect 192.168.1.7:5555`

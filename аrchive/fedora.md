@@ -6,10 +6,10 @@
 
 ### [Fedora installation](https://asus-linux.org/guides/fedora-guide/)
 
-- Enabling Secure Boot
-- Switching from Nvidia GPU to AMD Integrated
-- Hide an Unnecessary Boot Message
-- Desktop Wigdets
+- enabling Secure Boot
+- switching from Nvidia GPU to AMD integrated
+- hide an unnecessary boot message
+- desktop wigdets
 - [Keyboard -> Can I re-map the arrow keys?](https://asus-linux.org/faq/)
 
 ### Asus specific soft
@@ -59,7 +59,7 @@ cd ~/projects
 git clone https://github.com/kimocoder/wifite2.git
 ```
 
-- Apply gnome workarounds if used
+- apply gnome workarounds if used
 - flatpak
   - <https://flatpak.org/setup/Fedora>
   - <https://www.linuxcapable.com/install-telegram-on-fedora-linux/>
@@ -109,10 +109,10 @@ sudo patch /etc/pam.d/login login.patch
 
 ### [Fedora hibernate](https://fedoramagazine.org/hibernation-in-fedora-36-workstation/)
 
-- [New version](https://fedoramagazine.org/update-on-hibernation-in-fedora-workstation/)
+- [new version](https://fedoramagazine.org/update-on-hibernation-in-fedora-workstation/)
   - no need to determine offset
   - a MUCH easier
-- Conflicts with Secure Boot
+- conflicts with Secure Boot
   - `CONFIG_LOCK_DOWN_IN_EFI_SECURE_BOOT=n` could help
 
 #### install
@@ -244,7 +244,7 @@ sudo btrfs subvolume delete /swap
   - ROG key -> `bash -c 'demotoggle'`
   - FN+F5 -> `bash -c 'fan'`
   - FN+F6 -> `bash -c 'noanime && anime'`
-- Show the notification list Super+V -> Super+N
+- show the notification list Super+V -> Super+N
   - ? Super+N -> None
 - Home folder -> Super+E
 - move windows and workspaces shortcuts
@@ -290,21 +290,21 @@ sudo systemctl reload ydotool && systemctl status ydotool
         - or `gnome-extensions install -f  pano@elhan.io.zip`
       - change `Global Shortcut` from `Shift+Super+V` to `Super+V`
       - disable sound
-    - [Gnome Tweaks 2.0](https://extensions.gnome.org/extension/3843/just-perfection/)
+    - [GNOME Tweaks 2.0](https://extensions.gnome.org/extension/3843/just-perfection/)
       - Behavior -> Window Demands Attention Focus -> On
   - laptop
     - [windows-like gestures](https://extensions.gnome.org/extension/4245/gesture-improvements/)
       - [GNOME moment](https://github.com/sidevesh/gnome-gesture-improvements--transpiled)
-    - [Profile badge indicator](https://extensions.gnome.org/extension/5335/power-profile-indicator/)
+    - [profile badge indicator](https://extensions.gnome.org/extension/5335/power-profile-indicator/)
     - [GPU in power menu](https://extensions.gnome.org/extension/5344/supergfxctl-gex/)
       - [GNOME moment](https://extensions.gnome.org/extension/7018/gpu-supergfxctl-switch/)
 
 ## GRUB tweak
 
-- Spam ESC key to open menu
+- spam ESC key to open menu
 - `/etc/default/grub`
-  - Check for `GRUB_CMDLINE_LINUX` duplicates
-    - Also emove `nomodeset` if any
+  - check for `GRUB_CMDLINE_LINUX` duplicates
+    - also remove `nomodeset` if any
 
 ```shell
 cat <<-EOF | sudo tee /etc/default/grub.d/99-hide-timeout >/dev/null

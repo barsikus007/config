@@ -9,7 +9,7 @@ wpa_passphrase "Network 1" >> wpa_supplicant.conf
 wpa_passphrase "Network 2 with lower priority" >> wpa_supplicant.conf
 ```
 
-Then edit config values
+then edit config values
 
 ```conf
 network={

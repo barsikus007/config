@@ -1,6 +1,6 @@
 # [worst Nix/OS config ever](../README.md)
 
-Modular Nix configurations for desktops, servers, virtual machines, mobile devices, and custom packages
+modular Nix configurations for desktops, servers, virtual machines, mobile devices, and custom packages
 
 ## [packages](./nix/packages/README.md)
 
@@ -22,7 +22,7 @@ cd ..
 prek install
 ```
 
-Set user password and TODO other steps from [NixOS installation manual](https://nixos.org/manual/nixos/stable/#ch-installation)
+set user password and TODO other steps from [NixOS installation manual](https://nixos.org/manual/nixos/stable/#ch-installation)
 
 ### nix-on-droid specific
 
@@ -41,7 +41,7 @@ Set user password and TODO other steps from [NixOS installation manual](https://
 
 <https://github.com/goodix-fp-linux-dev/goodix-fp-dump/blob/master/README.md>
 
-~~Too lazy to write this on nix~~
+~~too lazy to write this on nix~~
 
 (`OSError: [Errno 30] Read-only file system: 'clear-0.pgm'` output is <ins>__normal__</ins>)
 
@@ -167,5 +167,5 @@ sudo $(nix build ~/config/nix#libs.goodix-patch-521d --print-out-paths)/bin/run_
   - [sudo](https://github.com/nix-community/nix-on-droid/issues/252)
     - not worth it, use [NixOS-AVF](https://github.com/nix-community/nixos-avf)
       - fuck snapdragon, I need to use `crosvm` binary for that, I can't even use `vm` one
-- [OpenWrt Image](./packages/openwrt/xiaomi_ax3600.nix)
+- [OpenWrt image](./packages/openwrt/xiaomi_ax3600.nix)
   - [uci](./packages/openwrt/dewclaw.nix)

@@ -17,7 +17,7 @@
   - <https://blog.joshwalsh.me/asus-anime-matrix/>
   - <https://rog.asus.com/anime-matrix-pixel-editor/?device=DS-Animate#editor>
   - <https://github.com/IAmSuyogJadhav/Anime-Matrix>
-- RestartGPU (Run as root)
+- RestartGPU (run as root)
   - `$device = Get-PnpDevice | Where-Object { $_.FriendlyName -imatch 'NVIDIA' -and $_.Class -eq 'Display' }; Disable-PnpDevice $device.InstanceId -Confirm:$false; Start-Sleep -Seconds 3; Enable-PnpDevice $device.InstanceId -Confirm:$false`
 - Power Options
   - Switchable Dynamic Graphics

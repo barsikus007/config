@@ -1,6 +1,6 @@
 # config
 
-One repo to rule them all!
+one repo to rule them all!
 
 ## [NixOS](./nix/README.md)
 
@@ -16,7 +16,7 @@ One repo to rule them all!
 
 ## [Versus](https://notes.ogurez.ipv64.net/Versus/)
 
-My opinion on random things, mostly comparisons between flaming objects
+my opinion on random things, mostly comparisons between flaming objects
 
 ## [archive](./аrchive/README.md)
 
@@ -38,8 +38,8 @@ nix eval --impure --raw --expr '
 
 #### [signing](https://docs.github.com/en/authentication/managing-commit-signature-verification/displaying-verification-statuses-for-all-of-your-commits)
 
-1. [Upload key](https://github.com/settings/ssh/new)
-2. Configure git (code above fills values)
+1. [upload key](https://github.com/settings/ssh/new)
+2. configure git (code above fills values)
 
 ### python
 

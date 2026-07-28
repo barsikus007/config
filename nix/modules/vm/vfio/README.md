@@ -14,9 +14,9 @@ codename `Windows-Resurrect`
 2. `nix build ./nix#windows-bootstrapIso -o unattend-win10-iot-ltsc-vrt.iso --print-build-logs` ([content](../../../packages/windows/default.nix))
    1. mount it 2nd
    2. [soft which will be installed](../../../packages/windows/AdditionalVMSetup.ps1)
-3. Press any key to boot from ISO
+3. press any key to boot from ISO
 4. run in pwsh **as user** `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/installOnWin10LTSC.ps1 | iex`([content](../../../../windows/installOnWin10LTSC.ps1))
-   1. Wait for UAC prompt and agree
+   1. wait for UAC prompt and agree
    2. optional tweaks: launch `sudo pwsh.exe` and run `irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/99Tweaks.ps1 | iex` ([content](../../../../windows/99Tweaks.ps1))
 
 ## virt-manager setup

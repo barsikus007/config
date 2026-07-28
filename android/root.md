@@ -14,21 +14,21 @@
 
 #### OTA
 
-1. Start system update
-2. Wait until "Restart Now" button
-3. Flash AnyKernel.zip to inactive slot from above repo with Kernel Flasher
-   1. Check inactive slot's kernel version
-4. Press "Restart Now" button
+1. start system update
+2. wait until "Restart Now" button
+3. flash AnyKernel.zip to inactive slot from above repo with Kernel Flasher
+   1. check inactive slot's kernel version
+4. press "Restart Now" button
 
 ### modules
 
-- Essential
+- essential
   - ~~[Zygisk**Next**](https://github.com/Dr-TSNG/ZygiskNext/releases)~~ ~~[ReZygisk](https://github.com/PerformanC/ReZygisk/releases)~~ [NeoZygisk](https://github.com/JingMatrix/NeoZygisk/releases)
   - [LSPosed](https://github.com/JingMatrix/LSPosed/releases)
     - [temp fix](https://github.com/JingMatrix/LSPosed/actions/runs/17713071813)
     - `/data/adb/lspd/config`
-- [Hiding root](https://github.com/sidex15/susfs4ksu-module/issues/39#issuecomment-3080237450)
-  - Integrity
+- [hiding root](https://github.com/sidex15/susfs4ksu-module/issues/39#issuecomment-3080237450)
+  - integrity
     - ~~[Play Integrity Fix](https://github.com/chiteroman/PlayIntegrityFix/releases)~~ [Fork](https://github.com/osm0sis/PlayIntegrityFork/releases)
       - Action
     - [Tricky Store](https://github.com/5ec1cff/TrickyStore)
@@ -44,11 +44,11 @@
       - Save
     - [TSupport](https://github.com/citra-standalone/Citra-Standalone)
       - !dont used
-- Fixes
+- fixes
   - [volte](https://xdaforums.com/t/mod-magisk-root-volte-enabler.4372705/)
   - [pixel-mdm-patch](https://github.com/andrewz1/pixel-mdm-patch/releases)
     - !don't work on latest firmware/kernelsu
-- Interface
+- interface
   - [Noto Emoji PLUS](https://www.patreon.com/RKBDI) [[Telegram](https://t.me/rkbdiemoji)]
   - [Monet Icons](https://github.com/Syoker/extra-themed-icons/releases)
     - TeamFiles Icons
@@ -56,9 +56,9 @@
     - Miscellaneous
       - Launcher options
         - Auto-generate missing themed icons
-    - Then disble this unstable thing
-    - Other useful fixes
-      - Can disable camera cutout
+    - then disble this unstable thing
+    - other useful fixes
+      - can disable camera cutout
   - [HideNavBar](https://github.com/Magisk-Modules-Alt-Repo/HideNavBar/releases)
     - !dont used
     - !setup is outdated
@@ -101,7 +101,7 @@
   - TODO: module for OnePlus
 - Root Detector - `https://github.com/reveny/Android-Native-Root-Detector`
 - Hide Applists - `https://github.com/frknkrc44/HMA-OSS`
-  - Checker - `https://github.com/Dr-TSNG/ApplistDetector`
+  - checker - `https://github.com/Dr-TSNG/ApplistDetector`
 - [cool boot animation](https://github.com/Chainfire/liveboot)
 - [TODO](https://github.com/stars/barsikus007/lists/neckbeard-android)
 

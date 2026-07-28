@@ -62,8 +62,8 @@ nh os build-vm --hostname minimalIso-x86_64-linux && ./result/bin/run-nixos-vm -
 
 QEMU console is `Ctrl+Shift+2`, to return `Ctrl+Shift+1` then idk
 in console to `sendkey ctrl-alt-f2`
-Add `-monitor stdio` to open QEMU console in terminal, where script is launching
-Add `-serial stdio` to open serial console in terminal, where script is launching
+add `-monitor stdio` to open QEMU console in terminal, where script is launching
+add `-serial stdio` to open serial console in terminal, where script is launching
 
 ### config introspector
 
@@ -248,7 +248,7 @@ uv2nix lets you fairly easily:
 - use/set up an environment for projects using UV, which is quickly becoming the default python package manager
 - build your package using nix
 
-It's not perfect, you still need to make some edits to the uv2nix flake (e.g. when you want to change python version).
+it's not perfect, you still need to make some edits to the uv2nix flake (e.g. when you want to change python version)
 
 ##### [dream2nix](https://dream2nix.dev/guides/pip/)
 
@@ -256,7 +256,7 @@ It's not perfect, you still need to make some edits to the uv2nix flake (e.g. wh
 
 <https://discourse.nixos.org/t/why-is-it-so-hard-to-use-a-python-package/19200/5>
 
-Unlike poetry2nix & co, it uses a full database to map out pip packages, and is pretty good in just making things work without packaging them IME.
+unlike poetry2nix & co, it uses a full database to map out pip packages, and is pretty good in just making things work without packaging them IME
 
 ### [devenv](https://devenv.sh/getting-started/)
 

@@ -107,11 +107,11 @@ sudo /sbin/modprobe zfs
 
 ### commands
 
-- Add auto snapshot package
+- add auto snapshot package
   - `sudo apt install zfs-auto-snapshot -y`
-- Enable scrub timer
+- enable scrub timer
   - `sudo systemctl enable --now zfs-scrub-weekly@tank.timer`
-  - Cron-based alternative (`0 3 * * * /sbin/zpool scrub tank`)
+  - cron-based alternative (`0 3 * * * /sbin/zpool scrub tank`)
     - `sudo crontab -l | cat - <(echo "0 3 * * * /sbin/zpool scrub tank") | sudo crontab -`
 
 ### Docker on ZFS
