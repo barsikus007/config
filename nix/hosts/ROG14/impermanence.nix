@@ -56,6 +56,11 @@ in
         ".cache/danksearch" # ? index
         ".cache/noctalia" # ? to disable prompt on startup
         ".cache/tlrc"
+        #! vulkan shader caches: without them the first whisper run on the nvidia dGPU spends
+        #! ~19s compiling pipelines (vs ~0.3s warm); mesa/radv recompile fast but still cost
+        ".cache/nvidia" # ? proprietary driver GLCache
+        ".cache/mesa_shader_cache"
+        ".cache/radv_builtin_shaders"
 
         ".config/bcompare5"
         ".config/BraveSoftware"

@@ -239,6 +239,12 @@ binds {
     Mod+E             hotkey-overlay-title="Run a File Manager" { spawn "dolphin"; }
     Mod+Shift+G       hotkey-overlay-title="Toggle <b>gamepad-as-keyboard</b>" { spawn "gamepad-kbd-toggle"; }
 
+    //? voice dictation, kept here (not in nix) for quick iteration - see modules/services/hyprwhspr.nix
+    Mod+Alt+D         hotkey-overlay-title="Toggle Voice Dictation" { spawn "hyprwhspr-rs" "record" "toggle"; }
+    //? marks the following text as dictated so Claude tolerates ASR quirks
+    //? sleep lets Mod+Alt go up first, else the real ctrl+v lands as Super+Alt+Ctrl+V
+    Mod+Alt+V         hotkey-overlay-title="Paste Claude Voice Preamble" { spawn-sh "printf '%s\\n\\n\\n' 'The following is voice input transcribed by Whisper (mostly Russian). Expect recognition errors, misspoken words, missing or wrong punctuation, run-on sentences, and garbled technical terms or names. Interpret by meaning and intent, not literal wording; if something is critically ambiguous, ask before acting.' | wl-copy && sleep 0.3 && ydotool key 29:1 47:1 47:0 29:0"; }
+
     XF86Launch6 hotkey-overlay-title=null { focus-column-left; }
     XF86Launch7 hotkey-overlay-title=null { focus-workspace-down; }
     XF86Launch8 hotkey-overlay-title=null { focus-workspace-up; }

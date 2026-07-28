@@ -216,6 +216,7 @@
 
           ./modules/services/network-filesystems/samba/local-share.nix
           ./modules/services/networking/wireguard-ui.nix
+          ./modules/services/hyprwhspr.nix
           # TODO: ./modules/system/activation
           {
             # TODO: unstable: https://github.com/amnezia-vpn/amneziawg-linux-kernel-module/pull/176#issuecomment-4757244261
