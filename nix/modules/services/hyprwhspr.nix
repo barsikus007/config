@@ -4,15 +4,27 @@
 #? https://github.com/better-slop/hyprwhspr-rs
 let
   #? knobs
-  whisperModel = "large-v3-turbo-q5_0";
+  #! full v3 (32 decoder layers) beats turbo (4 layers) on technical russian on BOTH gpus, and on
+  #! the iGPU it is not even slower - measured on the same 15s clip:
+  #!   RTX:  large-v3-q5_0 2.3s "запушь/GitHub/Docker/задеплой/kubectl" | turbo 2.3s "kube.ctl"
+  #!   Vega: large-v3-q5_0 10.3s (all terms right) | turbo-f16 10.0s "затеплой" | turbo-q5 8.0s "гитхаб/докер"
+  #! resident server on the RTX, full 12-15s recordings, prompt sent (as -rs does): ~1s each, ie
+  #! ~15x realtime - large-v3 f16 1.2s/0.9s vs large-v3-q5_0 2.4s/1.8s, same text either way.
+  #! f16 needs 3.5G VRAM of the 6G, so nothing else fits alongside; q5_0 takes 1.4G.
+  #! cli (no resident model) is much slower: f16 3.7s, q5_0 2.4s on the same clips.
+  #! NOTE the prompt does the heavy lifting, not the model - without it even f16 writes
+  #! "гитхаб/докер/кьюб ctl"; with it, "GitHub/Docker/kubectl" on every model tested.
+  #? so the same model everywhere; whisperModel stays as the fallback if the other is missing
+  # whisperModelNvidia = "large-v3-q5_0";
+  whisperModelNvidia = "large-v3";
+  whisperModel = "large-v3-q5_0";
   whisperPort = "8765";
   #? stop the resident server after this long without a dictation, to release its ~600M
   whisperIdleSec = 300;
 
   #? hyprwhspr expands `~` itself, but not $HOME - keep the tilde form for its json config
   modelsDir = "~/.local/share/hyprwhspr-rs/models";
-  #? systemd units cannot expand $HOME in ExecStart, they use the %h specifier instead
-  modelPath = "%h/.local/share/hyprwhspr-rs/models/ggml-${whisperModel}.bin";
+  modelsDirAbs = "\${HOME}/.local/share/hyprwhspr-rs/models";
   statusFile = "\${HOME}/.cache/hyprwhspr-rs/status.json";
   activityStamp = "\${XDG_RUNTIME_DIR}/hyprwhspr-last-activity";
 
@@ -24,11 +36,36 @@ let
   #? pick by NAME, not by index: vulkan enumeration order changes across dgpu_switch_* (g14.sh),
   #? and __VK_LAYER_NV_optimus=NVIDIA_only no longer reorders anything here
   #? when nvidia is unbound (vfio) it simply is not enumerated, so the grep falls through to AMD
+  #! keep model names OUT of this script: it is baked into whisper-cpp-offload, which is an
+  #! override input of hyprwhspr-rs - so touching it would rebuild the whole rust package
+  #? exports WHISPER_GPU (nvidia|amd) for whoever needs to branch on the chosen device
   pickFastestDevice = pkgs.writeShellScript "whisper-pick-device" /* shell */ ''
     devs=$("${pkgs.whisper-cpp-vulkan}/bin/whisper-cli" --help 2>&1)
     idx=$(printf '%s' "$devs" | ${pkgs.gnugrep}/bin/grep -oP 'ggml_vulkan: \K\d+(?= = .*NVIDIA)' | head -1)
-    [ -z "''${idx:-}" ] && idx=$(printf '%s' "$devs" | ${pkgs.gnugrep}/bin/grep -oP 'ggml_vulkan: \K\d+(?= = .*(RADV|AMD|Radeon))' | head -1)
+    if [ -n "''${idx:-}" ]; then
+      export WHISPER_GPU=nvidia
+    else
+      idx=$(printf '%s' "$devs" | ${pkgs.gnugrep}/bin/grep -oP 'ggml_vulkan: \K\d+(?= = .*(RADV|AMD|Radeon))' | head -1)
+      export WHISPER_GPU=amd
+    fi
     [ -n "''${idx:-}" ] && export GGML_VK_VISIBLE_DEVICES="$idx"
+  '';
+
+  #? model choice lives here, not in the wrapper, so swapping it never touches hyprwhspr-rs
+  #? ExecStart cannot resolve it either: it depends on which GPU is up right now
+  whisperServerStart = pkgs.writeShellScript "whisper-server-start" /* shell */ ''
+    source ${pickFastestDevice}
+    fallback="${modelsDirAbs}/ggml-${whisperModel}.bin"
+    if [ "''${WHISPER_GPU:-}" = "nvidia" ]; then
+      model="${modelsDirAbs}/ggml-${whisperModelNvidia}.bin"
+    else
+      model="$fallback"
+    fi
+    #? never leave the server without a model if the dGPU one was never downloaded
+    [ -f "$model" ] || model="$fallback"
+    exec "${pkgs.whisper-cpp-vulkan}/bin/whisper-server" \
+      --model "$model" --language ru \
+      --host 127.0.0.1 --port ${whisperPort} --threads 8
   '';
 
   whisper-cpp-offload = pkgs.symlinkJoin {
@@ -62,6 +99,8 @@ let
     status="${statusFile}"
     stamp="${activityStamp}"
     loop_pid=""
+    #? set while WE paused a player, so only our own pause gets undone afterwards
+    resumed=""
     stop_loop() {
       if [ -n "$loop_pid" ]; then kill "$loop_pid" 2>/dev/null || true; loop_pid=""; fi
     }
@@ -73,8 +112,16 @@ let
           touch "$stamp"
           #? --no-block: never stall the watcher on model load
           systemctl --user start --no-block whisper-server.service || true
-          #? hush whatever is playing so it does not bleed into the recording
-          ${pkgs.playerctl}/bin/playerctl pause 2>/dev/null || true
+          #? hush whatever is playing so it does not bleed into the recording, and remember that
+          #? we did - so a player that was already paused is not resumed behind your back
+          #! -a/--all-players, else playerctl only ever looks at the first bus name it finds -
+          #! an idle chromium instance would mask a firefox that is actually playing
+          #? remember the players WE paused, so ones you left paused stay that way
+          resumed=$(${pkgs.playerctl}/bin/playerctl -l 2>/dev/null | while read -r p; do
+            if [ "$(${pkgs.playerctl}/bin/playerctl -p "$p" status 2>/dev/null)" = "Playing" ]; then
+              ${pkgs.playerctl}/bin/playerctl -p "$p" pause 2>/dev/null && printf '%s\n' "$p"
+            fi
+          done)
           stop_loop
           ;;
         processing)
@@ -85,6 +132,13 @@ let
           fi
           ;;
         *)
+          #? dictation finished (or errored): resume exactly the players we paused
+          if [ -n "''${resumed:-}" ]; then
+            printf '%s\n' "$resumed" | while read -r p; do
+              [ -n "$p" ] && ${pkgs.playerctl}/bin/playerctl -p "$p" play 2>/dev/null || true
+            done
+            resumed=""
+          fi
           stop_loop
           ;;
       esac
@@ -118,7 +172,13 @@ let
     echo "== server =="
     if systemctl --user is-active --quiet whisper-server.service; then
       up=$(systemctl --user show whisper-server.service -p ActiveEnterTimestamp --value)
-      echo "  running (since $up), model ${whisperModel}, idle-stop ${toString whisperIdleSec}s"
+      #! read the model off the live process: which one got loaded depends on the GPU picked
+      #! at start (f16 on the dGPU, quant on the iGPU), so the nix-side default would lie here
+      #? read /proc/<MainPID>/cmdline - `ps -C whisper-server` misses it (argv[0] is a store path)
+      pid=$(systemctl --user show whisper-server.service -p MainPID --value 2>/dev/null)
+      m=$(tr '\0' ' ' < "/proc/$pid/cmdline" 2>/dev/null \
+        | ${pkgs.gnugrep}/bin/grep -oP -- '--model \S*/ggml-\K[^.]+' | head -1)
+      echo "  running (since $up), model ''${m:-unknown}, idle-stop ${toString whisperIdleSec}s"
       #? whisper.cpp lists every vulkan device, then logs `using VulkanN` for the one it picked -
       #! resolve N against the list, or you just print the last device it happened to enumerate
       log=$(journalctl --user -u whisper-server.service -b --no-pager 2>/dev/null)
@@ -181,6 +241,11 @@ in
   #! paths do, despite the error message only naming FLAC - and the unit PATH has no ffmpeg
   systemd.user.services.hyprwhspr-rs.path = [ pkgs.ffmpeg ];
 
+  #! record through the easyeffects chain instead of the raw mic: -rs opens the alsa `default`
+  #! node, which bypasses the filters entirely (noise removal etc. measurably help recognition)
+  #? cpal has no way to name a pipewire node, but the alsa-pipewire plugin honours PIPEWIRE_NODE
+  systemd.user.services.hyprwhspr-rs.environment.PIPEWIRE_NODE = "easyeffects_source";
+
   #! resident whisper model: ~2.2x faster than respawning whisper-cli per dictation
   #! (548M model reloaded every time: ~8.3s vs ~3.7s on the same 6s clip)
   #? started on demand by statusWatch when recording begins, stopped by the idle timer
@@ -190,7 +255,7 @@ in
   systemd.user.services.whisper-server = {
     description = "Resident whisper.cpp server for hyprwhspr-rs";
     serviceConfig = {
-      ExecStart = "${whisper-cpp-offload}/bin/whisper-server --model ${modelPath} --language ru --host 127.0.0.1 --port ${whisperPort} --threads 8";
+      ExecStart = whisperServerStart;
       Restart = "always";
       RestartSec = 2;
     };
