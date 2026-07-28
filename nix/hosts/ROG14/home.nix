@@ -9,6 +9,8 @@
 
     ../../home/ai.nix
 
+    ../../home/xdg/base-dirs.nix
+
     ../../home/gui
     ../../home/gui/autostart.nix
     ../../home/gui/syncthing.nix

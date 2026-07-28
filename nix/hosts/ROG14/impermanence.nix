@@ -59,6 +59,7 @@ in
 
         ".config/bcompare5"
         ".config/BraveSoftware"
+        ".config/claude" # ? xdg-ninja
         ".config/Code"
         ".config/copyq" # TODO: ??
         ".config/dconf" # TODO: ??
@@ -98,6 +99,7 @@ in
 
         ".local/share" # TODO: more
         # ".local/share/baloo"
+        # ".local/share/direnv"
         # ".local/share/dolphin"
         # ".local/share/kactivitymanagerd"
         # ".local/share/kate"
@@ -108,8 +110,8 @@ in
         # ".local/share/kxmlgui5" #? keymaps (and more ?) for some kde/qt apps
         # ".local/share/RecentDocuments"
         # ".local/share/nix/repl-history"
+        # ".local/share/wine" # ? xdg-ninja
 
-        # ".local/share/direnv"
         ".local/state" # TODO: more
         # ".local/state/noctalia"
         # ".local/state/mpv/watch_later/"
@@ -117,30 +119,18 @@ in
         #? apps
         ".android"
         ".gemini"
-        ".claude"
-        ".parsec"
-        ".parsec-persistent"
+        # ".java" # TODO: font cache
         ".thunderbird"
         ".vscode"
         ".vscode-shared" # ? recent and trust folders
 
-        #? dev
-        # "go"
-        # ".cargo"
-        # ".docker"
-        # ".java" # TODO: font cache
-        # ".npm"
-
         #? games
-        # ".parsec" # TODO: is this needed?
-        # ".parsec-persistent" # TODO: is this needed?
+        ".parsec"
+        ".parsec-persistent"
         ".steam"
-        ".wine"
       ];
 
       files = [
-        ".claude.json"
-
         ".config/gh/hosts.yml"
         ".config/kwin_dialogsrc"
         ".config/kwinoutputconfig.json" # ? monitors
