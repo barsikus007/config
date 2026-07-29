@@ -2,20 +2,9 @@
   lib,
   pkgs,
   inputs,
-  config,
   username,
   ...
 }:
-let
-  onDC = pkgs.writeShellScript "on-dc" ''
-    ${lib.getExe config.boot.kernelPackages.cpupower} frequency-set -g powersave
-    ${pkgs.asusctl}/bin/asusctl anime --enable-powersave-anim false
-  '';
-  onAC = pkgs.writeShellScript "on-ac" ''
-    ${lib.getExe config.boot.kernelPackages.cpupower} frequency-set -g performance
-    ${pkgs.asusctl}/bin/asusctl anime --enable-powersave-anim true
-  '';
-in
 {
   #? ZFS requires networking.hostId to be set
   networking.hostId = "707c2d72";
@@ -47,6 +36,7 @@ in
 
     ../../modules/hardware/fingerprint.nix
     ../../modules/hardware/wifi-unlimited.nix
+    ../../modules/services/power-profiles.nix
   ];
   home-manager.users.${username} = ./home.nix;
 
@@ -83,25 +73,8 @@ in
   systemd.user.settings.Manager.DefaultTimeoutStopSec = "15s";
 
   # TODO: laptop specific
+  #? default governor, same for the balanced profile
   powerManagement.cpuFreqGovernor = "schedutil";
-  services.udev.extraRules = ''
-    ACTION=="add|change", SUBSYSTEM=="power_supply", ATTR{type}!="Battery", ATTR{online}=="0", RUN+="${onDC}"
-    ACTION=="add|change", SUBSYSTEM=="power_supply", ATTR{type}!="Battery", ATTR{online}=="1", RUN+="${onAC}"
-  '';
-  #? apply correct power profile at boot (cause udev rules only fire on change, not at startup)
-  systemd.services.power-supply-init = {
-    description = "Apply power profile based on AC state at boot";
-    wantedBy = [ "multi-user.target" ];
-    after = [ "asusd.service" ];
-    serviceConfig.Type = "oneshot";
-    script = ''
-      if [ "$(cat /sys/class/power_supply/AC0/online)" = "1" ]; then
-        ${onAC}
-      else
-        ${onDC}
-      fi
-    '';
-  };
 
   #! vibecoded shitfix for keyboard backlight enabling after resume
   powerManagement.resumeCommands = ''
