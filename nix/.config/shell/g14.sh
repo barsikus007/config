@@ -100,6 +100,7 @@ dgpu_check_processes() {
   cat /sys/bus/pci/devices/0000:0{1,4}:00.0/power{_state,/runtime_status}
 }
 dgpu_switch_to_integrated/vfio() {
+  dgpu_check_processes
   # TODO: wtf with kill
   local HOLDERS
   HOLDERS=$(lsof -t /dev/nvidia* 2>/dev/null)
@@ -110,9 +111,12 @@ dgpu_switch_to_integrated/vfio() {
     --timeout 2000 KILL \
     $HOLDERS
   sudo modprobe --remove --all nvidia{_drm,_uvm,_modeset,} && sudo modprobe vfio-pci
+  dgpu_check_processes
 }
 dgpu_switch_to_hybrid() {
+  dgpu_check_processes
   sudo modprobe --remove vfio-pci && sudo modprobe --all nvidia{,_modeset,_uvm,_drm}
+  dgpu_check_processes
 }
 
 boost() {

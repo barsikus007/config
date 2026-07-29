@@ -6,6 +6,8 @@
   ...
 }:
 {
+  imports = [ inputs.nvf.homeManagerModules.default ];
+
   home.packages = with pkgs; [
     lua-language-server
     stylua
@@ -13,7 +15,7 @@
     pyright
     ruff
   ];
-  imports = [ inputs.nvf.homeManagerModules.default ];
+
   home.sessionVariables.MANPAGER = "nvim +Man!";
   programs.nvf = {
     enable = true;

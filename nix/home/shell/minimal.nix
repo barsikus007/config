@@ -17,6 +17,11 @@ in
     ./yazi.nix
   ];
 
+  programs.nix-your-shell = {
+    enable = true;
+    nix-output-monitor.enable = true;
+  };
+
   xdg.configFile."shell/".source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/shell/";
   home.shellAliases = sharedAliases;
   home.packages = with pkgs; [ zsh-completions ];
