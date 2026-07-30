@@ -64,17 +64,14 @@
   system.stateVersion = "24.05";
 
   home-manager.config = {
-    home = {
-      #? https://nix-community.github.io/home-manager/release-notes.xhtml
-      stateVersion = lib.mkForce "26.05";
-      homeDirectory = lib.mkForce "/data/data/com.termux.nix/files/home";
-    };
+    home.homeDirectory = lib.mkForce "/data/data/com.termux.nix/files/home";
 
     imports = [
       ./home
       ./home/shell/minimal.nix
     ];
     programs.zsh.shellAliases = {
+      #? nom build --impure /data/data/com.termux.nix/files/home/config/nix#nixOnDroidConfigurations.default.activationPackage --print-out-paths
       nn = lib.mkForce "nix-on-droid switch --flake ${flakePath}";
       nr = lib.mkForce "nix repl --expr '(builtins.getFlake \"${flakePath}\").nixOnDroidConfigurations.default'";
     };

@@ -4,7 +4,6 @@
   imports = [
     ../.
     ../vps
-    ../../modules/cachyos-kernel.nix
 
     ../../modules/copy-flake.nix
 

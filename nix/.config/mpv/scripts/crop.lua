@@ -1,4 +1,5 @@
--- https://github.com/occivink/mpv-scripts/pull/77/files
+---@diagnostic disable
+--! https://github.com/occivink/mpv-scripts/pull/77/files
 local opts = {
     mode = "hard", -- can be "hard" or "soft". If hard, apply a crop filter, if soft zoom + pan. Or a bonus "delogo" mode
     draw_shade = true,

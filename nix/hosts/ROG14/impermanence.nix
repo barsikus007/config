@@ -55,6 +55,7 @@
         ".cache/cloud-code" # ? gemini auth
         ".cache/danksearch" # ? index
         ".cache/noctalia" # ? to disable prompt on startup
+        ".cache/thumbnails" # ? dolphin/gtk previews (freedesktop spec)
         ".cache/tlrc"
         #! vulkan shader caches: without them the first whisper run on the nvidia dGPU spends
         #! ~19s compiling pipelines (vs ~0.3s warm); mesa/radv recompile fast but still cost
@@ -65,7 +66,6 @@
         ".config/bcompare5"
         ".config/BraveSoftware"
         ".config/claude" # ? xdg-ninja
-        ".config/copyq" # TODO: ??
         ".config/dconf" # TODO: ??
         ".config/discord"
         ".config/easyeffects" # TODO: config?

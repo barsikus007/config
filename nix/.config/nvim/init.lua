@@ -1,6 +1,4 @@
 --? code style
-vim.cmd("syntax on")                 --? by default in nvim
-vim.cmd("filetype plugin indent on") --? by default in nvim
 vim.o.encoding = "UTF-8"             --? by default in nvim
 vim.o.fileformat = "unix"
 
@@ -57,7 +55,6 @@ vim.diagnostic.config({ virtual_lines = { current_line = true } })
 vim.keymap.set('n', "gd", vim.lsp.buf.definition, { noremap = true, silent = true, desc = "Go to definition" })
 --?  https://neovim.io/doc/user/lsp.html#lsp-quickstart
 -- TODO: use lsp/ folder https://neovim.io/doc/user/lsp.html#_config
--- TODO: this shit wont activate lua lsp for no reason
 -- TODO: old versions fallback
 if vim.lsp.config then
     vim.lsp.config["lua_ls"] = {
@@ -132,3 +129,9 @@ vim.keymap.set("n", "г", "u")
 vim.keymap.set("n", "З", "P")
 
 -- TODO: standalone: https://neovim.io/doc/user/lsp.html#lsp-quickstart; https://lazy.folke.io/installation; https://github.com/calops/hmts.nvim; https://github.com/Wansmer/langmapper.nvim
+
+--? both are on by default in nvim, kept explicit
+--! keep them last: they fire FileType for the argv buffer, and anything
+--! above (vim.lsp.enable) must be registered before that happens
+vim.cmd("syntax on")
+vim.cmd("filetype plugin indent on")

@@ -29,8 +29,4 @@
   };
   # xdg.configFile."keepassxc/keepassxc.ini".source =
   #   config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/keepassxc/keepassxc.ini";
-
-  # services.copyq.enable = true;
-  # # xdg.configFile."copyq/copyq.conf".source =
-  #   config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/copyq/copyq.conf";
 }

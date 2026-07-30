@@ -1,20 +1,11 @@
 {
   lib,
-  pkgs,
   inputs,
   flakePath,
   ...
 }:
 {
   imports = [ inputs.nvf.homeManagerModules.default ];
-
-  home.packages = with pkgs; [
-    lua-language-server
-    stylua
-
-    pyright
-    ruff
-  ];
 
   home.sessionVariables.MANPAGER = "nvim +Man!";
   programs.nvf = {

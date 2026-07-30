@@ -64,15 +64,15 @@ ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
 country=RU
 update_config=1
 network={
- ssid="WIFI_NAME1"
- psk="WIFI_PASSWORD1"
- priority=1
- key_mgmt=WPA-PSK
+  ssid="WIFI_NAME1"
+  psk="WIFI_PASSWORD1"
+  priority=1
+  key_mgmt=WPA-PSK
 }
 network={
- ssid="WIFI_NAME2"
- psk="WIFI_PASSWORD2"
- priority=2
- key_mgmt=WPA-PSK
+  ssid="WIFI_NAME2"
+  psk="WIFI_PASSWORD2"
+  priority=2
+  key_mgmt=WPA-PSK
 }
 ```

@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 #? Да.
 {
   imports = [
@@ -14,4 +15,5 @@
       };
     };
   };
+  home.packages = with pkgs; [ element-desktop ];
 }

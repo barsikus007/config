@@ -44,6 +44,20 @@ exit_zsh() { exit; }
 zle -N exit_zsh
 bindkey '^D' exit_zsh
 
+#? ssh completion: only Host aliases from ~/.ssh/config
+#? native _ssh_hosts also pulls known_hosts, /etc/hosts and HostName values (85 entries),
+#? and _ssh_users adds every system user; setting the style short-circuits both
+_ssh_config_hosts() {
+    rg -iN --no-heading '^\s*Host\s+' ~/.ssh/config \
+        | sed 's/^[[:space:]]*[Hh]ost[[:space:]]*//' \
+        | tr -s ' ' '\n' \
+        | rg -v '[*?%]|^$' \
+        | sort -u
+}
+#? -e re-evaluates on every completion, so config edits need no reload
+zstyle -e ':completion:*:ssh:*' hosts 'reply=(${(f)"$(_ssh_config_hosts)"})'
+zstyle ':completion:*:ssh:*' tag-order hosts
+
 #? https://www.reddit.com/r/zsh/comments/eo80b6/comment/feaaib8/
 function set-term-title-precmd() {
     emulate -L zsh

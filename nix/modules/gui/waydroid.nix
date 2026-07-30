@@ -5,7 +5,7 @@
   custom.persist = {
     directories = [ "/var/lib/waydroid" ];
     home.directories = [
-      ".config/waydroid-helper" #? key mappings
+      ".config/waydroid-helper" # ? key mappings
       ".config/systemd/user/waydroid-monitor.service.d" # ? links to storage
     ];
   };

@@ -66,6 +66,5 @@ in
   home.packages = with pkgs; [
     ayugram-desktop
     # self.legacyPackages.${stdenv.hostPlatform.system}.ayugram-desktop-patched
-    element-desktop
   ];
 }

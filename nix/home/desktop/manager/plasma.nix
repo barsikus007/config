@@ -135,17 +135,6 @@ in
         match.title = "Syncthing Tray";
         apply.position = "3868,892";
       }
-      {
-        description = "copyq wayland fix";
-        match.window-class.value = "copyq";
-        match.window-class.match-whole = false;
-        match.window-types = [ "normal" ];
-        apply.placement = 7;
-        apply.ignoregeometry = true;
-        apply.above = true;
-        apply.noborder = true;
-        apply.fsplevel = 0;
-      }
     ]
     ++ (map
       (app: {
@@ -318,9 +307,6 @@ in
       # show-on-mouse-pos=none,Meta+V,Show Clipboard Items at Mouse Position
       # "plasmashell" = {
       #   "show-on-mouse-pos" = "";
-      # };
-      # "services/com.github.hluk.copyq.desktop" = {
-      #   "_launch" = "Meta+V";
       # };
 
       "services/org.kde.konsole.desktop" = {

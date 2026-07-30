@@ -27,6 +27,8 @@ let
   modelsDirAbs = "\${HOME}/.local/share/hyprwhspr-rs/models";
   statusFile = "\${HOME}/.cache/hyprwhspr-rs/status.json";
   activityStamp = "\${XDG_RUNTIME_DIR}/hyprwhspr-last-activity";
+  #? which GPU the resident server came up on, so a dgpu_switch_* can retrigger it
+  gpuStamp = "\${XDG_RUNTIME_DIR}/whisper-server-gpu";
 
   #! prefer the nvidia dGPU when its driver is loaded, else fall back to the Vega iGPU;
   #! measured on a 6s clip (q5_0): RTX 2060 ~0.3s encode, Vega ~3.2s, plain CPU ~25.5s;
@@ -63,6 +65,10 @@ let
     fi
     #? never leave the server without a model if the dGPU one was never downloaded
     [ -f "$model" ] || model="$fallback"
+    #! stamp the nvidia-presence bit, NOT the picker's verdict: the watcher compares against the
+    #! same cheap probe, so a disagreement (driver loaded but vulkan does not enumerate it) can
+    #! never turn into a restart loop
+    if [ -d /proc/driver/nvidia/gpus ]; then echo nvidia > "${gpuStamp}"; else echo amd > "${gpuStamp}"; fi
     exec "${pkgs.whisper-cpp-vulkan}/bin/whisper-server" \
       --model "$model" --language ru \
       --host 127.0.0.1 --port ${whisperPort} --threads 8
@@ -110,8 +116,16 @@ let
       case "$cls" in
         active)
           touch "$stamp"
+          #! the server picks its device ONCE at start, so a dgpu_switch_* while it is up leaves it
+          #! transcribing on the old card (and on the old model) - compare against the stamp
+          if [ -d /proc/driver/nvidia/gpus ]; then now_gpu=nvidia; else now_gpu=amd; fi
+          was_gpu=$(${pkgs.coreutils}/bin/cat "${gpuStamp}" 2>/dev/null || echo "$now_gpu")
           #? --no-block: never stall the watcher on model load
-          systemctl --user start --no-block whisper-server.service || true
+          if [ "$now_gpu" != "$was_gpu" ] && systemctl --user is-active --quiet whisper-server.service; then
+            systemctl --user restart --no-block whisper-server.service || true
+          else
+            systemctl --user start --no-block whisper-server.service || true
+          fi
           #? hush whatever is playing so it does not bleed into the recording, and remember that
           #? we did - so a player that was already paused is not resumed behind your back
           #! -a/--all-players, else playerctl only ever looks at the first bus name it finds -
@@ -194,6 +208,9 @@ let
     fi
     if [ -d /proc/driver/nvidia/gpus ]; then
       echo "  nvidia: driver loaded -> dGPU offload active for new starts"
+      #? the watcher restarts the server itself, this only explains a stale device line above
+      [ "$(${pkgs.coreutils}/bin/cat "${gpuStamp}" 2>/dev/null || echo nvidia)" = nvidia ] \
+        || echo "  card changed since start -> server restarts on the next dictation"
     else
       echo "  nvidia: off/vfio -> falls back to the Vega iGPU"
     fi
@@ -271,7 +288,10 @@ in
     description = "hyprwhspr-rs status watcher (processing sound, server autostart)";
     wantedBy = [ "graphical-session.target" ];
     partOf = [ "graphical-session.target" ];
-    after = [ "hyprwhspr-rs.service" ];
+    #! NO `after = hyprwhspr-rs`: combined with the wants above and graphical-session.target that
+    #! forms an ordering cycle, and systemd breaks it by dropping the hyprwhspr-rs start job -
+    #! ie the daemon silently never comes up. The watcher does not need the ordering anyway:
+    #! it creates the cache dir itself and waits for status.json to appear.
     serviceConfig = {
       ExecStart = statusWatch;
       Restart = "on-failure";

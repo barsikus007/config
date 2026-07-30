@@ -57,18 +57,18 @@ map mkLine [
       "usercontent.dev"
     ];
   }
-  {
-    # comment = "telegram";
-    # family = "6";
-    # set = globalSet;
-    # domains = [
-    #   "2001:b28:f23d::/48"
-    #   "2001:b28:f23f::/48"
-    #   "2001:67c:4e8::/48"
-    #   "2001:b28:f23c::/48"
-    #   "2a0a:f280::/32"
-    # ];
-  }
+  # {
+  #   comment = "telegram";
+  #   family = "6";
+  #   set = globalSet;
+  #   domains = [
+  #     "2001:b28:f23d::/48"
+  #     "2001:b28:f23f::/48"
+  #     "2001:67c:4e8::/48"
+  #     "2001:b28:f23c::/48"
+  #     "2a0a:f280::/32"
+  #   ];
+  # }
 
   {
     comment = "ru";

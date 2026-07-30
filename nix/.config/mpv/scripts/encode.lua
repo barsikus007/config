@@ -1,4 +1,5 @@
--- https://github.com/occivink/mpv-scripts
+---@diagnostic disable
+--! https://github.com/occivink/mpv-scripts
 local utils = require "mp.utils"
 local msg = require "mp.msg"
 local options = require "mp.options"
