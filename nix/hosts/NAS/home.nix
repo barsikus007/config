@@ -5,10 +5,7 @@
 
     ../../home
     ../../home/shell
-    {
-      inherit custom;
-
-      programs.nvf.settings.vim.lsp.enable = true;
-    }
+    ../../home/shell/neovim-full.nix
+    { inherit custom; }
   ];
 }

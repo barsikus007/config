@@ -199,8 +199,8 @@
           ./modules/printer.nix
 
           # ./modules/desktop/manager/plasma.nix
-          ./modules/desktop/manager/niri-de.nix
-          # ./modules/desktop/manager/niri-dms.nix
+          ./modules/desktop/manager/noctalia-niri.nix
+          # ./modules/desktop/manager/dms-niri.nix
           ./modules/desktop/sound
           ./modules/desktop/sound/popping-fix.nix
           ./modules/desktop/sound/laptop-mic.nix
@@ -329,13 +329,13 @@
       nixosConfigurations."coolvm-niri" = mkCoolVm "niri" "ogurez" [
         ./hosts/vm/niri-paravirt.nix
 
-        ./modules/desktop/manager/niri-de.nix
-        # ./modules/desktop/manager/niri-dms.nix
+        ./modules/desktop/manager/noctalia-niri.nix
+        # ./modules/desktop/manager/dms-niri.nix
       ];
       nixosConfigurations."coolvm-niri-vfio" = mkCoolVm "niri-vfio" "ogurez" [
         ./hosts/vm/niri-sunshined-vfio.nix
 
-        ./modules/desktop/manager/niri-de.nix
+        ./modules/desktop/manager/noctalia-niri.nix
       ];
       nixosConfigurations."coolvm-plasma" = mkCoolVm "plasma" "ogurez" [
         ./hosts/vm/kde-sunshined.nix

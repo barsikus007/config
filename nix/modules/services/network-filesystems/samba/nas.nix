@@ -5,7 +5,11 @@
   ...
 }:
 {
-  imports = [ ./local.nix ];
+  imports = [
+    ./local.nix
+
+    ../../../sops.nix
+  ];
   sops.secrets."hosts/${config.system.name}/smb/passwd" = { };
 
   systemd.services.samba-passwd = {

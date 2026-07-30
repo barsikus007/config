@@ -24,6 +24,8 @@ let
   };
 in
 {
+  imports = [ ./kde-settings.nix ];
+
   programs.plasma.configFile = {
     "kdeglobals"."General"."ColorScheme" = colorschemeSlug;
     "kdeglobals"."Colors:Button" = kdecolors;

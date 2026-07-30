@@ -26,7 +26,7 @@
   home-manager.users.${username}.imports = [
     ../../../home/desktop/environment/kde-settings.nix
     ../../../home/desktop/environment/kde-stylix.nix
-    ../../../home/desktop/manager/quickshell/noctalia.nix
+    ../../../home/desktop/manager/quickshell/noctalia-niri.nix
   ];
 
   services.displayManager.gdm.enable = !config.services.displayManager.sddm.enable;
@@ -51,7 +51,7 @@
 
   #! noctalia-v5 lockscreen fprint fix
   security.pam.services.login.fprintAuth = !config.services.fprintd.enable;
-  #? for hooks.session_unlocked (noctalia.nix)
+  #? for hooks.session_unlocked (noctalia-niri.nix)
   security.polkit.extraConfig = /* javascript */ ''
     polkit.addRule(function (action, subject) {
       if (action.id === "org.freedesktop.systemd1.manage-units"

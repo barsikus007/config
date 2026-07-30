@@ -5,6 +5,7 @@
 
     ../../home
     ../../home/shell
+    ../../home/shell/neovim-full.nix
 
     ../../home/ai.nix
 
@@ -27,10 +28,6 @@
 
     ../../home/gui/games
     ../../home/gui/games/minecraft.nix
-    {
-      inherit custom;
-
-      programs.nvf.settings.vim.lsp.enable = true;
-    }
+    { inherit custom; }
   ];
 }

@@ -16,7 +16,7 @@
   home-manager.users.${username}.imports = [
     ../../../home/desktop/environment/kde-settings.nix
     ../../../home/desktop/environment/kde-stylix.nix
-    ../../../home/desktop/manager/quickshell/dms.nix
+    ../../../home/desktop/manager/quickshell/dms-niri.nix
   ];
 
   services.displayManager.dms-greeter = {
