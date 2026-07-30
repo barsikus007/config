@@ -1,8 +1,7 @@
-{ pkgs, config, ... }@args:
+{ pkgs, config, ... }:
 #! unmaintaned
 let
   inherit (config.fileSystems."/nix") device;
-  persistentDir = if args ? persistentDir then args.persistentDir else "/persistent";
 in
 {
   imports = [
@@ -75,7 +74,7 @@ in
     }; # NOTE: path = [...]; doesnt work for initrd, use full paths in your script or extraBin
   };
 
-  environment.persistence."${persistentDir}" = {
+  environment.persistence.${config.custom.persist.dir} = {
     directories = [
       "/var/lib/btrfs"
     ];

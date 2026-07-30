@@ -1,14 +1,10 @@
-{ username, ... }:
-let
-  # TODO: config: persistentDir
-  persistentDir = "/persistent";
-in
+{ config, username, ... }:
 {
   imports = [
     ../../modules/impermanence/on-zfs.nix
   ];
 
-  environment.persistence."${persistentDir}" = {
+  environment.persistence.${config.custom.persist.dir} = {
     directories = [
       "/etc/ssh"
       "/var/db/sudo/lectured"

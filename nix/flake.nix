@@ -84,10 +84,6 @@
     let
       system = "x86_64-linux";
       pkgs = import ./nixpkgs.nix { inherit system inputs; };
-      custom = {
-        isAsus = true;
-        # blur.enable = true;
-      };
 
       mkSpecialArgs = username: {
         inherit
@@ -114,8 +110,7 @@
           inherit system pkgs;
           specialArgs = mkSpecialArgs username;
           modules = modules ++ [
-            #? link current nixpkgs source to store to avoid refetching it withing guest
-            ./shared/options.nix
+            # TODO: link current nixpkgs source to store to avoid refetching it withing guest
             ./hosts/vm
             (
               { username, ... }:
@@ -140,16 +135,11 @@
                 #! 11Mb initial size
                 home-manager.users.${username} = {
                   imports = [
-                    ./shared/options.nix
-
                     ./home
                     ./home/shell
 
                     ./home/gui/neovide.nix
                     ./home/gui/browser/firefox.nix
-                    {
-                      inherit custom;
-                    }
                   ];
                 };
 
@@ -163,20 +153,12 @@
       nixosConfigurations."NixOS-WSL" = nixpkgs.lib.nixosSystem {
         inherit system pkgs;
         specialArgs = mkSpecialArgs "nixos";
-        modules = [
-          ./shared/options.nix
-
-          ./hosts/NixOS-WSL/configuration.nix
-        ];
+        modules = [ ./hosts/NixOS-WSL/configuration.nix ];
       };
       nixosConfigurations."ROG14" = nixpkgs.lib.nixosSystem {
         inherit system pkgs;
-        specialArgs = mkSpecialArgs "ogurez" // {
-          inherit custom;
-        };
+        specialArgs = mkSpecialArgs "ogurez";
         modules = [
-          ./shared/options.nix
-
           ./hosts/ROG14/configuration.nix
 
           ./modules/hardware/logi-mx3.nix
@@ -242,8 +224,6 @@
             ];
           }
           {
-            inherit custom;
-
             programs.nh.clean.enable = nixpkgs.lib.mkForce false;
 
             environment.systemPackages = with pkgs; [
@@ -261,9 +241,7 @@
       #? nixos-anywhere --flake ./nix#generic-VPS --generate-hardware-config nixos-generate-config ./nix/hardware-configuration.nix --target-host <hostname>
       nixosConfigurations."NAS" = nixpkgs.lib.nixosSystem {
         inherit system pkgs;
-        specialArgs = mkSpecialArgs "admin" // {
-          inherit custom;
-        };
+        specialArgs = mkSpecialArgs "admin";
         modules = [
           ./hosts/NAS/configuration.nix
 
@@ -389,7 +367,6 @@
 
       homeConfigurations = nixpkgs.lib.attrsets.mergeAttrsList [
         (mkHomeCfg "nixos" [
-          ./shared/options.nix
           ./shared/nix.nix
           ./shared/nh.nix
 
@@ -420,15 +397,7 @@
         extraSpecialArgs = mkSpecialArgs "nix-on-droid" // {
           flakePath = "/data/data/com.termux.nix/files/home/config/nix";
         };
-        modules = [
-          (
-            { specialArgs, ... }:
-            {
-              home-manager.extraSpecialArgs = specialArgs;
-            }
-          )
-          ./nix-on-droid.nix
-        ];
+        modules = [ ./nix-on-droid.nix ];
       };
 
       devShells.${system} = {

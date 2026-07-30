@@ -1,37 +1,55 @@
-{ inputs, username, ... }@args:
+{
+  lib,
+  config,
+  inputs,
+  username,
+  ...
+}:
 #? https://nix-community.github.io/preservation/impermanence-migration.html maybe
 let
-  persistentDir = if args ? persistentDir then args.persistentDir else "/persistent";
+  cfg = config.custom.persist;
+  hm = config.home-manager.users.${username}.custom.persist.home;
 in
 {
   imports = [
     inputs.impermanence.nixosModules.impermanence
   ];
 
-  fileSystems.${persistentDir}.neededForBoot = true;
+  fileSystems.${cfg.dir}.neededForBoot = true;
 
-  environment.persistence."${persistentDir}" = {
+  environment.persistence.${cfg.dir} = {
     hideMounts = true;
 
-    directories = [
-      # "/etc/ssh"
-      # "/var/db" # ? ./sudo/lectured/$(id -u)
+    directories = lib.unique (
+      [
+        # "/etc/ssh"
+        # "/var/db" # ? ./sudo/lectured/$(id -u)
 
-      "/var/lib/nixos" # ? https://nixos.org/manual/nixos/unstable/#sec-state-users
-      "/var/lib/systemd" # ? https://nixos.org/manual/nixos/unstable/#sec-var-systemd
+        "/var/lib/nixos" # ? https://nixos.org/manual/nixos/unstable/#sec-state-users
+        "/var/lib/systemd" # ? https://nixos.org/manual/nixos/unstable/#sec-var-systemd
 
-      # "/var/log" # ? https://nixos.org/manual/nixos/unstable/#sec-var-journal
-    ];
-    files = [
-      # ! sadly, there is no way to pass secrets to initrd
-      "/etc/machine-id" # ? https://nixos.org/manual/nixos/unstable/#sec-machine-id
-    ];
+        # "/var/log" # ? https://nixos.org/manual/nixos/unstable/#sec-var-journal
+      ]
+      ++ cfg.directories
+    );
+    files = lib.unique (
+      [
+        # ! sadly, there is no way to pass secrets to initrd
+        "/etc/machine-id" # ? https://nixos.org/manual/nixos/unstable/#sec-machine-id
+      ]
+      ++ cfg.files
+    );
     users.${username} = {
-      directories = [
-        ".cache/nix" # ? URL -> store path / narHash mapping
+      directories = lib.unique (
+        [
+          ".cache/nix" # ? URL -> store path / narHash mapping
 
-        ".config/zsh"
-      ];
+          ".config/zsh"
+        ]
+        ++ cfg.home.directories
+        ++ hm.directories
+      );
+      files = lib.unique (cfg.home.files ++ hm.files);
     };
   };
 }

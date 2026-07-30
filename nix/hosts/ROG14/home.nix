@@ -1,8 +1,5 @@
-{ custom, ... }:
 {
   imports = [
-    ../../shared/options.nix
-
     ../../home
     ../../home/shell
     ../../home/shell/neovim-full.nix
@@ -28,6 +25,5 @@
 
     ../../home/gui/games
     ../../home/gui/games/minecraft.nix
-    { inherit custom; }
   ];
 }

@@ -2,10 +2,12 @@
 #! 30Mb
 {
   imports = [
+    ../shared/options.nix
+
     ../modules/ssh-secure.nix
     #! 150Kb
     ../shared/nix.nix
-    ../modules/home-manager.nix
+    ../modules/home-manager/nixos.nix
     #! 17Mb
     ../shared/nh.nix
   ];

@@ -8,6 +8,8 @@
 #? dev notes https://web.archive.org/web/20240913070409/https://infinytum.co/fixing-my-fingerprint-reader-on-linux-by-writing-a-driver-for-it/
 #? windows dual-boot https://www.reddit.com/r/ZephyrusG14/comments/ql2opr/comment/hj2grmo/
 {
+  custom.persist.directories = [ "/var/lib/fprint" ]; # ? enrolled fingerprints
+
   services.fprintd = {
     enable = true;
     package = pkgs.fprintd.override {

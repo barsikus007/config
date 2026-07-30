@@ -1,6 +1,10 @@
 { lib, username, ... }:
 {
-  imports = [ ./git.nix ];
+  imports = [
+    ../shared/options.nix
+
+    ./git.nix
+  ];
   home = {
     #? https://nix-community.github.io/home-manager/release-notes.xhtml
     stateVersion = lib.mkDefault "26.05";

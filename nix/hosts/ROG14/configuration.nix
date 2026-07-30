@@ -11,6 +11,11 @@
 
   networking.hostName = "ROG14";
 
+  custom = {
+    isAsus = true;
+    # blur.enable = true;
+  };
+
   environment.systemPackages = (
     import ../../shared/lists { inherit pkgs; }
     ++ import ../../shared/lists/10_extra.nix { inherit pkgs; }

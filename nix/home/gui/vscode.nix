@@ -6,6 +6,12 @@
   ...
 }:
 {
+  custom.persist.home.directories = [
+    ".config/Code"
+    ".vscode"
+    ".vscode-shared" # ? recent and trust folders
+  ];
+
   xdg.configFile = {
     "Code/User/settings.json".source =
       config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/Code/User/settings.json";

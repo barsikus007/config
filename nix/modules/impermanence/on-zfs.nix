@@ -1,7 +1,4 @@
-{ config, ... }@args:
-let
-  persistentDir = if args ? persistentDir then args.persistentDir else "/persistent";
-in
+{ config, ... }:
 {
   imports = [
     ../../modules/impermanence
@@ -23,7 +20,7 @@ in
     script = "zfs rollback -r zroot/root@blank";
   };
 
-  environment.persistence."${persistentDir}" = {
+  environment.persistence.${config.custom.persist.dir} = {
     directories = [
       "/etc/zfs/keys"
     ];

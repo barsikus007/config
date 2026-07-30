@@ -1,14 +1,10 @@
-{ username, ... }:
-let
-  # TODO: config: persistentDir
-  persistentDir = "/persistent";
-in
+{ config, username, ... }:
 {
   imports = [
     ../../modules/impermanence/on-zfs.nix
   ];
 
-  environment.persistence."${persistentDir}" = {
+  environment.persistence.${config.custom.persist.dir} = {
     # enable = false;
     directories = [
       "/etc/asusd" # ? current anime state
@@ -18,7 +14,6 @@ in
       "/var/log" # ? https://nixos.org/manual/nixos/unstable/#sec-var-journal
       "/var/lib/bluetooth"
       "/var/lib/cups"
-      "/var/lib/fprint" # ? enrolled fingerprints
       "/var/lib/libvirt"
       # "/var/lib/misc" # TODO: is this needed? dnsmasq waydroid
       # "/var/lib/NetworkManager" # TODO: is this needed?
@@ -26,7 +21,6 @@ in
       # "/var/lib/private" # TODO: is this needed? rustdesk
       # "/var/lib/sbctl" # TODO: is this needed? secure boot
       "/var/lib/upower" # ? history of power usage
-      "/var/lib/waydroid"
     ];
     files = [
       # "/etc/adjtime" # TODO: is this needed? hwclock
@@ -51,8 +45,6 @@ in
         ".gemini"
         # ".java" # TODO: font cache
         ".thunderbird"
-        ".vscode"
-        ".vscode-shared" # ? recent and trust folders
 
         #? games
         ".parsec"
@@ -73,7 +65,6 @@ in
         ".config/bcompare5"
         ".config/BraveSoftware"
         ".config/claude" # ? xdg-ninja
-        ".config/Code"
         ".config/copyq" # TODO: ??
         ".config/dconf" # TODO: ??
         ".config/discord"
@@ -103,12 +94,10 @@ in
         ".config/sops/age"
         ".config/sourcery" # ? auth
         ".config/sunshine" # ? auth
-        ".config/systemd/user/waydroid-monitor.service.d" # ? links to storage
         ".config/Throne"
         ".config/unity3d" # ? game saves
         ".config/VESC"
         ".config/vesktop"
-        ".config/waydroid-helper" # TODO: ??
 
         ".local/share" # TODO: more
         # ".local/share/baloo"

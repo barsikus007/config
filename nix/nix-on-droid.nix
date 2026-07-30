@@ -8,7 +8,9 @@
 #? https://nix-community.github.io/nix-on-droid/nix-on-droid-options.html#sec-options
 {
   imports = [
+    ./shared/options.nix
     ./shared/nix.nix
+    ./modules/home-manager
   ];
   android-integration.am.enable = true;
   android-integration.termux-setup-storage.enable = true;
@@ -61,25 +63,20 @@
   #? https://github.com/nix-community/nix-on-droid/blob/master/CHANGELOG.md
   system.stateVersion = "24.05";
 
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    backupFileExtension = "hmbackup";
-    config = {
-      home = {
-        #? https://nix-community.github.io/home-manager/release-notes.xhtml
-        stateVersion = lib.mkForce "26.05";
-        homeDirectory = lib.mkForce "/data/data/com.termux.nix/files/home";
-      };
+  home-manager.config = {
+    home = {
+      #? https://nix-community.github.io/home-manager/release-notes.xhtml
+      stateVersion = lib.mkForce "26.05";
+      homeDirectory = lib.mkForce "/data/data/com.termux.nix/files/home";
+    };
 
-      imports = [
-        ./home
-        ./home/shell/minimal.nix
-      ];
-      programs.zsh.shellAliases = {
-        nn = lib.mkForce "nix-on-droid switch --flake ${flakePath}";
-        nr = lib.mkForce "nix repl --expr '(builtins.getFlake \"${flakePath}\").nixOnDroidConfigurations.default'";
-      };
+    imports = [
+      ./home
+      ./home/shell/minimal.nix
+    ];
+    programs.zsh.shellAliases = {
+      nn = lib.mkForce "nix-on-droid switch --flake ${flakePath}";
+      nr = lib.mkForce "nix repl --expr '(builtins.getFlake \"${flakePath}\").nixOnDroidConfigurations.default'";
     };
   };
 
