@@ -1,5 +1,7 @@
 { pkgs, ... }:
 {
+  custom.persist.home.directories = [ ".config/libreoffice" ];
+
   home.packages = with pkgs; [
     #? fuck libreoffice, it still can't smooth scroll
     libreoffice-qt6-fresh

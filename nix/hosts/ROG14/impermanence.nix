@@ -13,14 +13,10 @@
       "/var/db" # ? ./sudo/lectured/$(id -u)
       "/var/log" # ? https://nixos.org/manual/nixos/unstable/#sec-var-journal
       "/var/lib/bluetooth"
-      "/var/lib/cups"
-      "/var/lib/libvirt"
       # "/var/lib/misc" # TODO: is this needed? dnsmasq waydroid
       # "/var/lib/NetworkManager" # TODO: is this needed?
-      "/var/lib/power-profiles-daemon" # ? selected power-profile
       # "/var/lib/private" # TODO: is this needed? rustdesk
       # "/var/lib/sbctl" # TODO: is this needed? secure boot
-      "/var/lib/upower" # ? history of power usage
     ];
     files = [
       # "/etc/adjtime" # TODO: is this needed? hwclock
@@ -41,20 +37,13 @@
         "Sync"
 
         #? apps
-        ".android"
-        ".gemini"
         # ".java" # TODO: font cache
-        ".thunderbird"
 
         #? games
         ".parsec"
         ".parsec-persistent"
-        ".steam"
 
         ".cache/.bun" # ? tools installed with bunx
-        ".cache/cloud-code" # ? gemini auth
-        ".cache/danksearch" # ? index
-        ".cache/noctalia" # ? to disable prompt on startup
         ".cache/thumbnails" # ? dolphin/gtk previews (freedesktop spec)
         ".cache/tlrc"
         #! vulkan shader caches: without them the first whisper run on the nvidia dGPU spends
@@ -63,41 +52,20 @@
         ".cache/mesa_shader_cache"
         ".cache/radv_builtin_shaders"
 
-        ".config/bcompare5"
-        ".config/BraveSoftware"
         ".config/claude" # ? xdg-ninja
         ".config/dconf" # TODO: ??
-        ".config/discord"
-        ".config/easyeffects" # TODO: config?
-        ".config/Element"
         ".config/fsearch"
         ".config/GIMP" # TODO: config
         ".config/glib-2.0" # TODO: generate?
         ".config/hatch" # TODO: generate
-        ".config/heroic"
-        ".config/kdeconnect"
         ".config/kdedefaults" # TODO: unneded!!!!!?
-        ".config/libreoffice"
         ".config/litecli"
-        ".config/ludusavi"
-        ".config/Moonlight Game Streaming Project"
-        ".config/mozilla/firefox"
-        ".config/obs-studio"
         ".config/obsidian"
-        ".config/Podman Desktop" # TODO: electron
         ".config/qBittorrent"
-        ".config/r2modman" # TODO: electron
-        ".config/r2modmanPlus-local"
         ".config/rog" # ? asus anime
-        ".config/rustdesk"
         ".config/session" # ? KDE persist (dolphin and windows)
-        ".config/sops/age"
         ".config/sourcery" # ? auth
-        ".config/sunshine" # ? auth
-        ".config/Throne"
-        ".config/unity3d" # ? game saves
         ".config/VESC"
-        ".config/vesktop"
 
         ".local/share" # TODO: more
         # ".local/share/baloo"
@@ -140,7 +108,6 @@
           [
             # ".config/plasma-org.kde.plasma.desktop-appletsrc"
             # ".config/plasmashellrc"
-            ".config/syncthingtray.ini"
           ];
     };
   };

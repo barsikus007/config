@@ -5,6 +5,14 @@
     ./wine.nix
   ];
 
+  custom.persist.home.directories = [
+    ".steam"
+    ".config/heroic"
+    ".config/r2modman" # TODO: electron
+    ".config/r2modmanPlus-local"
+    ".config/unity3d" # ? game saves
+  ];
+
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;

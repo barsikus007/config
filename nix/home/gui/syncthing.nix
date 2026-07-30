@@ -1,5 +1,12 @@
 { pkgs, ... }:
 {
+  custom.persist.home.files = [
+    {
+      file = ".config/syncthingtray.ini";
+      method = "symlink";
+    }
+  ];
+
   services.syncthing = {
     enable = true;
     tray = {

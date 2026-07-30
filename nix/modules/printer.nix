@@ -1,5 +1,7 @@
 { pkgs, self, ... }:
 {
+  custom.persist.directories = [ "/var/lib/cups" ];
+
   services.printing = {
     enable = true;
     drivers = [

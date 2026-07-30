@@ -5,7 +5,6 @@
   username,
   ...
 }:
-#? https://nix-community.github.io/preservation/impermanence-migration.html maybe
 let
   cfg = config.custom.persist;
   hm = config.home-manager.users.${username}.custom.persist.home;
@@ -14,6 +13,14 @@ in
   imports = [
     inputs.impermanence.nixosModules.impermanence
   ];
+  #? state of services whose `enable` may come from a foreign module (plasma6, nixos-hardware),
+  #? so key on the option itself instead of on whoever turned it on
+  custom.persist = {
+    directories =
+      lib.optional config.services.power-profiles-daemon.enable "/var/lib/power-profiles-daemon" # ? selected power-profile
+      ++ lib.optional config.services.upower.enable "/var/lib/upower"; # ? history of power usage
+    home.directories = lib.optional config.programs.dsearch.enable ".cache/danksearch"; # ? index
+  };
 
   fileSystems.${cfg.dir}.neededForBoot = true;
 

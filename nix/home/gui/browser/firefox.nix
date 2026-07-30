@@ -3,6 +3,8 @@ let
   nix-snowflake-svg = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
 in
 {
+  custom.persist.home.directories = [ ".config/mozilla/firefox" ];
+
   #? firefox pwa, if I ever need it
   # programs.firefoxpwa.enable = true;
   programs.firefox = {

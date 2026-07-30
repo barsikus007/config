@@ -1,5 +1,11 @@
 { pkgs, username, ... }:
 {
+  custom.persist.home.directories = [
+    ".config/rustdesk"
+    ".config/sunshine" # ? auth
+    ".config/Moonlight Game Streaming Project"
+  ];
+
   #? rdp
   # networking.firewall.allowedTCPPorts = [ 3389 ];
   # networking.firewall.allowedUDPPorts = [ 3389 ];

@@ -1,5 +1,7 @@
 { pkgs, ... }:
 {
+  custom.persist.home.directories = [ ".config/obs-studio" ];
+
   programs.gpu-screen-recorder.enable = true;
   programs.obs-studio = {
     #? https://wiki.nixos.org/wiki/OBS_Studio

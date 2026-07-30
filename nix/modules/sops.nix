@@ -14,6 +14,7 @@
 # cd ~/config/nix && nix run nixpkgs#sops -- secrets/hosts/HOST.yaml
 {
   imports = [ inputs.sops-nix.nixosModules.sops ];
+  custom.persist.home.directories = [ ".config/sops/age" ];
 
   environment.systemPackages = with pkgs; [
     sops

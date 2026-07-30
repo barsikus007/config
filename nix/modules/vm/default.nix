@@ -1,6 +1,8 @@
 { pkgs, username, ... }:
 # https://wiki.nixos.org/wiki/Virt-manager
 {
+  custom.persist.directories = [ "/var/lib/libvirt" ];
+
   virtualisation.libvirtd = {
     enable = true;
     qemu = {

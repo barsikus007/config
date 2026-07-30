@@ -16,6 +16,7 @@ in
   imports = [
     inputs.noctalia.homeModules.default
   ];
+  custom.persist.home.directories = [ ".cache/noctalia" ]; # ? to disable prompt on startup
 
   programs.niri.settings = {
     binds =

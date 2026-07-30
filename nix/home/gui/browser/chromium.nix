@@ -20,6 +20,8 @@ let
 in
 {
   #? https://github.com/tuxdotrs/nix-config/blob/99863948b4d6d97f44ea8cba12a7e5a88369126e/modules/home/brave/default.nix#L26
+  custom.persist.home.directories = [ ".config/BraveSoftware" ];
+
   home.file = builtins.listToAttrs (map extensionJson extensions);
   programs.chromium = {
     inherit extensions;

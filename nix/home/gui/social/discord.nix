@@ -38,6 +38,11 @@ in
 {
   imports = [ inputs.nixcord.homeModules.default ];
 
+  custom.persist.home.directories = [
+    ".config/discord"
+    ".config/vesktop"
+  ];
+
   xdg.desktopEntries.discord-url = {
     name = "Discord - URL Handler";
     exec = "Discord --url -- %u";
