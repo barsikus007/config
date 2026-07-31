@@ -1,8 +1,8 @@
 { config, ... }:
+#? nix run nixpkgs#xdg-ninja
 let
   inherit (config.xdg) cacheHome configHome dataHome;
 in
-#? nix run nixpkgs#xdg-ninja
 {
   home.sessionVariables = {
     CLAUDE_CONFIG_DIR = "${configHome}/claude"; # ? was ~/.claude*

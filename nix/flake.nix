@@ -257,7 +257,10 @@
           ./hosts/NAS/configuration.nix
 
           ./modules/copy-flake.nix
+          ./modules/swap.nix
+
           ./modules/services/network-filesystems/samba/nas.nix
+          ./modules/services/youtube-music-sync.nix
           (
             {
               lib,

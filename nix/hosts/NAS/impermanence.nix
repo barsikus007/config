@@ -15,25 +15,19 @@
       directories = [
         "Downloads"
 
+        #? dev
+        ".ssh"
+        ".vscode-server"
+
         ".cache/.bun" # ? tools installed with bunx
         ".cache/tlrc"
 
+        ".config/claude" # ? xdg-ninja
         ".config/litecli"
 
         ".local/share" # TODO: more
 
         ".local/state" # TODO: more
-
-        #? apps
-        ".claude"
-
-        #? dev
-        ".ssh"
-        ".vscode-server"
-      ];
-
-      files = [
-        ".claude.json"
       ];
     };
   };
