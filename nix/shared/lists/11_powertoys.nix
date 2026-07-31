@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs }:
 #? https://learn.microsoft.com/en-us/windows/powertoys/ analogs
 with pkgs;
 [

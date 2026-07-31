@@ -16,10 +16,12 @@
     # blur.enable = true;
   };
 
-  environment.systemPackages = (
-    import ../../shared/lists { inherit pkgs; }
-    ++ import ../../shared/lists/10_extra.nix { inherit pkgs; }
-    ++ import ../../shared/lists/test.nix { inherit pkgs; }
+  environment.systemPackages = builtins.concatLists (
+    map (pkgsList: import pkgsList { inherit pkgs; }) [
+      ../../shared/lists
+      ../../shared/lists/10_extra.nix
+      ../../shared/lists/99_test.nix
+    ]
   );
 
   #! modules here are bound to specific hardware features (including disks)

@@ -71,7 +71,7 @@
       ./home/shell/minimal.nix
     ];
     programs.zsh.shellAliases = {
-      #? nom build --impure /data/data/com.termux.nix/files/home/config/nix#nixOnDroidConfigurations.default.activationPackage --print-out-paths
+      #? nix build --impure /data/data/com.termux.nix/files/home/config/nix#nixOnDroidConfigurations.default.activationPackage --print-out-paths
       nn = lib.mkForce "nix-on-droid switch --flake ${flakePath}";
       nr = lib.mkForce "nix repl --expr '(builtins.getFlake \"${flakePath}\").nixOnDroidConfigurations.default'";
     };

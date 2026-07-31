@@ -4,7 +4,6 @@
     "org.wezfurlong.wezterm"
 
     "firefox"
-    # "microsoft-edge"
     # "brave"
 
     "code"

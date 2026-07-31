@@ -47,7 +47,7 @@ nh os switch /home/ogurez/config/nix -- --option substitute false
 ### ISO with initial soft
 
 ```shell
-nom build ./nix#nixos-minimalIso
+nix build ./nix#nixos-minimalIso
 dd bs=4M conv=fsync oflag=direct status=progress if=./result/iso/nixos-minimal- of=/dev/sd
 qemu-system-x86_64 -enable-kvm -m 256 -cdrom result/iso/nixos-minimal*.iso -nic user,hostfwd=tcp::22222-:2222
 qemu-system-x86_64 -enable-kvm -m 2048 -smp 4 -cdrom result/iso/nixos-graphical*.iso -nic user,hostfwd=tcp::22222-:2222
@@ -67,7 +67,7 @@ add `-serial stdio` to open serial console in terminal, where script is launchin
 
 ### config introspector
 
-(use `NIXPKGS_ALLOW_BROKEN=1 NIXPKGS_ALLOW_UNFREE=1 NIXPKGS_ALLOW_INSECURE=1 NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 nixos-rebuild repl`)
+(use `nixos-rebuild repl`)
 
 - show enabled programs/services
 - show programs/services which can be enabled (based on packages in PATH)
@@ -75,7 +75,7 @@ add `-serial stdio` to open serial console in terminal, where script is launchin
 
 ```nix
 #! nixos-rebuild repl
-introspected = (import ./nix/lib/utils/config-introspector.nix { inherit pkgs config; })
+introspected = (import ./nix/lib/utils/config-introspector.nix { inherit pkgs config options; })
 introspected.<tab>
 ```
 

@@ -11,4 +11,5 @@
     pyright
     ruff
   ];
+  # TODO: programs.ruff to separate it from vscode settings; but it wouldn;t work for servers?
 }

@@ -15,18 +15,18 @@
     openFirewall = true;
     signal.relayHosts = [ "rs-sg.rustdesk.com" ];
   };
+  environment.systemPackages = with pkgs; [ rustdesk-flutter ];
+
   services.sunshine = {
     enable = true;
     autoStart = true;
     capSysAdmin = true; # ? needed for running on Wayland
     openFirewall = true;
   };
-
   #! sunshine.service WantedBy = graphical-session.target fix
   systemd.user.services.sunshine.unitConfig.ConditionUser = username;
-
-  environment.systemPackages = with pkgs; [
-    rustdesk-flutter
-    moonlight-qt
-  ];
+  programs.moonlight-qt = {
+    enable = true;
+    capSysNice = true;
+  };
 }

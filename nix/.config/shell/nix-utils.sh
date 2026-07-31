@@ -78,7 +78,7 @@ nnn() {
 nix_home_manager_build_and_activate() {
   local NIX_EVAL="$NH_FLAKE#nixosConfigurations.$HOST.config.home-manager.users.$USER.home.activationPackage"
   echo "building $NIX_EVAL..."
-  OUT=$(nom build --option substitute false --no-link --print-out-paths "$NIX_EVAL")
+  OUT=$(nix build --option substitute false --no-link --print-out-paths "$NIX_EVAL")
   echo "built $OUT"
   #? mirror _nn: pick specialisation from darkman theme
   local ACTIVATE="$OUT/activate"

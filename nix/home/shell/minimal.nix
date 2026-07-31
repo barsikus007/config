@@ -25,6 +25,7 @@ in
   xdg.configFile."shell/".source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/shell/";
   home.shellAliases = sharedAliases;
   home.packages = with pkgs; [ zsh-completions ];
+  programs.bun.enable = true;
   programs.zsh = {
     enable = true;
     shellAliases = zshAliases;
@@ -63,7 +64,9 @@ in
     '';
   };
 
+  programs.fd.enable = true;
   programs.fzf.enable = true;
+  programs.ripgrep.enable = true;
   programs.zoxide = {
     enable = true;
     options = [ "--cmd cd" ];

@@ -134,10 +134,14 @@
                   ];
                 };
 
-                #! 152Mb
-                environment.systemPackages = import ./shared/lists/02_add.nix { inherit pkgs; };
-                #! +720Mb for nix tools, wtf
-                # environment.systemPackages = import ./shared/lists { inherit pkgs; };
+                environment.systemPackages = builtins.concatLists (
+                  map (pkgsList: import pkgsList { inherit pkgs; }) [
+                    #! 152Mb
+                    ./shared/lists/02_add.nix
+                    #! +720Mb for nix tools, wtf
+                    # ./shared/lists
+                  ]
+                );
 
                 #! 11Mb initial size
                 home-manager.users.${username} = {

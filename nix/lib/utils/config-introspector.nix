@@ -1,16 +1,17 @@
-#! NIXPKGS_ALLOW_BROKEN=1 NIXPKGS_ALLOW_UNFREE=1 NIXPKGS_ALLOW_INSECURE=1 NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 nixos-rebuild repl
-{ pkgs, config, ... }:
+{
+  pkgs,
+  config,
+  options,
+  ...
+}:
 let
   inherit (pkgs) lib;
   blacklist = [
-    "frp"
-    "redis"
-    "vmalert"
-    "sketchybar"
     "google-chrome-dev"
     "google-chrome-beta"
   ];
   hmConfig = builtins.head (lib.attrValues config.home-manager.users);
+  hmOptions = options.home-manager.users.type.getSubOptions [ ];
   inherit (config.environment) systemPackages;
   homePackages = hmConfig.home.packages;
 in
@@ -28,18 +29,51 @@ let
       if enableEval.success then enableEval.value else false
     else
       false;
-  # TODO: filter obsolete
-  checkStateEqualTo =
-    enabledState: programsToCheck:
-    builtins.filter (n: (getEnable programsToCheck n) == enabledState) (
-      lib.lists.subtractLists blacklist (builtins.attrNames programsToCheck)
-    );
-  comparePackages =
-    packages: n:
+  #? renamed options carry `apply = _: <target value>`, which aborts (not throws, so tryEval is
+  #? useless) when the target no longer exists; they are only recognizable through their declaration
+  isAliasOption =
+    opt:
     let
-      modEval = builtins.tryEval (n.package or null);
+      description = opt.description or null;
     in
-    if modEval.success then builtins.elem modEval.value packages else false;
+    builtins.isString description && lib.strings.hasPrefix "Alias of " description;
+  isObsolete =
+    optionsToCheck: n:
+    let
+      opt = optionsToCheck.${n} or { };
+    in
+    isAliasOption opt
+    || lib.lists.any (leaf: isAliasOption (opt.${leaf} or { })) [
+      "enable"
+      "package"
+    ];
+  checkStateEqualTo =
+    enabledState: optionsToCheck: programsToCheck:
+    builtins.filter (n: (getEnable programsToCheck n) == enabledState) (
+      builtins.filter (n: !(isObsolete optionsToCheck n)) (
+        lib.lists.subtractLists blacklist (builtins.attrNames programsToCheck)
+      )
+    );
+  #? comparing derivations forces outPath -> the whole dependency closure, so a single
+  #? broken dep (unsupported python interpreter etc) escapes tryEval; match by name instead
+  safeName =
+    pkg:
+    let
+      nameEval = builtins.tryEval (if lib.isDerivation pkg then lib.strings.getName pkg else null);
+    in
+    if nameEval.success then nameEval.value else null;
+  packageNames = packages: lib.unique (builtins.filter (x: x != null) (map safeName packages));
+  comparePackages =
+    names: n:
+    let
+      modEval = builtins.tryEval (
+        let
+          name = safeName (n.package or null);
+        in
+        name != null && builtins.elem name names
+      );
+    in
+    modEval.success && modEval.value;
   allExplicitPkgs =
     config.environment.systemPackages
     ++ lib.concatMap (u: u.home.packages) (lib.attrValues config.home-manager.users)
@@ -54,19 +88,26 @@ let
     in
     lib.any (l: !(l.free or true)) licenses;
 
-  getUntrospection = config': packages': {
-    enabledPrograms = lib.attrsets.getAttrs (checkStateEqualTo true config'.programs) config'.programs;
-    enabledServices = lib.attrsets.getAttrs (checkStateEqualTo true config'.services) config'.services;
-    programsToEnable = lib.attrsets.filterAttrs (_: v: comparePackages packages' v) (
-      lib.attrsets.getAttrs (checkStateEqualTo false config'.programs) config'.programs
-    );
-    servicesToEnable = lib.attrsets.filterAttrs (_: v: comparePackages packages' v) (
-      lib.attrsets.getAttrs (checkStateEqualTo false config'.services) config'.services
-    );
-  };
+  getIntrospection =
+    config': options': packages':
+    let
+      names' = packageNames packages';
+      checkPrograms = state: checkStateEqualTo state options'.programs config'.programs;
+      checkServices = state: checkStateEqualTo state options'.services config'.services;
+    in
+    {
+      enabledPrograms = lib.attrsets.getAttrs (checkPrograms true) config'.programs;
+      enabledServices = lib.attrsets.getAttrs (checkServices true) config'.services;
+      programsToEnable = lib.attrsets.filterAttrs (_: v: comparePackages names' v) (
+        lib.attrsets.getAttrs (checkPrograms false) config'.programs
+      );
+      servicesToEnable = lib.attrsets.filterAttrs (_: v: comparePackages names' v) (
+        lib.attrsets.getAttrs (checkServices false) config'.services
+      );
+    };
 in
 {
-  nixos = getUntrospection config systemPackages;
-  home = getUntrospection hmConfig homePackages;
+  nixos = getIntrospection config options systemPackages;
+  home = getIntrospection hmConfig hmOptions homePackages;
   unfreeApps = map lib.strings.getName (lib.unique (lib.filter isUnfree allExplicitPkgs));
 }

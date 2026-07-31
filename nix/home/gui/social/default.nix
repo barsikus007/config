@@ -1,4 +1,3 @@
-{ pkgs, ... }:
 #? Да.
 {
   imports = [
@@ -20,5 +19,5 @@
       };
     };
   };
-  home.packages = with pkgs; [ element-desktop ];
+  programs.element-desktop.enable = true;
 }

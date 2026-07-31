@@ -101,6 +101,17 @@ in
           "noserverino"
         ];
       };
+      # TODO: fallback until big ZFS based /tank
+      "/tank/storage" = {
+        fsType = "none";
+        device = "/run/media/${username}/Data";
+        mountOptions = [
+          "bind"
+          #? without it systemd may bind the still-empty mountpoint
+          "x-systemd.requires-mounts-for=/run/media/${username}/Data"
+          "nofail"
+        ];
+      };
     };
     zpool = {
       "zroot" = {

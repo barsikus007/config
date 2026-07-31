@@ -1,11 +1,11 @@
-# packages I want to test before adding
-{ pkgs, ... }:
-
+{ pkgs }:
+#? packages I want to test before adding
 with pkgs;
 [
-  # new base
+  #! new base
   ##dive
   serpl
+  ast-grep # serpl dep
   lshw-gui
 
   #? new add security scanners
@@ -16,22 +16,23 @@ with pkgs;
   # openvas-scanner
   # burpsuite
   # caido
+  #? nmap alternatives
+  zmap
+  rustscan
   #? wifi specialised
   mdk4
   wifite2
   airgeddon
   aircrack-ng
 
-  # networking tools
-  zmap
+  #! networking tools
   iperf
   tcpdump
   wireshark
-  rustscan # nmap
   bind
   ldns # have drill like dig
 
-  # new other
+  #! new other
   shfmt
   iotop
   fatrace # sudo fatrace . 2>&1 | grep firefox
@@ -49,7 +50,14 @@ with pkgs;
   #   cudaSupport = true;
   # })
 
-  # new GUI automation
+  #! new GUI automation
   autokey
   # ahk_x11
+
+  #! import from obsidian
+  broot
+  imhex
+
+  lnav
+  lazyjournal
 ]

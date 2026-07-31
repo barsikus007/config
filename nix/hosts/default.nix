@@ -10,10 +10,12 @@
   ];
 
   #! 216Mb
-  environment.systemPackages =
-    [ ]
-    ++ import ../shared/lists/00_essential.nix { inherit pkgs; }
-    ++ import ../shared/lists/01_base.nix { inherit pkgs; };
+  environment.systemPackages = builtins.concatLists (
+    map (pkgsList: import pkgsList { inherit pkgs; }) [
+      ../shared/lists/00_essential.nix
+      ../shared/lists/01_base.nix
+    ]
+  );
 
   #! 150Mb
   programs.yazi.enable = true;

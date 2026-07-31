@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs }:
 with pkgs;
 import ./11_powertoys.nix { inherit pkgs; }
 ++ import ./12_python.nix { inherit pkgs; }
@@ -16,6 +16,7 @@ import ./11_powertoys.nix { inherit pkgs; }
   sbctl # ? for systemd-boot (and lumine) secure boot
   unrar
   yq-go
+  nodejs
   yt-dlp
   hadolint # ? Dockerfile
   pciutils # ? lspci
@@ -25,10 +26,6 @@ import ./11_powertoys.nix { inherit pkgs; }
   #? files monitoring
   strace
   inotify-tools
-
-  #! CLI node
-  bun
-  nodejs
 
   #! CLI db
   lazysql
