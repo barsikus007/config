@@ -8,9 +8,9 @@
 #? https://nix-community.github.io/nix-on-droid/nix-on-droid-options.html#sec-options
 {
   imports = [
-    ./shared/options.nix
-    ./shared/nix.nix
-    ./modules/home-manager
+    ../../shared/options.nix
+    ../../shared/nix.nix
+    ../../modules/home-manager
   ];
   android-integration.am.enable = true;
   android-integration.termux-setup-storage.enable = true;
@@ -51,7 +51,7 @@
       #gzip
       #xz
     ]
-    ++ import ./shared/lists { inherit pkgs; };
+    ++ import ../../shared/lists { inherit pkgs; };
   environment.motd = "Welcome to Nix-on-Droid!";
   environment.sessionVariables = {
     SHELL = config.user.shell;
@@ -67,8 +67,8 @@
     home.homeDirectory = lib.mkForce "/data/data/com.termux.nix/files/home";
 
     imports = [
-      ./home
-      ./home/shell/minimal.nix
+      ../../home
+      ../../home/shell/minimal.nix
     ];
     programs.zsh.shellAliases = {
       #? nix build --impure /data/data/com.termux.nix/files/home/config/nix#nixOnDroidConfigurations.default.activationPackage --print-out-paths

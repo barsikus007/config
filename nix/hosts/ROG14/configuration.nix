@@ -54,6 +54,9 @@
   #? NixOS param which enables root-shell when stage 1 fails
   boot.kernelParams = [ "boot.shell_on_fail" ];
 
+  #? build aarch64 derivations locally, e.g. the phone guest in hosts/android
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
   hardware = {
     amdgpu.opencl.enable = true;
 

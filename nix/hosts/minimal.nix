@@ -15,7 +15,7 @@
   #? https://nixos.org/manual/nixos/unstable/release-notes
   system.stateVersion = lib.mkDefault "26.05";
 
-  hardware.ksm.enable = true;
+  hardware.ksm.enable = lib.mkDefault true;
 
   i18n.defaultLocale = "C.UTF-8";
   #? ISO time

@@ -6,6 +6,8 @@ modular Nix configurations for desktops, servers, virtual machines, mobile devic
 
 ## [command cheatsheet](./cheatsheet.md)
 
+## [NixOS Android](./hosts/android/README.md)
+
 ## installation
 
 ```shell
@@ -15,7 +17,6 @@ git clone --depth=1 https://github.com/barsikus007/config
 cd ~/config/nix/
 sed -i 's/ogurez/YOUR_USERNAME/' flake.nix
 sudo nixos-rebuild switch --flake .
-home-manager switch --flake .
 
 #? enable pre-commit
 cd ..
@@ -23,17 +24,6 @@ prek install
 ```
 
 set user password and TODO other steps from [NixOS installation manual](https://nixos.org/manual/nixos/stable/#ch-installation)
-
-### nix-on-droid specific
-
-1. in `~/.config/nix-on-droid/flake.nix`
-   1. set `nixpkgs` input to `nixpkgs-unstable` branch
-2. in `~/.config/nix-on-droid/nix-on-droid.nix`
-   1. add `pipe-operators` to `experimental-features`
-   2. add `git` to `environment.packages`
-3. `nix-on-droid switch --flake ~/.config/nix-on-droid`
-4. `cd && git clone --depth=1 https://github.com/barsikus007/config && cd -`
-5. `nix-on-droid switch --flake ~/config/nix`
 
 ### Asus ROG G14 2020-2021 specific
 
@@ -163,9 +153,5 @@ sudo $(nix build ~/config/nix#libs.goodix-patch-521d --print-out-paths)/bin/run_
 
 ## other
 
-- nix-on-droid
-  - [sudo](https://github.com/nix-community/nix-on-droid/issues/252)
-    - not worth it, use [NixOS-AVF](https://github.com/nix-community/nixos-avf)
-      - fuck snapdragon, I need to use `crosvm` binary for that, I can't even use `vm` one
 - [OpenWrt image](./packages/openwrt/xiaomi_ax3600.nix)
   - [uci](./packages/openwrt/dewclaw.nix)

@@ -58,7 +58,7 @@ adb shell -t "su -c /data/data/com.termux/files/home/.adbrc"
 adb shell -t 'su $(su -c "stat -c %U /data/data/com.termux") -c /data/data/com.termux/files/home/.adbrc'
 # or without .adbrc
 adb shell -t "su -c /data/data/com.termux/files/usr/bin/login"
-# or for nix-on-droid https://github.com/nix-community/nix-on-droid/issues/248
+# or for nix-on-droid https://github.com/nix-community/nix-on-droid/issues/248#issuecomment-3619760126
 adb shell -t 'su $(su -c "stat -c %U /data/data/com.termux.nix") -c /data/data/com.termux.nix/files/usr/bin/login'
 #! NEVER REBUILD SYSTEM FROM ADB SHELL
 ```
