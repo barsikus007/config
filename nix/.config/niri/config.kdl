@@ -9,6 +9,9 @@ layout { border { off; }; }
 
 prefer-no-csd
 
+// TODO: sadly, there is no way to ignore floating apps, it breaks with syncthingtray
+// input { focus-follows-mouse max-scroll-amount="10%"; }
+
 animations {
     workspace-switch {
         spring damping-ratio=0.8 stiffness=1000 epsilon=0.0001
@@ -65,36 +68,37 @@ window-rule {
 
 //? force half-screen size
 window-rule {
-    match app-id=r#"^org\.wezfurlong\.wezterm$"#
-    match app-id=r#"^code$"#
+    match app-id=r"^org\.wezfurlong\.wezterm$"
+    match app-id="^code$"
 
-    match app-id=r#"^dev\.noctalia\.Noctalia$"# title="^Noctalia Settings$"
-    match app-id=r#"^wdisplays$"# title="^wdisplays$"
+    match app-id=r"^dev\.noctalia\.Noctalia$" title="^Noctalia Settings$"
+    match app-id="^wdisplays$" title="^wdisplays$"
 
-    match app-id=r#"^com\.jaoushingan\.WaydroidHelper$"# title="^waydroid-helper$"
+    match app-id=r"^com\.jaoushingan\.WaydroidHelper$" title="^waydroid-helper$"
     match app-id=r"^\.virt-manager-wrapped$" title="^Virtual Machine Manager$"
     default-column-width { proportion 0.5; }
 }
 
 // Open the apps as floating by default.
 window-rule {
-    match app-id=r#"^org\.wezfurlong\.wezterm\.floating$"#
-    match app-id=r#"^com\.ayugram\.desktop$"# title="^Media viewer$"
-    match app-id="scrcpy"
-    match app-id=r#"\.exe$"#
-    match app-id=r#"^cheatengine"#
-    match app-id=r#"^resolve$"# title="^resolve$"
+    match app-id=r"^org\.wezfurlong\.wezterm\.floating$"
+    match app-id=r"^com\.ayugram\.desktop$" title="^Media viewer$"
+    match app-id="^scrcpy$"
+    match app-id=r"\.exe$"
+    match app-id="^cheatengine"
+    match app-id="^resolve$" title="^resolve$"
+    match app-id="^rustdesk$" title="^(?i)rustdesk$"
     open-floating true
 }
 // window-rule {
-//     match app-id=r#"^com\.ayugram\.desktop$"# title="^Media viewer$"
+//     match app-id=r"^com\.ayugram\.desktop$" title="^Media viewer$"
 //     open-fullscreen false
 // }
 window-rule {
     //? picture-in-picture players
-    match app-id=r#"^com\.ayugram\.desktop$"# title="^AyuGramDesktop$"
-    match app-id=r#"^firefox$"# title="^Picture-in-Picture$"
-    match app-id=r#"^$"# title="^Picture in picture$"
+    match app-id=r"^com\.ayugram\.desktop$" title="^AyuGramDesktop$"
+    match app-id="^firefox$" title="^Picture-in-Picture$"
+    match app-id="^$" title="^Picture in picture$"
     match app-id="^mpv$"
     open-floating true
     open-on-output "eDP-1"
@@ -109,13 +113,13 @@ window-rule {
 
 //? notifications
 window-rule {
-    match app-id="" title="^Syncthing Tray$"
+    match app-id="^$" title="^Syncthing Tray$"
     //? status windows at noctalia OSD location
-    match app-id=r#"^org\.kde\.dolphin$"# title="^(Progress Dialog|Copying|Moving|Deleting|Extracting|Compressing) .*— Dolphin$"
-    match app-id=r#"^org\.kde\.ark$"#     title="^Loading archive .*— Ark$"
-    match app-id=r#"^org\.kde\.ark$"#     title="^Extracting one file — Ark$"
+    match app-id=r"^org\.kde\.dolphin$" title="^(Progress Dialog|Copying|Moving|Deleting|Extracting|Compressing) .*— Dolphin$"
+    match app-id=r"^org\.kde\.ark$"     title="^Loading archive .*— Ark$"
+    match app-id=r"^org\.kde\.ark$"     title="^Extracting one file — Ark$"
     //? https://niri-wm.github.io/niri/Application-Issues.html#steam
-    match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
+    match app-id="^steam$" title=r"^notificationtoasts_\d+_desktop$"
     open-floating true
     open-focused false
     //? focus-ring width x3
@@ -123,23 +127,23 @@ window-rule {
 }
 //? tray items
 window-rule {
-    match app-id="" title="^Syncthing Tray$"
+    match app-id="^$" title="^Syncthing Tray$"
     open-focused true
 }
 
 //? popups
 window-rule {
-    match app-id=r#"^org\.keepassxc\.KeePassXC$"# title="^KeePassXC - (Browser Access Request|Update Entry|Passkey credentials)$"
-    match app-id=r#"^org\.keepassxc\.KeePassXC$"# title="^Unlock Database - KeePassXC$"
-    match app-id=r#"^org\.keepassxc\.KeePassXC$"# title="^Generate Password$"
+    match app-id=r"^org\.keepassxc\.KeePassXC$" title="^KeePassXC - (Browser Access Request|Update Entry|Passkey credentials)$"
+    match app-id=r"^org\.keepassxc\.KeePassXC$" title="^Unlock Database - KeePassXC$"
+    match app-id=r"^org\.keepassxc\.KeePassXC$" title="^Generate Password$"
     open-focused true
     open-floating true
 }
 
 window-rule {
-    match app-id=r#"^org\.keepassxc\.KeePassXC$"#
-    match app-id=r#"^com\.obsproject\.Studio$"#
-    match app-id=r#"\.hidden$"#
+    match app-id=r"^org\.keepassxc\.KeePassXC$"
+    match app-id=r"^com\.obsproject\.Studio$"
+    match app-id=r"\.hidden$"
     block-out-from "screen-capture"
     // Use this instead if you want them visible on third-party screenshot tools.
     // block-out-from "screencast"
@@ -179,24 +183,24 @@ workspace "games" {
     }
 }
 window-rule {
-    match app-id=r#"^org\.prismlauncher\.PrismLauncher$"#
-    match app-id=r#"^steam$"#
-    match app-id=r#"^steam_app_"#
-    match app-id=r#"^gamescope$"#
-    match app-id=r#"^\.gamescope-wrapped$"#
-    match app-id=r#"^r2modman$"#
+    match app-id=r"^org\.prismlauncher\.PrismLauncher$"
+    match app-id="^steam$"
+    match app-id="^steam_app_"
+    match app-id="^gamescope$"
+    match app-id=r"^\.gamescope-wrapped$"
+    match app-id="^r2modman$"
 
-    match app-id=r"^$" title="^Parsec$"
+    match app-id="^$" title="^Parsec$"
     match app-id=r"^\.virt-manager-wrapped$" title="^Virtual Machine Manager$"
     open-on-workspace "games"
     // open-focused false
 }
 window-rule {
-    match app-id=r#"^Minecraft\S* (1\.)?\d{1,2}\.\d*"#
-    match app-id=r#"^GT: New Horizons "#
+    match app-id=r"^Minecraft\S* (1\.)?\d{1,2}\.\d*"
+    match app-id="^GT: New Horizons "
 
-    match app-id=r#"^qemu$"#
-    match app-id=r#"^looking-glass-client$"#
+    match app-id="^qemu$"
+    match app-id="^looking-glass-client$"
     open-on-workspace "games"
     open-maximized true
 }
@@ -210,9 +214,9 @@ workspace "social" {
     }
 }
 window-rule {
-    match app-id=r#"^discord$"#
-    match app-id=r#"^vesktop$"#
-    match app-id=r#"^com\.ayugram\.desktop$"#
+    match app-id="^discord$"
+    match app-id="^vesktop$"
+    match app-id=r"^com\.ayugram\.desktop$"
     open-on-workspace "social"
     // open-focused false
 }

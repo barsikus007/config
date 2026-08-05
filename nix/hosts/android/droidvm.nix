@@ -7,7 +7,7 @@
   ...
 }:
 {
-  networking.hostName = "android";
+  networking.hostName = "droidvm";
 
   imports = [
     inputs.disko.nixosModules.disko

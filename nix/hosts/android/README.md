@@ -61,10 +61,10 @@ adb shell su -c 'nc -L -p 2222 nc <guest-ip> 2222' &
 adb forward tcp:12222 tcp:2222
 ssh ogurez@localhost -p 12222 -o StrictHostKeychecking=no -o ConnectionAttempts=60 -o UserKnownHostsFile=/dev/null
 
-NIX_SSHOPTS="-p 12222 -o StrictHostKeychecking=no -o ConnectionAttempts=60" nixos-rebuild switch --flake ./nix#droidvm --target-host ogurez@localhost --elevate=sudo
+NIX_SSHOPTS="-p 12222 -o StrictHostKeychecking=no -o ConnectionAttempts=60 -o UserKnownHostsFile=/dev/null" nh os switch --hostname=droidvm --target-host=ogurez@localhost --elevation-strategy=passwordless
 ```
 
-#### notes
+### notes
 
 - `<guest-ip>` comes from `adb shell su -c 'ip neigh show'`, on the bridge interface (e.g. `br0116f569`)
 - check nc used ports
@@ -78,7 +78,7 @@ NIX_SSHOPTS="-p 12222 -o StrictHostKeychecking=no -o ConnectionAttempts=60" nixo
 - when launching VM with more than 512 MiB [`vcpu hit unknown error: Out of memory (os error 12)`](<https://github.com/Droid-VM/DroidVM/wiki/Problem:-An-out‐of‐memory-error-occurred-while-the-virtual-machine-was-running.>)
   - rebooting the phone and launching immediately fixes it, otherwise use [gh-hugepage-reserve](https://github.com/Droid-VM/gh-hugepage-reserve) module (but it eats RAM from host)
 
-##### display
+#### display
 
 **2D needs no guest patches.** DroidVM's crosvm fork adds `--simplefb width=W,height=H`,
 which appends a `compatible = "simple-framebuffer"` device-tree node consumed by the stock

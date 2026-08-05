@@ -85,27 +85,6 @@
         "suppressCreatePullRequestPrompt": true
         // tool specific
     },
-    //! docker
-    "containers.commands.composeUp": [
-        {
-            "label": "dev",
-            "template": "docker-compose up -d --build"
-        },
-        {
-            "label": "prod",
-            "template": "docker-compose -f compose.yaml -f compose.prod.yaml up -d --build"
-        },
-        {
-            "label": "debug",
-            "template": "docker-compose -f compose.yaml -f compose.debug.yaml up -d --build"
-        },
-    ],
-    "containers.commands.logs": "while true; do ${containerCommand} logs --tail 1000 -f ${containerId}; echo 'Container stopped, restarting...'; sleep 1; done",
-    //? schema validation and tips conflicts with redhat.vscode-yaml
-    "docker.extension.enableComposeLanguageServer": false,
-    //! podman
-    "containers.containerClient": "com.microsoft.visualstudio.containers.podman",
-    "dev.containers.dockerPath": "podman",
     //! AI AI AI
     "chat.agent.enabled": true,
     //? friendship end with copilot, now I use claude
@@ -123,11 +102,39 @@
     ],
     "[nix]": {
         "editor.formatOnSave": true,
+        "editor.defaultFormatter": "jnoortheen.nix-ide",
     },
     //? nix for dev shells
     "direnv.status.showChangesCount": false,
     "direnv.watchForChanges": false,
     // #endregion nix
+    // #region containers
+    //! docker
+    "[dockercompose]": {
+        //! https://github.com/redhat-developer/vscode-yaml/issues/955#issuecomment-3962452349
+        "editor.foldingStrategy": "indentation",
+        "editor.tabSize": 2,
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "redhat.vscode-yaml",
+        // "editor.defaultFormatter": "Jota0222.multi-formatter",
+        "multiFormatter.formatterList": [
+            "SashaBusinaro.yaml-compose-sorter",
+            //? registerDocumentRangeFormattingEditProvider(supported_languages_1.default -> registerDocumentRangeFormattingEditProvider("*"
+            //? code -r ~/.vscode-server/extensions/jota0222.multi-formatter-1.6.2/out/formatter.js
+            //? set just "onLanguage"
+            //? code -r ~/.vscode-server/extensions/jota0222.multi-formatter-1.6.2/package.json
+            "redhat.vscode-yaml",
+        ],
+    },
+    "yaml-compose-sorter.removeVersionKey": true,
+    "yaml-compose-sorter.transformKeyValueLists": true,
+    "containers.commands.logs": "while true; do ${containerCommand} logs --tail 1000 -f ${containerId}; echo 'Container stopped, restarting...'; sleep 1; done",
+    //? schema validation and tips conflicts with redhat.vscode-yaml
+    "docker.extension.enableComposeLanguageServer": false,
+    //! podman
+    "containers.containerClient": "com.microsoft.visualstudio.containers.podman",
+    "dev.containers.dockerPath": "podman",
+    // #endregion containers
     // #region python
     "python.analysis.autoFormatStrings": true,
     "python.analysis.autoImportCompletions": true,
@@ -233,7 +240,7 @@
         //! cause https://marketplace.visualstudio.com/items?itemName=ahmadalli.vscode-nginx-conf is spamming snippets
         "editor.suggest.showSnippets": false
     },
-    "[yaml][dockercompose]": {
+    "[yaml]": {
         //! https://github.com/redhat-developer/vscode-yaml/issues/955#issuecomment-3962452349
         "editor.foldingStrategy": "indentation",
         "editor.tabSize": 2,

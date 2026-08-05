@@ -478,13 +478,12 @@
         };
       };
       packages.${system} =
-        with pkgs;
         let
-          flattenPkgs = lib.concatMapAttrs (
+          flattenPkgs = pkgs.lib.concatMapAttrs (
             name: v:
-            if lib.isDerivation v then
+            if pkgs.lib.isDerivation v then
               { ${name} = v; }
-            else if lib.isAttrs v then
+            else if pkgs.lib.isAttrs v then
               flattenPkgs v
             else
               { }
@@ -500,10 +499,10 @@
           coolvm-plasma-vfio = self.nixosConfigurations."coolvm-plasma-vfio".config.system.build.vm;
           nixos-minimalIso = self.nixosConfigurations."minimalIso-${system}".config.system.build.isoImage;
           nixos-plasmaIso = self.nixosConfigurations."plasmaIso-${system}".config.system.build.isoImage;
-          windows-bootstrapIso = callPackage ./packages/windows { };
-          # nix build ./nix#windows-bootstrapIso -o unattend-win10-iot-ltsc-vrt.iso
+          #? nix build ./nix#windows-bootstrapIso -o unattend-win10-iot-ltsc-vrt.iso
+          windows-bootstrapIso = pkgs.callPackage ./packages/windows { };
 
-          bcompare = (callPackage ./packages/bcompare.nix { }).overrideAttrs {
+          bcompare = (pkgs.callPackage ./packages/bcompare.nix { }).overrideAttrs {
             #? sorry, I can't buy this software right now (and trial doesn't work)
             #? https://gist.github.com/rise-worlds/5a5917780663aada8028f96b15057a67?permalink_comment_id=5168755#gistcomment-5168755
             postFixup = ''
@@ -511,33 +510,33 @@
             '';
           };
 
-          kompas3d = kdePackages.callPackage ./packages/kompas3d { };
-          kompas3d-fhs = callPackage ./packages/kompas3d/fhs.nix { };
-          grdcontrol = callPackage ./packages/grdcontrol.nix { };
+          kompas3d = pkgs.kdePackages.callPackage ./packages/kompas3d { };
+          kompas3d-fhs = pkgs.callPackage ./packages/kompas3d/fhs.nix { };
+          grdcontrol = pkgs.callPackage ./packages/grdcontrol.nix { };
 
         }
         // flattenPkgs (
-          lib.filesystem.packagesFromDirectoryRecursive {
-            inherit callPackage;
+          pkgs.lib.filesystem.packagesFromDirectoryRecursive {
+            inherit (pkgs) callPackage;
             directory = ./packages/auto;
           }
         );
-      legacyPackages.${system} = with pkgs; {
+      legacyPackages.${system} = {
         #! nix flake check: need to update patches everytime
-        telegram-desktop-patched = callPackage ./packages/telegram-desktop-patched.nix { };
-        ayugram-desktop-patched = callPackage ./packages/telegram-desktop-patched.nix {
-          telegram-desktop-client = ayugram-desktop;
+        telegram-desktop-patched = pkgs.callPackage ./packages/telegram-desktop-patched.nix { };
+        ayugram-desktop-patched = pkgs.callPackage ./packages/telegram-desktop-patched.nix {
+          telegram-desktop-client = pkgs.ayugram-desktop;
         };
 
         #! nix flake check: local src
         #? https://github.com/emmanuelrosa/erosanix/tree/master/pkgs/mkwindowsapp
         # link src.zip to flake dir
         # `nvidia-offload nix run ./nix#photoshop`
-        photoshop = callPackage ./packages/photoshop.nix {
+        photoshop = pkgs.callPackage ./packages/photoshop.nix {
           inherit (inputs.erosanix.lib."${system}") mkWindowsAppNoCC copyDesktopIcons makeDesktopIcon;
           # TODO: retest that it was fucked with unstable wine
           # wine = wineWow64Packages.unstableFull;
-          wine = wineWow64Packages.stable;
+          wine = pkgs.wineWow64Packages.stable;
           scale = 192;
           src = ./src.zip;
         };
@@ -551,7 +550,7 @@
         openwrt-tplink_archer-c50-v4 = (
           import ./packages/openwrt/tplink_archer-c50-v4.nix { inherit pkgs inputs; }
         );
-        openwrt-dewclaw-env = callPackage inputs.dewclaw {
+        openwrt-dewclaw-env = pkgs.callPackage inputs.dewclaw {
           configuration = import ./packages/openwrt/dewclaw.nix;
         };
       };

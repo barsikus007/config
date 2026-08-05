@@ -4,18 +4,17 @@
   keepassxc,
   fetchFromGitHub,
   keyutils,
-  fetchpatch2,
   ...
 }:
-#? https://github.com/hey2022/dotfiles/blob/67109c6ce326163a192059a660e87e7fa30d87cf/pkgs/keepassxc-snapshot/default.nix
+#? https://github.com/hey2022/dotfiles/blob/bf5a1f7e6bc96c8950b9be7c716c1cf72aa7205a/pkgs/keepassxc-snapshot/default.nix
 (keepassxc.overrideAttrs (previousAttrs: {
-  version = "2.8.0-unstable-2026-03-15";
+  version = "2.8.0-unstable-2025-04-17";
 
   src = fetchFromGitHub {
     owner = "keepassxreboot";
-    rev = "379be00127db60b1ddee9c67f4bfc49c15db8236";
-    hash = "sha256-Lf0fNflOMYU3WSzPmia2l3urp0/s3UHZOPx5MzDUPFs=";
     repo = "keepassxc";
+    rev = "007839bd909a373710da4a06bff414c5002e6cf0";
+    hash = "sha256-lnhtnE0g+IBGEADoeIi0yeUFfVJ1zrI6OPz2LAYSpAk=";
   };
 
   env =
@@ -23,13 +22,6 @@
       NIX_CFLAGS_COMPILE = "-Wno-error=deprecated-enum-enum-conversion";
     })
     // previousAttrs.env;
-
-  patches = previousAttrs.patches ++ [
-    (fetchpatch2 {
-      url = "https://patch-diff.githubusercontent.com/raw/keepassxreboot/keepassxc/pull/13161.patch";
-      hash = "sha256-HjFuaJZwcr8JZLtdIlet7lYRWmHpoXqPg/0eC9LIjH8=";
-    })
-  ];
 
   buildInputs = previousAttrs.buildInputs ++ [ keyutils ];
 }))

@@ -202,7 +202,7 @@ nix path-info --closure-size --human-readable ./result
 #? count derivations per cache
 nix path-info --all --json --json-format 1 | jq --raw-output '.[] | if (.signatures | length) > 0 then .signatures[] | split(":")[0] else "local" end' | sort | uniq --count | sort --reverse --numeric-sort
 #? list all derivations which was provided by CACHE_NAME
-CACHE_NAME=cache.garnix.io
+CACHE_NAME=nix-community.cachix.org
 nix path-info --all --json --json-format 1 | jq --raw-output --arg cache_name "$CACHE_NAME" 'to_entries[] | select(.value.signatures // [] | any(contains($cache_name))) | .key [44:]' | sort | uniq --count
 ```
 

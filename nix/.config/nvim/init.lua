@@ -1,5 +1,5 @@
 --? code style
-vim.o.encoding = "UTF-8"             --? by default in nvim
+vim.o.encoding = "UTF-8" --? by default in nvim
 vim.o.fileformat = "unix"
 
 --? visual style
