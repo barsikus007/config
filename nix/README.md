@@ -4,7 +4,7 @@ modular Nix configurations for desktops, servers, virtual machines, mobile devic
 
 ## [packages](./nix/packages/README.md)
 
-## [command cheatsheet](./cheatsheet.md)
+## [command cheat sheet](./cheatsheet.md)
 
 ## [NixOS Android](./hosts/android/README.md)
 

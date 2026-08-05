@@ -2,18 +2,9 @@
 
 ## [command cheat sheet](./cheatsheet.md)
 
-## [WSL hints](./wsl.md)
+## installation
 
-## [Raspberry Pi Zero W](./devices/rpi-zero.md)
-
-## archive
-
-### install config
-
-> [!WARNING]
-> DEPRECATION WARNING!!! I USE NIX NOW
-
-#### deps
+### deps
 
 ```shell
 #? ubuntu
@@ -23,13 +14,13 @@ sudo apt install git -y
 chsh -s /bin/bash
 ```
 
-#### clone
+### clone
 
 ```shell
 cd && git clone --depth=1 https://github.com/barsikus007/config && cd -
 ```
 
-#### install/update
+### install/update
 
 ```shell
 #? all
@@ -41,7 +32,7 @@ setup_ubuntu
 setup_linux
 ```
 
-#### check size
+### check size
 
 TLDR: before: 162M; after: 440M; time: 4m18s
 

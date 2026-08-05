@@ -2,6 +2,8 @@
 
 `а` in folder name is cyrillic letter
 
+## [WSL](./wsl.md)
+
 ## [Ubuntu](./ubuntu.md)
 
 ## [Fedora on GA401IV](./fedora.md)
@@ -9,6 +11,8 @@
 ## [Linux on Rock3A](./rock3a.md)
 
 ## [OpenWrt on Xiaomi AX3600](./ax3600.md)
+
+## [Raspberry Pi Zero W](./rpi-zero.md)
 
 ## Android
 
