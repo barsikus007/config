@@ -137,12 +137,12 @@ rec {
     iusenixbtw = "fastfetch";
     nu = "nix flake update --flake ${flakePath}";
     nuu = "nix flake update nixpkgs --override-input nixpkgs nixpkgs/$(nixos-version --hash)";
-    n = "nh home switch ${flakePath}";
     nn = "nh os switch ${flakePath} --keep-going";
+    nn-home = "nh home switch ${flakePath}";
     nd = "nh clean all";
     nr = "nix repl --file ${flakePath}/repl.nix";
-    nrr = "nh home repl ${flakePath}";
-    nrrr = "nixos-rebuild repl --flake ${flakePath}";
+    nr-home = "nh home repl ${flakePath}";
+    nr-legacy = "nixos-rebuild repl --flake ${flakePath}";
     ne = "editor ${flakePath}";
     ndiff = "${lib.getExe pkgs.nvd} diff ~/.local/state/nix/profiles/$(command ls -t ~/.local/state/nix/profiles | fzf) ~/.local/state/nix/profiles/home-manager";
     nndiff = "${lib.getExe pkgs.nvd} diff /nix/var/nix/profiles/$(command ls -t /nix/var/nix/profiles/ | fzf) /nix/var/nix/profiles/system";
