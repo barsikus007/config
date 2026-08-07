@@ -79,6 +79,11 @@
     //! telemetry
     "telemetry.telemetryLevel": "off",
     "redhat.telemetry.enabled": false,
+    //! forest
+    "scm.defaultViewMode": "tree",
+    "search.defaultViewMode": "tree",
+    "gitlens.views.commits.files.layout": "tree",
+    "gitlens.views.commitDetails.files.layout": "tree",
     //! spam
     "vsicons.dontShowNewVersionMessage": true,
     "gitlens.advanced.messages": {
@@ -86,13 +91,35 @@
         // tool specific
     },
     //! AI AI AI
-    "chat.agent.enabled": true,
+    "chat.agent.enabled": false,
     //? friendship end with copilot, now I use claude
     "chat.disableAIFeatures": true,
     "claudeCode.hideOnboarding": true,
     "claudeCode.disableLoginPrompt": true,
     "claudeCode.preferredLocation": "panel",
+    "gitlens.ai.enabled": false,
+    "gitlens.gitkraken.mcp.autoEnabled": false,
     // #endregion misc
+    // #region git
+    "git.defaultBranchName": "master",
+    "git.autofetch": true,
+    "gitlens.fileAnnotations.command": "blame",
+    // gitlens blame
+    // "git.blame.editorDecoration.enabled": true,
+    // "gitlens.mode.active": "zen",
+    // gitlens blame
+    //? ISO dates: gitlens formats via Intl and defaults to the VS Code locale (en-US), ignoring LC_TIME
+    "gitlens.defaultDateFormat": "YYYY-MM-DD HH:mm",
+    "gitlens.defaultDateShortFormat": "YYYY-MM-DD",
+    "gitlens.defaultTimeFormat": "HH:mm",
+    //! debloat
+    "gitlens.showWhatsNewAfterUpgrades": false,
+    "gitlens.plusFeatures.enabled": false,
+    "gitlens.cloudPatches.enabled": false,
+    "gitlens.advanced.skipOnboarding": true,
+    "gitlens.launchpad.indicator.enabled": false, //? also disables launchpad
+    "gitlens.launchpad.indicator.polling.enabled": false,
+    // #endregion git
     // #region nix
     "nix.enableLanguageServer": true,
     "nix.serverPath": "nixd",
@@ -288,12 +315,6 @@
     // "terminal.integrated."
     // other
     "sqliteViewer.maxFileSize": 0, // remove sqlite limit (2GB is vscode limit idk how to resolve)
-    "scm.defaultViewMode": "tree",
-    "search.defaultViewMode": "tree",
-    "gitlens.views.commits.files.layout": "tree",
-    "gitlens.views.commitDetails.files.layout": "tree",
-    "git.defaultBranchName": "master",
-    "git.autofetch": true,
     // TODO https://github.com/kisstkondoros/gutter-preview limit
     "gutterpreview.showUnderline": true,
     "editor.guides.bracketPairs": "active",
@@ -315,11 +336,6 @@
     "remote.forwardOnOpen": false,
     "figma.autocompleteBlocks": true,
     "editor.largeFileOptimizations": false,
-    "gitlens.fileAnnotations.command": "blame",
-    // gitlens blame
-    // "git.blame.editorDecoration.enabled": true,
-    // "gitlens.mode.active": "zen",
-    // gitlens blame
     // #endregion todo2
     // #region sexperimental
     "debugpy.showPythonInlineValues": true,
