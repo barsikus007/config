@@ -149,6 +149,7 @@ rec {
     ns = "nix-shell -p";
     nss = "nix_shell_exec";
     ncode = "code --reuse-window $(nix eval --offline --file '<nixpkgs>' path)/pkgs/top-level/all-packages.nix";
+    nix-ldd = "LD_LIBRARY_PATH=\${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}$NIX_LD_LIBRARY_PATH ldd";
   };
   sharedAliases = lib.attrsets.mergeAttrsList [
     baseAliases

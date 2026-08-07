@@ -17,6 +17,9 @@
 
             #? libQt6PrintSupport for cheat-engine
             kdePackages.qtbase
+
+            #? libSDL2-2.0.so.0 for vesc_tool
+            SDL2
           ]
           (steam-run.args.targetPkgs pkgs)
           (steam-run.args.multiPkgs pkgs)

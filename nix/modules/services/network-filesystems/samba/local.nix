@@ -1,6 +1,6 @@
 {
   # TODO: unstable: hydra-check samba4Full
-  # services.samba.package = with pkgs; samba4Full;
+  # services.samba.package = pkgs.samba4Full;
   services.avahi.extraServiceFiles.smb = /* xml */ ''
     <?xml version="1.0" standalone='no'?><!DOCTYPE service-group SYSTEM "avahi-service.dtd">
     <service-group>

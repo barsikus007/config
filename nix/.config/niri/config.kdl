@@ -83,7 +83,7 @@ window-rule {
 window-rule {
     match app-id=r"^org\.wezfurlong\.wezterm\.floating$"
     match app-id=r"^com\.ayugram\.desktop$" title="^Media viewer$"
-    match app-id="^scrcpy$"
+    match app-id=r"^\.scrcpy-wrapped$"
     match app-id=r"\.exe$"
     match app-id="^cheatengine"
     match app-id="^resolve$" title="^resolve$"

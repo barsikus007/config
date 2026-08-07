@@ -1,7 +1,7 @@
 {
   lib,
-  config,
   pkgs,
+  config,
   inputs,
   username,
   ...
@@ -46,17 +46,17 @@
     };
     polarity = "dark";
 
-    fonts = with pkgs; {
+    fonts = {
       serif = {
-        package = noto-fonts;
+        package = pkgs.noto-fonts;
         name = "Noto Serif";
       };
       sansSerif = {
-        package = noto-fonts;
+        package = pkgs.noto-fonts;
         name = "Noto Sans";
       };
       monospace = {
-        package = cascadia-code;
+        package = pkgs.cascadia-code;
         name = "Cascadia Code NF";
       };
       sizes = {
