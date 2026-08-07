@@ -19,25 +19,25 @@
       config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/Code/User/keybindings.json";
   };
   programs.git.settings.core.editor = "code --wait";
-  programs.vscodium = with pkgs; {
+  programs.vscodium = {
     # enable = true;
     profiles.default = {
       enableUpdateCheck = false;
       keybindings = builtins.fromJSON (
         builtins.readFile (
-          runCommand "clean-json" { } ''
-            ${lib.getExe hjson-go} -j  ${../../.config/Code/User/keybindings.json} > $out
+          pkgs.runCommand "clean-json" { } ''
+            ${lib.getExe pkgs.hjson-go} -j  ${../../.config/Code/User/keybindings.json} > $out
           ''
         )
       );
       userSettings = builtins.fromJSON (
         builtins.readFile (
-          runCommand "clean-json" { } ''
-            ${lib.getExe hjson-go} -j ${../../.config/Code/User/settings.json} > $out
+          pkgs.runCommand "clean-json" { } ''
+            ${lib.getExe pkgs.hjson-go} -j ${../../.config/Code/User/settings.json} > $out
           ''
         )
       );
-      extensions = with vscode-extensions; [
+      extensions = with pkgs.vscode-extensions; [
         yzhang.markdown-all-in-one
         jnoortheen.nix-ide
       ];

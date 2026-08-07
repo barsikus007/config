@@ -36,7 +36,7 @@
     };
     cursor = {
       size = 24;
-      package = with pkgs; kdePackages.breeze;
+      package = pkgs.kdePackages.breeze;
       name = "breeze_cursors";
     };
     opacity = lib.mkIf config.custom.blur.enable {
@@ -69,7 +69,7 @@
       enable = true;
       light = "breeze";
       dark = "breeze-dark";
-      package = with pkgs; kdePackages.breeze-icons;
+      package = pkgs.kdePackages.breeze-icons;
     };
 
     targets = {

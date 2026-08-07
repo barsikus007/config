@@ -2,7 +2,7 @@
 {
   programs.java = {
     enable = true;
-    package = with pkgs; jdk25;
+    package = pkgs.jdk25;
     binfmt = true;
   };
 }

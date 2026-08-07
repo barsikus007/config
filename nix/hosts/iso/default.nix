@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   config,
   username,
@@ -20,7 +21,7 @@
 
   system.stateVersion = config.system.nixos.release;
 
-  users.defaultUserShell = with pkgs; lib.mkForce bashInteractive;
+  users.defaultUserShell = lib.mkForce pkgs.bashInteractive;
 
   services.openssh.settings.PermitRootLogin = "yes";
   users.users.root.openssh.authorizedKeys.keys =

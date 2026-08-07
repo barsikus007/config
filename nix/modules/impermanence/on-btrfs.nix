@@ -62,14 +62,14 @@ in
         umount /btrfs_tmp
       '';
     };
-    extraBin = with pkgs; {
-      # "mkfs.ext4" = "${e2fsprogs}/bin/mkfs.ext4";
-      "mkdir" = "${coreutils}/bin/mkdir";
-      "date" = "${coreutils}/bin/date";
-      "stat" = "${coreutils}/bin/stat";
-      "mv" = "${coreutils}/bin/mv";
-      "find" = "${findutils}/bin/find";
-      "btrfs" = "${btrfs-progs}/bin/btrfs";
+    extraBin = {
+      # "mkfs.ext4" = "${pkgs.e2fsprogs}/bin/mkfs.ext4";
+      "mkdir" = "${pkgs.coreutils}/bin/mkdir";
+      "date" = "${pkgs.coreutils}/bin/date";
+      "stat" = "${pkgs.coreutils}/bin/stat";
+      "mv" = "${pkgs.coreutils}/bin/mv";
+      "find" = "${pkgs.findutils}/bin/find";
+      "btrfs" = "${pkgs.btrfs-progs}/bin/btrfs";
       # mount & umount already exist
     }; # NOTE: path = [...]; doesnt work for initrd, use full paths in your script or extraBin
   };

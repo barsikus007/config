@@ -79,7 +79,7 @@
 
   # TODO: stylix
   # terminal.colors = { };
-  terminal.font = with pkgs; "${cascadia-code}/share/fonts/truetype/CascadiaCodeNF-Regular.ttf";
+  terminal.font = "${pkgs.cascadia-code}/share/fonts/truetype/CascadiaCodeNF-Regular.ttf";
   time.timeZone = "Europe/Moscow";
   user.shell = "${lib.getExe pkgs.zsh}";
   # user.userName = "nix-on-droid";

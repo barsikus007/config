@@ -9,13 +9,11 @@ in
     enable = true;
 
     #! build pihole-ftl with HAVE_NFTSET, to emable nftset_lines below
-    package =
-      with pkgs;
-      pihole-ftl.overrideAttrs (previousAttrs: {
-        buildInputs = (previousAttrs.buildInputs or [ ]) ++ [ pkgs.nftables ];
-        NIX_CFLAGS_COMPILE = (previousAttrs.NIX_CFLAGS_COMPILE or "") + " -DHAVE_NFTSET";
-        NIX_LDFLAGS = (previousAttrs.NIX_LDFLAGS or "") + " -lnftables";
-      });
+    package = pkgs.pihole-ftl.overrideAttrs (previousAttrs: {
+      buildInputs = (previousAttrs.buildInputs or [ ]) ++ [ pkgs.nftables ];
+      NIX_CFLAGS_COMPILE = (previousAttrs.NIX_CFLAGS_COMPILE or "") + " -DHAVE_NFTSET";
+      NIX_LDFLAGS = (previousAttrs.NIX_LDFLAGS or "") + " -lnftables";
+    });
 
     queryLogDeleter.enable = true;
 

@@ -55,6 +55,6 @@
     enableAskPassword = true;
 
     #? fallback for non-KDE
-    askPassword = with pkgs; lib.getExe kdePackages.ksshaskpass;
+    askPassword = lib.getExe pkgs.kdePackages.ksshaskpass;
   };
 }

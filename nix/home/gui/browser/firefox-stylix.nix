@@ -144,11 +144,7 @@ in
   xdg.configFile."firefox-stylix-theme.json".text = builtins.toJSON settings;
 
   programs.firefox = {
-    package =
-      with pkgs;
-      firefox.override {
-        extraPrefsFiles = [ autoConfig ];
-      };
+    package = pkgs.firefox.override { extraPrefsFiles = [ autoConfig ]; };
     profiles.default.extensions.packages = with firefox-addons; [ firefox-color ];
   };
 }

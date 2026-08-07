@@ -12,7 +12,7 @@
     tray = {
       enable = true;
       command = "syncthingtray --wait --single-instance";
-      package = with pkgs; syncthingtray;
+      package = pkgs.syncthingtray;
     };
   };
 }

@@ -9,11 +9,7 @@
     enable = true;
     enableVirtualCamera = true;
     # optional Nvidia hardware acceleration
-    package =
-      with pkgs;
-      (obs-studio.override {
-        cudaSupport = true;
-      });
+    package = pkgs.obs-studio.override { cudaSupport = true; };
 
     plugins = with pkgs.obs-studio-plugins; [
       wlrobs

@@ -73,7 +73,7 @@ in
   services.gnome-keyring.enable = lib.mkForce false; # ! handled by nixos module
   programs.niri = {
     enable = true;
-    package = with pkgs; niri;
+    package = pkgs.niri;
 
     #? https://github.com/sodiboo/niri-flake/blob/main/docs.md
     #? https://niri-wm.github.io/niri/Configuration:-Introduction

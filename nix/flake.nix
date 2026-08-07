@@ -472,7 +472,7 @@
           ];
 
           shellHook = ''
-            echo "🦀 Welcome to the Rust ${with pkgs; rustc.version} devShell!"
+            echo "🦀 Welcome to the Rust ${pkgs.rustc.version} devShell!"
             zsh; exit
           '';
         };
@@ -554,6 +554,6 @@
           configuration = import ./packages/openwrt/dewclaw.nix;
         };
       };
-      formatter.${system} = with pkgs; nixfmt-tree;
+      formatter.${system} = pkgs.nixfmt-tree;
     };
 }

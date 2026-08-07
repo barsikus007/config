@@ -6,7 +6,7 @@
 }:
 let
   #? native wayland support (unstable)
-  winePkg = with pkgs; wineWow64Packages.unstableFull;
+  winePkg = pkgs.wineWow64Packages.unstableFull;
 
   #? map stylix base16 palette to wine `Control Panel\Colors` (space-separated RGB)
   c = config.lib.stylix.colors;

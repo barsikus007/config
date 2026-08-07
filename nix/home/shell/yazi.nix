@@ -46,10 +46,7 @@
         }
       ];
     };
-    plugins = with pkgs.yaziPlugins; {
-      smart-enter = smart-enter;
-      rich-preview = rich-preview;
-    };
+    plugins = { inherit (pkgs.yaziPlugins) smart-enter rich-preview; };
     #? https://github.com/sxyazi/yazi/tree/shipped/yazi-config/preset
     keymap = {
       mgr = {
