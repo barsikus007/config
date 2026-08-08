@@ -9,6 +9,8 @@
 #? https://github.com/hey2022/dotfiles/blob/bf5a1f7e6bc96c8950b9be7c716c1cf72aa7205a/pkgs/keepassxc-snapshot/default.nix
 (keepassxc.overrideAttrs (previousAttrs: {
   version = "2.8.0-unstable-2025-04-17";
+  # TODO: rename with flake update
+  # version = "2.8.0-unstable-2026-04-17";
 
   src = fetchFromGitHub {
     owner = "keepassxreboot";

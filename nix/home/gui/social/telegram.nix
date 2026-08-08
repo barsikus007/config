@@ -1,4 +1,9 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  self,
+  ...
+}:
 let
   #? t.me paths don't map 1:1 to tg:// - tg:// uses resolve?domain=/join?invite=/etc,
   #? see https://core.telegram.org/api/links for the full mapping
@@ -64,7 +69,8 @@ in
   '';
 
   home.packages = with pkgs; [
-    ayugram-desktop
+    # ayugram-desktop
+    self.packages.${stdenv.hostPlatform.system}.ayugram-desktop-updated
     # self.legacyPackages.${stdenv.hostPlatform.system}.ayugram-desktop-patched
   ];
 }
