@@ -49,9 +49,9 @@ alias llt='ll --tree'
 alias ls='ls --group-directories-first --color=auto --hyperlink'
 alias lzd=lazydocker
 alias lzg=lazygit
-alias nv='nvim +"lua vim.schedule(function() require('\''telescope.builtin'\'').oldfiles() end)"'
-alias nvf='nvim +"lua vim.schedule(function() require('\''telescope.builtin'\'').find_files({hidden=true}) end)"'
-alias nvg='nvim +"lua vim.schedule(function() require('\''telescope.builtin'\'').live_grep({hidden=true}) end)"'
+alias nv='nvim +"lua vim.schedule(function() vim.cmd('\''FzfLua oldfiles'\'') end)"'
+alias nvf='nvim +"lua vim.schedule(function() vim.cmd('\''FzfLua files'\'') end)"'
+alias nvg='nvim +"lua vim.schedule(function() vim.cmd('\''FzfLua live_grep'\'') end)"'
 alias open-ports='sudo lsof -i -P -n | grep LISTEN'
 alias open-ports-netstat='netstat --listening'
 alias openclaude='bunx @gitlawb/openclaude'

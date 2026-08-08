@@ -115,14 +115,47 @@
 
       treesitter.context.enable = true;
 
-      binds = {
-        whichKey.enable = true;
-        # https://github.com/sudormrfbin/cheatsheet.nvim
-        # <leader>?
-        cheatsheet.enable = true;
-      };
+      binds.whichKey.enable = true;
 
-      telescope.enable = true;
+      #? <leader>? for keymap
+      #? <leader>f* for file picker
+      fzf-lua.enable = true;
+      #! unlike telescope's, the fzf-lua module ships no mappings option, so its old
+      #! <leader>f... layout is rebuilt by hand; going through the :FzfLua command
+      #! rather than require("fzf-lua") is what makes lz.n load the plugin
+      keymaps =
+        lib.mapAttrsToList
+          (suffix: picker: {
+            key = "<leader>${suffix}";
+            mode = "n";
+            desc = "FzfLua ${picker}";
+            action = "<cmd>FzfLua ${picker}<CR>";
+          })
+          {
+            "?" = "keymaps";
+            ff = "files";
+            fg = "live_grep";
+            fb = "buffers";
+            fh = "helptags";
+            fr = "resume";
+            fo = "oldfiles";
+            fs = "treesitter";
+            fld = "diagnostics_document";
+            flr = "lsp_references";
+            fvf = "git_files";
+            fvb = "git_branches";
+            fvs = "git_status";
+          }
+        ++ [
+          #! todo-comments only gets its <leader>tds when telescope is enabled, and
+          #! nvf never offers the :TodoFzfLua variant the plugin also ships
+          {
+            key = "<leader>tds";
+            mode = "n";
+            desc = "Open Todo-s in fzf-lua";
+            action = "<cmd>TodoFzfLua<CR>";
+          }
+        ];
 
       git = {
         enable = true;
@@ -140,6 +173,16 @@
 
       utility = {
         diffview-nvim.enable = true;
+        #? <leader>- at current file, <leader>cw at cwd, <c-up> resume last session
+        yazi-nvim = {
+          enable = true;
+          #! <c-s>/<c-g> inside yazi grep the hovered dir through this backend,
+          #! and the plugin defaults it to telescope
+          setupOpts.integrations = {
+            grep_in_directory = "fzf-lua";
+            grep_in_selected_files = "fzf-lua";
+          };
+        };
       };
 
       notes = {

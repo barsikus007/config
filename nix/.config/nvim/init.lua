@@ -51,12 +51,46 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.bo.commentstring = "// %s"
     end,
 })
+--? treesitter injections resolve the tag through get_lang, and the bash parser is
+--? registered under "bash" only, so ```shell fences and /* shell */ nix strings are
+--! silently dropped: no parser by that name, no highlight, no error either
+vim.treesitter.language.register("bash", { "shell", "sh" })
+
+--? tag folding for xml/html: za toggles the tag under the cursor, zc/zo close/open,
+--? zM folds everything, zR unfolds everything, zj/zk jump between folds
+--! only foldmethod=syntax knows about tags, and the g: flags must be set before
+--! syntax/xml.vim loads, otherwise the fold regions are never defined
+vim.g.xml_syntax_folding = 1
+vim.g.html_syntax_folding = 1
+--? fold anywhere treesitter can parse the buffer
+--! the parser check is the point: nvf's own vim.treesitter.fold sets foldmethod=expr
+--! for every filetype, which kills zf in buffers that have no grammar to fold by
+vim.api.nvim_create_autocmd("FileType", {
+    callback = function(args)
+        if vim.treesitter.get_parser(args.buf, nil, { error = false }) then
+            vim.wo[0][0].foldmethod = "expr"
+            vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
+        end
+    end,
+})
+
+--! registered after the treesitter one on purpose, so it wins for these filetypes;
+--! [0][0] scopes the window option to this buffer, plain vim.wo would leave
+--! foldmethod=syntax behind in the window after switching to another file
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "xml", "xhtml", "svg", "html" },
+    callback = function()
+        vim.wo[0][0].foldmethod = "syntax"
+    end,
+})
+
 vim.diagnostic.config({ virtual_lines = { current_line = true } })
 vim.keymap.set('n', "gd", vim.lsp.buf.definition, { noremap = true, silent = true, desc = "Go to definition" })
 --?  https://neovim.io/doc/user/lsp.html#lsp-quickstart
 -- TODO: use lsp/ folder https://neovim.io/doc/user/lsp.html#_config
 -- TODO: old versions fallback
-if vim.lsp.config then
+--! vscode brings its own language servers, a second set from nvim only duplicates diagnostics
+if not vim.g.vscode and vim.lsp.config then
     vim.lsp.config["lua_ls"] = {
         -- TODO: formatter: stylua
         cmd = { "lua-language-server" },
@@ -95,9 +129,11 @@ end
 --? keymaps
 vim.g.mapleader = " "
 --? search and replace: https://stackoverflow.com/a/676619
-vim.keymap.set('v', '<C-r>', '"hy:%s/<C-r>h//gc<left><left><left>', { noremap = true })
-vim.keymap.set("n", "<leader>?", ":Cheatsheet<CR>", { noremap = true, silent = true })
-
+--! \V (very nomagic) + escaping \ and the / delimiter makes the yanked selection
+--! literal, so regex chars in it (. * [ ] $ ^ ~ /) no longer break the pattern
+vim.keymap.set('v', '<C-r>',
+    [["hy:%s/\V<C-r>=substitute(escape(@h,'/\'),"\n",'\\n','g')<CR>//gc<Left><Left><Left>]],
+    { noremap = true })
 --? ^c to copy; ^v to paste
 vim.keymap.set('n', '<C-c>', '"+y', { noremap = true })
 vim.keymap.set('v', '<C-c>', '"+y', { noremap = true })
@@ -135,3 +171,17 @@ vim.keymap.set("n", "З", "P")
 --! above (vim.lsp.enable) must be registered before that happens
 vim.cmd("syntax on")
 vim.cmd("filetype plugin indent on")
+
+if vim.g.vscode then
+    local vscode = require("vscode")
+    local function action(name)
+        return function() vscode.action(name) end
+    end
+    vim.keymap.set("n", "gd", action("editor.action.revealDefinition"), { noremap = true, silent = true })
+    --? nvim folds are not rendered by vscode, drive its own folding instead
+    vim.keymap.set("n", "za", action("editor.toggleFold"), { noremap = true, silent = true })
+    vim.keymap.set("n", "zc", action("editor.fold"), { noremap = true, silent = true })
+    vim.keymap.set("n", "zo", action("editor.unfold"), { noremap = true, silent = true })
+    vim.keymap.set("n", "zM", action("editor.foldAll"), { noremap = true, silent = true })
+    vim.keymap.set("n", "zR", action("editor.unfoldAll"), { noremap = true, silent = true })
+end

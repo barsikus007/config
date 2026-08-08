@@ -123,9 +123,9 @@ rec {
   };
   nvimAliases = {
     editor = "nvim";
-    nv = ''nvim +"lua vim.schedule(function() require('telescope.builtin').oldfiles() end)"'';
-    nvf = ''nvim +"lua vim.schedule(function() require('telescope.builtin').find_files({hidden=true}) end)"'';
-    nvg = ''nvim +"lua vim.schedule(function() require('telescope.builtin').live_grep({hidden=true}) end)"'';
+    nv = ''nvim +"lua vim.schedule(function() vim.cmd('FzfLua oldfiles') end)"'';
+    nvf = ''nvim +"lua vim.schedule(function() vim.cmd('FzfLua files') end)"'';
+    nvg = ''nvim +"lua vim.schedule(function() vim.cmd('FzfLua live_grep') end)"'';
   };
   journalCtlAliases = {
     jctl = "journalctl";
