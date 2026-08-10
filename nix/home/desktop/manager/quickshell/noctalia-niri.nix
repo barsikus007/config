@@ -268,6 +268,10 @@ in
         clipboard_auto_paste = "ctrl_v";
         clipboard_image_action_command = "satty -f -";
         clipboard_history_max_entries = 500;
+        keyboard_layout.custom_labels = {
+          "English (US)" = "🇺🇸";
+          Russian = "🇷🇺";
+        };
         launch_apps_as_systemd_services = true;
         mpris.blacklist = [ "firefox.instance" ];
         niri_overview_type_to_launch_enabled = true;
@@ -283,8 +287,8 @@ in
       };
       widget = {
         control-center.custom_image = nixos_logo;
-        cpu.display = "graph";
-        ram.display = "graph";
+        cpu.visualization = "graph";
+        ram.visualization = "graph";
 
         taskbar.group_by_workspace = true;
 
@@ -305,11 +309,7 @@ in
         };
         keyboard_layout = {
           type = "keyboard_layout";
-          show_icon = false;
-          custom_labels = {
-            "English (US)" = "🇺🇸";
-            Russian = "🇷🇺";
-          };
+          show_glyph = false;
         };
         clock = {
           type = "clock";
