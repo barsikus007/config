@@ -131,10 +131,6 @@
         "when": "notebookEditorFocused && !inputFocus && activeEditor == 'workbench.editor.notebook'"
     },
     {
-        "key": "ctrl+alt+f",
-        "command": "eslint.executeAutofix"
-    },
-    {
         "key": "ctrl+alt+u",
         "command": "vscode-docker.compose.up"
     },

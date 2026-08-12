@@ -122,9 +122,8 @@ let
       "javascript"
     ]; # TODO: comment-syntax
     "bierner.comment-tagged-templates" = [ "javascript" ]; # TODO: comment-syntax
-    "dbaeumer.vscode-eslint" = [ "javascript" ]; # TODO: prettier-eslint
-    "esbenp.prettier-vscode" = [ "javascript" ]; # TODO: prettier-eslint
-    "rvest.vs-code-prettier-eslint" = [ "javascript" ]; # TODO: prettier-eslint
+    "oxc.oxc-vscode" = [ "javascript" ];
+    "biomejs.biome" = [ "javascript" ];
 
     "jnoortheen.nix-ide" = [ "nix" ];
     "barsikus007.nix-injection" = [ "nix" ];

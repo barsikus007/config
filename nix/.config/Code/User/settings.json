@@ -237,30 +237,30 @@
         "editor.tabSize": 2,
         "editor.formatOnSave": true,
         // "editor.defaultFormatter": "vscode.typescript-language-features",
-        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.defaultFormatter": "biomejs.biome",
         "editor.codeActionsOnSave": {
-            "source.fixAll.eslint": "explicit"
+            "source.fixAll.oxc": "explicit"
         }
     },
     "[javascriptreact][typescriptreact]": {
         "editor.tabSize": 2,
         "editor.formatOnSave": true,
         // "editor.defaultFormatter": "vscode.typescript-language-features",
-        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.defaultFormatter": "biomejs.biome",
         "editor.codeActionsOnSave": {
-            "source.fixAll.eslint": "explicit"
+            "source.fixAll.oxc": "explicit"
         }
     },
     "[json][jsonc]": {
         "editor.tabSize": 4,
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "vscode.json-language-features"
-        // "editor.defaultFormatter": "esbenp.prettier-vscode"
+        // "editor.defaultFormatter": "biomejs.biome"
     },
     "[graphql]": {
         "editor.tabSize": 2,
         "editor.formatOnSave": true,
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.defaultFormatter": "biomejs.biome"
     },
     "[css][scss][less]": {
         // "editor.defaultFormatter": "vscode.css-language-features",
@@ -268,7 +268,7 @@
         // css.format.newlineBetweenRules - Separate rulesets by a blank line.
         // css.format.newlineBetweenSelectors - Separate selectors with a new line.
         // css.format.spaceAroundSelectorSeparator - Ensure a space character around selector separators '>', '+', '~' (for example, a > b).
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.defaultFormatter": "biomejs.biome"
     },
     // #endregion javascript
     // #region other
@@ -393,15 +393,16 @@
     },
     "security.promptForLocalFileProtocolHandling": false,
     "json.schemaDownload.trustedDomains": {
-        "https://aka.ms/": true,
-        "https://developer.microsoft.com/json-schemas/": true,
-        "https://json-schema.org/": true,
-        "https://json.schemastore.org/": true,
-        "https://raw.githubusercontent.com/devcontainers/spec/": true,
-        "https://raw.githubusercontent.com/microsoft/vscode/": true,
         "https://schemastore.azurewebsites.net/": true,
+        "https://raw.githubusercontent.com/microsoft/vscode/": true,
+        "https://raw.githubusercontent.com/devcontainers/spec/": true,
         "https://www.schemastore.org/": true,
+        "https://json.schemastore.org/": true,
+        "https://json-schema.org/": true,
+        "https://developer.microsoft.com/json-schemas/": true,
+        "https://aka.ms/": true,
         "https://vicinae.com/schemas/config.json": true,
+        "https://biomejs.dev": true
     },
     "diffEditor.codeLens": true,
     "diffEditor.renderSideBySide": true,
