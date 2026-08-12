@@ -123,9 +123,23 @@
     // #region nix
     "nix.enableLanguageServer": true,
     "nix.serverPath": "nixd",
+    "nix.serverSettings": {
+        "nixd": {
+            //! nix.formatterPath is ignored while the language server is on,
+            //! the formatter has to be handed to nixd instead
+            "formatting": {
+                "command": [
+                    "treefmt",
+                    "--stdin",
+                    //! nixd can't pass filename needed for treefmt
+                    "dummy.nix",
+                ],
+            },
+        },
+    },
     "nix.hiddenLanguageServerErrors": [
-        "textDocument/definition",
-        "textDocument/formatting",
+        "textDocument/definition", //? go to definition on string
+        "textDocument/formatting", //? format broken document
     ],
     "[nix]": {
         "editor.formatOnSave": true,

@@ -6,13 +6,10 @@
 #  Package architecture: mipsel_24kc
 let
   profiles = inputs.openwrt-imagebuilder.lib.profiles { inherit pkgs; };
-  profile = (
-    profiles.identifyProfile "tplink_archer-c50-v4"
-    // {
-      # specify release
-      release = "24.10.3";
-    }
-  );
+  profile = profiles.identifyProfile "tplink_archer-c50-v4" // {
+    # specify release
+    release = "24.10.3";
+  };
   arch = "mipsel_24kc";
   inherit (import ./. { inherit (pkgs) fetchurl; }) mkAmneziaPackages;
 in

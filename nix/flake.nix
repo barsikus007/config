@@ -547,13 +547,13 @@
         # nix run <locally cloned nix-openwrt-imagebuilder>#generate-hashes <openwrt version>
         # nix build --override-input openwrt-imagebuilder <locally cloned nix-openwrt-imagebuilder> ./nix#openwrt
         openwrt-xiaomi_ax3600 = import ./packages/openwrt/xiaomi_ax3600.nix { inherit pkgs inputs; };
-        openwrt-tplink_archer-c50-v4 = (
-          import ./packages/openwrt/tplink_archer-c50-v4.nix { inherit pkgs inputs; }
-        );
+        openwrt-tplink_archer-c50-v4 = import ./packages/openwrt/tplink_archer-c50-v4.nix {
+          inherit pkgs inputs;
+        };
         openwrt-dewclaw-env = pkgs.callPackage inputs.dewclaw {
           configuration = import ./packages/openwrt/dewclaw.nix;
         };
       };
-      formatter.${system} = pkgs.nixfmt-tree;
+      formatter.${system} = import ./treefmt.nix { inherit pkgs; };
     };
 }

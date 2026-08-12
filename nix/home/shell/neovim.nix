@@ -63,6 +63,9 @@
         nix = {
           enable = true;
           lsp.servers = [ "nixd" ];
+
+          #! no treefmt
+          format.enable = false;
         };
         python = {
           enable = true;
@@ -70,6 +73,13 @@
         };
         typescript.enable = true;
         css.enable = true;
+      };
+      formatter.conform-nvim = {
+        enable = true;
+        setupOpts = {
+          formatters_by_ft.nix = [ "treefmt" ];
+          formatters.treefmt.require_cwd = false;
+        };
       };
 
       visuals = {

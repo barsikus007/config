@@ -19,7 +19,6 @@ let
       experimental-features = [
         "nix-command"
         "flakes"
-        "pipe-operators"
       ];
 
       stalled-download-timeout = 3;

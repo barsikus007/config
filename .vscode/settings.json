@@ -8,13 +8,7 @@
         "nix/.config/niri/dms/*": true,
     },
     // #region nix
-    "nix.enableLanguageServer": true,
-    "nix.serverPath": [
-        "nixd",
-        // "--inlay-hints=false",
-        // "--semantic-tokens=true",
-    ],
-    // check https://github.com/nix-community/nixd/blob/main/nixd/docs/configuration.md for all nixd config
+    //? check https://github.com/nix-community/nixd/blob/main/nixd/docs/configuration.md for all nixd config
     "nix.serverSettings": {
         "nixd": {
             "nixpkgs": {
@@ -34,14 +28,10 @@
             },
         }
     },
-    "[nix]": {
-        "editor.formatOnSave": true,
-        "editor.wordBasedSuggestions": "off",
-    },
-    "nix.hiddenLanguageServerErrors": [
-        "textDocument/definition",
-        "textDocument/formatting",
-    ],
+    // TODO: is this needed?
+    // "[nix]": {
+    //     "editor.wordBasedSuggestions": "off",
+    // },
     "python.analysis.extraPaths": [
         "/etc/nixpkgs/nixos/lib/test-driver/src/",
     ],
@@ -49,6 +39,6 @@
     "Lua.workspace.library": [
         "/etc/profiles/per-user/ogurez/share/nvim/runtime/lua",
         //? git clone https://github.com/DrKJeff16/wezterm-types
-        "/run/media/ogurez/Data/projects/clones/wezterm-types/lua/wezterm/types",
+        "/tank/storage/projects/clones/wezterm-types/lua/wezterm/types",
     ],
 }

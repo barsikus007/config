@@ -53,14 +53,16 @@ import nixpkgs {
           }
         )
         (
-          inputs
-          |> nixpkgs.lib.attrsets.filterAttrs (inputName: _: inputName |> lib.strings.hasPrefix "nixpkgs-")
-          |> lib.attrsets.mapAttrs' (
-            inputName: input: {
-              name = "${inputName |> lib.strings.removePrefix "nixpkgs-"}";
-              value = input;
-            }
-          )
+          #! not the `|>` pipe operator: pedantix' parser rejects it as invalid nix
+          lib.pipe inputs [
+            (nixpkgs.lib.attrsets.filterAttrs (inputName: _: lib.strings.hasPrefix "nixpkgs-" inputName))
+            (lib.attrsets.mapAttrs' (
+              inputName: input: {
+                name = lib.strings.removePrefix "nixpkgs-" inputName;
+                value = input;
+              }
+            ))
+          ]
         )
     )
   ]

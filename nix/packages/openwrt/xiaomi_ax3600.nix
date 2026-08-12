@@ -4,13 +4,10 @@
 #  Package architecture: aarch64_cortex-a53
 let
   profiles = inputs.openwrt-imagebuilder.lib.profiles { inherit pkgs; };
-  profile = (
-    profiles.identifyProfile "xiaomi_ax3600"
-    // {
-      # specify release
-      # release = "24.10.4";
-    }
-  );
+  profile = profiles.identifyProfile "xiaomi_ax3600" // {
+    # specify release
+    # release = "24.10.4";
+  };
   arch = "aarch64_cortex-a53";
   inherit (import ./. { inherit (pkgs) fetchurl; }) mkAmneziaPackages;
 in

@@ -1,5 +1,8 @@
 { pkgs }:
 #? base cli packages, which is used in all hosts and easy to install
+let
+  treefmt-with-config = import ../../treefmt.nix { inherit pkgs; };
+in
 builtins.concatLists (
   map (pkgsList: import pkgsList { inherit pkgs; }) [
     ./00_essential.nix
@@ -17,7 +20,9 @@ builtins.concatLists (
   nix-output-monitor
 
   nixd
-  nixfmt
   tree-sitter
   tree-sitter-grammars.tree-sitter-nix
+
+  treefmt-with-config
+  treefmt-with-config.nix-lint
 ])

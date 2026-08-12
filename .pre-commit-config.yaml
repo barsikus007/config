@@ -2,15 +2,21 @@ repos:
   - repo: local
     hooks:
       - id: compile-shell-aliases-from-nix
-        name: Run My Shell Script
+        name: compile shell aliases from nix
         entry: ./linux/hooks/compile-aliases.sh
         language: script
         pass_filenames: false
       - id: compile-soft-envs-from-nix
-        name: Run My Shell Script
+        name: compile soft envs from nix
         entry: ./linux/hooks/compile-soft-envs.sh
         language: script
         pass_filenames: false
+      # TODO: remove that (uncomment)
+      # - id: nix-lint
+      #   name: nix-lint
+      #   entry: nix-lint
+      #   language: system
+      #   pass_filenames: false
   - repo: https://github.com/editorconfig-checker/editorconfig-checker
     rev: "v3.7.0"
     hooks:

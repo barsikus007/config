@@ -8,6 +8,9 @@ indent_style = space
 insert_final_newline = true
 trim_trailing_whitespace = true
 
+[*.{patch,diff}]
+trim_trailing_whitespace = false
+
 [*.md]
 #? disabled cause lang block's indents counts as invalid
 # indent_size = 2
@@ -20,6 +23,9 @@ indent_size = 2
 
 [*.py]
 indent_size = 4
+
+[*.toml]
+indent_size = 2
 
 [*.{json,code-workspace}]
 indent_size = 4

@@ -9,8 +9,7 @@
 1. in `~/.config/nix-on-droid/flake.nix`
    1. set `nixpkgs` input to `nixpkgs-unstable` branch
 2. in `~/.config/nix-on-droid/nix-on-droid.nix`
-   1. add `pipe-operators` to `experimental-features`
-   2. add `git` to `environment.packages`
+   1. add `git` to `environment.packages`
 3. `nix-on-droid switch --flake ~/.config/nix-on-droid`
 4. `cd && git clone --depth=1 https://github.com/barsikus007/config && cd -`
 5. `nix-on-droid switch --flake ~/config/nix`
