@@ -43,10 +43,10 @@ with pkgs;
   (writeShellScriptBin "niri-toggle-touchpad" /* shell */ ''
     state=
     for name in /sys/class/input/input*/name; do
-      grep -qi touchpad "$name" || continue
+      grep --quiet --ignore-case touchpad "$name" || continue
       file="$(dirname "$name")/inhibited"
       [ -w "$file" ] || {
-        ${lib.getExe libnotify} -u critical -a niri "Cannot write $file (udev rule / input group?)"
+        ${lib.getExe libnotify} --urgency critical --app-name niri "Cannot write $file (udev rule / input group?)"
         exit 1
       }
       #? derive the target state once, then apply it to every touchpad node
@@ -54,12 +54,12 @@ with pkgs;
       echo "$state" > "$file"
     done
     if [ -z "$state" ]; then
-      ${lib.getExe libnotify} -u critical -a niri "No touchpad found"
+      ${lib.getExe libnotify} --urgency critical --app-name niri "No touchpad found"
       exit 1
     fi
     [ "$state" = 1 ] \
-      && ${lib.getExe libnotify} -a niri "Touchpad disabled" \
-      || ${lib.getExe libnotify} -a niri "Touchpad enabled"
+      && ${lib.getExe libnotify} --app-name niri "Touchpad disabled" \
+      || ${lib.getExe libnotify} --app-name niri "Touchpad enabled"
   '')
   (writeShellScriptBin "ocr-screen-region" /* shell */ ''
     if [ "$XDG_CURRENT_DESKTOP" = "KDE" ]; then

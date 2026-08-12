@@ -11,9 +11,9 @@ adb_scan() {
   #? scan local subnet for hosts with adb port 5555 open, print one ip per line
   local INTERFACE
   # try finding interface from default route
-  INTERFACE=$(ip -o -4 route show default | head -n 1 | awk '{for(i=1;i<=NF;i++) if($i=="dev") {print $(i+1); exit}}')
+  INTERFACE=$(ip -o -4 route show default | head --lines 1 | awk '{for(i=1;i<=NF;i++) if($i=="dev") {print $(i+1); exit}}')
   # fallback to first global interface
-  [ -z "$INTERFACE" ] && INTERFACE=$(ip -o -4 addr show scope global | head -n 1 | awk '{print $2}')
+  [ -z "$INTERFACE" ] && INTERFACE=$(ip -o -4 addr show scope global | head --lines 1 | awk '{print $2}')
 
   if [ -z "$INTERFACE" ]; then
     echo "Error: Could not determine local interface" >&2
@@ -21,7 +21,7 @@ adb_scan() {
   fi
 
   local SUBNET
-  SUBNET=$(ip -o -f inet addr show "$INTERFACE" | head -n 1 | awk '{print $4}')
+  SUBNET=$(ip -o -f inet addr show "$INTERFACE" | head --lines 1 | awk '{print $4}')
 
   if [ -z "$SUBNET" ]; then
     echo "Error: Could not determine local subnet on interface $INTERFACE" >&2
@@ -30,7 +30,7 @@ adb_scan() {
 
   echo "Scanning $SUBNET on $INTERFACE for ADB devices (port 5555) with nc..." >&2
   local PREFIX
-  PREFIX=$(echo "$SUBNET" | cut -d'/' -f1 | cut -d'.' -f1-3)
+  PREFIX=$(echo "$SUBNET" | cut --delimiter='/' --fields=1 | cut --delimiter='.' --fields=1-3)
   #? fast parallel scan using nc
   for i in {1..254}; do
     (
@@ -66,7 +66,7 @@ adb_shell_as_root() {
   local ANDROID_DEVICE
   ANDROID_DEVICE=$(_get_android_device)
   [ -z "$ANDROID_DEVICE" ] && echo "No device selected" && return 1
-  adb -s "$ANDROID_DEVICE" shell -t "su -c /data/data/com.termux/files/home/.adbrc"
+  adb -s "$ANDROID_DEVICE" shell -t "su --command /data/data/com.termux/files/home/.adbrc"
 }
 
 adb_shell_as_termux() {
@@ -74,7 +74,7 @@ adb_shell_as_termux() {
   ANDROID_DEVICE=$(_get_android_device)
   [ -z "$ANDROID_DEVICE" ] && echo "No device selected" && return 1
   # shellcheck disable=SC2016
-  adb -s "$ANDROID_DEVICE" shell -t 'su $(su -c "stat -c %U /data/data/com.termux") -c sh /data/data/com.termux/files/home/.adbrc'
+  adb -s "$ANDROID_DEVICE" shell -t 'su $(su --command "stat --format %U /data/data/com.termux") --command sh /data/data/com.termux/files/home/.adbrc'
 }
 
 # TODO: script to crate adbrc and declare it in nix-on-droid
@@ -83,7 +83,7 @@ adb_shell_as_nix() {
   ANDROID_DEVICE=$(_get_android_device)
   [ -z "$ANDROID_DEVICE" ] && echo "No device selected" && return 1
   # shellcheck disable=SC2016
-  adb -s "$ANDROID_DEVICE" shell -t 'su $(su -c "stat -c %U /data/data/com.termux.nix") -c sh /data/data/com.termux.nix/files/home/.adbrc'
+  adb -s "$ANDROID_DEVICE" shell -t 'su $(su --command "stat --format %U /data/data/com.termux.nix") --command sh /data/data/com.termux.nix/files/home/.adbrc'
 }
 
 adbfs_connect() {
@@ -95,22 +95,22 @@ adbfs_connect() {
   ANDROID_DEVICE_MODEL=$(echo $ANDROID_DEVICE_LINE | sed 's/.*model:\([^ ]*\).*/\1/')
 
   local ADBFS_FOLDER="/run/media/$USER/adbfs"
-  [ ! -d "$ADBFS_FOLDER" ] && sudo mkdir -p "$ADBFS_FOLDER" && sudo chown "$(id -u):$(id -g)" "$ADBFS_FOLDER"
+  [ ! -d "$ADBFS_FOLDER" ] && sudo mkdir --parents "$ADBFS_FOLDER" && sudo chown "$(id --user):$(id --group)" "$ADBFS_FOLDER"
 
   local ANDROID_DEVICE_FOLDER="$ADBFS_FOLDER/$ANDROID_DEVICE_MODEL"
   echo "Device folder $ANDROID_DEVICE_FOLDER:"
-  ls -la "$ANDROID_DEVICE_FOLDER"
+  ls --format=long --all "$ANDROID_DEVICE_FOLDER"
 
   echo "Unmounting..."
   umount "$ANDROID_DEVICE_FOLDER"
-  mkdir -p "$ANDROID_DEVICE_FOLDER"
-  adbfs "$ANDROID_DEVICE_FOLDER" -o "uid=$(id -u),gid=$(id -g)"
+  mkdir --parents "$ANDROID_DEVICE_FOLDER"
+  adbfs "$ANDROID_DEVICE_FOLDER" -o "uid=$(id --user),gid=$(id --group)"
   y "$ANDROID_DEVICE_FOLDER/storage/emulated/0/"
 }
 
 adbfs_connected() {
   local ADBFS_FOLDER="/run/media/$USER/adbfs"
-  ls -1 "$ADBFS_FOLDER"
+  ls --format=single-column "$ADBFS_FOLDER"
 }
 
 adbfs_disconnect() {
@@ -125,7 +125,7 @@ scrcpy_connect() {
   local ANDROID_DEVICE
   ANDROID_DEVICE=$(_get_android_device)
   [ -z "$ANDROID_DEVICE" ] && echo "No device selected" && return 1
-  scrcpy -K --render-driver=opengles2 --no-audio --video-bit-rate=1M --serial="$ANDROID_DEVICE" "$@"
+  scrcpy --keyboard=uhid --render-driver=opengles2 --no-audio --video-bit-rate=1M --serial="$ANDROID_DEVICE" "$@"
 }
 
 scrcpy_fast() {
@@ -142,7 +142,7 @@ scrcpy_fast() {
     adb connect "$ANDROID_DEVICE" || return 1
   fi
 
-  scrcpy -K --render-driver=opengles2 --no-audio --video-bit-rate=1M --serial="$ANDROID_DEVICE" "$@"
+  scrcpy --keyboard=uhid --render-driver=opengles2 --no-audio --video-bit-rate=1M --serial="$ANDROID_DEVICE" "$@"
 }
 
 scrcpy_camera() {

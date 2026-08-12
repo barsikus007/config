@@ -16,8 +16,8 @@
   home-manager.users.${username}.xdg.configFile."niri/config.kdl".source = lib.mkForce (
     pkgs.runCommand "niri-config-coolvm.kdl" { } ''
       ${lib.getExe pkgs.gnused} \
-        -e 's|render-drm-device .*|render-drm-device "/dev/dri/renderD128"|' \
-        -e '/ignore-drm-device/d' \
+        --expression 's|render-drm-device .*|render-drm-device "/dev/dri/renderD128"|' \
+        --expression '/ignore-drm-device/d' \
         ${../../.config/niri/config.kdl} > $out
     ''
   );

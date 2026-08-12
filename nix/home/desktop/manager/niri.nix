@@ -180,7 +180,7 @@ in
               "set-volume"
               "@DEFAULT_AUDIO_SINK@"
               "5%+"
-              "-l"
+              "--limit"
               "1.5"
             ];
           };
@@ -348,7 +348,7 @@ in
               pkgs.writeShellScriptBin "niri-repin-workspaces" /* shell */ ''
                 #! wait until niri has the docked output configured (logical set), not just the connector
                 for _ in $(seq 1 50); do
-                    ${niri} msg --json outputs | ${jq} -e '."${output}".logical != null' >/dev/null 2>&1 && break
+                    ${niri} msg --json outputs | ${jq} --exit-status '."${output}".logical != null' >/dev/null 2>&1 && break
                     sleep 0.1
                 done
                 #!  move social first to leave games on top
@@ -430,7 +430,7 @@ in
             #? event-stream emits KeyboardLayoutsChanged on connect (initial sync) and KeyboardLayoutSwitched on toggle
             #? --unbuffered keeps the pipe flowing per line; empty drops events we don't care about
             ${niri} msg --json event-stream \
-              | ${jq} --unbuffered -r '(.KeyboardLayoutSwitched.idx) // (.KeyboardLayoutsChanged.keyboard_layouts.current_idx) // empty' \
+              | ${jq} --unbuffered --raw-output '(.KeyboardLayoutSwitched.idx) // (.KeyboardLayoutsChanged.keyboard_layouts.current_idx) // empty' \
               | while read -r idx; do
                   #? idx 0 == English (US); light the LED for anything else
                   [ "$idx" -gt 0 ] && v=1 || v=0

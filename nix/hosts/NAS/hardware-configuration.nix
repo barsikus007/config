@@ -18,7 +18,7 @@
     "xhci_pci"
     "ahci"
 
-    #! lspci -v | grep -iA8 'network\|ethernet'
+    #! lspci -v | grep --ignore-case --after-context=8 'network\|ethernet'
     "r8169"
     "iwlwifi"
   ];

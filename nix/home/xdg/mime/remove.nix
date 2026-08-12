@@ -7,7 +7,7 @@ let
   dropMimeType = pkg: file: {
     name = "applications/${file}";
     value.source = pkgs.runCommand file { } ''
-      grep -v '^MimeType=' ${pkg}/share/applications/${file} > $out
+      grep --invert-match '^MimeType=' ${pkg}/share/applications/${file} > $out
     '';
   };
   unassociatedEntries = [

@@ -28,7 +28,7 @@ multiStdenv.mkDerivation (finalAttrs: {
   '';
 
   installPhase = ''
-    mkdir -p $out/lib/64 $out/lib/32 $out/bin
+    mkdir --parents $out/lib/64 $out/lib/32 $out/bin
     cp lib64/* $out/lib/64
     cp lib32/* $out/lib/32
     cp ${finalAttrs.meta.mainProgram} $out/bin

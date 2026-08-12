@@ -112,7 +112,7 @@
 
   environment.systemPackages = with pkgs; [
     xwayland-satellite
-    #? xwininfo -root -tree | grep -v '(has no name): ()'
+    #? xwininfo -root -tree | grep --invert-match '(has no name): ()'
     xwininfo
   ];
 

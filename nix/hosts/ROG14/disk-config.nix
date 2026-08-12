@@ -135,7 +135,7 @@ in
           "root" = {
             type = "zfs_fs";
             mountpoint = "/";
-            postCreateHook = "zfs list -t snapshot | grep -q zroot/root@blank || zfs snapshot zroot/root@blank";
+            postCreateHook = "zfs list -t snapshot | grep --quiet zroot/root@blank || zfs snapshot zroot/root@blank";
           };
           "nix" = {
             type = "zfs_fs";

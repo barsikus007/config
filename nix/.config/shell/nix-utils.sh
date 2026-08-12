@@ -19,7 +19,7 @@ nix_truncate() {
 }
 
 nix_shell_exec() {
-  nix-shell -p "$1" --run "$*"
+  nix-shell --packages "$1" --run "$*"
 }
 
 nix_pkgs_only() {
@@ -32,10 +32,10 @@ nix_pkgs_only() {
   local opts=()
   [[ $1 == -f ]] && { opts=(--option eval-cache false); shift; }
   nix build --dry-run "${opts[@]}" "$@" 2>&1 \
-    | rg -o '/nix/store/[a-z0-9]+-\S+\.drv' \
+    | rg --only-matching '/nix/store/[a-z0-9]+-\S+\.drv' \
     | rg -- '-[0-9]' \
-    | rg -v '\.(conf|json|png|css|xml|ini|sh|rules|pl|service|timer|pf2|theme)\.drv$' \
-    | rg -v -- '-env\.drv$|initrd-linux|dbus-[0-9]|nixos-system-'
+    | rg --invert-match '\.(conf|json|png|css|xml|ini|sh|rules|pl|service|timer|pf2|theme)\.drv$' \
+    | rg --invert-match -- '-env\.drv$|initrd-linux|dbus-[0-9]|nixos-system-'
 }
 
 nix_pkgs_only_host() {
@@ -54,7 +54,7 @@ nix_copy_edit() {
 }
 
 nix_find_libs() {
-  ldd "$1" | grep 'not found' | awk '{print $1}' | sort -u | xargs -I {} sh -c 'echo "Lib: {}"; nix-locate "{}"; echo'
+  ldd "$1" | grep 'not found' | awk '{print $1}' | sort --unique | xargs --replace={} sh -c 'echo "Lib: {}"; nix-locate "{}"; echo'
 }
 
 _nn() {
@@ -136,7 +136,7 @@ nix_hot_reload() {
 
   echo "watching with inotifywait: $NIX_FILE"
 
-  while inotifywait -q -e close_write,move,create,delete "$(dirname "$NIX_FILE")" >/dev/null 2>&1; do
+  while inotifywait --quiet --event close_write,move,create,delete "$(dirname "$NIX_FILE")" >/dev/null 2>&1; do
     # простой дебаунс
     # если WATCH_PATH файл, то убедимся что он тронут
     if [[ -f "$NIX_FILE" || -d "$WATCH_PATH" ]]; then

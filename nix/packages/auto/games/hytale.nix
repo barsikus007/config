@@ -64,15 +64,15 @@ let
       DOWNLOAD_URL="https://launcher.hytale.com/builds/release/linux/amd64/hytale-launcher-latest.zip"
 
       # create launcher directory
-      mkdir -p "$LAUNCHER_DIR"
+      mkdir --parents "$LAUNCHER_DIR"
 
       # download and set up launcher if it doesn't exist
       if [ ! -f "$LAUNCHER_BIN" ]; then
         echo "Downloading Hytale Launcher..."
-        TEMP_DIR=$(mktemp -d)
-        trap "rm -rf $TEMP_DIR" EXIT
+        TEMP_DIR=$(mktemp --directory)
+        trap "rm --recursive --force $TEMP_DIR" EXIT
 
-        curl -L -o "$TEMP_DIR/launcher.zip" "$DOWNLOAD_URL"
+        curl --location --output "$TEMP_DIR/launcher.zip" "$DOWNLOAD_URL"
         unzip -o "$TEMP_DIR/launcher.zip" -d "$TEMP_DIR"
         mv "$TEMP_DIR/hytale-launcher" "$LAUNCHER_BIN"
         chmod +x "$LAUNCHER_BIN"
@@ -124,7 +124,7 @@ let
         nativeBuildInputs = [ pkgs.imagemagick ];
       }
       ''
-        mkdir -p $out
+        mkdir --parents $out
         # extract the largest icon from the ico file and convert to png
         convert ${hytaleIcon} -thumbnail 256x256 -alpha on -background none -flatten $out/hytale-launcher.png
       '';
@@ -136,10 +136,10 @@ pkgs.symlinkJoin {
     desktopItem
   ];
   postBuild = ''
-    mkdir -p $out/share/icons/hicolor/256x256/apps
+    mkdir --parents $out/share/icons/hicolor/256x256/apps
     cp ${hytaleIconPng}/hytale-launcher.png $out/share/icons/hicolor/256x256/apps/hytale-launcher.png
 
-    mkdir -p $out/share/pixmaps
+    mkdir --parents $out/share/pixmaps
     cp ${hytaleIconPng}/hytale-launcher.png $out/share/pixmaps/hytale-launcher.png
   '';
 }

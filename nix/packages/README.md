@@ -20,7 +20,7 @@ nix --extra-experimental-features "nix-command flakes" run --impure 'github:nix-
 
 - [adbfs with libfuse experemental](./auto/soft/adbfs-rootless-libfuse-3.nix)
 - [bcompare 5 diff tool](./bcompare5.nix)
-  - `sed -i '/CheckID/d' ~/.config/bcompare5/BCState.xml.bak`
+  - `sed --in-place '/CheckID/d' ~/.config/bcompare5/BCState.xml.bak`
 - [davinci-resolve communism edition](./auto/gui/davinci-resolve-studio.nix)
 - TODO
 - [minecraftia 2 font](./auto/fonts/minecraftia.nix)

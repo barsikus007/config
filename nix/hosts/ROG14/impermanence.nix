@@ -10,7 +10,7 @@
       "/etc/asusd" # ? current anime state
       "/etc/NetworkManager/system-connections"
       "/etc/ssh"
-      "/var/db" # ? ./sudo/lectured/$(id -u)
+      "/var/db" # ? ./sudo/lectured/$(id --user)
       "/var/log" # ? https://nixos.org/manual/nixos/unstable/#sec-var-journal
       "/var/lib/bluetooth"
       # "/var/lib/misc" # TODO: is this needed? dnsmasq waydroid

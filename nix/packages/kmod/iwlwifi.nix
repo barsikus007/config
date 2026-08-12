@@ -30,7 +30,7 @@ stdenv.mkDerivation {
   installPhase = ''
     make \
       INSTALL_MOD_PATH="$out" \
-      XZ="xz -T$NIX_BUILD_CORES" \
+      XZ="xz --threads=$NIX_BUILD_CORES" \
       M="$modulePath" \
       modules_install
   '';

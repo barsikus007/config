@@ -11,7 +11,7 @@ codename `Windows-Resurrect`
 1. [LTSC](https://massgrave.dev/windows10_eol#windows-10-iot-enterprise-ltsc-2021)
    1. mount it 1st (as SATA SDROM, like others)
    2. optional integrate updates/drivers (see below)
-2. `nix build ./nix#windows-bootstrapIso -o unattend-win10-iot-ltsc-vrt.iso --print-build-logs` ([content](../../../packages/windows/default.nix))
+2. `nix build ./nix#windows-bootstrapIso --out-link unattend-win10-iot-ltsc-vrt.iso --print-build-logs` ([content](../../../packages/windows/default.nix))
    1. mount it 2nd
    2. [soft which will be installed](../../../packages/windows/AdditionalVMSetup.ps1)
 3. press any key to boot from ISO
@@ -120,7 +120,7 @@ codename `Windows-Resurrect`
 # in root domain
 <sysinfo type='smbios'>
   <bios>
-sudo dmidecode --type bios | awk  -F  ': ' '
+sudo dmidecode --type bios | awk --field-separator=': ' '
 /Vendor/              { printf "    <entry name=\"vendor\">%s</entry>\n", $2 }
 /Version/             { printf "    <entry name=\"version\">%s</entry>\n", $2 }
 /Release Date/        { printf "    <entry name=\"date\">%s</entry>\n", $2 }
@@ -128,7 +128,7 @@ sudo dmidecode --type bios | awk  -F  ': ' '
 '
   </bios>
   <system>
-sudo dmidecode --type system | awk  -F  ': ' '
+sudo dmidecode --type system | awk --field-separator=': ' '
 /Manufacturer/        { printf "    <entry name=\"manufacturer\">%s</entry>\n", $2 }
 /Product Name/        { printf "    <entry name=\"product\">%s</entry>\n", $2 }
 /Version/             { printf "    <entry name=\"version\">%s</entry>\n", $2 }
@@ -139,7 +139,7 @@ sudo dmidecode --type system | awk  -F  ': ' '
 '
   </system>
   <baseBoard>
-sudo dmidecode --type baseboard | awk  -F  ': ' '
+sudo dmidecode --type baseboard | awk --field-separator=': ' '
 /Manufacturer/        { printf "    <entry name=\"manufacturer\">%s</entry>\n", $2 }
 /Product Name/        { printf "    <entry name=\"product\">%s</entry>\n", $2 }
 /Version/             { printf "    <entry name=\"version\">%s</entry>\n", $2 }
@@ -150,7 +150,7 @@ sudo dmidecode --type baseboard | awk  -F  ': ' '
 '
   </baseBoard>
   <chassis>
-sudo dmidecode --type chassis | awk  -F  ': ' '
+sudo dmidecode --type chassis | awk --field-separator=': ' '
 /Manufacturer/        { printf "    <entry name=\"manufacturer\">%s</entry>\n", $2 }
 /Version/             { printf "    <entry name=\"version\">%s</entry>\n", $2 }
 /Serial Number/       { printf "    <entry name=\"serial\">%s</entry>\n", $2 }
@@ -217,6 +217,6 @@ sudo dmidecode --type chassis | awk  -F  ': ' '
 UPDATE_ID=1f41c0e5-e142-4636-ba48-e333cf9f14dc
 mkdir "win10-ltsc-$UPDATE_ID"
 cd "win10-ltsc-$UPDATE_ID"
-aria2c -x16 -s16 -j5 -c -R -i <(curl -s "https://uupdump.net/get.php?id=$UPDATE_ID&pack=en-us&edition=core%3Bprofessional&aria2=2" | grep --extended-regexp "(Windows10|SSU)" --context 2 --no-group-separator)
+aria2c --max-connection-per-server=16 --split=16 --max-concurrent-downloads=5 --continue --remote-time --input-file <(curl --silent "https://uupdump.net/get.php?id=$UPDATE_ID&pack=en-us&edition=core%3Bprofessional&aria2=2" | grep --extended-regexp "(Windows10|SSU)" --context 2 --no-group-separator)
 wget "https://raw.githubusercontent.com/mariahlamb31/BatUtil/27ab2d01e2d2cf47c87835c90a0991ca4d7c5f64/W10UI/W10UI.cmd"
 ```

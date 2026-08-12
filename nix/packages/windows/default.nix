@@ -29,31 +29,31 @@ let
   };
 
   # scoop = callPackage ./scoop.nix { };
-  # mkdir -p $out/\$OEM\$/\$1/Users/Default
-  # cp -r ${scoop} $out/\$OEM\$/\$1/Users/Default/scoop
+  # mkdir --parents $out/\$OEM\$/\$1/Users/Default
+  # cp --recursive ${scoop} $out/\$OEM\$/\$1/Users/Default/scoop
 
   # TODO: & ([ScriptBlock]::Create((irm https://get.activated.win))) /Z-Windows
   # TODO: https://www.reddit.com/r/techsupport/comments/ehgbmu/windows_10_oemcustomizations/
   isoDir = runCommand "iso-content" { } /* shell */ ''
-    mkdir -p $out
+    mkdir --parents $out
 
     cp ${unattend} $out/autounattend.xml
 
-    mkdir -p $out/\$OEM\$/\$\$/Setup/Scripts
+    mkdir --parents $out/\$OEM\$/\$\$/Setup/Scripts
     cp ${additionalVMSetupPs1} $out/\$OEM\$/\$\$/Setup/Scripts/AdditionalVMSetup.ps1
 
-    cp -r ${virtio-win}/* $out/
+    cp --recursive ${virtio-win}/* $out/
 
-    mkdir -p $out/\$WinPEDriver\$/viostor
+    mkdir --parents $out/\$WinPEDriver\$/viostor
     cp ${virtio-win}/viostor/w10/amd64/* $out/\$WinPEDriver\$/viostor/
 
-    chmod -R +w $out/
+    chmod --recursive +w $out/
 
-    mkdir -p $out/\$OEM\$/\$\$/Temp
+    mkdir --parents $out/\$OEM\$/\$\$/Temp
     cp ${massgrave} $out/\$OEM\$/\$\$/Setup/Scripts/MAS_AIO.cmd
     cp ${openSshServerPackage} $out/\$OEM\$/\$\$/Temp/OpenSSH-Win64.zip
 
-    mkdir -p $out/\$OEM\$/\$1/ProgramData/ssh
+    mkdir --parents $out/\$OEM\$/\$1/ProgramData/ssh
     cp ${authorizedKeys} $out/\$OEM\$/\$1/ProgramData/ssh/administrators_authorized_keys
   '';
 in

@@ -47,7 +47,7 @@
 
 ```shell
 folder="/sdcard/Documents/Sync/android/app_lists/`date +%Y-%m-%d`"
-mkdir -p $folder
+mkdir --parents $folder
 for i in null com.google.android.packageinstaller com.android.vending dev.imranr.obtainium ru.vk.store; do
   pm list packages -i -3 | grep installer=$i | cut -d':' -f2 | awk '{printf "%s\n", $1}' > $folder/$i.txt
 done
@@ -67,7 +67,7 @@ done
     - [3](https://www.reddit.com/r/tasker/comments/rceljk/enable_adb_wifi_on_device_boot_android_11/)
   - PC
     - `IP=192.168.1.15`
-    - `adb connect $IP:$(nmap $IP -p 33000-46000 | awk "/\/tcp/" | cut -d/ -f1)`
+    - `adb connect $IP:$(nmap $IP -p 33000-46000 | awk "/\/tcp/" | cut --delimiter=/ --fields=1)`
       - [credits](https://stackoverflow.com/a/70878705)
 - root
   - phone
@@ -78,7 +78,7 @@ done
 ### adbfs-fuse
 
 ```shell
-umount /run/media/$USER/adbfs; adb kill-server && adb connect 192.168.1.7:5555 && sudo mkdir -p /run/media/$USER/adbfs/ && sudo chown $(id -u):$(id -g) /run/media/$USER/adbfs/ && adbfs /run/media/$USER/adbfs -o uid=$(id -u),gid=$(id -g)
+umount /run/media/$USER/adbfs; adb kill-server && adb connect 192.168.1.7:5555 && sudo mkdir --parents /run/media/$USER/adbfs/ && sudo chown $(id --user):$(id --group) /run/media/$USER/adbfs/ && adbfs /run/media/$USER/adbfs -o uid=$(id --user),gid=$(id --group)
 ```
 
 ### TODO

@@ -1,20 +1,20 @@
 #!/usr/bin/env bash
 
-mkcd() { mkdir -p "$@" && cd "$@" || exit; }
+mkcd() { mkdir --parents "$@" && cd "$@" || exit; }
 
 ssht() {
   (
     case "$1" in
       (-*) echo "Specify hostname first"; return 1 ;;
     esac
-    ssh "$@" -t "zellij attach -c $1 options --default-mode locked --session-serialization false --theme blade-runner || tmux new -As$1 || bash || sh"
+    ssh "$@" -t "zellij attach --create $1 options --default-mode locked --session-serialization false --theme blade-runner || tmux new -As$1 || bash || sh"
   )
 }
 
 a() {
   # shellcheck disable=SC2046
   print -z -- $(
-    alias | awk -F= '{print $1}' |
+    alias | awk --field-separator='=' '{print $1}' |
     fzf --height 40% --border --prompt="Alias: " \
         --preview "zsh  -c 'source ~/.config/zsh/.zshrc && alias {} | cut --delimiter== --fields=2-' | tr --delete \' | bat --language sh --style=plain --color=always" \
         --preview-window 80%
@@ -24,7 +24,7 @@ a() {
 s () {
   #? https://dev.to/kaeruct/fzf-ssh-config-hosts-23dj
   (
-    server=$(grep -E '^Host ' ~/.ssh/config | awk '{print $2}' | fzf --height 40%)
+    server=$(grep --extended-regexp '^Host ' ~/.ssh/config | awk '{print $2}' | fzf --height 40%)
     if [[ -n $server ]]; then
       echo "Connecting to $server..."
       ssht "$server" "$@"
@@ -102,7 +102,7 @@ capture_wezterm_zsh_cmd() {
 
   # last non-empty line number - trims the empty blackness at the bottom
   local rows=$(echo "$screen_dump" | awk '/[^[:space:]]/{last=NR} END{print last}')
-  local cols=$(echo "$screen_dump" | wc -L)
+  local cols=$(echo "$screen_dump" | wc --max-line-length)
 
   [[ -z "$rows" || "$rows" == "0" ]] && rows=1
 
@@ -157,7 +157,7 @@ capture_wezterm_zsh_cmd() {
 }
 
 type_colored() {
-  type -afs "$@" | sed 's/is an alias for/is an alias for:\n/' | bat -l sh --style=plain --color=always
+  type -afs "$@" | sed 's/is an alias for/is an alias for:\n/' | bat --language sh --style=plain --color=always
 }
 
 # ripgrep->fzf->vim [QUERY]
@@ -196,7 +196,7 @@ cheats() (
   #? strip a leading ' - people expect fzf's own exact-match query syntax to still work here
   local grep_cmd='q={q}; rg --line-number --no-heading --smart-case --color=never --glob "*.md" -- "${q#\'"'"'}" "$HOME/config"'
   #? content-search hits jump straight to the matched line, not the top of the file
-  local preview_cmd='if [[ -n {2} ]]; then bat --style=numbers --color=always --highlight-line {2} --line-range {2}: {1}; else sed -E "$CHEAT_FENCE_SED" {1} | bat --style=numbers --color=always --language=markdown; fi'
+  local preview_cmd='if [[ -n {2} ]]; then bat --style=numbers --color=always --highlight-line {2} --line-range {2}: {1}; else sed --regexp-extended "$CHEAT_FENCE_SED" {1} | bat --style=numbers --color=always --language=markdown; fi'
 
   local sel file
   #? "|| :" keeps a no-match exit status from making fzf show a "Command failed" banner
@@ -252,7 +252,7 @@ CHEAT_SEARCH_SH
     local grep_cmd2="bash $search_sh {q}"
     #? a numeric field 2 means a heading row -> show the bounded section;
     #? otherwise it is a content-search hit -> show the file from that line on
-    local preview_cmd2='if [[ {2} =~ ^[0-9]+$ ]]; then awk -v start={1} -v level={2} "$CHEAT_SECTION_AWK" "$CHEAT_FILE" | sed -E "$CHEAT_FENCE_SED" | bat --style=plain --color=always --language=markdown; else bat --style=numbers --color=always --highlight-line {1} --line-range {1}: "$CHEAT_FILE"; fi'
+    local preview_cmd2='if [[ {2} =~ ^[0-9]+$ ]]; then awk -v start={1} -v level={2} "$CHEAT_SECTION_AWK" "$CHEAT_FILE" | sed --regexp-extended "$CHEAT_FENCE_SED" | bat --style=plain --color=always --language=markdown; else bat --style=numbers --color=always --highlight-line {1} --line-range {1}: "$CHEAT_FILE"; fi'
 
     local sel2
     sel2=$(fzf --disabled --ansi \
@@ -279,7 +279,7 @@ zcd() {
   current_dir=$(pwd)
 
   # 1. get the dataset name from the first column of df
-  dataset=$(df -P "$current_dir" | awk 'NR==2 {print $1}')
+  dataset=$(df --portability "$current_dir" | awk 'NR==2 {print $1}')
 
   # verify it is actually a ZFS dataset
     if ! zfs list "$dataset" >/dev/null 2>&1; then
@@ -292,7 +292,7 @@ zcd() {
 
   # handle cases where ZFS delegates mounting (e.g., fstab)
   if [[ "$zfs_mountroot" == "legacy" || "$zfs_mountroot" == "none" ]]; then
-    zfs_mountroot=$(df -P "$current_dir" | awk 'NR==2 {print $6}')
+    zfs_mountroot=$(df --portability "$current_dir" | awk 'NR==2 {print $6}')
   fi
 
   local snap_dir="${zfs_mountroot%/}/.zfs/snapshot"
@@ -307,7 +307,7 @@ zcd() {
   rel_path="${rel_path#/}" # Remove leading slash
 
   # select snapshot using fzf
-  local selected_snap=$(\command ls -1 "$snap_dir" | fzf --prompt="Select ZFS Snapshot: ")
+  local selected_snap=$(\command ls --format=single-column "$snap_dir" | fzf --prompt="Select ZFS Snapshot: ")
 
   if [ -z "$selected_snap" ]; then
     return 0

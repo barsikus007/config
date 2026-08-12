@@ -26,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
   preInstall = ''
-    mkdir -p $out/bin
+    mkdir --parents $out/bin
   '';
 
   postFixup = ''

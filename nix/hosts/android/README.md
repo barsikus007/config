@@ -46,9 +46,9 @@ obtainium - `https://github.com/Droid-VM/DroidVM`
 #### host
 
 ```shell
-adb shell su -c 'nc -L -p 2222 nc <guest-ip> 22' &
+adb shell su --command 'nc -L -p 2222 nc <guest-ip> 22' &
 adb forward tcp:12222 tcp:2222
-SSHPASS='...' nixos-anywhere --env-password --flake ./nix#droidvm --target-host root@localhost -p 12222
+SSHPASS='...' nixos-anywhere --env-password --flake ./nix#droidvm --target-host root@localhost --ssh-port 12222
 ```
 
 disable NixOS iso after install
@@ -56,7 +56,7 @@ disable NixOS iso after install
 ### update
 
 ```shell
-adb shell su -c 'nc -L -p 2222 nc <guest-ip> 2222' &
+adb shell su --command 'nc -L -p 2222 nc <guest-ip> 2222' &
 adb forward tcp:12222 tcp:2222
 ssh ogurez@localhost -p 12222 -o StrictHostKeychecking=no -o ConnectionAttempts=60 -o UserKnownHostsFile=/dev/null
 
@@ -65,11 +65,11 @@ NIX_SSHOPTS="-p 12222 -o StrictHostKeychecking=no -o ConnectionAttempts=60 -o Us
 
 ### notes
 
-- `<guest-ip>` comes from `adb shell su -c 'ip neigh show'`, on the bridge interface (e.g. `br0116f569`)
+- `<guest-ip>` comes from `adb shell su --command 'ip neigh show'`, on the bridge interface (e.g. `br0116f569`)
 - check nc used ports
-  - `adb shell su -c 'ps -A -o pid,args | grep "[n]c -L -p 2222"'`
+  - `adb shell su --command 'ps -A -o pid,args | grep "[n]c -L -p 2222"'`
 - kill nc used ports
-  - `adb shell su -c 'pkill -f "nc -L -p 2222"'`
+  - `adb shell su --command 'pkill -f "nc -L -p 2222"'`
 - you need `boot.binfmt.emulatedSystems = [ "aarch64-linux" ];` on a host to deploy
 - client kernel [must](https://github.com/Droid-VM/DroidVM/wiki/Problem:-The-virtual-machine's-system-does-not-support-SWIOTLB-Restrict-DMA-Pool.) have `CONFIG_DMA_RESTRICTED_POOL=y` option
 - adb shell's cli `/data/data/cn.classfun.droidvm/bin/droidvm`

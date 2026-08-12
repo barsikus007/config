@@ -35,17 +35,17 @@ in
     before = iptables-allports.conf
 
     [Definition]
-    actionstart = <iptables> -N f2b-<name> 2>/dev/null || true
-                  <iptables> -C f2b-<name> -j <returntype> 2>/dev/null || <iptables> -A f2b-<name> -j <returntype>
-                  <iptables> -C <chain> -j f2b-<name> 2>/dev/null || <iptables> -I <chain> -j f2b-<name>
-    actionstop  = <iptables> -D <chain> -j f2b-<name> 2>/dev/null || true
+    actionstart = <iptables> --new-chain f2b-<name> 2>/dev/null || true
+                  <iptables> --check f2b-<name> --jump <returntype> 2>/dev/null || <iptables> --append f2b-<name> --jump <returntype>
+                  <iptables> --check <chain> --jump f2b-<name> 2>/dev/null || <iptables> --insert <chain> --jump f2b-<name>
+    actionstop  = <iptables> --delete <chain> --jump f2b-<name> 2>/dev/null || true
                   <actionflush>
-                  <iptables> -X f2b-<name> 2>/dev/null || true
-    actioncheck = <iptables> -n -L <chain> | grep -q 'f2b-<name>[ \t]'
-    actionban   = <iptables> -I f2b-<name> 1 -s <ip> -p tcp -m multiport ! --dports <exemptports> -j <blocktype>
-                  <iptables> -I f2b-<name> 1 -s <ip> -p udp -m multiport ! --dports <exemptports> -j <blocktype>
-    actionunban = <iptables> -D f2b-<name> -s <ip> -p tcp -m multiport ! --dports <exemptports> -j <blocktype>
-                  <iptables> -D f2b-<name> -s <ip> -p udp -m multiport ! --dports <exemptports> -j <blocktype>
+                  <iptables> --delete-chain f2b-<name> 2>/dev/null || true
+    actioncheck = <iptables> --numeric --list <chain> | grep --quiet 'f2b-<name>[ \t]'
+    actionban   = <iptables> --insert f2b-<name> 1 --source <ip> --protocol tcp --match multiport ! --dports <exemptports> --jump <blocktype>
+                  <iptables> --insert f2b-<name> 1 --source <ip> --protocol udp --match multiport ! --dports <exemptports> --jump <blocktype>
+    actionunban = <iptables> --delete f2b-<name> --source <ip> --protocol tcp --match multiport ! --dports <exemptports> --jump <blocktype>
+                  <iptables> --delete f2b-<name> --source <ip> --protocol udp --match multiport ! --dports <exemptports> --jump <blocktype>
 
     [Init]
     name = default

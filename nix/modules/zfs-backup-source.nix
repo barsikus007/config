@@ -38,7 +38,7 @@ let
 
     echo "Forcing backup push to ${nasSshHost}..."
     sudo ${config.systemd.package}/bin/systemctl start syncoid-zroot-persistent.service
-    exec ${config.systemd.package}/bin/journalctl -fu syncoid-zroot-persistent.service
+    exec ${config.systemd.package}/bin/journalctl --follow --unit syncoid-zroot-persistent.service
   '';
 
   #? runs as ExecStartPre, so it fires before syncoid streams anything; we can't
@@ -55,19 +55,19 @@ let
     target=tank/backups/ROG14/persistent
 
     #? only meaningful inside a live graphical session
-    bus="/run/user/$(${pkgs.coreutils}/bin/id -u)/bus"
+    bus="/run/user/$(${pkgs.coreutils}/bin/id --user)/bus"
     [ -S "$bus" ] || exit 0
 
     #? newest local snapshot = what this run will push up to (ascending + tail
-    #? avoids the SIGPIPE that `sort -S | head` would trip under pipefail)
+    #? avoids the SIGPIPE that `sort --buffer-size | head` would trip under pipefail)
     newest=$("$zfs" list -H -d1 -t snapshot -o name -s creation "$dataset" \
-      | ${pkgs.coreutils}/bin/tail -n1)
+      | ${pkgs.coreutils}/bin/tail --lines=1)
     [ -n "$newest" ] || exit 0
 
     #? what the NAS already has → the common base for the incremental
     tgt=$(${pkgs.coreutils}/bin/timeout 15 ${pkgs.openssh}/bin/ssh -o BatchMode=yes \
       admin@${nasSshHost} -- zfs list -H -d1 -t snapshot -o name -s creation "$target" \
-      2>/dev/null | ${pkgs.coreutils}/bin/tail -n1 || true)
+      2>/dev/null | ${pkgs.coreutils}/bin/tail --lines=1 || true)
     #? no base (empty target / ssh hiccup): skip rather than mis-size a "full" send
     [ -n "$tgt" ] || exit 0
     common="$dataset@''${tgt##*@}"

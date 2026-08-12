@@ -42,10 +42,10 @@ stdenv.mkDerivation (finalAttrs: {
     runHook preInstall
 
     cd v${finalAttrs.version}/
-    mkdir -p $out/lib/cups/filter/
-    mkdir -p $out/share/cups/model/hprt/
-    install -m 644 ppd/*.ppd $out/share/cups/model/hprt/
-    install -m 755 -D filter/${installationPath}/* $out/lib/cups/filter/
+    mkdir --parents $out/lib/cups/filter/
+    mkdir --parents $out/share/cups/model/hprt/
+    install --mode 644 ppd/*.ppd $out/share/cups/model/hprt/
+    install --mode 755 -D filter/${installationPath}/* $out/lib/cups/filter/
 
     runHook postInstall
   '';

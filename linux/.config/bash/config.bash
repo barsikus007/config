@@ -47,7 +47,7 @@ if hash yazi &> /dev/null; then
     yazi "$@" --cwd-file="$tmp"
     IFS= read -r -d '' cwd < "$tmp"
     [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
-    rm -f -- "$tmp"
+    rm --force -- "$tmp"
   }
 fi
 
@@ -75,8 +75,8 @@ source "$HOME/.cargo/env" &> /dev/null
 #? https://junegunn.github.io/fzf/shell-integration/
 if hash fzf &> /dev/null; then
   _FZF_VERSION=$(fzf --version | awk '{print $1}')
-  _FZF_VERSION_MAJOR=$(echo "$_FZF_VERSION" | cut -d. -f1)
-  _FZF_VERSION_MINOR=$(echo "$_FZF_VERSION" | cut -d. -f2)
+  _FZF_VERSION_MAJOR=$(echo "$_FZF_VERSION" | cut --delimiter=. --fields=1)
+  _FZF_VERSION_MINOR=$(echo "$_FZF_VERSION" | cut --delimiter=. --fields=2)
   #? ubuntu 2204 and lower moment
   # shellcheck source=/dev/null
   if [ "$_FZF_VERSION_MAJOR" == 0 ] && [ "$_FZF_VERSION_MINOR" -le 47 ]; then

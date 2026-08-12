@@ -40,14 +40,14 @@ in
         mkdir /btrfs_tmp
         mount ${device} /btrfs_tmp
         if [[ -e /btrfs_tmp/@ ]]; then
-          mkdir -p /btrfs_tmp/@-old_roots
-          timestamp=$(date --date="@$(stat -c %Y /btrfs_tmp/@)" "+%Y-%m-%d_%H:%M:%S")
+          mkdir --parents /btrfs_tmp/@-old_roots
+          timestamp=$(date --date="@$(stat --format %Y /btrfs_tmp/@)" "+%Y-%m-%d_%H:%M:%S")
           mv /btrfs_tmp/@ "/btrfs_tmp/@-old_roots/$timestamp"
         fi
 
         delete_subvolume_recursively() {
           IFS=$'\n'
-          for i in $(btrfs subvolume list -o "$1" | cut -f 9- -d ' '); do
+          for i in $(btrfs subvolume list -o "$1" | cut --fields 9- --delimiter ' '); do
             delete_subvolume_recursively "/btrfs_tmp/$i"
           done
           btrfs subvolume delete "$1"

@@ -15,7 +15,7 @@ cd
 git clone --depth=1 https://github.com/barsikus007/config
 # cp config/nix/ ~/ && cd nix/
 cd ~/config/nix/
-sed -i 's/ogurez/YOUR_USERNAME/' flake.nix
+sed --in-place 's/ogurez/YOUR_USERNAME/' flake.nix
 sudo nixos-rebuild switch --flake .
 
 #? enable pre-commit
@@ -47,9 +47,9 @@ sudo $(nix build ~/config/nix#libs.goodix-patch-521d --print-out-paths)/bin/run_
 #### [Nix install](https://zero-to-nix.com/start/install/) speedrun on existing system
 
 - TLDR
-  - `curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install`
+  - `curl --proto '=https' --tlsv1.2 --silent --show-error --fail --location https://install.determinate.systems/nix | sh -s -- install`
     - enable systemd if wsl
-    - alt installer `curl --proto '=https' --tlsv1.2 -sSf -L https://artifacts.nixos.org/experimental-installer | sh -s -- install`
+    - alt installer `curl --proto '=https' --tlsv1.2 --silent --show-error --fail --location https://artifacts.nixos.org/experimental-installer | sh -s -- install`
   - [offline install](https://github.com/DeterminateSystems/nix-installer/releases/latest/download/nix-installer-x86_64-linux)
 
 #### [Nix uninstall](https://zero-to-nix.com/start/uninstall/)

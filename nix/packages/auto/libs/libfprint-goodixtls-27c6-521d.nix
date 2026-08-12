@@ -63,17 +63,17 @@ stdenv.mkDerivation (finalAttrs: {
 
   postPatch = ''
     # disable building GObject Introspection repository
-    sed -i "8c       value: false)" ./meson_options.txt
+    sed --in-place "8c       value: false)" ./meson_options.txt
     # set correct udev rules path for nix
-    sed -i "16c       value: '$out/lib/udev')" ./meson_options.txt
+    sed --in-place "16c       value: '$out/lib/udev')" ./meson_options.txt
     # set correct udev hwdb path for nix
-    sed -i "24c       value: '$out/lib/udev')" ./meson_options.txt
+    sed --in-place "24c       value: '$out/lib/udev')" ./meson_options.txt
     # don't build API docs
-    sed -i "32c       value: false)" ./meson_options.txt
+    sed --in-place "32c       value: false)" ./meson_options.txt
   ''
   + lib.strings.optionalString (!withTests) ''
     # don't install tests
-    sed -i "36c       value: false)" ./meson_options.txt
+    sed --in-place "36c       value: false)" ./meson_options.txt
   '';
 
   meta = {

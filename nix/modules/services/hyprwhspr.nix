@@ -43,11 +43,11 @@ let
   #? exports WHISPER_GPU (nvidia|amd) for whoever needs to branch on the chosen device
   pickFastestDevice = pkgs.writeShellScript "whisper-pick-device" /* shell */ ''
     devs=$("${pkgs.whisper-cpp-vulkan}/bin/whisper-cli" --help 2>&1)
-    idx=$(printf '%s' "$devs" | ${pkgs.gnugrep}/bin/grep -oP 'ggml_vulkan: \K\d+(?= = .*NVIDIA)' | head -1)
+    idx=$(printf '%s' "$devs" | ${pkgs.gnugrep}/bin/grep --only-matching --perl-regexp 'ggml_vulkan: \K\d+(?= = .*NVIDIA)' | head -1)
     if [ -n "''${idx:-}" ]; then
       export WHISPER_GPU=nvidia
     else
-      idx=$(printf '%s' "$devs" | ${pkgs.gnugrep}/bin/grep -oP 'ggml_vulkan: \K\d+(?= = .*(RADV|AMD|Radeon))' | head -1)
+      idx=$(printf '%s' "$devs" | ${pkgs.gnugrep}/bin/grep --only-matching --perl-regexp 'ggml_vulkan: \K\d+(?= = .*(RADV|AMD|Radeon))' | head -1)
       export WHISPER_GPU=amd
     fi
     [ -n "''${idx:-}" ] && export GGML_VK_VISIBLE_DEVICES="$idx"
@@ -91,7 +91,7 @@ let
   processingTick =
     pkgs.runCommand "hyprwhspr-processing-tick" { nativeBuildInputs = [ pkgs.ffmpeg ]; }
       ''
-        mkdir -p "$out"
+        mkdir --parents "$out"
         ffmpeg -f lavfi -i "sine=frequency=520:duration=0.09" \
           -af "afade=t=out:st=0.05:d=0.04,volume=0.22" -ar 48000 "$out/tick.wav"
       '';
@@ -112,7 +112,7 @@ let
     }
     trap stop_loop EXIT
     react() {
-      cls=$(${pkgs.jq}/bin/jq -r '.class // empty' "$status" 2>/dev/null || true)
+      cls=$(${pkgs.jq}/bin/jq --raw-output '.class // empty' "$status" 2>/dev/null || true)
       case "$cls" in
         active)
           touch "$stamp"
@@ -131,9 +131,9 @@ let
           #! -a/--all-players, else playerctl only ever looks at the first bus name it finds -
           #! an idle chromium instance would mask a firefox that is actually playing
           #? remember the players WE paused, so ones you left paused stay that way
-          resumed=$(${pkgs.playerctl}/bin/playerctl -l 2>/dev/null | while read -r p; do
-            if [ "$(${pkgs.playerctl}/bin/playerctl -p "$p" status 2>/dev/null)" = "Playing" ]; then
-              ${pkgs.playerctl}/bin/playerctl -p "$p" pause 2>/dev/null && printf '%s\n' "$p"
+          resumed=$(${pkgs.playerctl}/bin/playerctl --list-all 2>/dev/null | while read -r p; do
+            if [ "$(${pkgs.playerctl}/bin/playerctl --player "$p" status 2>/dev/null)" = "Playing" ]; then
+              ${pkgs.playerctl}/bin/playerctl --player "$p" pause 2>/dev/null && printf '%s\n' "$p"
             fi
           done)
           stop_loop
@@ -149,7 +149,7 @@ let
           #? dictation finished (or errored): resume exactly the players we paused
           if [ -n "''${resumed:-}" ]; then
             printf '%s\n' "$resumed" | while read -r p; do
-              [ -n "$p" ] && ${pkgs.playerctl}/bin/playerctl -p "$p" play 2>/dev/null || true
+              [ -n "$p" ] && ${pkgs.playerctl}/bin/playerctl --player "$p" play 2>/dev/null || true
             done
             resumed=""
           fi
@@ -158,7 +158,7 @@ let
       esac
     }
     dir=$(${pkgs.coreutils}/bin/dirname "$status")
-    ${pkgs.coreutils}/bin/mkdir -p "$dir"
+    ${pkgs.coreutils}/bin/mkdir --parents "$dir"
     react
     #! -rs writes status.json atomically (temp file + rename), so close_write never fires on the
     #! target - watch the directory for moved_to instead, or the watcher just sits there forever
@@ -173,7 +173,7 @@ let
   whisperIdleStop = pkgs.writeShellScript "whisper-server-idle-stop" /* shell */ ''
     set -u
     stamp="${activityStamp}"
-    last=$(${pkgs.coreutils}/bin/stat -c %Y "$stamp" 2>/dev/null || echo 0)
+    last=$(${pkgs.coreutils}/bin/stat --format %Y "$stamp" 2>/dev/null || echo 0)
     now=$(${pkgs.coreutils}/bin/date +%s)
     if [ "$((now - last))" -ge ${toString whisperIdleSec} ]; then
       systemctl --user stop whisper-server.service || true
@@ -217,7 +217,7 @@ let
 
     echo "== recent dictations =="
     #? -rs logs one benchmark table per dictation; pair audio length with the wall time
-    journalctl --user -u hyprwhspr-rs.service -n 4000 --no-pager 2>/dev/null | ${pkgs.gawk}/bin/awk '
+    journalctl --user --unit hyprwhspr-rs.service --lines=4000 --no-pager 2>/dev/null | ${pkgs.gawk}/bin/awk '
       /Transcribing/     { if (match($0, /Transcribing ([0-9.]+)s/, a)) aud = a[1] }
       #? local backend logs "Transcription: x", the http one "Transcription (whisper-server): x"
       /✅ Transcription/ { if (match($0, /Transcription[^:]*: (.*)$/, t)) txt = t[1] }
@@ -317,8 +317,8 @@ in
   #? config is read by the daemon from ~/.config/hyprwhspr-rs/config.jsonc
   #? canonical keys live under `transcription.whisper_cpp` (top-level model/whisper_prompt are legacy)
   #? models go to modelsDir, named ggml-<whisperModel>.bin
-  # curl -L --create-dirs -o ~/.local/share/hyprwhspr-rs/models/ggml-large-v3-turbo.bin https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-large-v3-turbo.bin
-  # curl -L --create-dirs -o ~/.local/share/hyprwhspr-rs/models/ggml-large-v3-turbo-q5_0.bin https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-large-v3-turbo-q5_0.bin
+  # curl --location --create-dirs --output ~/.local/share/hyprwhspr-rs/models/ggml-large-v3-turbo.bin https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-large-v3-turbo.bin
+  # curl --location --create-dirs --output ~/.local/share/hyprwhspr-rs/models/ggml-large-v3-turbo-q5_0.bin https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-large-v3-turbo-q5_0.bin
 
   home-manager.users.${username}.xdg.configFile."hyprwhspr-rs/config.jsonc".text = /* json */ ''
     {

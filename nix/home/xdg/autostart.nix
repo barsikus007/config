@@ -3,7 +3,7 @@ let
   replaceDesktopItem =
     package: name: newExec:
     (pkgs.runCommand name { } ''
-      mkdir -p $out
+      mkdir --parents $out
       src=${package}/share/applications/${name}
       sed 's|^Exec=.*$|Exec=${newExec}|' "$src" > $out/${name}
     '')

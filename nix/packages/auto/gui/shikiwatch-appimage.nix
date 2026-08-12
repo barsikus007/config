@@ -16,7 +16,7 @@ appimageTools.wrapType2 rec {
 
   # GDK_BACKEND=x11
   extraInstallCommands = ''
-    cp -r ${
+    cp --recursive ${
       (makeDesktopItem {
         name = pname;
         exec = pname;

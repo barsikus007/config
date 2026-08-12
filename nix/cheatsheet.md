@@ -3,7 +3,7 @@
 ## nixpkgs
 
 - [index](https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/all-packages.nix)
-  - `code $(nix eval -f '<nixpkgs>' path)/pkgs/top-level/all-packages.nix`
+  - `code $(nix eval --file '<nixpkgs>' path)/pkgs/top-level/all-packages.nix`
 - [phases order](https://nixos.org/manual/nixpkgs/stable/#sec-stdenv-phases)
 - [builder status nixos-unstable](https://hydra.nixos.org/jobset/nixos/trunk-combined/latest-eval)
 - [attributes ordering](https://github.com/jtojnar/nixpkgs-hammering/blob/main/explanations/attribute-ordering.md)
@@ -14,17 +14,17 @@ feat: gemini
 
 ```shell
 # 1. Вычисляем хэш текущего ядра Linux из пути в /nix/store
-HASH=$(readlink -f /run/current-system/kernel | grep -oP '/nix/store/\K[a-z0-9]{32}')
+HASH=$(readlink --canonicalize /run/current-system/kernel | grep --only-matching --perl-regexp '/nix/store/\K[a-z0-9]{32}')
 
 # 2. Получаем прямой URL к .nar архиву из кэша
-NAR_URL=$(curl -s https://cache.nixos.org/$HASH.narinfo | grep -oP 'URL: \K.*')
+NAR_URL=$(curl --silent https://cache.nixos.org/$HASH.narinfo | grep --only-matching --perl-regexp 'URL: \K.*')
 
 # 3. Если файл найден в кэше - качаем и замеряем скорость
 if [ -z "$NAR_URL" ]; then
   echo "Ваше ядро собрано локально или отсутствует в кэше. Попробуйте другой пакет."
 else
   echo "Тестируем на файле: $NAR_URL"
-  curl -L -o /dev/null -w "Speed: %{speed_download} B/s\n" "https://cache.nixos.org/$NAR_URL"
+  curl --location --output /dev/null --write-out "Speed: %{speed_download} B/s\n" "https://cache.nixos.org/$NAR_URL"
 fi
 ```
 
@@ -235,7 +235,7 @@ echo "use flake" > .envrc && direnv allow
 
 #### x2nix
 
-##### ? nix run github:nix-community/pip2nix -- generate -r requirements.txt
+##### ? nix run github:nix-community/pip2nix -- generate --requirements requirements.txt
 
 ##### [pyproject2nix](https://wiki.nixos.org/wiki/Python#With_pyproject.toml)
 

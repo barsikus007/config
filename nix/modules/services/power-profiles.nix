@@ -21,15 +21,15 @@ let
   applyProfile = pkgs.writeShellScript "apply-power-profile" /* shell */ ''
     case "''${1:-}" in
       performance)
-        ${cpupower} frequency-set -g performance
+        ${cpupower} frequency-set --governor performance
         ${anime "true"}
         ;;
       balanced)
-        ${cpupower} frequency-set -g ${config.powerManagement.cpuFreqGovernor}
+        ${cpupower} frequency-set --governor ${config.powerManagement.cpuFreqGovernor}
         ${anime "true"}
         ;;
       power-saver)
-        ${cpupower} frequency-set -g powersave
+        ${cpupower} frequency-set --governor powersave
         ${anime "false"}
         ;;
       *)
@@ -61,7 +61,7 @@ in
       ${gdbus} monitor --system \
         --dest org.freedesktop.UPower.PowerProfiles \
         --object-path /org/freedesktop/UPower/PowerProfiles \
-        | ${sed} --unbuffered -n "s/.*'ActiveProfile': <'\([a-z-]*\)'>.*/\1/p" \
+        | ${sed} --unbuffered --quiet "s/.*'ActiveProfile': <'\([a-z-]*\)'>.*/\1/p" \
         | while read -r profile; do
             ${applyProfile} "$profile" || true
           done

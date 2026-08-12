@@ -27,7 +27,7 @@ let
     postCreateHook = lib.mkForce "";
     rootFsOptions.keylocation = lib.mkForce "file:///etc/zfs/keys/${name}.key";
     preCreateHook = lib.mkForce ''
-      mkdir -p /etc/zfs/keys
+      mkdir --parents /etc/zfs/keys
       cp /tmp/secret.key /etc/zfs/keys/${name}.key
     '';
   };
@@ -57,7 +57,7 @@ in
       map (pool: {
         name = "zfs-import-${pool}";
         value.preStart = ''
-          mkdir -p /etc/zfs/keys
+          mkdir --parents /etc/zfs/keys
           printf '%s' ${testKey} > /etc/zfs/keys/${pool}.key
         '';
       }) dataPools

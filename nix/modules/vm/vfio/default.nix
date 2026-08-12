@@ -11,8 +11,8 @@
   ];
 
   virtualisation.hugepages = {
-    #? grep -i huge /proc/meminfo
-    #? sync && sudo sysctl -w vm.drop_caches=3 && sudo sysctl -w vm.compact_memory=1 && sudo sysctl -w vm.nr_hugepages=4400
+    #? grep --ignore-case huge /proc/meminfo
+    #? sync && sudo sysctl --write vm.drop_caches=3 && sudo sysctl --write vm.compact_memory=1 && sudo sysctl --write vm.nr_hugepages=4400
     # enable = true;
     defaultPageSize = "2M";
     pageSize = "2M";
@@ -46,7 +46,7 @@
     devices = [
       #? you need to pass all devices in group? cause otherwise "Please ensure all devices within the iommu_group are bound to their vfio bus driver."
       #? https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Ensuring_that_the_groups_are_valid
-      #? lspci -nn | grep -i nvidia
+      #? lspci -nn | grep --ignore-case nvidia
       "10de:1f12" # VGA
       "10de:10f9" # Audio
       "10de:1ada" # USB

@@ -46,7 +46,7 @@ cat ~/.ssh/id_ed25519.pub
 key_file=~/.ssh/filename
 ssh-keygen -t ed25519 -f $key_file  # -P "password" -C "comment"
 ssh-copy-id -i $key_file.pub user@host
-# or mkdir -p ~/.ssh/ && editor ~/.ssh/authorized_keys
+# or mkdir --parents ~/.ssh/ && editor ~/.ssh/authorized_keys
 ```
 
 ## apt
@@ -57,7 +57,7 @@ apt-mark showmanual
 #? or better
 zgrep 'Commandline: apt' /var/log/apt/history.log /var/log/apt/history.log.*.gz
 #? or
-zgrep -E "Commandline: apt(|-get)" /var/log/apt/history.log*
+zgrep --extended-regexp "Commandline: apt(|-get)" /var/log/apt/history.log*
 ```
 
 ## wireguard
@@ -66,7 +66,7 @@ zgrep -E "Commandline: apt(|-get)" /var/log/apt/history.log*
 
 ```shell
 [Interface]
-PostUp = DEFRT=$(ip route show default | cut -d ' ' -f 2-); for NET in 192.168.0.0/16 169.254.0.0/16 172.16.0.0/12 100.64.0.0/10 10.0.0.0/8; do ip route add $NET $DEFRT protocol 127; done
+PostUp = DEFRT=$(ip route show default | cut --delimiter=' ' --fields=2-); for NET in 192.168.0.0/16 169.254.0.0/16 172.16.0.0/12 100.64.0.0/10 10.0.0.0/8; do ip route add $NET $DEFRT protocol 127; done
 PreDown = ip route flush protocol 127
 #! Also allow your DNS in AllowedPeers with /32 it its in wg network
 ```
@@ -105,8 +105,8 @@ distrobox create --name astra --image registry.astralinux.ru/astra/ubi18:latest
 ```shell
 sudo zfs load-key tank/backups/ROG14/persistent
 
-sudo mkdir -p /mnt/backup
-sudo mount -t zfs -o zfsutil,ro tank/backups/ROG14/persistent /mnt/backup
+sudo mkdir --parents /mnt/backup
+sudo mount --types zfs --options zfsutil,ro tank/backups/ROG14/persistent /mnt/backup
 
 sudo zfs umount -u tank/backups/ROG14/persistent
 ```
@@ -128,20 +128,20 @@ sudo zfs umount -u tank/backups/ROG14/persistent
 
 ```shell
 # set recursion depth manually
-wget -r -k -l 7 -p -E -nc http://site.com/
+wget --recursive --convert-links --level=7 --page-requisites --adjust-extension --no-clobber http://site.com/
 # OR automatic
-wget -mpEk http://site.com/
+wget --mirror --page-requisites --adjust-extension --convert-links http://site.com/
 ```
 
 ### check size of files at folder
 
 ```shell
 # current folder
-du . -hcd 1 | sort -hr
+du . --human-readable --total --max-depth=1 | sort --human-numeric-sort --reverse
 # current folder with files (use apparent sizes, rather than disk usage)
-du . -hacd 1 --apparent-size | sort -hr
+du . --human-readable --all --total --max-depth=1 --apparent-size | sort --human-numeric-sort --reverse
 # all files in that folder recursively
-du . -ha | sort -hr
+du . --human-readable --all | sort --human-numeric-sort --reverse
 ```
 
 ### grep search in dir recursively
@@ -149,27 +149,27 @@ du . -ha | sort -hr
 TODO add find or strings example
 
 ```shell
-grep -rnw 'dir/' -e 'search'
+grep --recursive --line-number --word-regexp 'dir/' --regexp='search'
 ```
 
 ### [dos2unix4folder](https://stackoverflow.com/a/11929475/15844518)
 
 ```shell
-find . -type f -print0 | xargs -0 dos2unix -ic0 | xargs -0 dos2unix -b
+find . -type f -print0 | xargs --null dos2unix -ic0 | xargs --null dos2unix --keep-bom
 # or for git repos
-git ls-files | xargs dos2unix -ic0 | xargs dos2unix -b
+git ls-files | xargs dos2unix -ic0 | xargs dos2unix --keep-bom
 ```
 
 ### [bleachbit clear](https://askubuntu.com/q/671798)
 
 ```shell
-sudo bleachbit --list | grep -E "[a-z0-9_\-]+\.[a-z0-9_\-]+" | grep -v system.free_disk_space | xargs sudo bleachbit --clean
+sudo bleachbit --list | grep --extended-regexp "[a-z0-9_\-]+\.[a-z0-9_\-]+" | grep --invert-match system.free_disk_space | xargs sudo bleachbit --clean
 ```
 
 ### [clean running docker containers logs (also there is logs rotating config TODO)](https://stackoverflow.com/q/41091634)
 
 ```shell
-sudo sh -c "truncate -s 0 /var/lib/docker/containers/*/*-json.log"
+sudo sh -c "truncate --size=0 /var/lib/docker/containers/*/*-json.log"
 ```
 
 ### kill died terminals
@@ -185,8 +185,8 @@ ps aux | grep sshd | grep "\w*@pts/.*" | awk {'print $2'} | xargs kill -9
 ```shell
 sudo crontab -e
 # ---
-0 0 * * * sh -c "truncate -s 0 /var/lib/docker/containers/*/*-json.log"
-0 0 * * * bleachbit --list | grep -E "[a-z0-9_\-]+\.[a-z0-9_\-]+" | xargs bleachbit --clean
+0 0 * * * sh -c "truncate --size=0 /var/lib/docker/containers/*/*-json.log"
+0 0 * * * bleachbit --list | grep --extended-regexp "[a-z0-9_\-]+\.[a-z0-9_\-]+" | xargs bleachbit --clean
 ```
 
 ### linux fork bombs
@@ -215,7 +215,7 @@ subnet='192.168.1'; for i in {0..255}; do timeout 0.5 ping -c1 $subnet.$i; done
   - `nc -l -p SERVER_PORT -q 1 > FILE_NAME < /dev/null`
 - [croc](https://github.com/schollz/croc)
   - `curl https://getcroc.schollz.com | bash`
-    - alt with `wget -O- https://getcroc.schollz.com | bash`
+    - alt with `wget --output-document=- https://getcroc.schollz.com | bash`
     - if install is [failed](https://github.com/schollz/croc/issues/765), use unpacked binary from `/tmp/` folder (it is not deleted after failed install)
 
 ### test mounted disk speed
@@ -265,10 +265,10 @@ fd --type=directory --type=empty --exec-batch=rmdir
 ### docker watchtower
 
 ```shell
-docker run -d \
+docker run --detach \
 --name watchtower \
 --restart always \
--v /var/run/docker.sock:/var/run/docker.sock \
+--volume /var/run/docker.sock:/var/run/docker.sock \
 nickfedor/watchtower --cleanup --remove-volumes
 ```
 

@@ -12,7 +12,7 @@
   installPhase = ''
     runHook preInstall
 
-    install -D -m444 -t $out/share/fonts/truetype $src/Minecraftia-Regular.ttf
+    install -D --mode=444 --target-directory=$out/share/fonts/truetype $src/Minecraftia-Regular.ttf
 
     runHook postInstall
   '';

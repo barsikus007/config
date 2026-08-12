@@ -1,7 +1,7 @@
 # [how to install certificates](./README.md)
 
 ```shell
-mitmproxy -p 8081 --set block_global=false
+mitmproxy --listen-port 8081 --set block_global=false
 
 adb shell settings put global http_proxy 10.0.2.2:8080
 adb shell settings put global http_proxy 228.13.37.123:8081
@@ -40,7 +40,7 @@ chcon u:object_r:system_file:s0 /system/etc/security/cacerts/*
 ## or use HTTP Toolkit with <https://github.com/NVISOsecurity/MagiskTrustUserCerts>
 
 ```shell
-frida -U --codeshare akabe1/frida-multiple-unpinning -f com.punicapp.whoosh
+frida --usb --codeshare akabe1/frida-multiple-unpinning --file com.punicapp.whoosh
 
 wsl
 unxz frida-server-16.0.10-android-arm64.xz

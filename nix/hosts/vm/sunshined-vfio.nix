@@ -43,7 +43,7 @@
     #! see BOTH: WQHD@144 = preferred (DTD1), FHD@60 = DTD2 over the name descriptor @byte 72
     edid.packages = [
       (pkgs.runCommand "edid-dp1-dual" { } ''
-        mkdir -p "$out/lib/firmware/edid"
+        mkdir --parents "$out/lib/firmware/edid"
         ${pkgs.python3}/bin/python3 -c '
         import sys
         d, out = sys.argv[1], sys.argv[2]

@@ -28,11 +28,11 @@ in
               | grep --line-buffered --fixed-strings 'node.name = "${mic.pipewireNode}"' \
               | while read -r _; do
                   read -r id vol < <(${pkgs.pipewire}/bin/pw-dump \
-                    | ${jq} -r 'first(.[] | select(.info.props."node.name"=="${mic.pipewireNode}")
+                    | ${jq} --raw-output 'first(.[] | select(.info.props."node.name"=="${mic.pipewireNode}")
                         | "\(.id) \(.info.params.Props[0].channelVolumes[0])") // empty')
                   [ -z "$id" ] && continue
                   #? only ever pull down, never up - going quieter than 25% stays allowed
-                  if [ "$(${lib.getExe pkgs.gawk} -v v="$vol" -v m="$max" 'BEGIN{print (v > m) ? 1 : 0}')" = 1 ]; then
+                  if [ "$(${lib.getExe pkgs.gawk} --assign v="$vol" --assign m="$max" 'BEGIN{print (v > m) ? 1 : 0}')" = 1 ]; then
                     ${pkgs.wireplumber}/bin/wpctl set-volume "$id" 0.25
                   fi
                 done

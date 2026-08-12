@@ -16,7 +16,7 @@ let
     mkVpnAliases {
       prefix = args.wgExec;
       service = "wg-quick-${args.wgIface}";
-      watchCommand = "sudo watch -c 'WG_COLOR_MODE=always ${args.wgExec} show'";
+      watchCommand = "sudo watch --color 'WG_COLOR_MODE=always ${args.wgExec} show'";
     };
 in
 rec {
@@ -27,14 +27,14 @@ rec {
     sudoe = "sudo env PATH=$PATH ";
     editor = "nano";
     grep = "grep --color=auto";
-    grp = "grep -Fin -C 7";
+    grp = "grep --fixed-strings --ignore-case --line-number --context 7";
     c = "clear";
     h = "history";
     hf = "h | grp";
     ls = "ls --group-directories-first --color=auto --hyperlink";
     lls = ''\command ls'';
-    l = "ls -CFbh";
-    ll = "ls -laFbgh";
+    l = "ls --format=vertical --classify --escape --human-readable";
+    ll = "ls --format=long -g --all --classify --escape --human-readable";
     sshe = "editor ~/.ssh/config";
     nv = "editor $(fzf)";
     cu = "cd ${flakePath} && git pull && cd -";
@@ -45,10 +45,10 @@ rec {
     open-ports-netstat = "netstat --listening";
   };
   networkTestAliases = {
-    "1ip" = "wget -qO - icanhazip.com";
+    "1ip" = "wget --quiet --output-document - icanhazip.com";
     "2ip" = "curl 2ip.ru";
-    "3ip" = "curl -so- ipinfo.io | jq";
-    "4ip" = "curl -so- wtfismyip.com/json | jq";
+    "3ip" = "curl --silent --output - ipinfo.io | jq";
+    "4ip" = "curl --silent --output - wtfismyip.com/json | jq";
     speedtest = "curl https://speedtest.selectel.ru/100MB --output /dev/null";
     speedtest-as-youtube = "curl --insecure --connect-to ::speedtest.selectel.ru https://www.youtube.com/100MB --output /dev/null";
   };
@@ -57,10 +57,10 @@ rec {
     dsp = "docker system prune";
     dspa = "dsp --all";
     dc = "docker compose";
-    dcu = "dc up -d";
+    dcu = "dc up --detach";
     dcub = "dcu --build";
     dcuo = "dcu --remove-orphans";
-    dcup = "dc -f compose.prod.yaml up -d";
+    dcup = "dc --file compose.prod.yaml up --detach";
     dcp = "dc ps";
     dcs = "dc stop";
     dcd = "dc down";
@@ -70,7 +70,7 @@ rec {
   };
   # TODO: non ported
   pythonAliases = {
-    pipi = "uv pip install -r requirements.txt || uv pip install -r pyproject.toml";
+    pipi = "uv pip install --requirements requirements.txt || uv pip install --requirements pyproject.toml";
     pyvcr = "uv venv --allow-existing && source .venv/bin/activate && pipi";
     pyv = "source .venv/bin/activate || pyvcr";
     pyt = "ptpython";
@@ -117,8 +117,8 @@ rec {
     android-yt-dlpa = "cd ~/storage/downloads && yt-dlpa";
   };
   ezaAliases = {
-    l = "eza -F -bghM --smart-group --group-directories-first --color-scale --icons=always --no-quotes --hyperlink=auto";
-    ll = "eza -F -labghM --smart-group --group-directories-first --color-scale --icons=always --no-quotes --hyperlink=auto";
+    l = "eza --classify --binary --group --header --mounts --smart-group --group-directories-first --color-scale --icons=always --no-quotes --hyperlink=auto";
+    ll = "eza --classify --long --all --binary --group --header --mounts --smart-group --group-directories-first --color-scale --icons=always --no-quotes --hyperlink=auto";
     llt = "ll --tree";
   };
   nvimAliases = {
@@ -144,9 +144,9 @@ rec {
     nr-home = "nh home repl ${flakePath}";
     nr-legacy = "nixos-rebuild repl --flake ${flakePath}";
     ne = "editor ${flakePath}";
-    ndiff = "${lib.getExe pkgs.nvd} diff ~/.local/state/nix/profiles/$(command ls -t ~/.local/state/nix/profiles | fzf) ~/.local/state/nix/profiles/home-manager";
-    nndiff = "${lib.getExe pkgs.nvd} diff /nix/var/nix/profiles/$(command ls -t /nix/var/nix/profiles/ | fzf) /nix/var/nix/profiles/system";
-    ns = "nix-shell -p";
+    ndiff = "${lib.getExe pkgs.nvd} diff ~/.local/state/nix/profiles/$(command ls --sort=time ~/.local/state/nix/profiles | fzf) ~/.local/state/nix/profiles/home-manager";
+    nndiff = "${lib.getExe pkgs.nvd} diff /nix/var/nix/profiles/$(command ls --sort=time /nix/var/nix/profiles/ | fzf) /nix/var/nix/profiles/system";
+    ns = "nix-shell --packages";
     nss = "nix_shell_exec";
     ncode = "code --reuse-window $(nix eval --offline --file '<nixpkgs>' path)/pkgs/top-level/all-packages.nix";
     nix-ldd = "LD_LIBRARY_PATH=\${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}$NIX_LD_LIBRARY_PATH ldd";

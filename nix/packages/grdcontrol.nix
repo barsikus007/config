@@ -33,11 +33,11 @@ stdenv.mkDerivation {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/{bin,opt,lib}/
+    mkdir --parents $out/{bin,opt,lib}/
     # don't copy etc cause it contain only legacy init.d script
-    cp -R opt $out/
+    cp --recursive opt $out/
 
-    mkdir -p $out/lib/systemd/system/
+    mkdir --parents $out/lib/systemd/system/
     cp $out/opt/guardant/grdcontrol/grdcontrol.service $out/lib/systemd/system/
     substituteInPlace $out/opt/guardant/grdcontrol/grdcontrol.service \
       --replace-fail "/opt/guardant" "$out/opt/guardant"

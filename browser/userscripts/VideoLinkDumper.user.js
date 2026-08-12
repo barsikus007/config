@@ -27,10 +27,10 @@
   let mpvBase = `mpv '${url}' --no-border --snap-window --save-position-on-quit --referrer='${sibnetURL}'`;
   console.log('Just download with yt-dlp');
   // https://github.com/ytdl-org/youtube-dl/issues/15384#issuecomment-359654155
-  console.log(`yt-dlp '${url}' --referer='${sibnetURL}' --no-part -N 16"`);
+  console.log(`yt-dlp '${url}' --referer='${sibnetURL}' --no-part --concurrent-fragments 16"`);
   console.log('or with aria2c');
   console.log(
-    `yt-dlp '${url}' --referer='${sibnetURL}' --no-part --external-downloader aria2c --external-downloader-args "-x 16 -s 16 -k 1M"`,
+    `yt-dlp '${url}' --referer='${sibnetURL}' --no-part --external-downloader aria2c --external-downloader-args "--max-connection-per-server=16 --split=16 --min-split-size=1M"`,
   );
   console.log('MPV max quality ("_" key for switch quality)');
   console.log(mpvBase);

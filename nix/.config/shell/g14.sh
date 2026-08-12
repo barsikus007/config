@@ -8,7 +8,7 @@ asus_anime_demo_select() {
   local SELECTED_VIDEO
   SELECTED_VIDEO=$(
     find "$ROG_ANIME_DIR" -mindepth 2 -maxdepth 2 \( -name "frames.gif" -o -name "sound.mp3" \) \
-      -printf '%h\n' | sort -u \
+      -printf '%h\n' | sort --unique \
       | sed "s|$ROG_ANIME_DIR/||" \
       | if [ "${1}" = "--interactive" ]; then
           vicinae dmenu --placeholder "ROG ANIME preset> "
@@ -18,8 +18,8 @@ asus_anime_demo_select() {
   ) || return 1
 
   local SELECTED_VIDEO_DIR="$ROG_ANIME_DIR/$SELECTED_VIDEO"
-  [ -f "$SELECTED_VIDEO_DIR/frames.gif" ] && ln -sf "$SELECTED_VIDEO_DIR/frames.gif" "$ROG_ANIME_DIR/frames.gif" && echo "frames -> $SELECTED_VIDEO/frames.gif"
-  [ -f "$SELECTED_VIDEO_DIR/sound.mp3" ]  && ln -sf "$SELECTED_VIDEO_DIR/sound.mp3"  "$ROG_ANIME_DIR/sound.mp3"  && echo "sound  -> $SELECTED_VIDEO/sound.mp3"
+  [ -f "$SELECTED_VIDEO_DIR/frames.gif" ] && ln --symbolic --force "$SELECTED_VIDEO_DIR/frames.gif" "$ROG_ANIME_DIR/frames.gif" && echo "frames -> $SELECTED_VIDEO/frames.gif"
+  [ -f "$SELECTED_VIDEO_DIR/sound.mp3" ]  && ln --symbolic --force "$SELECTED_VIDEO_DIR/sound.mp3"  "$ROG_ANIME_DIR/sound.mp3"  && echo "sound  -> $SELECTED_VIDEO/sound.mp3"
 }
 asus_anime_demo_select_interactive() { asus_anime_demo_select --interactive; }
 
@@ -36,7 +36,7 @@ asus_anime_demo_download() {
     VIDEO_ID=$(echo "$VIDEO_ID_ENTRY" | awk '{print $1}')
   fi
 
-  VIDEO_TITLE=$(yt-dlp --get-filename --output "%(title)s" "$VIDEO_ID" 2>/dev/null | tr ' /' '_-' | tr -cd '[:alnum:]_-')
+  VIDEO_TITLE=$(yt-dlp --get-filename --output "%(title)s" "$VIDEO_ID" 2>/dev/null | tr ' /' '_-' | tr --complement --delete '[:alnum:]_-')
   VIDEO_FOLDER=~/.config/rog/${VIDEO_ID}__${VIDEO_TITLE}
   mkdir --parents "$VIDEO_FOLDER"
   # TODO: fix timings
@@ -57,7 +57,7 @@ alias asus_anime_demo_start='asus_anime_demo_stop && asus_anime_demo_start_prepa
 asus_anime_toggle() {
   #? it could be setted to off for no reason
   asusctl anime --brightness high
-  if grep -q 'builtin_anims_enabled: true' /etc/asusd/anime.ron; then
+  if grep --quiet 'builtin_anims_enabled: true' /etc/asusd/anime.ron; then
   # if grep -q 'display_enabled: true' /etc/asusd/anime.ron; then
     asusctl anime --enable-powersave-anim false
     # asusctl anime --enable-display false

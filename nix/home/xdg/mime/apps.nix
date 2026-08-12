@@ -1,7 +1,7 @@
 { lib, ... }:
 {
   xdg = {
-    #? find /run/current-system/sw/share/applications /etc/profiles/per-user/$USER/share/applications ~/.local/share/applications | grep -i <name>
+    #? find /run/current-system/sw/share/applications /etc/profiles/per-user/$USER/share/applications ~/.local/share/applications | grep --ignore-case <name>
     mimeApps.enable = true;
     mimeApps.defaultApplications = {
       "inode/directory" = [

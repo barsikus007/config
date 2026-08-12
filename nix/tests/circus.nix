@@ -205,11 +205,11 @@ pkgs.testers.runNixOSTest {
     # update-ru-routes is a oneshot (no RemainAfterExit); start it explicitly so the
     # call blocks until completion, then confirm the INFRANET prefix landed in the set
     infranet_node.succeed("systemctl start update-ru-routes.service")
-    infranet_node.succeed("nft list set inet split-routing ru_ips | grep -F ${infranetWanSiteIp}")
+    infranet_node.succeed("nft list set inet split-routing ru_ips | grep --fixed-strings ${infranetWanSiteIp}")
 
     # the wg1 policy routing must be in place (fwmark 0x78 == 120)
-    infranet_node.succeed("ip rule show | grep -F 'fwmark 0x78'")
-    infranet_node.succeed("ip route show table 120 | grep -F wg1")
+    infranet_node.succeed("ip rule show | grep --fixed-strings 'fwmark 0x78'")
+    infranet_node.succeed("ip route show table 120 | grep --fixed-strings wg1")
 
     # bring the tunnels to a known-good state before asserting reachability
     infranet_node.wait_until_succeeds("ping -c1 ${exitWg}.2", timeout=30)
@@ -217,10 +217,10 @@ pkgs.testers.runNixOSTest {
 
     # INFRANET dst: in ru_ips, non-rfc1918 -> NOT marked -> direct egress from infranet_node
     # (internet_node has no route here, so success proves the bypass)
-    infranet_client.succeed("curl --fail --max-time 10 http://${infranetWanSiteIp}/ | grep -F INFRANET_WAN_SITE")
+    infranet_client.succeed("curl --fail --max-time 10 http://${infranetWanSiteIp}/ | grep --fixed-strings INFRANET_WAN_SITE")
 
     # INTERNET dst: not INFRANET, not rfc1918 -> marked 120 -> table 120 -> wg1 -> exit
     # (infranet_node has no direct route here, so success proves the marking + routing)
-    infranet_client.succeed("curl --fail --max-time 10 http://${foreignSiteIp}/ | grep -F INTERNET_WAN_SITE")
+    infranet_client.succeed("curl --fail --max-time 10 http://${foreignSiteIp}/ | grep --fixed-strings INTERNET_WAN_SITE")
   '';
 }

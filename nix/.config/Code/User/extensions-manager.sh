@@ -3,10 +3,10 @@
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
 
-EXTENSIONS=$(nix eval --json -f "$DIR/extensions.nix")
+EXTENSIONS=$(nix eval --json --file "$DIR/extensions.nix")
 
-DESIRED=$(echo "$EXTENSIONS" | jq -r '.all[]' | tr '[:upper:]' '[:lower:]' | sort)
-IN_NIXPKGS=$(echo "$EXTENSIONS" | jq -r '.inNixpkgs[]' | tr '[:upper:]' '[:lower:]' | sort)
+DESIRED=$(echo "$EXTENSIONS" | jq --raw-output '.all[]' | tr '[:upper:]' '[:lower:]' | sort)
+IN_NIXPKGS=$(echo "$EXTENSIONS" | jq --raw-output '.inNixpkgs[]' | tr '[:upper:]' '[:lower:]' | sort)
 INSTALLED=$(code --list-extensions 2>/dev/null | tr '[:upper:]' '[:lower:]' | sort)
 
 echo "[+] To install:"

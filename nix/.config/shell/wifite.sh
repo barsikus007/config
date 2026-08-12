@@ -1,7 +1,7 @@
 #!/usr/bin/env --split-string nix shell nixpkgs#iproute2 nixpkgs#iw nixpkgs#wifite2 nixpkgs#aircrack-ng --command bash
 # shellcheck shell=bash
 
-alias get_first_iface="\command ls /sys/class/ieee80211/*/device/net/ | cut -d' ' -f1 | head -n 1"
+alias get_first_iface="\command ls /sys/class/ieee80211/*/device/net/ | cut --delimiter=' ' --fields=1 | head --lines 1"
 
 restore_wifi() {
   (

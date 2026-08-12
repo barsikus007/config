@@ -27,7 +27,7 @@ my opinion on random things, mostly comparisons between flaming objects
 [nix code to fill](nix/home/default.nix#:~:text=%23%20%7D;-,userName):
 
 ```shell
-mkdir -p ~/.config/git/
+mkdir --parents ~/.config/git/
 nix eval --impure --raw --expr '
   with import <nixpkgs> {};
   lib.generators.toGitINI
@@ -60,7 +60,7 @@ uv python install --preview
 
 ```shell
 # linux
-curl -LsSf https://astral.sh/uv/install.sh | sh
+curl --location --silent --show-error --fail https://astral.sh/uv/install.sh | sh
 # windows
 scoop install uv
 # powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
@@ -90,7 +90,7 @@ hatch config set terminal.styles.spinner material
 ##### release schedule
 
 ```shell
-hatch test -ac
+hatch test --all --cover
 hatch version micro
 hatch build
 hatch publish
@@ -99,10 +99,10 @@ hatch publish
 ###### tag based
 
 ```shell
-hatch test -ac
+hatch test --all --cover
 hatch version micro
 git commit -am "release: $(hatch version)"
-git tag -a $(hatch version) -m
+git tag --annotate $(hatch version) --message
 git push origin --follow-tags
 ```
 

@@ -22,7 +22,7 @@ buildFHSEnv rec {
     open-sans
   ];
   extraBuildCommands = ''
-    mkdir -p $out/usr/local/
+    mkdir --parents $out/usr/local/
   '';
   extraBwrapArgs = [
     "--tmpfs /usr/local"
@@ -31,8 +31,8 @@ buildFHSEnv rec {
 
   # symlink shared assets, including icons and desktop entries
   extraInstallCommands = ''
-    ln -s "${kompas}/share" "$out/"
-    ln -s "$out/bin/${pname}" "$out/bin/${kompas.meta.mainProgram}"
+    ln --symbolic "${kompas}/share" "$out/"
+    ln --symbolic "$out/bin/${pname}" "$out/bin/${kompas.meta.mainProgram}"
   '';
 
   profile = ''
@@ -43,13 +43,13 @@ buildFHSEnv rec {
         return 0
       fi
       echo "Start font linking inside FHS env cause kompas only checks /usr/{,local/}share/fonts/ dirs"
-      mkdir -p "$custom_font_dir"
-      for font in $(${fontconfig}/bin/fc-list -f "%{file}\n" | sort -u | awk -F/ '{if (!seen[$NF]++) print $0}'); do
-        [ -L "$font" ] && font=$(readlink -f "$font")
+      mkdir --parents "$custom_font_dir"
+      for font in $(${fontconfig}/bin/fc-list --format "%{file}\n" | sort --unique | awk --field-separator=/ '{if (!seen[$NF]++) print $0}'); do
+        [ -L "$font" ] && font=$(readlink --canonicalize "$font")
         relpath=$(dirname $(echo $font | sed 's|.*/share/fonts/||'))
         target="$custom_font_dir/$relpath/"
-        mkdir -p "$target"
-        ln -s "$font" "$target"
+        mkdir --parents "$target"
+        ln --symbolic "$font" "$target"
       done
     )
   '';

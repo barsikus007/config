@@ -110,7 +110,7 @@ in
       text = /* shell */ ''
         export WINEPREFIX="''${WINEPREFIX:-$HOME/.wine}"
         #! resolution of the currently focused niri output (kanshi-profile aware)
-        res="$(niri msg --json focused-output | jq -r '.modes[.current_mode] | "\(.width)x\(.height)"')"
+        res="$(niri msg --json focused-output | jq --raw-output '.modes[.current_mode] | "\(.width)x\(.height)"')"
         wine reg add 'HKCU\Software\Wine\Explorer'          /v Desktop /t REG_SZ /d Default /f
         wine reg add 'HKCU\Software\Wine\Explorer\Desktops' /v Default /t REG_SZ /d "$res"  /f
       '';

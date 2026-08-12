@@ -174,7 +174,7 @@ in
             enabled = true;
             action = "command";
             timeout = 60.0;
-            command = ''[ "$(loginctl show-session $XDG_SESSION_ID -p LockedHint --value)" = "yes" ] && ${lib.getExe config.programs.niri.package} msg action power-off-monitors'';
+            command = ''[ "$(loginctl show-session $XDG_SESSION_ID --property LockedHint --value)" = "yes" ] && ${lib.getExe config.programs.niri.package} msg action power-off-monitors'';
           };
           "screen-off" = {
             enabled = true;
@@ -266,7 +266,7 @@ in
       };
       shell = {
         clipboard_auto_paste = "ctrl_v";
-        clipboard_image_action_command = "satty -f -";
+        clipboard_image_action_command = "satty --filename -";
         clipboard_history_max_entries = 500;
         keyboard_layout.custom_labels = {
           "English (US)" = "🇺🇸";

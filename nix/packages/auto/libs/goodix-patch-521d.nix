@@ -31,12 +31,12 @@ stdenvNoCC.mkDerivation {
 
   patchPhase = ''
     #? comment "if len(otp) < 64:" check
-    sed -i '133,134s/^/#/' driver_52xd.py
+    sed --in-place '133,134s/^/#/' driver_52xd.py
   '';
 
   installPhase = ''
-    mkdir -p "$out/bin"
-    cp -r ./* "$out/"
+    mkdir --parents "$out/bin"
+    cp --recursive ./* "$out/"
     cat > "$out/bin/run_521d" << EOF
     #!/bin/sh
     cd "$out/"

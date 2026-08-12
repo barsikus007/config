@@ -22,7 +22,7 @@ let
       hash = "sha256-wFfqBAzdniuHBWsi1k/fHhW6tX9lTGv/h3/kT3M4578=";
     }
     # postFetch = ''
-    #   mkdir -p $out/.git/refs/{heads,remotes}
+    #   mkdir --parents $out/.git/refs/{heads,remotes}
     #   echo ${rev} > $out/.git/refs/heads/master
     #   echo "ref: refs/remotes/origin/master" >
     # '';
@@ -44,8 +44,8 @@ runCommand "scoop-dir"
     ${lib.strings.concatStringsSep "\n" (
       lib.lists.forEach scoopBuckets (bucket: ''
         BUCKET_DIR=$out/buckets/${bucket.name}
-        mkdir -p "$BUCKET_DIR"
-        cp -a ${
+        mkdir --parents "$BUCKET_DIR"
+        cp --archive ${
           fetchFromGitHub {
             inherit (bucket)
               owner
@@ -57,7 +57,7 @@ runCommand "scoop-dir"
           }
         }/. $BUCKET_DIR
         cd "$BUCKET_DIR"
-        chmod +w -R .git
+        chmod +w --recursive .git
 
         echo -e '[core]
         \trepositoryformatversion = 0

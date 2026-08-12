@@ -30,7 +30,7 @@ in
     directories = lib.unique (
       [
         # "/etc/ssh"
-        # "/var/db" # ? ./sudo/lectured/$(id -u)
+        # "/var/db" # ? ./sudo/lectured/$(id --user)
 
         "/var/lib/nixos" # ? https://nixos.org/manual/nixos/unstable/#sec-state-users
         "/var/lib/systemd" # ? https://nixos.org/manual/nixos/unstable/#sec-var-systemd

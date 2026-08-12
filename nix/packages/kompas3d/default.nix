@@ -216,28 +216,28 @@ stdenv.mkDerivation {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/{bin,opt,share}/
-    cp -R {etc,opt} $out/
-    cp -R usr/{bin,share} $out/
+    mkdir --parents $out/{bin,opt,share}/
+    cp --recursive {etc,opt} $out/
+    cp --recursive usr/{bin,share} $out/
 
     basepath=$out/opt/ascon/kompas3d-v24
 
-    ln -s $basepath/Bin/kKompas $out/bin/kompas-v24
-    ln -s $basepath/License/kactivation $out/bin/kompas-kactivation-v24
-    ln -s $out/opt/ascon/PolynomLibrary $basepath/Libs/PolynomLibrary
+    ln --symbolic $basepath/Bin/kKompas $out/bin/kompas-v24
+    ln --symbolic $basepath/License/kactivation $out/bin/kompas-kactivation-v24
+    ln --symbolic $out/opt/ascon/PolynomLibrary $basepath/Libs/PolynomLibrary
 
     mv $out/share/applications/flystartmenu/kompas3d-24/* $out/share/applications/
-    rm -rf $out/share/applications/flystartmenu
+    rm --recursive --force $out/share/applications/flystartmenu
     substituteInPlace $out/share/applications/* \
       --replace-quiet "/opt/ascon/kompas3d-v24" "$basepath"
     substituteInPlace $out/share/applications/*help* \
       --replace-fail "$basepath" "env DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1 $basepath"
 
     examplesfile=$basepath/Bin/UIConfig/Examples.xml
-    iconv -f UTF-16LE -t UTF-8 $examplesfile -o $examplesfile
+    iconv --from-code UTF-16LE --to-code UTF-8 $examplesfile --output $examplesfile
     substituteInPlace $examplesfile \
       --replace-fail "..\Samples" "$out\opt\ascon\kompas3d-v24\Samples"
-    iconv -f UTF-8 -t UTF-16LE $examplesfile -o $examplesfile
+    iconv --from-code UTF-8 --to-code UTF-16LE $examplesfile --output $examplesfile
 
     runHook postInstall
   '';

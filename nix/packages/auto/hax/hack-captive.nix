@@ -41,7 +41,7 @@ stdenv.mkDerivation {
 
   installPhase = ''
     runHook preInstall
-    install -Dm755 hack-captive.sh $out/bin/hack-captive-portals
+    install -D --mode=755 hack-captive.sh $out/bin/hack-captive-portals
     runHook postInstall
   '';
 

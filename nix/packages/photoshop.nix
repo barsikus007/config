@@ -70,9 +70,9 @@ mkWindowsAppNoCC rec {
       winetricks --unattended corefonts win10 vkd3d dxvk2030 msxml3 msxml6 gdiplus \
         vcrun2003 vcrun2005 vcrun2010 vcrun2012 vcrun2013 vcrun2022
 
-      mkdir -p "${programDir}"
-      mkdir -p "${commonDir}"
-      tmpdir=$(mktemp -d)
+      mkdir --parents "${programDir}"
+      mkdir --parents "${commonDir}"
+      tmpdir=$(mktemp --directory)
       ${lib.getExe unzip} ${src} -d "$tmpdir"
       mv "$tmpdir/photoshop" "${programDir}/${photoshopDir}"
       mv "$tmpdir/common" "${commonDir}/Adobe"
@@ -96,7 +96,7 @@ mkWindowsAppNoCC rec {
   installPhase = ''
     runHook preInstall
 
-    ln -s $out/bin/.launcher $out/bin/${pname}
+    ln --symbolic $out/bin/.launcher $out/bin/${pname}
 
     runHook postInstall
   '';

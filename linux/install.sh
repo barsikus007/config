@@ -6,8 +6,8 @@ echo "DEPRECATION WARNING!!! I USE NIX NOW"
 
   script_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd -P)
 
-  cp -r "$script_dir/".[!.]* ~/
-  cp -r "$script_dir/"../nix/.config/ ~/
+  cp --recursive "$script_dir/".[!.]* ~/
+  cp --recursive "$script_dir/"../nix/.config/ ~/
 
   touch_file_if_not_exist() {
     #? touches $1 if it does not exist
@@ -18,7 +18,7 @@ echo "DEPRECATION WARNING!!! I USE NIX NOW"
 
   add_line_if_not_exists() {
     #? appends $1 to $2 if it does not exist
-    if ! grep -q "$1" "$2"; then
+    if ! grep --quiet "$1" "$2"; then
       echo "$1" >> "$2"
     fi
   }
@@ -50,7 +50,7 @@ echo "DEPRECATION WARNING!!! I USE NIX NOW"
   add_to_bashrc '[ -z "$XDG_CONFIG_HOME" ] && export XDG_CONFIG_HOME="$HOME/.config"'
   # shellcheck disable=SC2016
   add_to_bashrc '[ -f "$XDG_CONFIG_HOME/bash/config.bash" ] && source $XDG_CONFIG_HOME/bash/config.bash'
-  sed -i 's/^HIST/# HIST/' ~/.bashrc
+  sed --in-place 's/^HIST/# HIST/' ~/.bashrc
 )
 #? https://stackoverflow.com/questions/2518127/how-to-reload-bashrc-settings-without-logging-out-and-back-in-again
 exec "$SHELL"

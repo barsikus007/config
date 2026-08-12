@@ -25,7 +25,7 @@
           #! run pam_kwallet_init (which forwards the env onward to the forked ksecretd)
           ExecStart = pkgs.writeShellScript "kwallet-pam-unlock" /* bashh */ ''
             for _ in $(seq 1 300); do
-              wd=$(${lib.getExe' pkgs.systemd "systemctl"} --user show-environment | sed -n 's/^WAYLAND_DISPLAY=//p')
+              wd=$(${lib.getExe' pkgs.systemd "systemctl"} --user show-environment | sed --quiet 's/^WAYLAND_DISPLAY=//p')
               if [ -n "$wd" ]; then
                 export WAYLAND_DISPLAY="$wd"
                 break

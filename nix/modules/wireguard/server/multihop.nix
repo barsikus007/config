@@ -57,7 +57,7 @@ in
     };
   };
 
-  #? sudo nft list set inet split-routing ru_ips | wc -l
+  #? sudo nft list set inet split-routing ru_ips | wc --lines
   systemd.services.update-ru-routes = {
     description = "Update RU IP routes for nftables";
     wantedBy = [ "multi-user.target" ];
