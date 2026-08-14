@@ -8,10 +8,10 @@
 }:
 #? https://wiki.nixos.org/wiki/Niri
 {
-  #? https://github.com/sodiboo/niri-flake/blob/c175f415488243723dc1a5514b286abbea6f93c1/flake.nix#L479
-  nix.settings.extra-substituters = [ "https://niri.cachix.org" ];
+  #? https://github.com/epireyn/niri-flake/blob/2c9acaa7ebd5458f73e4977fff18cb3ea33d0471/flake.nix#L485
+  nix.settings.extra-substituters = [ "https://niri-epireyn.cachix.org" ];
   nix.settings.extra-trusted-public-keys = [
-    "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
+    "niri-epireyn.cachix.org-1:tlVyFN7CtsDT+ZcLPS+ekFWeT1X6X4OqvWqbBMyIzFA="
   ];
   nixpkgs.overlays = [
     (final: prev: {

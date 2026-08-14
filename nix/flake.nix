@@ -81,7 +81,7 @@
     };
 
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
-    niri.url = "github:sodiboo/niri-flake";
+    niri.url = "github:epireyn/niri-flake";
     noctalia.url = "github:noctalia-dev/noctalia/cachix";
   };
 

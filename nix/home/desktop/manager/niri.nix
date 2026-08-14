@@ -78,7 +78,7 @@ in
     #? https://github.com/sodiboo/niri-flake/blob/main/docs.md
     #? https://niri-wm.github.io/niri/Configuration:-Introduction
     settings = {
-      #! https://github.com/YaLTeR/niri/issues/1818: snip to edge
+      #! https://github.com/niri-wm/niri/issues/1818: snip to edge
       #! https://github.com/niri-wm/niri/pull/2609: maybe use when merged
       #? win95 background
       overview.backdrop-color = "#018281";
@@ -316,15 +316,13 @@ in
       clipboard.disable-primary = true;
 
       debug = {
-        #! I moved out all debug settings into config.kdl for now
-        #? https://github.com/niri-wm/niri/issues/3265
-        #? https://github.com/niri-wm/niri/issues/3610
+        #! I moved out almost all debug settings into config.kdl for now
         # hardware.nvidia.prime.amdgpuBusId
         # render-drm-device = "/dev/dri/by-path/pci-0000:04:00.0-render";
         # hardware.nvidia.prime.nvidiaBusId
         # ignore-drm-device = [ "/dev/dri/by-path/pci-0000:01:00.0-render" ];
-        #? https://github.com/niri-wm/niri/issues/2955
-        # honor-xdg-activation-with-invalid-serial = true;
+        #? fix for opening links from tg/dc: https://github.com/niri-wm/niri/issues/2955
+        honor-xdg-activation-with-invalid-serial = true;
       };
     };
   };
