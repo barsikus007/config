@@ -1,6 +1,6 @@
 {
-  system,
   inputs,
+  system,
   nixpkgs ? inputs.nixpkgs,
   overlays ? [ ],
 }:

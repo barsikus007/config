@@ -1,4 +1,4 @@
-{ self, pkgs, ... }:
+{ pkgs, self, ... }:
 {
   programs.keepassxc = {
     enable = true;

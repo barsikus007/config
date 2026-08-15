@@ -28,9 +28,10 @@ let
   pedantixConfig = toml "pedantix.toml" {
     formatter = "nixfmt";
     args = {
-      sort = false; # TODO: remove that
+      sort = true; # TODO: remove that
       #? it follows my older sort logic
       first = [
+        "_class"
         "lib"
         "pkgs"
         "self"
@@ -55,6 +56,7 @@ let
     "**/packages/windows/*" # TODO: remove that
     "**/modules/system/activation/*" # TODO: remove that
   ];
+  nixpkgs-packages = [ "**/packages/**.nix" ];
   #! the linters have to skip exactly what `nix fmt` skips - deadnix, statix and fd all take the
   #! same globs, only under different flag names
   excludeArgs =
@@ -118,18 +120,53 @@ pkgs.treefmt.withConfig {
         options = [
           "fix"
           "--config"
-          "${statixConfig}"
+          statixConfig
         ];
         no-positional-arg-support = true;
       };
       #? https://github.com/Swarsel/pedantix
       pedantix = {
         inherit includes;
+        excludes = nixpkgs-packages;
         command = "pedantix";
         options = [
           "--config"
-          "${pedantixConfig}"
+          pedantixConfig
         ];
+        priority = 1;
+      };
+      pedantix-nixpkgs-package = {
+        excludes = [ "**" ]; # TODO: remove that
+        includes = nixpkgs-packages;
+        command = "pedantix";
+        options =
+          let
+            paths = [
+              "srcs"
+              "pkgsList"
+              "fetchDebs"
+            ];
+          in
+          [
+            "--config"
+            (toml "pedantix.toml" {
+              preset = "nixpkgs-package";
+              overrides = map (path: {
+                path = "**.${path}";
+                attrs.first = [
+                  "name"
+                  "url"
+                  "owner"
+                  "repo"
+                  "rev"
+                  "tag"
+                  "hash"
+                  "sha256"
+                  "fetchSubmodules"
+                ];
+              }) paths;
+            })
+          ];
         priority = 1;
       };
     };

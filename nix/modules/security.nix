@@ -1,4 +1,4 @@
-{ self, pkgs, ... }:
+{ pkgs, self, ... }:
 {
   #? https://wiki.nixos.org/wiki/SSH_public_key_authentication#KDE
   programs.ssh.startAgent = true;

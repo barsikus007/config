@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }@args:
+{ lib, pkgs, ... }@args:
 let
   inInterface = if args ? inInterface then args.inInterface else "wg0";
   #? wg0 server address, web panel binds here so it stays reachable over wg0 only

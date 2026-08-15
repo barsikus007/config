@@ -1,7 +1,7 @@
 {
   lib,
-  self,
   pkgs,
+  self,
   config,
   username,
   flakePath,
