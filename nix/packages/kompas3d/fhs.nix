@@ -11,7 +11,7 @@
   writeText,
 }:
 let
-  kompas = (kdePackages.callPackage ./default.nix { });
+  kompas = kdePackages.callPackage ./default.nix { };
 in
 buildFHSEnv rec {
   pname = "kompas3d-fhs";

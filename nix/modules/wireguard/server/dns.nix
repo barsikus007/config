@@ -1,8 +1,8 @@
 { lib, pkgs, ... }@args:
 let
-  inInterface = if args ? inInterface then args.inInterface else "wg0";
+  inInterface = args.inInterface or "wg0";
   #? wg0 server address, web panel binds here so it stays reachable over wg0 only
-  inInterfaceAddress = if args ? inInterfaceAddress then args.inInterfaceAddress else "10.69.228.1";
+  inInterfaceAddress = args.inInterfaceAddress or "10.69.228.1";
 in
 {
   services.pihole-ftl = {

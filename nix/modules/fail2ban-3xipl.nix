@@ -2,7 +2,7 @@
 let
   logpath = "/var/log/x-ui/3xipl.log";
   chain = "DOCKER-USER";
-  exemptports = builtins.concatStringsSep "," (map toString (config.services.openssh.ports));
+  exemptports = builtins.concatStringsSep "," (map toString config.services.openssh.ports);
 in
 #? https://github.com/MHSanaei/3x-ui/blob/f3eba04ed8375394b571d89b07d01dc64e54aae9/DockerEntrypoint.sh#L12
 {

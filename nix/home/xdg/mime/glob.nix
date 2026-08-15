@@ -1,15 +1,12 @@
 { lib, pkgs, ... }@args:
 let
-  imageApps = if args ? imageApps then args.imageApps else [ "org.kde.gwenview.desktop" ];
-  videoApps = if args ? videoApps then args.videoApps else [ "mpv.desktop" ];
+  imageApps = args.imageApps or [ "org.kde.gwenview.desktop" ];
+  videoApps = args.videoApps or [ "mpv.desktop" ];
   audioApps =
-    if args ? audioApps then
-      args.audioApps
-    else
-      [
-        "org.kde.elisa.desktop"
-        "mpv.desktop"
-      ];
+    args.audioApps or [
+      "org.kde.elisa.desktop"
+      "mpv.desktop"
+    ];
 
   mimeXml = "${pkgs.shared-mime-info}/share/mime/packages/freedesktop.org.xml";
   mimeTypesUnder =

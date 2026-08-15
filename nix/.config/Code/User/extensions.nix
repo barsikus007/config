@@ -1,6 +1,6 @@
 let
   pkgs = import <nixpkgs> { };
-  lib = pkgs.lib;
+  inherit (pkgs) lib;
 
   tags = [
     "essential"
@@ -206,5 +206,5 @@ let
 in
 {
   all = allIds;
-  inNixpkgs = inNixpkgs;
+  inherit inNixpkgs;
 }

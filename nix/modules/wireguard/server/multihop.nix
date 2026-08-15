@@ -1,11 +1,9 @@
 { pkgs, ... }@args:
 let
-  inInterface = if args ? inInterface then args.inInterface else "wg0";
+  inInterface = args.inInterface or "wg0";
   ruListUrl =
-    if args ? ruListUrl then
-      args.ruListUrl
-    else
-      "https://stat.ripe.net/data/country-resource-list/data.json?v4_format=prefix&resource=ru";
+    args.ruListUrl
+      or "https://stat.ripe.net/data/country-resource-list/data.json?v4_format=prefix&resource=ru";
 in
 {
   networking.nftables = {

@@ -5,9 +5,9 @@
   ...
 }@args:
 let
-  channels = if args ? channels then args.channels else [ ];
-  streamsDir = if args ? streamsDir then args.streamsDir else "/home/${username}/streams";
-  quality = if args ? quality then args.quality else "best";
+  channels = args.channels or [ ];
+  streamsDir = args.streamsDir or "/home/${username}/streams";
+  quality = args.quality or "best";
 
   mkService = channel: {
     name = "ytarchive-${channel}";

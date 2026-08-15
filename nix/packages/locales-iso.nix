@@ -5,7 +5,7 @@
 }:
 (glibcLocales.override {
   allLocales = false;
-  locales = locales;
+  inherit locales;
 }).overrideAttrs
   (previousAttrs: {
     postPatch = (previousAttrs.postPatch or "") + /* shell */ ''

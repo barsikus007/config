@@ -8,7 +8,7 @@ let
     sha256 = "sha256-gXmz7ZgTLPNzqckzKV7r+B8V0oS10/GQNTM0/0EYs3s=";
   };
 in
-(bcompare.overrideAttrs (previousAttrs: {
+bcompare.overrideAttrs (previousAttrs: {
   inherit src version;
 
   installPhase = (previousAttrs.installPhase or "") + /* bash */ ''
@@ -16,4 +16,4 @@ in
     substituteInPlace $out/bin/bcompare \
       --replace-fail "QT_QPA_PLATFORM=xcb" 'QT_QPA_PLATFORM="wayland;xcb"'
   '';
-}))
+})

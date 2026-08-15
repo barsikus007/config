@@ -12,8 +12,8 @@ let
       map (shortcut: {
         name = builtins.replaceStrings [ " " ] [ "-" ] shortcut.name;
         value = {
-          name = shortcut.name;
-          command = shortcut.command;
+          inherit (shortcut) name;
+          inherit (shortcut) command;
           key = builtins.replaceStrings [ "Mod" ] [ "Meta" ] shortcut.keys;
         };
       }) shortcuts

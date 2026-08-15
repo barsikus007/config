@@ -3,28 +3,6 @@ let
   inherit (pkgs) lib;
   toml = (pkgs.formats.toml { }).generate;
 
-  statixConfig = toml "statix.toml" {
-    disabled = [
-      # "bool_comparison"
-      # "empty_let_in"
-      "manual_inherit"
-      "manual_inherit_from"
-      # "legacy_let_syntax"
-      "collapsible_let_in"
-      # "eta_reduction"
-      "useless_parens"
-      # "empty_pattern"
-      # "redundant_pattern_bind"
-      # "unquoted_uri"
-      # "empty_inherit"
-      # "deprecated_to_path"
-      # "bool_simplification"
-      "useless_has_attr"
-      # "repeated_keys"
-      "empty_list_concat"
-    ];
-  };
-
   pedantixConfig = toml "pedantix.toml" {
     formatter = "nixfmt";
     args = {
@@ -85,7 +63,7 @@ let
 
       deadnix --fail ${excludeArgs "--exclude"} "$target" || status=1
       #! statix reads statix.toml from cwd only, so the path is baked in
-      statix check --config ${statixConfig} ${excludeArgs "--ignore"} "$target" || status=1
+      statix check ${excludeArgs "--ignore"} "$target" || status=1
       fd --extension nix . "$target" ${excludeArgs "--exclude"} \
         --exec-batch pedantix --check --config ${pedantixConfig} || status=1
 
@@ -117,11 +95,7 @@ pkgs.treefmt.withConfig {
       statix = {
         inherit includes;
         command = "statix";
-        options = [
-          "fix"
-          "--config"
-          statixConfig
-        ];
+        options = [ "fix" ];
         no-positional-arg-support = true;
       };
       #? https://github.com/Swarsel/pedantix

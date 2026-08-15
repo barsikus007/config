@@ -5,13 +5,12 @@
   ...
 }@args:
 let
-  srcRoot = if args ? srcRoot then args.srcRoot else "/tank/storage/downloads/media/youtube/video";
-  dstRoot = if args ? dstRoot then args.dstRoot else "/tank/storage/sync/music";
-  onCalendar = if args ? onCalendar then args.onCalendar else "daily";
+  srcRoot = args.srcRoot or "/tank/storage/downloads/media/youtube/video";
+  dstRoot = args.dstRoot or "/tank/storage/sync/music";
+  onCalendar = args.onCalendar or "daily";
   #? collections that are not music, skipped on conversion; whatever they already
   #? produced stays put, since pruning only reacts to a vanished source video
-  excludeCollections =
-    if args ? excludeCollections then args.excludeCollections else [ "CUM_COLLECTION" ];
+  excludeCollections = args.excludeCollections or [ "CUM_COLLECTION" ];
 
   findExclude = lib.concatMapStringsSep " " (
     collection: "-not -path ${lib.escapeShellArg "*/${collection}/*"}"

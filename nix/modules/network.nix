@@ -37,15 +37,15 @@ in
   # networking.firewall.enable = false;
   # TODO: unified custom config: firewall: rquickshare,syncthing
   networking.firewall = {
-    allowedTCPPorts =
-      [ ]
-      ++ lib.optionals (lib.any (pkg: lib.getName pkg == "rquickshare") hmConfig.home.packages) [ 12345 ]
-      ++ lib.optionals hmConfig.services.syncthing.enable [ 22000 ];
-    allowedUDPPorts =
-      [ ]
-      ++ lib.optionals hmConfig.services.syncthing.enable [
+    allowedTCPPorts = builtins.concatLists [
+      (lib.optionals (lib.any (pkg: lib.getName pkg == "rquickshare") hmConfig.home.packages) [ 12345 ])
+      (lib.optionals hmConfig.services.syncthing.enable [ 22000 ])
+    ];
+    allowedUDPPorts = builtins.concatLists [
+      (lib.optionals hmConfig.services.syncthing.enable [
         21027
         22000
-      ];
+      ])
+    ];
   };
 }

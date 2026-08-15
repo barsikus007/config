@@ -85,8 +85,8 @@
         HiddenFilesShown=true
       '';
     in
-    (lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       run mkdir --parents "${viewPropsDir}"
       run ${lib.getExe' pkgs.attr "setfattr"} --name='${viewPropsAttr}' --value=$'${dolphinViewPropertiesText}' "${viewPropsDir}"
-    '');
+    '';
 }

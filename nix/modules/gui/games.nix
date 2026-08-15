@@ -20,11 +20,10 @@
     localNetworkGameTransfers.openFirewall = true;
     extraCompatPackages = [ pkgs.proton-ge-bin ];
     package = pkgs.steam.override {
-      extraPkgs = (
+      extraPkgs =
         pkgs: with pkgs; [
           gamemode
-        ]
-      );
+        ];
     };
     protontricks.enable = true;
     # gamescopeSession.enable = true;

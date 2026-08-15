@@ -112,7 +112,7 @@ let
     package:
     fetchurl {
       url = "https://repo.ascon.ru/stable/deb/pool/main/a/${package.name}/${package.name}_${version}_amd64.deb";
-      hash = package.hash;
+      inherit (package) hash;
     };
 
   srcs = (map fetchDebs pkgsList) ++ [

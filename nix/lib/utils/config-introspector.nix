@@ -14,13 +14,12 @@ let
   hmOptions = options.home-manager.users.type.getSubOptions [ ];
   inherit (config.environment) systemPackages;
   homePackages = hmConfig.home.packages;
-in
-let
+
   getEnable =
     programsToCheck: n:
     let
       # TODO: match by package
-      modEval = builtins.tryEval (programsToCheck.${n});
+      modEval = builtins.tryEval programsToCheck.${n};
     in
     if modEval.success then
       let

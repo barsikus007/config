@@ -22,19 +22,20 @@
             21
           ];
         in
-        [ ]
-        ++ map (p: {
-          from = "host";
-          host.port = p;
-          guest.port = p;
-          proto = "tcp";
-        }) allowedTCPPorts
-        ++ map (p: {
-          from = "host";
-          host.port = p;
-          guest.port = p;
-          proto = "udp";
-        }) allowedUDPPorts;
+        builtins.concatLists [
+          (map (p: {
+            from = "host";
+            host.port = p;
+            guest.port = p;
+            proto = "tcp";
+          }) allowedTCPPorts)
+          (map (p: {
+            from = "host";
+            host.port = p;
+            guest.port = p;
+            proto = "udp";
+          }) allowedUDPPorts)
+        ];
       sharedDirectories."sunshine" = {
         source = "/home/$USER/.config/sunshine/vms/${config.networking.hostName}";
         target = "/home/${username}/.config/sunshine";

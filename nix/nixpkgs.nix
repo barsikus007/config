@@ -37,7 +37,7 @@ let
     "kompas3d-v24-full"
     "davinci-resolve-studio"
   ];
-  lib = nixpkgs.lib;
+  inherit (nixpkgs) lib;
 in
 import nixpkgs {
   inherit system;

@@ -1,10 +1,10 @@
 { username, ... }@args:
 let
-  rootless = if args ? rootless then args.rootless else false;
-  storageDriver = if args ? storageDriver then args.storageDriver else null;
+  rootless = args.rootless or false;
+  storageDriver = args.storageDriver or null;
   #? for better security and non-root bind mounts
   #! breaks at least nextcloud-aio and grafana
-  usernsRemap = if args ? usernsRemap then args.usernsRemap else false;
+  usernsRemap = args.usernsRemap or false;
 in
 {
   users.users.${username}.extraGroups = [ "docker" ];
