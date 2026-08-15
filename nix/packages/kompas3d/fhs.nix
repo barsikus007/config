@@ -17,7 +17,7 @@ buildFHSEnv rec {
   pname = "kompas3d-fhs";
   inherit (kompas) version;
 
-  targetPkgs = pkgs: [
+  targetPkgs = _pkgs: [
     kompas
     open-sans
   ];

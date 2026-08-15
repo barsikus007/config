@@ -112,7 +112,7 @@
       };
 
       mkCoolVm =
-        name: username: modules:
+        _name: username: modules:
         nixpkgs.lib.nixosSystem {
           inherit system pkgs;
           specialArgs = mkSpecialArgs username;

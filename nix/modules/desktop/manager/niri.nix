@@ -14,7 +14,7 @@
     "niri-epireyn.cachix.org-1:tlVyFN7CtsDT+ZcLPS+ekFWeT1X6X4OqvWqbBMyIzFA="
   ];
   nixpkgs.overlays = [
-    (final: prev: {
+    (_final: prev: {
       niri = inputs.niri.packages.${prev.stdenv.hostPlatform.system}.niri-unstable;
       # xwayland-satellite =
       #   inputs.niri.packages.${prev.stdenv.hostPlatform.system}.xwayland-satellite-unstable;

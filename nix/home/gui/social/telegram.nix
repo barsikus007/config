@@ -59,7 +59,7 @@ in
     defaultApplications = lib.genAttrs [
       "x-scheme-handler/tg"
       "x-scheme-handler/tonsite"
-    ] (key: "com.ayugram.desktop.desktop");
+    ] (_key: "com.ayugram.desktop.desktop");
   };
 
   xdg.configFile."handlr/handlr.toml".text = /* toml */ ''

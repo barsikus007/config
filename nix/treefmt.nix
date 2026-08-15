@@ -86,10 +86,7 @@ pkgs.treefmt.withConfig {
       deadnix = {
         inherit includes;
         command = "deadnix";
-        options = [
-          "--edit"
-          "--no-lambda-arg" # TODO: remove that
-        ];
+        options = [ "--edit" ];
       };
       #? https://github.com/molybdenumsoftware/statix
       statix = {

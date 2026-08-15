@@ -44,12 +44,12 @@
           "application/x-extension-xhtml"
           "application/xhtml+xml"
           "text/html"
-        ] (key: browsers)
+        ] (_key: browsers)
         // lib.genAttrs [
           "x-scheme-handler/chrome"
           "x-scheme-handler/http"
           "x-scheme-handler/https"
-        ] (key: [ "handlr.desktop" ] ++ browsers);
+        ] (_key: [ "handlr.desktop" ] ++ browsers);
     in
     {
       defaultApplications = mappedDefaults;

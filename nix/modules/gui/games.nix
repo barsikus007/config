@@ -40,7 +40,7 @@
     r2modman
 
     (heroic.override {
-      extraPkgs = pkgs: [
+      extraPkgs = _pkgs: [
         gamescope
         gamemode
       ];

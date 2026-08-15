@@ -31,7 +31,7 @@
           "application/octet-stream"
           "application/x-zerosize"
         ]
-        (key: [
+        (_key: [
           "org.kde.kate.desktop"
           "code.desktop"
           "org.kde.kwrite.desktop"

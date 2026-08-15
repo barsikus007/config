@@ -43,10 +43,10 @@ import nixpkgs {
   inherit system;
   overlays = [
     (
-      _: prev:
+      _: _prev:
       builtins.mapAttrs
         (
-          pkgsName: pkgsInput:
+          _pkgsName: pkgsInput:
           import pkgsInput {
             inherit system;
             config.allowUnfreePredicate = pkg: builtins.elem (pkgsInput.lib.getName pkg) paidApps;
