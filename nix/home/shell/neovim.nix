@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   inputs,
   flakePath,
   ...
@@ -71,8 +72,16 @@
           enable = true;
           format.type = [ "ruff" ];
         };
-        typescript.enable = true;
+
+        html.enable = true;
         css.enable = true;
+        typescript.enable = true;
+
+        xml.enable = true;
+        json.enable = true;
+        yaml.enable = true;
+        markdown.enable = true;
+        markdown.extensions.markview-nvim.enable  = true;
       };
       formatter.conform-nvim = {
         enable = true;
@@ -123,7 +132,10 @@
         nvimBufferline.enable = true;
       };
 
-      treesitter.context.enable = true;
+      treesitter = {
+        grammars = pkgs.vimPlugins.nvim-treesitter.allGrammars;
+        context.enable = true;
+      };
 
       binds.whichKey.enable = true;
 

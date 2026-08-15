@@ -84,6 +84,20 @@
     "search.defaultViewMode": "tree",
     "gitlens.views.commits.files.layout": "tree",
     "gitlens.views.commitDetails.files.layout": "tree",
+    "gitlens.views.stashes.files.layout": "tree",
+    "gitlens.views.remotes.files.layout": "tree",
+    "gitlens.views.branches.files.layout": "tree",
+    "gitlens.views.contributors.files.layout": "tree",
+    "gitlens.views.fileHistory.files.layout": "tree",
+    "gitlens.views.pullRequest.files.layout": "tree",
+    "gitlens.views.repositories.files.layout": "tree",
+    "gitlens.views.searchAndCompare.files.layout": "tree",
+    "gitlens.views.tags.files.layout": "tree",
+    "gitlens.views.worktrees.files.layout": "tree",
+    "gitlens.views.drafts.files.layout": "tree",
+    "gitlens.views.launchpad.files.layout": "tree",
+    "gitlens.views.patchDetails.files.layout": "tree",
+    "gitlens.views.workspaces.files.layout": "tree",
     //! spam
     "vsicons.dontShowNewVersionMessage": true,
     "gitlens.advanced.messages": {
@@ -281,7 +295,7 @@
         //! cause https://marketplace.visualstudio.com/items?itemName=ahmadalli.vscode-nginx-conf is spamming snippets
         "editor.suggest.showSnippets": false
     },
-    "[yaml]": {
+    "[yaml][github-actions-workflow]": {
         //! https://github.com/redhat-developer/vscode-yaml/issues/955#issuecomment-3962452349
         "editor.foldingStrategy": "indentation",
         "editor.tabSize": 2,
@@ -312,16 +326,20 @@
     },
     "[markdown]": {
         "editor.tabSize": 2,
-        "editor.defaultFormatter": "yzhang.markdown-all-in-one"
+        "editor.defaultFormatter": "yzhang.markdown-all-in-one",
+        "editor.codeActionsOnSave": {
+            "source.fixAll.markdownlint": "explicit",
+        },
     },
     "[prisma]": {
         "editor.formatOnSave": true
     },
+    "[toml]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "tamasfe.even-better-toml",
+    },
     "[typst]": {
         "editor.formatOnSave": true
-    },
-    "[github-actions-workflow]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     // #endregion other
     // #region todo

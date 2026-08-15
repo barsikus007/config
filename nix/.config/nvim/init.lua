@@ -56,33 +56,9 @@ vim.api.nvim_create_autocmd("FileType", {
 --! silently dropped: no parser by that name, no highlight, no error either
 vim.treesitter.language.register("bash", { "shell", "sh" })
 
---? tag folding for xml/html: za toggles the tag under the cursor, zc/zo close/open,
---? zM folds everything, zR unfolds everything, zj/zk jump between folds
---! only foldmethod=syntax knows about tags, and the g: flags must be set before
---! syntax/xml.vim loads, otherwise the fold regions are never defined
-vim.g.xml_syntax_folding = 1
-vim.g.html_syntax_folding = 1
---? fold anywhere treesitter can parse the buffer
---! the parser check is the point: nvf's own vim.treesitter.fold sets foldmethod=expr
---! for every filetype, which kills zf in buffers that have no grammar to fold by
-vim.api.nvim_create_autocmd("FileType", {
-    callback = function(args)
-        if vim.treesitter.get_parser(args.buf, nil, { error = false }) then
-            vim.wo[0][0].foldmethod = "expr"
-            vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
-        end
-    end,
-})
-
---! registered after the treesitter one on purpose, so it wins for these filetypes;
---! [0][0] scopes the window option to this buffer, plain vim.wo would leave
---! foldmethod=syntax behind in the window after switching to another file
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = { "xml", "xhtml", "svg", "html" },
-    callback = function()
-        vim.wo[0][0].foldmethod = "syntax"
-    end,
-})
+vim.o.foldmethod = "expr"
+vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.o.foldlevel = 99
 
 vim.diagnostic.config({ virtual_lines = { current_line = true } })
 vim.keymap.set('n', "gd", vim.lsp.buf.definition, { noremap = true, silent = true, desc = "Go to definition" })
@@ -129,7 +105,7 @@ end
 --? keymaps
 vim.g.mapleader = " "
 --? search and replace: https://stackoverflow.com/a/676619
---! \V (very nomagic) + escaping \ and the / delimiter makes the yanked selection
+--! \V (very nomagic https://neovim.io/doc/user/pattern/#%2Fmagic) + escaping \ and the / delimiter makes the yanked selection
 --! literal, so regex chars in it (. * [ ] $ ^ ~ /) no longer break the pattern
 vim.keymap.set('v', '<C-r>',
     [["hy:%s/\V<C-r>=substitute(escape(@h,'/\'),"\n",'\\n','g')<CR>//gc<Left><Left><Left>]],

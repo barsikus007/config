@@ -51,6 +51,7 @@ in
         source "$file"
       done
     '';
+    # TODO: zshrc is duplicated with system modules/shell/zsh.nix
     initContent = builtins.readFile ../../.config/zsh/.zshrc;
   };
   programs.bash = {

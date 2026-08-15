@@ -6,7 +6,7 @@ let
   pedantixConfig = toml "pedantix.toml" {
     formatter = "nixfmt";
     args = {
-      sort = true; # TODO: remove that
+      sort = true;
       #? it follows my older sort logic
       first = [
         "_class"

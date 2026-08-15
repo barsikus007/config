@@ -13,10 +13,9 @@
 
   #? more real times for realtime
   # boot.kernelParams = [ "preempt=full" ];
-  #? cause user laucnhed pipewire isn't set any of this for rt
-  # users.users.${username}.extraGroups = [ "audio" ];
   #? https://ventureo.codeberg.page/source/sound.html#pipewire-lowlatency-setup
   #? https://github.com/musnix/musnix/blob/d65f98e0b1f792365f1705653d7b2d266ceeff6e/modules/base.nix#L112
+  # users.users.${username}.extraGroups = [ "audio" ];
   # security.pam.loginLimits = [
   #   {
   #     domain = "@audio";
