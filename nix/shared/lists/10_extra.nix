@@ -16,7 +16,6 @@ import ./11_powertoys.nix { inherit pkgs; }
   sbctl # ? for systemd-boot (and lumine) secure boot
   unrar
   yq-go
-  biome
   oxfmt
   oxlint
   nodejs

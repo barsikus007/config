@@ -37,22 +37,6 @@ insert_final_newline = false
 indent_size = 2
 max_line_length = 120
 quote_type = single
-trailingComma = all  # wont work
-trailing_comma = all  # wont work
-# "arrowParens": "always",
-# "bracketSpacing": true,
-# "htmlWhitespaceSensitivity": "css",
-# "insertPragma": false,
-# "singleAttributePerLine": false,
-# "bracketSameLine": false,
-# "jsxBracketSameLine": false,
-# "proseWrap": "preserve",
-# "quoteProps": "as-needed",
-# "requirePragma": false,
-# "semi": true,
-# "singleQuote": false,
-# "trailingComma": "all",
-# "vueIndentScriptAndStyle": false,
 
 [*.user.js]
 max_line_length = 200

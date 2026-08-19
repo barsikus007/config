@@ -80,7 +80,6 @@ let
     "eamodio.gitlens" = [ "github" ];
     "github.vscode-github-actions" = [ "github" ];
     "github.vscode-pull-request-github" = [ "github" ];
-    "jamitech.simply-blame" = [ "github" ]; # TODO: merge with gitlens or fork
     "bierner.github-markdown-preview" = [
       "pack"
       "docs"
@@ -123,7 +122,6 @@ let
     ]; # TODO: comment-syntax
     "bierner.comment-tagged-templates" = [ "javascript" ]; # TODO: comment-syntax
     "oxc.oxc-vscode" = [ "javascript" ];
-    "biomejs.biome" = [ "javascript" ];
 
     "jnoortheen.nix-ide" = [ "nix" ];
     "barsikus007.nix-injection" = [ "nix" ];
