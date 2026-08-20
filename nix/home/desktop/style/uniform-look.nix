@@ -23,9 +23,6 @@
   };
 
   gtk = {
-    #? some icons are missing with breeze-icons in gtk2
-    gtk2.iconTheme.package = pkgs.gnome-icon-theme;
-    gtk2.iconTheme.name = "gnome";
     #! set by stylix to adw-gtk3 for no reason: https://github.com/nix-community/stylix/blob/e3861617645a43c9bbefde1aa6ac54dd0a44bfa9/modules/gtk/hm.nix#L59
     theme.package = lib.mkForce pkgs.kdePackages.breeze-gtk;
     theme.name = lib.mkForce (if (config.stylix.polarity == "light") then "Breeze" else "Breeze-Dark");

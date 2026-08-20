@@ -69,8 +69,7 @@ in
   '';
 
   home.packages = with pkgs; [
-    # ayugram-desktop
-    self.packages.${stdenv.hostPlatform.system}.ayugram-desktop-updated
+    ayugram-desktop
     # self.legacyPackages.${stdenv.hostPlatform.system}.ayugram-desktop-patched
   ];
 }

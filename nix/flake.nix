@@ -212,29 +212,6 @@
           ./modules/services/hyprwhspr.nix
           # TODO: ./modules/system/activation
           {
-            # TODO: unstable: https://github.com/amnezia-vpn/amneziawg-linux-kernel-module/pull/176#issuecomment-4757244261
-            nixpkgs.overlays = [
-              (_: prev: {
-                cachyosKernels = prev.cachyosKernels // {
-                  linuxPackages-cachyos-bore-lto = prev.cachyosKernels.linuxPackages-cachyos-bore-lto.extend (
-                    _: lpsuper: {
-                      amneziawg = lpsuper.amneziawg.overrideAttrs (old: {
-                        patches = (old.patches or [ ]) ++ [
-                          (prev.fetchpatch2 {
-                            name = "tmp-fix-for-new-kernel-without-ipv6-stub.patch";
-                            url = "https://github.com/amnezia-vpn/amneziawg-linux-kernel-module/commit/2a764691e22f15770aa1551ecae12c0431dbd651.patch?full_index=1";
-                            stripLen = 1;
-                            hash = "sha256-0BcCDBu5XHk1kTrx/24Nwq15n01tCRqnQfBkEvzJmxs=";
-                          })
-                        ];
-                      });
-                    }
-                  );
-                };
-              })
-            ];
-          }
-          {
             programs.nh.clean.enable = nixpkgs.lib.mkForce false;
 
             environment.systemPackages = with pkgs; [

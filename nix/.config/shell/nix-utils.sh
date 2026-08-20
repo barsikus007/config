@@ -31,7 +31,7 @@ nix_pkgs_only() {
   #? usage: nix_pkgs_only [-f] .#nixosConfigurations.ROG14.config.system.build.toplevel
   local opts=()
   [[ $1 == -f ]] && { opts=(--option eval-cache false); shift; }
-  nix build --dry-run "${opts[@]}" "$@" 2>&1 \
+  /run/current-system/sw/bin/nix build --dry-run "${opts[@]}" "$@" 2>&1 \
     | rg --only-matching '/nix/store/[a-z0-9]+-\S+\.drv' \
     | rg -- '-[0-9]' \
     | rg --invert-match '\.(conf|json|png|css|xml|ini|sh|rules|pl|service|timer|pf2|theme)\.drv$' \
