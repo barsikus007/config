@@ -29,13 +29,18 @@ nix_pkgs_only() {
   #? fast by default (uses eval-cache); on a dirty/uncommitted tree the plan may be STALE
   #? pass -f to force a fresh eval (slow, ~1-2 min), or just commit your changes first
   #? usage: nix_pkgs_only [-f] .#nixosConfigurations.ROG14.config.system.build.toplevel
+  #? absolute path skips the nix-your-shell function: under --nom the plan never reaches the terminal
+  #? the plan goes to stderr; anchoring on .drv keeps the build section, since fetched entries are out paths
+  #? one package yields several drv (fhsenv/bwrap/init wrappers, same name under a different hash), so collapse by name
   local opts=()
   [[ $1 == -f ]] && { opts=(--option eval-cache false); shift; }
   /run/current-system/sw/bin/nix build --dry-run "${opts[@]}" "$@" 2>&1 \
-    | rg --only-matching '/nix/store/[a-z0-9]+-\S+\.drv' \
+    | rg --only-matching --replace '$1' '/nix/store/[a-z0-9]+-(\S+)\.drv' \
     | rg -- '-[0-9]' \
-    | rg --invert-match '\.(conf|json|png|css|xml|ini|sh|rules|pl|service|timer|pf2|theme)\.drv$' \
-    | rg --invert-match -- '-env\.drv$|initrd-linux|dbus-[0-9]|nixos-system-'
+    | rg --invert-match '\.(conf|json|png|css|xml|ini|sh|rules|pl|service|timer|pf2|theme|tar\.gz|tar\.xz|tar\.bz2|tar\.zst|zip)$' \
+    | rg --invert-match -- '-env$|initrd-linux|dbus-[0-9]|nixos-system-' \
+    | rg --invert-match -- '-(bwrap|init|extracted|vendor|fhsenv-rootfs|fhsenv-profile|modules-shrunk)$' \
+    | sort --unique
 }
 
 nix_pkgs_only_host() {
@@ -159,7 +164,7 @@ nix_home_manager_reload() {
 nix_hot_reload_noctalia() {
   NIX_REPL=/home/ogurez/config/nix/repl.nix
 
-  NIX_FILE="/home/ogurez/config/nix/home/desktop/manager/niri/quickshell/noctalia.nix"
+  NIX_FILE="/home/ogurez/config/nix/home/desktop/manager/noctalia-niri.nix"
   NIX_EVAL='home.xdg.configFile."noctalia/settings.json"'
   CONFIG_LOCATION=/home/ogurez/.config/noctalia/settings.json
   CALLBACK="systemctl --user restart noctalia"
@@ -170,7 +175,7 @@ nix_hot_reload_noctalia() {
 nix_hot_reload_niri() {
   NIX_REPL=/home/ogurez/config/nix/repl.nix
 
-  NIX_FILE="/home/ogurez/config/nix/home/gui/niri.nix"
+  NIX_FILE="/home/ogurez/config/nix/home/desktop/manager/niri.nix"
   NIX_EVAL='home.xdg.configFile."niri/config.kdl"'
   CONFIG_LOCATION=/home/ogurez/.config/niri/config.kdl
   CALLBACK=""

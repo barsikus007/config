@@ -2,6 +2,12 @@
 {
   custom.persist.home.directories = [ ".config/obs-studio" ];
 
+  #? https://github.com/nixos-cuda/infra
+  nix.settings.extra-substituters = [ "https://cache.nixos-cuda.org" ];
+  nix.settings.extra-trusted-public-keys = [
+    "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
+  ];
+
   programs.gpu-screen-recorder.enable = true;
   programs.obs-studio = {
     #? https://wiki.nixos.org/wiki/OBS_Studio

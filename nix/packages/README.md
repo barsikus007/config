@@ -25,6 +25,8 @@ nix --extra-experimental-features "nix-command flakes" run --impure 'github:nix-
 - TODO
 - [minecraftia 2 font](./auto/fonts/minecraftia.nix)
 - TODO
+- [OpenWrt image](./packages/openwrt/xiaomi_ax3600.nix)
+  - [uci](./packages/openwrt/dewclaw.nix)
 
 ### [kompas3d](./kompas3d)
 
@@ -34,13 +36,13 @@ nix run --impure --override-input nixpkgs nixpkgs 'github:barsikus007/config?dir
 nix --extra-experimental-features "nix-command flakes" run --impure --override-input nixpkgs nixpkgs 'github:nix-community/nixGL' -- env NIXPKGS_ALLOW_UNFREE=1 nix run --impure --override-input nixpkgs nixpkgs 'github:barsikus007/config?dir=nix#kompas3d-fhs'
 ```
 
-### cleanup after store paths update
+#### cleanup after store paths update
 
 ```shell
 rm ~/.config/ascon/KOMPAS-3D/24/{recent_files.xml,KOMPAS.kit.config}
 ```
 
-### grdcontrol license service forwarding
+#### grdcontrol license service forwarding
 
 ```shell
 # launch on computer with enough system parts (remote) lol

@@ -4,7 +4,7 @@
 
 - [index](https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/all-packages.nix)
   - `code $(nix eval --file '<nixpkgs>' path)/pkgs/top-level/all-packages.nix`
-- [phases order](https://nixos.org/manual/nixpkgs/stable/#sec-stdenv-phases)
+- [phases order](https://nixos.org/manual/nixpkgs/unstable/#sec-stdenv-phases)
 - [builder status nixos-unstable](https://hydra.nixos.org/jobset/nixos/trunk-combined/latest-eval)
 - [attributes ordering](https://github.com/jtojnar/nixpkgs-hammering/blob/main/explanations/attribute-ordering.md)
 
@@ -205,7 +205,7 @@ CACHE_NAME=nix-community.cachix.org
 nix path-info --all --json --json-format 1 | jq --raw-output --arg cache_name "$CACHE_NAME" 'to_entries[] | select(.value.signatures // [] | any(contains($cache_name))) | .key [44:]' | sort | uniq --count
 ```
 
-### nom run
+### [nom run](https://github.com/maralorn/nix-output-monitor/issues/110)
 
 ```shell
 nix run <something> --log-format internal-json |& nom --json

@@ -8,7 +8,7 @@
 }:
 #? https://github.com/noctalia-dev/noctalia
 let
-  meta = import ../../meta.nix;
+  meta = import ../meta.nix;
 
   nixos_logo = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
 in

@@ -56,8 +56,6 @@ uv python install --preview
 # uv python install --preview 3.10 3.11 3.12 3.13t pypy3.11
 ```
 
-[TODO - python available globally](https://docs.astral.sh/uv/guides/install-python/#getting-started)
-
 ```shell
 # linux
 curl --location --silent --show-error --fail https://astral.sh/uv/install.sh | sh
@@ -106,7 +104,7 @@ git tag --annotate $(hatch version) --message
 git push origin --follow-tags
 ```
 
-#### [hatch sync env](https://github.com/pypa/hatch/discussions/594#discussioncomment-4377827)
+##### [sync env](https://github.com/pypa/hatch/discussions/594#discussioncomment-4377827)
 
 ```shell
 hatch run true

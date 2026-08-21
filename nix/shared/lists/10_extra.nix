@@ -9,6 +9,7 @@ import ./11_powertoys.nix { inherit pkgs; }
   gcc
   git-lfs
   isd
+  cloc
   file
   prek # ? pre-commit alternative
   tlrc

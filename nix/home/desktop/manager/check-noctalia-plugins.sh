@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#? bash nix/home/desktop/manager/quickshell/check-noctalia-plugins.sh
+#? sh nix/home/desktop/manager/check-noctalia-plugins.sh
 set -euo pipefail
 
 #? https://noctalia.dev/plugins

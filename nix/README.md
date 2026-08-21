@@ -1,12 +1,10 @@
 # [worst Nix/OS config ever](../README.md)
 
-modular Nix configurations for desktops, servers, virtual machines, mobile devices, and custom packages
+modular Nix configurations for desktops, servers, virtual machines and mobile devices
 
-## [packages](./nix/packages/README.md)
+## [packages](./packages/README.md)
 
 ## [command cheat sheet](./cheatsheet.md)
-
-## [NixOS Android](./hosts/android/README.md)
 
 ## installation
 
@@ -23,38 +21,28 @@ cd ..
 prek install
 ```
 
-set user password and TODO other steps from [NixOS installation manual](https://nixos.org/manual/nixos/stable/#ch-installation)
-
-### Asus ROG G14 2020-2021 specific
-
-#### [fingerprint scanner](https://github.com/knauth/goodix-521d-explanation)
+### Asus ROG G14 2020-2021 [fingerprint scanner](https://github.com/knauth/goodix-521d-explanation)
 
 <https://github.com/goodix-fp-linux-dev/goodix-fp-dump/blob/master/README.md>
 
 ~~too lazy to write this on nix~~
 
+`sudo $(nix build 'github:barsikus007/config?dir=nix#libs.goodix-patch-521d' --print-out-paths)/bin/run_521d`
+
 (`OSError: [Errno 30] Read-only file system: 'clear-0.pgm'` output is <ins>__normal__</ins>)
 
-```shell
-sudo $(nix build 'github:barsikus007/config?dir=nix#libs.goodix-patch-521d' --print-out-paths)/bin/run_521d
-sudo $(nix build ~/config/nix#libs.goodix-patch-521d --print-out-paths)/bin/run_521d
-```
+### [NixOS Android](./hosts/android/README.md)
 
-### nix itself
+### [WSL distro](https://nix-community.github.io/NixOS-WSL/)
 
-#### [WSL distro](https://nix-community.github.io/NixOS-WSL/)
+`sudo nixos-rebuild switch --flake .#NixOS-WSL`
 
-#### [Nix install](https://zero-to-nix.com/start/install/) speedrun on existing system
+### plain [nix installer](https://github.com/NixOS/nix-installer) on existing system
 
 - TLDR
-  - `curl --proto '=https' --tlsv1.2 --silent --show-error --fail --location https://install.determinate.systems/nix | sh -s -- install`
-    - enable systemd if wsl
-    - alt installer `curl --proto '=https' --tlsv1.2 --silent --show-error --fail --location https://artifacts.nixos.org/experimental-installer | sh -s -- install`
-  - [offline install](https://github.com/DeterminateSystems/nix-installer/releases/latest/download/nix-installer-x86_64-linux)
-
-#### [Nix uninstall](https://zero-to-nix.com/start/uninstall/)
-
-- TLDR
+  - `curl --proto '=https' --tlsv1.2 --silent --show-error --fail --location https://artifacts.nixos.org/nix-installer | sh -s -- install --enable-flakes`
+  - [offline](https://github.com/NixOS/nix-installer/releases/latest/download/nix-installer-x86_64-linux)
+- [uninstaller](https://github.com/NixOS/nix-installer#uninstalling)
   - `/nix/nix-installer uninstall`
 
 ## config reference
@@ -67,8 +55,6 @@ sudo $(nix build ~/config/nix#libs.goodix-patch-521d --print-out-paths)/bin/run_
   - export configs
     - layout
       - `code ~/.config/Code/User/globalStorage/state.vscdb`
-    - extensions
-      - check nixpkgs existence in `extensions.nix`
     - profiles
       - create profiles with given subset of
         - extensions (based on tags)
@@ -138,9 +124,7 @@ sudo $(nix build ~/config/nix#libs.goodix-patch-521d --print-out-paths)/bin/run_
 - [crop/encode scripts](https://github.com/occivink/mpv-scripts)
   - [crop fix](https://github.com/occivink/mpv-scripts/pull/77/files)
 
-## imperative
-
-### GUI
+## other
 
 - Steam
   - Top left steam logo > Settings > Compatibility
@@ -150,8 +134,3 @@ sudo $(nix build ~/config/nix#libs.goodix-patch-521d --print-out-paths)/bin/run_
   - `nvidia-offload gamemoderun mangohud %command%`
 - Throne (formerly known as nekoray/nekobox)
   - Routing -> Routing settings -> DNS -> Direct DNS: `8.8.8.8`
-
-## other
-
-- [OpenWrt image](./packages/openwrt/xiaomi_ax3600.nix)
-  - [uci](./packages/openwrt/dewclaw.nix)

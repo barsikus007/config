@@ -285,7 +285,7 @@ in
           };
         }
         (lib.attrsets.optionalAttrs config.custom.isAsus {
-          # TODO: specific quickshell depent hotkeys; maybe make cli for unification?
+          # TODO: specific asus depent hotkeys; maybe make cli for unification?
           "XF86Launch1" = {
             allow-when-locked = true;
             hotkey-overlay.title = "Asus: Show Something";
@@ -308,8 +308,6 @@ in
             # TODO
             action.spawn-sh = "gpu-screen-recorder -w portal -c mp4";
           };
-          # "XF86KbdBrightnessUp".action.spawn-sh = "ydotool key 104:1 104:0";
-          # "XF86KbdBrightnessDown".action.spawn-sh = "ydotool key 109:1 109:0";
         })
       ];
 
