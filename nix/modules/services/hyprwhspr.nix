@@ -1,8 +1,29 @@
-{ pkgs, username, ... }:
+{
+  lib,
+  pkgs,
+  username,
+  ...
+}:
 #! completely vibecoded hyprwhspr-rs integration
 #? native speech-to-text dictation (Rust fork), driven by niri keybind -> `record toggle`
 #? https://github.com/better-slop/hyprwhspr-rs
 let
+  #? which engine transcribes: "parakeet" (in-process ONNX) or "whisper" (resident whisper-server)
+  #! parakeet-tdt-0.6b-v3 is multilingual (25 langs incl. ru) and auto-detects the language, so
+  #! the --language/`"en"` patch below is a whisper-only concern
+  #! two things it does NOT have, both of which the whisper path relies on:
+  #!   1. no initial_prompt / hotwords - the transducer has no place to put one (the config's
+  #!      `parakeet.prompt` is only used to strip prompt echo from the output). So the trick that
+  #!      keeps GitHub/kubectl in latin is simply unavailable here - that is what we are testing
+  #!   2. no GPU: hyprwhspr-rs calls ParakeetTDT::from_pretrained(dir, None) = CPU execution
+  #!      provider, hardcoded. onnxruntime has no vulkan EP either, so overriding it buys nothing
+  #? the model is loaded once at daemon start and stays resident (fp32 ~2.5G RSS, int8 ~0.7G)
+  asrBackend = "parakeet";
+  #? fp32 or int8 - see whspr-fetch-parakeet, re-run it after flipping this
+  parakeetVariant = "fp32";
+
+  useWhisperServer = asrBackend == "whisper";
+
   #? knobs
   #! full v3 (32 decoder layers) beats turbo (4 layers) on technical russian on BOTH gpus, and on
   #! the iGPU it is not even slower - measured on the same 15s clip:
@@ -19,12 +40,21 @@ let
   whisperModelNvidia = "large-v3";
   whisperModel = "large-v3-q5_0";
   whisperPort = "8765";
+  #? initial_prompt: keep program/tech names in latin, russian context
+  #! one source for dictation and whspr-file - the wording is load-bearing (see the NOTE above),
+  #! so the two must not be allowed to drift apart
+  techPrompt = "Расшифровка технической речи на русском. Сохраняй названия программ и технологий латиницей: GitHub, GitLab, Docker, Kubernetes, kubectl, nginx, systemd, Nix, NixOS, Python, Rust, Wayland, niri.";
+  #? curl reads the form value from this file, so no cyrillic ends up inside a shell script
+  techPromptFile = pkgs.writeText "whspr-tech-prompt" techPrompt;
   #? stop the resident server after this long without a dictation, to release its ~600M
   whisperIdleSec = 300;
 
   #? hyprwhspr expands `~` itself, but not $HOME - keep the tilde form for its json config
   modelsDir = "~/.local/share/hyprwhspr-rs/models";
   modelsDirAbs = "\${HOME}/.local/share/hyprwhspr-rs/models";
+  #? parakeet's model_dir is resolved against the data dir instead, so it stays relative
+  parakeetDir = "models/parakeet/parakeet-tdt-0.6b-v3-onnx";
+  parakeetDirAbs = "${modelsDirAbs}/parakeet/parakeet-tdt-0.6b-v3-onnx";
   statusFile = "\${HOME}/.cache/hyprwhspr-rs/status.json";
   activityStamp = "\${XDG_RUNTIME_DIR}/hyprwhspr-last-activity";
   #? which GPU the resident server came up on, so a dgpu_switch_* can retrigger it
@@ -116,16 +146,18 @@ let
       case "$cls" in
         active)
           touch "$stamp"
-          #! the server picks its device ONCE at start, so a dgpu_switch_* while it is up leaves it
-          #! transcribing on the old card (and on the old model) - compare against the stamp
-          if [ -d /proc/driver/nvidia/gpus ]; then now_gpu=nvidia; else now_gpu=amd; fi
-          was_gpu=$(${pkgs.coreutils}/bin/cat "${gpuStamp}" 2>/dev/null || echo "$now_gpu")
-          #? --no-block: never stall the watcher on model load
-          if [ "$now_gpu" != "$was_gpu" ] && systemctl --user is-active --quiet whisper-server.service; then
-            systemctl --user restart --no-block whisper-server.service || true
-          else
-            systemctl --user start --no-block whisper-server.service || true
-          fi
+          ${lib.optionalString useWhisperServer /* shell */ ''
+            #! the server picks its device ONCE at start, so a dgpu_switch_* while it is up leaves it
+            #! transcribing on the old card (and on the old model) - compare against the stamp
+            if [ -d /proc/driver/nvidia/gpus ]; then now_gpu=nvidia; else now_gpu=amd; fi
+            was_gpu=$(${pkgs.coreutils}/bin/cat "${gpuStamp}" 2>/dev/null || echo "$now_gpu")
+            #? --no-block: never stall the watcher on model load
+            if [ "$now_gpu" != "$was_gpu" ] && systemctl --user is-active --quiet whisper-server.service; then
+              systemctl --user restart --no-block whisper-server.service || true
+            else
+              systemctl --user start --no-block whisper-server.service || true
+            fi
+          ''}
           #? hush whatever is playing so it does not bleed into the recording, and remember that
           #? we did - so a player that was already paused is not resumed behind your back
           #! -a/--all-players, else playerctl only ever looks at the first bus name it finds -
@@ -183,37 +215,47 @@ let
   #? `whspr-status` - which GPU the resident server picked + how long recent dictations took
   whsprStatus = pkgs.writeShellScriptBin "whspr-status" /* shell */ ''
     set -u
-    echo "== server =="
-    if systemctl --user is-active --quiet whisper-server.service; then
-      up=$(systemctl --user show whisper-server.service -p ActiveEnterTimestamp --value)
-      #! read the model off the live process: which one got loaded depends on the GPU picked
-      #! at start (f16 on the dGPU, quant on the iGPU), so the nix-side default would lie here
-      #? read /proc/<MainPID>/cmdline - `ps -C whisper-server` misses it (argv[0] is a store path)
-      pid=$(systemctl --user show whisper-server.service -p MainPID --value 2>/dev/null)
-      m=$(tr '\0' ' ' < "/proc/$pid/cmdline" 2>/dev/null \
-        | ${pkgs.gnugrep}/bin/grep -oP -- '--model \S*/ggml-\K[^.]+' | head -1)
-      echo "  running (since $up), model ''${m:-unknown}, idle-stop ${toString whisperIdleSec}s"
-      #? whisper.cpp lists every vulkan device, then logs `using VulkanN` for the one it picked -
-      #! resolve N against the list, or you just print the last device it happened to enumerate
-      log=$(journalctl --user -u whisper-server.service -b --no-pager 2>/dev/null)
-      n=$(printf '%s' "$log" | ${pkgs.gnugrep}/bin/grep -oP 'using Vulkan\K\d+' | tail -1)
-      if [ -n "''${n:-}" ]; then
-        printf '%s' "$log" | ${pkgs.gnugrep}/bin/grep -oP "ggml_vulkan: $n = \K[^|]+" | tail -1 \
-          | ${pkgs.gnused}/bin/sed "s/^/  device: [Vulkan$n] /"
+    echo "== backend: ${asrBackend} =="
+    ${lib.optionalString (!useWhisperServer) /* shell */ ''
+      v=$(${pkgs.coreutils}/bin/cat "${parakeetDirAbs}/.variant" 2>/dev/null || echo "MISSING - run whspr-fetch-parakeet")
+      echo "  parakeet-tdt-0.6b-v3 $v, in-process (CPU only)"
+      #? the model is resident in the daemon itself, so its RSS is the whole footprint
+      pid=$(systemctl --user show hyprwhspr-rs.service --property MainPID --value 2>/dev/null)
+      rss=$(${pkgs.gnugrep}/bin/grep --only-matching --perl-regexp 'VmRSS:\s+\K\d+' "/proc/$pid/status" 2>/dev/null || true)
+      [ -n "''${rss:-}" ] && echo "  daemon rss: $((rss / 1024))M"
+    ''}
+    ${lib.optionalString useWhisperServer /* shell */ ''
+      if systemctl --user is-active --quiet whisper-server.service; then
+        up=$(systemctl --user show whisper-server.service --property ActiveEnterTimestamp --value)
+        #! read the model off the live process: which one got loaded depends on the GPU picked
+        #! at start (f16 on the dGPU, quant on the iGPU), so the nix-side default would lie here
+        #? read /proc/<MainPID>/cmdline - `ps -C whisper-server` misses it (argv[0] is a store path)
+        pid=$(systemctl --user show whisper-server.service --property MainPID --value 2>/dev/null)
+        m=$(tr '\0' ' ' < "/proc/$pid/cmdline" 2>/dev/null \
+          | ${pkgs.gnugrep}/bin/grep --only-matching --perl-regexp -- '--model \S*/ggml-\K[^.]+' | head -1)
+        echo "  running (since $up), model ''${m:-unknown}, idle-stop ${toString whisperIdleSec}s"
+        #? whisper.cpp lists every vulkan device, then logs `using VulkanN` for the one it picked -
+        #! resolve N against the list, or you just print the last device it happened to enumerate
+        log=$(journalctl --user --unit whisper-server.service --boot --no-pager 2>/dev/null)
+        n=$(printf '%s' "$log" | ${pkgs.gnugrep}/bin/grep --only-matching --perl-regexp 'using Vulkan\K\d+' | tail -1)
+        if [ -n "''${n:-}" ]; then
+          printf '%s' "$log" | ${pkgs.gnugrep}/bin/grep --only-matching --perl-regexp "ggml_vulkan: $n = \K[^|]+" | tail -1 \
+            | ${pkgs.gnused}/bin/sed "s/^/  device: [Vulkan$n] /"
+        else
+          echo "  device: unknown (no vulkan backend line in log)"
+        fi
       else
-        echo "  device: unknown (no vulkan backend line in log)"
+        echo "  stopped (starts on next dictation)"
       fi
-    else
-      echo "  stopped (starts on next dictation)"
-    fi
-    if [ -d /proc/driver/nvidia/gpus ]; then
-      echo "  nvidia: driver loaded -> dGPU offload active for new starts"
-      #? the watcher restarts the server itself, this only explains a stale device line above
-      [ "$(${pkgs.coreutils}/bin/cat "${gpuStamp}" 2>/dev/null || echo nvidia)" = nvidia ] \
-        || echo "  card changed since start -> server restarts on the next dictation"
-    else
-      echo "  nvidia: off/vfio -> falls back to the Vega iGPU"
-    fi
+      if [ -d /proc/driver/nvidia/gpus ]; then
+        echo "  nvidia: driver loaded -> dGPU offload active for new starts"
+        #? the watcher restarts the server itself, this only explains a stale device line above
+        [ "$(${pkgs.coreutils}/bin/cat "${gpuStamp}" 2>/dev/null || echo nvidia)" = nvidia ] \
+          || echo "  card changed since start -> server restarts on the next dictation"
+      else
+        echo "  nvidia: off/vfio -> falls back to the Vega iGPU"
+      fi
+    ''}
 
     echo "== recent dictations =="
     #? -rs logs one benchmark table per dictation; pair audio length with the wall time
@@ -224,6 +266,90 @@ let
       /│ Total/          { if (match($0, /Total[^0-9]*([0-9.]+)/, m))
       printf "  %5.1fs audio -> %5.1fs  %s\n", aud, m[1]/1000, substr(txt, 1, 44) }
     ' | tail -8
+  '';
+
+  #? `whspr-fetch-parakeet [fp32|int8]` - the models are ~2.5G/~0.7G, so they live in the data dir
+  #? (bind-mounted to persistent storage, see hosts/ROG14/impermanence.nix), not in the store
+  #! parakeet-rs only ever opens encoder-model.onnx / decoder_joint-model.onnx / vocab.txt, so the
+  #! quantized pair has to be downloaded UNDER the fp32 names - hence the stamp file, without it
+  #! there is no way to tell which variant is actually sitting in the directory
+  parakeetFetch = pkgs.writeShellScriptBin "whspr-fetch-parakeet" /* shell */ ''
+    set -euo pipefail
+    variant="''${1:-${parakeetVariant}}"
+    repo=https://huggingface.co/istupakov/parakeet-tdt-0.6b-v3-onnx/resolve/main
+    dir="${parakeetDirAbs}"
+    stamp="$dir/.variant"
+
+    case "$variant" in
+      fp32) enc=encoder-model.onnx; dec=decoder_joint-model.onnx ;;
+      int8) enc=encoder-model.int8.onnx; dec=decoder_joint-model.int8.onnx ;;
+      *) echo "usage: whspr-fetch-parakeet [fp32|int8]" >&2; exit 1 ;;
+    esac
+
+    if [ "$(${pkgs.coreutils}/bin/cat "$stamp" 2>/dev/null || true)" = "$variant" ]; then
+      echo "parakeet $variant already in $dir"
+      exit 0
+    fi
+
+    ${pkgs.coreutils}/bin/mkdir --parents "$dir"
+    get() { ${pkgs.curl}/bin/curl --location --fail --progress-bar --output "$dir/$2" "$repo/$1"; }
+    get "$enc" encoder-model.onnx
+    get "$dec" decoder_joint-model.onnx
+    get vocab.txt vocab.txt
+    #? fp32 weights do not fit protobuf's 2G limit, so onnx keeps them in a sibling .data file
+    if [ "$variant" = fp32 ]; then
+      get encoder-model.onnx.data encoder-model.onnx.data
+    else
+      ${pkgs.coreutils}/bin/rm --force "$dir/encoder-model.onnx.data"
+    fi
+    echo "$variant" > "$stamp"
+    echo "parakeet $variant ready in $dir - restart hyprwhspr-rs.service to load it"
+  '';
+
+  #? `whspr-file <audio>...` - run existing files through the same server and prompt as dictation
+  #! whisper.cpp's server decodes the upload itself and answers a bare "Invalid request" for
+  #! anything it cannot handle (ogg among them), so everything goes through ffmpeg first;
+  #! 16k mono s16le is what whisper resamples to anyway
+  #? works under either asrBackend: the whisper-server unit stays defined, this just starts it
+  whsprFile = pkgs.writeShellScriptBin "whspr-file" /* shell */ ''
+    set -euo pipefail
+    if [ $# -eq 0 ]; then
+      echo "usage: whspr-file <audio-file>..." >&2
+      exit 1
+    fi
+
+    #? the idle timer fires every minute and stops the server on a stale stamp - keep it fresh,
+    #? or a long file loses its server mid-request
+    ${pkgs.coreutils}/bin/touch "${activityStamp}"
+    systemctl --user start whisper-server.service
+    #! the server binds the port only once the model is loaded, so a plain connect IS the readiness
+    #! probe; large-v3 on a cold vulkan pipeline cache takes ~20s, hence the generous bound
+    i=0
+    while ! ${pkgs.curl}/bin/curl --silent --output /dev/null --max-time 2 \
+      "http://127.0.0.1:${whisperPort}/"; do
+      i=$((i + 1))
+      if [ "$i" -ge 60 ]; then
+        echo "whisper-server did not come up - check: journalctl --user --unit whisper-server --pager-end" >&2
+        exit 1
+      fi
+      ${pkgs.coreutils}/bin/sleep 1
+    done
+
+    tmp=$(${pkgs.coreutils}/bin/mktemp --directory)
+    trap '${pkgs.coreutils}/bin/rm --recursive --force "$tmp"' EXIT
+    for f in "$@"; do
+      if [ $# -gt 1 ]; then echo "== $f =="; fi
+      ${pkgs.ffmpeg}/bin/ffmpeg -loglevel error -y -i "$f" \
+        -ar 16000 -ac 1 -c:a pcm_s16le "$tmp/in.wav"
+      ${pkgs.coreutils}/bin/touch "${activityStamp}"
+      ${pkgs.curl}/bin/curl --silent --show-error --max-time 3600 \
+        "http://127.0.0.1:${whisperPort}/inference" \
+        --form "file=@$tmp/in.wav" \
+        --form response_format=json \
+        --form "prompt=<${techPromptFile}" \
+        | ${pkgs.jq}/bin/jq --raw-output '.text'
+      ${pkgs.coreutils}/bin/touch "${activityStamp}"
+    done
   '';
 
   hyprwhspr-rs-patched =
@@ -252,6 +378,8 @@ in
   environment.systemPackages = [
     hyprwhspr-rs-patched
     whsprStatus
+    parakeetFetch
+    whsprFile
   ];
 
   #! the custom (http) provider pipes audio through ffmpeg before uploading - both wav and flac
@@ -306,8 +434,10 @@ in
       ExecStart = whisperIdleStop;
     };
   };
+  #? the units stay defined under parakeet (flipping asrBackend back should be a one-liner),
+  #? but nothing starts them: the watcher's start block is compiled out and the timer is unwired
   systemd.user.timers.whisper-server-idle-stop = {
-    wantedBy = [ "timers.target" ];
+    wantedBy = lib.optionals useWhisperServer [ "timers.target" ];
     timerConfig = {
       OnBootSec = "5min";
       OnUnitActiveSec = "1min";
@@ -329,15 +459,24 @@ in
       // paste via Shift+Insert instead of Ctrl+V - works in terminals (wezterm) and is cyrillic-safe
       // default Ctrl+V does not paste in terminals, so text never lands there
       "global_paste_shortcut": true,
-      // talk to the resident whisper-server instead of respawning whisper-cli (which reloads
-      // the model every single time); language is set on the server side (--language ru)
+      // engine is picked by `asrBackend` in the module; both sections stay here either way
       "transcription": {
-        "provider": "custom.local",
+        "provider": "${if useWhisperServer then "custom.local" else "parakeet"}",
+        // in-process NVIDIA Parakeet TDT via ONNX; model_dir is relative to the data dir
+        // ("~/.local/share/hyprwhspr-rs"), fetch it with `whspr-fetch-parakeet`
+        // `prompt` is deliberately empty: the transducer takes no initial_prompt, this key only
+        // strips prompt echo from the output, so the whisper prompt here would be cargo cult
+        "parakeet": {
+          "model_dir": "${parakeetDir}",
+          "prompt": ""
+        },
         // the server is started on demand when recording begins, and loading large-v3 takes a
         // few seconds - with the default 2 retries the backoff window is only 0.5+1.0s, so a
         // short dictation could outrun the model load and die on "connection refused";
         // backoff doubles per attempt (500ms << n), so 6 retries covers ~31s of startup
         "max_retries": 6,
+        // talk to the resident whisper-server instead of respawning whisper-cli (which reloads
+        // the model every single time); language is set on the server side (--language ru)
         "custom": {
           "local": {
             "kind": "openai_audio_transcriptions",
@@ -345,13 +484,12 @@ in
             "endpoint": "http://127.0.0.1:${whisperPort}/inference",
             "model": "${whisperModel}",
             "audio_format": "wav",
-            // initial_prompt: keep program/tech names in latin, russian context
-            "prompt": "Расшифровка технической речи на русском. Сохраняй названия программ и технологий латиницей: GitHub, GitLab, Docker, Kubernetes, kubectl, nginx, systemd, Nix, NixOS, Python, Rust, Wayland, niri."
+            "prompt": "${techPrompt}"
           }
         },
         // kept for fallback: flip provider back to "whisper_cpp" to bypass the server
         "whisper_cpp": {
-          "prompt": "Расшифровка технической речи на русском. Сохраняй названия программ и технологий латиницей: GitHub, GitLab, Docker, Kubernetes, kubectl, nginx, systemd, Nix, NixOS, Python, Rust, Wayland, niri.",
+          "prompt": "${techPrompt}",
           "model": "${whisperModel}",
           "threads": 8,
           "models_dirs": ["${modelsDir}"]
