@@ -6,7 +6,7 @@
 }:
 #? https://nix-community.github.io/nix-on-droid/nix-on-droid-options.html#sec-options
 let
-  zsh = lib.getExe pkgs.zsh;
+  zsh_bin = lib.getExe pkgs.zsh;
 in
 {
   imports = [
@@ -26,13 +26,10 @@ in
 
   environment.packages =
     with pkgs;
-    let
-      ping = pkgs.writeShellScriptBin "ping" ''
-        /android/system/bin/linker64 /android/system/bin/ping "$@"
-      '';
-    in
     [
-      ping
+      (pkgs.writeShellScriptBin "ping" ''
+        /android/system/bin/linker64 /android/system/bin/ping "$@"
+      '')
 
       zsh
       android-tools
@@ -55,7 +52,7 @@ in
     ]
     ++ import ../../shared/lists { inherit pkgs; };
   environment.motd = "Welcome to Nix-on-Droid!";
-  environment.sessionVariables.SHELL = zsh;
+  environment.sessionVariables.SHELL = zsh_bin;
 
   #? backup etc files instead of failing to activate generation if a file already exists in /etc
   # environment.etcBackupExtension = ".nodbackup";
@@ -85,13 +82,13 @@ in
   user.shell = lib.getExe (
     pkgs.writeShellScriptBin "login-shell" ''
       if [ -t 0 ] && [ -t 1 ]; then
-        exec ${zsh} --login
+        exec ${zsh_bin} --login
       fi
       if (: < /dev/tty) 2> /dev/null; then
-        exec ${zsh} --login < /dev/tty > /dev/tty 2> /dev/tty
+        exec ${zsh_bin} --login < /dev/tty > /dev/tty 2> /dev/tty
       fi
       #? no pty at all, force interactive so .zshrc still loads; zle stays off
-      exec ${zsh} --login --interactive
+      exec ${zsh_bin} --login --interactive
     ''
   );
   # user.userName = "nix-on-droid";
