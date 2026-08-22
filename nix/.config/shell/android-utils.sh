@@ -77,13 +77,12 @@ adb_shell_as_termux() {
   adb -s "$ANDROID_DEVICE" shell -t 'su $(su --command "stat --format %U /data/data/com.termux") --command sh /data/data/com.termux/files/home/.adbrc'
 }
 
-# TODO: script to crate adbrc and declare it in nix-on-droid
 adb_shell_as_nix() {
   local ANDROID_DEVICE
   ANDROID_DEVICE=$(_get_android_device)
   [ -z "$ANDROID_DEVICE" ] && echo "No device selected" && return 1
   # shellcheck disable=SC2016
-  adb -s "$ANDROID_DEVICE" shell -t 'su $(su --command "stat --format %U /data/data/com.termux.nix") --command sh /data/data/com.termux.nix/files/home/.adbrc'
+  adb -s "$ANDROID_DEVICE" shell -t 'su $(su --command "stat --format %U /data/data/com.termux.nix") --command /data/data/com.termux.nix/files/usr/bin/login'
 }
 
 adbfs_connect() {

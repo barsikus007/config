@@ -27,19 +27,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    #! https://github.com/nix-community/nix-on-droid/issues/495
-    nixpkgs-unstable-droid.url = "nixpkgs/88d3861";
-    #! HM must stay contemporary with the pinned nixpkgs: newer HM imports
-    #! `pkgs.path + "/lib/services/lib.nix"` and asserts on package versions the pin cannot meet
-    #? last commit before modular services (nix-community/home-manager#9215)
-    home-manager-droid = {
-      url = "github:nix-community/home-manager/9c6f1307e1d76a2285d8001e1b8bc281bfe15dac";
-      inputs.nixpkgs.follows = "nixpkgs-unstable-droid";
-    };
     nix-on-droid = {
       url = "github:nix-community/nix-on-droid";
-      inputs.nixpkgs.follows = "nixpkgs-unstable-droid";
-      inputs.home-manager.follows = "home-manager-droid";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
     };
     impermanence.url = "github:nix-community/impermanence";
     plasma-manager = {
@@ -402,7 +393,6 @@
         pkgs = import ./nixpkgs.nix {
           inherit inputs;
           system = "aarch64-linux";
-          nixpkgs = inputs.nixpkgs-unstable-droid;
           overlays = [
             inputs.nix-on-droid.overlays.default
           ];

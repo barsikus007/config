@@ -10,7 +10,7 @@
     stateVersion = lib.mkDefault "26.05";
 
     inherit username;
-    homeDirectory = "/home/${username}";
+    homeDirectory = lib.mkDefault "/home/${username}";
 
     preferXdgDirectories = true;
   };

@@ -382,27 +382,6 @@
         "type": "github"
       }
     },
-    "home-manager-droid": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs-unstable-droid"
-        ]
-      },
-      "locked": {
-        "lastModified": 1777894865,
-        "narHash": "sha256-agINDb/tr4v2uaVmgE/i0dY1M2JJdzUI/Caup/MWEGU=",
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "rev": "9c6f1307e1d76a2285d8001e1b8bc281bfe15dac",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "rev": "9c6f1307e1d76a2285d8001e1b8bc281bfe15dac",
-        "type": "github"
-      }
-    },
     "home-manager_2": {
       "inputs": {
         "nixpkgs": [
@@ -584,22 +563,22 @@
     "nix-on-droid": {
       "inputs": {
         "home-manager": [
-          "home-manager-droid"
+          "home-manager"
         ],
         "nix-formatter-pack": "nix-formatter-pack",
         "nixpkgs": [
-          "nixpkgs-unstable-droid"
+          "nixpkgs"
         ],
         "nixpkgs-docs": "nixpkgs-docs",
         "nixpkgs-for-bootstrap": "nixpkgs-for-bootstrap",
         "nmd": "nmd"
       },
       "locked": {
-        "lastModified": 1765031149,
-        "narHash": "sha256-4ZtlnCp4blhsjGnQIxAXDAj7nCJKy7tozoBRtklmwcU=",
+        "lastModified": 1787352026,
+        "narHash": "sha256-2MKUKRNV+5qs3nbQDmz7L6KRHSEHDy/lZjfIAYMZSOE=",
         "owner": "nix-community",
         "repo": "nix-on-droid",
-        "rev": "55b6449b4582a4ba3ce712543c973360a026db7d",
+        "rev": "df611d5358360092b1d2e7e756f94b23843bd9d6",
         "type": "github"
       },
       "original": {
@@ -832,21 +811,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-unstable-droid": {
-      "locked": {
-        "lastModified": 1769018530,
-        "narHash": "sha256-MJ27Cy2NtBEV5tsK+YraYr2g851f3Fl1LpNHDzDX15c=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "88d3861acdd3d2f0e361767018218e51810df8a1",
-        "type": "github"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "ref": "88d3861",
-        "type": "indirect"
-      }
-    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1787135253,
@@ -1073,7 +1037,6 @@
         "disko": "disko",
         "erosanix": "erosanix",
         "home-manager": "home-manager",
-        "home-manager-droid": "home-manager-droid",
         "impermanence": "impermanence",
         "niri": "niri",
         "nix-cachyos-kernel": "nix-cachyos-kernel",
@@ -1084,7 +1047,6 @@
         "nixos-vfio": "nixos-vfio",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs_5",
-        "nixpkgs-unstable-droid": "nixpkgs-unstable-droid",
         "noctalia": "noctalia",
         "nvf": "nvf",
         "openwrt-imagebuilder": "openwrt-imagebuilder",

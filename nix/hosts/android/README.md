@@ -6,13 +6,10 @@
 
 ### installation
 
-1. in `~/.config/nix-on-droid/flake.nix`
-   1. set `nixpkgs` input to `nixpkgs-unstable` branch
-2. in `~/.config/nix-on-droid/nix-on-droid.nix`
-   1. add `git` to `environment.packages`
-3. `nix-on-droid switch --flake ~/.config/nix-on-droid`
-4. `cd && git clone --depth=1 https://github.com/barsikus007/config && cd -`
-5. `nix-on-droid switch --flake ~/config/nix`
+1. set bootstrap url to `https://nix-on-droid.unboiled.info/bootstrap` when asked
+2. `nix shell nixpkgs#git`
+3. `cd && git clone --depth=1 https://github.com/barsikus007/config && cd -`
+4. `nix-on-droid switch --flake ~/config/nix`
 
 ## [NixOS-DroidVM](https://github.com/Droid-VM/DroidVM)
 
