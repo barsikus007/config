@@ -112,18 +112,10 @@ setup_ubuntu() {
 
 
 #? ls replacement
-alias ezal='eza --classify --binary --group --header --mounts --smart-group --group-directories-first --color=auto --color-scale --icons=always --no-quotes --hyperlink'
-alias ezall='eza --classify --long --all --binary --group --header --mounts --smart-group --group-directories-first --color=auto --color-scale --icons=always --no-quotes --hyperlink'
-alias exal='exa --long --all --classify --binary --group --header --group-directories-first --color=auto --icons --color-scale'
-alias exall='exa --long --all --classify --binary --group --header --group-directories-first --color=auto --icons --color-scale'
-
 llalias() {
   if hash eza &> /dev/null; then
     alias ll=ezall
     alias l=ezal
-  elif hash exa &> /dev/null; then
-    alias ll=exall
-    alias l=exal
   else
     alias ll='ls --format=long -g --all --classify --escape --human-readable'
     alias l='ls --format=vertical --classify --escape --human-readable'

@@ -5,7 +5,7 @@
     # nixpkgs-previous.url = "nixpkgs/commit_hash";
     # nixpkgs-fix-for-<smth>.url = "nixpkgs/pull/1488/head";
     #? smaller then github tarball, less api hits: https://discourse.nixos.org/t/use-channels-as-flake-inputs/75261
-    nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz";
+    nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst";
     #? more secure: https://determinate.systems/blog/nixpkgs-cooldown/
     # nixpkgs.url = "https://flakehub.com/f/DeterminateSystems/nixpkgs-weekly/0.1";
     # nixpkgs-master.url = "nixpkgs";
@@ -15,7 +15,7 @@
     };
 
     nixos-hardware = {
-      url = "github:nixos/nixos-hardware";
+      url = "github:NixOS/nixos-hardware";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-wsl = {

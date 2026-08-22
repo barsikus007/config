@@ -20,6 +20,8 @@ let
   tesseract = lib.getExe pkgs.tesseract;
   wezterm = lib.getExe pkgs.wezterm;
   xprop = lib.getExe pkgs.xprop;
+  #? the bash builtin shadows this one and does not know --timeout
+  kill = lib.getExe' pkgs.util-linux "kill";
 in
 [
   (pkgs.writeShellScriptBin "get-focused-window-pid" (
@@ -35,7 +37,7 @@ in
           #? match on exe, not comm: the kernel truncates comm to 15 chars
           #? and the nix wrapper turns it into ".xwayland-satel"
           case "$(readlink --canonicalize /proc/"$PID"/exe 2>/dev/null)" in
-            *xwayland-satellite* | *Xwayland*)
+            (*xwayland-satellite* | *Xwayland*)
               export DISPLAY=''${DISPLAY:-:0}
               WINDOW_ID=$(${xprop} -root _NET_ACTIVE_WINDOW | grep --only-matching '0x[0-9a-f]*')
               PID=$(${xprop} -id "$WINDOW_ID" _NET_WM_PID | grep --only-matching '[0-9]*$')
@@ -102,7 +104,7 @@ in
       fi
     ''
     + /* shell */ ''
-      kill "$PID"
+      ${kill} --signal TERM --timeout 2000 KILL "$PID"
     ''
   ))
   (pkgs.writeShellScriptBin "slurp-grim-screenshot" /* shell */ ''

@@ -144,7 +144,7 @@ let
     react() {
       cls=$(${pkgs.jq}/bin/jq --raw-output '.class // empty' "$status" 2>/dev/null || true)
       case "$cls" in
-        active)
+        (active)
           touch "$stamp"
           ${lib.optionalString useWhisperServer /* shell */ ''
             #! the server picks its device ONCE at start, so a dgpu_switch_* while it is up leaves it
@@ -170,14 +170,14 @@ let
           done)
           stop_loop
           ;;
-        processing)
+        (processing)
           touch "$stamp"
           if [ -z "$loop_pid" ] || ! kill -0 "$loop_pid" 2>/dev/null; then
             ( while true; do ${pkgs.pipewire}/bin/pw-play "${processingTick}/tick.wav"; sleep 0.4; done ) &
             loop_pid=$!
           fi
           ;;
-        *)
+        (*)
           #? dictation finished (or errored): resume exactly the players we paused
           if [ -n "''${resumed:-}" ]; then
             printf '%s\n' "$resumed" | while read -r p; do
@@ -281,9 +281,9 @@ let
     stamp="$dir/.variant"
 
     case "$variant" in
-      fp32) enc=encoder-model.onnx; dec=decoder_joint-model.onnx ;;
-      int8) enc=encoder-model.int8.onnx; dec=decoder_joint-model.int8.onnx ;;
-      *) echo "usage: whspr-fetch-parakeet [fp32|int8]" >&2; exit 1 ;;
+      (fp32) enc=encoder-model.onnx; dec=decoder_joint-model.onnx ;;
+      (int8) enc=encoder-model.int8.onnx; dec=decoder_joint-model.int8.onnx ;;
+      (*) echo "usage: whspr-fetch-parakeet [fp32|int8]" >&2; exit 1 ;;
     esac
 
     if [ "$(${pkgs.coreutils}/bin/cat "$stamp" 2>/dev/null || true)" = "$variant" ]; then

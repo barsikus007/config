@@ -152,10 +152,6 @@ in
         show_dots = true;
         smart_auto_hide = true;
       };
-      hooks = {
-        #! noctalia password unlock locks frintd (polkit-rule needed)
-        session_unlocked = "${lib.getExe' pkgs.systemd "systemctl"} kill --signal=KILL fprintd.service";
-      };
       idle = {
         pre_action_fade_seconds = 5;
         behavior_order = [

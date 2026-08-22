@@ -12,7 +12,10 @@ in
   home.activation.notifyQtColorChange =
     lib.hm.dag.entryBetween [ "dolphinViewProperties" ] [ "writeBoundary" ]
       ''
-        run ${lib.getExe' pkgs.glib "gdbus"} emit --session --object-path /KGlobalSettings --signal org.kde.KGlobalSettings.notifyChange 0 0
+        #! at boot the activation runs as a system unit with no session bus, gdbus exits 1 and aborts the rest of the DAG
+        if [ -n "''${DBUS_SESSION_BUS_ADDRESS:-}" ]; then
+          run ${lib.getExe' pkgs.glib "gdbus"} emit --session --object-path /KGlobalSettings --signal org.kde.KGlobalSettings.notifyChange 0 0
+        fi
       '';
   services.darkman = {
     enable = true;

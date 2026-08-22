@@ -33,6 +33,8 @@ alias diff='diff --color'
 alias dsp='docker system prune'
 alias dspa='dsp --all'
 alias editor=nvim
+alias ezal='eza --classify --binary --group --header --mounts --smart-group --group-directories-first --color-scale --icons=always --no-quotes --hyperlink=auto'
+alias ezall='eza --classify --long --all --binary --group --header --mounts --smart-group --group-directories-first --color-scale --icons=always --no-quotes --hyperlink=auto'
 alias gemini-preview='bunx @google/gemini-cli@preview'
 alias grep='grep --color=auto'
 alias grp='grep --fixed-strings --ignore-case --line-number --context 7'
@@ -54,8 +56,6 @@ alias nvf='nvim +"lua vim.schedule(function() vim.cmd('\''FzfLua files'\'') end)
 alias nvg='nvim +"lua vim.schedule(function() vim.cmd('\''FzfLua live_grep'\'') end)"'
 alias open-ports='sudo lsof -i -P -n | grep LISTEN'
 alias open-ports-netstat='netstat --listening'
-alias openclaude='bunx @gitlawb/openclaude'
-alias openclaude-preview='bunx github:Gitlawb/openclaude#main'
 alias pipi='uv pip install --requirements requirements.txt || uv pip install --requirements pyproject.toml'
 alias pyt=ptpython
 alias pyta='pyt --asyncio'

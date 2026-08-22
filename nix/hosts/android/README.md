@@ -10,6 +10,9 @@
 2. `nix shell nixpkgs#git`
 3. `cd && git clone --depth=1 https://github.com/barsikus007/config && cd -`
 4. `nix-on-droid switch --flake ~/config/nix`
+5. after
+   - `termux-setup-storage`
+   - `nix-collect-garbage --delete-old`
 
 ## [NixOS-DroidVM](https://github.com/Droid-VM/DroidVM)
 

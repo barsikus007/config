@@ -20,8 +20,8 @@ let
     host= port=
     while read -r k v _; do
       case "$k" in
-        hostname) host=$v ;;
-        port)     port=$v ;;
+        (hostname) host=$v ;;
+        (port)     port=$v ;;
       esac
     done < <(${pkgs.openssh}/bin/ssh -G ${nasSshHost})
     exec ${pkgs.coreutils}/bin/timeout 5 ${lib.getExe pkgs.bash} -c "echo > /dev/tcp/$host/$port"

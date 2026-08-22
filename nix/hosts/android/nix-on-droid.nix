@@ -27,9 +27,12 @@ in
   environment.packages =
     with pkgs;
     [
-      (pkgs.writeShellScriptBin "ping" ''
-        /android/system/bin/linker64 /android/system/bin/ping "$@"
-      '')
+      #? iputils is already hiPrio
+      (lib.setPrio (-11) (
+        pkgs.writeShellScriptBin "ping" ''
+          /android/system/bin/linker64 /android/system/bin/ping "$@"
+        ''
+      ))
 
       zsh
       android-tools
@@ -68,7 +71,7 @@ in
     programs.zsh.shellAliases = {
       #? sh $(nom build --impure $HOME/config/nix#nixOnDroidConfigurations.default.activationPackage --no-link --print-out-paths)/activate
       nn = lib.mkForce "nix-on-droid switch --flake ${flakePath}";
-      nnn = "sh $(nom build --impure ${flakePath}#nixOnDroidConfigurations.default.activationPackage --no-link --print-out-paths)/activate";
+      nn-nom = "sh $(nom build --impure ${flakePath}#nixOnDroidConfigurations.default.activationPackage --no-link --print-out-paths)/activate";
       nr = lib.mkForce "nix repl --expr '(builtins.getFlake \"${flakePath}\").nixOnDroidConfigurations.default'";
     };
   };

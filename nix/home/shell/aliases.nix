@@ -83,8 +83,6 @@ rec {
     {
       claude-preview = "${npxExec} @anthropic-ai/claude-code@next";
       gemini-preview = "${npxExec} @google/gemini-cli@preview";
-      openclaude = "${npxExec} @gitlawb/openclaude";
-      openclaude-preview = "${npxExec} github:Gitlawb/openclaude#main";
     };
   wgAliases = mkWgAliases rec {
     wgExec = "wg";
@@ -117,8 +115,10 @@ rec {
     android-yt-dlpa = "cd ~/storage/downloads && yt-dlpa";
   };
   ezaAliases = {
-    l = "eza --classify --binary --group --header --mounts --smart-group --group-directories-first --color-scale --icons=always --no-quotes --hyperlink=auto";
-    ll = "eza --classify --long --all --binary --group --header --mounts --smart-group --group-directories-first --color-scale --icons=always --no-quotes --hyperlink=auto";
+    ezal = "eza --classify --binary --group --header --mounts --smart-group --group-directories-first --color-scale --icons=always --no-quotes --hyperlink=auto";
+    ezall = "eza --classify --long --all --binary --group --header --mounts --smart-group --group-directories-first --color-scale --icons=always --no-quotes --hyperlink=auto";
+    l = ezaAliases.ezal;
+    ll = ezaAliases.ezall;
     llt = "ll --tree";
   };
   nvimAliases = {

@@ -22,7 +22,7 @@ network_get_ipaddr awg_ip awg0
 #? wan must hold a white IP; white-ip-miner keeps rolling on grey/empty, so wait it out
 network_get_ipaddr wan_ip wan
 case "$wan_ip" in
-    ""|100.6[4-9].*|100.[7-9][0-9].*|100.1[0-1][0-9].*|100.12[0-7].*)
+    (""|100.6[4-9].*|100.[7-9][0-9].*|100.1[0-1][0-9].*|100.12[0-7].*)
         logger -t pbr "skip restart: wan still grey/empty ($wan_ip)"
         exit 0
         ;;

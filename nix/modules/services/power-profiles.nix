@@ -20,19 +20,19 @@ let
 
   applyProfile = pkgs.writeShellScript "apply-power-profile" /* shell */ ''
     case "''${1:-}" in
-      performance)
+      (performance)
         ${cpupower} frequency-set --governor performance
         ${anime "true"}
         ;;
-      balanced)
+      (balanced)
         ${cpupower} frequency-set --governor ${config.powerManagement.cpuFreqGovernor}
         ${anime "true"}
         ;;
-      power-saver)
+      (power-saver)
         ${cpupower} frequency-set --governor powersave
         ${anime "false"}
         ;;
-      *)
+      (*)
         echo "unknown power profile: ''${1:-}" >&2
         exit 1
         ;;
@@ -43,7 +43,13 @@ in
   #? follow ActiveProfile on the system bus and apply tweaks on every change
   systemd.services.power-profile-hook = {
     description = "Apply system tweaks on power profile change";
-    wantedBy = [ "multi-user.target" ];
+    #! never multi-user.target here: ppd ships After=multi-user.target, and a target
+    #! implicitly gains After= for every unit that wants it, so wantedBy on
+    #! multi-user closes an ordering cycle and systemd silently deletes this job
+    #! at boot, leaving the tweaks unapplied until the next switch-to-configuration
+    #? graphical.target runs after both multi-user and display-manager, and it is
+    #? what ppd itself names in its [Install], which nixpkgs never links
+    wantedBy = [ "graphical.target" ];
     after = [
       "power-profiles-daemon.service"
     ]
@@ -71,8 +77,13 @@ in
   #? pick profile by AC state: on boot (wantedBy) and on plug/unplug (udev)
   systemd.services.power-profile-select = {
     description = "Select power profile based on AC state";
-    wantedBy = [ "multi-user.target" ];
-    after = [ "power-profile-hook.service" ];
+    #! same cycle applies, see the hook above
+    wantedBy = [ "graphical.target" ];
+    wants = [ "power-profiles-daemon.service" ];
+    after = [
+      "power-profiles-daemon.service"
+      "power-profile-hook.service"
+    ];
     serviceConfig.Type = "oneshot";
     script = /* shell */ ''
       online=0

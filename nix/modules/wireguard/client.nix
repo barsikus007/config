@@ -1,9 +1,16 @@
 {
+  lib,
   pkgs,
   config,
   username,
   ...
 }:
+let
+  #? tunnel that must be down at home and up on any other network
+  localTunnel = "wg0local";
+
+  systemctl = lib.getExe' pkgs.systemd "systemctl";
+in
 {
   networking.wg-quick.interfaces = {
     awg0 = {
@@ -11,9 +18,9 @@
       autostart = false;
       configFile = "/home/${username}/Sync/awg0.conf";
     };
-    wg0local = {
+    ${localTunnel} = {
       autostart = false;
-      configFile = "/home/${username}/Sync/wg0local.conf";
+      configFile = "/home/${username}/Sync/${localTunnel}.conf";
     };
   };
 
@@ -22,24 +29,28 @@
     amneziawg-tools
   ];
 
-  networking.networkmanager.dispatcherScripts =
-    let
-      wifiIface = "wlp2s0";
-    in
-    [
-      #? https://networkmanager.dev/docs/api/latest/NetworkManager-dispatcher.html
-      {
-        source = pkgs.writeScript "local-wg-auto" ''
-          #!/bin/sh
-          [ "$DEVICE_IFACE" != "${wifiIface}" ] && exit 0
-          [ "$2" != "up" ] && exit 0
-          if [ "$CONNECTION_ID" = $(cat ${config.sops.secrets."hosts/NAS/router/ssid".path}) ]; then
-            ${pkgs.systemd}/bin/systemctl stop wg-quick-wg0local
-          else
-            ${pkgs.systemd}/bin/systemctl start wg-quick-wg0local
-          fi
-        '';
-        type = "basic";
-      }
-    ];
+  networking.networkmanager.dispatcherScripts = [
+    #? https://networkmanager.dev/docs/api/latest/NetworkManager-dispatcher.html
+    {
+      source = pkgs.writeScript "local-wg-auto" ''
+        #!/bin/sh
+        [ -d "/sys/class/net/$DEVICE_IFACE/wireless" ] || exit 0
+        [ "$2" != "up" ] && exit 0
+        if [ "$CONNECTION_ID" = "$(cat ${config.sops.secrets."hosts/NAS/router/ssid".path})" ]; then
+          ${systemctl} stop wg-quick-${localTunnel}
+        else
+          ${systemctl} start wg-quick-${localTunnel}
+        fi
+      '';
+      type = "basic";
+    }
+  ];
+
+  #! a tunnel kept across S3 still owns the ~. routing domain while its peer
+  #! session is already dead, so every DNS query after resume goes into the void
+  #! and starves the nsncd worker pool, see ../network.nix
+  #? the local tunnel returns through the dispatcher above, awg0 is started by hand
+  powerManagement.powerDownCommands = lib.concatMapStringsSep "\n" (
+    name: "${systemctl} stop wg-quick-${name} || true"
+  ) (lib.attrNames config.networking.wg-quick.interfaces);
 }

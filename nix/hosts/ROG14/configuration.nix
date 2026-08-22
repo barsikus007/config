@@ -26,7 +26,7 @@
 
   #! modules here are bound to specific hardware features (including disks)
   imports = [
-    ../extra.nix
+    ../laptop.nix
     # TODO: PR: file for whole 2020th ga401, not just iv; https://github.com/NixOS/nixos-hardware/issues/1450
     #? https://github.com/NixOS/nixos-hardware/blob/master/asus/zephyrus/ga401iv/default.nix
     inputs.nixos-hardware.nixosModules.asus-zephyrus-ga401iv
@@ -64,8 +64,6 @@
     # nvidia.powerManagement.enable = true;
     #? finer GPU power management
     nvidia.powerManagement.finegrained = true;
-
-    bluetooth.enable = true;
   };
 
   #? https://asus-linux.org/guides/nixos/
@@ -79,21 +77,20 @@
     };
   };
 
-  systemd.settings.Manager.DefaultTimeoutStopSec = "20s";
-  systemd.user.settings.Manager.DefaultTimeoutStopSec = "15s";
-
-  # TODO: laptop specific
-  #? default governor, same for the balanced profile
-  powerManagement.cpuFreqGovernor = "schedutil";
-
-  #! vibecoded shitfix for keyboard backlight enabling after resume
+  #? fix for keyboard backlight enabling after resume
   powerManagement.resumeCommands = ''
     for _ in 1 2 3 4 5; do
       ${lib.getExe' pkgs.asusctl "asusctl"} leds set off && sleep 0.5
     done
   '';
 
-  #? disable 4.2 GHz boost
+  #? default is "mem standby freeze", so a failed suspend falls through to s2idle,
+  #? which this firmware cannot do (FADT has no low-power S0) and amdgpu rejects
+  #? after a deep attempt anyway (Unsupported suspend state 1)
+  #? the fallback can only burn another 20s of kernel freezer timeout, never succeed
+  systemd.sleep.settings.Sleep.SuspendState = "mem";
+
+  #? disable device specific 4.2 GHz boost
   systemd.tmpfiles.rules = [
     "w /sys/devices/system/cpu/cpufreq/boost - - - - 0"
   ];
@@ -106,8 +103,4 @@
       KEYBOARD_KEY_ff3100c5=pagedown  # Fn+Down
   '';
   #? others in https://github.com/NixOS/nixos-hardware/blob/41c6b421bdc301b2624486e11905c9af7b8ec68e/asus/zephyrus/ga401iv/default.nix#L34
-
-  #? https://wiki.nixos.org/wiki/Linux_kernel#Enable_SysRq
-  #? it have same security level as having force-reset power-button
-  boot.kernel.sysctl."kernel.sysrq" = true;
 }

@@ -18,11 +18,16 @@
 #? grep "zfs create" $(nix build ./nix#nixosConfigurations.ROG14.config.system.build.diskoScript --print-out-paths) --after-context=2
 #? zfs change-key -o keylocation=prompt zroot
 let
+  user = config.users.users.${username};
+  uid = toString user.uid;
+  gid = toString config.users.groups.${user.group}.gid;
+
   #? https://wiki.archlinux.org/title/NTFS-3G#Linux_compatible_permissions
+  sid = "S-1-5-21-2891596990-1220146427-2962973337";
   ntfsUserMapping = pkgs.writeText "ntfs-usermapping" ''
-    1000::S-1-5-21-2891596990-1220146427-2962973337-1001
-    :100:S-1-5-21-2891596990-1220146427-2962973337-513
-    ::S-1-5-21-2891596990-1220146427-2962973337-10000
+    ${uid}::${sid}-1001
+    :${gid}:${sid}-513
+    ::${sid}-10000
   '';
 in
 {
@@ -85,20 +90,22 @@ in
         device = "//192.168.1.2/storage";
         mountOptions = [
           #? this section prevents hanging on network split
-          "_netdev"
-          "noauto"
           "x-systemd.automount"
-          "x-systemd.device-timeout=5s"
+          #! irresponsible mount hangs caller for timeout (default 90s)
           "x-systemd.mount-timeout=5s"
+          #! helps with fails on boot
           "x-systemd.requires=network-online.target"
+          #? soft unmount for share after timeout (disabled by default)
+          "x-systemd.idle-timeout=120"
 
           #? https://man7.org/linux/man-pages/man8/mount.cifs.8.html
-          "soft" # ? disable program locking if mount unaccessible
+          #! cifs declares a server dead only after 3*echo_interval, so the 60s
+          #! default means 180s of blocked kernel freezer on every suspend attempt
+          #! 10 cuts that to 30s, still over the 20s freezer timeout
+          "echo_interval=10"
           "credentials=${config.sops.templates."smb-credentials".path}"
-          "rw"
-          "uid=1000"
-          "gid=100"
-          "noserverino"
+          "uid=${uid}"
+          "gid=${gid}"
         ];
       };
       # TODO: fallback until big ZFS based /tank

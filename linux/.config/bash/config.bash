@@ -23,7 +23,7 @@ esac
 alias ip='ip -color=auto'
 alias lzdu='curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash'
 
-#? eza/exa/ls lazy usage
+#? eza/ls lazy usage
 alias ll=lllazy
 alias l=llazy
 

@@ -19,24 +19,24 @@ let
       [[ "$rest" == *\?* ]] && query="''${rest#*\?}"
 
       case "$path" in
-        /+*)
+        (/+*)
           tguri="tg://join?invite=''${path#/+}"
           ;;
-        /joinchat/*)
+        (/joinchat/*)
           tguri="tg://join?invite=''${path#/joinchat/}"
           ;;
-        /c/*)
+        (/c/*)
           IFS='/' read -r _ _ channel post _ <<< "$path"
           tguri="tg://privatepost?channel=''${channel}"
           [[ -n "''${post:-}" ]] && tguri="''${tguri}&post=''${post}"
           ;;
-        /addstickers/*)
+        (/addstickers/*)
           tguri="tg://addstickers?set=''${path#/addstickers/}"
           ;;
-        /addemoji/*)
+        (/addemoji/*)
           tguri="tg://addemoji?set=''${path#/addemoji/}"
           ;;
-        *)
+        (*)
           IFS='/' read -r _ domain post _ <<< "$path"
           tguri="tg://resolve?domain=''${domain}"
           [[ "''${post:-}" =~ ^[0-9]+$ ]] && tguri="''${tguri}&post=''${post}"
@@ -45,8 +45,8 @@ let
 
       if [[ -n "$query" ]]; then
         case "$tguri" in
-          *\?*) tguri="''${tguri}&''${query}" ;;
-          *) tguri="''${tguri}?''${query}" ;;
+          (*\?*) tguri="''${tguri}&''${query}" ;;
+          (*) tguri="''${tguri}?''${query}" ;;
         esac
       fi
 
