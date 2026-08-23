@@ -156,7 +156,6 @@ in
         pre_action_fade_seconds = 5;
         behavior_order = [
           "lock"
-          "lock-screen-off"
           "screen-off"
         ];
         behavior = {
