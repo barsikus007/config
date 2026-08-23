@@ -165,16 +165,10 @@ in
             action = "lock";
             timeout = 900.0;
           };
-          #? power off monitors 60s into idle, but only when session is already locked
-          "lock-screen-off" = {
-            enabled = true;
-            action = "command";
-            timeout = 60.0;
-            command = ''[ "$(loginctl show-session $XDG_SESSION_ID --property LockedHint --value)" = "yes" ] && ${lib.getExe config.programs.niri.package} msg action power-off-monitors'';
-          };
           "screen-off" = {
             enabled = true;
             action = "screen_off";
+            locked_timeout = 60.0;
             timeout = 600.0;
           };
         };
