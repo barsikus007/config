@@ -35,13 +35,29 @@ s () {
 ds() {
   # starts fzf in phony mode (ignores internal filtering)
   # and reloads the danksearch query on every keystroke
+  # enter replaces fzf with xdg-open, alt-enter opens and keeps searching
   fzf --phony \
       --prompt="DankSearch> " \
       --bind "change:reload(dsearch search {q} --limit 100 --json | jq -r '.hits[].id' || true)" \
+      --bind 'enter:become(xdg-open {})' \
+      --bind 'alt-enter:execute-silent(xdg-open {})' \
       --preview 'bat --color=always --style=numbers,changes --line-range :500 {}' \
       --preview-window="right:60%:border-left" \
       --layout=reverse \
       --info=inline
+}
+
+clone() {
+  #? usage: clone <url> [dir]
+  #? pass the target dir to git explicitly, otherwise cd has to guess where the clone landed
+  local url=${1%/}
+  local dir=${2:-}
+  if [ -z "$dir" ]; then
+    #? strip host/user prefix: works for both scp-like git@host:user/repo.git and https urls
+    dir=${url##*[:/]}
+    dir=${dir%.git}
+  fi
+  git clone --depth=1 "$url" "$dir" && cd "$dir" || return
 }
 
 capture_wezterm_zsh_cmd() {

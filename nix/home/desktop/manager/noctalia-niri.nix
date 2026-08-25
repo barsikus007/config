@@ -21,7 +21,10 @@ in
         noctalia-ipc = spawn "noctalia" "msg";
       in
       {
-        # TODO: noctalia-v5: plugin: keybind-cheatsheet for Mod+F1
+        "Mod+F1" = {
+          hotkey-overlay.title = "Show Important Hotkeys";
+          action = noctalia-ipc "panel-toggle" "kenn/keybind-cheatsheet:cheatsheet";
+        };
         "Alt+Space" = {
           hotkey-overlay.title = "Toggle Application Launcher";
           action = noctalia-ipc "panel-toggle" "launcher";
@@ -92,7 +95,7 @@ in
   };
   programs.noctalia = {
     enable = true;
-    package = pkgs.master-noctalia.noctalia;
+    package = pkgs.master.noctalia;
     systemd.enable = true;
     settings = {
       #? https://github.com/noctalia-dev/noctalia/blob/main/example.toml
@@ -117,23 +120,45 @@ in
             "control-center"
             "cpu"
             "ram"
-            "noctalia/screen_recorder:recorder"
-            "thepunkoff/pomodoro:widget"
+            "group:tools"
             "active_window"
           ];
           center = [ "taskbar" ];
           end = [
-            "music_button"
-            "media"
-            "tray"
-            "privacy"
-            "notifications"
-            "network"
-            "brightness"
-            "volume"
-            "battery"
-            "keyboard_layout"
-            "clock"
+            "group:media"
+            "group:tray"
+          ];
+          capsule_group = [
+            {
+              id = "tools";
+              members = [
+                "noctalia/screen_recorder:recorder"
+                "alexander/screen-toolkit:widget"
+                "thepunkoff/pomodoro:widget"
+              ];
+            }
+            {
+              id = "media";
+              members = [
+                "music_button"
+                "media"
+              ];
+            }
+            {
+              id = "tray";
+              members = [
+                "tray"
+                "privacy"
+                "notifications"
+                "network"
+                "brightness"
+                "volume"
+                "battery"
+                "keyboard_layout"
+                "clock"
+              ];
+              widget_spacing = 12;
+            }
           ];
         };
       };
@@ -219,20 +244,31 @@ in
           media = false;
         };
       };
+      #? https://noctalia.dev/plugins/official/screen_recorder
       plugin_settings."noctalia/screen_recorder" = {
         copy_to_clipboard = true;
         frame_rate = 144;
         video_codec = "hevc";
         audio_source = "both";
       };
+      #? https://noctalia.dev/plugins/community/screen-toolkit
+      plugin_settings."alexander/screen-toolkit" = {
+        selected-ocr-lang = "eng+rus";
+        record-audio-out = true;
+        record-audio-in = true;
+        record-codec = "hevc";
+        record-copy-to-clipboard = true;
+      };
       plugins = {
         enabled = [
           "noctalia/screen_recorder"
           "noctalia/kaomoji"
-          "noctalia/timer"
 
           "whyoolw/sharednd"
+          "kenn/keybind-cheatsheet"
           "thepunkoff/pomodoro"
+          #? noctalia msg plugin alexander/screen-toolkit:service all toggle
+          "alexander/screen-toolkit"
         ];
         source = [
           {
@@ -248,7 +284,6 @@ in
             enabled = true;
           }
         ];
-        # TODO: noctalia-v5: timer:bar-widget, kde-connect
       };
       shell = {
         clipboard_auto_paste = "ctrl_v";

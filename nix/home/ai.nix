@@ -3,6 +3,7 @@
   custom.persist.home.directories = [
     ".gemini"
     ".cache/cloud-code" # ? gemini auth
+    ".config/opencode"
   ];
 
   home.packages = with pkgs; [ mcp-nixos ];

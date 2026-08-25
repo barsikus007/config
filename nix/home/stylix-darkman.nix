@@ -2,6 +2,7 @@
 let
   #! xdg-desktop-portal-gnome caches color-scheme at its process start
   systemctl = lib.getExe' pkgs.systemd "systemctl";
+  gdbus = lib.getExe' pkgs.glib "gdbus";
   defaultSwitchScript = /* shell */ ''
     ${systemctl} --user restart xdg-desktop-portal-gnome.service
   '';
@@ -11,10 +12,10 @@ in
   #! Dolphin drops its view-props xattr on this reload, so it binds to dolphinViewProperties
   home.activation.notifyQtColorChange =
     lib.hm.dag.entryBetween [ "dolphinViewProperties" ] [ "writeBoundary" ]
-      ''
+      /* shell */ ''
         #! at boot the activation runs as a system unit with no session bus, gdbus exits 1 and aborts the rest of the DAG
         if [ -n "''${DBUS_SESSION_BUS_ADDRESS:-}" ]; then
-          run ${lib.getExe' pkgs.glib "gdbus"} emit --session --object-path /KGlobalSettings --signal org.kde.KGlobalSettings.notifyChange 0 0
+          run ${gdbus} emit --session --object-path /KGlobalSettings --signal org.kde.KGlobalSettings.notifyChange 0 0
         fi
       '';
   services.darkman = {

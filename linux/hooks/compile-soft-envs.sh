@@ -1,7 +1,8 @@
 #!/bin/sh
 # shellcheck disable=SC2016
 
-#? extracts bare package identifiers from nix/shared/lists/*.nix (one per line,
+#? extracts package identifiers from nix/shared/lists/*.nix (one per line,
+#? including the package name from multiline "(package.override { ... })" expressions,
 #? with optional "# * apt:-" (drop) / "# * apt:<name>" (rename) trailing markers) into
 #? bash var assignments for the legacy (non-nix) ubuntu bootstrap in setup.sh
 
@@ -11,6 +12,10 @@ extract_list() {
       line = $0
       sub(/^[ \t]+/, "", line)
       sub(/[ \t]+$/, "", line)
+      if (inOverride) {
+        if (line ~ /^\}\)[,;]?[ \t]*(#.*)?$/) inOverride = 0
+        next
+      }
       if (line == "" || line ~ /^#/) next
       if (line == "{" || line == "}" || line == "[" || line == "]" || line ~ /^with pkgs;/ || line ~ /^\{ pkgs/) next
       ident = line
@@ -23,6 +28,11 @@ extract_list() {
         sub(/[ \t]+$/, "", marker)
       } else {
         marker = ""
+      }
+      if (ident ~ /^\([A-Za-z0-9_.+-]+\.override[ \t]*\{/) {
+        sub(/^\(/, "", ident)
+        sub(/\.override[ \t]*\{.*/, "", ident)
+        if (line !~ /\}\)[,;]?[ \t]*(#.*)?$/) inOverride = 1
       }
       if (marker ~ /^apt:-/) next
       if (marker ~ /^apt:/) {

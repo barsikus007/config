@@ -764,13 +764,13 @@
         "type": "github"
       }
     },
-    "nixpkgs-master-noctalia": {
+    "nixpkgs-master": {
       "locked": {
-        "lastModified": 1787874478,
-        "narHash": "sha256-mm3axqWht8JL0/6rpAzQBxcJgOrbN4rgkN6s4AjZBOk=",
-        "rev": "7d1a7c21a4c00ea653fc7ed5c083d261340f185f",
+        "lastModified": 1788400875,
+        "narHash": "sha256-v4ZEET1Ah1K9+wMaIwPH/JTQK3MwW/gZC/SyjnlBX74=",
+        "rev": "5545adfad2e98de106a5544ca7067e03010410bd",
         "type": "tarball",
-        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.11pre1063175.7d1a7c21a4c0/nixexprs.tar.zst"
+        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.11pre1066699.5545adfad2e9/nixexprs.tar.zst"
       },
       "original": {
         "type": "tarball",
@@ -983,7 +983,7 @@
         "nixos-vfio": "nixos-vfio",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs_3",
-        "nixpkgs-master-noctalia": "nixpkgs-master-noctalia",
+        "nixpkgs-master": "nixpkgs-master",
         "nvf": "nvf",
         "openwrt-imagebuilder": "openwrt-imagebuilder",
         "plasma-manager": "plasma-manager",

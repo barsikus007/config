@@ -7,7 +7,10 @@ with pkgs;
   duf
   gdu
   fzf
-  btop
+  (btop.override {
+    cudaSupport = true;
+    rocmSupport = true;
+  })
   neovim
   zoxide
   ripgrep

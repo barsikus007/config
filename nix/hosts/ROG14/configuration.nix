@@ -51,8 +51,14 @@
     use_template = [ "default" ];
   });
 
-  #? NixOS param which enables root-shell when stage 1 fails
-  boot.kernelParams = [ "boot.shell_on_fail" ];
+  boot.kernelParams = [
+    #? NixOS param which enables root-shell when stage 1 fails
+    "boot.shell_on_fail"
+    #? DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE: 7.1.8 raised max_brightness from (max - min)
+    #? to max, but convert_custom_brightness still normalizes against (max - min) and
+    #? re-adds min itself, so above 64532 the PWM wraps mod 65536 and the screen goes black
+    "amdgpu.dcdebugmask=0x40000"
+  ];
 
   #? build aarch64 derivations locally, e.g. the phone guest in hosts/android
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];

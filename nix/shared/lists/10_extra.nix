@@ -25,6 +25,7 @@ import ./11_powertoys.nix { inherit pkgs; }
   pciutils # ? lspci
   usbutils # ? lssub
   qrencode
+  shellcheck
   ffmpeg-full
   #? files monitoring
   strace
@@ -50,4 +51,5 @@ import ./11_powertoys.nix { inherit pkgs; }
   antimicrox
   parsec-bin
   qbittorrent
+  linux-wifi-hotspot
 ]

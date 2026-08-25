@@ -11,4 +11,17 @@ with pkgs;
   krename # ? PowerRename
   # https://github.com/Genymobile/screen-ruler # ? Screen Ruler
   # ocr-screen-region # ? Text Extractor
+
+  #? https://noctalia.dev/plugins/community/screen-toolkit
+  tesseract
+  # (tesseract.override {
+  #   enableLanguages = [
+  #     "eng"
+  #     "rus"
+  #   ];
+  # })
+  bc
+  zbar
+  wl-screenrec
+  translate-shell
 ]
