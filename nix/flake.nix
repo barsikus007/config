@@ -81,7 +81,7 @@
 
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
     niri.url = "github:epireyn/niri-flake";
-    noctalia.url = "github:noctalia-dev/noctalia/cachix";
+    nixpkgs-master-noctalia.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.zst";
   };
 
   outputs =
@@ -392,7 +392,6 @@
           inputs.nvf.homeManagerModules.default
           inputs.plasma-manager.homeModules.plasma-manager
           inputs.niri.homeModules.niri
-          inputs.noctalia.homeModules.default
           # inputs.dms.homeModules.dank-material-shell
         ])
       ];

@@ -2,7 +2,6 @@
   lib,
   pkgs,
   config,
-  inputs,
   options,
   ...
 }:
@@ -13,9 +12,6 @@ let
   nixos_logo = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
 in
 {
-  imports = [
-    inputs.noctalia.homeModules.default
-  ];
   custom.persist.home.directories = [ ".cache/noctalia" ]; # ? to disable prompt on startup
 
   programs.niri.settings = {
@@ -96,6 +92,7 @@ in
   };
   programs.noctalia = {
     enable = true;
+    package = pkgs.master-noctalia.noctalia;
     systemd.enable = true;
     settings = {
       #? https://github.com/noctalia-dev/noctalia/blob/main/example.toml

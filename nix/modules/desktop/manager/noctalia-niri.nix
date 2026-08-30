@@ -11,9 +11,6 @@
     "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
   ];
   imports = [
-    #! noctalia-greeter.url = "github:noctalia-dev/noctalia-greeter";
-    # inputs.noctalia-greeter.nixosModules.default
-
     ./niri.nix
     ../../hardware/ddcutil.nix
     ../style/uniform-look.nix
@@ -38,29 +35,13 @@
     * kwallet
     * не мыльное (kanshi?)
   */
-  # programs.noctalia-greeter = {
-  #   enable = true;
-  #   settings = {
-  #     cursor = with config.stylix.cursor; {
-  #       inherit size;
-  #       theme = name;
-  #       path = "${package}/share/icons";
-  #     };
-  #   };
-  # };
+  services.displayManager.noctalia-greeter = {
+    # enable = true;
+    cursorTheme = { inherit (config.stylix.cursor) name package; };
+  };
 
   #! noctalia-v5 lockscreen fprint fix
   security.pam.services.login.fprintAuth = !config.services.fprintd.enable;
-  #? for hooks.session_unlocked (noctalia-niri.nix)
-  security.polkit.extraConfig = /* javascript */ ''
-    polkit.addRule(function (action, subject) {
-      if (action.id === "org.freedesktop.systemd1.manage-units"
-        && action.lookup("unit") === "fprintd.service"
-        && subject.user === "${username}") {
-        return polkit.Result.YES;
-      }
-    });
-  '';
 
   environment.systemPackages = with pkgs; [ wdisplays ];
 
