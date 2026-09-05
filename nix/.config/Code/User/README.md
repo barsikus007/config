@@ -1,0 +1,28 @@
+# [vscode](../../../README.md)
+
+- extensions manager script: `./nix/.config/Code/User/extensions-manager.sh`
+  - shows diff between extensions in `code` and defined in `extensions.nix`
+- TODO
+  - export configs
+    - layout
+      - `code ~/.config/Code/User/globalStorage/state.vscdb`
+    - profiles
+      - create profiles with given subset of
+        - extensions (based on tags)
+        - settings (based on regions)
+  - python
+    - pycharm like run file
+      - without interactive shell loading
+    - "python.analysis.autoImportCompletions": true
+      - could stop work for no reason
+    - debug inside python container
+    - disable parenthesis when apply auto-import
+    - color logs
+      - in debug console ?
+      - not python specific ?
+  - new things
+    - compound logs
+    - <https://code.visualstudio.com/docs/copilot/copilot-customization#_reusable-prompt-files-experimental>
+    - <https://code.visualstudio.com/docs/copilot/copilot-customization>
+    - <https://code.visualstudio.com/updates/v1_98#_task-rerun-action>
+    - <https://github.com/microsoft/vscode/pull/248747>

@@ -1,4 +1,4 @@
-# NixOS VFIO imperative steps
+# [NixOS Windows VM with VFIO](../../../README.md)
 
 codename `Windows-Resurrect`
 
