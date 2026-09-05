@@ -7,6 +7,9 @@
 let
   #? native wayland support (unstable)
   winePkg = pkgs.wineWow64Packages.unstableFull;
+  winetricksWrapper = pkgs.writeShellScriptBin "winetricks" ''
+    WINE_BIN=${lib.getExe' winePkg ".wine"} ${lib.getExe pkgs.winetricks}
+  '';
 
   #? map stylix base16 palette to wine `Control Panel\Colors` (space-separated RGB)
   c = config.lib.stylix.colors;
@@ -60,12 +63,14 @@ in
         export WINEPREFIX="''${WINEPREFIX:-$HOME/.wine}"
         wine-setup-wayland
         wine-setup-theme
+
+        ${winetricksWrapper} vb6run
       '';
     })
     (pkgs.writeShellApplication {
       name = "wine-setup-theme";
       runtimeInputs = [ winePkg ];
-      text = /* shell */ ''
+      text = /* shelll */ ''
         export WINEPREFIX="''${WINEPREFIX:-$HOME/.wine}"
         wine reg add 'HKCU\Software\Microsoft\Windows\CurrentVersion\ThemeManager' /v ThemeActive /t REG_SZ /d 0 /f
         while read -r name value; do

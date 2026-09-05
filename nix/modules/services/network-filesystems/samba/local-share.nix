@@ -1,6 +1,6 @@
 { username, ... }:
 #? windows-like folder sharing
-#! windows now works differently
+#! windows now works differently; need to run as admin:
 #? reg add HKLM\SYSTEM\CurrentControlSet\Services\LanmanWorkstation\Parameters /v AllowInsecureGuestAuth /t REG_DWORD /d 1 /f ; net stop workstation ; net start workstation
 {
   imports = [ ./local.nix ];

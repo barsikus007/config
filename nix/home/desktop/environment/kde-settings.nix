@@ -64,7 +64,7 @@
         "file://${config.home.homeDirectory}/Games"
         "file://${config.home.homeDirectory}/Pictures"
         "file://${config.home.homeDirectory}/Videos"
-        "file://${config.home.homeDirectory}/.wine/drive_c/users/${config.home.username}/AppData"
+        "file://${config.xdg.dataHome}/wine/drive_c/users/${config.home.username}/AppData"
       ];
     };
   };

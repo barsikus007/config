@@ -107,7 +107,7 @@ Function ssht { ssh @args -t "tmux new -As0 || bash || sh" }
 #* Test-Path Alias:\nv && Remove-Item Alias:\nv -Force
 #* Function nv { editor $(fzf) }
 Function 1ip { wget -qO - icanhazip.com }
-Function 2ip { curl 2ip.ru }
+Function 2ip { curl "internet-lab.ru/ip" }
 Function mkcd { New-Item @args -ItemType Directory -Force | Select-Object Name | Set-Location }
 
 # ls

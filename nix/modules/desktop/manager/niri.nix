@@ -67,6 +67,7 @@
       ExecStart = pkgs.writeShellScript "portal-env-fix" ''
         ${lib.getExe' pkgs.systemd "systemctl"} --user import-environment DISPLAY WAYLAND_DISPLAY
         ${lib.getExe' pkgs.dbus "dbus-update-activation-environment"} --systemd DISPLAY WAYLAND_DISPLAY
+        ${lib.getExe' pkgs.systemd "systemctl"} --user restart xdg-desktop-portal-gnome.service
         ${lib.getExe' pkgs.systemd "systemctl"} --user restart xdg-desktop-portal.service
       '';
     };

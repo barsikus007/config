@@ -39,7 +39,7 @@ in
   xdg.mimeApps.defaultApplications."application/x-shellscript" = lib.mkBefore terminalApps;
   xdg.terminal-exec.settings.default = "org.wezfurlong.wezterm.desktop";
   programs.zsh.shellAliases = {
-    wt = "wezterm start --cwd ./";
+    wt = "wezterm start --cwd ./ 1>/dev/null 2>/dev/null & disown";
   };
   programs.wezterm = {
     enable = true;

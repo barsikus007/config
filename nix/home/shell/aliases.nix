@@ -46,7 +46,7 @@ rec {
   };
   networkTestAliases = {
     "1ip" = "wget --quiet --output-document - icanhazip.com";
-    "2ip" = "curl 2ip.ru";
+    "2ip" = "curl internet-lab.ru/ip";
     "3ip" = "curl --silent --output - ipinfo.io | jq";
     "4ip" = "curl --silent --output - wtfismyip.com/json | jq";
     speedtest = "curl https://speedtest.selectel.ru/100MB --output /dev/null";
