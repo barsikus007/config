@@ -26,10 +26,10 @@
     ./sops.nix
 
     ../../modules/systemd-boot.nix
-    ../../modules/zfs-lts-kernel.nix
+    ../../modules/zfs/lts-kernel.nix
     # ../../modules/cachyos-kernel.nix
-    ../../modules/zfs.nix
-    ../../modules/zfs-backup-target.nix
+    ../../modules/zfs
+    ../../modules/zfs/backup-target.nix
 
     #! read warning inside module below
     ../../modules/ssh-initrd.nix
