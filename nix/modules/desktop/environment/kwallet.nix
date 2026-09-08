@@ -4,6 +4,9 @@
   config,
   ...
 }:
+let
+  systemctl = lib.getExe' config.systemd.package "systemctl";
+in
 {
   security.pam.services.login.kwallet.enable = true;
   security.pam.services.greetd.kwallet = lib.mkIf config.services.greetd.enable {
@@ -23,9 +26,9 @@
           #! creates the wayland socket BEFORE exporting WAYLAND_DISPLAY into the systemd user env, so
           #! waiting on the socket is not enough -- wait for the env var itself, put it in our env, then
           #! run pam_kwallet_init (which forwards the env onward to the forked ksecretd)
-          ExecStart = pkgs.writeShellScript "kwallet-pam-unlock" /* bashh */ ''
+          ExecStart = pkgs.writeShellScript "kwallet-pam-unlock" /* shell */ ''
             for _ in $(seq 1 300); do
-              wd=$(${lib.getExe' pkgs.systemd "systemctl"} --user show-environment | sed --quiet 's/^WAYLAND_DISPLAY=//p')
+              wd=$(${systemctl} --user show-environment | sed --quiet 's/^WAYLAND_DISPLAY=//p')
               if [ -n "$wd" ]; then
                 export WAYLAND_DISPLAY="$wd"
                 break

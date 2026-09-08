@@ -7,6 +7,10 @@
   ...
 }:
 #? https://wiki.nixos.org/wiki/Niri
+let
+  systemctl = lib.getExe' config.systemd.package "systemctl";
+  dbus-update-activation-environment =lib.getExe' pkgs.dbus "dbus-update-activation-environment";
+in
 {
   #? https://github.com/epireyn/niri-flake/blob/2c9acaa7ebd5458f73e4977fff18cb3ea33d0471/flake.nix#L485
   nix.settings.extra-substituters = [ "https://niri-epireyn.cachix.org" ];
@@ -65,10 +69,10 @@
       Type = "oneshot";
       RemainAfterExit = true;
       ExecStart = pkgs.writeShellScript "portal-env-fix" ''
-        ${lib.getExe' pkgs.systemd "systemctl"} --user import-environment DISPLAY WAYLAND_DISPLAY
-        ${lib.getExe' pkgs.dbus "dbus-update-activation-environment"} --systemd DISPLAY WAYLAND_DISPLAY
-        ${lib.getExe' pkgs.systemd "systemctl"} --user restart xdg-desktop-portal-gnome.service
-        ${lib.getExe' pkgs.systemd "systemctl"} --user restart xdg-desktop-portal.service
+        ${systemctl} --user import-environment DISPLAY WAYLAND_DISPLAY
+        ${dbus-update-activation-environment} --systemd DISPLAY WAYLAND_DISPLAY
+        ${systemctl} --user restart xdg-desktop-portal-gnome.service
+        ${systemctl} --user restart xdg-desktop-portal.service
       '';
     };
   };

@@ -12,6 +12,9 @@ let
   #? notify the desktop BEFORE a push when it's unusually big (normal hourly ~<400 MB)
   largeSendThresholdBytes = 2 * 1024 * 1024 * 1024; # ? 2 GiB
 
+  systemctl = lib.getExe' config.systemd.package "systemctl";
+  journalctl = lib.getExe' config.systemd.package "journalctl";
+
   #? ExecCondition: exit 0 → run; 1-254 → clean skip. timeout→124, refused→1: both skip
   #? /dev/tcp is a bash builtin
   #? `ssh -G NAS` resolves hostname/port from ssh_config without connecting
@@ -37,8 +40,8 @@ let
     fi
 
     echo "Forcing backup push to ${nasSshHost}..."
-    sudo ${config.systemd.package}/bin/systemctl start syncoid-zroot-persistent.service
-    exec ${config.systemd.package}/bin/journalctl --follow --unit syncoid-zroot-persistent.service
+    sudo ${systemctl} start syncoid-zroot-persistent.service
+    exec ${journalctl} --follow --unit syncoid-zroot-persistent.service
   '';
 
   #? runs as ExecStartPre, so it fires before syncoid streams anything; we can't

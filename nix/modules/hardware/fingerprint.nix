@@ -7,6 +7,9 @@
 }:
 #? dev notes https://web.archive.org/web/20240913070409/https://infinytum.co/fixing-my-fingerprint-reader-on-linux-by-writing-a-driver-for-it/
 #? windows dual-boot https://www.reddit.com/r/ZephyrusG14/comments/ql2opr/comment/hj2grmo/
+let
+  systemctl = lib.getExe' config.systemd.package "systemctl";
+in
 {
   custom.persist.directories = [ "/var/lib/fprint" ]; # ? enrolled fingerprints
 
@@ -27,7 +30,7 @@
   #? the lockscreen claims the device at lock time, so its first VerifyStart after
   #? resume fails with ClaimDevice and it re-claims 250ms later, one expected error
   powerManagement.powerDownCommands = ''
-    ${lib.getExe' pkgs.systemd "systemctl"} stop fprintd.service || true
+    ${systemctl} stop fprintd.service || true
   '';
 
   #? cause fprint is fucked up in greetd

@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  config,
   inputs,
   username,
   ...
@@ -82,6 +83,28 @@
       # enableUserService = true;
     };
   };
+
+  custom.powerProfiles.actions.system =
+    let
+      cpupower = lib.getExe config.boot.kernelPackages.cpupower;
+      asusctl = lib.getExe' pkgs.asusctl "asusctl";
+      #? enable/disable anime powersave animation, asus-only
+      asusctlAnime = state: "${asusctl} anime --enable-powersave-anim ${state}";
+    in
+    {
+      performance = /* shell */ ''
+        ${cpupower} frequency-set --governor performance
+        ${asusctlAnime "true"}
+      '';
+      balanced = /* shell */ ''
+        ${cpupower} frequency-set --governor ${config.powerManagement.cpuFreqGovernor}
+        ${asusctlAnime "true"}
+      '';
+      powerSaver = /* shell */ ''
+        ${cpupower} frequency-set --governor powersave
+        ${asusctlAnime "false"}
+      '';
+    };
 
   #? fix for keyboard backlight enabling after resume
   powerManagement.resumeCommands = ''

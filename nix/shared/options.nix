@@ -35,5 +35,30 @@ in
         files = mkEntriesOption "Files to persist, relative to the user home";
       };
     };
+
+    #? per-profile hooks run by power-profile-hook in modules/services/power-profiles.nix
+    #? declared on every host, so feature modules can register actions without importing that module
+    powerProfiles.actions = mkOption {
+      description = "Shell snippets to run on entering each power-profiles-daemon profile";
+      default = { };
+      type = types.attrsOf (
+        types.submodule {
+          options = {
+            performance = mkOption {
+              type = types.lines;
+              default = "";
+            };
+            balanced = mkOption {
+              type = types.lines;
+              default = "";
+            };
+            powerSaver = mkOption {
+              type = types.lines;
+              default = "";
+            };
+          };
+        }
+      );
+    };
   };
 }

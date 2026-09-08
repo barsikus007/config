@@ -74,7 +74,7 @@ in
       after = [ "network.target" ];
       path = [
         cfg.tools
-        pkgs.systemd
+        config.systemd.package
       ];
       environment = {
         # https://github.com/ngoduykhanh/wireguard-ui/pull/660

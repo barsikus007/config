@@ -7,6 +7,7 @@
 #? https://github.com/NixOS/nixpkgs/pull/287399
 let
   cfg.package = pkgs.logiops_0_2_3;
+  systemctl = lib.getExe' config.systemd.package "systemctl";
 in
 {
   systemd.services.logiops = {
@@ -66,7 +67,7 @@ in
   # add a `udev` rule to restart `logiops` when the mouse is connected
   # https://github.com/PixlOne/logiops/issues/239#issuecomment-1044122412
   services.udev.extraRules = ''
-    ACTION=="add", SUBSYSTEM=="input", ATTRS{id/vendor}=="046d", RUN{program}="${config.systemd.package}/bin/systemctl --no-block try-restart logiops.service"
+    ACTION=="add", SUBSYSTEM=="input", ATTRS{id/vendor}=="046d", RUN{program}="${systemctl} --no-block try-restart logiops.service"
   '';
 
   #? https://wiki.archlinux.org/title/Logitech_MX_Master#Logiops

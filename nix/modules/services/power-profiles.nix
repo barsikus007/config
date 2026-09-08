@@ -9,34 +9,42 @@
 let
   inherit (config.services) asusd;
 
-  cpupower = lib.getExe config.boot.kernelPackages.cpupower;
-  asusctl = lib.getExe' pkgs.asusctl "asusctl";
+  systemctl = lib.getExe' config.systemd.package "systemctl";
   ppdctl = lib.getExe' config.services.power-profiles-daemon.package "powerprofilesctl";
   gdbus = lib.getExe' pkgs.glib "gdbus";
   sed = lib.getExe pkgs.gnused;
 
-  #? enable/disable anime powersave animation, asus-only
-  anime = state: lib.optionalString asusd.enable "${asusctl} anime --enable-powersave-anim ${state}";
+  #? one script per registered action, dispatched by profile name
+  actionScripts = lib.mapAttrsToList (
+    name: action:
+    pkgs.writeShellScript "power-profile-action-${name}" /* shell */ ''
+      case "''${1:-}" in
+        (performance)
+
+      ${action.performance}
+          ;;
+        (balanced)
+
+      ${action.balanced}
+          ;;
+        (power-saver)
+
+      ${action.powerSaver}
+          ;;
+      esac
+    ''
+  ) config.custom.powerProfiles.actions;
 
   applyProfile = pkgs.writeShellScript "apply-power-profile" /* shell */ ''
-    case "''${1:-}" in
-      (performance)
-        ${cpupower} frequency-set --governor performance
-        ${anime "true"}
-        ;;
-      (balanced)
-        ${cpupower} frequency-set --governor ${config.powerManagement.cpuFreqGovernor}
-        ${anime "true"}
-        ;;
-      (power-saver)
-        ${cpupower} frequency-set --governor powersave
-        ${anime "false"}
-        ;;
+    profile="''${1:-}"
+    case "$profile" in
+      (performance|balanced|power-saver) ;;
       (*)
-        echo "unknown power profile: ''${1:-}" >&2
+        echo "unknown power profile: $profile" >&2
         exit 1
         ;;
     esac
+    ${lib.concatMapStringsSep "\n" (script: ''"${script}" "$profile"'') actionScripts}
   '';
 in
 {
@@ -102,6 +110,6 @@ in
 
   #! only "Mains" has meaningful `online`; "Battery" matches the mouse and fires on every percent tick
   services.udev.extraRules = ''
-    ACTION=="add|change", SUBSYSTEM=="power_supply", ATTR{type}=="Mains", RUN+="${config.systemd.package}/bin/systemctl --no-block restart power-profile-select.service"
+    ACTION=="add|change", SUBSYSTEM=="power_supply", ATTR{type}=="Mains", RUN+="${systemctl} --no-block restart power-profile-select.service"
   '';
 }

@@ -9,7 +9,7 @@ let
   #? tunnel that must be down at home and up on any other network
   localTunnel = "wg0local";
 
-  systemctl = lib.getExe' pkgs.systemd "systemctl";
+  systemctl = lib.getExe' config.systemd.package "systemctl";
 in
 {
   networking.wg-quick.interfaces = {
