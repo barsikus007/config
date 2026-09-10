@@ -194,6 +194,7 @@
           ./modules/desktop/sound
           ./modules/desktop/sound/popping-fix.nix
           ./modules/desktop/sound/laptop-mic.nix
+          ./modules/desktop/sound/usb-events.nix
 
           ./modules/gui/games.nix
           ./modules/gui/throne.nix
