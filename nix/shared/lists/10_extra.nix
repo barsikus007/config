@@ -20,7 +20,6 @@ import ./11_powertoys.nix { inherit pkgs; }
   oxfmt
   oxlint
   nodejs
-  yt-dlp
   hadolint # ? Dockerfile
   pciutils # ? lspci
   usbutils # ? lssub

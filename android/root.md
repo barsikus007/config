@@ -1,6 +1,6 @@
 # [root](./)
 
-## ~~Magisk~~ ~~[KernelSU](https://github.com/tiann/KernelSU)~~ [APatch](https://github.com/bmax121/APatch) ~~[Kitsune Magisk](https://github.com/1q23lyc45/KitsuneMagisk)~~ ~~[KernelSU Next](https://github.com/KernelSU-Next/KernelSU-Next)~~
+## [APatch](https://github.com/bmax121/APatch) ~~[KernelSU Next](https://github.com/KernelSU-Next/KernelSU-Next)~~
 
 ### ඞ installation
 
@@ -23,31 +23,18 @@
 ### modules
 
 - essential
-  - ~~[Zygisk**Next**](https://github.com/Dr-TSNG/ZygiskNext/releases)~~ ~~[ReZygisk](https://github.com/PerformanC/ReZygisk/releases)~~ [NeoZygisk](https://github.com/JingMatrix/NeoZygisk/releases)
-  - [LSPosed](https://github.com/JingMatrix/LSPosed/releases)
-    - [temp fix](https://github.com/JingMatrix/LSPosed/actions/runs/17713071813)
+  - [NeoZygisk](https://github.com/JingMatrix/NeoZygisk/releases)
+  - [Vector aka LSPosed](https://github.com/JingMatrix/Vector/releases)
     - `/data/adb/lspd/config`
 - [hiding root](https://github.com/sidex15/susfs4ksu-module/issues/39#issuecomment-3080237450)
   - integrity
-    - ~~[Play Integrity Fix](https://github.com/chiteroman/PlayIntegrityFix/releases)~~ [Fork](https://github.com/osm0sis/PlayIntegrityFork/releases)
+    - [Play Integrity Fork](https://github.com/osm0sis/PlayIntegrityFork/releases)
       - Action
-    - [Tricky Store](https://github.com/5ec1cff/TrickyStore)
-      - TODO: FOSS forks
-        - <https://github.com/qwq233/TrickyStore>
-        - <https://github.com/beakthoven/TrickyStoreOSS>
-    - [Tricky Addon - Update Target List](https://github.com/KOWX712/Tricky-Addon-Update-Target-List)
-      - Menu
-        - Select All
-        - Deselect Unnecessary
-        - Set Valid Keybox
-        - Set Security Patch
-      - Save
-    - [TSupport](https://github.com/citra-standalone/Citra-Standalone)
-      - !dont used
+    - [TEESimulator-RS](https://github.com/Enginex0/TEESimulator-RS/releases)
+      - [Tricky Addon Enhanced](https://github.com/Enginex0/tricky-addon-enhanced/releases)
+      - [Yurikey Manager](https://github.com/Yurii0307/yurikey/releases)
 - fixes
   - [volte](https://xdaforums.com/t/mod-magisk-root-volte-enabler.4372705/)
-  - [pixel-mdm-patch](https://github.com/andrewz1/pixel-mdm-patch/releases)
-    - !don't work on latest firmware/kernelsu
 - interface
   - [Noto Emoji PLUS](https://www.patreon.com/RKBDI) [[Telegram](https://t.me/rkbdiemoji)]
   - [Monet Icons](https://github.com/Syoker/extra-themed-icons/releases)
@@ -77,7 +64,8 @@
       - Android/media/bcr
   - Silent notifications
 - [DriveDroid](https://github.com/overzero-git/DriveDroid-fix-Magisk-module/releases)
-- ~~[Pixelify](https://github.com/Kingsman44/Pixelify/releases)~~
+- [Pixelify](https://github.com/BasGame1/Pixelify-Next/releases)
+  - !dont used
 - [Google-Photos-Unlimited-backup Submodule](https://git.disroot.org/cuynu/gphotos-unlimited-zygisk/releases)
 - [bindhosts](https://github.com/bindhosts/bindhosts/releases)
   - [rule](https://4pda.to/forum/index.php?showtopic=915158&view=findpost&p=133873426)

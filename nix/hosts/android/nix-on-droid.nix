@@ -38,7 +38,7 @@ in
       android-tools
       dig
 
-      yt-dlp
+      uv
 
       #? some common stuff that people expect to have
       #util-linux

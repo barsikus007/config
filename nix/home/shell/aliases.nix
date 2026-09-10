@@ -107,6 +107,7 @@ rec {
     zps = "zpool status -v";
     sex = "explorer.exe .";
     lzg = "lazygit";
+    yt-dlp = "uvx --with mutagen yt-dlp";
     yt-dlpa = "yt-dlp --concurrent-fragments=16 --retries=inf";
     aria2ca = "aria2c --split=16 --max-connection-per-server=16 --continue";
     windows-must-die = ''killall --signal=KILL --regexp ".*\.exe"'';

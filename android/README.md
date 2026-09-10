@@ -48,7 +48,7 @@
 ```shell
 folder="/sdcard/Documents/Sync/android/app_lists/`date +%Y-%m-%d`"
 mkdir --parents $folder
-for i in null com.google.android.packageinstaller com.android.vending dev.imranr.obtainium ru.vk.store; do
+for i in null com.google.android.packageinstaller com.android.vending dev.imranr.obtainium; do
   pm list packages -i -3 | grep installer=$i | cut -d':' -f2 | awk '{printf "%s\n", $1}' > $folder/$i.txt
 done
 ```
@@ -56,7 +56,7 @@ done
 `adb pull /sdcard/Documents/Sync/android/app_lists/`
 
 - show other
-  - `pm list packages -i -3 | grep -v installer=null | grep -v installer=com.google.android.packageinstaller | grep -v installer=com.android.vending | grep -v installer=dev.imranr.obtainium | grep -v installer=ru.vk.store`
+  - `pm list packages -i -3 | grep -v installer=null | grep -v installer=com.google.android.packageinstaller | grep -v installer=com.android.vending | grep -v installer=dev.imranr.obtainium`
 
 ### persist WiFi ADB
 
@@ -73,13 +73,7 @@ done
   - phone
     - enable `setprop persist.adb.tcp.port 5555 && stop adbd && start adbd`
     - disable `resetprop -d persist.adb.tcp.port && stop adbd && start adbd`
-  - PC `adb connect 192.168.1.7:5555`
-
-### adbfs-fuse
-
-```shell
-umount /run/media/$USER/adbfs; adb kill-server && adb connect 192.168.1.7:5555 && sudo mkdir --parents /run/media/$USER/adbfs/ && sudo chown $(id --user):$(id --group) /run/media/$USER/adbfs/ && adbfs /run/media/$USER/adbfs -o uid=$(id --user),gid=$(id --group)
-```
+  - PC `adb connect 192.168.1.15:5555`
 
 ### TODO
 
