@@ -2,6 +2,8 @@
 
 ## [APatch](https://github.com/bmax121/APatch) ~~[KernelSU Next](https://github.com/KernelSU-Next/KernelSU-Next)~~
 
+with [hybrid_mount](https://github.com/Hybrid-Mount/meta-hybrid_mount) metamodule
+
 ### ඞ installation
 
 1. Kernel Flasher fork

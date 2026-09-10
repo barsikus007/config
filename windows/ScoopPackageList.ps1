@@ -122,15 +122,4 @@ wezterm
 winmtr
 "@
 
-# # UNUSED
-# camo-studio
-# pshazz
-
-# # BOT
-# gifsicle
-# imagemagick
-# msys2
-# tesseract
-# tesseract-languages
-
 Write-Host $base

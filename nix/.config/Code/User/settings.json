@@ -51,6 +51,8 @@
     //? https://stackoverflow.com/a/70899027/15844518
     "window.openFoldersInNewWindow": "on",
     "files.autoSave": "afterDelay",
+    "files.enableTrash": false,
+    "git.discardUntrackedChangesToTrash": false,
     "editor.linkedEditing": true,
     "editor.cursorBlinking": "smooth",
     "editor.cursorSmoothCaretAnimation": "on",

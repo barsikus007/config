@@ -294,3 +294,9 @@ for f in *."$ext"; do
   ffmpeg -i "$f" -c:v copy -codec:a libmp3lame -b:a 320k "${f%."$ext"}_tmp.$ext" && mv "${f%."$ext"}_tmp.$ext" "$f"
 done
 ```
+
+### monitor launched processes and filter by pname
+
+```shell
+sudo extrace | rg --line-buffered <pname>
+```

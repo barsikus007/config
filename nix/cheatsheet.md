@@ -215,6 +215,15 @@ nix run <something> --log-format internal-json |& nom --json
 
 - [rust](https://nea.moe/blog/patching-nix-packages/)
 
+### daemon build cgroup limit
+
+```shell
+#? set
+sudo systemctl set-property --runtime nix-daemon.service CPUQuota=800% CPUWeight=10 IOWeight=10 MemoryHigh=12G
+#? reset
+sudo systemctl set-property --runtime nix-daemon.service CPUQuota= CPUWeight= IOWeight= MemoryHigh=
+```
+
 ## python development
 
 ### [flake devShell](flake.nix)

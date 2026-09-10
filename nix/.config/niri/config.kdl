@@ -121,6 +121,7 @@ window-rule {
     match app-id=r"^org\.kde\.dolphin$" title="^(Progress Dialog|Copying|Moving|Deleting|Extracting|Compressing) .*— Dolphin$"
     match app-id=r"^org\.kde\.ark$"     title="^Loading archive .*— Ark$"
     match app-id=r"^org\.kde\.ark$"     title="^Extracting one file — Ark$"
+    match app-id=r"^org\.kde\.ark$"     title="^File Already Exists — Ark$"
     //? https://niri-wm.github.io/niri/Application-Issues.html#steam
     match app-id="^steam$" title=r"^notificationtoasts_\d+_desktop$"
     open-floating true

@@ -1,9 +1,4 @@
-{
-  lib,
-  pkgs,
-  self,
-  ...
-}:
+{ lib, pkgs, ... }:
 let
   #? t.me paths don't map 1:1 to tg:// - tg:// uses resolve?domain=/join?invite=/etc,
   #? see https://core.telegram.org/api/links for the full mapping

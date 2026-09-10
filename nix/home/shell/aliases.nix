@@ -46,9 +46,10 @@ rec {
   };
   networkTestAliases = {
     "1ip" = "wget --quiet --output-document - icanhazip.com";
-    "2ip" = "curl internet-lab.ru/ip";
-    "3ip" = "curl --silent --output - ipinfo.io | jq";
-    "4ip" = "curl --silent --output - wtfismyip.com/json | jq";
+    "2ip" = "curl --silent internet-lab.ru/ip";
+    "22ip" = "curl --silent proxycheck.io/v3/$(2ip) | jq";
+    "3ip" = "curl --silent ipinfo.io | jq";
+    "4ip" = "curl --silent wtfismyip.com/json | jq";
     speedtest = "curl https://speedtest.selectel.ru/100MB --output /dev/null";
     speedtest-as-youtube = "curl --insecure --connect-to ::speedtest.selectel.ru https://www.youtube.com/100MB --output /dev/null";
   };

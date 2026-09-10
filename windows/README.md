@@ -85,7 +85,6 @@ foreach ($oldvid in $oldvids) {
 - allow powershell profiles in wt.exe
 - <https://github.com/ionuttbara/windows-defender-remover>
   - not tested
-- <https://camo.studio/>
 - scoop
   - aria2bug
     - scoop config aria2-options "--check-certificate false"

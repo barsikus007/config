@@ -11,7 +11,7 @@ in
 bcompare.overrideAttrs (previousAttrs: {
   inherit src version;
 
-  installPhase = (previousAttrs.installPhase or "") + /* bash */ ''
+  installPhase = (previousAttrs.installPhase or "") + /* shell */ ''
     #? prefer native wayland (fixes DnD via xwayland bridge), fall back to xcb on X sessions
     substituteInPlace $out/bin/bcompare \
       --replace-fail "QT_QPA_PLATFORM=xcb" 'QT_QPA_PLATFORM="wayland;xcb"'

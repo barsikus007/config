@@ -1,6 +1,9 @@
 { pkgs, ... }:
 {
-  custom.persist.home.directories = [ ".config/obs-studio" ];
+  custom.persist.home.directories = [
+    ".config/gpu-screen-recorder"
+    ".config/obs-studio"
+  ];
 
   #? https://github.com/nixos-cuda/infra
   nix.settings.extra-substituters = [ "https://cache.nixos-cuda.org" ];
@@ -8,14 +11,17 @@
     "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
   ];
 
-  programs.gpu-screen-recorder.enable = true;
+  programs.gpu-screen-recorder = {
+    #? https://wiki.nixos.org/wiki/Gpu-screen-recorder
+    enable = true;
+    ui.enable = true;
+  };
   programs.obs-studio = {
     #? https://wiki.nixos.org/wiki/OBS_Studio
-    #? missing hardware acceleration: sometimes you need to set "Output Mode" to Advanced in settings Output tab to see the hardware accelerated Video Encoders options
     enable = true;
-    enableVirtualCamera = true;
-    # optional Nvidia hardware acceleration
     package = pkgs.obs-studio.override { cudaSupport = true; };
+
+    enableVirtualCamera = true;
 
     plugins = with pkgs.obs-studio-plugins; [
       wlrobs

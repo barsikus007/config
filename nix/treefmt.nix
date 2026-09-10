@@ -13,6 +13,7 @@ let
         "lib"
         "pkgs"
         "self"
+        "nixpkgs"
         "config"
         "inputs"
         "username"

@@ -52,6 +52,7 @@
         ".cache/mesa_shader_cache"
         ".cache/radv_builtin_shaders"
 
+        ".config/.wrangler" # ? cloudflare cli
         ".config/claude" # ? xdg-ninja
         ".config/dconf" # TODO: ??
         ".config/fsearch"

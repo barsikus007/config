@@ -1,7 +1,7 @@
 { lib, ... }:
 {
   nixpkgs.overlays = [
-    (_: prev: { fastfetch = prev.fastfetch.override { zfsSupport = true; }; })
+    (_final: prev: { fastfetch = prev.fastfetch.override { zfsSupport = true; }; })
   ];
 
   # TODO: unstable: system.stateVersion = "26.11"
