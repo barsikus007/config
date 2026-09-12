@@ -16,7 +16,7 @@ nix --extra-experimental-features "nix-command flakes" run --impure 'github:nix-
 - on WSL Ubuntu disable pipewire QEMU section and launch with pulseaudio
   - `-audiodev pa,id=snd0,server=/mnt/wslg/PulseServer -device intel-hda -device hda-output,audiodev=snd0`
 
-## [index](https://github.com/barsikus007/config/blob/60d92538c782de3041cf15d5eb799d41e8b5eee1/nix/flake.nix#L453)
+## [index](https://github.com/barsikus007/config/blob/0fd574bce9a5778219e436d9665c692c2c30a2c8/nix/flake.nix#L453)
 
 - [bcompare 5 diff tool](./bcompare5.nix)
   - `sed --in-place '/CheckID/d' ~/.config/bcompare5/BCState.xml.bak`
