@@ -1,4 +1,4 @@
-# [worst Nix/OS packages ever](../README.md)
+# [best Nix/OS packages ever](../README.md)
 
 ```shell
 # generic usage of autocompletion with your system nixpkgs
@@ -16,17 +16,36 @@ nix --extra-experimental-features "nix-command flakes" run --impure 'github:nix-
 - on WSL Ubuntu disable pipewire QEMU section and launch with pulseaudio
   - `-audiodev pa,id=snd0,server=/mnt/wslg/PulseServer -device intel-hda -device hda-output,audiodev=snd0`
 
-## [index](https://github.com/barsikus007/config/blob/b32e3567a3e351249bf5849e77f7c970361ad614/nix/flake.nix#L313)
+## [index](https://github.com/barsikus007/config/blob/60d92538c782de3041cf15d5eb799d41e8b5eee1/nix/flake.nix#L453)
 
-- [adbfs with libfuse experemental](./auto/soft/adbfs-rootless-libfuse-3.nix)
 - [bcompare 5 diff tool](./bcompare5.nix)
   - `sed --in-place '/CheckID/d' ~/.config/bcompare5/BCState.xml.bak`
-- [davinci-resolve communism edition](./auto/gui/davinci-resolve-studio.nix)
-- TODO
-- [minecraftia 2 font](./auto/fonts/minecraftia.nix)
-- TODO
+- [gcc locales patched for easy ISO format](./locales-iso.nix)
 - [OpenWrt image](./packages/openwrt/xiaomi_ax3600.nix)
   - [uci](./packages/openwrt/dewclaw.nix)
+
+### categorized
+
+- fonts
+  - [minecraftia 2](./auto/fonts/minecraftia.nix)
+- games
+  - [hytale launcher](./auto/games/hytale.nix)
+    - rarely maintained
+- gui
+  - [davinci-resolve-communism](./auto/gui/davinci-resolve-studio.nix)
+  - [keepassxc 2.8](./auto/gui/keepassxc.nix)
+    - [source](https://github.com/keepassxreboot/keepassxc/tree/release/2.8.x)
+  - [shikiwatch](./auto/gui/shikiwatch.nix)
+    - example of unusual appimage packaging
+- hax
+  - [hack-captive-portals](./auto/hax/hack-captive-portals.nix)
+- libs
+  - [libspeedhack](./auto/libs/libspeedhack/package.nix)
+  - [mprint label printer driver](./auto/libs/mprint.nix)
+  - goodix fprint scanner drivers for ROG14
+- soft
+  - [adbfs with libfuse experemental](./auto/soft/adbfs-rootless-libfuse-3.nix)
+  - [shdotenv](./auto/soft/shdotenv.nix)
 
 ### [kompas3d](./kompas3d)
 

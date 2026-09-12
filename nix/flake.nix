@@ -214,7 +214,6 @@
 
             environment.systemPackages = with pkgs; [
               self.packages.${stdenv.hostPlatform.system}.hytale
-              (callPackage ./packages/shdotenv.nix { })
               self.packages.${stdenv.hostPlatform.system}.libspeedhack
               # self.packages.${stdenv.hostPlatform.system}.kompas3d-fhs
               #? needs 8.4 GiB * 3 (or more) space to build, takes ~12.2 GiB, and ~18 minutes to download
