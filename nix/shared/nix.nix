@@ -2,6 +2,7 @@
   _class,
   lib,
   pkgs,
+  config,
   inputs,
   ...
 }:
@@ -34,11 +35,15 @@ let
         # "https://nixos-cache-proxy.sweetdogs.ru" # ? seems died
 
         "https://nix-community.cachix.org"
+
+        "https://barsikus007.cachix.org"
       ];
       trusted-public-keys = lib.mkBefore [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
 
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+
+        "barsikus007.cachix.org-1:wCCngMmWxOBFp70+PqH21I2fHZKOSketryjLMh4vNV0="
       ];
     };
   };
@@ -46,10 +51,13 @@ in
 if (_class == "nixos") then
   {
     environment.etc."nixpkgs".source = pkgs.path;
-    nix = {
+    nix = nix // {
       channel.enable = false;
-    }
-    // nix;
+      settings = nix.settings // {
+        #? in zfs we trust even more
+        fsync-metadata = !config.boot.isContainer && ((config.fileSystems."/".fsType or "zfs") != "zfs");
+      };
+    };
   }
 else if (_class == "nixOnDroid") then
   {
@@ -63,8 +71,9 @@ else if (_class == "nixOnDroid") then
       trustedPublicKeys = nix.settings.trusted-public-keys;
     };
   }
-else
-  #? home-manager
+else if (_class == "homeManager") then
   {
     inherit nix;
   }
+else
+  throw "shared/nix.nix: unknown _class: ${_class}"

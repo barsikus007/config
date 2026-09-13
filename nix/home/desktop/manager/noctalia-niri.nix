@@ -95,7 +95,6 @@ in
   };
   programs.noctalia = {
     enable = true;
-    package = pkgs.master.noctalia;
     systemd.enable = true;
     settings = {
       #? https://github.com/noctalia-dev/noctalia/blob/main/example.toml

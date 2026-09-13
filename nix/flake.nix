@@ -8,7 +8,7 @@
     nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst";
     #? more secure: https://determinate.systems/blog/nixpkgs-cooldown/
     # nixpkgs.url = "https://flakehub.com/f/DeterminateSystems/nixpkgs-weekly/0.1";
-    nixpkgs-master.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.zst";
+    # nixpkgs-master.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.zst";
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -525,6 +525,10 @@
         openwrt-dewclaw-env = pkgs.callPackage inputs.dewclaw {
           configuration = import ./packages/openwrt/dewclaw.nix;
         };
+      }
+      // import ./packages/_cachix.nix {
+        inherit pkgs self system;
+        inherit (nixpkgs) lib;
       };
       formatter.${system} = import ./treefmt.nix { inherit pkgs; };
     };

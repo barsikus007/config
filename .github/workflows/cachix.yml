@@ -1,0 +1,44 @@
+name: cachix
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - nix/flake.lock
+      - nix/packages/**
+      - nix/modules/cachyos-kernel.nix
+      - nix/modules/hardware/fingerprint.nix
+      - nix/modules/hardware/wifi-unlimited.nix
+      - nix/modules/services/hyprwhspr.nix
+      - nix/modules/android-scrcpy-camera.nix
+      - .github/workflows/cachix.yml
+  workflow_dispatch:
+
+concurrency:
+  group: cachix-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360 # default
+    steps:
+      - uses: actions/checkout@v7
+      - uses: DeterminateSystems/nix-installer-action@main
+      - name: write binary caches from `nixosConfigurations.ROG14` to `nix.conf`
+        working-directory: nix
+        run: |
+          settings=$(nix eval --json .#nixosConfigurations.ROG14.config.nix.settings)
+          {
+            printf 'extra-substituters = %s\n' "$(printf '%s' "$settings" | jq --raw-output '(.substituters + .["extra-substituters"]) | join(" ")')"
+            printf 'extra-trusted-public-keys = %s\n' "$(printf '%s' "$settings" | jq --raw-output '(.["trusted-public-keys"] + .["extra-trusted-public-keys"]) | join(" ")')"
+            echo 'fsync-metadata = false'
+          } | sudo tee --append /etc/nix/nix.conf
+          sudo systemctl restart nix-daemon
+      - uses: cachix/cachix-action@v17
+        with:
+          name: barsikus007 # https://app.cachix.org/cache/barsikus007
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          skipPush: true
+      - working-directory: nix
+        run: cachix push barsikus007 $(nix build --no-link --print-out-paths ".#legacyPackages.x86_64-linux.__cachix-all")
