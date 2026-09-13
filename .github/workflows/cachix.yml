@@ -25,6 +25,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
       - name: write binary caches from `nixosConfigurations.ROG14` to `nix.conf`
         working-directory: nix
         run: |
@@ -40,5 +41,8 @@ jobs:
           name: barsikus007 # https://app.cachix.org/cache/barsikus007
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
           skipPush: true
+          #? without this the action runs `cachix use`, clobbering nix.conf (lantian lost -> kernel built from source)
+          #? ROG14 settings already include this cache, so the conf write above stays the single source
+          skipAddingSubstituter: true
       - working-directory: nix
         run: cachix push barsikus007 $(nix build --no-link --print-out-paths ".#legacyPackages.x86_64-linux.__cachix-all")
