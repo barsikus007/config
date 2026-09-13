@@ -81,6 +81,8 @@
       gnome.enable = false;
       #? nixos-icons -> gschema.override -> gdm -> gnome-shell chain causes cache misses
       nixos-icons.enable = false;
+      #? bottles -> gtksourceview5 chain causes cache misses
+      gtksourceview.enable = false;
     };
   };
 }
