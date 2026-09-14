@@ -4,13 +4,7 @@ on:
   push:
     branches: [master]
     paths:
-      - nix/flake.lock
-      - nix/packages/**
-      - nix/modules/cachyos-kernel.nix
-      - nix/modules/hardware/fingerprint.nix
-      - nix/modules/hardware/wifi-unlimited.nix
-      - nix/modules/services/hyprwhspr.nix
-      - nix/modules/android-scrcpy-camera.nix
+      - nix/**
       - .github/workflows/cachix.yml
   workflow_dispatch:
 
@@ -19,7 +13,27 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.probe.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: DeterminateSystems/nix-installer-action@main
+      - id: probe
+        working-directory: nix
+        run: |
+          out=$(nix eval --raw .#legacyPackages.x86_64-linux.__cachix-all.outPath)
+          echo "aggregate: $out"
+          if nix path-info --store https://barsikus007.cachix.org "$out" > /dev/null 2>&1; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
   build:
+    needs: check
+    if: ${{ needs.check.outputs.changed == 'true' || github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     timeout-minutes: 360 # default
     steps:
@@ -27,9 +41,9 @@ jobs:
       - uses: DeterminateSystems/nix-installer-action@main
       - uses: DeterminateSystems/magic-nix-cache-action@main
         with:
-          use-flakehub: false
+          use-flakehub: false # stop failing without a flakehub token
       #? target nix.custom.conf: due to determinate nix
-      - name: write binary caches from `nixosConfigurations.ROG14` to `nix.conf`
+      - name: write binary caches from nixosConfigurations.ROG14 to nix.conf
         working-directory: nix
         run: |
           settings=$(nix eval --json .#nixosConfigurations.ROG14.config.nix.settings)
@@ -38,14 +52,12 @@ jobs:
             printf 'extra-trusted-public-keys = %s\n' "$(printf '%s' "$settings" | jq --raw-output '(.["trusted-public-keys"] + .["extra-trusted-public-keys"]) | join(" ")')"
             echo 'fsync-metadata = false'
           } | sudo tee --append /etc/nix/nix.custom.conf
-          sudo systemctl restart nix-daemon
+          if [ -d /run/systemd/system ]; then sudo systemctl restart nix-daemon; fi
       - uses: cachix/cachix-action@v17
         with:
           name: barsikus007 # https://app.cachix.org/cache/barsikus007
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
           skipPush: true
-          #? without this the action runs `cachix use`, clobbering nix.conf (lantian lost -> kernel built from source)
-          #? ROG14 settings already include this cache, so the conf write above stays the single source
-          skipAddingSubstituter: true
+          skipAddingSubstituter: true # prevent running `cachix use`, which rewrites nix.conf to limited set of 2 caches
       - working-directory: nix
         run: cachix push barsikus007 $(nix build --no-link --print-out-paths ".#legacyPackages.x86_64-linux.__cachix-all")

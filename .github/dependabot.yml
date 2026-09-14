@@ -1,0 +1,16 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+  - package-ecosystem: nix
+    directory: /nix
+    schedule:
+      interval: weekly
+    groups:
+      nix:
+        patterns:
+          - "*"
+    commit-message:
+      prefix: flake.lock
