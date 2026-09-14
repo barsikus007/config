@@ -1,8 +1,8 @@
-{ pkgs, self, ... }:
+{ pkgs, ... }:
 {
   programs.keepassxc = {
     enable = true;
-    package = self.packages.${pkgs.stdenv.hostPlatform.system}.keepassxc;
+    package = pkgs.flakePackages.keepassxc;
     settings = {
       Browser = {
         Enabled = true;

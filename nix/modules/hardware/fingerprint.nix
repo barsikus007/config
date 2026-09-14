@@ -1,7 +1,6 @@
 {
   lib,
   pkgs,
-  self,
   config,
   ...
 }:
@@ -16,7 +15,7 @@ in
   services.fprintd = {
     enable = true;
     package = pkgs.fprintd.override {
-      libfprint = self.packages.${pkgs.stdenv.hostPlatform.system}.libfprint-goodixtls-27c6-521d;
+      libfprint = pkgs.flakePackages.libfprint-goodixtls-27c6-521d;
     };
   };
 

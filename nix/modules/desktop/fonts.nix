@@ -1,4 +1,4 @@
-{ pkgs, self, ... }:
+{ pkgs, ... }:
 {
   fonts = {
     # fix furryfox fonts
@@ -14,7 +14,7 @@
       # minecraft-like fonts
       monocraft
       miracode
-      self.packages.${stdenv.hostPlatform.system}.minecraftia
+      flakePackages.minecraftia
     ];
   };
 }

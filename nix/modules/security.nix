@@ -1,4 +1,4 @@
-{ pkgs, self, ... }:
+{ pkgs, ... }:
 {
   #? https://wiki.nixos.org/wiki/SSH_public_key_authentication#KDE
   programs.ssh.startAgent = true;
@@ -22,7 +22,5 @@
     '';
   };
 
-  environment.systemPackages = [
-    self.packages.${pkgs.stdenv.hostPlatform.system}.keepassxc
-  ];
+  environment.systemPackages = with pkgs; [ flakePackages.keepassxc ];
 }

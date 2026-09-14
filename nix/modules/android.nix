@@ -1,9 +1,4 @@
-{
-  pkgs,
-  self,
-  username,
-  ...
-}:
+{ pkgs, username, ... }:
 {
   imports = [
     ./android-scrcpy-camera.nix
@@ -16,6 +11,6 @@
   environment.systemPackages = with pkgs; [
     android-tools
     android-file-transfer
-    self.packages.${stdenv.hostPlatform.system}.adbfs-rootless-libfuse-3
+    flakePackages.adbfs-rootless-libfuse-3
   ];
 }

@@ -1,11 +1,9 @@
-{ pkgs, self, ... }:
+{ pkgs, ... }:
 {
   custom.persist.directories = [ "/var/lib/cups" ];
 
   services.printing = {
     enable = true;
-    drivers = [
-      self.packages.${pkgs.stdenv.hostPlatform.system}.mprint
-    ];
+    drivers = with pkgs; [ flakePackages.mprint ];
   };
 }

@@ -2,6 +2,7 @@
   _class,
   lib,
   pkgs,
+  self,
   config,
   inputs,
   ...
@@ -47,6 +48,15 @@ let
       ];
     };
   };
+
+  nixpkgs.overlays = [
+    (_final: _prev: {
+      flakePackages = lib.attrsets.mergeAttrsList [
+        self.legacyPackages.${pkgs.stdenv.hostPlatform.system}
+        self.packages.${pkgs.stdenv.hostPlatform.system}
+      ];
+    })
+  ];
 in
 if (_class == "nixos") then
   {
@@ -58,6 +68,7 @@ if (_class == "nixos") then
         fsync-metadata = config.boot.isContainer || ((config.fileSystems."/".fsType or "") != "zfs");
       };
     };
+    inherit nixpkgs;
   }
 else if (_class == "nixOnDroid") then
   {
@@ -70,10 +81,11 @@ else if (_class == "nixOnDroid") then
       nixPath = [ "nixpkgs=flake:nixpkgs" ];
       trustedPublicKeys = nix.settings.trusted-public-keys;
     };
+    inherit nixpkgs;
   }
 else if (_class == "homeManager") then
   {
-    inherit nix;
+    inherit nix nixpkgs;
   }
 else
   throw "shared/nix.nix: unknown _class: ${_class}"

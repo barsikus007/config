@@ -210,18 +210,18 @@
           ./modules/services/networking/wireguard-ui.nix
           ./modules/services/hyprwhspr.nix
           # TODO: ./modules/system/activation
-          {
-            programs.nh.clean.enable = nixpkgs.lib.mkForce false;
+          ({ lib, pkgs, ... }: {
+            programs.nh.clean.enable = lib.mkForce false;
 
             environment.systemPackages = with pkgs; [
-              self.packages.${stdenv.hostPlatform.system}.hytale
-              self.packages.${stdenv.hostPlatform.system}.libspeedhack
-              # self.packages.${stdenv.hostPlatform.system}.kompas3d-fhs
+              flakePackages.hytale
+              flakePackages.libspeedhack
+              # flakePackages.kompas3d-fhs
               #? needs 8.4 GiB * 3 (or more) space to build, takes ~12.2 GiB, and ~18 minutes to download
               # TODO: unstable: davinci
               (previous.callPackage ./packages/auto/gui/davinci-resolve-studio.nix { })
             ];
-          }
+          })
         ];
       };
 
