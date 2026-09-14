@@ -119,7 +119,11 @@
     // #region git
     "git.defaultBranchName": "master",
     "git.autofetch": true,
+    "gitlens.codeLens.enabled": false,
     "gitlens.fileAnnotations.command": "blame",
+    //? github like style for blame
+    "gitlens.blame.format": "${message|33?} ${agoOrDate|14-}",
+    "gitlens.blame.fontSize": 12,
     //? ISO dates: gitlens formats via Intl and defaults to the VS Code locale (en-US), ignoring LC_TIME
     "gitlens.defaultDateFormat": "YYYY-MM-DD HH:mm",
     "gitlens.defaultDateShortFormat": "YYYY-MM-DD",
@@ -145,6 +149,10 @@
                     "--stdin",
                     //! nixd can't pass filename needed for treefmt
                     "dummy.nix",
+                    //! with --stdin treefmt skips git tree root detection and falls back to the
+                    //! baked --config-file dir (/nix/store), any real path is outside of it
+                    "--tree-root",
+                    ".",
                 ],
             },
         },
@@ -364,7 +372,7 @@
     // #endregion todo2
     // #region sexperimental
     "debugpy.showPythonInlineValues": true,
-    "workbench.experimental.modernUI": true,
+    // "workbench.experimental.modernUI": true, //! they broke selected tab coloring
     // #endregion sexperimental
     // #region auto
     "diffEditor.ignoreTrimWhitespace": false, //! (true is default)

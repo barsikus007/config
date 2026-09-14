@@ -53,6 +53,7 @@
         ".cache/radv_builtin_shaders"
 
         ".config/.wrangler" # ? cloudflare cli
+        ".config/cachix"
         ".config/claude" # ? xdg-ninja
         ".config/dconf" # TODO: ??
         ".config/fsearch"

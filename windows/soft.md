@@ -27,11 +27,6 @@
 - [PotPlayer XpucT](https://win10tweaker.ru/forum/topic/potplayer-portable)
   - [direct link](https://jailbreakvideo.ru/Files/Portable%20PotPlayer.exe)
 
-## TODO dxwebinstall
-
-<https://www.microsoft.com/ru-ru/download/details.aspx?id=35>
-<https://download.microsoft.com/download/1/7/1/1718CCC4-6315-4D8E-9543-8E28A4E18C4C/dxwebsetup.exe>
-
 ## torrent edition
 
 - `VMware.WorkstationPro`
@@ -111,5 +106,3 @@ winget install --exact --id Microsoft.DirectX --silent
 #### probably broken in scoop
 
 - IrfanSkiljan.IrfanView
-- Oracle.JavaRuntimeEnvironment
-- JetBrains.Toolbox

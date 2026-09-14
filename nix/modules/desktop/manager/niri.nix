@@ -9,7 +9,7 @@
 #? https://wiki.nixos.org/wiki/Niri
 let
   systemctl = lib.getExe' config.systemd.package "systemctl";
-  dbus-update-activation-environment =lib.getExe' pkgs.dbus "dbus-update-activation-environment";
+  dbus-update-activation-environment = lib.getExe' pkgs.dbus "dbus-update-activation-environment";
 in
 {
   #? https://github.com/epireyn/niri-flake/blob/2c9acaa7ebd5458f73e4977fff18cb3ea33d0471/flake.nix#L485

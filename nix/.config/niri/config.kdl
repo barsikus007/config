@@ -497,6 +497,7 @@ binds {
 
     Print           { spawn "slurp-grim-screenshot"; }
     Alt+Print       { screenshot; }
+    Shift+Print     { spawn-sh "sleep 1 && niri msg action screenshot"; }
     Mod+Print       { screenshot-window; }
     Mod+Shift+Print { screenshot-screen; }
 

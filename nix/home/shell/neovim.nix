@@ -81,7 +81,7 @@
         json.enable = true;
         yaml.enable = true;
         markdown.enable = true;
-        markdown.extensions.markview-nvim.enable  = true;
+        markdown.extensions.markview-nvim.enable = true;
       };
       formatter.conform-nvim = {
         enable = true;

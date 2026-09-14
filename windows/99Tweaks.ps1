@@ -30,9 +30,14 @@ Write-Host "enable seconds in taskbar" -ForegroundColor Green
 Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name ShowSecondsInSystemClock -Value 1 -Force
 
 Write-Host "set default ssh shell to pwsh.exe (if installed)" -ForegroundColor Green
-if (Test-Command pwsh) {
-  Write-Host "pwsh.exe installed" -ForegroundColor Gray
-  gsudo { New-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell -Value $(Get-Command pwsh).Source -PropertyType String -Force }
+$pwshStable = @(
+  "$env:ProgramFiles\PowerShell\7\pwsh.exe"
+  "$SCOOP_HOME\apps\pwsh\current\pwsh.exe"
+  "$env:LOCALAPPDATA\Microsoft\WindowsApps\pwsh.exe"
+) | Where-Object { Test-Path $_ } | Select-Object -First 1
+if ($pwshStable) {
+  Write-Host "pwsh.exe found at $pwshStable" -ForegroundColor Gray
+  sudo New-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell -Value $pwshStable -PropertyType String -Force
 }
 
 Write-Host "set wallpaper to https://www.wallpaperhub.app/wallpapers/5512" -ForegroundColor Green

@@ -24,7 +24,7 @@ my opinion on random things, mostly comparisons between flaming objects
 
 ### [git config (`~/.config/git/config`)](https://git-scm.com/docs/git-config)
 
-[nix code to fill](nix/home/default.nix#:~:text=%23%20%7D;-,userName):
+[nix code to fill](nix/home/git.nix):
 
 ```shell
 mkdir --parents ~/.config/git/

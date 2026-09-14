@@ -55,7 +55,7 @@ if (_class == "nixos") then
       channel.enable = false;
       settings = nix.settings // {
         #? in zfs we trust even more
-        fsync-metadata = !config.boot.isContainer && ((config.fileSystems."/".fsType or "zfs") != "zfs");
+        fsync-metadata = config.boot.isContainer || ((config.fileSystems."/".fsType or "") != "zfs");
       };
     };
   }

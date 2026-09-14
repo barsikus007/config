@@ -42,9 +42,7 @@ ${env:Path} = @(
 
 ## [soft](./soft.md)
 
-## [ROG G14](./rog14.md)
-
-## pwsh cheatsheet
+## command cheat sheet
 
 ### convert all mkv to mp4 with ffmpeg
 
@@ -68,23 +66,24 @@ foreach ($oldvid in $oldvids) {
 }
 ```
 
-## QuickLook
-
-### [used plugins](https://github.com/QL-Win/QuickLook/wiki/Available-Plugins)
-
-- [stl](https://github.com/jeremyhart/QuickLook.Plugin.HelixViewer/releases)
+## [ROG G14](./rog14.md)
 
 ## TODO
 
-- install windows soft with auto update from winget (think about config sync of that apps)
-- ask scoop maintainers about FAQ about tools with autoupdate
-- `~/Documents/PowerShell/profile.ps1`
+- autoupdate
+  - install windows soft with autoupdate from winget (think about config sync of that apps)
+  - ask scoop maintainers about FAQ about tools with autoupdate
+  - exclude autoupdate packages from scoop
+- pwsh
+  - lazy prompt
+  - `~/Documents/PowerShell/profile.ps1`
+  - history file: `~\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt`
+  - packages (move to 5.0?)
+    - <https://github.com/farag2/Windows_Terminal/blob/main/Install_Modules.ps1>
 - winget
   - `https://builds.parsec.app/package/parsec-windows.exe`
   - `Parsec.Parsec`
-- allow powershell profiles in wt.exe
-- <https://github.com/ionuttbara/windows-defender-remover>
-  - not tested
+  - "installBehavior": "portablePackageMachineRoot", "portablePackageUserRoot", "preferences": "scope": "user"
 - scoop
   - aria2bug
     - scoop config aria2-options "--check-certificate false"
@@ -97,37 +96,29 @@ foreach ($oldvid in $oldvids) {
     - aria2 scoop tune params
   - scoop cleanup -a
   - scoop cache rm -a
-- history file: `~\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt`
-- winget installBehavior": "portablePackageMachineRoot", "portablePackageUserRoot", "preferences": "scope": "user"
-- config fzf
-- pwsh packages (move to 5.0?)
-  - <https://github.com/farag2/Windows_Terminal/blob/main/Install_Modules.ps1>
-- mingit cert config
-  - `git config --global http.sslCAInfo "C:\\Users\\Admin\\scoop\\apps\\mingit\\current\\mingw64\\etc\\ssl\\certs\\ca-bundle.crt"`
-- exclude autoupdate packages from scoop
-- explorer like tabs in wt.exe
-- powertoys pc config (without remaps)
-- copy scoop/persist configs for apps
-- auto wslhostpatcher
-- notepad.exe -> Cascadia Code NF 12
-- test UWP VK client
-  - `winget install laney -s msstore -e --accept-package-agreements`
-  - <https://elorucov.github.io/laney/>
-  - `9MSPLCXVN1M5`
-  - <https://github.com/Elorucov/Laney-Avalonia/releases>
+- soft
+  - configs
+    - QuickLook
+      - [used plugins](https://github.com/QL-Win/QuickLook/wiki/Available-Plugins)
+        - [stl](https://github.com/jeremyhart/QuickLook.Plugin.HelixViewer/releases)
+    - fzf
+    - mingit cert
+      - `git config --global http.sslCAInfo "C:\\Users\\Admin\\scoop\\apps\\mingit\\current\\mingw64\\etc\\ssl\\certs\\ca-bundle.crt"`
+    - powertoys (without remaps)
+    - copy scoop/persist configs for apps
+    - notepad.exe -> Cascadia Code NF 12
+  - auto wslhostpatcher
+  - netlimiter or windowsfirewallcontrol
+  - test UWP VK client
+    - `winget install laney -s msstore -e --accept-package-agreements`
+    - <https://elorucov.github.io/laney/>
+    - `9MSPLCXVN1M5`
+    - <https://github.com/Elorucov/Laney-Avalonia/releases>
 - tweak windows
   - <https://github.com/farag2/Sophia-Script-for-Windows>
   - <https://win10tweaker.ru/twikinarium>
-- netlimiter or windowsfirewallcontrol
-- pwsh
-  - pwsh 5 dont load profile and notice about pwsh 7
-  - pwsh funcs $args broken?
-  - config pwsh -nol
-  - lazy eval of Test-Command
-- unsorted dump from TG
-  - fix powertoys rmc
-  - windows explorer path bar fix to old
-  - diskpart windows нормальный
+  - <https://github.com/ionuttbara/windows-defender-remover>
+    - not tested
 
 ## toggle new context menu (due to lack of 7zip and notepad++)
 
