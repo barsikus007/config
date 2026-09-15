@@ -36,9 +36,11 @@ ds() {
   # starts fzf in phony mode (ignores internal filtering)
   # and reloads the danksearch query on every keystroke
   # enter replaces fzf with xdg-open, alt-enter opens and keeps searching
+
+  # vicinae file search requires at least 3 characters
   fzf --phony \
-      --prompt="DankSearch> " \
-      --bind "change:reload(dsearch search {q} --limit 100 --json | jq -r '.hits[].id' || true)" \
+      --prompt="Vicinae> " \
+      --bind "change:reload(vicinae fs query {q} --limit 100 2>/dev/null || true)" \
       --bind 'enter:become(xdg-open {})' \
       --bind 'alt-enter:execute-silent(xdg-open {})' \
       --preview 'bat --color=always --style=numbers,changes --line-range :500 {}' \

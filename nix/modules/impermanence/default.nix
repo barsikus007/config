@@ -5,6 +5,7 @@
   username,
   ...
 }:
+#? https://github.com/nix-community/impermanence
 let
   cfg = config.custom.persist;
   hm = config.home-manager.users.${username}.custom.persist.home;
@@ -19,7 +20,6 @@ in
     directories =
       lib.optional config.services.power-profiles-daemon.enable "/var/lib/power-profiles-daemon" # ? selected power-profile
       ++ lib.optional config.services.upower.enable "/var/lib/upower"; # ? history of power usage
-    home.directories = lib.optional config.programs.dsearch.enable ".cache/danksearch"; # ? index
   };
 
   fileSystems.${cfg.dir}.neededForBoot = true;

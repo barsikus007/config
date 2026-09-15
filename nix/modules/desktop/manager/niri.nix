@@ -32,6 +32,17 @@ in
 
   services.displayManager.defaultSession = "niri";
   services.displayManager.dms-greeter.compositor.name = "niri";
+  services.greetd.settings.initial_session =
+    lib.mkIf
+      (
+        config.services.displayManager.autoLogin.enable
+        && config.services.displayManager.autoLogin.user != null
+      )
+      {
+        command = "niri-session";
+        user = config.services.displayManager.autoLogin.user;
+      };
+
   programs.niri.enable = true;
 
   #? cause it it set by module with no configuration, overriding the common settings

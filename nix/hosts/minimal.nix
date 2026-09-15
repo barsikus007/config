@@ -17,6 +17,8 @@
 
   hardware.ksm.enable = lib.mkDefault true;
 
+  security.polkit.enablePkexecWrapper = lib.mkDefault true;
+
   i18n.defaultLocale = "C.UTF-8";
   #? ISO time
   i18n.extraLocaleSettings.LC_TIME = lib.mkDefault "en_DK.UTF-8";

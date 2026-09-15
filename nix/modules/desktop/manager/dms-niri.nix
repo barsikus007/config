@@ -23,6 +23,4 @@
     enable = true;
     configHome = "/home/${username}";
   };
-
-  programs.dsearch.enable = true;
 }

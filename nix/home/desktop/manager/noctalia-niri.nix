@@ -288,6 +288,7 @@ in
         clipboard_auto_paste = "ctrl_v";
         clipboard_image_action_command = "satty --filename -";
         clipboard_history_max_entries = 500;
+        greeter_sync.auto_sync = true;
         keyboard_layout.custom_labels = {
           "English (US)" = "🇺🇸";
           Russian = "🇷🇺";
@@ -302,6 +303,7 @@ in
         };
         password_style = "random";
         polkit_agent = true;
+        privacy.mic_filter_regex = "^gsr-.*$";
         screen_corners.enabled = true;
         screen_time_enabled = true;
       };
