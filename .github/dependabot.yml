@@ -1,16 +1,25 @@
 version: 2
+#? https://docs.github.com/en/code-security/reference/supply-chain-security/dependabot-options-reference
 updates:
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: weekly
+    cooldown:
+      exclude:
+        - "*"
   - package-ecosystem: nix
     directory: /nix
     schedule:
       interval: weekly
+    cooldown:
+      exclude:
+        - "*"
+    assignees:
+      - barsikus007
+    commit-message:
+      prefix: flake.lock
     groups:
       nix:
         patterns:
           - "*"
-    commit-message:
-      prefix: flake.lock
