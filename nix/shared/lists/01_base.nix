@@ -8,8 +8,8 @@ with pkgs;
   gdu
   fzf
   (btop.override {
-    cudaSupport = true;
-    rocmSupport = true;
+    cudaSupport = pkgs.stdenv.hostPlatform.isx86_64;
+    rocmSupport = pkgs.stdenv.hostPlatform.isx86_64;
   })
   neovim
   zoxide
