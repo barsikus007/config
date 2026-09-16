@@ -18,11 +18,16 @@ in
     "niri-epireyn.cachix.org-1:tlVyFN7CtsDT+ZcLPS+ekFWeT1X6X4OqvWqbBMyIzFA="
   ];
   nixpkgs.overlays = [
-    (_final: prev: {
-      niri = inputs.niri.packages.${prev.stdenv.hostPlatform.system}.niri-unstable;
-      # xwayland-satellite =
-      #   inputs.niri.packages.${prev.stdenv.hostPlatform.system}.xwayland-satellite-unstable;
-    })
+    (
+      _final: prev:
+      let
+        niri-flake = inputs.niri.packages.${prev.stdenv.hostPlatform.system};
+      in
+      {
+        niri = niri-flake.niri-unstable;
+        xwayland-satellite = niri-flake.xwayland-satellite-unstable;
+      }
+    )
   ];
 
   imports = [

@@ -1,10 +1,5 @@
 # [best Nix/OS packages ever](../README.md)
 
-```shell
-# generic usage of autocompletion with your system nixpkgs
-nix run --override-input nixpkgs nixpkgs github:barsikus007/config?dir=nix# <tab>
-```
-
 ## coolvm example for non NixOS
 
 user passwd is `0`

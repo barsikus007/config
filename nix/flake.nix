@@ -3,8 +3,7 @@
 
   inputs = {
     # nixpkgs-previous.url = "nixpkgs/commit_hash";
-    nixpkgs-previous.url = "https://releases.nixos.org/nixos/unstable/nixos-26.11pre1058091.ffb3c9b700e7/nixexprs.tar.zst";
-    # nixpkgs-fix-for-<smth>.url = "nixpkgs/pull/1488/head";
+    # nixpkgs-fix-for-<smth>.url = "nixpkgs/pull/1489/head";
     #? smaller then github tarball, less api hits: https://discourse.nixos.org/t/use-channels-as-flake-inputs/75261
     nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst";
     #? more secure: https://determinate.systems/blog/nixpkgs-cooldown/
@@ -217,9 +216,6 @@
               flakePackages.hytale
               flakePackages.libspeedhack
               # flakePackages.kompas3d-fhs
-              #? needs 8.4 GiB * 3 (or more) space to build, takes ~12.2 GiB, and ~18 minutes to download
-              # TODO: unstable: davinci
-              (previous.callPackage ./packages/auto/gui/davinci-resolve-studio.nix { })
             ];
           })
         ];
