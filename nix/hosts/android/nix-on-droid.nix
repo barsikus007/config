@@ -5,6 +5,7 @@
   ...
 }:
 #? https://nix-community.github.io/nix-on-droid/nix-on-droid-options.html#sec-options
+#? `flake.outputs.nixOnDroidConfigurations.default.config`
 let
   zsh_bin = lib.getExe pkgs.zsh;
 in
@@ -33,25 +34,18 @@ in
           /android/system/bin/linker64 /android/system/bin/ping "$@"
         ''
       ))
+      android-tools
 
       zsh
-      android-tools
       dig
 
+      gnutar
+      bzip2
+      gzip
+      xz
+
       uv
-
-      #? some common stuff that people expect to have
-      #util-linux
-
-      #tzdata
-      #hostname
-      #man
-      #gnupg
-
-      #gnutar
-      #bzip2
-      #gzip
-      #xz
+      aria2
     ]
     ++ import ../../shared/lists { inherit pkgs; };
   environment.motd = "Welcome to Nix-on-Droid!";

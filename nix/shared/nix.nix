@@ -81,7 +81,6 @@ else if (_class == "nixOnDroid") then
       nixPath = [ "nixpkgs=flake:nixpkgs" ];
       trustedPublicKeys = nix.settings.trusted-public-keys;
     };
-    inherit nixpkgs;
   }
 else if (_class == "homeManager") then
   {
