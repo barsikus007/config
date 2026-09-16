@@ -103,6 +103,10 @@ in
   programs.lazygit.enable = true;
   programs.btop = {
     enable = true;
+    package = pkgs.btop.override {
+      cudaSupport = pkgs.stdenv.hostPlatform.isx86_64;
+      rocmSupport = pkgs.stdenv.hostPlatform.isx86_64;
+    };
     settings = {
       proc_tree = true;
     };

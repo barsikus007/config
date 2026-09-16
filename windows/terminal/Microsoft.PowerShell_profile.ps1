@@ -69,14 +69,15 @@ Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory
 
 
 Debug-Log path (Measure-Command {
-# go
 $env:GOBIN = [IO.Path]::Combine($HOME, "go", "bin")
-$env:PATH = @(
-    (Join-Path $env:PROTO_HOME "shims"),
-    (Join-Path $env:PROTO_HOME "bin"),
-    $env:GOBIN,
-    $env:PATH
-) -join [IO.PATH]::PathSeparator
+$env:PATH = @($env:GOBIN, $env:PATH) -join [IO.PATH]::PathSeparator
+if ($env:PROTO_HOME) {
+    $env:PATH = @(
+        (Join-Path $env:PROTO_HOME "shims"),
+        (Join-Path $env:PROTO_HOME "bin"),
+        $env:PATH,
+    ) -join [IO.PATH]::PathSeparator
+}
 }).Milliseconds
 
 

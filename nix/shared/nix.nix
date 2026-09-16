@@ -59,11 +59,11 @@ let
   ];
 in
 if (_class == "nixos") then
-  {
+  lib.attrsets.recursiveUpdate { inherit nix; } {
     environment.etc."nixpkgs".source = pkgs.path;
-    nix = nix // {
+    nix = {
       channel.enable = false;
-      settings = nix.settings // {
+      settings = {
         #? in zfs we trust even more
         fsync-metadata = config.boot.isContainer || ((config.fileSystems."/".fsType or "") != "zfs");
       };

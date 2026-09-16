@@ -4,19 +4,25 @@
   flakePath,
 }:
 let
-  mkVpnAliases = args: {
-    "${args.prefix}u" = "sudo systemctl start ${args.service}";
-    "${args.prefix}s" = "systemctl status ${args.service}";
-    "${args.prefix}d" = "sudo systemctl stop ${args.service}";
-    "${args.prefix}r" = "sudo systemctl restart ${args.service}";
-    "${args.prefix}w" = args.watchCommand;
-  };
+  mkVpnAliases =
+    {
+      prefix,
+      service,
+      watchCommand,
+    }:
+    {
+      "${prefix}u" = "sudo systemctl start ${service}";
+      "${prefix}s" = "systemctl status ${service}";
+      "${prefix}d" = "sudo systemctl stop ${service}";
+      "${prefix}r" = "sudo systemctl restart ${service}";
+      "${prefix}w" = watchCommand;
+    };
   mkWgAliases =
-    args:
+    { wgExec, wgIface }:
     mkVpnAliases {
-      prefix = args.wgExec;
-      service = "wg-quick-${args.wgIface}";
-      watchCommand = "sudo watch --color 'WG_COLOR_MODE=always ${args.wgExec} show'";
+      prefix = wgExec;
+      service = "wg-quick-${wgIface}";
+      watchCommand = "sudo watch --color 'WG_COLOR_MODE=always ${wgExec} show'";
     };
 in
 rec {

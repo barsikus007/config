@@ -27,6 +27,18 @@
   - `waydroid prop set persist.waydroid.width 480`
   - `waydroid prop set persist.waydroid.height 800`
 
+### parsec on non-plasma
+
+```shell
+export WIDTH=2560
+export HEIGHT=1440
+export FPS=144
+gamescope --backend sdl --fullscreen --grab --force-grab-cursor --hide-cursor-delay 3000 --expose-wayland --rt \
+  --output-width $WIDTH --output-height $HEIGHT \
+  --nested-width $WIDTH --nested-height $HEIGHT --nested-refresh $FPS \
+  -- parsecd
+```
+
 ## ssh
 
 ### [add git key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent?platform=linux)
