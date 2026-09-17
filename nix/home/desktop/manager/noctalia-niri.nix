@@ -232,6 +232,15 @@ in
           enabled = true;
           widget = lib.foldl' (acc: w: acc // w) { } (lib.mapAttrsToList mkWidgets monitors);
         };
+      notification = {
+        filter_order = [ "gpu-screen-recorder" ];
+        filter.gpu-screen-recorder = {
+          enabled = true;
+          match = "GPU Screen Recorder";
+          play_sound = false;
+          save_history = false;
+        };
+      };
       osd = {
         position = "top_right";
         kinds = {
@@ -251,6 +260,7 @@ in
         selected-ocr-lang = "eng+rus";
         record-audio-out = true;
         record-audio-in = true;
+        record-fps = 144;
         record-codec = "hevc";
         record-copy-to-clipboard = true;
       };

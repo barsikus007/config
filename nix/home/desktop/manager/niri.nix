@@ -303,10 +303,6 @@ in
             hotkey-overlay.title = "Asus: Cycle Power Profiles";
             action.spawn-sh = "zsh -c asus_profile_toggle";
           };
-          "Mod+Shift+S" = lib.mkDefault {
-            hotkey-overlay.title = "Quick ScreenCapture";
-            action.spawn-sh = "zsh -c gpu-screen-recorder-record-portal";
-          };
         })
       ];
 

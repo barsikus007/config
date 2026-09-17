@@ -199,6 +199,7 @@
           ./modules/gui/throne.nix
           ./modules/gui/remote.nix
           ./modules/gui/waydroid.nix
+          ./modules/gui/gsr-replay.nix
 
           ./modules/vm
           ./modules/vm/gui.nix

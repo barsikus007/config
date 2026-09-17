@@ -247,6 +247,11 @@ binds {
     Mod+E             hotkey-overlay-title="Run a File Manager" { spawn "dolphin"; }
     Mod+Shift+G       hotkey-overlay-title="Toggle <b>gamepad-as-keyboard</b>" { spawn "gamepad-kbd-toggle"; }
 
+    Alt+Z             hotkey-overlay-title="Toggle <b>gpu-screen-recorder</b>" { spawn-sh "gsr-ui-cli toggle-show || gsr-ui"; }
+    // Mod+Shift+R hotkey-overlay-title="Save Replay" { spawn "gsr-ui-cli" "replay-save"; }
+    Mod+Shift+S       hotkey-overlay-title="Quick ScreenCapture" { spawn "gpu-screen-recorder-record-portal"; }
+    Mod+Shift+Ctrl+S  hotkey-overlay-title="Quick Region ScreenCapture" { spawn "gpu-screen-recorder-record-region"; }
+
     //? voice dictation, kept here (not in nix) for quick iteration - see modules/services/hyprwhspr.nix
     Mod+Alt+D         hotkey-overlay-title="Toggle Voice Dictation" { spawn "hyprwhspr-rs" "record" "toggle"; }
     //? marks the following text as dictated so Claude tolerates ASR quirks
