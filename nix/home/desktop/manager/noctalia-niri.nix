@@ -87,10 +87,6 @@ in
           hotkey-overlay.title = "Asus: Cycle Power Profiles";
           action = noctalia-ipc "power-cycle";
         };
-        "Mod+Shift+S" = {
-          hotkey-overlay.title = "Quick ScreenCapture";
-          action = noctalia-ipc "plugin" "noctalia/screen_recorder:service" "all" "toggle";
-        };
       };
   };
   programs.noctalia = {

@@ -20,6 +20,8 @@
       fzf.enable = false;
       #? conflicts with current setup
       mpv.enable = false;
+      #? conflicts with current setup
+      starship.enable = false;
       #? conflicts with custom theme
       vscode.enable = false;
       #? theme is unreadable

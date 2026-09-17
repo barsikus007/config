@@ -91,12 +91,12 @@ const renderContext = (e, popupText, textToCopy) => {
   const posX = e.clientX;
   const posY = e.clientY + 20 + scrollTop;
 
-  // TODO replace with https://violentmonkey.github.io/guide/using-modern-syntax/
+  // TODO: refactor: replace with https://violentmonkey.github.io/guide/using-modern-syntax/
   document.getElementById(contextDivId)?.remove();
   const contextDiv = document.createElement('div');
   const contextDivText = document.createElement('div');
   contextDiv.id = contextDivId;
-  // TODO use stylesheet with !important instead ?
+  // TODO: refactor: use stylesheet with !important instead ?
   contextDiv.style.position = 'absolute !important';
   contextDiv.style.top = posY + 'px !important';
   contextDiv.style.left = Math.abs(posX) + 'px !important';

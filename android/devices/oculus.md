@@ -48,8 +48,8 @@
 ## [LIV](https://www.liv.tv/mixedreality)
 
 - latest mobile app is archived, PM me if you need it
-- TODO DroidCam + SteamVR
 
 ## TODO
 
+- DroidCam + SteamVR as LIV analog
 - loWvr

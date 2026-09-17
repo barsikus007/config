@@ -1,10 +1,12 @@
 { lib, pkgs, ... }:
 let
   #! xdg-desktop-portal-gnome caches color-scheme at its process start
+  #! restarting it alone clears ScreenCast properties on xdg-desktop-portal
   systemctl = lib.getExe' pkgs.systemd "systemctl";
   gdbus = lib.getExe' pkgs.glib "gdbus";
   defaultSwitchScript = /* shell */ ''
     ${systemctl} --user restart xdg-desktop-portal-gnome.service
+    ${systemctl} --user restart xdg-desktop-portal.service
   '';
 in
 {

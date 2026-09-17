@@ -99,6 +99,8 @@ in
           "datareporting.healthreport.uploadEnabled" = false;
           "browser.ping-centre.telemetry" = false;
           "browser.urlbar.eventTelemetry.enabled" = false; # (default)
+          "browser.send_pings" = false;
+          "browser.send_pings.require_same_origin" = true;
 
           #? https://wiki.nixos.org/wiki/Accelerated_Video_Playback#NVIDIA
           "media.ffmpeg.vaapi.enabled" = true;
@@ -147,6 +149,7 @@ in
           #     "ublock-privacy"
           #     "ublock-quick-fixes"
           #     "ublock-unbreak"
+          #     "ublock-annoyances"
           #     "easylist"
           #     "adguard-generic"
           #     "adguard-mobile"
@@ -155,6 +158,8 @@ in
           #     "urlhaus-1"
           #     "plowe-0"
           #     "adguard-cookies"
+          #     "ublock-cookies-adguard"
+          #     "fanboy-cookiemonster"
           #     "adguard-social"
           #     "adguard-mobile-app-banners"
           #     "adguard-other-annoyances"

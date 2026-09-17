@@ -21,10 +21,7 @@
   - [ViPER4Android Repackaged](https://github.com/programminghoch10/ViPER4AndroidRepackaged)
   - [?Dolby Atmos](https://gitlab.com/reiryuki-the-fixer/dolby-atmos-magic-revision-magisk-module)
   - [no root - wavelet](https://4pda.to/forum/index.php?showtopic=1039682&view=findpost&p=119899326)
-
-#### TODO
-
-- design and tweak mods
+- design and tweak mods -- because stock are the best
   - <https://github.com/Mahmud0808/Iconify>
 
 ### OnePlus 15
@@ -61,7 +58,7 @@ done
 ### persist WiFi ADB
 
 - shizuku
-  - phone TODO
+  - phone variants
     - [1](https://www.reddit.com/r/tasker/comments/1j7n1em/project_silently_start_adb_on_boot_without_root/?utm_medium=web3x&utm_term=1)
     - [2](https://www.reddit.com/r/tasker/comments/re8k68/howto_enable_adb_wifi_after_reboot_using_ladb_app/)
     - [3](https://www.reddit.com/r/tasker/comments/rceljk/enable_adb_wifi_on_device_boot_android_11/)
@@ -75,6 +72,6 @@ done
     - disable `resetprop -d persist.adb.tcp.port && stop adbd && start adbd`
   - PC `adb connect 192.168.1.15:5555`
 
-### TODO
+## TODO
 
 - `ADB_DELAYED_ACK=1` [when adb is used for large files transfer](https://developer.android.com/tools/adb#burstMode)

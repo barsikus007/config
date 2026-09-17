@@ -305,8 +305,7 @@ in
           };
           "Mod+Shift+S" = lib.mkDefault {
             hotkey-overlay.title = "Quick ScreenCapture";
-            # TODO
-            action.spawn-sh = "gpu-screen-recorder -w portal -c mp4";
+            action.spawn-sh = "zsh -c gpu-screen-recorder-record-portal";
           };
         })
       ];

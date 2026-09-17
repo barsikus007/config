@@ -156,14 +156,6 @@ du . --human-readable --all --total --max-depth=1 --apparent-size | sort --human
 du . --human-readable --all | sort --human-numeric-sort --reverse
 ```
 
-### grep search in dir recursively
-
-TODO add find or strings example
-
-```shell
-grep --recursive --line-number --word-regexp 'dir/' --regexp='search'
-```
-
 ### [dos2unix4folder](https://stackoverflow.com/a/11929475/15844518)
 
 ```shell

@@ -50,7 +50,6 @@
     autoStart = true;
     capSysAdmin = true;
     openFirewall = true;
-    # TODO https://search.nixos.org/options?query=services.sunshine.applications
     settings.port = 57989;
   };
 

@@ -2,12 +2,9 @@ local wezterm = require 'wezterm'
 local act = wezterm.action
 
 return {
+    --? stylix sets it
     -- font = wezterm.font("Cascadia Code NF"),
     -- font_size = 12.0,
-    -- TODO
-    warn_about_missing_glyphs = false,
-
-    -- color_scheme = "Catppuccin Mocha",
 
     --! x have issues with this
     use_resize_increments = true,

@@ -63,7 +63,8 @@ Set-PSReadLineOption -AddToHistoryHandler {
     return $true
 }
 Set-PSReadlineKeyHandler -Key ctrl+d -Function DeleteCharOrExit
-# Set-PSReadLineKeyHandler -Key Tab -ScriptBlock { Invoke-FzfTabCompletion }  # TODO bugged
+#! bugged: scrolls terminal up every use; doesn't complete things smart
+# Set-PSReadLineKeyHandler -Key Tab -ScriptBlock { Invoke-FzfTabCompletion }
 Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
 }).Milliseconds
 
@@ -105,8 +106,8 @@ Set-Alias -Option AllScope h history
 Function hf { h | grp @args }
 Function sshe { editor $HOME\.ssh\config }
 Function ssht { ssh @args -t "tmux new -As0 || bash || sh" }
-#* Test-Path Alias:\nv && Remove-Item Alias:\nv -Force
-#* Function nv { editor $(fzf) }
+if (Test-Path Alias:\nv) { Remove-Item Alias:\nv -Force }
+Function nv { editor $(fzf) }
 Function 1ip { wget -qO - icanhazip.com }
 Function 2ip { curl "internet-lab.ru/ip" }
 Function mkcd { New-Item @args -ItemType Directory -Force | Select-Object Name | Set-Location }
@@ -125,7 +126,12 @@ Function suss { scoop update | scoop status }
 Function i { scoop install }
 #! shim priority, weakest first
 Function u { suss | scoop update *; scoop reset busybox microsoft-coreutils grep less wget }
-#* Function cu { cd ~/config && git pull && ./windows/install.ps1 && ./windows/pwsh.ps1 && cd - }
+Function cu {
+    cd ~/config
+    if ($?) { git pull }
+    if ($?) { ./windows/install.ps1 }
+    if ($?) { cd - }
+}
 
 # docker
 $env:COMPOSE_BAKE=$true
@@ -147,11 +153,19 @@ Function dce { dc exec -it @args }
 Function dcsh { dce @args sh -c 'bash || sh' }
 
 # python
-# TODO uv install alias?
-# TODO uv resolve python version and write to PATH
-#* Function pipi { uv pip install -r requirements.txt || uv pip install -r pyproject.toml }
-#* Function pyvcr { uv venv --allow-existing && .venv\Scripts\activate && (pipi) }
-#* Function pyv { .venv/Scripts/activate || (pyvcr) }
+Function pipi {
+    uv pip install -r requirements.txt
+    if (-not $?) { uv pip install -r pyproject.toml }
+}
+Function pyvcr {
+    uv venv --allow-existing
+    if ($?) { .venv\Scripts\activate }
+    if ($?) { pipi }
+}
+Function pyv {
+    .venv\Scripts\activate
+    if (-not $?) { pyvcr }
+}
 Function pyt { ptpython }
 Function pyta { ptpython --asyncio }
 
@@ -206,6 +220,4 @@ if ($PSVersionTable.PSVersion.Major -lt 7) {
     Write-Host "PowerShell version 7 or higher is required" -ForegroundColor Red
     Write-Host "winget install --exact --id Microsoft.PowerShell" -ForegroundColor DarkGray
     exit
-} else {
-    ~\Documents\PowerShell\extend.ps1 | Out-Null
 }

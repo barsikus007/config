@@ -53,7 +53,6 @@ in
                 mountOptions = [ "umask=0077" ];
               };
             };
-            # TODO
             # zfs = {
             #   size = "100%";
             #   content = {

@@ -52,8 +52,6 @@ in
       };
       AC.autoSuspend.action = "nothing";
       AC.displayBrightness = 100;
-      # battery.whenLaptopLidClosed = "hibernate"; # TODO
-      # lowBattery.whenLaptopLidClosed = "hibernate"; #?
       lowBattery.powerProfile = "powerSaving";
     };
     #! broken logout session.sessionRestore.restoreOpenApplicationsOnLogin = "whenSessionWasManuallySaved";

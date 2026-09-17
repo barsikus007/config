@@ -5,12 +5,12 @@
 - YouTube
   - [shorts to longs](https://greasyfork.org/en/scripts/439993-youtube-shorts-redirect)
   - [play songs forever](https://greasyfork.org/en/scripts/390352-youtube-stay-active-and-play-forever)
-  - [TODO remove si](https://github.com/Xenorio/YTShareAntiTrack)
 - [VK](http://greasyfork.org/scripts/518509)
 - [shikimori 404](https://greasyfork.org/scripts/555555)
 - [gemini auto pro](https://greasyfork.org/scripts/564382)
 - [own](./userscripts)
 - TODO
+  - [YouTube remove si](https://github.com/Xenorio/YTShareAntiTrack)
   - ExchangeRater.user imperial units converter
   - yt watch later icon on video card
   - open in webarchive (RCM)
@@ -29,7 +29,7 @@
 - frameless window
   - `javascript:window.open(location.href, '_blank', 'menubar=no,location=no,status=no,toolbar=no')`
 
-## [uBlock](nix/home/gui/browser.nix#L200)
+## [uBlock](nix/home/gui/browser/firefox.nix#L140)
 
 ## flags
 
@@ -49,8 +49,6 @@
 - shitblockers
   - [uBlock Origin](https://ublockorigin.com)
     - [AdNauseam](https://adnauseam.io)
-  - [I don't care about cookies](https://www.i-dont-care-about-cookies.eu)
-  - [ClearURLs](https://docs.clearurls.xyz/)
 - scripts
   - [Violentmonkey](https://violentmonkey.github.io/)
 - YouTube
@@ -69,14 +67,13 @@
     - `]` - increase
     - `\` - reset
 - [UserAgent Switcher](https://github.com/ray-lothian/UserAgent-Switcher)
+- [Opera-like clipboard paster](https://github.com/clipboard2file/clipboard2file)
+- [proxy and loading issues checker](https://github.com/zero-peak/ZeroOmega)
 - TODO
-  - <https://github.com/dessant/ping-blocker>
   - <https://github.com/vknext/vk-classic-feed>
-  - <https://github.com/zero-peak/ZeroOmega>
   - <https://selectorgadget.com/>
     - <https://github.com/hermit-crab/ScrapeMate>
   - [skip bitly like sites](https://github.com/FastForwardTeam/FastForward)
-  - <https://github.com/clipboard2file/clipboard2file/>
   - [grammar check](https://languagetool.org/services#browsers)
 
 ### Chromium (Edge)

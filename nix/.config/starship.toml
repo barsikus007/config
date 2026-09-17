@@ -94,7 +94,6 @@ style = "bold red"
 [sudo]
 disabled = false
 
-# TODO colors https://starship.rs/presets/pastel-powerline.html
 [git_state]
 format = '[\($state( $progress_current of $progress_total)\)]($style) '
 

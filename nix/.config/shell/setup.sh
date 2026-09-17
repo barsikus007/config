@@ -1,13 +1,57 @@
 #!/usr/bin/env bash
 
 #? package managers and updaters
-# TODO u functions which will resolve all
-alias i='sudo apt install'
-alias ii='sudo nala install'
-alias uu='sudo apt update && sudo apt full-upgrade --assume-yes && sudo apt autoremove --assume-yes && sudo apt clean'
-alias uuu='sudo nala update && sudo nala upgrade --assume-yes && sudo nala autoremove --assume-yes && sudo nala clean'
-alias u=uu
 alias cu='cd ~/config && git pull && ./linux/install.sh && cd -'
+i() {
+  if [ -n "${TERMUX_VERSION:-}" ] || [ -d "/data/data/com.termux" ]; then
+    pkg install "$@"
+    return
+  fi
+
+  if [ -f /etc/os-release ]; then
+    local os_info
+    # shellcheck disable=SC1091
+    os_info=$(. /etc/os-release && echo "${ID:-} ${ID_LIKE:-}")
+    case "$os_info" in
+      (*ubuntu*)
+        if hash nala 2>/dev/null; then
+          sudo nala install "$@"
+        else
+          sudo apt install "$@"
+        fi
+        return
+        ;;
+    esac
+  fi
+
+  echo "i: unsupported OS" >&2
+  return 1
+}
+u() {
+  if [ -n "${TERMUX_VERSION:-}" ] || [ -d "/data/data/com.termux" ]; then
+    pkg update && pkg upgrade --assume-yes && pkg autoclean && pkg clean
+    return
+  fi
+
+  if [ -f /etc/os-release ]; then
+    local os_info
+    # shellcheck disable=SC1091
+    os_info=$(. /etc/os-release && echo "${ID:-} ${ID_LIKE:-}")
+    case "$os_info" in
+      (*ubuntu*)
+        if hash nala 2>/dev/null; then
+          sudo nala update && sudo nala upgrade --assume-yes && sudo nala autoremove --assume-yes && sudo nala clean
+        else
+          sudo apt update && sudo apt full-upgrade --assume-yes && sudo apt autoremove --assume-yes && sudo apt clean
+        fi
+        return
+        ;;
+    esac
+  fi
+
+  echo "u: unsupported OS" >&2
+  return 1
+}
 
 
 confirm() {
@@ -103,7 +147,7 @@ setup_ubuntu() {
     if [ ! -f /etc/apt/sources.list.d/nala-sources.list ]; then
       sudo nala fetch --auto
     fi
-    uuu && \
+    u && \
     sudo nala install $soft_unix $soft_base $soft_add $soft_add_ubuntu --assume-yes
     confirm "Do you want to remove $soft_to_purge?" && sudo nala purge $soft_to_purge --assume-yes
     setup_linux

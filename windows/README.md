@@ -2,9 +2,15 @@
 
 ## pre-install
 
-```powershell
-# TODO
-```
+- run script for complete latest win10 setup
+  - run in pwsh **as user** `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/installOnWin10LTSC.ps1 | iex`([content](./installOnWin10LTSC.ps1))
+    - wait for UAC prompt and agree
+    - it also does `install` step
+- or complete prerequisites
+  - install scoop,pwsh,sudo
+  - `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser`
+  - `sudo Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock" -Name "AllowDevelopmentWithoutDevLicense" -Value 1`
+    - sudo is needed for `New-Item -ItemType SymbolicLink` otherwise
 
 ## install
 
@@ -13,9 +19,7 @@
 pwsh.exe
 cd && git clone --depth 1 https://github.com/barsikus007/config && cd -
 # Install/Update
-# sudo is needed for New-Item -ItemType SymbolicLink
-# TODO split initial and incremental setup
-cd ~\config\ && git pull && sudo .\windows\pwsh.ps1 && cd -
+cd ~\config\ && git pull && .\windows\install.ps1 && cd -
 ```
 
 ## post-install
@@ -67,58 +71,6 @@ foreach ($oldvid in $oldvids) {
 ```
 
 ## [ROG G14](./rog14.md)
-
-## TODO
-
-- autoupdate
-  - install windows soft with autoupdate from winget (think about config sync of that apps)
-  - ask scoop maintainers about FAQ about tools with autoupdate
-  - exclude autoupdate packages from scoop
-- pwsh
-  - lazy prompt
-  - `~/Documents/PowerShell/profile.ps1`
-  - history file: `~\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt`
-  - packages (move to 5.0?)
-    - <https://github.com/farag2/Windows_Terminal/blob/main/Install_Modules.ps1>
-- winget
-  - `https://builds.parsec.app/package/parsec-windows.exe`
-  - `Parsec.Parsec`
-  - "installBehavior": "portablePackageMachineRoot", "portablePackageUserRoot", "preferences": "scope": "user"
-- scoop
-  - aria2bug
-    - scoop config aria2-options "--check-certificate false"
-    - scoop config rm aria2-options
-    - or
-    - scoop config aria2-enabled false
-    - scoop config rm aria2-enabled
-    - or/and
-    - aria2 disable alias
-    - aria2 scoop tune params
-  - scoop cleanup -a
-  - scoop cache rm -a
-- soft
-  - configs
-    - QuickLook
-      - [used plugins](https://github.com/QL-Win/QuickLook/wiki/Available-Plugins)
-        - [stl](https://github.com/jeremyhart/QuickLook.Plugin.HelixViewer/releases)
-    - fzf
-    - mingit cert
-      - `git config --global http.sslCAInfo "C:\\Users\\Admin\\scoop\\apps\\mingit\\current\\mingw64\\etc\\ssl\\certs\\ca-bundle.crt"`
-    - powertoys (without remaps)
-    - copy scoop/persist configs for apps
-    - notepad.exe -> Cascadia Code NF 12
-  - auto wslhostpatcher
-  - netlimiter or windowsfirewallcontrol
-  - test UWP VK client
-    - `winget install laney -s msstore -e --accept-package-agreements`
-    - <https://elorucov.github.io/laney/>
-    - `9MSPLCXVN1M5`
-    - <https://github.com/Elorucov/Laney-Avalonia/releases>
-- tweak windows
-  - <https://github.com/farag2/Sophia-Script-for-Windows>
-  - <https://win10tweaker.ru/twikinarium>
-  - <https://github.com/ionuttbara/windows-defender-remover>
-    - not tested
 
 ## toggle new context menu (due to lack of 7zip and notepad++)
 
@@ -198,3 +150,55 @@ start ms-cxh:localonly
 ```
 
 ### [KMS](https://massgrave.dev)
+
+## TODO
+
+- autoupdate
+  - install windows soft with autoupdate from winget (think about config sync of that apps)
+  - ask scoop maintainers about FAQ about tools with autoupdate
+  - exclude autoupdate packages from scoop
+- pwsh
+  - lazy prompt
+  - `~/Documents/PowerShell/profile.ps1`
+  - history file: `~\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt`
+  - packages (move to 5.0?)
+    - <https://github.com/farag2/Windows_Terminal/blob/main/Install_Modules.ps1>
+- winget
+  - `https://builds.parsec.app/package/parsec-windows.exe`
+  - `Parsec.Parsec`
+  - "installBehavior": "portablePackageMachineRoot", "portablePackageUserRoot", "preferences": "scope": "user"
+- scoop
+  - aria2bug
+    - scoop config aria2-options "--check-certificate false"
+    - scoop config rm aria2-options
+    - or
+    - scoop config aria2-enabled false
+    - scoop config rm aria2-enabled
+    - or/and
+    - aria2 disable alias
+    - aria2 scoop tune params
+  - scoop cleanup -a
+  - scoop cache rm -a
+- soft
+  - configs
+    - QuickLook
+      - [used plugins](https://github.com/QL-Win/QuickLook/wiki/Available-Plugins)
+        - [stl](https://github.com/jeremyhart/QuickLook.Plugin.HelixViewer/releases)
+    - fzf
+    - mingit cert
+      - `git config --global http.sslCAInfo "C:\\Users\\Admin\\scoop\\apps\\mingit\\current\\mingw64\\etc\\ssl\\certs\\ca-bundle.crt"`
+    - powertoys (without remaps)
+    - copy scoop/persist configs for apps
+    - notepad.exe -> Cascadia Code NF 12
+  - auto wslhostpatcher
+  - netlimiter or windowsfirewallcontrol
+  - test UWP VK client
+    - `winget install laney -s msstore -e --accept-package-agreements`
+    - <https://elorucov.github.io/laney/>
+    - `9MSPLCXVN1M5`
+    - <https://github.com/Elorucov/Laney-Avalonia/releases>
+- tweak windows
+  - <https://github.com/farag2/Sophia-Script-for-Windows>
+  - <https://win10tweaker.ru/twikinarium>
+  - <https://github.com/ionuttbara/windows-defender-remover>
+    - not tested

@@ -67,7 +67,7 @@ winget install --exact --id Microsoft.PowerShell --silent
 - WireGuard.WireGuard
 
 ```powershell
-# dotnet for some apps, 6 is for powertoys, others are for TODO
+# dotnet for some apps, 6 is for powertoys, use of others are unknown
 # sudo winget install --exact --id Microsoft.DotNet.DesktopRuntime.3 --silent
 # sudo winget install --exact --id Microsoft.DotNet.DesktopRuntime.5 --silent
 sudo winget install --exact --id Microsoft.DotNet.DesktopRuntime.6 --silent

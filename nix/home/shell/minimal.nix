@@ -88,13 +88,9 @@ in
     };
   };
 
-  programs.starship = {
-    enable = true;
-    # settings = builtins.fromTOML (builtins.readFile ../../.config/starship.toml);
-    settings = lib.mkForce { };
-  };
-  xdg.configFile."starship.toml".source = # TODO stylix conflict
-    lib.mkForce (config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/starship.toml");
+  programs.starship.enable = true;
+  xdg.configFile."starship.toml".source =
+    config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/starship.toml";
   xdg.configFile."starship/starship.bash" = {
     source = ../../.config/starship/starship.bash;
     executable = true;
