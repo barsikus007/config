@@ -1,5 +1,8 @@
 { config, username, ... }:
 {
+  disabledModules = [
+    ../../modules/desktop/environment/kwallet.nix
+  ];
   imports = [
     ../minimal.nix
     ../../modules/copy-flake.nix
@@ -33,4 +36,7 @@
     fsType = "ext4";
   };
   boot.loader.grub.device = "nodev";
+
+  #? useless in vm
+  services.gnome.gnome-keyring.enable = false;
 }

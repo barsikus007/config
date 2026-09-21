@@ -300,6 +300,7 @@ in
         password_style = "random";
         polkit_agent = true;
         privacy.mic_filter_regex = "^gsr-.*$";
+        setup_wizard_enabled = false;
         screen_corners.enabled = true;
         screen_time_enabled = true;
       };

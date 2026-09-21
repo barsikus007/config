@@ -17,4 +17,8 @@
     target = "vicinae/settings.json";
     source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/vicinae/settings.json";
   };
+  xdg.stateFile."vicinae/onboarding.json" = {
+    text = builtins.toJSON { version = 1; };
+    mutable = true;
+  };
 }

@@ -3,6 +3,8 @@
   imports = [
     ../shared/options.nix
 
+    ./mutability.nix
+
     ./git.nix
   ];
   home = {

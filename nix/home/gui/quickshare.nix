@@ -4,12 +4,15 @@
     rquickshare
   ];
 
-  xdg.dataFile."dev.mandre.rquickshare/.settings.json".text = builtins.toJSON {
-    startminimized = true;
-    visibility = 0;
-    autostart = true;
-    realclose = false;
-    port = 12345; # TODO: home-manager-module: firewall
+  xdg.dataFile."dev.mandre.rquickshare/.settings.json" = {
+    text = builtins.toJSON {
+      startminimized = true;
+      visibility = 0;
+      autostart = true;
+      realclose = false;
+      port = 12345; # TODO: home-manager-module: firewall
+    };
+    mutable = true;
   };
 
   xdg.configFile."autostart/RQuickShare.desktop".text = ''
