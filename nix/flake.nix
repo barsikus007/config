@@ -4,18 +4,17 @@
   inputs = {
     # nixpkgs-previous.url = "nixpkgs/commit_hash";
     # nixpkgs-fix-for-<smth>.url = "nixpkgs/pull/1489/head";
-    #? smaller then github tarball, less api hits: https://discourse.nixos.org/t/use-channels-as-flake-inputs/75261
-    nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst";
+    nixpkgs.url = "nixpkgs/nixos-unstable";
     #? more secure: https://determinate.systems/blog/nixpkgs-cooldown/
     # nixpkgs.url = "https://flakehub.com/f/DeterminateSystems/nixpkgs-weekly/0.1";
-    # nixpkgs-master.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.zst";
+    # nixpkgs-master.url = "nixpkgs";
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nixos-hardware = {
-      url = "github:NixOS/nixos-hardware";
+      url = "nixos-hardware";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-wsl = {
@@ -27,7 +26,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-on-droid = {
@@ -71,11 +70,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     disko = {
-      url = "github:nix-community/disko";
+      url = "disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     sops-nix = {
-      url = "github:Mic92/sops-nix";
+      url = "sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
