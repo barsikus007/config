@@ -22,9 +22,26 @@ in
       _final: prev:
       let
         niri-flake = inputs.niri.packages.${prev.stdenv.hostPlatform.system};
+        niriPkg = niri-flake.niri-unstable;
       in
       {
-        niri = niri-flake.niri-unstable;
+        #? https://github.com/niri-wm/niri/pull/3572#issuecomment-5396691693
+        niri = prev.symlinkJoin {
+          inherit (niriPkg) name;
+          paths = [ niriPkg ];
+          postBuild = ''
+            rm $out/bin/niri-session
+            sed "s/systemctl --user import-environment/systemctl --user import-environment 2>\&1 | grep --line-buffered -v \"Calling import-environment without a list of variable names is deprecated.\"/" \
+              ${niriPkg}/bin/niri-session > $out/bin/niri-session
+            chmod +x $out/bin/niri-session
+          '';
+          passthru = niriPkg.passthru // {
+            unwrapped = niriPkg;
+          };
+          meta = (niriPkg.meta or { }) // {
+            mainProgram = "niri";
+          };
+        };
         xwayland-satellite = niri-flake.xwayland-satellite-unstable;
       }
     )

@@ -62,6 +62,162 @@ nix_find_libs() {
   ldd "$1" | grep 'not found' | awk '{print $1}' | sort --unique | xargs --replace={} sh -c 'echo "Lib: {}"; nix-locate "{}"; echo'
 }
 
+nix_build_time_fmt() {
+  #? seconds -> "1h 7m 45s", dropping zero high units
+  local s=$1
+  ((s >= 3600)) && printf '%dh ' $((s / 3600))
+  ((s >= 60)) && printf '%dm ' $((s % 3600 / 60))
+  printf '%ds' $((s % 60))
+}
+
+nix_build_time_medians() {
+  #? stdin: "<name> <secs>" lines -> "<median secs> <count> <name>" per name
+  sort --key=1,1 --key=2,2n | awk '
+    { if ($1 != cur && cur != "") flush(); cur = $1; a[++n] = $2 }
+    END { if (cur != "") flush() }
+    function flush(  k, m) {
+      k = int((n + 1) / 2)
+      m = (n % 2) ? a[k] : int((a[k] + a[k + 1]) / 2)
+      print m, n, cur
+      n = 0
+    }'
+}
+
+nix_build_time_parse_date() {
+  #? date string or shorthand (1w, 7d, 24h, 30m, 10s) -> UTC "YYYY-MM-DD HH:MM:SS"
+  local val=$1
+  case $val in
+    (*[0-9]w) val="${val%w} weeks ago" ;;
+    (*[0-9]d) val="${val%d} days ago" ;;
+    (*[0-9]h) val="${val%h} hours ago" ;;
+    (*[0-9]m) val="${val%m} minutes ago" ;;
+    (*[0-9]s) val="${val%s} seconds ago" ;;
+  esac
+  date --utc --date="$val" '+%F %T' 2>/dev/null
+}
+
+nix_build_time() {
+  #? build durations measured by nom itself: ~/.local/state/nix-output-monitor/build-reports.csv
+  #? keyed by drv name without version, so the history survives rebuilds and drv hash changes
+  #? covers only builds that ran through nom; the median is what nom shows as (∅ X) while building
+  #? usage: nix_build_time [--since <time>] [--until <time>] <name>...
+  #?        nix_build_time [--since <time>] [--until <time>] --top [N]   (default 10)
+  #?        nix_build_time --since <time> [--until <time>]
+  local csv=${XDG_STATE_HOME:-$HOME/.local/state}/nix-output-monitor/build-reports.csv
+  if [[ ! -f $csv ]]; then
+    echo "$csv: no such file (nom never recorded a build here)" >&2
+    return 1
+  fi
+  local since="" until="" top=""
+  local since_utc="" until_utc=""
+  local packages=()
+  while [[ $# -gt 0 ]]; do
+    case $1 in
+      (--since)
+        since=$2
+        shift 2
+        ;;
+      (--until)
+        until=$2
+        shift 2
+        ;;
+      (--top)
+        if [[ -n ${2:-} && $2 =~ ^[0-9]+$ ]]; then
+          top=$2
+          shift 2
+        else
+          top=10
+          shift 1
+        fi
+        ;;
+      (--)
+        shift
+        packages+=("$@")
+        break
+        ;;
+      (-*)
+        echo "nix_build_time: unknown option: $1" >&2
+        return 1
+        ;;
+      (*)
+        packages+=("$1")
+        shift
+        ;;
+    esac
+  done
+  if [[ -n $since ]]; then
+    since_utc=$(nix_build_time_parse_date "$since") || {
+      echo "nix_build_time: invalid --since date: $since" >&2
+      return 1
+    }
+    [[ -z $since_utc ]] && {
+      echo "nix_build_time: invalid --since date: $since" >&2
+      return 1
+    }
+  fi
+  if [[ -n $until ]]; then
+    until_utc=$(nix_build_time_parse_date "$until") || {
+      echo "nix_build_time: invalid --until date: $until" >&2
+      return 1
+    }
+    [[ -z $until_utc ]] && {
+      echo "nix_build_time: invalid --until date: $until" >&2
+      return 1
+    }
+  fi
+  if [[ -n $top ]]; then
+    #? nom's csv encoder emits CRLF (RFC 4180); without stripping, the last field never parses as a number
+    tr --delete '\r' < "$csv" \
+      | awk --field-separator=, -v s="$since_utc" -v u="$until_utc" '
+          $4 ~ /^[0-9]+$/ && (s == "" || $3 >= s) && (u == "" || $3 <= u) { print $2, $4 }
+        ' \
+      | nix_build_time_medians \
+      | sort --numeric-sort --reverse \
+      | head --lines="$top" \
+      | while read -r med count name; do
+          printf '%s\t%s (%d build%s)\n' "$(nix_build_time_fmt "$med")" "$name" "$count" "$([[ $count -gt 1 ]] && echo s)"
+        done
+    return
+  fi
+  if ((${#packages[@]} == 0)); then
+    if [[ -z $since_utc && -z $until_utc ]]; then
+      echo "usage: nix_build_time [--since <time>] [--until <time>] <package name>... | --top [N]" >&2
+      return 1
+    fi
+    tr --delete '\r' < "$csv" \
+      | awk --field-separator=, -v s="$since_utc" -v u="$until_utc" '
+          $4 ~ /^[0-9]+$/ && (s == "" || $3 >= s) && (u == "" || $3 <= u)
+        ' \
+      | sort --field-separator=, --key=3,3 \
+      | while IFS=, read -r _ name end secs; do
+          printf '%s\t%s\t%s\n' "$(date --date="$end UTC" '+%F %T')" "$(nix_build_time_fmt "$secs")" "$name"
+        done
+    return
+  fi
+  local arg matches filtered name end secs med count
+  for arg in "${packages[@]}"; do
+    matches=$(rg --fixed-strings ",$arg" "$csv") || {
+      echo "$arg: no builds recorded by nom" >&2
+      continue
+    }
+    #? nom's csv encoder emits CRLF (RFC 4180); without stripping, the last field never parses as a number
+    matches=${matches//$'\r'/}
+    filtered=$(printf '%s\n' "$matches" | awk --field-separator=, -v s="$since_utc" -v u="$until_utc" '
+      $4 ~ /^[0-9]+$/ && (s == "" || $3 >= s) && (u == "" || $3 <= u)
+    ')
+    if [[ -z $filtered ]]; then
+      echo "$arg: no builds recorded in specified period" >&2
+      continue
+    fi
+    printf '%s\n' "$filtered" | sort --field-separator=, --key=2,2 --key=3,3 | while IFS=, read -r _ name end secs; do
+      printf '%s\t%s\t%s\n' "$(date --date="$end UTC" '+%F %T')" "$(nix_build_time_fmt "$secs")" "$name"
+    done
+    printf '%s\n' "$filtered" | awk --field-separator=, '{print $2, $4}' | nix_build_time_medians | while read -r med count name; do
+      printf '∅ %s: %s (%d build%s)\n' "$name" "$(nix_build_time_fmt "$med")" "$count" "$([[ $count -gt 1 ]] && echo s)"
+    done
+  done
+}
+
 _nn() {
   if [ -f ~/.cache/darkman/mode.txt ]; then
     echo "Current theme is: $(cat ~/.cache/darkman/mode.txt)"

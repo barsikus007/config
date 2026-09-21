@@ -472,14 +472,6 @@
           #? nix build ./nix#windows-bootstrapIso --out-link unattend-win10-iot-ltsc-vrt.iso
           windows-bootstrapIso = pkgs.callPackage ./packages/windows { };
 
-          bcompare = (pkgs.callPackage ./packages/bcompare.nix { }).overrideAttrs {
-            #? sorry, I can't buy this software right now (and trial doesn't work)
-            #? https://gist.github.com/rise-worlds/5a5917780663aada8028f96b15057a67?permalink_comment_id=5168755#gistcomment-5168755
-            postFixup = ''
-              sed --in-place "s/AlPAc7Np1/AlPAc7Npn/g" $out/lib/beyondcompare/BCompare
-            '';
-          };
-
           kompas3d = pkgs.kdePackages.callPackage ./packages/kompas3d { };
           kompas3d-fhs = pkgs.callPackage ./packages/kompas3d/fhs.nix { };
           grdcontrol = pkgs.callPackage ./packages/grdcontrol.nix { };

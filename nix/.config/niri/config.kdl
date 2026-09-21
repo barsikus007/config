@@ -53,6 +53,7 @@ recent-windows {
 }
 
 //#region window-rules
+//! command to easy determine app-id and title `watch --interval=0.1 'niri msg windows | grep --after-context=10 focused'`
 // Window rules let you adjust behavior for individual windows.
 // Find more information on the wiki:
 //? https://niri-wm.github.io/niri/Configuration:-Window-Rules

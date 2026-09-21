@@ -335,16 +335,13 @@
     },
     // #endregion other
     // #region todo
+    "editor.largeFileOptimizations": false,
     "sqliteViewer.maxFileSize": 0, // remove sqlite limit (2GB is vscode limit idk how to resolve)
     "editor.guides.bracketPairs": "active",
     "editor.inlineSuggest.enabled": true,
     // "hadolint.hadolintPath": "/usr/bin/hadolint",
     "sourcery.codeLens": false,
     // default
-    // "indentRainbow.ignoreLinePatterns":[
-    //     "/[ \t]* [*]/g",
-    //     "/[ \t]+[/]{2}/g"
-    // ],
     // "remote.SSH.enableDynamicForwarding": false,
     // "remote.restoreForwardedPorts": false,
     // "remote.otherPortsAttributes": {
@@ -352,7 +349,6 @@
     // },
     "remote.forwardOnOpen": false,
     "figma.autocompleteBlocks": true,
-    "editor.largeFileOptimizations": false,
     // #endregion todo
     // #region sexperimental
     "debugpy.showPythonInlineValues": true,

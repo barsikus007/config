@@ -106,12 +106,19 @@
       '';
     };
 
-  #? fix for keyboard backlight enabling after resume
-  powerManagement.resumeCommands = ''
-    for _ in 1 2 3 4 5; do
-      ${lib.getExe' pkgs.asusctl "asusctl"} leds set off && sleep 0.5
-    done
-  '';
+  #? asusd USB handle to AniMe (ITE 193b) dies after resume; hid-generic reclaims iface 0
+  #? keyboard backlight also comes back on and needs asusd up
+  powerManagement.resumeCommands =
+    let
+      systemctl = lib.getExe' config.systemd.package "systemctl";
+      asusctl = lib.getExe' pkgs.asusctl "asusctl";
+    in
+    /* shell */ ''
+      ${systemctl} restart asusd.service
+      for _ in 1 2 3 4 5; do
+        ${asusctl} leds set off && sleep 0.5
+      done
+    '';
 
   #? default is "mem standby freeze", so a failed suspend falls through to s2idle,
   #? which this firmware cannot do (FADT has no low-power S0) and amdgpu rejects

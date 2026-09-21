@@ -10,6 +10,10 @@ let
   meta = import ../meta.nix;
 
   nixos_logo = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+
+  systemctl = lib.getExe' pkgs.systemd "systemctl";
+  busctl = lib.getExe' pkgs.systemd "busctl";
+  sleep = lib.getExe' pkgs.coreutils "sleep";
 in
 {
   custom.persist.home.directories = [ ".cache/noctalia" ]; # ? to disable prompt on startup
@@ -95,6 +99,10 @@ in
     settings = {
       #? https://github.com/noctalia-dev/noctalia/blob/main/example.toml
       #? code --reuse-window ~/.local/state/noctalia/settings.toml
+      hooks = {
+        session_locked = "${systemctl} --user --no-block restart suspend-after-lock.service";
+        session_unlocked = "${systemctl} --user --no-block stop suspend-after-lock.service";
+      };
       audio = {
         enable_sounds = true;
         enable_overdrive = true;
@@ -350,6 +358,26 @@ in
       };
     };
   };
+  systemd.user.services.suspend-after-lock = {
+    Unit = {
+      Description = "Suspend after session lock on battery";
+      PartOf = [ "graphical-session.target" ];
+    };
+    Service = {
+      Type = "simple";
+      ExecStart = lib.getExe (
+        pkgs.writeShellScriptBin "suspend-after-lock" ''
+          while true; do
+            ${sleep} 300
+            if [ "$(${busctl} --system get-property org.freedesktop.UPower /org/freedesktop/UPower org.freedesktop.UPower OnBattery)" = "b true" ]; then
+              ${systemctl} suspend
+            fi
+          done
+        ''
+      );
+    };
+  };
+
   #? noctalia have own polkit now
   services.polkit-gnome.enable = false;
   #? screenshot annotation for clipboard history (shell.clipboard_image_action_command)

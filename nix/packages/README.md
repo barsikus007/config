@@ -13,7 +13,7 @@ nix --extra-experimental-features "nix-command flakes" run --impure 'github:nix-
 
 ## [index](https://github.com/barsikus007/config/blob/0fd574bce9a5778219e436d9665c692c2c30a2c8/nix/flake.nix#L453)
 
-- [bcompare 5 diff tool](./bcompare5.nix)
+- [bcompare 5 diff tool](./auto/gui/bcompare.nix)
   - `sed --in-place '/CheckID/d' ~/.config/bcompare5/BCState.xml.bak`
 - [gcc locales patched for easy ISO format](./locales-iso.nix)
 - [OpenWrt image](./packages/openwrt/xiaomi_ax3600.nix)

@@ -101,6 +101,14 @@ davinci_run() {
   ' -- "$bundle_store" "$bin_path" "$@"
 }
 
+davinci_nvidia() {
+  local opencl_dir="/tmp/davinci-opencl"
+  mkdir --parents "$opencl_dir"
+  ln --symbolic --force /run/opengl-driver/etc/OpenCL/vendors/nvidia.icd "$opencl_dir/nvidia.icd"
+
+  OCL_ICD_VENDORS="$opencl_dir" nvidia-offload zsh -c 'davinci_run "$@"' _ "$@"
+}
+
 davinci() {
-  nvidia-offload davinci_run "$@"
+  davinci_nvidia "$@"
 }

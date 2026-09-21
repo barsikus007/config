@@ -17,5 +17,10 @@
 
   programs.antigravity-cli.enable = true;
   programs.codex.enable = true;
-  programs.opencode.enable = true;
+  programs.opencode = {
+    enable = true;
+    package = pkgs.writeShellScriptBin "opencode" ''
+      exec ${lib.getExe pkgs.bun} x opencode-ai@latest "$@"
+    '';
+  };
 }
