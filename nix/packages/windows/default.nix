@@ -34,7 +34,7 @@ let
 
   # TODO: & ([ScriptBlock]::Create((irm https://get.activated.win))) /Z-Windows
   # TODO: https://www.reddit.com/r/techsupport/comments/ehgbmu/windows_10_oemcustomizations/
-  isoDir = runCommand "iso-content" { } /* shell */ ''
+  isoDir = runCommand "iso-content" { } ''
     mkdir --parents $out
 
     cp ${unattend} $out/autounattend.xml
@@ -57,13 +57,9 @@ let
     cp ${authorizedKeys} $out/\$OEM\$/\$1/ProgramData/ssh/administrators_authorized_keys
   '';
 in
-runCommand "unattend-win10-iot-ltsc-vrt.iso"
-  {
-    nativeBuildInputs = [ xorriso ];
-  }
-  ''
-    xorriso -as mkisofs \
-      -V UNATTEND \
-      -rJ -o $out \
-      ${isoDir}
-  ''
+runCommand "unattend-win10-iot-ltsc-vrt.iso" { nativeBuildInputs = [ xorriso ]; } ''
+  xorriso -as mkisofs \
+    -V UNATTEND \
+    -rJ -o $out \
+    ${isoDir}
+''

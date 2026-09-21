@@ -12,7 +12,7 @@
       ccat = ''\command cat'';
     };
     #? https://github.com/sharkdp/bat#highlighting---help-messages
-    envExtra = /* shell */ ''
+    envExtra = ''
       alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
     '';
   };

@@ -70,7 +70,7 @@ in
     (pkgs.writeShellApplication {
       name = "wine-setup-theme";
       runtimeInputs = [ winePkg ];
-      text = /* shelll */ ''
+      text = ''
         export WINEPREFIX="''${WINEPREFIX:-$HOME/.wine}"
         wine reg add 'HKCU\Software\Microsoft\Windows\CurrentVersion\ThemeManager' /v ThemeActive /t REG_SZ /d 0 /f
         while read -r name value; do

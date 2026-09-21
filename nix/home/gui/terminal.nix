@@ -6,7 +6,7 @@
 }:
 #! 170Mb
 let
-  wezterm-run-script = pkgs.writeShellScript "wezterm-run-script" /* shell */ ''
+  wezterm-run-script = pkgs.writeShellScript "wezterm-run-script" ''
     script=$1
     cd "$(dirname "$script")" || exit 1
     echo "$script"

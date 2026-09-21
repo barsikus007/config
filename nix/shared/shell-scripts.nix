@@ -64,7 +64,7 @@ in
       echo $PID
     ''
   ))
-  (pkgs.writeShellScriptBin "inspect-window" /* shell */ ''
+  (pkgs.writeShellScriptBin "inspect-window" ''
     PID=$(get-focused-window-pid)
     if [ -z "$PID" ]; then
       ${libnotify} "Error" "No valid PID obtained. Did you focus a window?" --urgency=critical
@@ -107,11 +107,11 @@ in
       ${kill} --signal TERM --timeout 2000 KILL "$PID"
     ''
   ))
-  (pkgs.writeShellScriptBin "slurp-grim-screenshot" /* shell */ ''
+  (pkgs.writeShellScriptBin "slurp-grim-screenshot" ''
     ${grim} -g "$(${slurp})" -l 0 - | ${wl-copy}
   '')
   #! https://github.com/niri-wm/niri/pull/3316
-  (pkgs.writeShellScriptBin "niri-toggle-touchpad" /* shell */ ''
+  (pkgs.writeShellScriptBin "niri-toggle-touchpad" ''
     state=
     for name in /sys/class/input/input*/name; do
       grep --quiet --ignore-case touchpad "$name" || continue

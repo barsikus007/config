@@ -45,7 +45,7 @@ in
       }
     ];
     defaultKeymap = "emacs";
-    envExtra = /* shell */ ''
+    envExtra = ''
       #! XDG_CONFIG_HOME is unset this early in .zshenv
       for file in "''${XDG_CONFIG_HOME:-$HOME/.config}"/shell/*.sh; do
         source "$file"
@@ -58,7 +58,7 @@ in
     enable = true;
     historySize = 100000;
     historyControl = [ "ignoreboth" ];
-    initExtra = /* shell */ ''
+    initExtra = ''
       for file in "$XDG_CONFIG_HOME"/shell/*.sh; do
         source "$file"
       done

@@ -58,7 +58,7 @@ appimageTools.wrapAppImage (finalAttrs: {
     })
   ];
 
-  extraInstallCommands = /* shell */ ''
+  extraInstallCommands = ''
     install -D --mode=444 ${appimageContents}/usr/share/icons/hicolor/256x256/apps/ShikiWatch.png \
       $out/share/icons/hicolor/256x256/apps/ShikiWatch.png
     copyDesktopItems

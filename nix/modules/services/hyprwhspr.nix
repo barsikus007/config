@@ -130,7 +130,7 @@ let
   #! watch it to (a) tick while transcribing - upstream only has start/stop pings, no processing
   #! sound - and (b) spin the resident server up as soon as recording starts, so the model is
   #! already loading while you speak
-  statusWatch = pkgs.writeShellScript "hyprwhspr-status-watch" /* shelll */ ''
+  statusWatch = pkgs.writeShellScript "hyprwhspr-status-watch" ''
     set -u
     status="${statusFile}"
     stamp="${activityStamp}"
@@ -146,7 +146,7 @@ let
       case "$cls" in
         (active)
           touch "$stamp"
-          ${lib.optionalString useWhisperServer /* shelll */ ''
+          ${lib.optionalString useWhisperServer ''
             #! the server picks its device ONCE at start, so a dgpu_switch_* while it is up leaves it
             #! transcribing on the old card (and on the old model) - compare against the stamp
             if [ -d /proc/driver/nvidia/gpus ]; then now_gpu=nvidia; else now_gpu=amd; fi
@@ -213,10 +213,10 @@ let
   '';
 
   #? `whspr-status` - which GPU the resident server picked + how long recent dictations took
-  whsprStatus = pkgs.writeShellScriptBin "whspr-status" /* shelll */ ''
+  whsprStatus = pkgs.writeShellScriptBin "whspr-status" ''
     set -u
     echo "== backend: ${asrBackend} =="
-    ${lib.optionalString (!useWhisperServer) /* shelll */ ''
+    ${lib.optionalString (!useWhisperServer) ''
       v=$(${pkgs.coreutils}/bin/cat "${parakeetDirAbs}/.variant" 2>/dev/null || echo "MISSING - run whspr-fetch-parakeet")
       echo "  parakeet-tdt-0.6b-v3 $v, in-process (CPU only)"
       #? the model is resident in the daemon itself, so its RSS is the whole footprint
@@ -224,7 +224,7 @@ let
       rss=$(${pkgs.gnugrep}/bin/grep --only-matching --perl-regexp 'VmRSS:\s+\K\d+' "/proc/$pid/status" 2>/dev/null || true)
       [ -n "''${rss:-}" ] && echo "  daemon rss: $((rss / 1024))M"
     ''}
-    ${lib.optionalString useWhisperServer /* shelll */ ''
+    ${lib.optionalString useWhisperServer ''
       if systemctl --user is-active --quiet whisper-server.service; then
         up=$(systemctl --user show whisper-server.service --property ActiveEnterTimestamp --value)
         #! read the model off the live process: which one got loaded depends on the GPU picked
