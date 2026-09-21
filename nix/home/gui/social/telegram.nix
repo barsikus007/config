@@ -5,7 +5,7 @@ let
   tgClient = "AyuGram";
   tgMeOpen = pkgs.writeShellApplication {
     name = "tg-me-open";
-    text = /* shell */ ''
+    text = ''
       url=$1
       rest=''${url#*://}
       rest=''${rest#*/}

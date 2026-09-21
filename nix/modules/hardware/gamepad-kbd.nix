@@ -36,7 +36,7 @@ let
   gamepadRumble = pkgs.writeShellApplication {
     name = "gamepad-rumble";
     runtimeInputs = [ pyEnv ];
-    text = /* shell */ ''
+    text = ''
       [ -e "${padDev}" ] || exit 0
       exec python3 ${rumblePy} "${padDev}" "''${1:-on}"
     '';
@@ -50,7 +50,7 @@ let
       libnotify
       gamepadRumble
     ];
-    text = /* shell */ ''
+    text = ''
       #? debounce
       stamp="$XDG_RUNTIME_DIR/gamepad-kbd.stamp"
       now="$(date +%s%3N)"
@@ -77,7 +77,7 @@ let
       systemd
       evsieve
     ];
-    text = /* shell */ ''
+    text = ''
       if [ ! -e "${padDev}" ]; then
         echo "no gamepad found (${padDev} missing)" >&2
         exit 1
@@ -113,7 +113,7 @@ let
       coreutils
       evsieve
     ];
-    text = /* shell */ ''
+    text = ''
       while [ ! -e "${padDev}" ]; do sleep 2; done
       exec evsieve \
         --input "${padDev}" persist=reopen \

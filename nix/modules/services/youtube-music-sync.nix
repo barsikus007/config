@@ -27,7 +27,7 @@ let
       opustags
     ];
     #! keep this body ASCII-only: non-ASCII in writeShellApplication trips shellcheck at build time
-    text = /* shell */ ''
+    text = ''
       src_root=${lib.escapeShellArg srcRoot}
       dst_root=${lib.escapeShellArg dstRoot}
 

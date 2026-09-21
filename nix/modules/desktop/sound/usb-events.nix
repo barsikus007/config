@@ -20,7 +20,7 @@ let
   #? so spawn a transient unit per logged-in user with their runtime dir
   playForAllUsers = pkgs.writeShellApplication {
     name = "usb-sound-play";
-    text = /* shell */ ''
+    text = ''
       for runtime_dir in /run/user/*; do
         [ -S "$runtime_dir/pipewire-0" ] || continue
         ${systemd-run} --quiet --collect \

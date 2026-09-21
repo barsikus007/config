@@ -340,7 +340,7 @@ in
           in
           [
             (lib.getExe (
-              pkgs.writeShellScriptBin "niri-repin-workspaces" /* shell */ ''
+              pkgs.writeShellScriptBin "niri-repin-workspaces" ''
                 #! wait until niri has the docked output configured (logical set), not just the connector
                 for _ in $(seq 1 50); do
                     ${niri} msg --json outputs | ${jq} --exit-status '."${output}".logical != null' >/dev/null 2>&1 && break
@@ -421,7 +421,7 @@ in
           jq = lib.getExe pkgs.jq;
         in
         lib.getExe (
-          pkgs.writeShellScriptBin "capslock-layout-led" /* shell */ ''
+          pkgs.writeShellScriptBin "capslock-layout-led" ''
             #? event-stream emits KeyboardLayoutsChanged on connect (initial sync) and KeyboardLayoutSwitched on toggle
             #? --unbuffered keeps the pipe flowing per line; empty drops events we don't care about
             ${niri} msg --json event-stream \

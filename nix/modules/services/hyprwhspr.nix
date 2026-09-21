@@ -71,7 +71,7 @@ let
   #! keep model names OUT of this script: it is baked into whisper-cpp-offload, which is an
   #! override input of hyprwhspr-rs - so touching it would rebuild the whole rust package
   #? exports WHISPER_GPU (nvidia|amd) for whoever needs to branch on the chosen device
-  pickFastestDevice = pkgs.writeShellScript "whisper-pick-device" /* shell */ ''
+  pickFastestDevice = pkgs.writeShellScript "whisper-pick-device" ''
     devs=$("${pkgs.whisper-cpp-vulkan}/bin/whisper-cli" --help 2>&1)
     idx=$(printf '%s' "$devs" | ${pkgs.gnugrep}/bin/grep --only-matching --perl-regexp 'ggml_vulkan: \K\d+(?= = .*NVIDIA)' | head -1)
     if [ -n "''${idx:-}" ]; then
@@ -85,7 +85,7 @@ let
 
   #? model choice lives here, not in the wrapper, so swapping it never touches hyprwhspr-rs
   #? ExecStart cannot resolve it either: it depends on which GPU is up right now
-  whisperServerStart = pkgs.writeShellScript "whisper-server-start" /* shell */ ''
+  whisperServerStart = pkgs.writeShellScript "whisper-server-start" ''
     source ${pickFastestDevice}
     fallback="${modelsDirAbs}/ggml-${whisperModel}.bin"
     if [ "''${WHISPER_GPU:-}" = "nvidia" ]; then
@@ -130,7 +130,7 @@ let
   #! watch it to (a) tick while transcribing - upstream only has start/stop pings, no processing
   #! sound - and (b) spin the resident server up as soon as recording starts, so the model is
   #! already loading while you speak
-  statusWatch = pkgs.writeShellScript "hyprwhspr-status-watch" /* shell */ ''
+  statusWatch = pkgs.writeShellScript "hyprwhspr-status-watch" /* shelll */ ''
     set -u
     status="${statusFile}"
     stamp="${activityStamp}"
@@ -146,7 +146,7 @@ let
       case "$cls" in
         (active)
           touch "$stamp"
-          ${lib.optionalString useWhisperServer /* shell */ ''
+          ${lib.optionalString useWhisperServer /* shelll */ ''
             #! the server picks its device ONCE at start, so a dgpu_switch_* while it is up leaves it
             #! transcribing on the old card (and on the old model) - compare against the stamp
             if [ -d /proc/driver/nvidia/gpus ]; then now_gpu=nvidia; else now_gpu=amd; fi
@@ -202,7 +202,7 @@ let
 
   #! release the model (~600M) after a quiet spell; an explicit stop also defeats Restart=always,
   #! so the server stays down until the next dictation starts it again
-  whisperIdleStop = pkgs.writeShellScript "whisper-server-idle-stop" /* shell */ ''
+  whisperIdleStop = pkgs.writeShellScript "whisper-server-idle-stop" ''
     set -u
     stamp="${activityStamp}"
     last=$(${pkgs.coreutils}/bin/stat --format %Y "$stamp" 2>/dev/null || echo 0)
@@ -213,10 +213,10 @@ let
   '';
 
   #? `whspr-status` - which GPU the resident server picked + how long recent dictations took
-  whsprStatus = pkgs.writeShellScriptBin "whspr-status" /* shell */ ''
+  whsprStatus = pkgs.writeShellScriptBin "whspr-status" /* shelll */ ''
     set -u
     echo "== backend: ${asrBackend} =="
-    ${lib.optionalString (!useWhisperServer) /* shell */ ''
+    ${lib.optionalString (!useWhisperServer) /* shelll */ ''
       v=$(${pkgs.coreutils}/bin/cat "${parakeetDirAbs}/.variant" 2>/dev/null || echo "MISSING - run whspr-fetch-parakeet")
       echo "  parakeet-tdt-0.6b-v3 $v, in-process (CPU only)"
       #? the model is resident in the daemon itself, so its RSS is the whole footprint
@@ -224,7 +224,7 @@ let
       rss=$(${pkgs.gnugrep}/bin/grep --only-matching --perl-regexp 'VmRSS:\s+\K\d+' "/proc/$pid/status" 2>/dev/null || true)
       [ -n "''${rss:-}" ] && echo "  daemon rss: $((rss / 1024))M"
     ''}
-    ${lib.optionalString useWhisperServer /* shell */ ''
+    ${lib.optionalString useWhisperServer /* shelll */ ''
       if systemctl --user is-active --quiet whisper-server.service; then
         up=$(systemctl --user show whisper-server.service --property ActiveEnterTimestamp --value)
         #! read the model off the live process: which one got loaded depends on the GPU picked
@@ -273,7 +273,7 @@ let
   #! parakeet-rs only ever opens encoder-model.onnx / decoder_joint-model.onnx / vocab.txt, so the
   #! quantized pair has to be downloaded UNDER the fp32 names - hence the stamp file, without it
   #! there is no way to tell which variant is actually sitting in the directory
-  parakeetFetch = pkgs.writeShellScriptBin "whspr-fetch-parakeet" /* shell */ ''
+  parakeetFetch = pkgs.writeShellScriptBin "whspr-fetch-parakeet" ''
     set -euo pipefail
     variant="''${1:-${parakeetVariant}}"
     repo=https://huggingface.co/istupakov/parakeet-tdt-0.6b-v3-onnx/resolve/main
@@ -311,7 +311,7 @@ let
   #! anything it cannot handle (ogg among them), so everything goes through ffmpeg first;
   #! 16k mono s16le is what whisper resamples to anyway
   #? works under either asrBackend: the whisper-server unit stays defined, this just starts it
-  whsprFile = pkgs.writeShellScriptBin "whspr-file" /* shell */ ''
+  whsprFile = pkgs.writeShellScriptBin "whspr-file" ''
     set -euo pipefail
     if [ $# -eq 0 ]; then
       echo "usage: whspr-file <audio-file>..." >&2

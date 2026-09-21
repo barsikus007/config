@@ -58,7 +58,7 @@ let
       pedantix
       nixfmt
     ];
-    text = /* shell */ ''
+    text = ''
       target="''${1:-.}"
       status=0
 

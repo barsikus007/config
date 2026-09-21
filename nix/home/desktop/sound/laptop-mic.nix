@@ -18,7 +18,7 @@ in
           jq = lib.getExe pkgs.jq;
         in
         lib.getExe (
-          pkgs.writeShellScriptBin "mic-volume-clamp" /* shell */ ''
+          pkgs.writeShellScriptBin "mic-volume-clamp" ''
             #? channelVolumes is linear while wpctl/UIs show the cubic scale, so the
             #? 25% slider position is 0.25^3 here, plus slack for float round-trips
             max=0.0157

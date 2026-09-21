@@ -18,7 +18,7 @@ let
   #? ExecCondition: exit 0 → run; 1-254 → clean skip. timeout→124, refused→1: both skip
   #? /dev/tcp is a bash builtin
   #? `ssh -G NAS` resolves hostname/port from ssh_config without connecting
-  nasReachable = pkgs.writeShellScript "nas-reachable" /* shell */ ''
+  nasReachable = pkgs.writeShellScript "nas-reachable" ''
     set -euo pipefail
     host= port=
     while read -r k v _; do
@@ -30,7 +30,7 @@ let
     exec ${pkgs.coreutils}/bin/timeout 5 ${lib.getExe pkgs.bash} -c "echo > /dev/tcp/$host/$port"
   '';
 
-  nasBackup = pkgs.writeShellScriptBin "nas-backup" /* shell */ ''
+  nasBackup = pkgs.writeShellScriptBin "nas-backup" ''
     set -euo pipefail
     probe() { ${nasReachable} 2>/dev/null; }
 
@@ -50,7 +50,7 @@ let
   #? newest snapshot = the incremental base, then `zfs send -nP` a dry-run to
   #? size the raw stream (-w matches sendOptions); on a big push, notify-send
   #! `-`-prefixed in the unit, so any failure here never blocks the backup
-  notifyLargeSend = pkgs.writeShellScript "syncoid-notify-large" /* shell */ ''
+  notifyLargeSend = pkgs.writeShellScript "syncoid-notify-large" ''
     set -euo pipefail
 
     zfs=${config.boot.zfs.package}/bin/zfs

@@ -59,7 +59,7 @@ in
     (pkgs.writeShellApplication {
       name = "wine-setup";
       runtimeInputs = [ winePkg ];
-      text = /* shell */ ''
+      text = ''
         export WINEPREFIX="''${WINEPREFIX:-$HOME/.wine}"
         wine-setup-wayland
         wine-setup-theme
@@ -83,7 +83,7 @@ in
     (pkgs.writeShellApplication {
       name = "wine-reset-theme";
       runtimeInputs = [ winePkg ];
-      text = /* shell */ ''
+      text = ''
         export WINEPREFIX="''${WINEPREFIX:-$HOME/.wine}"
         wine reg add 'HKCU\Software\Microsoft\Windows\CurrentVersion\ThemeManager' /v ThemeActive /t REG_SZ /d 1 /f
         wine reg delete 'HKCU\Control Panel\Colors' /f
@@ -92,7 +92,7 @@ in
     (pkgs.writeShellApplication {
       name = "wine-setup-wayland";
       runtimeInputs = [ winePkg ];
-      text = /* shell */ ''
+      text = ''
         export WINEPREFIX="''${WINEPREFIX:-$HOME/.wine}"
         wine reg add 'HKCU\Software\Wine\Drivers' /v Graphics /t REG_SZ /d wayland /f
       '';
@@ -100,7 +100,7 @@ in
     (pkgs.writeShellApplication {
       name = "wine-reset-wayland";
       runtimeInputs = [ winePkg ];
-      text = /* shell */ ''
+      text = ''
         export WINEPREFIX="''${WINEPREFIX:-$HOME/.wine}"
         wine reg delete 'HKCU\Software\Wine\Drivers' /v Graphics /f
       '';
@@ -112,7 +112,7 @@ in
         pkgs.jq
         pkgs.niri
       ];
-      text = /* shell */ ''
+      text = ''
         export WINEPREFIX="''${WINEPREFIX:-$HOME/.wine}"
         #! resolution of the currently focused niri output (kanshi-profile aware)
         res="$(niri msg --json focused-output | jq --raw-output '.modes[.current_mode] | "\(.width)x\(.height)"')"
@@ -123,7 +123,7 @@ in
     (pkgs.writeShellApplication {
       name = "wine-reset-resolution";
       runtimeInputs = [ winePkg ];
-      text = /* shell */ ''
+      text = ''
         export WINEPREFIX="''${WINEPREFIX:-$HOME/.wine}"
         wine reg delete 'HKCU\Software\Wine\Explorer' /f
       '';

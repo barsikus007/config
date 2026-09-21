@@ -26,7 +26,7 @@ in
           #! creates the wayland socket BEFORE exporting WAYLAND_DISPLAY into the systemd user env, so
           #! waiting on the socket is not enough -- wait for the env var itself, put it in our env, then
           #! run pam_kwallet_init (which forwards the env onward to the forked ksecretd)
-          ExecStart = pkgs.writeShellScript "kwallet-pam-unlock" /* shell */ ''
+          ExecStart = pkgs.writeShellScript "kwallet-pam-unlock" ''
             for _ in $(seq 1 300); do
               wd=$(${systemctl} --user show-environment | sed --quiet 's/^WAYLAND_DISPLAY=//p')
               if [ -n "$wd" ]; then

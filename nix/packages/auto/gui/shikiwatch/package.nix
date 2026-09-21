@@ -16,7 +16,7 @@ let
   };
   appimageContents = appimageTools.extract {
     inherit pname version src;
-    postExtract = /* shell */ ''
+    postExtract = ''
       chmod +x $out/usr/bin/lib/crashpad_handler
       ${lib.getExe python3} ${./patch-flutter-lcxx.py} $out/usr/bin/lib/libflutter_linux_gtk.so
     '';

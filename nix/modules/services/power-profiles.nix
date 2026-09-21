@@ -17,7 +17,7 @@ let
   #? one script per registered action, dispatched by profile name
   actionScripts = lib.mapAttrsToList (
     name: action:
-    pkgs.writeShellScript "power-profile-action-${name}" /* shell */ ''
+    pkgs.writeShellScript "power-profile-action-${name}" ''
       case "''${1:-}" in
         (performance)
 
@@ -35,7 +35,7 @@ let
     ''
   ) config.custom.powerProfiles.actions;
 
-  applyProfile = pkgs.writeShellScript "apply-power-profile" /* shell */ ''
+  applyProfile = pkgs.writeShellScript "apply-power-profile" ''
     profile="''${1:-}"
     case "$profile" in
       (performance|balanced|power-saver) ;;
@@ -67,7 +67,7 @@ in
       Restart = "always";
       RestartSec = 2;
     };
-    script = /* shell */ ''
+    script = ''
       #? dbus signals only fire on change, so sync once at startup
       ${applyProfile} "$(${ppdctl} get)" || true
 
@@ -93,7 +93,7 @@ in
       "power-profile-hook.service"
     ];
     serviceConfig.Type = "oneshot";
-    script = /* shell */ ''
+    script = ''
       online=0
       for ps in /sys/class/power_supply/*; do
         [ "$(cat "$ps/type" 2>/dev/null)" = "Mains" ] || continue
