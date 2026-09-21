@@ -45,9 +45,15 @@ with pkgs;
   devbox
 
   blender
-  # (blender-hip.override {
-  #   # blender-hip for rocm amd gpu
+  # TODO: local cache instance
+  # (blender.override {
+  #   ceres-solver = ceres-solver.override {
+  #     cudaSupport = true;
+  #     suitesparse = suitesparse.override { enableCuda = true; };
+  #   };
   #   cudaSupport = true;
+  #   #? no rocm for non-RDNA 2+ GPU
+  #   # rocmSupport = true;
   # })
 
   #! new GUI automation

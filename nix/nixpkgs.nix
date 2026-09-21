@@ -18,25 +18,39 @@ let
     "unrar"
     "corefonts"
 
-    "blender"
-    "cuda_cudart"
-    "cuda_nvcc"
-    "cuda_cccl"
+    # "blender"
+    # "cuda_cudart"
+    # "cuda_nvcc"
+    # "cuda_cccl"
+    # "libcublas"
+    # "cuda_nvrtc"
+    # "libcusolver"
+    # "libnvjitlink"
+    # "libcusparse"
+
+    #? for firefox
+    # "libcurand"
+    # "libcufft"
+    # "cudnn"
+    # "libnpp"
+
+    # "cuda_nvml_dev"
 
     "vscode"
     "discord"
+    "bcompare"
     "obsidian"
     "xnconvert"
     "parsec-bin"
     "antigravity-cli"
 
     "mprint"
-    "bcompare"
-    "grdcontrol"
     "hytale-launcher"
-    "kompas3d-v24-full"
-    "davinci-resolve-studio"
+
+    # "grdcontrol"
+    # "kompas3d-v24-full"
   ];
+  allowUnfreePredicateGen = pkgs: pkg: builtins.elem (pkgs.lib.getName pkg) paidApps;
   inherit (nixpkgs) lib;
 in
 import nixpkgs {
@@ -49,7 +63,7 @@ import nixpkgs {
           _pkgsName: pkgsInput:
           import pkgsInput {
             inherit system;
-            config.allowUnfreePredicate = pkg: builtins.elem (pkgsInput.lib.getName pkg) paidApps;
+            config.allowUnfreePredicate = allowUnfreePredicateGen pkgsInput;
           }
         )
         (
@@ -67,5 +81,5 @@ import nixpkgs {
     )
   ]
   ++ overlays;
-  config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) paidApps;
+  config.allowUnfreePredicate = allowUnfreePredicateGen nixpkgs;
 }
