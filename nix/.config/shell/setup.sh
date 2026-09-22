@@ -112,7 +112,21 @@ setup_user() {
       curl --silent --show-error --location https://github.com/sxyazi/yazi/releases/latest/download/yazi-"$(uname --machine)"-unknown-linux-musl.zip --output "$tmpfile"
       unzip -j "$tmpfile" '*/yazi' -d ~/.local/bin/
       rm "$tmpfile"
-      # sudo chmod +x ~/.local/bin/yazi
+    fi
+    if ! hash bun; then
+      #? interpreter for ~/.config/scripts/*.ts, not packaged in apt
+      echo "Setting up bun..."
+      case "$(uname --machine)" in
+        (x86_64) bun_arch=x64 ;;
+        (aarch64) bun_arch=aarch64 ;;
+        (*) echo "no bun build for $(uname --machine)"; bun_arch='' ;;
+      esac
+      if [ -n "$bun_arch" ]; then
+        tmpfile=$(mktemp --suffix .zip)
+        curl --silent --show-error --location https://github.com/oven-sh/bun/releases/latest/download/bun-linux-"$bun_arch".zip --output "$tmpfile"
+        unzip -j "$tmpfile" '*/bun' -d ~/.local/bin/
+        rm "$tmpfile"
+      fi
     fi
   )
 }

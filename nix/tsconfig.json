@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        //? lib follows target, unset target gives es2025.full, and every `full` has DOM
+        "lib": [
+            "ESNext",
+        ],
+        //? supplies types for Bun, process, console, TextEncoder, Response without DOM
+        "types": [
+            "bun",
+        ],
+        //? not correctness but speed, measured on this project: 151 ms vs 362 ms
+        "skipLibCheck": true,
+        //? without it a bare `tsc --project` writes .js files next to the sources
+        "noEmit": true,
+    },
+    //? exclude browser/userscripts and other possible files
+    "include": [
+        ".config/scripts/**/*.ts",
+        "hooks/**/*.ts",
+    ],
+}

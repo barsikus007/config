@@ -1,5 +1,5 @@
 export XDG_BIN_HOME=$HOME/.local/bin
-export PATH=$XDG_BIN_HOME:$PATH
+export PATH=$XDG_BIN_HOME:$XDG_CONFIG_HOME/scripts:$PATH
 
 for file in "$XDG_CONFIG_HOME"/shell/*.sh; do
   # shellcheck source=/dev/null

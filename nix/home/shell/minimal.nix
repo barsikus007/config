@@ -23,8 +23,12 @@ in
   };
 
   xdg.configFile."shell/".source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/shell/";
+  xdg.configFile."scripts/".source =
+    config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/scripts/";
+  home.sessionPath = [ "${config.xdg.configHome}/scripts" ];
   home.shellAliases = sharedAliases;
   home.packages = with pkgs; [ zsh-completions ];
+  #? interpreter for ~/.config/scripts/*.ts, #? +41M on disk (97M logical)
   programs.bun.enable = true;
   programs.zsh = {
     enable = true;
@@ -50,6 +54,8 @@ in
       for file in "''${XDG_CONFIG_HOME:-$HOME/.config}"/shell/*.sh; do
         source "$file"
       done
+      #? generated zsh completions for scripts/*.ts, compinit picks them up in .zshrc
+      fpath+=("''${XDG_CONFIG_HOME:-$HOME/.config}/scripts/completions")
     '';
     # TODO: zshrc is duplicated with system modules/shell/zsh.nix
     initContent = builtins.readFile ../../.config/zsh/.zshrc;

@@ -49,7 +49,7 @@ in
   #? .android  ANDROID_USER_HOME does nothing, adb 36.0.1 builds the path from $HOME only
   #?   verified: `HOME=/nonexistent adb start-server` dies on mkdir '$HOME/.android'
   #?   only fix is the xdg-ninja alias `HOME="$XDG_DATA_HOME"/android adb`,
-  #?   which leaks the fake $HOME into adb shell / scrcpy / android-utils.sh
+  #?   which leaks the fake $HOME into adb shell / scrcpy
   #! no ~/.java entry here on purpose:
   #!   -Djava.util.prefs.userRoot moves the Preferences API only, the font cache stays put
   #!   and _JAVA_OPTIONS is already taken by font antialiasing in modules/desktop/manager/niri.nix

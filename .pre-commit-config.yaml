@@ -11,6 +11,11 @@ repos:
         entry: ./linux/hooks/compile-soft-envs.sh
         language: script
         pass_filenames: false
+      - id: compile-script-aliases-from-ts
+        name: Run My Shell Script
+        entry: ./nix/hooks/compile-script-aliases.ts
+        language: script
+        pass_filenames: false
       # TODO: remove that (uncomment)
       # - id: nix-lint
       #   name: nix-lint
