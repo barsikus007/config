@@ -40,6 +40,7 @@ nix --extra-experimental-features "nix-command flakes" run --impure 'github:nix-
   - goodix fprint scanner drivers for ROG14
 - soft
   - [adbfs with libfuse experemental](./auto/soft/adbfs-rootless-libfuse-3.nix)
+  - [free-turn-proxy](./auto/soft/free-turn-proxy.nix)
   - [shdotenv](./auto/soft/shdotenv.nix)
 
 ### [kompas3d](./kompas3d)
