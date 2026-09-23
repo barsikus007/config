@@ -171,6 +171,7 @@
           ./modules/hardware/logi-mx3.nix
           ./modules/hardware/xbox.nix
           ./modules/hardware/gamepad-kbd.nix
+          ./modules/hardware/key-macro.nix
           ./modules/hardware/esp32.nix
 
           ./modules/nix-ld.nix

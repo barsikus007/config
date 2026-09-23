@@ -259,6 +259,9 @@ binds {
     //? sleep lets Mod+Alt go up first, else the real ctrl+v lands as Super+Alt+Ctrl+V
     Mod+Alt+V         hotkey-overlay-title="Paste Claude Voice Preamble" { spawn-sh "printf '%s\\n\\n\\n' 'The following is voice input transcribed by Whisper (mostly Russian). Expect recognition errors, misspoken words, missing or wrong punctuation, run-on sentences, and garbled technical terms or names. Interpret by meaning and intent, not literal wording; if something is critically ambiguous, ask before acting.' | wl-copy && sleep 0.3 && ydotool key 29:1 47:1 47:0 29:0"; }
 
+    F9  repeat=false  hotkey-overlay-title="Toggle Key Macro Recording" { spawn "key-macro" "toggle"; }
+    F10 repeat=false  hotkey-overlay-title="Play Key Macro" { spawn "key-macro" "play"; }
+
     XF86Launch6 hotkey-overlay-title=null { focus-column-left; }
     XF86Launch7 hotkey-overlay-title=null { focus-workspace-down; }
     XF86Launch8 hotkey-overlay-title=null { focus-workspace-up; }
