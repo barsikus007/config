@@ -204,6 +204,7 @@ window-rule {
     match app-id="^GT: New Horizons "
 
     match app-id="^qemu$"
+    match app-id="^remote-viewer$"
     match app-id="^looking-glass-client$"
     open-on-workspace "games"
     open-maximized true
