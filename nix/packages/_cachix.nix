@@ -20,7 +20,6 @@ in
       lib.filter (p: lib.hasPrefix "intel-iwlwifi" p.name) cfg.boot.extraModulePackages
     );
     nvidia-open = nvidia.open;
-    nvidia-x11 = nvidia;
     nvidia-settings = nvidia.settings;
 
     #? the nixos module bakes zfs_cachyos (custom kernel) into the package

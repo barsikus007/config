@@ -4,6 +4,10 @@
     enable = true;
     package = pkgs.flakePackages.keepassxc;
     settings = {
+      General = {
+        ConfigVersion = 2;
+        UpdateCheckMessageShown = true;
+      };
       Browser = {
         Enabled = true;
         BestMatchOnly = true;
@@ -12,6 +16,7 @@
       };
       GUI = {
         AdvancedSettings = true;
+        CheckForUpdates = false;
         ColorPasswords = true;
         CompactMode = true;
         MinimizeOnClose = true;
@@ -25,8 +30,8 @@
       };
       SSHAgent.Enabled = true;
       FdoSecrets.Enabled = true;
+      Security.IconDownloadFallback = true;
     };
   };
-  # xdg.configFile."keepassxc/keepassxc.ini".source =
-  #   config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/keepassxc/keepassxc.ini";
+  xdg.configFile."keepassxc/keepassxc.ini".mutable = true;
 }
