@@ -10,12 +10,9 @@
   imports = [
     ../.
     ../../modules/copy-flake.nix
+    ../../modules/home-manager/simple.nix
     #? to compile completions at NixOS buildtime
     ../../shared/zsh-compinit.nix
-  ];
-  home-manager.users.${username}.imports = [
-    ../../home
-    ../../home/shell/minimal.nix
   ];
   environment.systemPackages = import ../../shared/lists { inherit pkgs; };
 

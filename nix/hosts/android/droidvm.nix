@@ -10,12 +10,14 @@
   networking.hostName = "droidvm";
 
   imports = [
+    ../.
     inputs.disko.nixosModules.disko
 
     "${modulesPath}/profiles/qemu-guest.nix"
     ../../modules/ssh-secure.nix
 
     ../../modules/copy-flake.nix
+    ../../modules/home-manager/simple.nix
   ];
 
   system.requiredKernelConfig = with config.lib.kernelConfig; [ (isYes "DMA_RESTRICTED_POOL") ];

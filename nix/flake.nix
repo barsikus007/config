@@ -318,21 +318,7 @@
           system = "aarch64-linux";
         };
         specialArgs = mkSpecialArgs "ogurez";
-        modules = [
-          ./hosts
-          ./hosts/android/droidvm.nix
-          (
-            { username, ... }:
-            {
-              home-manager.users.${username} = {
-                imports = [
-                  ./home
-                  ./home/shell/minimal.nix
-                ];
-              };
-            }
-          )
-        ];
+        modules = [ ./hosts/android/droidvm.nix ];
       };
 
       #? nix run ./nix#checks.x86_64-linux.circus.driver --offline
