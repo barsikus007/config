@@ -19,9 +19,21 @@ in
     policies = {
       AppAutoUpdate = false;
       BackgroundAppUpdate = false;
+      DisablePocket = true;
       DisableTelemetry = true;
       DontCheckDefaultBrowser = true;
       HardwareAcceleration = true;
+
+      #? disable first-run and post-update pages
+      OverrideFirstRunPage = "";
+      OverridePostUpdatePage = "";
+      UserMessaging = {
+        WhatsNew = false;
+        ExtensionRecommendations = false;
+        FeatureRecommendations = false;
+        UrlbarInterventions = false;
+        SkipOnboarding = true;
+      };
     };
     policies.ExtensionSettings =
       let
@@ -60,6 +72,123 @@ in
         # (extension "libredirect" "7esoorv3@alefvanoon.anonaddy.me")
         # (extension "clearurls" "{74145f27-f039-47ce-a470-a662b129930a}")
       ];
+    policies."3rdparty".Extensions = {
+      "uBlock0@raymondhill.net" = {
+        #? Back up to file...
+        #? moz-extension://093a0647-97ae-405b-8215-910fe5b25fed/dashboard.html#settings.html
+        adminSettings = {
+          userSettings = {
+            cloudStorageEnabled = true;
+            externalLists = "https://filters.adtidy.org/extension/ublock/filters/3.txt";
+            importedLists = [
+              "https://filters.adtidy.org/extension/ublock/filters/3.txt"
+            ];
+          };
+          #? Enable `AdGuard,ru,cookie` filters
+          #? moz-extension://093a0647-97ae-405b-8215-910fe5b25fed/dashboard.html#3p-filters.html
+          selectedFilterLists = [
+            "user-filters"
+            "ublock-filters"
+            "ublock-badware"
+            "ublock-privacy"
+            "ublock-quick-fixes"
+            "ublock-unbreak"
+            "easylist"
+            "adguard-generic"
+            "adguard-mobile"
+            "easyprivacy"
+            "adguard-spyware-url"
+            "urlhaus-1"
+            "plowe-0"
+            "fanboy-cookiemonster"
+            "ublock-cookies-easylist"
+            "adguard-cookies"
+            "ublock-cookies-adguard"
+            "adguard-social"
+            "adguard-mobile-app-banners"
+            "adguard-other-annoyances"
+            "adguard-popup-overlays"
+            "adguard-widgets"
+            "RUS-0"
+            "RUS-1"
+            "https://filters.adtidy.org/extension/ublock/filters/3.txt"
+          ];
+          #? moz-extension://093a0647-97ae-405b-8215-910fe5b25fed/dashboard.html#1p-filters.html
+          userFilters = /* adblock */ ''
+            ! 2025-10-21 stop reddit translation
+            ||reddit.com^$removeparam=tl
+          '';
+        };
+      };
+      #? https://github.com/mbnuqw/sidebery
+      "{3c078156-979c-498b-8990-85f7987dd929}" = {
+        settings = {
+          markWindow = true;
+          navBarInline = false;
+          hideEmptyPanels = false;
+          navSwitchPanelsWheel = true;
+          tabsPanelSwitchActMove = true;
+          previewTabs = true;
+          oldBookmarksAfterSave = "del";
+          snapInterval = 1;
+          snapIntervalUnit = "hr";
+          snapLimit = 14;
+          snapLimitUnit = "day";
+          snapAutoExport = true;
+          hScrollAction = "switch_panels";
+          onePanelSwitchPerScroll = true;
+          syncSaveSettings = true;
+          syncSaveCtxMenu = true;
+          syncSaveStyles = true;
+          syncSaveKeybindings = true;
+        };
+      };
+      #? default
+      #? https://github.com/keepassxreboot/keepassxc-browser/wiki/Managed-schema
+      # "keepassxc-browser@keepassxc.org" = {
+      #   settings = {
+      #     afterFillSorting = "sortByMatchingCredentials";
+      #     afterFillSortingTotp = "sortByRelevantEntry";
+      #     autoCompleteUsernames = true;
+      #     autoFillAndSend = false;
+      #     autoFillRelevantCredential = false;
+      #     autoFillSingleEntry = false;
+      #     autoFillSingleTotp = false;
+      #     autoReconnect = false;
+      #     autoRetrieveCredentials = true;
+      #     autoSubmit = false;
+      #     bannerPosition = 1;
+      #     checkUpdateKeePassXC = 0;
+      #     clearCredentialsTimeout = 10;
+      #     colorTheme = "system";
+      #     connectionMethod = "nativemessaging";
+      #     credentialSorting = "sortByGroupAndTitle";
+      #     debugLogging = false;
+      #     defaultGroup = "";
+      #     defaultGroupAlwaysAsk = false;
+      #     defaultPasskeyGroup = "";
+      #     defaultPasswordManager = false;
+      #     downloadFaviconAfterSave = false;
+      #     passkeys = true;
+      #     passkeysFallback = true;
+      #     redirectAllowance = 1;
+      #     saveDomainOnly = true;
+      #     showGettingStartedGuideAlert = true;
+      #     showGroupNameInAutocomplete = true;
+      #     showLoginFormIcon = true;
+      #     showLoginNotifications = true;
+      #     showNotifications = true;
+      #     showOTPIcon = true;
+      #     showTroubleshootingGuideAlert = true;
+      #     sitePreferences = [ ];
+      #     useCompactMode = false;
+      #     useMonochromeToolbarIcon = false;
+      #     useObserver = true;
+      #     usePasswordGeneratorIcons = false;
+      #     usePredefinedSites = true;
+      #   };
+      # };
+    };
     profiles = {
       default = {
         id = 0;
@@ -90,6 +219,7 @@ in
           #? disable ads and telemetry for privacy reasons
           "browser.newtabpage.activity-stream.showSponsored" = false;
           "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
+          "browser.newtabpage.activity-stream.feeds.section.topstories" = false;
           "toolkit.telemetry.archive.enabled" = false;
           "toolkit.telemetry.enabled" = false; # enforced by nixos
           "toolkit.telemetry.server" = "";
@@ -132,53 +262,24 @@ in
 
         # hide tab bar because we have tree style tabs
         #? https://mrotherguy.github.io/firefox-csshacks/?file=hide_tabs_toolbar_v2.css
-        userChrome = pkgs.fetchurl {
-          url = "https://raw.githubusercontent.com/MrOtherGuy/firefox-csshacks/9bb5b59e3ad2b42483731203d51f6cb758fa6cb5/chrome/hide_tabs_toolbar_v2.css";
-          hash = "sha256-xP2UqInVthDB67/hU9/rY1jEYXJs+R+i1qDn3LVts6Y=";
-        };
+        userChrome = ''
+          @import "${
+            pkgs.fetchurl {
+              url = "https://raw.githubusercontent.com/MrOtherGuy/firefox-csshacks/9bb5b59e3ad2b42483731203d51f6cb758fa6cb5/chrome/hide_tabs_toolbar_v2.css";
+              hash = "sha256-xP2UqInVthDB67/hU9/rY1jEYXJs+R+i1qDn3LVts6Y=";
+            }
+          }";
 
-        extensions = {
-          # force = true;
-          # settings."uBlock0@raymondhill.net".settings = {
-          #   #? Enable `AdGuard,ru` filters
-          #   #? extension://odfafepnkmbhccpbejgmiehpchacaeak/dashboard.html#3p-filters.html
-          #   selectedFilterLists = [
-          #     "user-filters"
-          #     "ublock-filters"
-          #     "ublock-badware"
-          #     "ublock-privacy"
-          #     "ublock-quick-fixes"
-          #     "ublock-unbreak"
-          #     "ublock-annoyances"
-          #     "easylist"
-          #     "adguard-generic"
-          #     "adguard-mobile"
-          #     "easyprivacy"
-          #     "adguard-spyware-url"
-          #     "urlhaus-1"
-          #     "plowe-0"
-          #     "adguard-cookies"
-          #     "ublock-cookies-adguard"
-          #     "fanboy-cookiemonster"
-          #     "adguard-social"
-          #     "adguard-mobile-app-banners"
-          #     "adguard-other-annoyances"
-          #     "adguard-popup-overlays"
-          #     "adguard-widgets"
-          #     "RUS-0"
-          #     "RUS-1"
-          #     "https://filters.adtidy.org/extension/ublock/filters/3.txt"
-          #   ];
-          #   #? extension://odfafepnkmbhccpbejgmiehpchacaeak/dashboard.html#1p-filters.html
-          #   userFilters = ''
-          #     ! 2022-02-22 https://lurkmore.media
-          #     lurkmore.media##.sitenotice
+          #sidebar-box {
+            width: 194px !important;
+            min-width: 194px !important;
+            max-width: 194px !important;
+          }
+          #sidebar-splitter {
+            display: none !important;
+          }
+        '';
 
-          #     ! 2025-10-21 stop reddit translation
-          #     ||reddit.com^$removeparam=tl
-          #   '';
-          # };
-        };
         search = {
           force = true;
           default = "google";

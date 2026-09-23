@@ -296,6 +296,14 @@
 
         ./modules/desktop/manager/noctalia-niri.nix
         # ./modules/desktop/manager/dms-niri.nix
+        ({ username, ... }: {
+          home-manager.users.${username} = {
+            imports = [
+              ./home/gui/browser/firefox-test.nix
+              ./home/gui/browser/firefox-cheburnet.nix
+            ];
+          };
+        })
       ];
       nixosConfigurations."coolvm-niri-vfio" = mkCoolVm "niri-vfio" "ogurez" [
         ./hosts/vm/niri-sunshined-vfio.nix

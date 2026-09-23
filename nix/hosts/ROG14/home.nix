@@ -17,6 +17,7 @@
     ../../home/gui/mpv.nix
     ../../home/gui/vscode.nix
     ../../home/gui/browser
+    ../../home/gui/browser/firefox-cheburnet.nix
     ../../home/gui/social
     ../../home/gui/office.nix
     ../../home/gui/bcompare.nix
