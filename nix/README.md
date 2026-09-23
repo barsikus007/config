@@ -65,5 +65,21 @@ prek install
     - Default compatibility tool: GE-Proton
   - [NTFS library fix](https://github.com/ValveSoftware/Proton/wiki/Using-a-NTFS-disk-with-Linux-and-Windows#preventing-ntfs-read-errors)
   - `nvidia-offload gamemoderun mangohud %command%`
+- Telegram > Settings
+  - Notifications and Sound
+    - Calls > Accept calls on this device
+    - Badge counter > !1,!3
+  - Advanced
+    - Automatic media download > * > !Files
+    - Window title bar > Use * window frame
+    - Spell checker >
+    - Experimental settings
+      - Add "View Profile"
+      - Show Peer IDs in Profile
+      - Show Channel Joined Date in Profile
+      - Enable webview inspecting
+      - Unlimited recent stickers
+  - AyuGram > General
+    - Show Message Seconds
 - Throne (formerly known as nekoray/nekobox)
   - Routing -> Routing settings -> DNS -> Direct DNS: `8.8.8.8`

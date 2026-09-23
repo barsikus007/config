@@ -53,11 +53,9 @@ recent-windows {
 }
 
 //#region window-rules
-//! command to easy determine app-id and title `watch --interval=0.1 'niri msg windows | grep --after-context=10 focused'`
-// Window rules let you adjust behavior for individual windows.
-// Find more information on the wiki:
 //? https://niri-wm.github.io/niri/Configuration:-Window-Rules
 //? other https://github.com/YaLTeR/dotfiles/blob/8f705f48e32b84ee1c7548f28aa6005e10aa7196/dot_config/niri/rules.kdl
+//! command to easy determine app-id and title `watch --interval=0.1 'niri msg windows | grep --after-context=10 focused'`
 
 // Enable rounded corners for all windows.
 window-rule {
@@ -150,8 +148,14 @@ window-rule {
     match app-id=r"^com\.obsproject\.Studio$"
     match app-id=r"\.hidden$"
     block-out-from "screen-capture"
-    // Use this instead if you want them visible on third-party screenshot tools.
-    // block-out-from "screencast"
+}
+window-rule {
+    //? Use this instead if you want them visible on third-party screenshot tools.
+    match app-id=r"^md\.obsidian\.Obsidian$"
+    match app-id=r"^com\.ayugram\.desktop$"
+    match app-id=r"\.hidden$"
+    match app-id="^code$"
+    block-out-from "screencast"
 }
 
 // Indicate screencasted windows with red colors.

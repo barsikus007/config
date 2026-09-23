@@ -24,6 +24,29 @@ curl -sL https://gist.github.com/barsikus007/2e44999712cdb074a1c9a9803cad7b8f/ra
 
 #### [local script](./fixdd.sh)
 
+## browser
+
+### Chromium (Edge)
+
+- [QuicKey](https://fwextensions.github.io/QuicKey/)
+  - [C+Tab](https://fwextensions.github.io/QuicKey/ctrl-tab/)
+    - <edge://extensions/shortcuts>
+      - `chrome.developerPrivate.updateExtensionCommand({extensionId: "mcjciddpjefdpndgllejgcekmajmehnd", commandName: "30-toggle-recent-tabs", keybinding: "Ctrl+Tab"});`
+      - or
+      - `chrome.developerPrivate.updateExtensionCommand({extensionId: "mcjciddpjefdpndgllejgcekmajmehnd", commandName: "1-previous-tab", keybinding: "Ctrl+Tab"});chrome.developerPrivate.updateExtensionCommand({extensionId: "mcjciddpjefdpndgllejgcekmajmehnd", commandName: "2-next-tab", keybinding: "Ctrl+Shift+Tab"});`
+- [PiP - Picture in Picture Plus](https://www.oinkandstuff.com/project/pip-picture-in-picture-plus/)
+
+#### flags
+
+- flag for faster downloads
+  - <edge://flags/#enable-parallel-downloading> -> `Enabled`
+- flag for QUIC protocol
+  - <edge://flags/#enable-quic> -> `Enabled`
+- flag for passkeys Bluetooth in <https://passkeys-debugger.io>
+  - <edge://flags/#enable-experimental-web-platform-features> -> `Enabled`
+- [fix for workspaces sidebar](https://answers.microsoft.com/en-us/microsoftedge/forum/all/how-to-remove-the-edge-sidebar-from-edge-workspace/bde1ede5-12a3-4f99-ac16-50b0f9878054?page=5)
+  - <edge://flags/#edge-workspaces-skype-entry-point> -> `Enabled Hub chat icon`
+
 ## btrfs
 
 ```shell

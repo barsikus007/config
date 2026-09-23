@@ -52,28 +52,46 @@ in
         (extension "plasma-integration" "plasma-browser-integration@kde.org")
         (extension "pwas-for-firefox" "firefoxpwa@filips.si")
         (extension "sidebery" "{3c078156-979c-498b-8990-85f7987dd929}")
-        (extension "ublock-origin" "uBlock0@raymondhill.net")
+        (extension "ublock-origin" "uBlock0@raymondhill.net") # https://ublockorigin.com
+        #? or https://adnauseam.io
         (extension "keepassxc-browser" "keepassxc-browser@keepassxc.org")
-        (extension "zeroomega" "suziwen1@gmail.com")
-        (extension "darkreader" "addon@darkreader.org")
-        (extension "violentmonkey" "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}")
-        (extension "videospeed" "{7be2ba16-0f1e-4d93-9ebc-5164397477a9}")
-        (extension "sponsorblock" "sponsorBlocker@ajay.app")
-        (extension "return-youtube-dislikes" "{762f9885-5a13-4abd-9c77-433dcd38b8fd}")
-        (extension "youtube-auto-hd-fps" "avi6106@gmail.com")
-        (extension "search_by_image" "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}")
+        (extension "zeroomega" "suziwen1@gmail.com") # https://github.com/zero-peak/ZeroOmega
+        (extension "darkreader" "addon@darkreader.org") # https://darkreader.org/
+        (extension "violentmonkey" "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}") # https://violentmonkey.github.io/
+        (extension "videospeed" "{7be2ba16-0f1e-4d93-9ebc-5164397477a9}") # https://github.com/codebicycle/videospeed
+        #? - mpv like shortcuts
+        #?   - `[` - decrease
+        #?   - `]` - increase
+        #?   - `\` - reset
+
+        #? youtube
+        (extension "sponsorblock" "sponsorBlocker@ajay.app") # https://sponsor.ajay.app
+        # TODO: https://github.com/lawfx/YoutubeNonStop
+        (extension "return-youtube-dislikes" "{762f9885-5a13-4abd-9c77-433dcd38b8fd}") # https://www.returnyoutubedislike.com/
+        (extension "youtube-auto-hd-fps" "avi6106@gmail.com") # https://github.com/avi12/youtube-auto-hd
+        #? set 720p for youtube music
+
+        (extension "search_by_image" "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}") # https://github.com/dessant/search-by-image
+        (extension "ruffle_rs" "{b5501fd1-7084-45c5-9aa6-567c2fcf5dc6}") # https://ruffle.rs/
         (extension "text-fragment" "text-fragment@example.com")
-        (extension "clipboard2file" "{7343f7d1-e6ef-4d8a-8449-d4c18850f559}")
-        (extension "user-agent-string-switcher" "{a6c4a591-f1b2-4f03-b3ff-767e5bedf4e7}")
+        (extension "clipboard2file" "{7343f7d1-e6ef-4d8a-8449-d4c18850f559}") # https://github.com/clipboard2file/clipboard2file
+        (extension "user-agent-string-switcher" "{a6c4a591-f1b2-4f03-b3ff-767e5bedf4e7}") # https://github.com/ray-lothian/UserAgent-Switcher
         (extension "2910149" "zakilo@syrnikovpavel.ru")
         (extension "firefox-color" "FirefoxColor@mozilla.com")
         (extension "gif-controls" "{69c2e11d-9cf2-44fa-85f2-a299dc027d77}")
         (extension "cookies-txt" "{12cf650b-1822-40aa-bff0-996df6948878}")
         (extension "vicinae" "firefox@vicinae.com")
+        # TODO: research
         # (extension "languagetool" "languagetool-webextension@languagetool.org")
         # (extension "umatrix" "uMatrix@raymondhill.net")
         # (extension "libredirect" "7esoorv3@alefvanoon.anonaddy.me")
         # (extension "clearurls" "{74145f27-f039-47ce-a470-a662b129930a}")
+        #? https://github.com/refined-github/refined-github
+        #? https://github.com/vknext/vk-classic-feed
+        #? https://selectorgadget.com
+        #? or https://github.com/hermit-crab/ScrapeMate
+        #? skip bitly like sites -- https://github.com/FastForwardTeam/FastForward
+        #? grammar check -- https://languagetool.org/services#browsers
       ];
     policies."3rdparty".Extensions = {
       #! wl-paste | nix run nixpkgs#yaml2nix -- /dev/stdin | nix run nixpkgs#nixfmt -- - | wl-copy

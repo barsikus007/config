@@ -16,7 +16,8 @@ trim_trailing_whitespace = false
 # indent_size = 2
 
 [*.nix]
-indent_size = 2
+#? disabled cause diff block's indents counts as invalid
+# indent_size = 2
 
 [*.{sh,bash,zsh}]
 indent_size = 2

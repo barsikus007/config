@@ -5,7 +5,7 @@
     "-monitor stdio"
 
     #? https://wiki.archlinux.org/title/QEMU#virtio
-    "-device virtio-vga-gl" # ? paravirt 3d gpu
+    "-device virtio-vga-gl,blob=true,hostmem=4G,venus=true" # ? paravirt 3d gpu
 
     # "-display gtk,gl=on,grab-on-hover=on,show-menubar=off"
 

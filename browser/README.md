@@ -1,9 +1,12 @@
 # [browser](../README.md)
 
-## [userscripts](../nix/home/gui/browser/firefox-test.nix#L15)
+## [extensions](../nix/home/gui/browser/firefox.nix#L51)
 
+### [uBlock](../nix/home/gui/browser/firefox.nix#L98)
 
-## favorites
+### [userscripts](../nix/home/gui/browser/firefox-test.nix#L15)
+
+## applets
 
 - downdetector
   - `javascript:window.open(location.href.replace(/^(https?:\/\/)/i, "https://check-host.net/check-ping?host=$1"), "_blank")`
@@ -16,74 +19,3 @@
 - <https://www.syncwithtech.org/github-repos-size-creation-date/#bookmarklet>
 - frameless window
   - `javascript:window.open(location.href, '_blank', 'menubar=no,location=no,status=no,toolbar=no')`
-
-## [uBlock](../nix/home/gui/browser/firefox.nix#L80)
-
-## flags
-
-- flag for faster downloads
-  - <edge://flags/#enable-parallel-downloading> -> `Enabled`
-- flag for QUIC protocol
-  - <edge://flags/#enable-quic> -> `Enabled`
-- flag for passkeys Bluetooth in <https://passkeys-debugger.io>
-  - <edge://flags/#enable-experimental-web-platform-features> -> `Enabled`
-- [fix for workspaces sidebar](https://answers.microsoft.com/en-us/microsoftedge/forum/all/how-to-remove-the-edge-sidebar-from-edge-workspace/bde1ede5-12a3-4f99-ac16-50b0f9878054?page=5)
-  - <edge://flags/#edge-workspaces-skype-entry-point> -> `Enabled Hub chat icon`
-
-## extensions
-
-(^ is for disabled)
-
-- shitblockers
-  - [uBlock Origin](https://ublockorigin.com)
-    - [AdNauseam](https://adnauseam.io)
-- scripts
-  - [Violentmonkey](https://violentmonkey.github.io/)
-- YouTube
-  - [Return YouTube Dislike](https://www.returnyoutubedislike.com/)
-  - [SponsorBlock for YouTube - Skip Sponsorships](https://sponsor.ajay.app)
-  - ^[Disable Stopping Popup](https://github.com/lawfx/YoutubeNonStop)
-  - [Auto FullHD](https://github.com/avi12/youtube-auto-hd)
-    - set 720p for youtube music
-- [Search by Image](https://github.com/dessant/search-by-image)
-- ^[Refined GitHub](https://github.com/refined-github/refined-github)
-- [Ruffle](https://ruffle.rs/)
-- [Dark Reader](https://darkreader.org/)
-- [Video Speed Control](https://github.com/codebicycle/videospeed)
-  - mpv like shortcuts
-    - `[` - decrease
-    - `]` - increase
-    - `\` - reset
-- [UserAgent Switcher](https://github.com/ray-lothian/UserAgent-Switcher)
-- [Opera-like clipboard paster](https://github.com/clipboard2file/clipboard2file)
-- [proxy and loading issues checker](https://github.com/zero-peak/ZeroOmega)
-- TODO
-  - <https://github.com/vknext/vk-classic-feed>
-  - <https://selectorgadget.com/>
-    - <https://github.com/hermit-crab/ScrapeMate>
-  - [skip bitly like sites](https://github.com/FastForwardTeam/FastForward)
-  - [grammar check](https://languagetool.org/services#browsers)
-
-### Chromium (Edge)
-
-- [QuicKey](https://fwextensions.github.io/QuicKey/)
-  - [C+Tab](https://fwextensions.github.io/QuicKey/ctrl-tab/)
-    - <edge://extensions/shortcuts>
-      - `chrome.developerPrivate.updateExtensionCommand({extensionId: "mcjciddpjefdpndgllejgcekmajmehnd", commandName: "30-toggle-recent-tabs", keybinding: "Ctrl+Tab"});`
-      - or
-      - `chrome.developerPrivate.updateExtensionCommand({extensionId: "mcjciddpjefdpndgllejgcekmajmehnd", commandName: "1-previous-tab", keybinding: "Ctrl+Tab"});chrome.developerPrivate.updateExtensionCommand({extensionId: "mcjciddpjefdpndgllejgcekmajmehnd", commandName: "2-next-tab", keybinding: "Ctrl+Shift+Tab"});`
-- [PiP - Picture in Picture Plus](https://www.oinkandstuff.com/project/pip-picture-in-picture-plus/)
-
-## dev tools console
-
-```js
-// YouTube get all links from playlist to compare then with python
-// [f"https://youtu.be/{id}" for id in (set(p1) - set(p2))]
-[...document.querySelectorAll('ytd-item-section-renderer:not([is-playlist-video-container]) ytd-thumbnail > a')].map(el => el.href.slice(32,43))
-
-// player playback speed
-document.querySelector('video').playbackRate = 1.0;
-
-// check if dark theme reported by browser
-console.log(window.matchMedia("(prefers-color-scheme: dark)").matches)
-```

@@ -24,4 +24,7 @@ in
       }
     });
   '';
+
+  #? instead of `services.orca.enable = true;`
+  # services.gnome.at-spi2-core.enable = true;
 }

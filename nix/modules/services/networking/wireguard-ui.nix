@@ -98,10 +98,17 @@ in
     };
     systemd.services.wireguard-ui-watcher = {
       description = "Reload WireGuard interface ${cfg.interface}";
-      after = [ "network.target" ];
+      after = [
+        "network.target"
+        "wg-quick-${cfg.interface}.service"
+      ];
       requiredBy = [ "wireguard-ui-watcher.path" ];
       path = [ cfg.tools ];
-      script = "${reloadTool} syncconf ${cfg.interface} <(${reloadTool}-quick strip ${cfg.interface})";
+      script = ''
+        if ${reloadTool} show ${cfg.interface} >/dev/null 2>&1; then
+          ${reloadTool} syncconf ${cfg.interface} <(${reloadTool}-quick strip ${cfg.interface})
+        fi
+      '';
       serviceConfig.Type = "oneshot";
     };
 

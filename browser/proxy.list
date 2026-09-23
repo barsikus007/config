@@ -1,9 +1,0 @@
-; https://github.com/FelisCatus/SwitchyOmega/wiki/SwitchyOmega-conditions-format#result-profile
-[SwitchyOmega Conditions]
-@with result
-
-*.yastat.net +direct
-*.yastatic.net +direct
-*.ru +direct
-
-* +proxy

@@ -133,7 +133,11 @@
                   diskImage = null;
                   memorySize = 8 * 1024;
                   cores = 8;
-                  #! sharedDirectories
+                  # sharedDirectories.Share = {
+                  #   source = "$HOME/Share";
+                  #   target = "/home/${username}/Share";
+                  #   writable = true;
+                  # };
                   qemu.options = [
                     # "-full-screen"
                   ];

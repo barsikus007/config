@@ -15,10 +15,11 @@ let
 in
 {
   system.activationScripts.copyFlake = {
+    deps = [ "users" ];
     text = ''
       if [ ! -d ${flakePath} ]; then
-        install --directory --owner=${uid} --group=${gid} $(dirname ${flakePath}) ${flakePath}
-        ${lib.getExe pkgs.rsync} --archive --chown=${uid}:${gid} ${self.outPath}/. ${flakePath}
+        install --directory --owner=${uid} --group=${gid} --mode=0755 $(dirname ${flakePath}) ${flakePath}
+        ${lib.getExe pkgs.rsync} --archive --chmod=u+w --chown=${uid}:${gid} ${self.outPath}/. ${flakePath}
       fi
     '';
   };

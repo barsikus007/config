@@ -25,8 +25,8 @@ let
   #? (vencord/openASAR/commandLineArgs) - the wrapper survives it
   pinToIgpu =
     package:
-    package.overrideAttrs (old: {
-      postFixup = (old.postFixup or "") + ''
+    package.overrideAttrs (previousAttrs: {
+      postFixup = (previousAttrs.postFixup or "") + ''
         for b in "$out"/bin/*; do
           wrapProgram "$b" ${
             lib.concatStringsSep " " (lib.mapAttrsToList (n: v: "--set ${n} '${v}'") igpuOnly)
