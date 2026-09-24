@@ -4,8 +4,6 @@
   inputs,
   ...
 }:
-#? vibecoded solution for firefox theming:
-#? applies without `programs.firefox.profiles.default.extensions.force = true`
 let
   colors = config.lib.stylix.colors;
   mkColor = color: {
@@ -13,7 +11,6 @@ let
     g = colors."${color}-rgb-g";
     b = colors."${color}-rgb-b";
   };
-  extensionId = "FirefoxColor@mozilla.com";
   settings = {
     firstRunDone = true;
     theme = {
@@ -58,93 +55,12 @@ let
       };
     };
   };
-  #? theme.json is rewritten by Home Manager on every activation (incl. darkman specialisation switch);
-  #? polling picks up the new content live, without a Firefox restart
-  themeFile = "${config.xdg.configHome}/firefox-stylix-theme.json";
-  themeFilePollIntervalMs = 3000;
-  autoConfig = pkgs.writeText "firefox-stylix-theme.js" /* javascript */ ''
-    {
-      const extensionId = ${builtins.toJSON extensionId};
-      const themeFile = ${builtins.toJSON themeFile};
-      Cu.importGlobalProperties(["IOUtils"]);
-      const { AddonManager } = ChromeUtils.importESModule(
-        "resource://gre/modules/AddonManager.sys.mjs"
-      );
-      const { ExtensionParent } = ChromeUtils.importESModule(
-        "resource://gre/modules/ExtensionParent.sys.mjs"
-      );
-      const { ExtensionStorageIDB } = ChromeUtils.importESModule(
-        "resource://gre/modules/ExtensionStorageIDB.sys.mjs"
-      );
-
-      let lastSettingsJSON = null;
-
-      const applySettings = async () => {
-        let settings;
-        try {
-          settings = await IOUtils.readJSON(themeFile);
-        } catch (error) {
-          return;
-        }
-
-        const settingsJSON = JSON.stringify(settings);
-        if (settingsJSON === lastSettingsJSON) {
-          return;
-        }
-
-        const extension = ExtensionParent.WebExtensionPolicy.getByID(extensionId)?.extension;
-        if (!extension) {
-          return;
-        }
-
-        const principal = ExtensionStorageIDB.getStoragePrincipal(extension);
-        const storage = await ExtensionStorageIDB.open(
-          principal,
-          extension.hasPermission("unlimitedStorage")
-        );
-        let changes;
-        try {
-          changes = await storage.set(settings);
-        } finally {
-          storage.close();
-        }
-        lastSettingsJSON = settingsJSON;
-        if (!changes) {
-          return;
-        }
-
-        ExtensionStorageIDB.notifyListeners(extensionId, changes);
-        const addon = await AddonManager.getAddonByID(extensionId);
-        await addon?.reload();
-      };
-
-      const observer = {
-        observe() {
-          Services.obs.removeObserver(observer, "browser-delayed-startup-finished");
-          applySettings().catch(Cu.reportError);
-
-          const timer = Cc["@mozilla.org/timer;1"].createInstance(Ci.nsITimer);
-          timer.initWithCallback(
-            () => applySettings().catch(Cu.reportError),
-            ${builtins.toJSON themeFilePollIntervalMs},
-            Ci.nsITimer.TYPE_REPEATING_SLACK
-          );
-          this.timer = timer;
-        },
-      };
-
-      Services.obs.addObserver(observer, "browser-delayed-startup-finished");
-    }
-  '';
-  inherit (inputs.stylix.inputs.nur.legacyPackages.${pkgs.stdenv.hostPlatform.system}.repos.rycee)
-    firefox-addons
-    ;
 in
 {
-  xdg.configFile."firefox-stylix-theme.json".text = builtins.toJSON settings;
+  custom.firefox.extensionStorageSettings."FirefoxColor@mozilla.com" = settings;
 
-  programs.firefox = {
-    package = pkgs.firefox.override { extraPrefsFiles = [ autoConfig ]; };
-    profiles.default.extensions.packages = with firefox-addons; [ firefox-color ];
-  };
+  programs.firefox.profiles.default.extensions.packages =
+    with inputs.stylix.inputs.nur.legacyPackages.${pkgs.stdenv.hostPlatform.system}.repos.rycee.firefox-addons; [
+      firefox-color
+    ];
 }

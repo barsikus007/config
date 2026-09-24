@@ -38,10 +38,16 @@ let
 
   profileDir = "${config.xdg.configHome}/mozilla/firefox/cheburnet";
 
+  allowedAddons = [
+    "uBlock0@raymondhill.net"
+    "keepassxc-browser@keepassxc.org"
+  ];
+
   firefoxCheburnet = pkgs.writeShellApplication {
     name = "firefox-cheburnet";
     runtimeInputs = with pkgs; [
       coreutils
+      jq
       nssTools
       config.programs.firefox.finalPackage
     ];
@@ -55,6 +61,24 @@ let
 
       if ! certutil -L -d "sql:$PROFILE_DIR" -n "Russian Trusted Sub CA" >/dev/null 2>&1; then
         certutil -A -d "sql:$PROFILE_DIR" -n "Russian Trusted Sub CA" -t "C,," -i "${subCaCert}"
+      fi
+
+      if [ ! -f "$PROFILE_DIR/extensions.json" ]; then
+        timeout 5 firefox --headless --profile "$PROFILE_DIR" --no-remote "about:blank" >/dev/null 2>&1 || true
+      fi
+
+      if [ -f "$PROFILE_DIR/extensions.json" ]; then
+        jq \
+          --argjson allowed '${builtins.toJSON allowedAddons}' '
+          .addons |= map(
+            if IN(.id; $allowed[]) then
+              .
+            else
+              .userDisabled = true | .active = false
+            end
+          )
+        ' "$PROFILE_DIR/extensions.json" > "$PROFILE_DIR/extensions.json.tmp" \
+          && mv --force "$PROFILE_DIR/extensions.json.tmp" "$PROFILE_DIR/extensions.json"
       fi
 
       exec env MOZ_APP_REMOTINGNAME=firefox-cheburnet \
@@ -80,10 +104,67 @@ in
     id = 1;
     isDefault = false;
     settings = config.programs.firefox.profiles.default.settings // {
-      # "browser.formfill.enable" = false;
+      "browser.startup.homepage" = "https://web.archive.org/web/20180424163013/https://amigo.mail.ru/";
+      "browser.startup.page" = 1;
     };
-    inherit (config.programs.firefox.profiles.default) userChrome;
-    search = removeAttrs config.programs.firefox.profiles.default.search [ "file" ];
+    userChrome = /* css */ ''
+      #nav-bar, #TabsToolbar, #PersonalToolbar {
+        background: linear-gradient(180deg, #8ad100 0%, #5b9900 100%) !important;
+        color: #ffffff !important;
+      }
+
+      #nav-bar toolbarbutton,
+      #TabsToolbar toolbarbutton {
+        color: #ffffff !important;
+        fill: currentColor !important;
+      }
+
+      #urlbar-input,
+      .urlbar-input-box,
+      #urlbar {
+        color: #ffffff !important;
+      }
+
+      :root {
+        --toolbar-field-color: #ffffff !important;
+        --toolbar-field-focus-color: #ffffff !important;
+      }
+
+      .tab-background[selected="true"] {
+        background: #ffffff !important;
+      }
+
+      .tabbrowser-tab[selected="true"] .tab-label {
+        color: #2e5c00 !important;
+        font-weight: 600 !important;
+      }
+
+      .tabbrowser-tab:not([selected="true"]) .tab-label {
+        color: #ffffff !important;
+      }
+    '';
+
+    search = (removeAttrs config.programs.firefox.profiles.default.search [ "file" ]) // {
+      default = "Yandex";
+      privateDefault = "Yandex";
+      engines = config.programs.firefox.profiles.default.search.engines // {
+        "Yandex" = {
+          urls = [
+            {
+              template = "https://ya.ru/search/";
+              params = [
+                {
+                  name = "text";
+                  value = "{searchTerms}";
+                }
+              ];
+            }
+          ];
+          iconMapObj."32" = "https://ya.ru/favicon.ico";
+          definedAliases = [ "ya" ];
+        };
+      };
+    };
   };
 
   xdg.desktopEntries.firefox-cheburnet = {

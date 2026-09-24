@@ -101,9 +101,7 @@
         ${username} = inputs.home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           extraSpecialArgs = mkSpecialArgs username;
-          modules = modules ++ [
-            ./home
-          ];
+          modules = modules ++ [ ./home ];
         };
       };
 

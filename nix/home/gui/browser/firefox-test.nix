@@ -1,122 +1,121 @@
 {
-  lib,
   pkgs,
   ...
 }:
 let
-  closeWelcomeTabs = pkgs.writeText "close-welcome-tabs.js" /* javascript */ ''
-    // auto-close extension welcome and changelog tabs on startup
-    try {
-      const welcomePatterns = [
-        "setup/install.html",
-        "darkreader.org/help",
-        "zakilo.syrnikovpavel.ru",
-        "changelog",
-        "options.html#!/about",
-        "help/index.html",
-        "about:welcome",
-      ];
-
-      const closeMatchingTabs = (win) => {
-        try {
-          if (!win || !win.gBrowser) return;
-          for (const tab of Array.from(win.gBrowser.tabs)) {
-            const url = tab.linkedBrowser?.currentURI?.spec || "";
-            if (url && welcomePatterns.some(p => url.includes(p))) {
-              win.gBrowser.removeTab(tab);
-            }
-          }
-        } catch (_) {}
-      };
-
-      const attachToWindow = (win) => {
-        try {
-          if (!win || !win.gBrowser) return;
-          closeMatchingTabs(win);
-
-          win.gBrowser.tabContainer.addEventListener("TabOpen", (e) => {
-            const tab = e.target;
-            const b = tab?.linkedBrowser;
-            if (!b) return;
-            const check = () => {
-              try {
-                const url = b.currentURI?.spec || "";
-                if (url && welcomePatterns.some(p => url.includes(p))) {
-                  win.gBrowser.removeTab(tab);
-                }
-              } catch (_) {}
-            };
-            b.addEventListener("DOMContentLoaded", check, { once: true });
-            b.addEventListener("load", check, { once: true });
-          });
-        } catch (_) {}
-      };
-
-      // poll periodically during startup (first 45 seconds) to catch delayed tabs
-      let remainingChecks = 45;
-      const startupTimer = Cc["@mozilla.org/timer;1"].createInstance(Ci.nsITimer);
-      startupTimer.initWithCallback(() => {
-        try {
-          for (const win of Services.wm.getEnumerator("navigator:browser")) {
-            closeMatchingTabs(win);
-          }
-        } catch (_) {}
-        remainingChecks--;
-        if (remainingChecks <= 0) {
-          startupTimer.cancel();
-        }
-      }, 1000, Ci.nsITimer.TYPE_REPEATING_SLACK);
-
-      const observer = {
-        observe(subject, topic) {
-          if (topic === "browser-delayed-startup-finished") {
-            attachToWindow(subject);
-          }
-        }
-      };
-
-      Services.obs.addObserver(observer, "browser-delayed-startup-finished");
-
-      for (const win of Services.wm.getEnumerator("navigator:browser")) {
-        attachToWindow(win);
-      }
-    } catch (e) {
-      Cu.reportError(e);
-    }
-  '';
-
   mkPngDataUri =
     file:
-    "data:image/png;base64,${builtins.readFile (
-      pkgs.runCommand "icon-b64" { } "${pkgs.coreutils}/bin/base64 -w0 ${file} > $out"
-    )}";
+    "data:image/png;base64,${
+      builtins.readFile (pkgs.runCommand "icon-b64" { } "${pkgs.coreutils}/bin/base64 -w0 ${file} > $out")
+    }";
 in
 {
-  #! wl-paste | nix run nixpkgs#yaml2nix -- /dev/stdin | nix run nixpkgs#nixfmt -- - | wl-copy
-  programs.firefox = {
-    package = lib.mkForce (
-      pkgs.firefox.override {
-        extraPrefsFiles = [ closeWelcomeTabs ];
-      }
-    );
+  custom.firefox = {
+    closeWelcomeTabs = true;
+    userscripts = [
+      #? youtube
+      "https://greasyfork.org/en/scripts/390352-youtube-stay-active-and-play-forever"
+      "https://greasyfork.org/en/scripts/439993-youtube-shorts-redirect"
+      # TODO: replace?
+      "https://github.com/Xenorio/YTShareAntiTrack/raw/main/YTShareAntiTrack.user.js"
 
+      "https://greasyfork.org/en/scripts/390352-youtube-stay-active-and-play-forever"
+      # "https://greasyfork.org/en/scripts/518509-vk-ads-fixes"
+      "https://greasyfork.org/en/scripts/555555-shikimori-404-fix"
+      # "https://greasyfork.org/en/scripts/564382-google-gemini-always-switch-to-pro-aggressive"
+    ]
+    ++ map (_: "https://raw.githubusercontent.com/barsikus007/config/master/browser/userscripts/${_}") [
+      "ClaudeInline.user.js"
+      #! "ExchangeRater.user.js"
+      "GeminiInline.user.js"
+      # "LigmaBallz.user.js"
+      "NixOSWiki.user.js"
+      # "VideoLinkDumper.user.js"
+      #! "VKPlayerMaxQuality.user.js"
+      "YouTubeFix.user.js"
+    ];
+    extensionStorageSettings = {
+      # dark reader
+      "addon@darkreader.org" = {
+        enabled = true;
+        theme = {
+          mode = 1;
+          brightness = 100;
+          contrast = 100;
+          grayscale = 0;
+          sepia = 0;
+          useFont = false;
+          fontFamily = "Open Sans";
+          textStroke = 0;
+          engine = "dynamicTheme";
+          stylesheet = "";
+        };
+        automation = {
+          enabled = false;
+          mode = "";
+          behavior = "OnOff";
+        };
+        changeBrowserTheme = false;
+      };
+
+      # violentmonkey
+      "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}" = {
+        autoUpdate = 1;
+        showNotification = true;
+      };
+    };
+  };
+
+  programs.firefox = {
     policies = {
       "3rdparty".Extensions = {
+        #? https://github.com/mbnuqw/sidebery
         "{3c078156-979c-498b-8990-85f7987dd929}" = {
+          /*
+            (async () => {
+              const data = await browser.storage.local.get(['settings', 'sidebarCSS', 'groupCSS', 'sidebar', 'contextMenu']);
+
+              // загрузка эталонных дефолтов Sidebery v5
+              const res = await fetch('https://raw.githubusercontent.com/mbnuqw/sidebery/v5.6.1/src/defaults/settings.ts');
+              const txt = await res.text();
+              const block = txt.slice(txt.indexOf('DEFAULT_SETTINGS'), txt.indexOf('SETTINGS_OPTIONS'));
+              const defs = {};
+              for (const line of block.split('\n')) {
+                const m = line.match(/^\s*([a-zA-Z0-9_]+):\s*(.+?),?\s*$/);
+                if (m) {
+                  try { defs[m[1]] = JSON.parse(m[2].replaceAll("'", '"')); } catch {}
+                }
+              }
+
+              // фильтрация только изменённых параметров
+              const diffSettings = {};
+              for (const [k, v] of Object.entries(data.settings || {})) {
+                if (defs[k] !== undefined && JSON.stringify(v) !== JSON.stringify(defs[k])) {
+                  diffSettings[k] = v;
+                }
+              }
+
+              const result = {
+                settings: diffSettings,
+                ...(data.sidebarCSS ? { sidebarCSS: data.sidebarCSS } : {}),
+                ...(data.groupCSS ? { groupCSS: data.groupCSS } : {}),
+              };
+
+              console.log('Изменённые настройки Sidebery:\n', JSON.stringify(result, null, 2));
+            })();
+          */
           sidebar = {
             panels = {
-              # id: RUHiPaWiBy3N
-              tabs = {
+              panel___tabs = {
                 type = 2;
-                id = "tabs";
+                id = "panel___tabs";
                 name = "Tabs";
                 color = "toolbar";
                 iconSVG = "icon_tabs";
               };
-              # id: zL3EI5UPSo4N
-              video = {
+              panel__video = {
                 type = 2;
-                id = "video";
+                id = "panel__video";
                 name = "Video";
                 color = "red";
                 iconSVG = "icon_play";
@@ -125,51 +124,46 @@ in
                 dropTabCtx = "none";
                 moveRules = [
                   {
-                    id = "youtube"; # 9mqCqM0imq5N
+                    id = "rule_youtube"; # 9mqCqM0imq5N
                     active = true;
                     url = "youtube.com";
                     topLvlOnly = true;
                   }
                 ];
               };
-              # id: 0_0KkU2KWM5N
-              nix = {
+              panel____nix = {
                 type = 2;
-                id = "nix";
+                id = "panel____nix";
                 name = "Nix";
                 color = "blue";
                 iconSVG = "icon_circle";
                 iconIMGSrc = "";
                 iconIMG = mkPngDataUri "${pkgs.nixos-icons}/share/icons/hicolor/16x16/apps/nix-snowflake.png";
               };
-              # id: JFZxrxUT667N
-              nas = {
+              panel____nas = {
                 type = 2;
-                id = "nas";
+                id = "panel____nas";
                 name = "NAS";
                 color = "yellow";
                 iconSVG = "fence";
               };
-              # id: PVyBcdy41l9N
-              vpn = {
+              panel____vpn = {
                 type = 2;
-                id = "vpn";
+                id = "panel____vpn";
                 name = "VPN";
                 color = "purple";
                 iconSVG = "vacation";
               };
-              # id: ZO-kq4dcge-N
-              dev = {
+              panel____dev = {
                 type = 2;
-                id = "dev";
+                id = "panel____dev";
                 name = "Dev";
                 color = "turquoise";
                 iconSVG = "icon_code";
               };
-              # id: G78gZSdBENlm
-              bookmarks = {
+              pa_bookmarks = {
                 type = 2;
-                id = "bookmarks";
+                id = "pa_bookmarks";
                 name = "Bookmarks";
                 color = "green";
                 iconSVG = "icon_book";
@@ -177,13 +171,13 @@ in
               };
             };
             nav = [
-              "tabs" # RUHiPaWiBy3N
-              "video" # zL3EI5UPSo4N
-              "nix" # 0_0KkU2KWM5N
-              "nas" # JFZxrxUT667N
-              "vpn" # PVyBcdy41l9N
-              "dev" # ZO-kq4dcge-N
-              "bookmarks" # G78gZSdBENlm
+              "panel___tabs" # RUHiPaWiBy3N
+              "panel__video" # zL3EI5UPSo4N
+              "panel____nix" # 0_0KkU2KWM5N
+              "panel____nas" # JFZxrxUT667N
+              "panel____vpn" # PVyBcdy41l9N
+              "panel____dev" # ZO-kq4dcge-N
+              "pa_bookmarks" # G78gZSdBENlm
               "add_tp"
               "sp-0"
               "settings"
@@ -194,12 +188,30 @@ in
         };
       };
     };
+
+    profiles.default.settings = {
+      # automatically enable sideloaded extensions from nix store without prompt
+      "extensions.autoDisableScopes" = 0;
+    };
   };
 
   # pre-grant optional permissions so firefox skips approval prompts
   xdg.configFile."mozilla/firefox/default/extension-preferences.json" = {
     force = true;
     text = builtins.toJSON {
+      "FirefoxColor@mozilla.com" = {
+        permissions = [
+          "tabs"
+          "internal:svgContextPropertiesAllowed"
+          "internal:privateBrowsingAllowed"
+        ];
+        origins = [
+          "*://color.firefox.com/*"
+          "https://color.firefox.com/*"
+        ];
+        data_collection = [ ];
+      };
+      #? https://github.com/mbnuqw/sidebery
       "{3c078156-979c-498b-8990-85f7987dd929}" = {
         permissions = [
           "bookmarks"

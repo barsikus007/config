@@ -3,7 +3,10 @@ let
   nix-snowflake-svg = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
 in
 {
+  imports = [ ./firefox-extra-prefs.nix ];
+
   custom.persist.home.directories = [ ".config/mozilla/firefox" ];
+  custom.firefox.unsignedExtensions = with pkgs; [ flakePackages.pierre-github ];
 
   #? firefox pwa, if I ever need it
   # programs.firefoxpwa.enable = true;
@@ -73,6 +76,7 @@ in
         # (extension "clearurls" "{74145f27-f039-47ce-a470-a662b129930a}")
       ];
     policies."3rdparty".Extensions = {
+      #! wl-paste | nix run nixpkgs#yaml2nix -- /dev/stdin | nix run nixpkgs#nixfmt -- - | wl-copy
       "uBlock0@raymondhill.net" = {
         #? Back up to file...
         #? moz-extension://093a0647-97ae-405b-8215-910fe5b25fed/dashboard.html#settings.html

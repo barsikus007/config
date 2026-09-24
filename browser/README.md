@@ -1,19 +1,7 @@
 # [browser](../README.md)
 
-## [userscripts](https://violentmonkey.github.io/)
+## [userscripts](../nix/home/gui/browser/firefox-test.nix#L15)
 
-- YouTube
-  - [shorts to longs](https://greasyfork.org/en/scripts/439993-youtube-shorts-redirect)
-  - [play songs forever](https://greasyfork.org/en/scripts/390352-youtube-stay-active-and-play-forever)
-- [VK](http://greasyfork.org/scripts/518509)
-- [shikimori 404](https://greasyfork.org/scripts/555555)
-- [gemini auto pro](https://greasyfork.org/scripts/564382)
-- [own](./userscripts)
-- TODO
-  - [YouTube remove si](https://github.com/Xenorio/YTShareAntiTrack)
-  - ExchangeRater.user imperial units converter
-  - yt watch later icon on video card
-  - open in webarchive (RCM)
 
 ## favorites
 
@@ -29,7 +17,7 @@
 - frameless window
   - `javascript:window.open(location.href, '_blank', 'menubar=no,location=no,status=no,toolbar=no')`
 
-## [uBlock](nix/home/gui/browser/firefox.nix#L140)
+## [uBlock](../nix/home/gui/browser/firefox.nix#L80)
 
 ## flags
 
