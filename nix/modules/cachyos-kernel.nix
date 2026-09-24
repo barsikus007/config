@@ -8,7 +8,7 @@
 {
   #! add this to flake inputs
   #? nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
-  nix.settings.extra-substituters = [ "https://attic.xuyh0120.win/lantian" ];
+  nix.settings.extra-substituters = [ "https://attic.xuyh0120.win/lantian?priority=43" ];
   nix.settings.extra-trusted-public-keys = [ "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc=" ];
 
   nixpkgs.overlays = [ inputs.nix-cachyos-kernel.overlays.pinned ];

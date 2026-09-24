@@ -13,7 +13,7 @@ let
 in
 {
   #? https://github.com/epireyn/niri-flake/blob/2c9acaa7ebd5458f73e4977fff18cb3ea33d0471/flake.nix#L485
-  nix.settings.extra-substituters = [ "https://niri-epireyn.cachix.org" ];
+  nix.settings.extra-substituters = [ "https://niri-epireyn.cachix.org?priority=67" ];
   nix.settings.extra-trusted-public-keys = [
     "niri-epireyn.cachix.org-1:tlVyFN7CtsDT+ZcLPS+ekFWeT1X6X4OqvWqbBMyIzFA="
   ];

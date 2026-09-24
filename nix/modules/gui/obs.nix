@@ -6,7 +6,7 @@
   ];
 
   #? https://github.com/nixos-cuda/infra
-  nix.settings.extra-substituters = [ "https://cache.nixos-cuda.org" ];
+  nix.settings.extra-substituters = [ "https://cache.nixos-cuda.org?priority=67" ];
   nix.settings.extra-trusted-public-keys = [
     "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
   ];

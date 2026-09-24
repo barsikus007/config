@@ -1,6 +1,17 @@
 {
   description = "https://никспобеда.рф";
 
+  nixConfig = {
+    extra-substituters = [
+      "https://nix-community.cachix.org?priority=42"
+      "https://barsikus007.cachix.org?priority=42"
+    ];
+    extra-trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "barsikus007.cachix.org-1:wCCngMmWxOBFp70+PqH21I2fHZKOSketryjLMh4vNV0="
+    ];
+  };
+
   inputs = {
     # nixpkgs-previous.url = "nixpkgs/commit_hash";
     # nixpkgs-fix-for-<smth>.url = "nixpkgs/pull/1489/head";
