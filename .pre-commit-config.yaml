@@ -16,6 +16,11 @@ repos:
         entry: ./nix/hooks/compile-script-aliases.ts
         language: script
         pass_filenames: false
+      - id: compile-git-config-from-nix
+        name: compile git config from nix
+        entry: ./linux/hooks/compile-git-config.sh
+        language: script
+        pass_filenames: false
       # TODO: remove that (uncomment)
       # - id: nix-lint
       #   name: nix-lint

@@ -197,6 +197,7 @@ start ms-cxh:localonly
     - <https://elorucov.github.io/laney/>
     - `9MSPLCXVN1M5`
     - <https://github.com/Elorucov/Laney-Avalonia/releases>
+  - [CH340/CH341 driver (chinese Arduino)](https://web.archive.org/https://www.wch-ic.com/downloads/ch341ser_zip.html)
 - tweak windows
   - <https://github.com/farag2/Sophia-Script-for-Windows>
   - <https://win10tweaker.ru/twikinarium>

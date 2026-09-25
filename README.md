@@ -14,103 +14,15 @@ one repo to rule them all!
 
 ## [browser](./browser/README.md)
 
-## [Versus](https://notes.ogurez.ipv64.net/Versus/)
+## [command cheat sheet](https://notes.ogurez.ipv64.net/cheatsheet)
+
+## [Versus](https://notes.ogurez.ipv64.net/Versus)
 
 my opinion on random things, mostly comparisons between flaming objects
 
 ## [archive](./аrchive/README.md)
 
-## cross-platform
-
-### [git config (`~/.config/git/config`)](https://git-scm.com/docs/git-config)
-
-[nix code to fill](nix/home/git.nix):
-
-```shell
-mkdir --parents ~/.config/git/
-nix eval --impure --raw --expr '
-  with import <nixpkgs> {};
-  lib.generators.toGitINI
-    ((builtins.getFlake "github:barsikus007/config?dir=nix")
-      .nixosConfigurations.ROG14.config.home-manager.users.ogurez.programs.git.iniContent)
-' > ~/.config/git/config
-```
-
-#### [signing](https://docs.github.com/en/authentication/managing-commit-signature-verification/displaying-verification-statuses-for-all-of-your-commits)
-
-1. [upload key](https://github.com/settings/ssh/new)
-2. configure git (code above fills values)
-
-### python
-
-```shell
-python3 -m pip install --upgrade pip setuptools wheel
-```
-
-#### uv
-
-```shell
-uv python install
-uv python install --preview
-# uv python install 3.10 3.11 3.12 3.13t pypy
-# uv python install --preview 3.10 3.11 3.12 3.13t pypy3.11
-```
-
-```shell
-# linux
-curl --location --silent --show-error --fail https://astral.sh/uv/install.sh | sh
-# windows
-scoop install uv
-# powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
-
-uv tool --version  # 0.6.14
-# uv tool install isd
-# uv tool install ruff
-# uv tool install hatch
-# uv tool install pgcli
-# uv tool install litecli
-# uv tool install --with ipython ptpython
-# uv tool install anicli-ru
-# uv tool install anicli-ru --upgrade-package anicli-api
-uv tool upgrade --all
-```
-
-#### hatch
-
-```shell
-hatch config set dirs.env.virtual .venv
-hatch config set template.licenses.headers false
-hatch config set terminal.styles.spinner material
-# TODO: uv: or use uv for python projects
-# https://hatch.pypa.io/latest/how-to/environment/select-installer/#enabling-uv
-```
-
-##### release schedule
-
-```shell
-hatch test --all --cover
-hatch version micro
-hatch build
-hatch publish
-```
-
-###### tag based
-
-```shell
-hatch test --all --cover
-hatch version micro
-git commit -am "release: $(hatch version)"
-git tag --annotate $(hatch version) --message
-git push origin --follow-tags
-```
-
-##### [sync env](https://github.com/pypa/hatch/discussions/594#discussioncomment-4377827)
-
-```shell
-hatch run true
-```
-
-### other
+## other
 
 - Telegram > Settings
   - Notifications and Sound
@@ -128,4 +40,3 @@ hatch run true
       - Unlimited recent stickers
   - AyuGram > General
     - Show Message Seconds
-- [CH340/CH341 driver (chinese Arduino)](https://web.archive.org/https://www.wch-ic.com/downloads/ch341ser_zip.html)
