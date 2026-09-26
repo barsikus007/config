@@ -2,27 +2,7 @@
 
 ## devices
 
-### [Oculus Quest 2](./devices/oculus.md)
-
-### [Mi TV Stick](./devices/mitv.md)
-
-### [Pixel 7 Pro](https://4pda.to/forum/index.php?showtopic=1039682)
-
-- [root and kernel english](https://xdaforums.com/t/november-12-2023-up1a-231105-003-a1-for-jp-carriers-unlock-bootloader-root-pixel-7-pro-cheetah-safetynet.4502805/)
-- [OTA](https://apatch.dev/update.html#ota-update-with-apatch-retention)
-  - [Pixel Flasher](https://github.com/badabing2005/PixelFlasher/releases)
-  - [root update russian](https://4pda.to/forum/index.php?s=&showtopic=1063306&view=findpost&p=120901180)
-- [App Manager interceptor](https://www.reddit.com/r/fossdroid/comments/1g0lsit/app_manager_issue_it_automatically_options)
-
-#### DEPRECATED
-
-- audio -- because no configuration and no difference
-  - [ViPERFX RE](https://github.com/AndroidAudioMods/ViPERFX_RE)
-  - [ViPER4Android Repackaged](https://github.com/programminghoch10/ViPER4AndroidRepackaged)
-  - [?Dolby Atmos](https://gitlab.com/reiryuki-the-fixer/dolby-atmos-magic-revision-magisk-module)
-  - [no root - wavelet](https://4pda.to/forum/index.php?showtopic=1039682&view=findpost&p=119899326)
-- design and tweak mods -- because stock are the best
-  - <https://github.com/Mahmud0808/Iconify>
+### [Oculus Quest 2](./oculus.md)
 
 ### OnePlus 15
 
@@ -36,7 +16,7 @@
 
 ### [root](./root.md)
 
-### [install certificates](./certs.md)
+#### [install certificates](./certs.md)
 
 ### backup apps list
 
@@ -49,8 +29,6 @@ for i in null com.google.android.packageinstaller com.android.vending dev.imranr
   pm list packages -i -3 | grep installer=$i | cut -d':' -f2 | awk '{printf "%s\n", $1}' > $folder/$i.txt
 done
 ```
-
-`adb pull /sdcard/Documents/Sync/android/app_lists/`
 
 - show other
   - `pm list packages -i -3 | grep -v installer=null | grep -v installer=com.google.android.packageinstaller | grep -v installer=com.android.vending | grep -v installer=dev.imranr.obtainium | grep -v installer=com.looker.droidify`

@@ -16,6 +16,8 @@
 
 ## Android
 
+### [Mi TV Stick](./mitv.md)
+
 ### DriveDroid fix on Pixel 7 Pro (better use [module](https://github.com/overzero-git/DriveDroid-fix-Magisk-module))
 
 ```shell
@@ -23,6 +25,16 @@ curl -sL https://gist.github.com/barsikus007/2e44999712cdb074a1c9a9803cad7b8f/ra
 ```
 
 #### [local script](./fixdd.sh)
+
+#### Pixel 7 Pro
+
+- audio -- because no configuration and no difference
+  - [ViPERFX RE](https://github.com/AndroidAudioMods/ViPERFX_RE)
+  - [ViPER4Android Repackaged](https://github.com/programminghoch10/ViPER4AndroidRepackaged)
+  - [?Dolby Atmos](https://gitlab.com/reiryuki-the-fixer/dolby-atmos-magic-revision-magisk-module)
+  - [no root - wavelet](https://4pda.to/forum/index.php?showtopic=1039682&view=findpost&p=119899326)
+- design and tweak mods -- because stock are the best
+  - <https://github.com/Mahmud0808/Iconify>
 
 ## browser
 

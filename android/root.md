@@ -88,12 +88,12 @@ with [hybrid_mount](https://github.com/Hybrid-Mount/meta-hybrid_mount) metamodul
 - [Card emulation](https://play.google.com/store/apps/details?id=com.yuanwofei.cardemulator.pro)
 - [VPN Hotspot](https://play.google.com/store/apps/details?id=be.mygod.vpnhotspot)  - `https://github.com/Mygod/VPNHotspot`
 - Classic Power Menu - `https://github.com/KieronQuinn/ClassicPowerMenu`
-  - TODO: module for OnePlus
 - Root Detector - `https://github.com/reveny/Android-Native-Root-Detector`
 - Hide Applists - `https://github.com/frknkrc44/HMA-OSS`
   - checker - `https://github.com/Dr-TSNG/ApplistDetector`
 - [cool boot animation](https://github.com/Chainfire/liveboot)
 - [TODO](https://github.com/stars/barsikus007/lists/neckbeard-android)
+  - [App Manager interceptor](https://www.reddit.com/r/fossdroid/comments/1g0lsit/app_manager_issue_it_automatically_options)
 
 ## HBM
 
