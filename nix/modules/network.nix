@@ -9,7 +9,6 @@ let
   hmConfig = config.home-manager.users.${username};
 in
 {
-  # TODO: claim /etc/NetworkManager/system-connections from the host persist list
   networking.networkmanager.enable = true;
   #? dns
   services.resolved.enable = true;

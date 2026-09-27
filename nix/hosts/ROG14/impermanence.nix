@@ -7,12 +7,6 @@
   environment.persistence.${config.custom.persist.dir} = {
     # enable = false;
     directories = [
-      "/etc/asusd" # ? current anime state
-      "/etc/NetworkManager/system-connections"
-      "/etc/ssh"
-      "/var/db" # ? ./sudo/lectured/$(id --user)
-      "/var/log" # ? https://nixos.org/manual/nixos/unstable/#sec-var-journal
-      "/var/lib/bluetooth"
       # "/var/lib/misc" # TODO: is this needed? dnsmasq waydroid
       # "/var/lib/NetworkManager" # TODO: is this needed?
       # "/var/lib/private" # TODO: is this needed? rustdesk

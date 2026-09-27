@@ -1,6 +1,4 @@
 {
-  custom.persist.home.directories = [ ".config/BraveSoftware" ];
-
   #! vivaldi is unfree :(
   programs.brave = {
     enable = true;

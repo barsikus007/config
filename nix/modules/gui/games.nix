@@ -6,7 +6,6 @@
   ];
 
   custom.persist.home.directories = [
-    ".steam"
     ".config/heroic"
     ".config/r2modman" # TODO: electron
     ".config/r2modmanPlus-local"

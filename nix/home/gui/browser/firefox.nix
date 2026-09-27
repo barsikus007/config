@@ -5,8 +5,7 @@ in
 {
   imports = [ ./firefox-extra-prefs.nix ];
 
-  custom.persist.home.directories = [ ".config/mozilla/firefox" ];
-  custom.firefox.unsignedExtensions = with pkgs; [ flakePackages.pierre-github ];
+  # custom.firefox.unsignedExtensions = with pkgs; [ flakePackages.pierre-github ];
 
   #? firefox pwa, if I ever need it
   # programs.firefoxpwa.enable = true;

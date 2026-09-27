@@ -1,6 +1,4 @@
 {
-  custom.persist.home.directories = [ ".config/easyeffects" ]; # TODO: config?
-
   services.easyeffects.enable = true;
   dconf.settings."com/github/wwmm/easyeffects" = {
     process-all-inputs = true;

@@ -16,8 +16,6 @@ let
   sleep = lib.getExe' pkgs.coreutils "sleep";
 in
 {
-  custom.persist.home.directories = [ ".cache/noctalia" ]; # ? to disable prompt on startup
-
   programs.niri.settings = {
     binds =
       with config.lib.niri.actions;

@@ -13,14 +13,12 @@ in
 {
   imports = [
     inputs.impermanence.nixosModules.impermanence
+    ./auto.nix
   ];
-  #? state of services whose `enable` may come from a foreign module (plasma6, nixos-hardware),
-  #? so key on the option itself instead of on whoever turned it on
-  custom.persist = {
-    directories =
-      lib.optional config.services.power-profiles-daemon.enable "/var/lib/power-profiles-daemon" # ? selected power-profile
-      ++ lib.optional config.services.upower.enable "/var/lib/upower"; # ? history of power usage
-  };
+
+  home-manager.sharedModules = [
+    ./auto-home.nix
+  ];
 
   fileSystems.${cfg.dir}.neededForBoot = true;
 
@@ -35,7 +33,7 @@ in
         "/var/lib/nixos" # ? https://nixos.org/manual/nixos/unstable/#sec-state-users
         "/var/lib/systemd" # ? https://nixos.org/manual/nixos/unstable/#sec-var-systemd
 
-        # "/var/log" # ? https://nixos.org/manual/nixos/unstable/#sec-var-journal
+        "/var/log" # ? https://nixos.org/manual/nixos/unstable/#sec-var-journal
       ]
       ++ cfg.directories
     );

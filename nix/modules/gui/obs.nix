@@ -1,10 +1,5 @@
 { pkgs, ... }:
 {
-  custom.persist.home.directories = [
-    ".config/gpu-screen-recorder"
-    ".config/obs-studio"
-  ];
-
   #? https://github.com/nixos-cuda/infra
   nix.settings.extra-substituters = [ "https://cache.nixos-cuda.org?priority=67" ];
   nix.settings.extra-trusted-public-keys = [

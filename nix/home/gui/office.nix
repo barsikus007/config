@@ -1,6 +1,4 @@
 {
-  custom.persist.home.directories = [ ".config/libreoffice" ];
-
   #? fuck libreoffice, it still can't smooth scroll
   programs.libreoffice.enable = true;
   # spellchecks defined at system level

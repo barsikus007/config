@@ -4,10 +4,6 @@
     ./discord.nix
     ./telegram.nix
   ];
-  custom.persist.home.directories = [
-    ".thunderbird"
-    ".config/Element"
-  ];
 
   programs.thunderbird = {
     enable = true;

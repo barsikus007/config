@@ -10,8 +10,6 @@ let
   systemctl = lib.getExe' config.systemd.package "systemctl";
 in
 {
-  custom.persist.directories = [ "/var/lib/fprint" ]; # ? enrolled fingerprints
-
   services.fprintd = {
     enable = true;
     package = pkgs.fprintd.override {

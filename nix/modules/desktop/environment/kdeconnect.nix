@@ -1,8 +1,6 @@
 { pkgs, username, ... }:
 #? https://wiki.nixos.org/wiki/KDE_Connect
 {
-  custom.persist.home.directories = [ ".config/kdeconnect" ];
-
   programs.kdeconnect.enable = true;
   home-manager.users.${username}.services.kdeconnect.enable = true;
 

@@ -5,12 +5,7 @@
   ];
 
   environment.persistence.${config.custom.persist.dir} = {
-    directories = [
-      "/etc/ssh"
-      "/var/db/sudo/lectured"
-      "/var/log" # ? https://nixos.org/manual/nixos/unstable/#sec-var-journal
-      "/var/lib/bluetooth"
-    ];
+    directories = [ ];
     users.${username} = {
       directories = [
         "Downloads"

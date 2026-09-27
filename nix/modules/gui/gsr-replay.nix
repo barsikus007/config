@@ -9,8 +9,6 @@ let
   userctl = "${systemctl} --no-block --machine=${username}@ --user";
 in
 {
-  custom.persist.home.directories = [ ".config/gpu-screen-recorder" ];
-
   home-manager.users.${username}.imports = [ ../../home/desktop/gsr-replay.nix ];
 
   #? overlay and replay live in every profile except power-saver

@@ -7,15 +7,6 @@
 }:
 #! +1.1Gb
 {
-  custom.persist.directories = [
-    {
-      # ? greeter sync with shell
-      directory = "/var/lib/noctalia-greeter";
-      user = "greeter";
-      group = "greeter";
-    }
-  ];
-
   imports = [
     ./niri.nix
     ../../hardware/ddcutil.nix

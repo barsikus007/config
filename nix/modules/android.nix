@@ -4,8 +4,6 @@
     ./android-scrcpy-camera.nix
   ];
 
-  custom.persist.home.directories = [ ".android" ];
-
   users.users.${username}.extraGroups = [ "adbusers" ];
 
   environment.systemPackages = with pkgs; [
