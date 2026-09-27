@@ -68,6 +68,8 @@ let
     "main.tint_color" = [ "intel" ];
     "main.show_hide_hotkey" = [ "0 0" ];
     "screenshot.take_screenshot_hotkey" = [ "0 0" ];
+    "screenshot.take_screenshot_region_hotkey" = [ "0 0" ];
+    "screenshot.take_screenshot_window_hotkey" = [ "0 0" ];
     "record.record_options.advanced_view" = [ "true" ];
     "record.record_options.audio_codec" = [ audioCodec ];
     "record.record_options.audio_track_item" = audioTracks;

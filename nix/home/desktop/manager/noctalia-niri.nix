@@ -74,6 +74,16 @@ in
           action = noctalia-ipc "brightness-down" "*";
         };
 
+        "Alt+Print" = {
+          action = noctalia-ipc "screenshot-region";
+        };
+        "Shift+Print" = {
+          action.spawn-sh = "sleep 1 && noctalia msg screenshot-region";
+        };
+        "Mod+Shift+Print" = {
+          action = noctalia-ipc "screenshot-fullscreen" "pick";
+        };
+
         "Mod+V" = {
           hotkey-overlay.title = "Toggle Clipboard Manager";
           action = noctalia-ipc "panel-toggle" "clipboard";
@@ -317,6 +327,11 @@ in
         polkit_agent = true;
         privacy.mic_filter_regex = "^gsr-.*$";
         setup_wizard_enabled = false;
+        screenshot = {
+          annotate = true;
+          directory = "${config.xdg.userDirs.pictures}/Screenshots";
+          show_cursor = true;
+        };
         screen_corners.enabled = true;
         screen_time_enabled = true;
       };

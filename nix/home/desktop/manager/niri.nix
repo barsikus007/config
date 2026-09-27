@@ -283,6 +283,22 @@ in
             allow-when-locked = true;
             action.spawn = [ "niri-toggle-touchpad" ];
           };
+
+          "Print" = lib.mkDefault {
+            action.spawn = [ "slurp-grim-screenshot" ];
+          };
+          "Alt+Print" = lib.mkDefault {
+            action.screenshot = [ ];
+          };
+          "Shift+Print" = lib.mkDefault {
+            action.spawn-sh = "sleep 1 && niri msg action screenshot";
+          };
+          "Mod+Print" = lib.mkDefault {
+            action.screenshot-window = [ ];
+          };
+          "Mod+Shift+Print" = lib.mkDefault {
+            action.screenshot-screen = [ ];
+          };
         }
         (lib.attrsets.optionalAttrs config.custom.isAsus {
           # TODO: specific asus depent hotkeys; maybe make cli for unification?
