@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, username, ... }:
 {
   imports = [
     ./obs.nix
@@ -45,4 +45,10 @@
       ];
     })
   ];
+
+  #? clicker with position remember
+  services.crossmacro = {
+    enable = true;
+    users = [ username ];
+  };
 }

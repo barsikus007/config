@@ -32,6 +32,8 @@ in
     #? custom src rev, never in hydra cache
     looking-glass-client = hm.programs.looking-glass-client.package;
     keepassxc = self.packages.${system}.keepassxc;
+    fsearch = self.packages.${system}.fsearch;
+    taskexplorer = self.packages.${system}.taskexplorer;
 
     #? custom packages
     libspeedhack = self.packages.${system}.libspeedhack;

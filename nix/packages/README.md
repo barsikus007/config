@@ -29,10 +29,16 @@ nix --extra-experimental-features "nix-command flakes" run --impure 'github:nix-
     - updated & wayland fix
     - `sed --in-place '/CheckID/d' ~/.config/bcompare5/BCState.xml.bak`
   - [davinci-resolve-communism](./auto/gui/davinci-resolve-studio.nix)
+  - [fsearch](./auto/gui/fsearch.nix)
+    - 0.3 update with index
   - [keepassxc 2.8](./auto/gui/keepassxc.nix)
     - [source](https://github.com/keepassxreboot/keepassxc/tree/release/2.8.x)
+  - [obsidian](./auto/gui/obsidian.nix)
+    - middle-click rectangular selection fix
   - [shikiwatch](./auto/gui/shikiwatch.nix)
     - example of unusual appimage packaging
+  - [taskexplorer](./auto/gui/taskexplorer.nix)
+    - Process Hacker / System Informer alternative for Linux
 - hax
   - [hack-captive-portals](./auto/hax/hack-captive-portals.nix)
 - libs

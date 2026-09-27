@@ -40,15 +40,16 @@ import ./11_powertoys.nix { inherit pkgs; }
   gimp3
   scrcpy
   bluetui
-  fsearch # ? https://www.reddit.com/r/software/comments/t5n3cm/everything_for_linux/
+  flakePackages.fsearch # ? https://www.reddit.com/r/software/comments/t5n3cm/everything_for_linux/
   neovide
   audacity
-  obsidian
+  flakePackages.obsidian
   qdirstat
   xclicker
   handbrake
   antimicrox
   parsec-bin
   qbittorrent
+  flakePackages.taskexplorer
   linux-wifi-hotspot
 ]
