@@ -10,5 +10,6 @@
     elisa
     gwenview
     kate
+    kimageformats
   ];
 }

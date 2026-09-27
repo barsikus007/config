@@ -62,7 +62,7 @@ in
       ../../home
       ../../home/shell/minimal.nix
     ];
-    programs.zsh.shellAliases = {
+    home.shellAliases = {
       #? sh $(nom build --impure $HOME/config/nix#nixOnDroidConfigurations.default.activationPackage --no-link --print-out-paths)/activate
       nn = lib.mkForce "nix-on-droid switch --flake ${flakePath}";
       nn-nom = "sh $(nom build --impure ${flakePath}#nixOnDroidConfigurations.default.activationPackage --no-link --print-out-paths)/activate";

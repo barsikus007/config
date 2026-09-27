@@ -213,6 +213,10 @@ window-rule {
     open-on-workspace "games"
     open-maximized true
 }
+window-rule {
+    match app-id="^remote-viewer$"
+    open-maximized-to-edges true
+}
 workspace "social" {
     open-on-output "HDMI-A-1"
     layout {

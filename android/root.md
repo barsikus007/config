@@ -48,37 +48,25 @@ with [hybrid_mount](https://github.com/Hybrid-Mount/meta-hybrid_mount) metamodul
     - then disble this unstable thing
     - other useful fixes
       - can disable camera cutout
-  - [HideNavBar](https://github.com/Magisk-Modules-Alt-Repo/HideNavBar/releases)
-    - !dont used
-    - !setup is outdated
-    - Immersive
-    - Yes > Hide Pill and keep keyboard height/space
-    - Yes > Hide keyboard buttons
-    - No > Reduce the size of the keyboard bar
-    - Low sensitivity
-    - No > GCam fix
-    - No > Disable back gestures
 - [BCR](https://github.com/chenxiaolong/BCR/releases)
-  - root to app
   - Settings
     - Call recording
     - Output directory
-      - Android/media/bcr
+      - Documents/Sync/android/BCR
+    - Write metadata file
   - Silent notifications
 - [DriveDroid](https://github.com/overzero-git/DriveDroid-fix-Magisk-module/releases)
 - [Pixelify](https://github.com/BasGame1/Pixelify-Next/releases)
   - !dont used
 - [Google-Photos-Unlimited-backup Submodule](https://git.disroot.org/cuynu/gphotos-unlimited-zygisk/releases)
-- [bindhosts](https://github.com/bindhosts/bindhosts/releases)
-  - [rule](https://4pda.to/forum/index.php?showtopic=915158&view=findpost&p=133873426)
-- [App Network Firewall](https://github.com/Rem01Gaming/net-switch/releases)
+- network
+  - [bindhosts](https://github.com/bindhosts/bindhosts/releases)
+  - [App Network Firewall](https://github.com/Rem01Gaming/net-switch/releases)
+  - [VPN Hide](https://github.com/okhsunrog/vpnhide)
 
 ## LSPosed Modules
 
 - [Flag Secure Hax](https://github.com/Xposed-Modules-Repo/com.varuns2002.disable_flag_secure)
-- [AlfaBank Patcher](https://github.com/Xposed-Modules-Repo/ru.bluecat.alfabankpatcher)
-- [SberBank Patcher](https://github.com/Xposed-Modules-Repo/ru.bluecat.sberbankpatcher)
-- ~~[MirPay Patcher](https://github.com/Xposed-Modules-Repo/ru.bluecat.mirpaysecurity)~~ [PaySecurityBypass](https://github.com/vova7878-modules/PaySecurityBypass)
 - [allow downgrade](https://github.com/LSPosed/CorePatch)
 
 ## apps

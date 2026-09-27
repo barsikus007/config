@@ -5,17 +5,15 @@
     config.theme = "Coldark-Dark";
     extraPackages = with pkgs.bat-extras; [ batgrep ];
   };
-  programs.zsh = {
-    shellAliases = {
-      batsh = "bat --language=sh";
-      cat = "bat --style=plain";
-      ccat = ''\command cat'';
-    };
-    #? https://github.com/sharkdp/bat#highlighting---help-messages
-    envExtra = ''
-      alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
-    '';
+  home.shellAliases = {
+    batsh = "bat --language=sh";
+    cat = "bat --style=plain";
+    ccat = ''\command cat'';
   };
+  #? https://github.com/sharkdp/bat#highlighting---help-messages
+  programs.zsh.envExtra = ''
+    alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
+  '';
   programs.lesspipe.enable = true;
   home.sessionVariables = {
     PAGER = "bat";

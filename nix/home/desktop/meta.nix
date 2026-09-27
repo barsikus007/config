@@ -15,7 +15,6 @@
 
     "obsidian"
     "bcompare"
-    "thunderbird"
   ];
   shortcuts = [
     #? name is alphanumeric and -

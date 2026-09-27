@@ -63,6 +63,15 @@ in
     regexes = ['^https://(www\.)?(t\.me|telegram\.(me|dog))/.*']
   '';
 
+  xdg.dataFile."AyuGramDesktop/tdata/experimental_options.json" = {
+    text = builtins.toJSON {
+      show-channel-joined-below-about = true;
+      view-profile-in-chats-list-context-menu = true;
+      webview-debug-enabled = true;
+    };
+    mutable = true;
+  };
+
   home.packages = with pkgs; [
     ayugram-desktop
     # flakePackages.ayugram-desktop-patched

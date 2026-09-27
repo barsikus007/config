@@ -38,8 +38,6 @@ in
       #   "X-GNOME-Autostart-enabled" = true;
       #   "X-LXQt-Need-Tray" = true;
       # };
-
-      (replaceDesktopItem config.programs.keepassxc.package "org.keepassxc.KeePassXC.desktop" "keepassxc")
     ];
   };
 }

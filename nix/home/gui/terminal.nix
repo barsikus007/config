@@ -38,9 +38,11 @@ in
   xdg.mimeApps.associations.added."application/x-shellscript" = lib.mkBefore terminalApps;
   xdg.mimeApps.defaultApplications."application/x-shellscript" = lib.mkBefore terminalApps;
   xdg.terminal-exec.settings.default = "org.wezfurlong.wezterm.desktop";
-  programs.zsh.shellAliases = {
-    wt = "wezterm start --cwd ./ 1>/dev/null 2>/dev/null & disown";
-  };
+  home.packages = [
+    (pkgs.writeShellScriptBin "wt" ''
+      wezterm start --cwd ./ 1>/dev/null 2>/dev/null & disown
+    '')
+  ];
   programs.wezterm = {
     enable = true;
     extraConfig = /* lua */ ''

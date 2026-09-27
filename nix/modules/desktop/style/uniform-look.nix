@@ -13,4 +13,10 @@
 
   #? make qt.platform.theme=kde setting to work
   environment.systemPackages = with pkgs; [ kdePackages.plasma-integration ];
+
+  qt = {
+    enable = true;
+    platformTheme = "kde";
+    style = "breeze";
+  };
 }

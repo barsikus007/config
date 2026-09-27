@@ -65,7 +65,6 @@ in
 
         #? youtube
         (extension "sponsorblock" "sponsorBlocker@ajay.app") # https://sponsor.ajay.app
-        # TODO: https://github.com/lawfx/YoutubeNonStop
         (extension "return-youtube-dislikes" "{762f9885-5a13-4abd-9c77-433dcd38b8fd}") # https://www.returnyoutubedislike.com/
         (extension "youtube-auto-hd-fps" "avi6106@gmail.com") # https://github.com/avi12/youtube-auto-hd
         #? set 720p for youtube music

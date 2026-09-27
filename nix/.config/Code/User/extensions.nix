@@ -54,6 +54,7 @@ let
       "python"
     ]; # ? will format even broken json
     "semanticdiff.semanticdiff" = [ "essential" ];
+    "Vehmloewff.custom-format" = [ "essential" ];
 
     "timonwong.shellcheck" = [
       "essential"

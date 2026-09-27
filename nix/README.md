@@ -69,17 +69,23 @@ prek install
   - Notifications and Sound
     - Calls > Accept calls on this device
     - Badge counter > !1,!3
+  - Chat Settings
+    - Themes > Day
+    - System accent color
   - Advanced
     - Automatic media download > * > !Files
     - Window title bar > Use * window frame
     - Spell checker >
     - Experimental settings
-      - Add "View Profile"
-      - Show Peer IDs in Profile
-      - Show Channel Joined Date in Profile
-      - Enable webview inspecting
-      - Unlimited recent stickers
+      - Profile
+        - Add "View Profile"
+        - Show Peer IDs in Profile
+        - Show Channel Joined Date in Profile
+      - Stickers and emoji > Unlimited recent stickers
+      - System > Enable webview inspecting
   - AyuGram > General
+    - Disable Stories
+    - Improve Link Previews
     - Show Message Seconds
 - Throne (formerly known as nekoray/nekobox)
   - Routing -> Routing settings -> DNS -> Direct DNS: `8.8.8.8`

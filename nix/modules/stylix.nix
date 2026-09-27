@@ -73,8 +73,8 @@
     };
 
     targets = {
-      #! `qt.platform` is ignored, and calculates from real system state
-      # qt.enable = false;
+      #? no support for kde platform
+      qt.enable = false;
       #? I don't like how it looks
       plymouth.enable = false;
       #? it triggers gdm and gnome-shell rebuilds

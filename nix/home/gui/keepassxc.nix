@@ -3,6 +3,7 @@
   programs.keepassxc = {
     enable = true;
     package = pkgs.flakePackages.keepassxc;
+    autostart = true;
     settings = {
       General = {
         ConfigVersion = 2;

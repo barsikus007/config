@@ -27,17 +27,18 @@
 "disable_shorts_resuming_on_startup": true,
 "external_downloader": true,
 "hide_remix_button": true,
-"prioritize_video_quality": true,
+"hide_shorts_remix_button": true,
+"miniplayer_type": "minimal",
 "replace_links_with_shortener": true,
 "ryd_toast_on_connection_error": false,
-"sb_local_time_saved_milliseconds": 9516230,
-"sb_local_time_saved_number_segments": 276,
+"sb_local_time_saved_milliseconds": 11385442,
+"sb_local_time_saved_number_segments": 347,
 "sb_toast_on_connection_error": false,
 "shorts_player_type": "regular_player",
-"swipe_brightness": true,
+"slide_to_seek": true,
+"swipe_left_zone": "brightness",
 "swipe_lowest_value_enable_auto_brightness": true,
-"swipe_volume": true,
-"swipe_volume_sensitivity": 10,
+"swipe_right_zone": "volume",
 "tap_to_seek": true,
 ```
 
@@ -49,7 +50,7 @@
 
 ```json
 "music_hide_navigation_bar_explore_button": true,
-"music_hide_navigation_bar_samples_button": true
+"music_hide_navigation_bar_samples_button": true,
 ```
 
-## updated 2026-07-21
+## updated 2026-09-28

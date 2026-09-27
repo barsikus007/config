@@ -9,10 +9,12 @@
     enable = true;
     # autoEnable = false;
     targets = {
-      # TODO: unstable: https://github.com/nix-community/stylix/issues/869: user profile: stylix: qt: `config.stylix.targets.qt.platform` other than 'qtct' are currently unsupported: kde. Support may be added in the future.
-      # TODO: unstable: https://github.com/NixOS/nixpkgs/issues/359129
-      #! values others from "kde" breaks plasma
-      # qt.platform = "kde";
+      #? stylix uses kvantum for theming, hardcoding svg (which is used for element shapes)
+      #? I don't like these shapes so I decided to just rollback to breeze
+      #? and also, no support for kde platform
+      qt.enable = false;
+      #? stop creating ~/.themes and breaking breeze linking
+      gtk.flatpakSupport.enable = false;
 
       #? conflicts with custom theme
       bat.enable = false;

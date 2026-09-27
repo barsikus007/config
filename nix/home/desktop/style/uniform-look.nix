@@ -11,22 +11,25 @@
   #? symptom: ayugram tray icon (com.ayugram.desktop-attention-symbolic) falls back to a placeholder
   home.packages = with pkgs; [ hicolor-icon-theme ];
 
-  #? stylix uses kvantum for theming, hardcoding svg (which is used for element shapes)
-  #? I don't like these shapes so I decided to just rollback to breeze
   qt = {
     enable = true;
-    platformTheme.name = lib.mkForce "kde";
-    style = {
-      name = lib.mkForce "breeze";
-      package = lib.mkForce pkgs.kdePackages.breeze;
-    };
+    platformTheme.name = "kde";
+    style.name = "breeze";
   };
 
   gtk = {
+    enable = true;
     #! set by stylix to adw-gtk3 for no reason: https://github.com/nix-community/stylix/blob/e3861617645a43c9bbefde1aa6ac54dd0a44bfa9/modules/gtk/hm.nix#L59
     theme.package = lib.mkForce pkgs.kdePackages.breeze-gtk;
     theme.name = lib.mkForce (if (config.stylix.polarity == "light") then "Breeze" else "Breeze-Dark");
-    #? gtk.gtk4.theme: https://nix-community.github.io/home-manager/release-notes.xhtml#sec-release-26.05-state-version-changes
-    #! https://github.com/nix-community/home-manager/blob/d401492e2acd4fea42f7705a3c266cea739c9c36/modules/misc/gtk/gtk4.nix#L69
+    gtk4.theme = lib.mkForce null;
+  };
+
+  #? virt-viewer looks for plural "shortcuts" while breeze-icons names it singular "shortcut"
+  xdg.dataFile = {
+    "icons/breeze/preferences/22/preferences-desktop-keyboard-shortcuts-symbolic.svg".source =
+      "${pkgs.kdePackages.breeze-icons}/share/icons/breeze/preferences/22/preferences-desktop-keyboard-shortcut-symbolic.svg";
+    "icons/breeze-dark/preferences/22/preferences-desktop-keyboard-shortcuts-symbolic.svg".source =
+      "${pkgs.kdePackages.breeze-icons}/share/icons/breeze-dark/preferences/22/preferences-desktop-keyboard-shortcut-symbolic.svg";
   };
 }
