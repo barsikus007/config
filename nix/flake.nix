@@ -15,7 +15,8 @@
   inputs = {
     # nixpkgs-previous.url = "nixpkgs/commit_hash";
     # nixpkgs-fix-for-<smth>.url = "nixpkgs/pull/1489/head";
-    nixpkgs.url = "nixpkgs/nixos-unstable";
+    #! https://github.com/dependabot/dependabot-core/issues/16410
+    nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst";
     #? more secure: https://determinate.systems/blog/nixpkgs-cooldown/
     # nixpkgs.url = "https://flakehub.com/f/DeterminateSystems/nixpkgs-weekly/0.1";
     # nixpkgs-master.url = "nixpkgs";
