@@ -28,6 +28,13 @@ let
     sha256 = "sha256-Tnf/WxeYOikI9i5l4e0ABDk33I5z04BJFApJpUplNi0=";
   };
 
+  #? Looking Glass IDD driver pinned to host client commit
+  lookingGlassIdd = fetchurl {
+    name = "looking-glass-idd.zip";
+    url = "https://looking-glass.io/artifact/B7-826-236efcb1/idd";
+    hash = "sha256-NNqm3bQDwfUD+yrOlDYBWYGP2heV/Fwr5c7B9DkdXVc=";
+  };
+
   # scoop = callPackage ./scoop.nix { };
   # mkdir --parents $out/\$OEM\$/\$1/Users/Default
   # cp --recursive ${scoop} $out/\$OEM\$/\$1/Users/Default/scoop
@@ -52,6 +59,7 @@ let
     mkdir --parents $out/\$OEM\$/\$\$/Temp
     cp ${massgrave} $out/\$OEM\$/\$\$/Setup/Scripts/MAS_AIO.cmd
     cp ${openSshServerPackage} $out/\$OEM\$/\$\$/Temp/OpenSSH-Win64.zip
+    cp ${lookingGlassIdd} $out/\$OEM\$/\$\$/Temp/looking-glass-idd.zip
 
     mkdir --parents $out/\$OEM\$/\$1/ProgramData/ssh
     cp ${authorizedKeys} $out/\$OEM\$/\$1/ProgramData/ssh/administrators_authorized_keys

@@ -20,9 +20,6 @@ Invoke-Expression "C:\Windows\Temp\winfsp.msi /passive"
 #endregion winfsp
 
 #region Looking Glass
-Invoke-WebRequest `
-    -Uri https://looking-glass.io/artifact/bleeding/idd `
-    -OutFile "C:\Windows\Temp\looking-glass-idd.zip"
 Expand-Archive -Path "C:\Windows\Temp\looking-glass-idd.zip" `
     -Destination "C:\Windows\Temp\looking-glass-idd" -Force
 
@@ -51,12 +48,13 @@ if (!(Test-Path $regPath)) {
 }
 # set the Multi-String value;
 # the comma separates the lines in the MultiString
-$modes = "1920x1080@120", "2560x1440@144"
+$modes = "2560x1440@144*", "1920x1080@120.003", "1920x1080@60"
 New-ItemProperty -Path $regPath -Name "Modes" -PropertyType MultiString -Value $modes -Force
 
-Invoke-Expression "C:\Windows\Temp\looking-glass-idd\looking-glass-idd-setup.exe /S"
+# refresh rate for dynamic client resolutions (win:setGuestRes)
+New-ItemProperty -Path $regPath -Name "DefaultRefresh" -PropertyType DWord -Value 144 -Force
 
-powershell -Command "DisplaySwitch.exe /internal"
+Invoke-Expression "C:\Windows\Temp\looking-glass-idd\looking-glass-idd-setup.exe /S"
 #endregion Looking Glass
 
 Invoke-Expression "C:\Windows\Setup\Scripts\MAS_AIO.cmd /Z-Windows"
