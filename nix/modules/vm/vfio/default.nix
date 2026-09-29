@@ -1,9 +1,15 @@
-{ inputs, ... }:
+{
+  lib,
+  inputs,
+  username,
+  ...
+}:
 #? https://wiki.nixos.org/wiki/PCI_passthrough
 #? https://j-brn.github.io/nixos-vfio/options.html
 {
   imports = [
     inputs.nixos-vfio.nixosModules.vfio
+    inputs.nixvirt.nixosModules.default
   ];
 
   virtualisation.hugepages = {
@@ -70,187 +76,18 @@
       }
     ];
   };
-  #? isn't needed with working kvmfr
-  # systemd.tmpfiles.rules = [
-  #   "f /dev/shm/looking-glass 0660 ${username} qemu-libvirtd -"
-  # ];
 
-  #region declarative domains XML
-  #! lacks of sysinfo (for stealthing VM's smbios), numa (for memoryBacking hugepages (use memfd?)) setup
-  # virtualisation.libvirtd.qemu.domains.declarative = true;
-  virtualisation.libvirtd.qemu.domains.domains = {
-    "win10".config = {
-      memory = {
-        memory = {
-          value = 8;
-          unit = "G";
-        };
-
-        disableBallooning = true;
-        useHugepages = true;
-      };
-
-      vcpu = {
-        placement = "static";
-        count = 12;
-      };
-
-      cputune = {
-        vcpupins = builtins.genList (i: {
-          vcpu = i;
-          cpuset = [ (i + 4) ];
-        }) 12;
-      };
-
-      cpu = {
-        mode = "host-passthrough";
-        topology = {
-          sockets = 1;
-          dies = 1;
-          cores = 6;
-          threads = 2;
-        };
-      };
-
-      input = {
-        virtioMouse = true;
-        virtioKeyboard = true;
-      };
-
-      pciHostDevices = [
-        # Nvidia RTX2060
-        {
-          sourceAddress = {
-            bus = "0x01";
-            slot = "0x00";
-            function = 0;
-          };
-        }
-
-        # Nvidia RTX2060 audio device
-        {
-          sourceAddress = {
-            bus = "0x01";
-            slot = "0x00";
-            function = 1;
-          };
-        }
-
-        # Nvidia RTX2060 USB
-        {
-          sourceAddress = {
-            bus = "0x01";
-            slot = "0x00";
-            function = 2;
-          };
-        }
-
-        # Nvidia RTX2060 Serial (Type-C)
-        {
-          sourceAddress = {
-            bus = "0x01";
-            slot = "0x00";
-            function = 3;
-          };
-        }
-      ];
-
-      networkInterfaces = [ { sourceNetwork = "default"; } ];
-
-      # TODO: unattend.iso;virtio.iso
-      # cdroms = [];
-      devicesExtraXml = /* xml */ ''
-        <disk type="block" device="disk">
-          <driver name="qemu" type="raw" cache="none" io="native" discard="unmap"/>
-          <source dev="/dev/zvol/zroot/vms/win10"/>
-          <target dev="vda" bus="virtio"/>
-          <boot order="1"/>
-          <address type="pci" domain="0x0000" bus="0x0d" slot="0x00" function="0x0"/>
-        </disk>
-
-        <tpm model="tpm-crb">
-          <backend type="emulator" version="2.0"/>
-        </tpm>
-      '';
-
-      kvmfr = {
-        device = "/dev/kvmfr0";
-        size = "67108864"; # is 64M (for 2560x1440)
-      };
-    };
+  virtualisation.libvirt = {
+    # TODO: PR: nixvirt: update nixpkgs due to python eol
+    enable = true;
+    connections."qemu:///system".domains = [
+      {
+        definition = inputs.nixvirt.lib.domain.writeXML (
+          import ./win10.nix { inherit inputs lib username; }
+        );
+        #? never power-cycle a running guest on activation
+        restart = false;
+      }
+    ];
   };
-  #? or
-  /*
-    virtualisation.libvirt.connections."qemu:///system".pools = [
-      {
-        # active = true;
-        definition = inputs.nixVirt.lib.pool.writeXML {
-          name = "default";
-          uuid = "TODO";
-          type = "dir";
-          target = {
-            path = "/var/lib/libvirt/images";
-          };
-        };
-        volumes = [
-          {
-            present = false;
-            definition = inputs.nixVirt.lib.volume.writeXML {
-              name = "win10.qcow2";
-              capacity = {
-                count = 40;
-                unit = "GiB";
-              };
-              target.format.type = "qcow2";
-            };
-          }
-        ];
-      }
-    ];
-    virtualisation.libvirt.connections."qemu:///system".domains = [
-      {
-        # active = true;
-        definition =
-          let
-            baseXML = inputs.nixVirt.lib.domain.templates.windows {
-              name = "win10";
-              # uuid = "TODO";
-              memory = {
-                count = 8;
-                unit = "GiB";
-              };
-              storage_vol = {
-                pool = "default";
-                volume = "win10.qcow2";
-              };
-              # install_vol = "TODO";
-              virtio_net = true;
-              virtio_video = true;
-              virtio_drive = true;
-              install_virtio = true;
-            };
-          in
-          inputs.nixVirt.lib.domain.writeXML (
-            baseXML
-            // {
-              devices = baseXML.devices // {
-                disk = baseXML.devices.disk ++ [
-                  # TODO: unattend.iso
-                ];
-                hostdev = builtins.genList (i: {
-                  type = "pci";
-                  managed = true;
-                  source.address = {
-                    bus = 1;
-                    slot = 0;
-                    function = i;
-                  };
-                }) 4;
-              };
-            }
-          );
-      }
-    ];
-  */
-  #endregion declarative domains XML
 }

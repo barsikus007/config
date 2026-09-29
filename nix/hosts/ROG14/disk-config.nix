@@ -151,6 +151,21 @@ in
             type = "zfs_fs";
             mountpoint = "/persistent";
           };
+          "vms" = {
+            type = "zfs_fs";
+            options = {
+              mountpoint = "none";
+              primarycache = "metadata";
+            };
+          };
+          "vms/win10" = {
+            type = "zfs_volume";
+            size = "60G";
+            extraArgs = [ "-s" ];
+            options = {
+              volblocksize = "16k";
+            };
+          };
         };
       };
     };

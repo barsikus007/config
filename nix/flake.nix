@@ -47,6 +47,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
     };
+    nixvirt = {
+      url = "github:AshleyYakeley/NixVirt";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "home-manager";
       inputs.nixpkgs.follows = "nixpkgs";

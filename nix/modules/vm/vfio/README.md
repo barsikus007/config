@@ -9,186 +9,41 @@ codename `Windows-Resurrect`
 ## Windows 10 ISO and setup
 
 1. [LTSC](https://massgrave.dev/windows10_eol#windows-10-iot-enterprise-ltsc-2021)
-   1. mount it 1st (as SATA SDROM, like others)
-   2. optional integrate updates/drivers (see below)
+   - `virsh attach-disk win10 --config --type cdrom --targetbus sata /run/media/ogurez/NAS/backups/drives/Ventoy/ventoy/ISO/Windows/en-us_windows_10_iot_enterprise_ltsc_2021_x64_dvd_257ad90f.iso sda`
+   - optional integrate updates/drivers (see below)
 2. `nix build ./nix#windows-bootstrapIso --out-link unattend-win10-iot-ltsc-vrt.iso --print-build-logs` ([content](../../../packages/windows/default.nix))
-   1. mount it 2nd
-   2. [soft which will be installed](../../../packages/windows/AdditionalVMSetup.ps1)
-3. press any key to boot from ISO
-4. run in pwsh **as user** `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/installOnWin10LTSC.ps1 | iex`([content](../../../../windows/installOnWin10LTSC.ps1))
+   - `virsh attach-disk win10 --config --type cdrom --targetbus sata ~/config/unattend-win10-iot-ltsc-vrt.iso sdb`
+3. launch and press key at `Press any key to boot from CD or DVD......` screen
+   - `virsh start win10 && for i in {1..10}; do sleep 1; virsh send-key win10 KEY_SPACE; done`
+4. wait
+   - SSH is available! `ssh Admin@192.168.122.120 -o StrictHostKeychecking=no -o UserKnownHostsFile=/dev/null -o ConnectionAttempts=60`
+   - unmount installation media (will be reset by NixVirt on rebuild otherwise)
+      - `virsh detach-disk win10 --config sda`
+      - `virsh detach-disk win10 --config sdb`
+5. run in pwsh **as user** `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/installOnWin10LTSC.ps1 | iex`([content](../../../../windows/installOnWin10LTSC.ps1))
    1. wait for UAC prompt and agree
    2. optional tweaks: launch `sudo pwsh.exe` and run `irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/99Tweaks.ps1 | iex` ([content](../../../../windows/99Tweaks.ps1))
 
-## virt-manager setup
+## [FS](https://wiki.archlinux.org/title/Libvirt#Virtio-FS)
 
-- win10.qcow2 size in G
-  - 15 minimalest
-  - 20 minimal
-  - 25 good
-  - 30+ best
-  - !but real drive is the most optimal solution
-  - or use ZFS:
-    - `sudo zfs create -o mountpoint=none -o compression=zstd -o primarycache=metadata zroot/vms`
-    - `sudo zfs create -s -V 60G -o volblocksize=16k zroot/vms/win10`
-- pass needed devices from GPU iommu_group to vm
-- add tpm-crb
-
-## xml edits
-
-- `sudo virsh edit win10`
-
-### [spice](https://looking-glass.io/docs/B7/install_libvirt/#keyboard-mouse-display-audio)
-
-- in `<devices>`
-  - `<graphics type='spice' />`
-    - added by default
-  - in `<video>`
-    - `/vid jd2dO` `<model type='vga'/>`
-  - `/tablet d3d` `<input type='tablet'/>`
-  - `<input type='mouse' bus='virtio'/>`
-  - `<input type='keyboard' bus='virtio'/>`
-  - `/memb d3dO` `<memballoon />`
-    - `<memballoon model='none'/>`
-
-#### [clipboard](https://looking-glass.io/docs/B7/install_libvirt/#clipboard-synchronization)
-
-- added by default
-
-```xml
-<channel type='spicevmc'>
-  <target type='virtio' name='com.redhat.spice.0'/>
-  <address type='virtio-serial' controller='0' bus='0' port='1'/>
-</channel>
-```
-
-### ivshmem
-
-- `67108864` is 64M (for 2560x1440)
-
-#### [kvmfr](https://looking-glass.io/docs/B7/ivshmem_kvmfr/)
-
-- `ddO`
-
-```xml
-<domain type='kvm' xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'>
-<qemu:commandline>
-  <qemu:arg value="-device"/>
-  <qemu:arg value="{'driver':'ivshmem-plain','id':'shmem0','memdev':'looking-glass'}"/>
-  <qemu:arg value="-object"/>
-  <qemu:arg value="{'qom-type':'memory-backend-file','id':'looking-glass','mem-path':'/dev/kvmfr0','size':67108864,'share':true}"/>
-</qemu:commandline>
-```
-
-#### [shm](https://looking-glass.io/docs/B7/ivshmem_shm)
-
-- fallback if kvmfr doesn't work
-- in `<devices>`
-
-```xml
-<shmem name='looking-glass'>
-  <model type='ivshmem-plain'/>
-  <size unit='M'>64</size>
-</shmem>
-```
-
-### [tuning](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Performance_tuning)
-
-- [pin correct cores](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#CPU_pinning) to VM
-  - left 2/4 cores/threads to host
-- if `<cpu />` is from [AMD](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Improving_performance_on_AMD_CPUs)
-  - specify `<topology />` and set `<feature policy='require' name='topoext'/>` inside
-
-#### [virtio-net](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Virtio_network)
-
-- change `model` `type` to `virtio`
-
-```xml
-<interface type="network">
-  ...
-  <model type="virtio"/>
-  ...
-</interface>
-```
-
-### [stealth](https://astrid.tech/2022/09/22/0/nixos-gpu-vfio/#:~:text=Anti-Anti-Cheat%20Aktion)
-
-- `/\/<oc O` `<smbios mode="sysinfo"/>`
-
-#### [bios](https://libvirt.org/formatdomain.html#smbios-system-information)
-
-```shell
-# in root domain
-<sysinfo type='smbios'>
-  <bios>
-sudo dmidecode --type bios | awk --field-separator=': ' '
-/Vendor/              { printf "    <entry name=\"vendor\">%s</entry>\n", $2 }
-/Version/             { printf "    <entry name=\"version\">%s</entry>\n", $2 }
-/Release Date/        { printf "    <entry name=\"date\">%s</entry>\n", $2 }
-/BIOS Revision/       { printf "    <entry name=\"release\">%s</entry>\n", $2 }
-'
-  </bios>
-  <system>
-sudo dmidecode --type system | awk --field-separator=': ' '
-/Manufacturer/        { printf "    <entry name=\"manufacturer\">%s</entry>\n", $2 }
-/Product Name/        { printf "    <entry name=\"product\">%s</entry>\n", $2 }
-/Version/             { printf "    <entry name=\"version\">%s</entry>\n", $2 }
-/Serial Number/       { printf "    <entry name=\"serial\">%s</entry>\n", $2 }
-/UUID/                { printf "    <entry name=\"uuid\">%s</entry>\n", $2 }
-/SKU Number/          { printf "    <entry name=\"sku\">%s</entry>\n", $2 }
-/Family/              { printf "    <entry name=\"family\">%s</entry>\n", $2 }
-'
-  </system>
-  <baseBoard>
-sudo dmidecode --type baseboard | awk --field-separator=': ' '
-/Manufacturer/        { printf "    <entry name=\"manufacturer\">%s</entry>\n", $2 }
-/Product Name/        { printf "    <entry name=\"product\">%s</entry>\n", $2 }
-/Version/             { printf "    <entry name=\"version\">%s</entry>\n", $2 }
-/Serial Number/       { printf "    <entry name=\"serial\">%s</entry>\n", $2 }
-/Asset Tag/           { printf "    <entry name=\"asset\">%s</entry>\n", $2 }
-/Location In Chassis/ { printf "    <entry name=\"location\">%s</entry>\n", $2 }
-/Family/              { printf "    <entry name=\"family\">%s</entry>\n", $2 }
-'
-  </baseBoard>
-  <chassis>
-sudo dmidecode --type chassis | awk --field-separator=': ' '
-/Manufacturer/        { printf "    <entry name=\"manufacturer\">%s</entry>\n", $2 }
-/Version/             { printf "    <entry name=\"version\">%s</entry>\n", $2 }
-/Serial Number/       { printf "    <entry name=\"serial\">%s</entry>\n", $2 }
-/Asset Tag/           { printf "    <entry name=\"asset\">%s</entry>\n", $2 }
-/SKU Number/          { printf "    <entry name=\"sku\">%s</entry>\n", $2 }
-'
-  </chassis>
-</sysinfo>
-```
-
-### [FS](https://wiki.archlinux.org/title/Libvirt#Virtio-FS)
-
+- system disk declared in [disko](../../hosts/ROG14/disk-config.nix)
+  - size recommendations in G
+    - 15G minimalest
+    - 20G minimal
+    - 25G good
+    - 30G+ best
 - `& "C:\Program Files\Virtio-Win\VioFS\virtiofs.exe" -t Data -m D:`
 - `& "C:\Program Files\Virtio-Win\VioFS\virtiofs.exe" -t System -m S:`
 
-#### hugepages memory backing for virtiofs
+## libvirt domains is [managed by NixVirt](./win10.nix)
 
-- add `<memoryBacking><hugepages><page size='2048' unit='KiB'/></hugepages><access mode='shared'/></memoryBacking>` to `<domain>`
-  - to revert change it to `<memoryBacking><source type='memfd'/><access mode='shared'/><allocation mode='immediate'/></memoryBacking>` to `<domain>`
-- add `<numa><cell id='0' cpus='0-11' memory='8388608' unit='KiB' memAccess='shared'/></numa>` to `<domain><cpu>`
+`virsh edit win10` is only good for experiments - the next switch overwrites it
 
-## misc
+```shell
+virsh dumpxml --inactive win10 > /tmp/live-win10.xml && code --diff --reuse-window /tmp/live-win10.xml $(nix eval --raw './nix#nixosConfigurations.ROG14.config.virtualisation.libvirt.connections."qemu:///system".domains' --apply 'ds: (builtins.head ds).definition')
+```
 
-- useful soft
-  - [latest nvidia drivers](https://www.nvidia.com/en-us/drivers/)
-    - [CLI](https://docs.nvidia.com/datacenter/tesla/driver-installation-guide/windows.html)
-- connect to SSH
-  - `ssh Admin@192.168.122.120 -o StrictHostKeychecking=no -o ConnectionAttempts=60`
-
-### TODO
-
-- rewrite `xml edits` section to `virt-xml win10 --edit` or `nixvirt` or `nixos-vfio qemu` options
-  - or [virsh](https://wiki.archlinux.org/title/Libvirt#virsh)
-- somehow optionally add `installOnWin10LTSC.ps1` and `99Tweaks.ps1` to unattend script
-  - via nix ?
-- `installOnWin10LTSC.ps1` could fail if `scoop` isn't in PATH FOR SOME FUCKING WINDOWS REASON
-
-### [windows update ISO](https://gravesoft.dev/update-windows-iso)
+## [windows update ISO](https://gravesoft.dev/update-windows-iso)
 
 - `nix shell nixpkgs#{aria2,cabextract,wimlib,chntpw,cdrkit}`
 - [WIN10UI](https://github.com/mariahlamb31/BatUtil/tree/27ab2d01e2d2cf47c87835c90a0991ca4d7c5f64/W10UI)
