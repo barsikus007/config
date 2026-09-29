@@ -46,32 +46,37 @@ virsh dumpxml --inactive win10 > /tmp/live-win10.xml && code --diff --reuse-wind
 ## [windows update ISO](https://gravesoft.dev/update-windows-iso)
 
 - `nix shell nixpkgs#{aria2,cabextract,wimlib,chntpw,cdrkit}`
-- [WIN10UI](https://github.com/mariahlamb31/BatUtil/tree/27ab2d01e2d2cf47c87835c90a0991ca4d7c5f64/W10UI)
+- [WIN10UI](https://github.com/abbodi1406/BatUtil/tree/master/W10UI)
   - 1h50m and 30-50G needed to build in VM (50m on host)
 - [win10 LTSC](https://uupdump.net/known.php?q=category:w10-21h2)
-  - [pinned 2025-11-30 updates from 19044.1288 to 6576](https://uupdump.net/get.php?id=1f41c0e5-e142-4636-ba48-e333cf9f14dc&pack=en-us&edition=core%3Bprofessional)
+  - [pinned 2025-11-30 updates from 19044.1288 to 7727](https://uupdump.net/get.php?id=e19e2137-6c56-484d-ac12-1c06034b23a1&pack=en-us&edition=core%3Bprofessional)
     - [NET](https://www.catalog.update.microsoft.com/Search.aspx?q=3.5+-4.8.1+22H2+1903+Updates+x64)
-    - msus
-      - [Cum KB5068781](https://www.catalog.update.microsoft.com/Search.aspx?q=KB5068781+LTSB+x64)
-        - [SSU KB5031539](https://www.catalog.update.microsoft.com/Search.aspx?q=KB5031539+LTSB+x64)
-      - [NET KB5066746](https://www.catalog.update.microsoft.com/Search.aspx?q=KB5066746+x64)
-      - OOBE KB5026037
-    - drivers
+    - `Drivers/OS`
       - [nvidia](https://www.nvidia.com/en-us/drivers/)
         - `no 206 10`
-          - [581.80](https://www.nvidia.com/en-us/drivers/details/257496/)
+          - [617.14](https://www.nvidia.com/en-us/drivers/details/279804/)
             - click on latest game drivers, they are the same lol (from GTX 7XX)
-            - [cli]
+            - for W10UI
+              - `7zz x *-win10-win11-64bit-international-dch-whql.exe Display.Driver/* -oDrivers/OS`
+            - install via [CLI](https://docs.nvidia.com/datacenter/tesla/driver-installation-guide/windows.html)
               - `7zz x *-win10-win11-64bit-international-dch-whql.exe Display.Driver NvApp NVI2 EULA.txt ListDevices.txt setup.cfg setup.exe -odrivers`
               - `.\setup.exe -s -n Display.Driver -log:c:\logs -loglevel:6`
-              - `-log:.\logs`
-        - [cab](https://www.catalog.update.microsoft.com/Search.aspx?q=nvidia%2021H2)
-          - `32.0.15.8134`
+                - `-log:.\logs`
+        - cab version from microsoft updates isn't suitable for laptops
 
 ```shell
-UPDATE_ID=1f41c0e5-e142-4636-ba48-e333cf9f14dc
+UPDATE_ID=e19e2137-6c56-484d-ac12-1c06034b23a1
 mkdir "win10-ltsc-$UPDATE_ID"
 cd "win10-ltsc-$UPDATE_ID"
 aria2c --max-connection-per-server=16 --split=16 --max-concurrent-downloads=5 --continue --remote-time --input-file <(curl --silent "https://uupdump.net/get.php?id=$UPDATE_ID&pack=en-us&edition=core%3Bprofessional&aria2=2" | grep --extended-regexp "(Windows10|SSU)" --context 2 --no-group-separator)
-wget "https://raw.githubusercontent.com/mariahlamb31/BatUtil/27ab2d01e2d2cf47c87835c90a0991ca4d7c5f64/W10UI/W10UI.cmd"
+aria2c $(python3 ~/config/nix/packages/windows/get-latest-update.py --dotnet-url)
+wget "https://raw.githubusercontent.com/abbodi1406/BatUtil/master/W10UI/W10UI.cmd"
+cat > W10UI.ini << "EOF"
+[W10UI-Configuration]
+Target        =D:
+Cleanup       =1
+Delete_Source =1
+EOF
+
+# press "8", "2", "0" in W10UI
 ```

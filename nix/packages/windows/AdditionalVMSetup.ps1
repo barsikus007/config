@@ -1,4 +1,12 @@
 # https://schneegans.de/windows/unattend-generator/
+#region DisableDriverUpdates
+# block windows update from overwriting third-party / custom graphics drivers before network starts
+$wuPolicyPath = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate"
+if (!(Test-Path $wuPolicyPath)) { New-Item -Path $wuPolicyPath -Force | Out-Null }
+Set-ItemProperty -Path $wuPolicyPath -Name "ExcludeWUDriversInQualityUpdate" -Value 1 -Type DWord -Force
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\DriverSearching" -Name "SearchOrderConfig" -Value 0 -Type DWord -Force
+#endregion DisableDriverUpdates
+
 #region VirtIoGuestTools
 & {
     foreach( $letter in 'DEFGHIJKLMNOPQRSTUVWXYZ'.ToCharArray() ) {
@@ -12,12 +20,69 @@
 } *>&1 | Out-String -Width 1KB -Stream >> 'C:\Windows\Setup\Scripts\VirtIoGuestTools.log';
 #endregion VirtIoGuestTools
 
+#region WindowsUpdate
+& {
+    foreach( $letter in 'DEFGHIJKLMNOPQRSTUVWXYZ'.ToCharArray() ) {
+        $updatesDir = "${letter}:\updates";
+        if( Test-Path -LiteralPath $updatesDir ) {
+            $packages = Get-ChildItem -LiteralPath $updatesDir -Filter "*.msu" | Sort-Object Name;
+            if( $packages ) {
+                $tempExtract = "C:\Windows\Temp\UpdateExtract";
+                foreach( $pkg in $packages ) {
+                    Write-Host "Extracting $($pkg.Name)..." -ForegroundColor Green
+                    if( Test-Path -LiteralPath $tempExtract ) { Remove-Item -LiteralPath $tempExtract -Recurse -Force }
+                    New-Item -ItemType Directory -Path $tempExtract -Force | Out-Null
+                    Start-Process -FilePath "expand.exe" -ArgumentList "-F:*", "`"$($pkg.FullName)`"", "`"$tempExtract`"" -Wait
+
+                    # SSU must be installed before the main update
+                    Get-ChildItem -Path $tempExtract -Filter "SSU-*.cab" | ForEach-Object {
+                        Write-Host "Installing SSU $($_.Name)..." -ForegroundColor Green
+                        $proc = Start-Process -FilePath "dism.exe" -ArgumentList "/Online", "/Add-Package", "/PackagePath:$($_.FullName)", "/Quiet", "/NoRestart" -Wait -PassThru
+                        Write-Host "DISM $($_.Name) exited with code $($proc.ExitCode)" -ForegroundColor Gray
+                    }
+
+                    # Main cumulative update CAB
+                    Get-ChildItem -Path $tempExtract -Filter "*.cab" | Where-Object { $_.Name -notlike "SSU-*" -and $_.Name -notlike "WSUSSCAN*" } | ForEach-Object {
+                        Write-Host "Installing package $($_.Name)..." -ForegroundColor Green
+                        $proc = Start-Process -FilePath "dism.exe" -ArgumentList "/Online", "/Add-Package", "/PackagePath:$($_.FullName)", "/Quiet", "/NoRestart" -Wait -PassThru
+                        Write-Host "DISM $($_.Name) exited with code $($proc.ExitCode)" -ForegroundColor Gray
+                    }
+                    Remove-Item -LiteralPath $tempExtract -Recurse -Force -ErrorAction SilentlyContinue
+                }
+                return;
+            }
+        }
+    }
+    'No Windows updates found on any drive.';
+} *>&1 | Out-String -Width 1KB -Stream >> 'C:\Windows\Setup\Scripts\WindowsUpdate.log';
+#endregion WindowsUpdate
+
 #region winfsp
 Invoke-WebRequest `
     -Uri https://github.com/winfsp/winfsp/releases/download/v2.1/winfsp-2.1.25156.msi `
     -OutFile "C:\Windows\Temp\winfsp.msi"
 Invoke-Expression "C:\Windows\Temp\winfsp.msi /passive"
 #endregion winfsp
+
+#region NvidiaDriver
+& {
+    foreach( $letter in 'DEFGHIJKLMNOPQRSTUVWXYZ'.ToCharArray() ) {
+        $setupExe = "${letter}:\drivers\nvidia\setup.exe";
+        if( Test-Path -LiteralPath $setupExe ) {
+            $logDir = "C:\Windows\Logs\Nvidia";
+            if (-not (Test-Path $logDir)) { New-Item -ItemType Directory -Path $logDir -Force | Out-Null }
+
+            Write-Host "Installing clean Nvidia Display Driver from $setupExe..." -ForegroundColor Green;
+            Push-Location (Split-Path -Parent $setupExe);
+            $proc = Start-Process -FilePath $setupExe -ArgumentList "-s", "-n", "Display.Driver", "-log:$logDir", "-loglevel:6" -Wait -PassThru;
+            Pop-Location;
+            Write-Host "Nvidia setup.exe exited with code $($proc.ExitCode)" -ForegroundColor Gray;
+            return;
+        }
+    }
+    'Nvidia setup.exe not found on any drive.';
+} *>&1 | Out-String -Width 1KB -Stream >> 'C:\Windows\Setup\Scripts\NvidiaDriver.log';
+#endregion NvidiaDriver
 
 #region Looking Glass
 Expand-Archive -Path "C:\Windows\Temp\looking-glass-idd.zip" `
