@@ -8,6 +8,8 @@
 ### plasma
 
 - `kioclient exec <file>.desktop`
+- [windows aero theme](https://github.com/nyakase/aerothemeplasma-nix) for lulz
+  - `nix run --override-input nixpkgs nixpkgs github:nyakase/aerothemeplasma-nix#nixosConfigurations.atp.config.system.build.vm --log-format internal-json |& nom --json`
 
 ### waydroid
 

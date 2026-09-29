@@ -1,11 +1,15 @@
+if (-not $env:SCOOP) {
+    throw "SCOOP environment variable is not set"
+}
 Function Test-Command ($commandName) {
     if (Get-Command $commandName -ErrorAction SilentlyContinue) { return $true }
     return $false
 }
-$SCOOP_HOME = $(If (Test-Path env:SCOOP) { $env:SCOOP } Else { ($env:GIT_INSTALL_ROOT -split "scoop")[0]+"scoop" })
 
 Write-Host "disable UAC prompts" -ForegroundColor Green
 sudo Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "ConsentPromptBehaviorAdmin" -Value 0
+Write-Host "enable dev mode for symlinks (sudo is needed for `New-Item -ItemType SymbolicLink` otherwise)" -ForegroundColor Green
+sudo Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock" -Name "AllowDevelopmentWithoutDevLicense" -Value 1
 
 Write-Host "remove path limit" -ForegroundColor Green
 sudo New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" -Name "LongPathsEnabled" -Value 1 -PropertyType DWORD -Force
@@ -26,13 +30,19 @@ Write-Host "set ru region and timezone" -ForegroundColor Green
 Set-Culture ru-RU
 Set-TimeZone -Id "Russian Standard Time"
 
+Write-Host "set ISO 8601 date and 24h time format (yyyy-MM-dd HH:mm)" -ForegroundColor Green
+Set-ItemProperty -Path "HKCU:\Control Panel\International" -Name "sShortDate" -Value "yyyy-MM-dd"
+Set-ItemProperty -Path "HKCU:\Control Panel\International" -Name "sDate" -Value "-"
+Set-ItemProperty -Path "HKCU:\Control Panel\International" -Name "sShortTime" -Value "HH:mm"
+Set-ItemProperty -Path "HKCU:\Control Panel\International" -Name "sTimeFormat" -Value "HH:mm:ss"
+
 Write-Host "enable seconds in taskbar" -ForegroundColor Green
 Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name ShowSecondsInSystemClock -Value 1 -Force
 
 Write-Host "set default ssh shell to pwsh.exe (if installed)" -ForegroundColor Green
 $pwshStable = @(
   "$env:ProgramFiles\PowerShell\7\pwsh.exe"
-  "$SCOOP_HOME\apps\pwsh\current\pwsh.exe"
+  "$env:SCOOP\apps\pwsh\current\pwsh.exe"
   "$env:LOCALAPPDATA\Microsoft\WindowsApps\pwsh.exe"
 ) | Where-Object { Test-Path $_ } | Select-Object -First 1
 if ($pwshStable) {
@@ -138,13 +148,13 @@ Write-Host "autostart important scoop apps (altsnap,everything,systeminformer)" 
 # define the registry path for user startup apps
 $RegPath = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run"
 # 1. add AltSnap
-$AltSnapPath = "`"$SCOOP_HOME\apps\altsnap\current\AltSnap.exe`""
+$AltSnapPath = "`"$env:SCOOP\apps\altsnap\current\AltSnap.exe`""
 Set-ItemProperty -Path $RegPath -Name "AltSnap" -Value $AltSnapPath
 # 2. add Everything (with the -startup flag so it opens quietly in the background)
-$EverythingPath = "`"$SCOOP_HOME\apps\everything\current\Everything.exe`" -startup -admin"
+$EverythingPath = "`"$env:SCOOP\apps\everything\current\Everything.exe`" -startup -admin"
 Set-ItemProperty -Path $RegPath -Name "Everything" -Value $EverythingPath
 # 3. add System Informer (with the -hide flag so it opens quietly in the background)
-$SysInformerPath = "`"$SCOOP_HOME\apps\systeminformer\current\SystemInformer.exe`" -hide -elevate"
+$SysInformerPath = "`"$env:SCOOP\apps\systeminformer\current\SystemInformer.exe`" -hide -elevate"
 Set-ItemProperty -Path $RegPath -Name "SystemInformer" -Value $SysInformerPath
 
 

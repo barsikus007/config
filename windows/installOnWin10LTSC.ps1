@@ -1,38 +1,50 @@
-# irm = Invoke-RestMethod; iex = Invoke-Expression
-Write-Host "Hint: to apply tweaks, run command below in 'sudo pwsh.exe'" -ForegroundColor Gray
+Write-Host "initial system tweaks elevation (UAC, DevMode)..." -ForegroundColor Green
+#? part of the 99Tweaks.ps1
+Start-Process powershell.exe -Verb RunAs -Wait -ArgumentList '-NoProfile', '-Command', '
+    reg.exe add \"HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\" /v ConsentPromptBehaviorAdmin /t REG_DWORD /d 0 /f;
+    reg.exe add \"HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock\" /v AllowDevelopmentWithoutDevLicense /t REG_DWORD /d 1 /f
+'
+
+Write-Host "hint: to apply tweaks, run command below" -ForegroundColor Gray
 Write-Host "irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/99Tweaks.ps1 | iex" -ForegroundColor Gray
 Write-Host
 Write-Host "scoop installation..." -ForegroundColor Green
-powershell.exe -Command 'Invoke-RestMethod https://get.scoop.sh | Invoke-Expression'
-$env:Path += ";C:\Program Files\PowerShell\7\;$HOME\scoop\shims"
+Invoke-RestMethod https://get.scoop.sh | Invoke-Expression
+$env:SCOOP = "$env:USERPROFILE\scoop"
+[Environment]::SetEnvironmentVariable("SCOOP", $env:SCOOP, "User")
+
+function Update-SessionEnvironment {
+    foreach ($level in 'Machine', 'User') {
+        [Environment]::GetEnvironmentVariables($level).GetEnumerator() | ForEach-Object {
+            if ($_.Key -ne 'Path') {
+                Set-Item -Path "env:$($_.Key)" -Value $_.Value
+            }
+        }
+    }
+    $env:Path = [Environment]::GetEnvironmentVariable("Path", "Machine") + ";" + [Environment]::GetEnvironmentVariable("Path", "User")
+}
+Update-SessionEnvironment
 
 Write-Host "scoop inital packages installation..." -ForegroundColor Green
 Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/00Bootstrap.ps1 | Invoke-Expression
-#? part of the 99Tweaks.ps1
-Write-Host "disable UAC prompts" -ForegroundColor Green
-sudo Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "ConsentPromptBehaviorAdmin" -Value 0
-Write-Host "enable dev mode for symlinks (sudo is needed for `New-Item -ItemType SymbolicLink` otherwise)" -ForegroundColor Green
-sudo Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock" -Name "AllowDevelopmentWithoutDevLicense" -Value 1
-Write-Host "System packages installation..." -ForegroundColor Green
+Write-Host "system packages installation..." -ForegroundColor Green
 Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/01System.ps1 | Invoke-Expression
 
-
-Write-Host "Shell packages installation..." -ForegroundColor Green
-pwsh.exe -Command 'Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/10Shell.ps1 | Invoke-Expression'
-pwsh.exe -Command 'Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/11ShellHeavy.ps1 | Invoke-Expression'
-pwsh.exe -Command 'Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/12Dev.ps1 | Invoke-Expression'
+Write-Host "shell packages installation..." -ForegroundColor Green
+Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/10Shell.ps1 | Invoke-Expression
+Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/11ShellHeavy.ps1 | Invoke-Expression
+Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/12Dev.ps1 | Invoke-Expression
 
 Write-Host "GUI packages installation..." -ForegroundColor Green
-pwsh.exe -Command 'Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/20SoftHighPriority.ps1 | Invoke-Expression'
-pwsh.exe -Command 'Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/21FileAssociations.ps1 | Invoke-Expression'
+Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/20SoftHighPriority.ps1 | Invoke-Expression
+Invoke-RestMethod https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/21FileAssociations.ps1 | Invoke-Expression
 
 
-Write-Host "Notes from scoop packages" -ForegroundColor Green
-# TODO: parse them programmatically
-$SCOOP_HOME = $(If (Test-Path env:SCOOP) { $env:SCOOP } Else { ($env:GIT_INSTALL_ROOT -split "scoop")[0]+"scoop" })
-reg import "$SCOOP_HOME\apps\7zip\current\install-context.reg"
-reg import "$SCOOP_HOME\apps\everything\current\install-context.reg"
-reg import "$SCOOP_HOME\apps\notepadplusplus\current\install-context.reg"
+Write-Host "importing context menus and file associations from scoop packages..." -ForegroundColor Green
+Get-ChildItem -Path "$env:SCOOP\apps\*\current\install-context*.reg", "$env:SCOOP\apps\*\current\install-associations*.reg" | ForEach-Object {
+    Write-Host "importing $($_.Name) for $($_.Directory.Parent.Name)" -ForegroundColor Cyan
+    reg import $_.FullName
+}
 
 
 winget install --exact --id Microsoft.Edge --silent --force

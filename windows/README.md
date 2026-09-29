@@ -77,17 +77,6 @@ foreach ($oldvid in $oldvids) {
 - disable `reg.exe add “HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32” /f`
 - enable `reg.exe delete “HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}” /f`
 
-## Beyond Compare crack <https://gist.github.com/rise-worlds/5a5917780663aada8028f96b15057a67>
-
-```powershell
-#Remove-Item "$env:appdata\Scooter Software\Beyond Compare 4\*.*" -Force -Confirm:$false
-Remove-Item "$env:appdata\Scooter Software\Beyond Compare 4\BCState.xml" -Force -Confirm:$false
-Remove-Item "$env:appdata\Scooter Software\Beyond Compare 4\BCState.xml.bak" -Force -Confirm:$false
-#Remove-Item "$env:appdata\Scooter Software\Beyond Compare 4\BCSessions.xml" -Force -Confirm:$false
-#Remove-Item "$env:appdata\Scooter Software\Beyond Compare 4\BCSessions.xml.bak" -Force -Confirm:$false
-reg delete "HKCU\Software\Scooter Software\Beyond Compare 4" /v "CacheID" /f
-```
-
 ## Edge fix "harm exe" notification
 
 ```reg

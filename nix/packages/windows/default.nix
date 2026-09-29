@@ -7,6 +7,7 @@
   virtio-win,
   xorriso,
   withNvidia ? false,
+  withTweaks ? false,
   withUpdates ? false,
 }:
 #? alternatives:
@@ -96,6 +97,15 @@ let
       mkdir --parents $out/updates
       cp ${cumulativeUpdate} $out/updates/01-latest-lcu.msu
       cp ${cumulativeUpdateDotnet} $out/updates/02-latest-dotnet.msu
+    ''}
+
+    ${lib.optionalString withTweaks ''
+      mkdir --parents $out/scripts
+      cat > $out/scripts/01-tweaks.ps1 << 'EOF'
+      Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
+      irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/installOnWin10LTSC.ps1 | iex
+      irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/99Tweaks.ps1 | iex
+      EOF
     ''}
   '';
 in

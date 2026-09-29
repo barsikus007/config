@@ -13,6 +13,7 @@
     - [died, but still able to download](https://www.amyuni.com/downloads/usbmmidd.zip)
       - [archive link btw](https://web.archive.org/web/20210108200957/https://www.amyuni.com/forum/viewtopic.php?t=3030)
     - [new landing](https://www.amyuni.com/en/desktop-editions/usb-mobile-monitor/learn-more)
+- [Beyond Compare crack](https://gist.github.com/rise-worlds/5a5917780663aada8028f96b15057a67)
 
 ## Office
 

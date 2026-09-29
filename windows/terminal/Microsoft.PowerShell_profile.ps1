@@ -76,7 +76,7 @@ if ($env:PROTO_HOME) {
     $env:PATH = @(
         (Join-Path $env:PROTO_HOME "shims"),
         (Join-Path $env:PROTO_HOME "bin"),
-        $env:PATH,
+        $env:PATH
     ) -join [IO.PATH]::PathSeparator
 }
 }).Milliseconds
