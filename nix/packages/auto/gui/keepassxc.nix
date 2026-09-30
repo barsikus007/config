@@ -14,18 +14,14 @@ in
 }).overrideAttrs
   (previousAttrs: {
     inherit version;
-
     src = fetchFromGitHub {
       owner = "keepassxreboot";
       repo = "keepassxc";
       rev = "v${version}";
       hash = "sha256-fksThYmGZed66zxGDxlS2SHQzJYRf+T9AuZPbaNZV5Y=";
     };
-
     patches = [ ];
-
+    buildInputs = previousAttrs.buildInputs ++ [ keyutils ];
     doCheck = false;
     checkPhase = "";
-
-    buildInputs = previousAttrs.buildInputs ++ [ keyutils ];
   })

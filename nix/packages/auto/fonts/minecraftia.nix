@@ -1,4 +1,4 @@
-{ minecraftia, fetchzip }:
+{ fetchzip, minecraftia }:
 (minecraftia.overrideAttrs {
   version = "2.0";
 

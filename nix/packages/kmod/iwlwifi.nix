@@ -3,19 +3,13 @@
   kernel,
 }:
 stdenv.mkDerivation {
-  pname = "intel-iwlwifi";
   inherit (kernel)
     src
     version
     postPatch
     nativeBuildInputs
     ;
-
-  kernel_dev = kernel.dev;
-  kernelVersion = kernel.modDirVersion;
-
-  modulePath = "drivers/net/wireless/intel/iwlwifi";
-
+  pname = "intel-iwlwifi";
   buildPhase = ''
     BUILT_KERNEL=$kernel_dev/lib/modules/$kernelVersion/build
 
@@ -26,7 +20,6 @@ stdenv.mkDerivation {
     make "-j$NIX_BUILD_CORES" modules_prepare
     make "-j$NIX_BUILD_CORES" M=$modulePath modules
   '';
-
   installPhase = ''
     make \
       INSTALL_MOD_PATH="$out" \
@@ -34,9 +27,11 @@ stdenv.mkDerivation {
       M="$modulePath" \
       modules_install
   '';
-
+  kernelVersion = kernel.modDirVersion;
+  kernel_dev = kernel.dev;
+  modulePath = "drivers/net/wireless/intel/iwlwifi";
   meta = {
-    description = "iwlwifi kernel module";
     inherit (kernel.meta) license platforms;
+    description = "iwlwifi kernel module";
   };
 }

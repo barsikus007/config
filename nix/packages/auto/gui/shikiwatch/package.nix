@@ -1,8 +1,8 @@
 {
   lib,
+  fetchurl,
   appimageTools,
   copyDesktopItems,
-  fetchurl,
   makeDesktopItem,
   python3,
 }:
@@ -24,10 +24,29 @@ let
 in
 appimageTools.wrapAppImage (finalAttrs: {
   inherit pname version src;
-  contents = appimageContents;
-
   nativeBuildInputs = [ copyDesktopItems ];
-
+  contents = appimageContents;
+  # GDK_BACKEND=x11
+  desktopItems = [
+    (makeDesktopItem {
+      name = finalAttrs.pname;
+      categories = [
+        "AudioVideo"
+        "Video"
+        "Network"
+      ];
+      comment = finalAttrs.meta.description;
+      desktopName = finalAttrs.pname;
+      exec = finalAttrs.pname;
+      icon = finalAttrs.pname;
+      type = "Application";
+    })
+  ];
+  extraInstallCommands = ''
+    install -D --mode=444 ${appimageContents}/usr/share/icons/hicolor/256x256/apps/ShikiWatch.png \
+      $out/share/icons/hicolor/256x256/apps/ShikiWatch.png
+    copyDesktopItems
+  '';
   extraPkgs =
     pkgs: with pkgs; [
       curl
@@ -40,37 +59,13 @@ appimageTools.wrapAppImage (finalAttrs: {
       libarchive
       libxv
     ];
-
-  # GDK_BACKEND=x11
-  desktopItems = [
-    (makeDesktopItem {
-      name = finalAttrs.pname;
-      exec = finalAttrs.pname;
-      icon = finalAttrs.pname;
-      desktopName = finalAttrs.pname;
-      type = "Application";
-      comment = finalAttrs.meta.description;
-      categories = [
-        "AudioVideo"
-        "Video"
-        "Network"
-      ];
-    })
-  ];
-
-  extraInstallCommands = ''
-    install -D --mode=444 ${appimageContents}/usr/share/icons/hicolor/256x256/apps/ShikiWatch.png \
-      $out/share/icons/hicolor/256x256/apps/ShikiWatch.png
-    copyDesktopItems
-  '';
-
   meta = {
     description = "Unofficial Android and Windows (and Linux) application for Shikimori";
     homepage = "https://github.com/wheremyfiji/ShikiWatch";
-    downloadPage = "https://github.com/wheremyfiji/ShikiWatch/releases";
-    platforms = [ "x86_64-linux" ];
     license = lib.licenses.mit;
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     maintainers = with lib.maintainers; [ barsikus007 ];
+    platforms = [ "x86_64-linux" ];
+    downloadPage = "https://github.com/wheremyfiji/ShikiWatch/releases";
   };
 })

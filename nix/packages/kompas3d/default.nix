@@ -1,54 +1,51 @@
 {
-  stdenv,
   lib,
-
+  stdenv,
   fetchurl,
-  dpkg,
   autoPatchelfHook,
-  wrapQtAppsHook,
-
-  qt3d,
-
+  cups,
+  dpkg,
+  gtk2,
+  libGLU,
+  libICE,
   libSM,
-  libxxf86vm,
-  libxv,
-  libxres,
-  libxpm,
-  libxmu,
-  libxkbfile,
-  libxinerama,
-  libxdamage,
-  libxfixes,
-  libxcursor,
-  libxcomposite,
+  libXScrnSaver,
+  libdrm,
+  libfontenc,
+  libgcc,
+  libx11,
+  libxau,
   libxaw,
+  libxcb,
+  libxcomposite,
+  libxcursor,
+  libxdamage,
+  libxdmcp,
+  libxext,
+  libxfixes,
+  libxi,
+  libxinerama,
+  libxkbfile,
+  libxmu,
+  libxpm,
+  libxrandr,
+  libxrender,
+  libxres,
   libxt,
   libxtst,
-  libICE,
-  libfontenc,
-  libxcb,
-  libx11,
-  libxext,
-  libxrender,
-  libxrandr,
-  libXScrnSaver,
-  libxi,
-  xcbutil,
-  xcbutilwm,
-  xcbutilrenderutil,
-  xcbutilkeysyms,
-  xcbutilimage,
-  libxdmcp,
-  libxau,
-  xcb-util-cursor,
-  libdrm,
-  libgcc,
-  util-linux,
+  libxv,
+  libxxf86vm,
   llvmPackages,
-  cups,
-  libGLU,
+  qt3d,
   tinyxml,
-  gtk2,
+  util-linux,
+  wrapQtAppsHook,
+  xcb-util-cursor,
+  xcbutil,
+  xcbutilimage,
+  xcbutilkeysyms,
+  xcbutilrenderutil,
+  xcbutilwm,
 }:
 
 let
@@ -111,8 +108,8 @@ let
   fetchDebs =
     package:
     fetchurl {
-      url = "https://repo.ascon.ru/stable/deb/pool/main/a/${package.name}/${package.name}_${version}_amd64.deb";
       inherit (package) hash;
+      url = "https://repo.ascon.ru/stable/deb/pool/main/a/${package.name}/${package.name}_${version}_amd64.deb";
     };
 
   srcs = (map fetchDebs pkgsList) ++ [
@@ -151,21 +148,13 @@ let
 
 in
 stdenv.mkDerivation {
-  pname = "kompas3d-v24-full";
   inherit version srcs;
-
+  pname = "kompas3d-v24-full";
   nativeBuildInputs = [
     dpkg
     autoPatchelfHook
     wrapQtAppsHook
   ];
-
-  autoPatchelfIgnoreMissingDeps = [
-    "*.tx"
-    "*.txv"
-    "liboless.so"
-  ];
-
   propagatedBuildInputs = [
     gtk2
     libgcc.lib
@@ -212,7 +201,6 @@ stdenv.mkDerivation {
     llvmPackages.openmp
     # icu  #? is needed for dotnet based Bin/Ascon.HelpCall, but idk how to pass it
   ];
-
   installPhase = ''
     runHook preInstall
 
@@ -241,9 +229,12 @@ stdenv.mkDerivation {
 
     runHook postInstall
   '';
-
+  autoPatchelfIgnoreMissingDeps = [
+    "*.tx"
+    "*.txv"
+    "liboless.so"
+  ];
   dontBuild = true;
-
   meta = {
     description = "КОМПАС-3D для машиностроения и приборостроения";
     longDescription = ''
@@ -264,10 +255,10 @@ stdenv.mkDerivation {
         * Стандартные Изделия для КОМПАС
     '';
     homepage = "https://ascon.ru/products/kompas-3d/";
-    platforms = [ "x86_64-linux" ];
     license = lib.licenses.unfree;
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     maintainers = with lib.maintainers; [ barsikus007 ];
+    platforms = [ "x86_64-linux" ];
     mainProgram = "kompas-v24";
   };
 }

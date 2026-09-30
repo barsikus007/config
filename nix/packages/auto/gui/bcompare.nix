@@ -1,11 +1,11 @@
-{ bcompare, fetchurl }:
+{ fetchurl, bcompare }:
 let
   #? https://www.scootersoftware.com/download/v5changelog
   version = "5.2.5.32528";
 
   src = fetchurl {
     url = "https://www.scootersoftware.com/files/bcompare-${version}_amd64.deb";
-    sha256 = "sha256-kMIk2cH3fJqPIif0UVMYk6o19imV00uP6zX10MaYKJs=";
+    hash = "sha256-kMIk2cH3fJqPIif0UVMYk6o19imV00uP6zX10MaYKJs=";
   };
 in
 bcompare.overrideAttrs (previousAttrs: {

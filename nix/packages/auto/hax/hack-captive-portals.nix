@@ -2,16 +2,14 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  makeWrapper,
-
-  gnugrep,
-  gawk,
-  net-tools,
-  iproute2,
-
   coreutils,
-  sipcalc,
+  gawk,
+  gnugrep,
+  iproute2,
+  makeWrapper,
+  net-tools,
   nmap,
+  sipcalc,
 }:
 
 stdenv.mkDerivation {
@@ -64,9 +62,9 @@ stdenv.mkDerivation {
   meta = {
     description = "Script to hack captive portals via MAC spoofing";
     homepage = "https://github.com/crishoj/hack-captive-portals";
-    platforms = lib.platforms.linux;
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ barsikus007 ];
+    platforms = lib.platforms.linux;
     mainProgram = "hack-captive-portals";
   };
 }

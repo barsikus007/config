@@ -59,7 +59,7 @@ rec {
       filename = "${name}_v${release_string}.ipk";
       file = fetchurl {
         url = "https://github.com/Slava-Shchipunov/awg-openwrt/releases/download/v${profile.release}/${filename}";
-        sha256 = amneziaPkg.hash.${release_string};
+        hash = amneziaPkg.hash.${release_string};
       };
     }) amneziaPackages;
 }

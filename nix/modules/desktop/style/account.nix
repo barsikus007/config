@@ -9,7 +9,7 @@
 let
   userIcon = pkgs.fetchurl {
     url = "https://github.com/barsikus007.png";
-    sha256 = "sha256-9uVU2KzX97TGS51lgwL8JqdSbX7kbl1uJRDTWo3Mpsg=";
+    hash = "sha256-9uVU2KzX97TGS51lgwL8JqdSbX7kbl1uJRDTWo3Mpsg=";
   };
   defaultSession = config.services.displayManager.defaultSession;
   session = lib.optionalString (

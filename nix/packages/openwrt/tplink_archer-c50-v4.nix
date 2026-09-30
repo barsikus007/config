@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ inputs, pkgs, ... }:
 #? https://openwrt.org/toh/tp-link/archer_a5_v5
 #? https://openwrt.org/toh/tp-link/archer-c50
 #? https://openwrt.org/toh/hwdata/tp-link/tp-link_archer_a5_v5

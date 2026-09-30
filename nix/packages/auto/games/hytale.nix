@@ -21,41 +21,11 @@ let
   # FHS environment that downloads launcher at runtime
   hytale-launcher-fhs = pkgs.buildFHSEnv {
     name = "hytale-launcher";
-
-    targetPkgs =
-      pkgs:
-      runtimeDeps
-      ++ (with pkgs; [
-        # additional runtime deps
-        libx11
-        libxcursor
-        libxrandr
-        libxi
-        libxcb
-        libxkbcommon
-        mesa
-        vulkan-loader
-        alsa-lib
-        pulseaudio
-        dbus
-        gsettings-desktop-schemas
-        glib
-        hicolor-icon-theme
-        adwaita-icon-theme
-        icu
-        libGL
-        # tools for downloading and patching
-        curl
-        unzip
-        patchelf
-      ]);
-
     profile = ''
       export GDK_BACKEND=x11
       export WEBKIT_DISABLE_COMPOSITING_MODE=1
       export XDG_DATA_DIRS="${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}:${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}:$XDG_DATA_DIRS"
     '';
-
     runScript = pkgs.writeShellScript "hytale-launcher-wrapper" ''
       set -e
 
@@ -84,7 +54,33 @@ let
       cd "$LAUNCHER_DIR"
       exec "$LAUNCHER_BIN" "$@"
     '';
-
+    targetPkgs =
+      pkgs:
+      runtimeDeps
+      ++ (with pkgs; [
+        # additional runtime deps
+        libx11
+        libxcursor
+        libxrandr
+        libxi
+        libxcb
+        libxkbcommon
+        mesa
+        vulkan-loader
+        alsa-lib
+        pulseaudio
+        dbus
+        gsettings-desktop-schemas
+        glib
+        hicolor-icon-theme
+        adwaita-icon-theme
+        icu
+        libGL
+        # tools for downloading and patching
+        curl
+        unzip
+        patchelf
+      ]);
     meta = {
       description = "Hytale Game Launcher";
       homepage = "https://hytale.com";
@@ -131,10 +127,6 @@ let
 in
 pkgs.symlinkJoin {
   name = "hytale-launcher";
-  paths = [
-    hytale-launcher-fhs
-    desktopItem
-  ];
   postBuild = ''
     mkdir --parents $out/share/icons/hicolor/256x256/apps
     cp ${hytaleIconPng}/hytale-launcher.png $out/share/icons/hicolor/256x256/apps/hytale-launcher.png
@@ -142,4 +134,8 @@ pkgs.symlinkJoin {
     mkdir --parents $out/share/pixmaps
     cp ${hytaleIconPng}/hytale-launcher.png $out/share/pixmaps/hytale-launcher.png
   '';
+  paths = [
+    hytale-launcher-fhs
+    desktopItem
+  ];
 }

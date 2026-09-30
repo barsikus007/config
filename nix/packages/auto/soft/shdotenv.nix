@@ -2,9 +2,9 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  coreutils,
   gawk,
   makeWrapper,
-  coreutils,
 }:
 #? https://github.com/NixOS/nixpkgs/pull/348161
 stdenv.mkDerivation (finalAttrs: {
@@ -42,12 +42,12 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Dotenv for shells with support for POSIX-compliant and multiple .env file syntax";
     homepage = "https://github.com/ko1nksm/shdotenv";
-    platforms = lib.platforms.all;
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [
       hadrienmp
       barsikus007
     ];
+    platforms = lib.platforms.all;
     mainProgram = "shdotenv";
   };
 })

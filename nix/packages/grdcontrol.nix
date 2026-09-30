@@ -1,12 +1,9 @@
 {
-  stdenv,
   lib,
-
-  fetchzip,
-  dpkg,
-
+  stdenv,
   autoPatchelfHook,
-
+  dpkg,
+  fetchzip,
   libxcb,
 }:
 let

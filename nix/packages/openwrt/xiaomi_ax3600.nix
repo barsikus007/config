@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ inputs, pkgs, ... }:
 #? https://openwrt.org/toh/xiaomi/ax3600
 #? https://openwrt.org/toh/hwdata/xiaomi/xiaomi_ax3600
 #  Package architecture: aarch64_cortex-a53

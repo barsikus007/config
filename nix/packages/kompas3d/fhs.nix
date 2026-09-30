@@ -1,26 +1,18 @@
 {
   lib,
-  kdePackages,
-
-  buildFHSEnv,
-
-  open-sans,
-  fontconfig,
-
   bash,
+  buildFHSEnv,
+  fontconfig,
+  kdePackages,
+  open-sans,
   writeText,
 }:
 let
   kompas = kdePackages.callPackage ./default.nix { };
 in
 buildFHSEnv rec {
-  pname = "kompas3d-fhs";
   inherit (kompas) version;
-
-  targetPkgs = _pkgs: [
-    kompas
-    open-sans
-  ];
+  pname = "kompas3d-fhs";
   extraBuildCommands = ''
     mkdir --parents $out/usr/local/
   '';
@@ -28,13 +20,11 @@ buildFHSEnv rec {
     "--tmpfs /usr/local"
     "--bind-try /etc/nixos/ /etc/nixos/"
   ];
-
   # symlink shared assets, including icons and desktop entries
   extraInstallCommands = ''
     ln --symbolic "${kompas}/share" "$out/"
     ln --symbolic "$out/bin/${pname}" "$out/bin/${kompas.meta.mainProgram}"
   '';
-
   profile = ''
     (
       custom_font_dir="/usr/local/share/fonts"
@@ -61,4 +51,8 @@ buildFHSEnv rec {
     cd /opt/ascon/kompas3d-v24/Bin/
     ./kKompas
   ''}";
+  targetPkgs = _pkgs: [
+    kompas
+    open-sans
+  ];
 }

@@ -79,14 +79,14 @@ stdenv.mkDerivation (finalAttrs: {
   desktopItems = [
     (makeDesktopItem {
       name = "TaskExplorer";
-      desktopName = "Task Explorer";
-      comment = "Advanced task manager and process explorer";
-      exec = "TaskExplorer";
-      icon = "TaskExplorer";
       categories = [
         "System"
         "Monitor"
       ];
+      comment = "Advanced task manager and process explorer";
+      desktopName = "Task Explorer";
+      exec = "TaskExplorer";
+      icon = "TaskExplorer";
       keywords = [
         "task"
         "manager"

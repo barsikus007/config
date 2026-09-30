@@ -1,10 +1,10 @@
 {
+  lib,
+  fetchFromGitHub,
+  qt6,
   replaceDependencies,
   telegram-desktop,
   telegram-desktop-client ? telegram-desktop,
-  fetchFromGitHub,
-  lib,
-  qt6,
   ...
 }:
 (replaceDependencies {

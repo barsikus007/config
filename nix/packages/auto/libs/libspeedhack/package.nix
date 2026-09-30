@@ -1,7 +1,7 @@
 {
   lib,
-  multiStdenv,
   fetchFromGitHub,
+  multiStdenv,
 }:
 #? https://github.com/NixOS/nixpkgs/pull/202212
 multiStdenv.mkDerivation (finalAttrs: {
@@ -37,12 +37,12 @@ multiStdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "A simple dynamic library to slowdown or speedup games on Linux Resources";
     homepage = "https://github.com/evg-zhabotinsky/libspeedhack";
-    platforms = [ "x86_64-linux" ];
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [
       tilcreator
       barsikus007
     ];
+    platforms = [ "x86_64-linux" ];
     mainProgram = "speedhack";
   };
 })

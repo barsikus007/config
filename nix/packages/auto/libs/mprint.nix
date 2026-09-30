@@ -1,17 +1,14 @@
 {
   lib,
   stdenv,
-
-  fetchzip,
-  unrar,
-
-  patchPpdFilesHook,
   autoPatchelfHook,
-
   cups,
-  krb5,
   e2fsprogs,
+  fetchzip,
+  krb5,
   libxcrypt-legacy,
+  patchPpdFilesHook,
+  unrar,
 }:
 let
   installationPath = if stdenv.hostPlatform.system == "x86_64-linux" then "x64" else "x86";
@@ -57,9 +54,9 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "MPrint drivers for label printers";
     homepage = "https://help.mertech.ru/label_printers/Общее/Установка_пакета_драйверов_для_принтеров.html";
-    platforms = [ "x86_64-linux" ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     license = lib.licenses.unfree;
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     maintainers = with lib.maintainers; [ barsikus007 ];
+    platforms = [ "x86_64-linux" ];
   };
 })

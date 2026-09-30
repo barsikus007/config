@@ -8,18 +8,18 @@
 
 {
   lib,
-  mkWindowsAppNoCC,
-  wine,
   fetchurl,
+  copyDesktopIcons, # This comes with erosanix. It's a handy way to generate desktop icons.
+  copyDesktopItems,
+  makeDesktopIcon, # This comes with erosanix. It's a handy way to generate desktop icons.
+  makeDesktopItem,
+  mkWindowsAppNoCC,
   src,
+  unzip,
+  wine,
+  photoshopDir ? "Adobe Photoshop 2021",
   uiScale ? null,
   version ? "2021",
-  photoshopDir ? "Adobe Photoshop 2021",
-  makeDesktopItem,
-  makeDesktopIcon, # This comes with erosanix. It's a handy way to generate desktop icons.
-  copyDesktopItems,
-  copyDesktopIcons, # This comes with erosanix. It's a handy way to generate desktop icons.
-  unzip,
   ...
 }:
 # https://github.com/NatKarmios/nix-config/blob/6a958617829d6f91e20905a256c02a37a5544aca/pkgs/photoshop.nix
@@ -134,7 +134,7 @@ mkWindowsAppNoCC rec {
 
     src = fetchurl {
       url = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Adobe_Photoshop_CC_icon.svg/512px-Adobe_Photoshop_CC_icon.svg.png";
-      sha256 = "sha256-bQeCaZz64LfFFS5w1o5DcaTlJYH9vkMTw9gutpeF43k=";
+      hash = "sha256-bQeCaZz64LfFFS5w1o5DcaTlJYH9vkMTw9gutpeF43k=";
     };
   };
 

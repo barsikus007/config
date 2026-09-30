@@ -5,10 +5,10 @@ let
     name = "furryicon";
     #? https://e621.net/posts/5480197
     # url = "https://drive.usercontent.google.com/download?id=1DRqgAnzfJS2Q911biLPUOpd28HCH1F2A&export=download&authuser=0&confirm=t&uuid=04a8ef2f-a1db-4e6f-8ec4-71f45e5f4adb&at=AAINaILDKbY86gTaXEpyEDYpAKWR:1781380863359";
-    # sha256 = "sha256-OQl0nr2HIFADLtFnSnwlMw4bsENlipuZJyAso02aPvU=";
+    # hash = "sha256-OQl0nr2HIFADLtFnSnwlMw4bsENlipuZJyAso02aPvU=";
     #? https://e621.net/posts/3523763
     url = "https://static1.e621.net/data/8f/2a/8f2a8f8adc45a7647cb3101d7c295160.png";
-    sha256 = "sha256-UxK5froK6CQfwgwdCk716fY20hkb9jgMdGui8yZ+FY8=";
+    hash = "sha256-UxK5froK6CQfwgwdCk716fY20hkb9jgMdGui8yZ+FY8=";
   };
   iconSizes = [
     "16x16"

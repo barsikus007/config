@@ -1,9 +1,9 @@
 {
   lib,
-  stdenvNoCC,
   fetchFromGitHub,
-  python3,
   openssl,
+  python3,
+  stdenvNoCC,
 }:
 let
   python3Env = python3.withPackages (
@@ -28,12 +28,6 @@ stdenvNoCC.mkDerivation {
     hash = "sha256-AVq2PZe0iv9Mh8+XRr/vbZsbvDIrPKD90Xdu9lXs8p0=";
     fetchSubmodules = true;
   };
-
-  patchPhase = ''
-    #? comment "if len(otp) < 64:" check
-    sed --in-place '133,134s/^/#/' driver_52xd.py
-  '';
-
   installPhase = ''
     mkdir --parents "$out/bin"
     cp --recursive ./* "$out/"
@@ -44,5 +38,9 @@ stdenvNoCC.mkDerivation {
     ${lib.getExe python3Env} "run_521d.py"
     EOF
     chmod +x "$out/bin/run_521d"
+  '';
+  patchPhase = ''
+    #? comment "if len(otp) < 64:" check
+    sed --in-place '133,134s/^/#/' driver_52xd.py
   '';
 }
