@@ -159,9 +159,9 @@
                   diskImage = null;
                   memorySize = 8 * 1024;
                   cores = 8;
-                  # sharedDirectories.Share = {
-                  #   source = "$HOME/Share";
-                  #   target = "/home/${username}/Share";
+                  # sharedDirectories.Public = {
+                  #   source = "$HOME/Public";
+                  #   target = "/home/${username}/Public";
                   #   writable = true;
                   # };
                   qemu.options = [

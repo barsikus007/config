@@ -39,6 +39,17 @@
         "rgba(92, 85, 132, 0.2)",
         "rgba(92, 85, 132, 0.1)"
     ],
+    //! https://github.com/ahmadawais/shades-of-purple-vscode/issues/167
+    "workbench.colorCustomizations": {
+        "[Shades of Purple]": {
+            "editorGroupHeader.tabsBackground": "#1e1e3f",
+            "tab.inactiveBackground": "#1e1e3f",
+        },
+        "[Shades of Purple (Super Dark)]": {
+            "editorGroupHeader.tabsBackground": "#100f24",
+            "tab.inactiveBackground": "#100f24",
+        },
+    },
     // #endregion appearence
     // #region behavior
     //? throne proxy, mainly for copilot
@@ -167,6 +178,8 @@
         }
     ],
     "[nix]": {
+        // TODO: PR: nixd foldingRange lacks #region markers, overrides language-configuration
+        "editor.foldingStrategy": "indentation",
         "editor.formatOnSave": true,
         // "editor.defaultFormatter": "jnoortheen.nix-ide",
         "editor.defaultFormatter": "Vehmloewff.custom-format",

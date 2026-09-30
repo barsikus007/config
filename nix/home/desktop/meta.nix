@@ -13,7 +13,7 @@
     # "vesktop"
     # "dorion"
 
-    "obsidian"
+    "md.obsidian.Obsidian"
     "bcompare"
   ];
   shortcuts = [

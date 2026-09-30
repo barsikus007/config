@@ -27,8 +27,9 @@
         "Videos"
 
         "config"
-        "Share" # ? samba guest LAN share
         "Sync"
+        "Public" # ? samba guest LAN share
+        "Projects"
 
         #? apps
         # ".java" # TODO: font cache

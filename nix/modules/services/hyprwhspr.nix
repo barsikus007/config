@@ -356,8 +356,8 @@ let
     (pkgs.hyprwhspr-rs.override {
       whisper-cpp = whisper-cpp-offload;
     }).overrideAttrs
-      (old: {
-        postPatch = (old.postPatch or "") + ''
+      (previousAttrs: {
+        postPatch = (previousAttrs.postPatch or "") + ''
           substituteInPlace src/whisper/manager.rs --replace-fail '"en"' '"ru"'
           substituteInPlace src/input/injector.rs --replace-fail 'tokio::time::sleep(tokio::time::Duration::from_millis(50)).await;' 'tokio::time::sleep(tokio::time::Duration::from_millis(50)).await; let _ = std::process::Command::new("${pkgs.ydotool}/bin/ydotool").env("YDOTOOL_SOCKET", "/run/ydotoold/socket").args(["key", "29:1", "47:1", "47:0", "29:0"]).status(); return Ok(());'
         '';

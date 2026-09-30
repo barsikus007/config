@@ -41,6 +41,13 @@ gamescope --backend sdl --fullscreen --grab --force-grab-cursor --hide-cursor-de
   -- parsecd
 ```
 
+### GPU sleep states
+
+- d1 on amd (awake)
+- `sudo setpci -s 04:00.0 CAP_PM+4.b=01`
+- d3 on nvidia (sleep)
+- `sudo setpci -s 01:00.0 CAP_PM+4.b=03`
+
 ## ssh
 
 ### [add git key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent?platform=linux)

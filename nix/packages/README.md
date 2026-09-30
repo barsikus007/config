@@ -33,8 +33,6 @@ nix --extra-experimental-features "nix-command flakes" run --impure 'github:nix-
     - 0.3 update with index
   - [keepassxc 2.8](./auto/gui/keepassxc.nix)
     - [source](https://github.com/keepassxreboot/keepassxc/tree/release/2.8.x)
-  - [obsidian](./auto/gui/obsidian.nix)
-    - middle-click rectangular selection fix
   - [shikiwatch](./auto/gui/shikiwatch.nix)
     - example of unusual appimage packaging
   - [taskexplorer](./auto/gui/taskexplorer.nix)

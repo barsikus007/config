@@ -43,7 +43,7 @@ import ./11_powertoys.nix { inherit pkgs; }
   flakePackages.fsearch # ? https://www.reddit.com/r/software/comments/t5n3cm/everything_for_linux/
   neovide
   audacity
-  flakePackages.obsidian
+  obsidian
   qdirstat
   xclicker
   handbrake

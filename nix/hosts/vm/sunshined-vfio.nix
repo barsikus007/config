@@ -15,7 +15,7 @@
     qemu.options = [
       #? real host CPU, less overhead/jitter
       "-cpu host"
-      #? pass the whole RTX2060 IOMMU group: VGA + HDMI audio (+.2/.3 usb/serial if needed)
+      #? pass the whole RTX2060 IOMMU group: VGA + HDMI audio (+.2/.3 usb/serial(Type-C) if needed)
       "-device vfio-pci,host=01:00.0,multifunction=on"
       "-device vfio-pci,host=01:00.1"
     ];

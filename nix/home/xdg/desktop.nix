@@ -7,5 +7,8 @@
   #? handlr redirects URLs to some apps and only then to browsers
   home.packages = with pkgs; [ handlr-regex ];
 
-  xdg.userDirs.enable = true;
+  xdg.userDirs = {
+    enable = true;
+    setSessionVariables = true;
+  };
 }

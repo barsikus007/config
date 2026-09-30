@@ -20,8 +20,8 @@
         "os level" = "0";
       };
 
-      "Share" = {
-        "path" = "/home/${username}/Share";
+      "Public" = {
+        "path" = "/home/${username}/Public";
         "read only" = "no";
         "guest ok" = "yes";
         "force user" = username;

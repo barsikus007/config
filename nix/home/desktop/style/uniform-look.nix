@@ -18,10 +18,11 @@
   };
 
   gtk = {
+    #! fuck you, gnome: https://stopthemingmy.app/
     enable = true;
     #! set by stylix to adw-gtk3 for no reason: https://github.com/nix-community/stylix/blob/e3861617645a43c9bbefde1aa6ac54dd0a44bfa9/modules/gtk/hm.nix#L59
     theme.package = lib.mkForce pkgs.kdePackages.breeze-gtk;
-    theme.name = lib.mkForce (if (config.stylix.polarity == "light") then "Breeze" else "Breeze-Dark");
+    theme.name = lib.mkForce (if config.stylix.polarity == "light" then "Breeze" else "Breeze-Dark");
     gtk4.theme = lib.mkForce null;
   };
 
