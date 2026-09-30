@@ -59,9 +59,7 @@ let
     hash = "sha1-KNuZAs82j1pnTAFuC9Px1jq4V40=";
   };
 
-  # scoop = callPackage ./scoop.nix { };
-  # mkdir --parents $out/\$OEM\$/\$1/Users/Default
-  # cp --recursive ${scoop} $out/\$OEM\$/\$1/Users/Default/scoop
+  scoop = callPackage ./scoop.nix { };
 
   # TODO: & ([ScriptBlock]::Create((irm https://get.activated.win))) /Z-Windows
   # TODO: https://www.reddit.com/r/techsupport/comments/ehgbmu/windows_10_oemcustomizations/
@@ -88,9 +86,13 @@ let
     mkdir --parents $out/\$OEM\$/\$1/ProgramData/ssh
     cp ${authorizedKeys} $out/\$OEM\$/\$1/ProgramData/ssh/administrators_authorized_keys
 
+    mkdir --parents $out/scoop-hydrated
+    cp ${scoop}/scoop-buckets.zip $out/scoop-hydrated/scoop-buckets.zip
+    cp --recursive ${scoop}/cache $out/scoop-hydrated/cache
+
     ${lib.optionalString withNvidia ''
       mkdir --parents $out/drivers/nvidia
-      ${_7zz}/bin/7zz x ${nvidiaInstaller} Display.Driver NvApp NVI2 EULA.txt ListDevices.txt setup.cfg setup.exe -o$out/drivers/nvidia
+      ${_7zz}/bin/7zz x ${nvidiaInstaller} Display.Driver PPC NvApp NVI2 EULA.txt ListDevices.txt setup.cfg setup.exe -o$out/drivers/nvidia
     ''}
 
     ${lib.optionalString withUpdates ''

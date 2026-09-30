@@ -2,10 +2,6 @@
 
 codename `Windows-Resurrect`
 
-## toggle GPU
-
-- `dgpu_<tab>` will show my functions (now in `g14.sh`)
-
 ## Windows 10 ISO and setup
 
 1. [LTSC](https://massgrave.dev/windows10_eol#windows-10-iot-enterprise-ltsc-2021)
@@ -24,7 +20,7 @@ codename `Windows-Resurrect`
    1. wait for UAC prompt and agree
    2. optional tweaks: launch `sudo pwsh.exe` and run `irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/99Tweaks.ps1 | iex` ([content](../../../../windows/99Tweaks.ps1))
 
-## [FS](https://wiki.archlinux.org/title/Libvirt#Virtio-FS)
+## disks
 
 - system disk declared in [disko](../../hosts/ROG14/disk-config.nix)
   - size recommendations in G
@@ -32,8 +28,10 @@ codename `Windows-Resurrect`
     - 20G minimal
     - 25G good
     - 30G+ best
-- `& "C:\Program Files\Virtio-Win\VioFS\virtiofs.exe" -t Data -m D:`
-- `& "C:\Program Files\Virtio-Win\VioFS\virtiofs.exe" -t System -m S:`
+- [Virtio-FS](https://wiki.archlinux.org/title/Libvirt#Virtio-FS)
+  - `& "C:\Program Files\Virtio-Win\VioFS\virtiofs.exe" -t Data -m D:`
+  - `& "C:\Program Files\Virtio-Win\VioFS\virtiofs.exe" -t System -m S:`
+  - or [create service](https://virtio-fs.gitlab.io/howto-windows.html#:~:text=Installing%20the%20virtiofs%20service)
 
 ## libvirt domains is [managed by NixVirt](./win10.nix)
 
@@ -59,9 +57,11 @@ virsh dumpxml --inactive win10 > /tmp/live-win10.xml && code --diff --reuse-wind
             - for W10UI
               - `7zz x *-win10-win11-64bit-international-dch-whql.exe Display.Driver/* -oDrivers/OS`
             - install via [CLI](https://docs.nvidia.com/datacenter/tesla/driver-installation-guide/windows.html)
-              - `7zz x *-win10-win11-64bit-international-dch-whql.exe Display.Driver NvApp NVI2 EULA.txt ListDevices.txt setup.cfg setup.exe -odrivers`
+              - `7zz x *-win10-win11-64bit-international-dch-whql.exe Display.Driver PPC NvApp NVI2 EULA.txt ListDevices.txt setup.cfg setup.exe -odrivers`
               - `.\setup.exe -s -n Display.Driver -log:c:\logs -loglevel:6`
                 - `-log:.\logs`
+              - `pnputil /add-driver drivers\PPC\nvppc.inf /install`
+                - PCI device 10de:1adb -> Nvidia Type-C UCSI PPC
         - cab version from microsoft updates isn't suitable for laptops
 
 ```shell

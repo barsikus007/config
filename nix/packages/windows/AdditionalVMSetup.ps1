@@ -103,6 +103,12 @@ Invoke-Expression "C:\Windows\Temp\winfsp.msi /passive"
             $proc = Start-Process -FilePath $setupExe -ArgumentList "-s", "-n", "Display.Driver", "-log:$logDir", "-loglevel:6" -Wait -PassThru;
             Pop-Location;
             Write-Host "Nvidia setup.exe exited with code $($proc.ExitCode)" -ForegroundColor Gray;
+
+            $ppcInf = "${letter}:\drivers\nvidia\PPC\nvppc.inf";
+            if( Test-Path -LiteralPath $ppcInf ) {
+                Write-Host "Installing Nvidia USB Type-C Port Policy Controller from $ppcInf..." -ForegroundColor Green;
+                pnputil /add-driver $ppcInf /install | Out-Null;
+            }
             return;
         }
     }

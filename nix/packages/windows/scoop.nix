@@ -1,83 +1,136 @@
 {
   lib,
+  fetchurl,
   fetchFromGitHub,
-  runCommand,
   git,
-}:
-let
-
-  scoopBuckets = [
+  runCommand,
+  zip,
+  scoopBuckets ? [
     {
       name = "main";
       owner = "ScoopInstaller";
       repo = "Main";
-      rev = "7439a1bd990a9d5e9fbdff9f045b6b58b2521724";
-      hash = "sha256-tvzDTsoZUJwdxNVMJxu49xhIsA9E5XRr/78BDyFXS2o=";
+      rev = "0b81304286de85f2671243ec290a4a2d2399b0a6";
+      hash = "sha256-B9uuOyMAseHWgTTGLvm3X1FuxdSP/XQ4vTXRsNP5kZ0=";
     }
     {
       name = "extras";
       owner = "ScoopInstaller";
       repo = "Extras";
-      rev = "32d754589df86c576bf218b796afe0e6de60a8c6";
-      hash = "sha256-wFfqBAzdniuHBWsi1k/fHhW6tX9lTGv/h3/kT3M4578=";
+      rev = "5e8f6ca5043bdc3e1ddabebfa896bbf1269f2931";
+      hash = "sha256-5ihaqTuRAYQ4Qs2TQMhVpoQxjXr0fvzqmvpIcYW51/0=";
     }
-    # postFetch = ''
-    #   mkdir --parents $out/.git/refs/{heads,remotes}
-    #   echo ${rev} > $out/.git/refs/heads/master
-    #   echo "ref: refs/remotes/origin/master" >
-    # '';
-  ];
-  scoopPackages = [
+  ],
+  scoopPackages ? [
     "main/aria2"
     "main/7zip"
-  ];
+    "main/mingit"
+    "main/innounp"
+    "main/dark"
+    "main/gsudo"
+  ],
+}:
+let
+  bucketSources = lib.listToAttrs (
+    map (bucket: {
+      inherit (bucket) name;
+      value = fetchFromGitHub {
+        inherit (bucket)
+          owner
+          repo
+          rev
+          hash
+          ;
+        leaveDotGit = true;
+      };
+    }) scoopBuckets
+  );
 
-  # TODO: scoopPackages: scoop/cache
-  # TODO: finish bucket .git hydration
+  cachedPackages = map (
+    pkgSpec:
+    let
+      parts = lib.splitString "/" pkgSpec;
+      bucketName = lib.head parts;
+      app = lib.last parts;
+      bucketSrc = bucketSources.${bucketName};
+      m = builtins.fromJSON (builtins.readFile "${bucketSrc}/bucket/${app}.json");
+      rawUrl = m.architecture."64bit".url or m.url;
+      url = if builtins.isList rawUrl then builtins.head rawUrl else rawUrl;
+      rawHash = m.architecture."64bit".hash or m.hash;
+      hashStr = if builtins.isList rawHash then builtins.head rawHash else rawHash;
+      sha256 = lib.removePrefix "sha256:" hashStr;
+    in
+    {
+      inherit app url sha256;
+      inherit (m) version;
+    }
+  ) scoopPackages;
 in
 runCommand "scoop-dir"
   {
-    nativeBuildInputs = [ git ];
+    nativeBuildInputs = [
+      git
+      zip
+    ];
     meta.description = "Hydrate scoop with nix";
   }
   ''
+    mkdir --parents $out/buckets $out/cache
+    export HOME=$(mktemp --directory)
+
     ${lib.strings.concatStringsSep "\n" (
       lib.lists.forEach scoopBuckets (bucket: ''
+        echo "Hydrating ${bucket.name} bucket..."
         BUCKET_DIR=$out/buckets/${bucket.name}
-        mkdir --parents "$BUCKET_DIR"
-        cp --archive ${
-          fetchFromGitHub {
-            inherit (bucket)
-              owner
-              repo
-              rev
-              hash
-              ;
-            leaveDotGit = true;
-          }
-        }/. $BUCKET_DIR
+        cp --archive ${bucketSources.${bucket.name}}/. "$BUCKET_DIR"
+        chmod --recursive +w "$BUCKET_DIR"
         cd "$BUCKET_DIR"
-        chmod +w --recursive .git
 
-        echo -e '[core]
-        \trepositoryformatversion = 0
-        \tfilemode = true
-        \tbare = false
-        \tlogallrefupdates = true
+        cat << EOF > .git/config
+        [core]
+          repositoryformatversion = 0
+          filemode = false
+          bare = false
+          logallrefupdates = true
+          ignorecase = true
         [remote "origin"]
-        \turl = https://github.com/ScoopInstaller/${bucket.repo}
-        \tfetch = +refs/heads/*:refs/remotes/origin/*
+          url = https://github.com/ScoopInstaller/${bucket.repo}.git
+          fetch = +refs/heads/*:refs/remotes/origin/*
         [branch "master"]
-        \tremote = origin
-        \tmerge = refs/heads/master' > .git/config
+          remote = origin
+          merge = refs/heads/master
+        EOF
 
         echo "ref: refs/heads/master" > .git/HEAD
-        echo ${bucket.rev} > .git/refs/heads/master
-        git reset
-        # git branch --set-upstream-to=origin/master master
+        echo "${bucket.rev}" > .git/refs/heads/master
+        mkdir --parents .git/refs/remotes/origin
+        echo "${bucket.rev}" > .git/refs/remotes/origin/master
 
+        git reset --quiet
         cd -
       '')
     )}
-    mkdir $out/cache
+
+    ${lib.strings.concatStringsSep "\n" (
+      lib.lists.forEach cachedPackages (
+        pkg:
+        let
+          src = fetchurl {
+            inherit (pkg) sha256 url;
+          };
+          ext = "." + lib.last (lib.splitString "." pkg.url);
+          sha = builtins.substring 0 7 (builtins.hashString "sha256" pkg.url);
+          modernName = "${pkg.app}#${pkg.version}#${sha}${ext}";
+        in
+        ''
+          echo "Caching ${pkg.app}..."
+          cp --archive ${src} "$out/cache/${modernName}"
+          underscored=$(echo "${pkg.url}" | sed 's/[^a-zA-Z0-9.-]/_/g')
+          cp --archive ${src} "$out/cache/${pkg.app}#${pkg.version}#$underscored"
+        ''
+      )
+    )}
+
+    cd $out
+    zip -r -q scoop-buckets.zip buckets cache
   ''
