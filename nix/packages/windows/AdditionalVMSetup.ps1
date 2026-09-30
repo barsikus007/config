@@ -46,6 +46,22 @@ Start-Service sshd
 New-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell -Value "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -PropertyType String -Force
 #endregion SSH
 
+#region FirefoxConfig
+# stage nix-compiled firefox configuration (policies, user.js, userChrome.css, search) to permanent location
+& {
+    foreach( $letter in 'DEFGHIJKLMNOPQRSTUVWXYZ'.ToCharArray() ) {
+        $ffDir = "${letter}:\firefox";
+        if( Test-Path -LiteralPath $ffDir ) {
+            $dest = "C:\ProgramData\FirefoxConfig";
+            New-Item -ItemType Directory -Path $dest -Force | Out-Null;
+            Copy-Item -Path "$ffDir\*" -Destination $dest -Recurse -Force;
+            Write-Host "Staged Firefox configuration from $ffDir to $dest" -ForegroundColor Green;
+            return;
+        }
+    }
+} *>&1 | Out-String -Width 1KB -Stream >> 'C:\Windows\Setup\Scripts\FirefoxConfig.log';
+#endregion FirefoxConfig
+
 #region WindowsUpdate
 & {
     foreach( $letter in 'DEFGHIJKLMNOPQRSTUVWXYZ'.ToCharArray() ) {
@@ -88,6 +104,15 @@ Invoke-WebRequest `
     -Uri https://github.com/winfsp/winfsp/releases/download/v2.1/winfsp-2.1.25156.msi `
     -OutFile "C:\Windows\Temp\winfsp.msi"
 Invoke-Expression "C:\Windows\Temp\winfsp.msi /passive"
+
+# register VirtIO-FS automount services for Data (D:) and System (S:)
+$viofsExe = "C:\Program Files\Virtio-Win\VioFS\virtiofs.exe"
+if (Test-Path $viofsExe) {
+    sc.exe create VirtioFS-Data binPath= "`"$viofsExe`" -t Data -m D:" start= auto depend= "WinFsp.Launcher" DisplayName= "VirtIO-FS Data (D:)"
+    sc.exe create VirtioFS-System binPath= "`"$viofsExe`" -t System -m S:" start= auto depend= "WinFsp.Launcher" DisplayName= "VirtIO-FS System (S:)"
+    Start-Service VirtioFS-Data -ErrorAction SilentlyContinue
+    Start-Service VirtioFS-System -ErrorAction SilentlyContinue
+}
 #endregion winfsp
 
 #region NvidiaDriver

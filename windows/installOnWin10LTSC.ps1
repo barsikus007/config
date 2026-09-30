@@ -47,7 +47,37 @@ Get-ChildItem -Path "$env:SCOOP\apps\*\current\install-context*.reg", "$env:SCOO
 }
 
 
-winget install --exact --id Microsoft.Edge --silent --force
+Write-Host "Firefox installation & configuration from Nix..." -ForegroundColor Green
+$persist = "$env:SCOOP\persist\firefox"
+New-Item -ItemType Directory -Path "$persist\distribution", "$persist\profile\chrome" -Force | Out-Null
+
+$ffSource = "C:\ProgramData\FirefoxConfig"
+if (-not (Test-Path $ffSource)) {
+    foreach ($letter in 'DEFGHIJKLMNOPQRSTUVWXYZ'.ToCharArray()) {
+        if (Test-Path "${letter}:\firefox") {
+            $ffSource = "${letter}:\firefox"
+            break
+        }
+    }
+}
+
+if (Test-Path $ffSource) {
+    if (Test-Path "$ffSource\distribution\policies.json") {
+        Copy-Item "$ffSource\distribution\policies.json" "$persist\distribution\" -Force
+    }
+    if (Test-Path "$ffSource\profile\user.js") {
+        Copy-Item "$ffSource\profile\user.js" "$persist\profile\" -Force
+    }
+    if (Test-Path "$ffSource\profile\chrome\userChrome.css") {
+        Copy-Item "$ffSource\profile\chrome\userChrome.css" "$persist\profile\chrome\" -Force
+    }
+    if (Test-Path "$ffSource\profile\search.json.mozlz4") {
+        Copy-Item "$ffSource\profile\search.json.mozlz4" "$persist\profile\" -Force
+    }
+    Write-Host "Applied Nix Firefox policies, user.js, and userChrome.css to Scoop persist." -ForegroundColor Cyan
+}
+
+scoop install firefox
 
 
 pwsh.exe -Command 'cd && git clone --depth 1 https://github.com/barsikus007/config && cd ~\config\ && .\windows\install.ps1 && cd -'

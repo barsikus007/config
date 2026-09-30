@@ -510,7 +510,22 @@
           nixos-minimalIso = self.nixosConfigurations."minimalIso-${system}".config.system.build.isoImage;
           nixos-plasmaIso = self.nixosConfigurations."plasmaIso-${system}".config.system.build.isoImage;
           #? nix build ./nix#windows-bootstrapIso --out-link unattend-win10-iot-ltsc-vrt.iso
-          windows-bootstrapIso = pkgs.callPackage ./packages/windows { };
+          windows-bootstrapIso = pkgs.callPackage ./packages/windows (
+            let
+              hmConfig = self.nixosConfigurations.ROG14.config.home-manager.users.ogurez;
+            in
+            {
+              firefoxPolicies = hmConfig.programs.firefox.policies;
+              firefoxProfileFiles = {
+                userJs = hmConfig.home.file.".config/mozilla/firefox/default/user.js".source;
+                userChrome = hmConfig.home.file.".config/mozilla/firefox/default/chrome/userChrome.css".source;
+                search = hmConfig.home.file.".config/mozilla/firefox/default/search.json.mozlz4".source;
+              };
+              withNvidia = true;
+            }
+          );
+          windows-bootstrapIso-nvidia = self.packages.${system}.windows-bootstrapIso.override {
+          };
 
           kompas3d = pkgs.kdePackages.callPackage ./packages/kompas3d { };
           kompas3d-fhs = pkgs.callPackage ./packages/kompas3d/fhs.nix { };

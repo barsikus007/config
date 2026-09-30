@@ -77,17 +77,6 @@ foreach ($oldvid in $oldvids) {
 - disable `reg.exe add “HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32” /f`
 - enable `reg.exe delete “HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}” /f`
 
-## Edge fix "harm exe" notification
-
-```reg
-Windows Registry Editor Version 5.00
-
-[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Edge\ExemptDomainFileTypePairsFromFileTypeDownloadWarnings]
-"1"="{\"file_extension\": \"exe\", \"domains\": [\"*\"]}"
-```
-
-### [another shitty edge warning disabler](https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies#disable-download-file-type-extension-based-warnings-for-specified-file-types-on-domains)
-
 ## shutdown commands
 
 - `shutdown /t 0 /r`  # reload now
@@ -106,7 +95,7 @@ Windows Registry Editor Version 5.00
 - install
   - `winget install NTKERNEL.WireSockVPNClient`
   - <https://github.com/wiresock/WireSockUI/releases>
-- `AllowedApps = _msedge, _opera, code, copilot-agent-win, EpicGamesLauncher, EpicWebHelper, steam, steamwebhelper, mstsc`
+- `AllowedApps = _opera, code, copilot-agent-win, EpicGamesLauncher, EpicWebHelper, steam, steamwebhelper, mstsc`
 - `AllowedIPs = 0.0.0.0/1, 128.0.0.0/1, ::/1, 8000::/1`
 
 ## Steam Lite

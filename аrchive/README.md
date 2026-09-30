@@ -135,6 +135,19 @@ Remove-Item -Recurse ~\.proto\
 # TODO add proto to scoop
 ```
 
+## Windows
+
+### Edge fix "harm exe" notification
+
+```reg
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Edge\ExemptDomainFileTypePairsFromFileTypeDownloadWarnings]
+"1"="{\"file_extension\": \"exe\", \"domains\": [\"*\"]}"
+```
+
+#### [another shitty edge warning disabler](https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies#disable-download-file-type-extension-based-warnings-for-specified-file-types-on-domains)
+
 ## other
 
 - Docker Desktop extensions

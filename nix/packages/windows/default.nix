@@ -5,7 +5,10 @@
   callPackage,
   runCommand,
   virtio-win,
+  writeText,
   xorriso,
+  firefoxPolicies ? null,
+  firefoxProfileFiles ? null,
   withNvidia ? false,
   withTweaks ? false,
   withUpdates ? false,
@@ -61,6 +64,12 @@ let
 
   scoop = callPackage ./scoop.nix { };
 
+  firefoxPoliciesJson =
+    if firefoxPolicies != null then
+      writeText "policies.json" (builtins.toJSON { inherit firefoxPolicies; })
+    else
+      null;
+
   # TODO: & ([ScriptBlock]::Create((irm https://get.activated.win))) /Z-Windows
   # TODO: https://www.reddit.com/r/techsupport/comments/ehgbmu/windows_10_oemcustomizations/
   isoDir = runCommand "iso-content" { } ''
@@ -89,6 +98,18 @@ let
     mkdir --parents $out/scoop-hydrated
     cp ${scoop}/scoop-buckets.zip $out/scoop-hydrated/scoop-buckets.zip
     cp --recursive ${scoop}/cache $out/scoop-hydrated/cache
+
+    ${lib.optionalString (firefoxPoliciesJson != null) ''
+      mkdir --parents $out/firefox/distribution
+      cp ${firefoxPoliciesJson} $out/firefox/distribution/policies.json
+    ''}
+
+    ${lib.optionalString (firefoxProfileFiles != null) ''
+      mkdir --parents $out/firefox/profile/chrome
+      cp ${firefoxProfileFiles.userJs} $out/firefox/profile/user.js
+      cp ${firefoxProfileFiles.userChrome} $out/firefox/profile/chrome/userChrome.css
+      cp ${firefoxProfileFiles.search} $out/firefox/profile/search.json.mozlz4
+    ''}
 
     ${lib.optionalString withNvidia ''
       mkdir --parents $out/drivers/nvidia

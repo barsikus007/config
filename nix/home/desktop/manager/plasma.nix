@@ -158,11 +158,6 @@ in
           title = "AyuGramDesktop";
         }
         {
-          name = "Edge";
-          class = "msedge msedge";
-          title = "Picture in picture";
-        }
-        {
           name = "Firefox";
           class = "firefox firefox";
           title = "Picture-in-Picture";

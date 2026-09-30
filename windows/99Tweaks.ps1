@@ -76,7 +76,7 @@ Write-Host "set VirtIO network as private" -ForegroundColor Green
 Get-NetAdapter | Where-Object InterfaceDescription -like "*VirtIO*" | Get-NetConnectionProfile | sudo Set-NetConnectionProfile -NetworkCategory Private
 
 #? https://learn.microsoft.com/en-us/windows/configuration/taskbar/pinned-apps
-Write-Host "set taskbar icons (explorer.exe, wt.exe, edge.exe)" -ForegroundColor Green
+Write-Host "set taskbar icons (explorer.exe, wt.exe, firefox.exe)" -ForegroundColor Green
 # 1. define the XML content with the specific AppIDs you requested
 #? get app id with Get-StartApps
 $XmlContent = @'
@@ -92,7 +92,7 @@ $XmlContent = @'
       <taskbar:TaskbarPinList>
         <taskbar:DesktopApp DesktopApplicationID="Microsoft.Windows.Explorer" />
         <taskbar:UWA AppUserModelID="Microsoft.WindowsTerminal_8wekyb3d8bbwe!App" />
-        <taskbar:DesktopApp DesktopApplicationID="MSEdge" />
+        <taskbar:DesktopApp DesktopApplicationLinkPath="%APPDATA%\Microsoft\Windows\Start Menu\Programs\Scoop Apps\Firefox.lnk" />
       </taskbar:TaskbarPinList>
     </defaultlayout:TaskbarLayout>
   </CustomTaskbarLayoutCollection>
@@ -139,10 +139,6 @@ $Folder = $Shell.Namespace($Path)
 # invoke the "Pin to Quick access" native shell verb
 $Folder.Self.InvokeVerb("pintohome")
 
-Write-Host "msedge tweaks" -ForegroundColor Green
-# set Alt+Tab to show "Open windows only" (Value = 3)
-Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "MultiTaskingAltTabFilter" -Value 3 -Type DWord
-
 
 Write-Host "autostart important scoop apps (altsnap,everything,systeminformer)" -ForegroundColor Green
 # define the registry path for user startup apps
@@ -159,4 +155,3 @@ Set-ItemProperty -Path $RegPath -Name "SystemInformer" -Value $SysInformerPath
 
 
 Write-Host "TODO: 2nd: https://win10tweaker.ru/twikinarium/system" -ForegroundColor DarkYellow
-Write-Host "TODO: edge.exe: start at empty page;google search" -ForegroundColor DarkYellow
