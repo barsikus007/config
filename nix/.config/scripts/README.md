@@ -34,10 +34,9 @@ export const commands: Record<string, Command> = {
 };
 ```
 
-the [pre-commit hook](../../hooks/compile-script-aliases.ts) reads that table from every `*.ts` file here.
-it writes [script-aliases.sh](../shell/script-aliases.sh), which the shell sources with the rest of [shell directory](../shell/).
-the output file is generated, so it is not in git.
-to write it without a commit, run the hook from the repo root:
+on NixOS, Home Manager builds aliases and completions directly into `/nix/store` via a Nix derivation.
+for Ubuntu, the [pre-commit hook](../../hooks/compile-script-aliases.ts) generates `linux/.config/shell/script-aliases.sh` and commits it to Git.
+to run the hook manually from the repo root:
 
 ```shell
 prek run compile-script-aliases-from-ts --all-files
@@ -45,7 +44,8 @@ prek run compile-script-aliases-from-ts --all-files
 
 ## completions
 
-the same hook writes `completions/_<name>` for zsh, from the same table.
+the Nix derivation generates `completions/_<name>` for Zsh directly into the Nix store.
 subcommand names complete on `docker-utils.ts <tab>`, and an alias completes the arguments of its subcommand, so `dcsh <tab>` offers containers.
-an entry can name a dynamic completer with `args` (`containers`, `adb-devices`, `commands`); each name is a zsh snippet at `lib/completions/<name>.zsh`, the hook inlines it.
-entries with `alias: ""` stay hidden. zsh finds the files through fpath, wired in `nix/home/shell/minimal.nix`. on bash only the subcommand names complete, through the `complete -W` block in `script-aliases.sh`.
+an entry can name a dynamic completer with `args` (`containers`, `adb-devices`, `commands`); each name is a Zsh snippet at `lib/completions/<name>.zsh`, inlined at build time.
+entries with `alias: ""` stay hidden. Zsh finds the files through fpath, wired in `nix/home/shell/minimal.nix`.
+on Bash (Ubuntu) only the subcommand names complete, through the `complete -W` block in `script-aliases.sh`.

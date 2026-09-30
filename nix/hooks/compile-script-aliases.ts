@@ -1,19 +1,21 @@
 #!/usr/bin/env bun
 
-//! generates shell aliases and zsh completions from `export const commands` in nix/.config/scripts/*.ts
+//! generates shell aliases for linux/ubuntu and zsh completions for nix derivation
+//! from `export const commands` in nix/.config/scripts/*.ts
 //! runs on pre-commit; to apply without committing, from the repo root:
 //!   prek run compile-script-aliases-from-ts --all-files
 //!   ./nix/hooks/compile-script-aliases.ts
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync } from 'node:fs';
-import { join, resolve } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 
-const scriptsDir = resolve('nix/.config/scripts');
-const outFile = resolve('nix/.config/shell/script-aliases.sh');
-const completionsDir = resolve(scriptsDir, 'completions');
-const completersDir = resolve(scriptsDir, 'lib/completions');
+const isHook = !process.env.OUT_FILE;
+const scriptsDir = resolve(process.env.SCRIPTS_DIR ?? 'nix/.config/scripts');
+const outFile = resolve(process.env.OUT_FILE ?? 'linux/.config/shell/script-aliases.sh');
+const completionsDir = process.env.COMPLETIONS_DIR ? resolve(process.env.COMPLETIONS_DIR) : undefined;
+const completersDir = resolve(process.env.COMPLETERS_DIR ?? join(scriptsDir, 'lib/completions'));
 
-//? paths are cwd-relative; without this guard a stray run from elsewhere creates
-//? an empty nix/ tree there and writes empty outputs into it
+//? paths are cwd-relative by default; without this guard a stray run from elsewhere
+//? creates an empty tree there and writes empty outputs into it
 if (!existsSync(scriptsDir)) {
   console.error(`${scriptsDir} not found, run from the repo root`);
   process.exit(1);
@@ -88,7 +90,9 @@ const aliasLines: string[] = [];
 const bashLines: string[] = [];
 const written: string[] = [];
 
-mkdirSync(completionsDir, { recursive: true });
+if (completionsDir) {
+  mkdirSync(completionsDir, { recursive: true });
+}
 
 for (const entry of readdirSync(scriptsDir).sort()) {
   if (!entry.endsWith('.ts')) continue;
@@ -109,19 +113,23 @@ for (const entry of readdirSync(scriptsDir).sort()) {
     .map(([s]) => s);
   if (visibleSubs.length > 0) bashLines.push(`    complete -W ${quote(visibleSubs.join(' '))} ${entry}`);
 
-  const completion = completionFor(entry, defs);
-  if (completion) {
-    //? compinit maps the #compdef commands onto the file basename, and the
-    //? command already carries the .ts, so the file itself needs no extension
-    const name = `_${entry.replace(/\.ts$/, '')}`;
-    await Bun.write(join(completionsDir, name), completion);
-    written.push(name);
+  if (completionsDir) {
+    const completion = completionFor(entry, defs);
+    if (completion) {
+      //? compinit maps the #compdef commands onto the file basename, and the
+      //? command already carries the .ts, so the file itself needs no extension
+      const name = `_${entry.replace(/\.ts$/, '')}`;
+      await Bun.write(join(completionsDir, name), completion);
+      written.push(name);
+    }
   }
 }
 
-//? a deleted or emptied script must not leave its completion behind
-for (const f of readdirSync(completionsDir)) {
-  if (f.startsWith('_') && !written.includes(f)) rmSync(join(completionsDir, f));
+if (completionsDir) {
+  //? a deleted or emptied script must not leave its completion behind
+  for (const f of readdirSync(completionsDir)) {
+    if (f.startsWith('_') && !written.includes(f)) rmSync(join(completionsDir, f));
+  }
 }
 
 const body = [
@@ -139,6 +147,13 @@ const body = [
   '',
 ].join('\n');
 
+mkdirSync(dirname(outFile), { recursive: true });
 await Bun.write(outFile, body);
 console.log(`wrote ${aliasLines.length} aliases to ${outFile}`);
-console.log(`wrote ${written.length} completions to ${completionsDir}`);
+if (completionsDir) {
+  console.log(`wrote ${written.length} completions to ${completionsDir}`);
+}
+
+if (isHook) {
+  Bun.spawnSync(['git', 'add', '--force', outFile]);
+}

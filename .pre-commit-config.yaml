@@ -12,7 +12,7 @@ repos:
         language: script
         pass_filenames: false
       - id: compile-script-aliases-from-ts
-        name: Run My Shell Script
+        name: compile script aliases for linux
         entry: ./nix/hooks/compile-script-aliases.ts
         language: script
         pass_filenames: false

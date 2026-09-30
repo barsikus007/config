@@ -10,6 +10,18 @@ let
   aliases = import ./aliases.nix { inherit lib pkgs flakePath; };
   sharedAliases = aliases.sharedAliases // aliases.nixAliases;
   inherit (aliases) zshAliases;
+
+  scriptAliases =
+    pkgs.runCommand "script-aliases"
+      {
+        nativeBuildInputs = with pkgs; [ bun ];
+        SCRIPTS_DIR = "${../../.config/scripts}";
+        COMPLETERS_DIR = "${../../.config/scripts/lib/completions}";
+      }
+      ''
+        mkdir -p $out/completions
+        OUT_FILE=$out/script-aliases.sh COMPLETIONS_DIR=$out/completions bun ${../../hooks/compile-script-aliases.ts}
+      '';
 in
 {
   imports = [
@@ -52,10 +64,12 @@ in
     envExtra = ''
       #! XDG_CONFIG_HOME is unset this early in .zshenv
       for file in "''${XDG_CONFIG_HOME:-$HOME/.config}"/shell/*.sh; do
+        [[ "$file" == */script-aliases.sh ]] && continue
         source "$file"
       done
+      source "${scriptAliases}/script-aliases.sh"
       #? generated zsh completions for scripts/*.ts, compinit picks them up in .zshrc
-      fpath+=("''${XDG_CONFIG_HOME:-$HOME/.config}/scripts/completions")
+      fpath+=("${scriptAliases}/completions")
     '';
     # TODO: zshrc is duplicated with system modules/shell/zsh.nix
     initContent = builtins.readFile ../../.config/zsh/.zshrc;
@@ -66,8 +80,10 @@ in
     historyControl = [ "ignoreboth" ];
     initExtra = ''
       for file in "$XDG_CONFIG_HOME"/shell/*.sh; do
+        [[ "$file" == */script-aliases.sh ]] && continue
         source "$file"
       done
+      source "${scriptAliases}/script-aliases.sh"
     '';
   };
 

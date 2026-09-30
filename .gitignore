@@ -6,5 +6,4 @@ node_modules/
 linux/.config/git/config
 linux/.config/shell/aliases.sh
 linux/.config/shell/soft-envs.sh
-nix/.config/shell/script-aliases.sh
-nix/.config/scripts/completions/
+linux/.config/shell/script-aliases.sh
