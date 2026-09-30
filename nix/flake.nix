@@ -117,6 +117,12 @@
       inputs.flake-compat.follows = "flake-compat";
     };
     niri.url = "github:epireyn/niri-flake";
+
+    hermes-agent = {
+      url = "github:NousResearch/hermes-agent";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+    };
   };
 
   outputs =
@@ -225,6 +231,7 @@
           ./modules/android.nix
           ./modules/diagnostic.nix
           ./modules/printer.nix
+          ./modules/hermes.nix
 
           # ./modules/desktop/manager/plasma.nix
           ./modules/desktop/manager/noctalia-niri.nix
