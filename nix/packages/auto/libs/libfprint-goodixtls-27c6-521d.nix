@@ -38,6 +38,11 @@ stdenv.mkDerivation (finalAttrs: {
     sed --in-place "24c       value: '$out/lib/udev')" ./meson_options.txt
     # don't build API docs
     sed --in-place "32c       value: false)" ./meson_options.txt
+
+    # disable software thermal limit to prevent timeout on lockscreen
+    substituteInPlace libfprint/drivers/goodixtls/goodix5*.c \
+      --replace-fail 'dev_class->scan_type = FP_SCAN_TYPE_PRESS;' \
+                     'dev_class->scan_type = FP_SCAN_TYPE_PRESS; dev_class->temp_hot_seconds = -1;'
   ''
   + lib.strings.optionalString (!withTests) ''
     # don't install tests

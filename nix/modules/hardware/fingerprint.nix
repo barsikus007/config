@@ -30,6 +30,6 @@ in
     ${systemctl} stop fprintd.service || true
   '';
 
-  #? cause fprint is fucked up in greetd
-  security.pam.services.greetd.fprintAuth = lib.mkIf config.services.greetd.enable false;
+  #? cause fprint is fucked up in DMs
+  security.pam.services.login.fprintAuth = false;
 }

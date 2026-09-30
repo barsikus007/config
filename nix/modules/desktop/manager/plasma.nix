@@ -13,8 +13,6 @@
   home-manager.users.${username}.imports = [ ../../../home/desktop/manager/plasma.nix ];
 
   services.desktopManager.plasma6.enable = true;
-  #! still raw in terms of fprintd things
-  # services.displayManager.plasma-login-manager.enable = true;
 
   xdg.portal.config.common.default = [ "kde" ];
 
