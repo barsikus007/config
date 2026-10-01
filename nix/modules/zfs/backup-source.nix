@@ -20,7 +20,7 @@ let
   #? `ssh -G NAS` resolves hostname/port from ssh_config without connecting
   nasReachable = pkgs.writeShellScript "nas-reachable" ''
     set -euo pipefail
-    host= port=
+    host="" port=""
     while read -r k v _; do
       case "$k" in
         (hostname) host=$v ;;

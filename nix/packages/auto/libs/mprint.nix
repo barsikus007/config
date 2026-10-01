@@ -38,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    cd v${finalAttrs.version}/
+    cd "v${finalAttrs.version}/" || exit 1
     mkdir --parents $out/lib/cups/filter/
     mkdir --parents $out/share/cups/model/hprt/
     install --mode 644 ppd/*.ppd $out/share/cups/model/hprt/

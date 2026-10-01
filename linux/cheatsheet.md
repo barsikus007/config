@@ -85,7 +85,7 @@ zgrep --extended-regexp "Commandline: apt(|-get)" /var/log/apt/history.log*
 
 ### exclude private ips from routing through wg tunnel
 
-```shell
+```ini
 [Interface]
 PostUp = DEFRT=$(ip route show default | cut --delimiter=' ' --fields=2-); for NET in 192.168.0.0/16 169.254.0.0/16 172.16.0.0/12 100.64.0.0/10 10.0.0.0/8; do ip route add $NET $DEFRT protocol 127; done
 PreDown = ip route flush protocol 127
@@ -94,7 +94,7 @@ PreDown = ip route flush protocol 127
 
 [or one of the cool ways to do that](https://www.wireguard.com/netns/)
 
-```shell
+```ini
 PostUp =  awg set %i fwmark 51820
 PostUp =  ip -4 rule add not fwmark 51820 table 51820
 PostUp =  ip -4 rule add table main suppress_prefixlength 0
@@ -190,7 +190,7 @@ sudo sh -c "truncate --size=0 /var/lib/docker/containers/*/*-json.log"
 unknown source
 
 ```shell
-ps aux | grep sshd | grep "\w*@pts/.*" | awk {'print $2'} | xargs kill -9
+ps aux | grep sshd | grep "\w*@pts/.*" | awk '{print $2}' | xargs kill -9
 ```
 
 ### [cron based autoclean](https://crontab.guru/#0_0_*_*_*)
@@ -206,6 +206,7 @@ sudo crontab -e
 
 ```shell
 # spams function calls
+# shellcheck disable=SC2264
 :(){ :|:& };:
 # redirect yes output to "no" file
 yes > no
@@ -253,7 +254,7 @@ localepreview () {
 ```shell
 command=<command to check>
 strace --trace=file --string-limit=200 \
-$(command) 2> ~/strace-$(date +%Y-%m-%d'_'%H_%M_%S).log
+  $command 2> ~/strace-$(date +%Y-%m-%d'_'%H_%M_%S).log
 
 strace --trace=openat --attach <PID>
 

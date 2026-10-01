@@ -40,7 +40,7 @@ let
       if [ ! -f "$LAUNCHER_BIN" ]; then
         echo "Downloading Hytale Launcher..."
         TEMP_DIR=$(mktemp --directory)
-        trap "rm --recursive --force $TEMP_DIR" EXIT
+        trap 'rm --recursive --force "$TEMP_DIR"' EXIT
 
         curl --location --output "$TEMP_DIR/launcher.zip" "$DOWNLOAD_URL"
         unzip -o "$TEMP_DIR/launcher.zip" -d "$TEMP_DIR"

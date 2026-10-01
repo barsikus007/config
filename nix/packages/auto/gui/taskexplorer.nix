@@ -48,12 +48,9 @@ stdenv.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    local binDir
-    if [ -d Bin ]; then
-      binDir=(Bin/linux-*)
-    else
-      binDir=(../Bin/linux-*)
-    fi
+    for d in Bin/linux-* ../Bin/linux-*; do
+      [ -d "$d" ] && binDir="$d" && break
+    done
 
     install -Dm755 "$binDir/TaskExplorer" "$out/bin/TaskExplorer"
     install -Dm755 "$binDir/TaskHelper" "$out/bin/TaskHelper"

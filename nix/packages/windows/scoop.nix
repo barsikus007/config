@@ -76,7 +76,8 @@ runCommand "scoop-dir"
   }
   ''
     mkdir --parents $out/buckets $out/cache
-    export HOME=$(mktemp --directory)
+    HOME=$(mktemp --directory)
+    export HOME
 
     ${lib.strings.concatStringsSep "\n" (
       lib.lists.forEach scoopBuckets (bucket: ''
@@ -131,6 +132,6 @@ runCommand "scoop-dir"
       )
     )}
 
-    cd $out
+    cd "$out" || exit 1
     zip -r -q scoop-buckets.zip buckets cache
   ''

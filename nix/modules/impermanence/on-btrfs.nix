@@ -54,7 +54,7 @@ in
         }
 
         #? delete old roots older than 30 days
-        for i in $(find /btrfs_tmp/@-old_roots/ -maxdepth 1 -mtime +30); do
+        find /btrfs_tmp/@-old_roots/ -maxdepth 1 -mtime +30 | while read -r i; do
           delete_subvolume_recursively "$i"
         done
 

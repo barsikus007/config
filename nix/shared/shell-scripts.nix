@@ -53,10 +53,12 @@ in
             ${libnotify} "Error" "No valid window ID obtained. Did you focus a window?" --urgency=critical
             exit 1
           fi
+          # shellcheck disable=SC2034
           PID=$(${kdotool} getwindowpid "$WINDOW_ID")
         ''
       else
         /* shell */ ''
+          # shellcheck disable=SC2034
           PID=""
         ''
     )
