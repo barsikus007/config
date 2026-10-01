@@ -29,13 +29,33 @@ cd ~\config\ && git pull && .\windows\install.ps1 && cd -
 sudo reg add "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\TimeZoneInformation" /v RealTimeIsUniversal /d 1 /t REG_DWORD /f
 ```
 
-## PowerShell lifehack to bypas security policy
+## [soft](./soft.md)
+
+### WireGuard
+
+- wireguard fix to make wg interfaces from public to private
+  - <https://raw.githubusercontent.com/krair/cloud-tools/main/wireguard/Win_wg_adapters_to_private.ps1>
+  - shorter but less universal version `Set-NetConnectionProfile -InterfaceAlias 'wg0' -NetworkCategory 'Private'`
+- <https://www.procustodibus.com/blog/2021/03/wireguard-allowedips-calculator/>
+  - `0.0.0.0/1, 128.0.0.0/2, 192.0.0.0/9, 192.128.0.0/11, 192.160.0.0/13, 192.169.0.0/16, 192.170.0.0/15, 192.172.0.0/14, 192.176.0.0/12, 192.192.0.0/10, 193.0.0.0/8, 194.0.0.0/7, 196.0.0.0/6, 200.0.0.0/5, 208.0.0.0/4, 224.0.0.0/3, ::/1, 8000::/1`
+
+#### WireSockUI
+
+- install
+  - `winget install NTKERNEL.WireSockVPNClient`
+  - <https://github.com/wiresock/WireSockUI/releases>
+- `AllowedApps = _opera, code, copilot-agent-win, EpicGamesLauncher, EpicWebHelper, steam, steamwebhelper, mstsc`
+- `AllowedIPs = 0.0.0.0/1, 128.0.0.0/1, ::/1, 8000::/1`
+
+## command cheat sheet
+
+### PowerShell lifehack to bypas security policy
 
 ```powershell
 PowerShell.exe -ExecutionPolicy Bypass -File <filename>
 ```
 
-## override system apps with user within shell context
+### override system apps with user within shell context
 
 ```powershell
 ${env:Path} = @(
@@ -43,10 +63,6 @@ ${env:Path} = @(
   [Environment]::GetEnvironmentVariable('Path', 'Machine')
 ) -join ';'
 ```
-
-## [soft](./soft.md)
-
-## command cheat sheet
 
 ### convert all mkv to mp4 with ffmpeg
 
@@ -70,33 +86,17 @@ foreach ($oldvid in $oldvids) {
 }
 ```
 
-## [ROG G14](./rog14.md)
-
-## toggle new context menu (due to lack of 7zip and notepad++)
+### toggle new context menu (due to lack of 7zip and notepad++)
 
 - disable `reg.exe add “HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32” /f`
 - enable `reg.exe delete “HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}” /f`
 
-## shutdown commands
+### shutdown commands
 
 - `shutdown /t 0 /r`  # reload now
 - `shutdown /t 0 /s /f`  # full shutdown
 
-## WireGuard
-
-- wireguard fix to make wg interfaces from public to private
-  - <https://raw.githubusercontent.com/krair/cloud-tools/main/wireguard/Win_wg_adapters_to_private.ps1>
-  - shorter but less universal version `Set-NetConnectionProfile -InterfaceAlias 'wg0' -NetworkCategory 'Private'`
-- <https://www.procustodibus.com/blog/2021/03/wireguard-allowedips-calculator/>
-  - `0.0.0.0/1, 128.0.0.0/2, 192.0.0.0/9, 192.128.0.0/11, 192.160.0.0/13, 192.169.0.0/16, 192.170.0.0/15, 192.172.0.0/14, 192.176.0.0/12, 192.192.0.0/10, 193.0.0.0/8, 194.0.0.0/7, 196.0.0.0/6, 200.0.0.0/5, 208.0.0.0/4, 224.0.0.0/3, ::/1, 8000::/1`
-
-### WireSockUI
-
-- install
-  - `winget install NTKERNEL.WireSockVPNClient`
-  - <https://github.com/wiresock/WireSockUI/releases>
-- `AllowedApps = _opera, code, copilot-agent-win, EpicGamesLauncher, EpicWebHelper, steam, steamwebhelper, mstsc`
-- `AllowedIPs = 0.0.0.0/1, 128.0.0.0/1, ::/1, 8000::/1`
+## [ROG G14](./rog14.md)
 
 ## Steam Lite
 
