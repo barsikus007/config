@@ -184,10 +184,19 @@ Invoke-Expression "C:\Windows\Setup\Scripts\MAS_AIO.cmd /Z-Windows"
 #region CustomTweaks
 & {
     foreach( $letter in 'DEFGHIJKLMNOPQRSTUVWXYZ'.ToCharArray() ) {
-        $tweaksScript = "${letter}:\scripts\01-tweaks.ps1";
+        $tweaksScript = "${letter}:\scripts\00AutoInstallTweaks.ps1";
         if( Test-Path -LiteralPath $tweaksScript ) {
-            Write-Host "Running $tweaksScript..." -ForegroundColor Green;
-            & $tweaksScript;
+            Write-Host "Waiting for user desktop shell..." -ForegroundColor Green;
+            while (-not (Get-Process explorer -ErrorAction SilentlyContinue)) { Start-Sleep -Seconds 1 }
+            Start-Sleep -Seconds 2;
+            Write-Host "Launching $tweaksScript in interactive user window via desktop shell..." -ForegroundColor Green;
+            $shell = New-Object -ComObject Shell.Application;
+            $desktop = $shell.Windows().FindWindowSW(0, 0, 8, 0, 1);
+            if ($desktop) {
+                $desktop.Document.Application.ShellExecute("powershell.exe", "-ExecutionPolicy Bypass -File `"$tweaksScript`"", "", "open", 1);
+            } else {
+                $shell.ShellExecute("powershell.exe", "-ExecutionPolicy Bypass -File `"$tweaksScript`"", "", "open", 1);
+            }
             return;
         }
     }

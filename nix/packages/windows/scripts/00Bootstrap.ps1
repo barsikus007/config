@@ -20,12 +20,13 @@ scoop config aria2-warning-enabled false
 scoop install 7zip
 scoop install mingit innounp dark gsudo
 
-#? pre-seed scoop buckets from ISO using 7z (or fallback to Expand-Archive)
+#? pre-seed scoop buckets from ISO using 7z
 if (!(Test-Path "$env:SCOOP\buckets\extras\.git") -or !(Test-Path "$env:SCOOP\buckets\main\.git")) {
     foreach ($letter in 'DEFGHIJKLMNOPQRSTUVWXYZ'.ToCharArray()) {
         $zip = "${letter}:\scoop-hydrated\scoop-buckets.zip"
         if (Test-Path -LiteralPath $zip) {
             Write-Host "pre-seeding scoop buckets from $zip..." -ForegroundColor Green
+            Remove-Item -LiteralPath "$env:SCOOP\buckets" -Recurse -Force -ErrorAction SilentlyContinue
             7z x "$zip" "-o$env:SCOOP" -y | Out-Null
             break
         }
@@ -38,6 +39,5 @@ if (!(Test-Path "$env:SCOOP\buckets\extras\.git")) {
         Remove-Item -LiteralPath "$env:SCOOP\buckets\extras" -Recurse -Force -ErrorAction SilentlyContinue
     }
     scoop bucket add extras
+    scoop update
 }
-
-scoop update

@@ -10,8 +10,9 @@
   firefoxPolicies ? null,
   firefoxProfileFiles ? null,
   withNvidia ? false,
-  withTweaks ? false,
   withUpdates ? false,
+  withTweaks ? false,
+  withAdditionalTweaks ? false,
 }:
 #? alternatives:
 # https://git.m-labs.hk/M-Labs/wfvm
@@ -66,7 +67,7 @@ let
 
   firefoxPoliciesJson =
     if firefoxPolicies != null then
-      writeText "policies.json" (builtins.toJSON { inherit firefoxPolicies; })
+      writeText "policies.json" (builtins.toJSON { policies = firefoxPolicies; })
     else
       null;
 
@@ -107,7 +108,15 @@ let
     ${lib.optionalString (firefoxProfileFiles != null) ''
       mkdir --parents $out/firefox/profile/chrome
       cp ${firefoxProfileFiles.userJs} $out/firefox/profile/user.js
-      cp ${firefoxProfileFiles.userChrome} $out/firefox/profile/chrome/userChrome.css
+      awk '{
+        if ($0 ~ /^@import "\/nix\/store\//) {
+          match($0, /"([^"]+)"/, arr)
+          while ((getline line < arr[1]) > 0) print line
+          close(arr[1])
+        } else {
+          print $0
+        }
+      }' ${firefoxProfileFiles.userChrome} > $out/firefox/profile/chrome/userChrome.css
       cp ${firefoxProfileFiles.search} $out/firefox/profile/search.json.mozlz4
     ''}
 
@@ -124,10 +133,27 @@ let
 
     ${lib.optionalString withTweaks ''
       mkdir --parents $out/scripts
-      cat > $out/scripts/01-tweaks.ps1 << 'EOF'
-      Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
-      irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/installOnWin10LTSC.ps1 | iex
-      irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/99Tweaks.ps1 | iex
+      cp --recursive ${./scripts}/* $out/scripts/
+      chmod --recursive +w $out/scripts/
+      cat > $out/scripts/00AutoInstallTweaks.ps1 << 'EOF'
+      Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force -ErrorAction SilentlyContinue
+      $scriptDir = $PSScriptRoot
+      if (-not $scriptDir) {
+          foreach ($letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.ToCharArray()) {
+              if (Test-Path "''${letter}:\scripts\installOnWin10LTSC.ps1") {
+                  $scriptDir = "''${letter}:\scripts"
+                  break
+              }
+          }
+      }
+      if ($scriptDir -and (Test-Path "$scriptDir\installOnWin10LTSC.ps1")) {
+          & "$scriptDir\installOnWin10LTSC.ps1"
+      }
+      ${lib.optionalString withAdditionalTweaks ''
+        if ($scriptDir -and (Test-Path "$scriptDir\99Tweaks.ps1")) {
+            & "$scriptDir\99Tweaks.ps1"
+        }
+      ''}
       EOF
     ''}
   '';

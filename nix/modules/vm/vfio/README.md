@@ -16,9 +16,9 @@ codename `Windows-Resurrect`
    - unmount installation media (will be reset by NixVirt on rebuild otherwise)
       - `virsh detach-disk win10 --config sda`
       - `virsh detach-disk win10 --config sdb`
-5. run in pwsh **as user** `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/installOnWin10LTSC.ps1 | iex`([content](../../../../windows/installOnWin10LTSC.ps1))
+5. run in pwsh **as user** `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/nix/packages/windows/scripts/installOnWin10LTSC.ps1 | iex`([content](../../../packages/windows/scripts/installOnWin10LTSC.ps1))
    1. wait for UAC prompt and agree
-   2. optional tweaks: launch `sudo pwsh.exe` and run `irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/99Tweaks.ps1 | iex` ([content](../../../../windows/99Tweaks.ps1))
+   2. optional tweaks: launch `sudo pwsh.exe` and run `irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/nix/packages/windows/scripts/99Tweaks.ps1 | iex` ([content](../../../packages/windows/scripts/99Tweaks.ps1))
 
 ## disks
 

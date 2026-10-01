@@ -522,10 +522,10 @@
                 search = hmConfig.home.file.".config/mozilla/firefox/default/search.json.mozlz4".source;
               };
               withNvidia = true;
+              withTweaks = true;
+              withAdditionalTweaks = true;
             }
           );
-          windows-bootstrapIso-nvidia = self.packages.${system}.windows-bootstrapIso.override {
-          };
 
           kompas3d = pkgs.kdePackages.callPackage ./packages/kompas3d { };
           kompas3d-fhs = pkgs.callPackage ./packages/kompas3d/fhs.nix { };

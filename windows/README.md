@@ -3,7 +3,7 @@
 ## pre-install
 
 - run script for complete latest win10 setup
-  - run in pwsh **as user** `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/windows/installOnWin10LTSC.ps1 | iex`([content](./installOnWin10LTSC.ps1))
+  - run in pwsh **as user** `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; irm https://raw.githubusercontent.com/barsikus007/config/refs/heads/master/nix/packages/windows/scripts/installOnWin10LTSC.ps1 | iex`([content](../nix/packages/windows/scripts/installOnWin10LTSC.ps1))
     - wait for UAC prompt and agree
     - it also does `install` step
 - or complete prerequisites
