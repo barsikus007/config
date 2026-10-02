@@ -251,15 +251,24 @@ in
       };
 
       provider = lib.mkOption {
-        type = lib.types.str;
+        type = lib.types.enum [
+          "vk"
+          "direct"
+        ];
         default = "vk";
-        description = "TURN creds source";
+        description = "TURN creds source: vk (relay) or direct (peer direct)";
       };
 
       streams = lib.mkOption {
-        type = lib.types.ints.positive;
-        default = 10;
-        description = "Number of parallel TURN streams (-n)";
+        type = lib.types.nullOr lib.types.ints.positive;
+        default = null;
+        description = "Number of parallel TURN streams (-n), null for provider default (vk: 12, direct: 1)";
+      };
+
+      bond = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        description = "Bond sessions for single TCP connection (only mode tcp)";
       };
 
       transport = lib.mkOption {
@@ -302,6 +311,10 @@ in
           || cfg.client.provider != "vk"
           || cfg.client.links != [ ];
         message = "services.free-turn-proxy.client: links is required with provider vk";
+      }
+      {
+        assertion = !cfg.client.enable || !cfg.client.bond || cfg.client.mode == "tcp";
+        message = "services.free-turn-proxy.client: bond requires mode tcp";
       }
     ];
 
@@ -351,9 +364,12 @@ in
         cfg.client.provider
         "-transport"
         cfg.client.transport
+      ]
+      ++ lib.optionals (cfg.client.streams != null) [
         "-n"
         (toString cfg.client.streams)
       ]
+      ++ lib.optional cfg.client.bond "-bond"
       ++ lib.optionals (cfg.client.peer != null) [
         "-peer"
         cfg.client.peer

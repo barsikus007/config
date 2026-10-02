@@ -6,12 +6,12 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "free-turn-proxy";
-  version = "3.4.0";
+  version = "4.0.1";
   src = fetchFromGitHub {
     owner = "samosvalishe";
     repo = "free-turn-proxy";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-tng7yb9eRSag4ByTdBNgWDPo8vaOtLhFvv4ICITSGm4=";
+    hash = "sha256-cnMV7c1j0bV1PZsefkDkXtJoJzo+Ix3k0dqL9JuslK0=";
   };
   vendorHash = "sha256-H8ep4HsR2CEubgh6UKeR3AI56pRkObYNEojNo4ENyIg=";
   #? both binaries are named too generic to keep in PATH as is
