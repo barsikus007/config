@@ -357,6 +357,7 @@
       ];
       nixosConfigurations."coolvm-plasma" = mkCoolVm "plasma" "ogurez" [
         ./hosts/vm/kde-sunshined.nix
+        # ./hosts/vm/kde-paravirt.nix
 
         ./modules/desktop/manager/plasma.nix
       ];

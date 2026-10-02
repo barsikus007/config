@@ -136,6 +136,19 @@ let
       const { ExtensionParent } = ChromeUtils.importESModule(
         "resource://gre/modules/ExtensionParent.sys.mjs"
       );
+      const { Management } = ChromeUtils.importESModule(
+        "resource://gre/modules/Extension.sys.mjs"
+      );
+
+      const welcomePatterns = [
+        "setup/install.html",
+        "darkreader.org/help",
+        "zakilo.syrnikovpavel.ru",
+        "changelog",
+        "help/index.html",
+        "color.firefox.com",
+        "about:welcome",
+      ];
 
       const browserWelcomePatterns = [
         "about:welcome",
@@ -153,11 +166,15 @@ let
             const origCreate = res.tabs.create;
             res.tabs.create = function(createProperties) {
               const extension = context?.extension;
+              const isBg = context?.viewType === "background";
               const isInstall = extension?.startupReason === "ADDON_INSTALL";
-              const isZeroOmegaBg = extension?.id === "suziwen1@gmail.com" && context?.viewType === "background";
               const url = createProperties?.url || "";
 
-              if (isInstall || (isZeroOmegaBg && url.includes("options.html"))) {
+              // only intercept automated background launches, never user actions in popups/sidebars
+              const isWelcomeTab = isBg && isInstall && welcomePatterns.some(p => url.includes(p));
+              const isZeroOmegaFirstRun = isBg && extension?.id === "suziwen1@gmail.com" && url.includes("options.html");
+
+              if (isWelcomeTab || isZeroOmegaFirstRun) {
                 if (extension?.id === "suziwen1@gmail.com") {
                   try {
                     context.cloneScope?.localStorage?.setItem("omega.local.firstRun", '""');
@@ -179,24 +196,28 @@ let
         };
       };
 
-      if (ExtensionParent.apiManager) {
-        const origGetAPI = ExtensionParent.apiManager.getAPI.bind(ExtensionParent.apiManager);
-        ExtensionParent.apiManager.getAPI = function(name, extension, scope) {
-          const api = origGetAPI.apply(this, arguments);
-          if (name === "tabs") {
-            patchTabsApiInstance(api);
-          }
-          return api;
-        };
+      for (const mgr of [ExtensionParent.apiManager, Management].filter(Boolean)) {
+        if (mgr.getAPI) {
+          const origGetAPI = mgr.getAPI.bind(mgr);
+          mgr.getAPI = function(name, extension, scope) {
+            const api = origGetAPI.apply(this, arguments);
+            if (name === "tabs") {
+              patchTabsApiInstance(api);
+            }
+            return api;
+          };
+        }
 
-        const origAsyncGetAPI = ExtensionParent.apiManager.asyncGetAPI.bind(ExtensionParent.apiManager);
-        ExtensionParent.apiManager.asyncGetAPI = async function(name, extension, scope) {
-          const api = await origAsyncGetAPI.apply(this, arguments);
-          if (name === "tabs") {
-            patchTabsApiInstance(api);
-          }
-          return api;
-        };
+        if (mgr.asyncGetAPI) {
+          const origAsyncGetAPI = mgr.asyncGetAPI.bind(mgr);
+          mgr.asyncGetAPI = async function(name, extension, scope) {
+            const api = await origAsyncGetAPI.apply(this, arguments);
+            if (name === "tabs") {
+              patchTabsApiInstance(api);
+            }
+            return api;
+          };
+        }
       }
 
       // fallback: intercept gBrowser.addTab for direct window opens
@@ -209,6 +230,10 @@ let
             const urlStr = typeof url === "string" ? url : url?.spec || "";
             if (browserWelcomePatterns.some(p => urlStr.includes(p))) {
               const tab = origAddTab.apply(this, arguments);
+              try {
+                tab.hidden = true;
+                tab.collapsed = true;
+              } catch (_) {}
               Services.tm.dispatchToMainThread(() => {
                 try { win.gBrowser.removeTab(tab, { animate: false }); } catch (_) {}
               });

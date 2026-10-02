@@ -137,6 +137,10 @@ in
           userFilters = /* adblock */ ''
             ! 2025-10-21 stop reddit translation
             ||reddit.com^$removeparam=tl
+
+            ! 2026-09-28 https://mail.yandex.ru
+            mail.yandex.*##div:has(> div > a[class*="DisableAdsButton__button"])
+            !mail.yandex.*##div:has(> div > a:has-text(/Disable ads|Отключить рекламу/))
           '';
         };
       };

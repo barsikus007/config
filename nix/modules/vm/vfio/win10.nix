@@ -70,13 +70,7 @@ let
         };
       }
     ];
-    video = [
-      {
-        model = {
-          type = "vga";
-        };
-      }
-    ];
+    video = [ { model.type = "vga"; } ];
     input = [
       {
         type = "mouse";

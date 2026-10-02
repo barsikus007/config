@@ -65,11 +65,22 @@
     description = "Turn off the lights via OpenRGB";
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "${lib.getExe pkgs.openrgb} --noautoconnect --color 000000";
+      ExecStart = "${lib.getExe pkgs.openrgb} --noautoconnect --device 0 --mode static --color 000000 --device 1 --mode direct --color 000000 --device 2 --mode direct --color 000000";
     };
     wantedBy = [ "multi-user.target" ];
   };
 
   #? https://wiki.nixos.org/wiki/Linux_kernel#Enable_SysRq
   boot.kernel.sysctl."kernel.sysrq" = true;
+
+  #? limit arc and dirty write buffers to prevent memory reclaim livelock on single hdd
+  boot.extraModprobeConfig = ''
+    options zfs zfs_arc_max=8589934592
+    options zfs zfs_dirty_data_max=1073741824
+  '';
+
+  #? hardware watchdog recovery and panic dump to efi_pstore
+  systemd.settings.Manager.RuntimeWatchdogSec = "30s";
+  boot.kernel.sysctl."kernel.hardlockup_panic" = 1;
+  boot.kernelParams = [ "panic=10" ];
 }

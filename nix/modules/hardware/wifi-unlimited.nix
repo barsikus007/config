@@ -11,7 +11,8 @@
   hardware.wirelessRegulatoryDatabase = true;
   boot.extraModprobeConfig = ''
     options cfg80211 ieee80211_regdom="PA"
-    options iwlwifi lar_disable=1
+    #? ath11k (OpenWrt) + iwlwifi 11ax UL-OFDMA bug limits upload to ~5 MB/s; fallback to 11ac (Wi-Fi 5) gives ~75 MB/s
+    options iwlwifi lar_disable=1 disable_11ax=1
   '';
   boot.extraModulePackages =
     let

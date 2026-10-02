@@ -146,6 +146,7 @@ in
                 "noctalia/screen_recorder:recorder"
                 "alexander/screen-toolkit:widget"
                 "thepunkoff/pomodoro:widget"
+                "pozzoo/hassio:status"
               ];
             }
             {
@@ -280,6 +281,12 @@ in
         record-codec = "hevc";
         record-copy-to-clipboard = true;
       };
+      #? https://noctalia.dev/plugins/community/hassio
+      plugin_settings."pozzoo/hassio" = {
+        #? https://www.yeelight.com/en_US/developer
+        entity_manager_open_near_click = true;
+        entity_manager_placement = "attached";
+      };
       plugins = {
         enabled = [
           "noctalia/screen_recorder"
@@ -290,6 +297,7 @@ in
           "thepunkoff/pomodoro"
           #? noctalia msg plugin alexander/screen-toolkit:service all toggle
           "alexander/screen-toolkit"
+          "pozzoo/hassio"
         ];
         source = [
           {
