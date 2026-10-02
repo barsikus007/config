@@ -50,6 +50,10 @@ let
   };
 in
 {
+  imports = [
+    ./telegram-priority.nix
+  ];
+
   xdg.mimeApps = {
     defaultApplications = lib.genAttrs [
       "x-scheme-handler/tg"
