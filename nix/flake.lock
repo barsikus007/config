@@ -381,31 +381,6 @@
         "type": "github"
       }
     },
-    "nix-cachyos-kernel": {
-      "inputs": {
-        "flake-compat": [
-          "flake-compat"
-        ],
-        "flake-parts": [
-          "flake-parts"
-        ],
-        "nixpkgs": "nixpkgs_2"
-      },
-      "locked": {
-        "lastModified": 1790564970,
-        "narHash": "sha256-ANcKKTLB5oitjAYPp+iWts5clpbowVbDPVvt03P7Hes=",
-        "owner": "xddxdd",
-        "repo": "nix-cachyos-kernel",
-        "rev": "b1332396df6e880d7e3b6b451c6a74132ce8cf66",
-        "type": "github"
-      },
-      "original": {
-        "owner": "xddxdd",
-        "ref": "release",
-        "repo": "nix-cachyos-kernel",
-        "type": "github"
-      }
-    },
     "nix-darwin": {
       "inputs": {
         "nixpkgs": [
@@ -690,22 +665,6 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1790505892,
-        "narHash": "sha256-/pAz2XfqHS//WRn2xRjoqes7Z92qZ0Q1gufZZ3PtuwA=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "545c226a9af7f59fba5c3873f7c6a65e014c8f5f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable-small",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_3": {
-      "locked": {
         "lastModified": 1791048980,
         "narHash": "sha256-u3KCLxsnf1622GdFccg8hmkEIutOZ1h4pvia5ERjIuI=",
         "rev": "a7868a727837f3c09cee2ce0ca671c76b1589fed",
@@ -952,14 +911,13 @@
         "home-manager": "home-manager_2",
         "impermanence": "impermanence",
         "niri": "niri",
-        "nix-cachyos-kernel": "nix-cachyos-kernel",
         "nix-index-database": "nix-index-database",
         "nix-on-droid": "nix-on-droid",
         "nixcord": "nixcord",
         "nixos-hardware": "nixos-hardware",
         "nixos-vfio": "nixos-vfio",
         "nixos-wsl": "nixos-wsl",
-        "nixpkgs": "nixpkgs_3",
+        "nixpkgs": "nixpkgs_2",
         "nixvirt": "nixvirt",
         "nvf": "nvf",
         "openwrt-imagebuilder": "openwrt-imagebuilder",

@@ -27,7 +27,6 @@
 
     ../../modules/systemd-boot.nix
     ../../modules/zfs/lts-kernel.nix
-    # ../../modules/cachyos-kernel.nix
     ../../modules/zfs
     ../../modules/zfs/backup-target.nix
 

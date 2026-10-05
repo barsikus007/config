@@ -11,19 +11,7 @@ let
 in
 {
   __cachix = {
-    #? cachyos kernel modules are never in hydra cache
-    xpadneo = cfg.boot.kernelPackages.xpadneo;
-    xpad-noone = cfg.boot.kernelPackages.xpad-noone;
-    kvmfr = cfg.boot.kernelPackages.kvmfr;
-    v4l2loopback = cfg.boot.kernelPackages.v4l2loopback;
-    intel-iwlwifi = lib.head (
-      lib.filter (p: lib.hasPrefix "intel-iwlwifi" p.name) cfg.boot.extraModulePackages
-    );
-    nvidia-open = nvidia.open;
     nvidia-settings = nvidia.settings;
-
-    #? the nixos module bakes zfs_cachyos (custom kernel) into the package
-    podman = cfg.virtualisation.podman.package;
 
     #? nixcord never in hydra cache
     discord = hm.programs.nixcord.finalPackage.discord;

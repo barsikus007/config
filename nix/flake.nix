@@ -111,11 +111,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-cachyos-kernel = {
-      url = "github:xddxdd/nix-cachyos-kernel/release";
-      inputs.flake-parts.follows = "flake-parts";
-      inputs.flake-compat.follows = "flake-compat";
-    };
     niri.url = "github:epireyn/niri-flake";
 
     hermes-agent = {
