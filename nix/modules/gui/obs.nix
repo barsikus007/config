@@ -1,10 +1,10 @@
 { pkgs, ... }:
 {
   #? https://github.com/nixos-cuda/infra
-  nix.settings.extra-substituters = [ "https://cache.nixos-cuda.org?priority=67" ];
-  nix.settings.extra-trusted-public-keys = [
-    "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
-  ];
+  # nix.settings.extra-substituters = [ "https://cache.nixos-cuda.org?priority=67" ];
+  # nix.settings.extra-trusted-public-keys = [
+  #   "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
+  # ];
 
   programs.gpu-screen-recorder = {
     #? https://wiki.nixos.org/wiki/Gpu-screen-recorder
@@ -14,7 +14,7 @@
   programs.obs-studio = {
     #? https://wiki.nixos.org/wiki/OBS_Studio
     enable = true;
-    package = pkgs.obs-studio.override { cudaSupport = true; };
+    # package = pkgs.obs-studio.override { cudaSupport = true; };
 
     enableVirtualCamera = true;
 
