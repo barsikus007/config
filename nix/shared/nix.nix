@@ -2,7 +2,6 @@
   _class,
   lib,
   pkgs,
-  self,
   config,
   inputs,
   ...
@@ -39,15 +38,6 @@ let
       inherit (nixConfig) extra-trusted-public-keys;
     };
   };
-
-  nixpkgs.overlays = [
-    (_final: _prev: {
-      flakePackages = lib.attrsets.mergeAttrsList [
-        self.legacyPackages.${pkgs.stdenv.hostPlatform.system}
-        self.packages.${pkgs.stdenv.hostPlatform.system}
-      ];
-    })
-  ];
 in
 if (_class == "nixos") then
   lib.attrsets.recursiveUpdate { inherit nix; } {
@@ -59,7 +49,6 @@ if (_class == "nixos") then
         fsync-metadata = config.boot.isContainer || ((config.fileSystems."/".fsType or "") != "zfs");
       };
     };
-    inherit nixpkgs;
   }
 else if (_class == "nixOnDroid") then
   {
@@ -75,7 +64,7 @@ else if (_class == "nixOnDroid") then
   }
 else if (_class == "homeManager") then
   {
-    inherit nix nixpkgs;
+    inherit nix;
   }
 else
   throw "shared/nix.nix: unknown _class: ${_class}"

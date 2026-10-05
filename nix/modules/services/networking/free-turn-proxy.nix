@@ -1,7 +1,6 @@
 {
   lib,
   pkgs,
-  self,
   config,
   ...
 }:
@@ -166,8 +165,8 @@ in
   options.services.free-turn-proxy = {
     package = lib.mkOption {
       type = lib.types.package;
-      default = self.packages.${pkgs.stdenv.hostPlatform.system}.free-turn-proxy;
-      defaultText = lib.literalExpression "self.packages.\${system}.free-turn-proxy";
+      default = pkgs.flakePackages.free-turn-proxy;
+      defaultText = lib.literalExpression "pkgs.flakePackages.free-turn-proxy";
       description = "Package providing the client and server binaries";
     };
 

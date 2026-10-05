@@ -124,7 +124,10 @@
     { self, nixpkgs, ... }@inputs:
     let
       system = "x86_64-linux";
-      pkgs = import ./nixpkgs.nix { inherit system inputs; };
+      pkgs = import ./nixpkgs.nix {
+        inherit system inputs;
+        overlays = [ self.overlays.default ];
+      };
 
       mkSpecialArgs = username: {
         inherit
@@ -483,58 +486,62 @@
           '';
         };
       };
-      packages.${system} =
-        let
-          flattenPkgs = pkgs.lib.concatMapAttrs (
-            name: v:
-            if pkgs.lib.isDerivation v then
-              { ${name} = v; }
-            else if pkgs.lib.isAttrs v then
-              flattenPkgs v
-            else
-              { }
-          );
-        in
-        {
-          #? nix {build,run} ./nix# <tab>
 
-          default = self.packages.${system}.coolvm-niri;
-          coolvm-niri = self.nixosConfigurations."coolvm-niri".config.system.build.vm;
-          coolvm-niri-vfio = self.nixosConfigurations."coolvm-niri-vfio".config.system.build.vm;
-          coolvm-plasma = self.nixosConfigurations."coolvm-plasma".config.system.build.vm;
-          coolvm-plasma-vfio = self.nixosConfigurations."coolvm-plasma-vfio".config.system.build.vm;
-          nixos-minimalIso = self.nixosConfigurations."minimalIso-${system}".config.system.build.isoImage;
-          nixos-plasmaIso = self.nixosConfigurations."plasmaIso-${system}".config.system.build.isoImage;
-          #? nix build ./nix#windows-bootstrapIso --out-link unattend-win10-iot-ltsc-vrt.iso
-          windows-bootstrapIso = pkgs.callPackage ./packages/windows (
-            let
-              hmConfig = self.nixosConfigurations.ROG14.config.home-manager.users.ogurez;
-            in
-            {
-              firefoxPolicies = hmConfig.programs.firefox.policies;
-              firefoxProfileFiles = {
-                userJs = hmConfig.home.file.".config/mozilla/firefox/default/user.js".source;
-                userChrome = hmConfig.home.file.".config/mozilla/firefox/default/chrome/userChrome.css".source;
-                search = hmConfig.home.file.".config/mozilla/firefox/default/search.json.mozlz4".source;
-              };
-              withNvidia = true;
-              withTweaks = true;
-              withAdditionalTweaks = true;
+      overlays.default = _final: prev: {
+        flakePackages =
+          let
+            flattenPkgs = prev.lib.concatMapAttrs (
+              name: v:
+              if prev.lib.isDerivation v then
+                { ${name} = v; }
+              else if prev.lib.isAttrs v then
+                flattenPkgs v
+              else
+                { }
+            );
+          in
+          flattenPkgs (
+            prev.lib.filesystem.packagesFromDirectoryRecursive {
+              inherit (prev) callPackage;
+              directory = ./packages/auto;
             }
           );
-
-          kompas3d = pkgs.kdePackages.callPackage ./packages/kompas3d { };
-          kompas3d-fhs = pkgs.callPackage ./packages/kompas3d/fhs.nix { };
-          grdcontrol = pkgs.callPackage ./packages/grdcontrol.nix { };
-
-        }
-        // flattenPkgs (
-          pkgs.lib.filesystem.packagesFromDirectoryRecursive {
-            inherit (pkgs) callPackage;
-            directory = ./packages/auto;
+      };
+      packages.${system} = {
+        #? nix {build,run} ./nix# <tab>
+        default = self.packages.${system}.coolvm-niri;
+        coolvm-niri = self.nixosConfigurations."coolvm-niri".config.system.build.vm;
+        coolvm-niri-vfio = self.nixosConfigurations."coolvm-niri-vfio".config.system.build.vm;
+        coolvm-plasma = self.nixosConfigurations."coolvm-plasma".config.system.build.vm;
+        coolvm-plasma-vfio = self.nixosConfigurations."coolvm-plasma-vfio".config.system.build.vm;
+        nixos-minimalIso = self.nixosConfigurations."minimalIso-${system}".config.system.build.isoImage;
+        nixos-plasmaIso = self.nixosConfigurations."plasmaIso-${system}".config.system.build.isoImage;
+        #? nix build ./nix#windows-bootstrapIso --out-link unattend-win10-iot-ltsc-vrt.iso
+        windows-bootstrapIso = pkgs.callPackage ./packages/windows (
+          let
+            hmConfig = self.nixosConfigurations.ROG14.config.home-manager.users.ogurez;
+          in
+          {
+            firefoxPolicies = hmConfig.programs.firefox.policies;
+            firefoxProfileFiles = {
+              userJs = hmConfig.home.file.".config/mozilla/firefox/default/user.js".source;
+              userChrome = hmConfig.home.file.".config/mozilla/firefox/default/chrome/userChrome.css".source;
+              search = hmConfig.home.file.".config/mozilla/firefox/default/search.json.mozlz4".source;
+            };
+            withNvidia = true;
+            withTweaks = true;
+            withAdditionalTweaks = true;
           }
         );
+
+        kompas3d = pkgs.kdePackages.callPackage ./packages/kompas3d { };
+        kompas3d-fhs = pkgs.callPackage ./packages/kompas3d/fhs.nix { };
+        grdcontrol = pkgs.callPackage ./packages/grdcontrol.nix { };
+
+      }
+      // pkgs.flakePackages;
       legacyPackages.${system} = {
+        inherit pkgs;
         #! nix flake check: need to update patches everytime
         telegram-desktop-patched = pkgs.callPackage ./packages/telegram-desktop-patched.nix { };
         ayugram-desktop-patched = pkgs.callPackage ./packages/telegram-desktop-patched.nix {
