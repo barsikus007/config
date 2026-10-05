@@ -12,9 +12,10 @@ let
 
     "steam"
     "steam-unwrapped"
+    "lsfg-vk" # bottles dep
 
     "7zz"
-    "uasm" # ? 7zz unfree dep
+    "uasm" # 7zz unfree dep
     "unrar"
     "corefonts"
 

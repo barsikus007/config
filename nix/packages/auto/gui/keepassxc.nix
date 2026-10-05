@@ -17,7 +17,7 @@ in
     src = fetchFromGitHub {
       owner = "keepassxreboot";
       repo = "keepassxc";
-      rev = "v${version}";
+      rev = version;
       hash = "sha256-fksThYmGZed66zxGDxlS2SHQzJYRf+T9AuZPbaNZV5Y=";
     };
     patches = [ ];
