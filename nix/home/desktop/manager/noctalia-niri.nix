@@ -14,8 +14,51 @@ let
   systemctl = lib.getExe' pkgs.systemd "systemctl";
   busctl = lib.getExe' pkgs.systemd "busctl";
   sleep = lib.getExe' pkgs.coreutils "sleep";
+  rm = lib.getExe' pkgs.coreutils "rm";
+  touch = lib.getExe' pkgs.coreutils "touch";
+
+  #! https://github.com/noctalia-dev/noctalia/issues/3480
+  noctalia-lock-dnd = pkgs.writeShellScript "noctalia-lock-dnd" ''
+    flag="''${XDG_RUNTIME_DIR:-/run/user/$UID}/noctalia-lock-dnd"
+    noctalia_bin="${lib.getExe pkgs.noctalia}"
+
+    case "$1" in
+      (lock)
+        if [ "$("$noctalia_bin" msg notification-dnd-status 2>/dev/null)" = "off" ]; then
+          ${touch} "$flag"
+          "$noctalia_bin" msg notification-dnd-set on
+        fi
+        ;;
+      (unlock)
+        if [ -f "$flag" ]; then
+          ${rm} --force "$flag"
+          "$noctalia_bin" msg notification-dnd-set off
+        fi
+        ;;
+    esac
+  '';
+
+  themeName = "custom";
+  notificationSound = pkgs.fetchurl {
+    url = "https://deltarune.wiki/images/Snd_ominous_music.wav";
+    hash = "sha256-Dv1sO1/Se90U8S7sIuRxMihKgctm/j/q/ccvxATYSOM=";
+  };
 in
 {
+  xdg.dataFile = {
+    "sounds/${themeName}/index.theme".text = ''
+      [Sound Theme]
+      Name=${themeName}
+      Directories=stereo
+      Inherits=freedesktop
+
+      [stereo]
+      OutputProfile=stereo
+    '';
+    "sounds/${themeName}/stereo/message-new-instant.wav".source = notificationSound;
+    #! https://github.com/noctalia-dev/noctalia/issues/4725
+    "sounds/${themeName}/stereo/message-new-instant-critical.wav".source = notificationSound;
+  };
   programs.niri.settings = {
     binds =
       with config.lib.niri.actions;
@@ -108,17 +151,21 @@ in
       #? https://github.com/noctalia-dev/noctalia/blob/main/example.toml
       #? code --reuse-window ~/.local/state/noctalia/settings.toml
       hooks = {
-        session_locked = "${systemctl} --user --no-block restart suspend-after-lock.service";
-        session_unlocked = "${systemctl} --user --no-block stop suspend-after-lock.service";
+        session_locked = lib.concatStringsSep "; " [
+          "${systemctl} --user --no-block restart suspend-after-lock.service"
+          "${noctalia-lock-dnd} lock"
+        ];
+        session_unlocked = lib.concatStringsSep "; " (
+          [
+            "${systemctl} --user --no-block stop suspend-after-lock.service"
+            "${noctalia-lock-dnd} unlock"
+          ]
+        );
       };
       audio = {
         enable_sounds = true;
         enable_overdrive = true;
-        # TODO: noctalia-v5: this is critical notification sound
-        notification_sound = pkgs.fetchurl {
-          url = "https://deltarune.wiki/images/Snd_ominous_music.wav";
-          hash = "sha256-Dv1sO1/Se90U8S7sIuRxMihKgctm/j/q/ccvxATYSOM=";
-        };
+        sound_theme = "custom";
         sound_volume = 1.0;
       };
       bar = {
@@ -316,7 +363,7 @@ in
       };
       shell = {
         clipboard_auto_paste = "ctrl_v";
-        clipboard_image_action_command = "satty --filename -";
+        clipboard_image_action_command = "noctalia msg annotate {path}";
         clipboard_history_max_entries = 500;
         greeter_sync.auto_sync = true;
         keyboard_layout.custom_labels = {
@@ -401,6 +448,4 @@ in
 
   #? noctalia have own polkit now
   services.polkit-gnome.enable = false;
-  #? screenshot annotation for clipboard history (shell.clipboard_image_action_command)
-  programs.satty.enable = true;
 }
