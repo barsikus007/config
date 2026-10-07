@@ -21,6 +21,7 @@ alias dcsh='docker-utils.ts sh'
 alias dcsha='docker-utils.ts sha'
 alias dclf='docker-utils.ts logs'
 alias docker-clear-logs='docker-utils.ts clear-logs'
+alias pdiff='impermanence.ts diff'
 
 #? zsh gets real completions from scripts/completions (fpath); this is the
 #? fallback for bash on the ubuntu hosts, subcommand names only
@@ -29,4 +30,5 @@ if [ -n "$BASH_VERSION" ]; then
     complete -W 'run' capture-term.ts
     complete -W 'cheats' cheats.ts
     complete -W 'sh sha logs clear-logs' docker-utils.ts
+    complete -W 'diff' impermanence.ts
 fi

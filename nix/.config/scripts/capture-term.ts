@@ -2,32 +2,29 @@
 //! capture one command's terminal output as a floating wezterm window and screenshot it
 import { rm } from 'node:fs/promises';
 import { homedir } from 'node:os';
-import { capture, captureRaw, dispatch, exec, timestamp, type Command } from './lib/shell';
+import { capture, captureRaw, dispatch, exec, parseCli, timestamp, type Command } from './lib/shell';
 
 //! run a command once in a hidden tmux pane, size a floating wezterm window to
 //! fit what it printed, replay the output there, and screenshot that window
 async function captureWeztermZshCmd(...args: string[]): Promise<number> {
+  const { options, positionals } = parseCli(args, {
+    name: 'capture_wezterm_zsh_cmd',
+    positional: '<command>',
+    summary: 'capture terminal output as a floating wezterm window and screenshot it',
+    stopAtPositional: true,
+    options: {
+      timeout: { aliases: ['-t', '--timeout'], desc: 'seconds to wait before screenshotting (default: 3)' },
+    },
+  });
+
   //? how long to let the command run before screenshotting; short commands are
   //? captured as soon as they finish, interactive/never-exiting apps (htop,
   //? vim, ...) are captured once this elapses, bump it for slow commands
-  let timeout = 3;
+  const timeout = Number(options.timeout ?? 3);
 
   //? everything after -t/--timeout is the command, so multi-word invocations
   //? work unquoted (e.g. capture_wezterm_zsh_cmd cat ~/smth)
-  let i = 0;
-  while (args[i]?.startsWith('-')) {
-    switch (args[i]) {
-      case '-t':
-      case '--timeout':
-        timeout = Number(args[i + 1]);
-        i += 2;
-        break;
-      default:
-        console.log(`Unknown option: ${args[i]}`);
-        return 1;
-    }
-  }
-  const cmd = args.slice(i).join(' ');
+  const cmd = positionals.join(' ');
 
   if (!cmd) {
     console.log('Error: no command given.');

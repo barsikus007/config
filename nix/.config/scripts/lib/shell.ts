@@ -116,6 +116,154 @@ export function timestamp(d = new Date()): string {
   );
 }
 
+//! ansi color formatting for terminal output
+const isTty = process.stdout.isTTY;
+export const c = {
+  bold: (s: string) => (isTty ? `\x1b[1m${s}\x1b[0m` : s),
+  red: (s: string) => (isTty ? `\x1b[31m${s}\x1b[0m` : s),
+  yellow: (s: string) => (isTty ? `\x1b[33m${s}\x1b[0m` : s),
+  green: (s: string) => (isTty ? `\x1b[32m${s}\x1b[0m` : s),
+  cyan: (s: string) => (isTty ? `\x1b[36m${s}\x1b[0m` : s),
+  dim: (s: string) => (isTty ? `\x1b[2m${s}\x1b[0m` : s),
+};
+
+//! case-insensitive and dot-neutral natural path and string sorting
+export function naturalCompare(a: string, b: string): number {
+  const aParts = a.split('/');
+  const bParts = b.split('/');
+  const len = Math.min(aParts.length, bParts.length);
+  for (let i = 0; i < len; i++) {
+    const aSeg = aParts[i]!;
+    const bSeg = bParts[i]!;
+    if (aSeg === bSeg) continue;
+    const aNorm = aSeg.replace(/^\./, '');
+    const bNorm = bSeg.replace(/^\./, '');
+    const cmp = aNorm.localeCompare(bNorm, 'en', { sensitivity: 'base', numeric: true });
+    if (cmp !== 0) return cmp;
+    return aSeg.localeCompare(bSeg, 'en');
+  }
+  return aParts.length - bParts.length;
+}
+
+export type FlagOptionDef = string | string[] | { aliases: string | string[]; desc?: string };
+
+export type CliConfig<F extends string = string, O extends string = string> = {
+  name?: string;
+  summary?: string;
+  positional?: string;
+  usage?: string;
+  stopAtPositional?: boolean;
+  flags?: Record<F, FlagOptionDef>;
+  options?: Record<O, FlagOptionDef>;
+};
+
+function extractAliases(def: FlagOptionDef, fallbackKey: string): { aliases: string[]; desc?: string } {
+  if (Array.isArray(def)) return { aliases: def };
+  if (typeof def === 'string') return { aliases: [def] };
+  if (def && typeof def === 'object') {
+    const a = Array.isArray(def.aliases) ? def.aliases : [def.aliases ?? fallbackKey];
+    return { aliases: a, desc: def.desc };
+  }
+  return { aliases: [fallbackKey] };
+}
+
+//! generate usage string from cli configuration
+export function buildUsage(config: CliConfig): string {
+  if (config.usage) return config.usage;
+  const name = config.name ?? 'command';
+  const pos = config.positional ? ` ${config.positional}` : '';
+  const flagTokens: string[] = [];
+  const optTokens: string[] = [];
+  const descriptions: string[] = [];
+
+  for (const [key, def] of Object.entries(config.flags ?? {})) {
+    const { aliases, desc } = extractAliases(def as FlagOptionDef, key);
+    flagTokens.push(`[${aliases.join('|')}]`);
+    if (desc) descriptions.push(`  ${aliases.join(', ').padEnd(24)} ${desc}`);
+  }
+
+  for (const [key, def] of Object.entries(config.options ?? {})) {
+    const { aliases, desc } = extractAliases(def as FlagOptionDef, key);
+    optTokens.push(`[${aliases.join('|')} <val>]`);
+    if (desc) descriptions.push(`  ${aliases.map((a) => `${a} <val>`).join(', ').padEnd(24)} ${desc}`);
+  }
+
+  const parts = [flagTokens.join(' '), optTokens.join(' ')].filter(Boolean);
+  const flagsStr = parts.length > 0 ? ` ${parts.join(' ')}` : '';
+  let out = `usage: ${name}${pos}${flagsStr}`;
+  if (config.summary) out += `\n\n${config.summary}`;
+  if (descriptions.length > 0) out += `\n\noptions:\n${descriptions.join('\n')}`;
+  return out;
+}
+
+//! lightweight cli argument and flag parser for scripts
+export function parseCli<F extends string = string, O extends string = string>(
+  args: string[],
+  config: CliConfig<F, O> = {},
+): { flags: Record<F, boolean>; options: Record<O, string | undefined>; positionals: string[] } {
+  const flags = {} as Record<F, boolean>;
+  const options = {} as Record<O, string | undefined>;
+  const positionals: string[] = [];
+  const usage = buildUsage(config as CliConfig);
+
+  const flagMap = new Map<string, F>();
+  for (const [key, def] of Object.entries(config.flags ?? {}) as [F, FlagOptionDef][]) {
+    flags[key] = false;
+    const { aliases } = extractAliases(def, key);
+    for (const a of aliases) flagMap.set(a, key);
+  }
+
+  const optMap = new Map<string, O>();
+  for (const [key, def] of Object.entries(config.options ?? {}) as [O, FlagOptionDef][]) {
+    const { aliases } = extractAliases(def, key);
+    for (const a of aliases) optMap.set(a, key);
+  }
+
+  for (let i = 0; i < args.length; i++) {
+    const arg = args[i]!;
+    if (arg === '--') {
+      positionals.push(...args.slice(i + 1));
+      break;
+    }
+
+    if (arg === '-h' || arg === '--help') {
+      console.log(usage);
+      process.exit(0);
+    }
+
+    if (flagMap.has(arg)) {
+      flags[flagMap.get(arg)!] = true;
+      continue;
+    }
+
+    const eqIdx = arg.indexOf('=');
+    if (eqIdx !== -1) {
+      const optName = arg.slice(0, eqIdx);
+      if (optMap.has(optName)) {
+        options[optMap.get(optName)!] = arg.slice(eqIdx + 1);
+        continue;
+      }
+    }
+
+    if (optMap.has(arg)) {
+      const next = args[++i];
+      if (next !== undefined) options[optMap.get(arg)!] = next;
+      continue;
+    }
+
+    if (config.stopAtPositional && !arg.startsWith('-')) {
+      positionals.push(...args.slice(i));
+      break;
+    }
+
+    if (!arg.startsWith('-')) {
+      positionals.push(arg);
+    }
+  }
+
+  return { flags, options, positionals };
+}
+
 //! standard cli router for scripts
 export async function dispatch(commands: Record<string, Command>, name: string): Promise<never> {
   const [cmd, ...rest] = process.argv.slice(2);
