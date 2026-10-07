@@ -277,6 +277,7 @@
 
           ./modules/services/network-filesystems/samba/nas.nix
           ./modules/services/youtube-music-sync.nix
+          ./modules/services/link-downloader.nix
           (
             {
               lib,
