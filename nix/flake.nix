@@ -16,7 +16,8 @@
     # nixpkgs-previous.url = "nixpkgs/commit_hash";
     # nixpkgs-fix-for-<smth>.url = "nixpkgs/pull/1489/head";
     #! https://github.com/dependabot/dependabot-core/issues/16410
-    nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst";
+    #! https://github.com/dependabot/dependabot-core/issues/16479
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     #? more secure: https://determinate.systems/blog/nixpkgs-cooldown/
     # nixpkgs.url = "https://flakehub.com/f/DeterminateSystems/nixpkgs-weekly/0.1";
     # nixpkgs-master.url = "nixpkgs";
@@ -85,7 +86,7 @@
       url = "github:FlameFlag/nixcord";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
-      inputs.nixpkgs-nixcord.follows = "nixpkgs";
+      inputs.nixpkgs-packages.follows = "nixpkgs";
     };
     erosanix = {
       url = "github:emmanuelrosa/erosanix";
