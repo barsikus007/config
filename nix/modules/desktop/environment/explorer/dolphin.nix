@@ -22,6 +22,11 @@
     kdePackages.kio-fuse
     kdePackages.kio-extras
 
+    kdePackages.qtimageformats # webp, tiff, mng image previews
+    kdePackages.kimageformats # avif, heif, jxl, raw, psd image previews
+    kdePackages.kdegraphics-thumbnailers # pdf, ps, mobi previews
+    kdePackages.ffmpegthumbs # video previews
+
     kdePackages.kompare
 
     #? have issues with focus, it should focus to explorer every time

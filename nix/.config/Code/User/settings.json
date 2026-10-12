@@ -173,9 +173,8 @@
     "custom-format.formatters": [
         {
             "language": "nix",
-            "command": "treefmt --tree-root \"$(git -C \"$(dirname \"$FILE\")\" rev-parse --show-toplevel 2>/dev/null || pwd)\" \"$FILE\" >&2 && cat \"$FILE\"",
-            // "command": "cd ~/config/nix && nix fmt --offline -- \"$FILE\" >&2 && cat \"$FILE\"",
-        }
+            "command": "treefmt --quiet --tree-root \"$(git -C \"$(dirname \"$FILE\")\" rev-parse --show-toplevel 2>/dev/null || dirname \"$FILE\")\" --stdin \"$FILE\"",
+        },
     ],
     "[nix]": {
         // TODO: PR: nixd foldingRange lacks #region markers, overrides language-configuration
@@ -425,7 +424,7 @@
         "**/.gitea/workflows/*.yml",
         "**/.gitea/workflows/*.yaml",
         "**/.forgejo/workflows/*.yml",
-        "**/.forgejo/workflows/*.yaml"
+        "**/.forgejo/workflows/*.yaml",
     ],
     // #endregion auto
 }

@@ -8,9 +8,10 @@ buildGoModule (finalAttrs: {
   pname = "free-turn-proxy";
   version = "4.0.1";
   src = fetchFromGitHub {
-    owner = "samosvalishe";
+    owner = "hackdiaz-dev";
     repo = "free-turn-proxy";
-    tag = "v${finalAttrs.version}";
+    # tag = "v${finalAttrs.version}";
+    rev = "d0dbec3e03e805c45600a0330be848fb6a2c7f1a";
     hash = "sha256-cnMV7c1j0bV1PZsefkDkXtJoJzo+Ix3k0dqL9JuslK0=";
   };
   vendorHash = "sha256-H8ep4HsR2CEubgh6UKeR3AI56pRkObYNEojNo4ENyIg=";

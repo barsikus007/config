@@ -121,6 +121,7 @@ rec {
     windows-must-born = "virsh destroy win10; virsh start win10 && looking-glass-client; virsh shutdown win10";
     android-rsync-ssh = "cpr --delete --chmod=F0600 --no-owner --no-group storage/shared/Documents/Sync/home/.ssh/ ~/.ssh/";
     android-yt-dlpa = "cd ~/storage/downloads && yt-dlpa";
+    qrencode-clipboard = "wl-paste --no-newline | qrencode --type=ANSIUTF8";
   };
   ezaAliases = {
     ezal = "eza --classify --binary --group --header --mounts --smart-group --group-directories-first --color-scale --icons=always --no-quotes --hyperlink=auto";

@@ -26,6 +26,9 @@
           "application/x-shellscript"
           "text/javascript"
           "application/javascript"
+          "text/csv"
+          "text/x-csv"
+          "application/csv"
           # default for unknown (binary) and text
           "text/plain"
           "application/octet-stream"

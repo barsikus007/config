@@ -65,6 +65,7 @@
         "file://${config.home.homeDirectory}/Pictures"
         "file://${config.home.homeDirectory}/Videos"
         "file://${config.xdg.dataHome}/wine/drive_c/users/${config.home.username}/AppData"
+        "file:///run/media/${config.home.username}/NAS"
       ];
     };
   };

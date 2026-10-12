@@ -77,7 +77,6 @@ window-rule {
 
     match app-id=r"^dev\.noctalia\.Noctalia$" title="^Noctalia Settings$"
     match app-id="^wdisplays$" title="^wdisplays$"
-    match app-id=r"^com\.gabm\.satty$" title="^satty$"
 
     match app-id=r"^com\.jaoushingan\.WaydroidHelper$" title="^waydroid-helper$"
     match app-id=r"^\.virt-manager-wrapped$" title="^Virtual Machine Manager$"

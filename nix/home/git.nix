@@ -1,11 +1,16 @@
 {
   lib,
+  pkgs,
   config,
   flakePath,
   ...
 }:
 #! 21Mb
 {
+  home.packages = with pkgs; [
+    git-absorb
+    git-revise
+  ];
   programs.git = {
     enable = true;
     lfs.enable = true;
@@ -14,6 +19,7 @@
         ci = "commit";
         co = "checkout";
         s = "status";
+        ab = "!GIT_SEQUENCE_EDITOR=true git absorb --and-rebase";
       };
       user.name = "barsikus007";
       user.email = "barsikus07@gmail.com";

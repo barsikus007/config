@@ -160,6 +160,9 @@ in
             "${systemctl} --user --no-block stop suspend-after-lock.service"
             "${noctalia-lock-dnd} unlock"
           ]
+          ++ lib.optional (
+            config.systemd.user.services ? gsr-ui-monitor-hotplug
+          ) "${systemctl} --user --no-block start gsr-ui-monitor-hotplug.service"
         );
       };
       audio = {

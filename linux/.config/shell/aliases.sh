@@ -62,6 +62,7 @@ alias pyt=ptpython
 alias pyta='pyt --asyncio'
 alias pyv='source .venv/bin/activate || pyvcr'
 alias pyvcr='uv venv --allow-existing && source .venv/bin/activate && pipi'
+alias qrencode-clipboard='wl-paste --no-newline | qrencode --type=ANSIUTF8'
 alias sex='explorer.exe .'
 alias speedtest='curl https://speedtest.selectel.ru/100MB --output /dev/null'
 alias speedtest-as-youtube='curl --insecure --connect-to ::speedtest.selectel.ru https://www.youtube.com/100MB --output /dev/null'

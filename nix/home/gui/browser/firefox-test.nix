@@ -131,29 +131,6 @@ in
                   }
                 ];
               };
-              panel____nix = {
-                type = 2;
-                id = "panel____nix";
-                name = "Nix";
-                color = "blue";
-                iconSVG = "icon_circle";
-                iconIMGSrc = "";
-                iconIMG = mkPngDataUri "${pkgs.nixos-icons}/share/icons/hicolor/16x16/apps/nix-snowflake.png";
-              };
-              panel____nas = {
-                type = 2;
-                id = "panel____nas";
-                name = "NAS";
-                color = "yellow";
-                iconSVG = "fence";
-              };
-              panel____vpn = {
-                type = 2;
-                id = "panel____vpn";
-                name = "VPN";
-                color = "purple";
-                iconSVG = "vacation";
-              };
               panel____dev = {
                 type = 2;
                 id = "panel____dev";
@@ -173,9 +150,6 @@ in
             nav = [
               "panel___tabs" # RUHiPaWiBy3N
               "panel__video" # zL3EI5UPSo4N
-              "panel____nix" # 0_0KkU2KWM5N
-              "panel____nas" # JFZxrxUT667N
-              "panel____vpn" # PVyBcdy41l9N
               "panel____dev" # ZO-kq4dcge-N
               "pa_bookmarks" # G78gZSdBENlm
               "add_tp"
@@ -190,8 +164,10 @@ in
     };
 
     profiles.default.settings = {
-      # automatically enable sideloaded extensions from nix store without prompt
-      "extensions.autoDisableScopes" = 0;
+      #! Ctrl + Alt + Shift + I -> Browser Toolbox
+      "devtools.chrome.enabled" = true;
+      "devtools.debugger.remote-enabled" = true;
+      "devtools.debugger.prompt-connection" = false;
     };
   };
 

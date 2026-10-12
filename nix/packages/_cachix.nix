@@ -11,6 +11,9 @@ let
 in
 {
   __cachix = {
+    intel-iwlwifi = lib.head (
+      lib.filter (p: lib.hasPrefix "intel-iwlwifi" p.name) cfg.boot.extraModulePackages
+    );
     nvidia-settings = nvidia.settings;
 
     #? nixcord never in hydra cache

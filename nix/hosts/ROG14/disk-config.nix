@@ -96,6 +96,8 @@ in
           "x-systemd.requires=network-online.target"
           #? soft unmount for share after timeout (disabled by default)
           "x-systemd.idle-timeout=120"
+          #? hide from dolphin devices list to avoid unprivileged mount error
+          "x-gvfs-hide"
 
           #? https://man7.org/linux/man-pages/man8/mount.cifs.8.html
           #! cifs declares a server dead only after 3*echo_interval, so the 60s
@@ -105,6 +107,9 @@ in
           "credentials=${config.sops.templates."smb-credentials".path}"
           "uid=${uid}"
           "gid=${gid}"
+          #? avoid server lock roundtrips and Wi-Fi bufferbloat
+          "nobrl"
+          "wsize=65536"
         ];
       };
       # TODO: fallback until big ZFS based /tank

@@ -39,6 +39,6 @@
     "Lua.workspace.library": [
         "/etc/profiles/per-user/ogurez/share/nvim/runtime/lua",
         //? git clone https://github.com/DrKJeff16/wezterm-types
-        "/tank/storage/projects/clones/wezterm-types/lua/wezterm/types",
+        "~/Projects/clones/wezterm-types/lua/wezterm/types",
     ],
 }

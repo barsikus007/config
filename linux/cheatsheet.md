@@ -139,6 +139,16 @@ sudo zfs umount -u tank/backups/ROG14/persistent
 - find corrupted data, sent with `zfs_send_corrupt_data` module param
   - `rg --text --files-with-matches --no-ignore --hidden '(?-u:\x0c\xb1\xdd\xba\xf5\x02\x00\x00)' ./`
 
+## git
+
+### auto rebase fixup commit
+
+```shell
+HASH=0123456789abcdef
+git commit --fixup=$HASH
+git rebase --interactive --autosquash $HASH~1
+```
+
 ## other commands
 
 ### [drop ram caches](https://linuxconfig.org/clear-cache-on-linux)

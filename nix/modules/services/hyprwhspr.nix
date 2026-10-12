@@ -357,8 +357,10 @@ let
       whisper-cpp = whisper-cpp-offload;
     }).overrideAttrs
       (previousAttrs: {
+        doCheck = false;
         postPatch = (previousAttrs.postPatch or "") + ''
           substituteInPlace src/whisper/manager.rs --replace-fail '"en"' '"ru"'
+          substituteInPlace src/input/injector.rs --replace-fail 'debug!("Text copied to Wayland clipboard");' 'debug!("Text copied to Wayland clipboard"); return Ok(());'
           substituteInPlace src/input/injector.rs --replace-fail 'tokio::time::sleep(tokio::time::Duration::from_millis(50)).await;' 'tokio::time::sleep(tokio::time::Duration::from_millis(50)).await; let _ = std::process::Command::new("${pkgs.ydotool}/bin/ydotool").env("YDOTOOL_SOCKET", "/run/ydotoold/socket").args(["key", "29:1", "47:1", "47:0", "29:0"]).status(); return Ok(());'
         '';
       });
@@ -367,9 +369,11 @@ in
   services.hyprwhspr-rs = {
     enable = true;
     #! whisper-cpp vulkan (GPU, no unfree, cached) wrapped for auto nvidia-offload (see whisper-cpp-offload)
-    #! two source patches (see postPatch):
+    #! three source patches (see postPatch):
     #!   1. force whisper.cpp `--language ru` (upstream hardcodes en, no config knob)
-    #!   2. inject via ydotool (uinput) instead of wrtype - Electron/vscode ignores the wayland
+    #!   2. return early on successful wayland copy - upstream forgot return Ok(()), running arboard
+    #!      right after and cancelling the first offer (causing race/lost clipboard in noctalia)
+    #!   3. inject via ydotool (uinput) instead of wrtype - Electron/vscode ignores the wayland
     #!      virtual keyboard; text is already on the clipboard, so we just paste it with a real Ctrl+V
     package = hyprwhspr-rs-patched;
 

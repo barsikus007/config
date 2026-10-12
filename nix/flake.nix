@@ -14,7 +14,7 @@
 
   inputs = {
     # nixpkgs-previous.url = "nixpkgs/commit_hash";
-    # nixpkgs-fix-for-<smth>.url = "nixpkgs/pull/1489/head";
+    # nixpkgs-fix-for-<smth>.url = "nixpkgs/pull/1489/head"; # ? or use https://github.com/gepbird/nixpkgs-patcher
     #! https://github.com/dependabot/dependabot-core/issues/16410
     #! https://github.com/dependabot/dependabot-core/issues/16479
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -266,7 +266,6 @@
         ];
       };
 
-      #? nixos-anywhere --flake ./nix#generic-VPS --generate-hardware-config nixos-generate-config ./nix/hardware-configuration.nix --target-host <hostname>
       nixosConfigurations."NAS" = nixpkgs.lib.nixosSystem {
         inherit system pkgs;
         specialArgs = mkSpecialArgs "admin";
@@ -279,28 +278,6 @@
           ./modules/services/network-filesystems/samba/nas.nix
           ./modules/services/youtube-music-sync.nix
           ./modules/services/link-downloader.nix
-          (
-            {
-              lib,
-              pkgs,
-              username,
-              ...
-            }:
-            {
-              imports = [
-                (import ./modules/services/ytarchive.nix {
-                  inherit lib pkgs username;
-                  channels = [
-                  ];
-                })
-                (import ./modules/services/streamlink.nix {
-                  inherit lib pkgs username;
-                  channels = [
-                  ];
-                })
-              ];
-            }
-          )
           (
             { username, ... }:
             import ./modules/containers/docker.nix {
@@ -324,14 +301,14 @@
         ];
       };
 
-      #? nixos-anywhere --flake ./nix#generic-VPS --generate-hardware-config nixos-generate-config ./nix/hosts/empty-hardware-configuration.nix --target-host <hostname>
+      #? nixos-anywhere --flake ./nix#generic-VPS --generate-hardware-config nixos-facter ./nix/hosts/empty-facter.json --target-host <hostname>
       nixosConfigurations."generic-VPS" = nixpkgs.lib.nixosSystem {
         inherit system pkgs;
         specialArgs = mkSpecialArgs "nixos";
         modules = [
           ./hosts/vps
           ./hosts/vps/disk-config.nix
-          ./hosts/empty-hardware-configuration.nix
+          { hardware.facter.reportPath = ./hosts/empty-facter.json; }
         ];
       };
 

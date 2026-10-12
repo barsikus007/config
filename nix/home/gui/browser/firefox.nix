@@ -42,7 +42,7 @@ in
         extension = shortId: uuid: {
           name = uuid;
           value = {
-            install_url = "https://addons.mozilla.org/en-US/firefox/downloads/latest/${shortId}/latest.xpi";
+            install_url = "https://addons.mozilla.org/firefox/downloads/latest/${shortId}/latest.xpi";
             installation_mode = "normal_installed";
           };
         };
@@ -233,7 +233,7 @@ in
           "browser.translations.neverTranslateLanguages" = "ru";
           # "devtools.chrome.enabled" = true; # Allow executing JS in the dev console
           # "browser.uitour.enabled" = false; # no tutorial please
-          "browser.compactmode.show" = true;
+          "browser.uidensity" = 1;
           "layers.acceleration.force-enabled" = true;
           "gfx.webrender.all" = true;
           "gfx.webrender.enabled" = true;
@@ -263,14 +263,14 @@ in
           "gfx.x11-egl.force-enabled" = true;
           "widget.dmabuf.force-enabled" = true;
 
-          #? https://github.com/FirefoxCSS-Store/FirefoxCSS-Store.github.io/blob/main/README.md#generic-installation
-          "sidebar.revamp" = false;
+          #? https://www.reddit.com/r/FirefoxCSS/wiki/index/tutorials/
           "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
 
           #? https://developer.puter.com/labs/firefox-wasm/
           "javascript.options.wasm_js_promise_integration" = true;
 
           "media.videocontrols.picture-in-picture.enable-when-switching-tabs.enabled" = true;
+
         };
 
         # visit
@@ -286,23 +286,35 @@ in
 
         # hide tab bar because we have tree style tabs
         #? https://mrotherguy.github.io/firefox-csshacks/?file=hide_tabs_toolbar_v2.css
-        userChrome = ''
-          @import "${
-            pkgs.fetchurl {
-              url = "https://raw.githubusercontent.com/MrOtherGuy/firefox-csshacks/9bb5b59e3ad2b42483731203d51f6cb758fa6cb5/chrome/hide_tabs_toolbar_v2.css";
-              hash = "sha256-xP2UqInVthDB67/hU9/rY1jEYXJs+R+i1qDn3LVts6Y=";
-            }
-          }";
+        userChrome =
+          let
+            iconsCount = 5;
+            size = toString (2 + iconsCount * 32 + 2);
+          in
+          ''
+            @import "${
+              pkgs.fetchurl {
+                url = "https://raw.githubusercontent.com/MrOtherGuy/firefox-csshacks/9bb5b59e3ad2b42483731203d51f6cb758fa6cb5/chrome/hide_tabs_toolbar_v2.css";
+                hash = "sha256-xP2UqInVthDB67/hU9/rY1jEYXJs+R+i1qDn3LVts6Y=";
+              }
+            }";
 
-          #sidebar-box {
-            width: 194px !important;
-            min-width: 194px !important;
-            max-width: 194px !important;
-          }
-          #sidebar-splitter {
-            display: none !important;
-          }
-        '';
+            #sidebar-container {
+              display: none !important;
+            }
+            #sidebar-panel-header {
+              display: none !important;
+            }
+            #sidebar-box {
+              padding-inline-start: 0 !important;
+              width: ${size}px !important;
+              min-width: ${size}px !important;
+              max-width: ${size}px !important;
+            }
+            #sidebar-splitter {
+              display: none !important;
+            }
+          '';
 
         search = {
           force = true;

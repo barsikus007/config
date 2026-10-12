@@ -15,6 +15,7 @@ let
   inherit (pkgs) coreutils gnugrep;
   systemctl = lib.getExe' pkgs.systemd "systemctl";
   flock = lib.getExe' pkgs.util-linux "flock";
+  pgrep = lib.getExe' pkgs.procps "pgrep";
   gpu-screen-recorder = lib.getExe pkgs.gpu-screen-recorder;
   slurp = lib.getExe pkgs.slurp;
   wl-copy = lib.getExe' pkgs.wl-clipboard "wl-copy";
@@ -264,9 +265,25 @@ in
     };
     Service = {
       #? login-time gate only; after that power-profiles.nix actions start/stop on profile changes
+      #? also gates on DPMS: display planes must be active so KMS capture can initialize
       ExecCondition = lib.getExe (
         pkgs.writeShellScriptBin "gsr-ui-profile-check" ''
-          [ "$(${powerprofilesctl} get)" != "power-saver" ]
+          [ "$(${powerprofilesctl} get)" != "power-saver" ] || exit 1
+
+          dpms_on=0
+          has_dpms=0
+          for d in /sys/class/drm/card*-*/dpms; do
+            [ -f "$d" ] || continue
+            has_dpms=1
+            if [ "$(${coreutils}/bin/cat "$d" 2>/dev/null)" = "On" ]; then
+              dpms_on=1
+              break
+            fi
+          done
+
+          if [ "$has_dpms" = "1" ] && [ "$dpms_on" = "0" ]; then
+            exit 1
+          fi
         ''
       );
       #? the wrapper puts /run/wrappers/bin (gsr-kms-server, gsr-global-hotkeys) and
@@ -414,12 +431,27 @@ in
             exec 9>"$lock_file"
             ${flock} --nonblocking 9 || exit 0
 
-            #? only proceed if gsr-ui is currently active
-            ${systemctl} --user is-active --quiet gsr-ui.service || exit 0
+            #? only proceed if power profile allows recording
+            [ "$(${powerprofilesctl} get 2>/dev/null || true)" != "power-saver" ] || exit 0
 
-            #? ignore events while the display is in DPMS standby/sleep
-            edp_dpms="$(${coreutils}/bin/cat /sys/class/drm/card*-eDP-*/dpms 2>/dev/null || true)"
-            if [ -n "$edp_dpms" ] && [ "$edp_dpms" != "On" ]; then
+            #? ignore events while all displays are in DPMS standby/sleep
+            dpms_on=0
+            has_dpms=0
+            for d in /sys/class/drm/card*-*/dpms; do
+              [ -f "$d" ] || continue
+              has_dpms=1
+              if [ "$(${coreutils}/bin/cat "$d" 2>/dev/null)" = "On" ]; then
+                dpms_on=1
+                break
+              fi
+            done
+            if [ "$has_dpms" = "1" ] && [ "$dpms_on" = "0" ]; then
+              exit 0
+            fi
+
+            #? start unit if inactive now that displays are awake
+            if ! ${systemctl} --user is-active --quiet gsr-ui.service; then
+              ${systemctl} --user start gsr-ui.service
               exit 0
             fi
 
@@ -477,6 +509,8 @@ in
                     ${systemctl} --user restart gsr-ui.service
                     ;;
                 esac
+              elif ! ${pgrep} --full "gpu-screen-recorder -w" >/dev/null 2>&1; then
+                ${systemctl} --user restart gsr-ui.service
               fi
             #? case 2: was recording eDP-1, but Samsung reconnected
             elif [ -n "$samsung" ] && [ "$current_target" != "$samsung" ]; then
@@ -497,6 +531,9 @@ in
                   ${systemctl} --user restart gsr-ui.service
                   ;;
               esac
+            elif ! ${pgrep} --full "gpu-screen-recorder -w" >/dev/null 2>&1; then
+              #? case 3: target display unchanged, but recording crashed (e.g. display was sleeping)
+              ${systemctl} --user restart gsr-ui.service
             fi
           '';
         in
