@@ -278,10 +278,8 @@ in
             ];
           };
 
-          #! https://github.com/niri-wm/niri/pull/3316
           "XF86TouchpadToggle" = lib.mkDefault {
-            allow-when-locked = true;
-            action.spawn = [ "niri-toggle-touchpad" ];
+            action.toggle-touchpad = [ ];
           };
 
           "Print" = lib.mkDefault {

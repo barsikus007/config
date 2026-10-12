@@ -36,7 +36,8 @@ import ./11_powertoys.nix { inherit pkgs; }
   litecli
 
   #! GUI
-  f3d
+  # TODO: unstable
+  # f3d
   gimp3
   scrcpy
   bluetui

@@ -112,28 +112,6 @@ in
   (pkgs.writeShellScriptBin "slurp-grim-screenshot" ''
     ${grim} -g "$(${slurp})" -l 0 - | ${wl-copy}
   '')
-  #! https://github.com/niri-wm/niri/pull/3316
-  (pkgs.writeShellScriptBin "niri-toggle-touchpad" ''
-    state=
-    for name in /sys/class/input/input*/name; do
-      grep --quiet --ignore-case touchpad "$name" || continue
-      file="$(dirname "$name")/inhibited"
-      [ -w "$file" ] || {
-        ${libnotify} --urgency critical --app-name niri "Cannot write $file (udev rule / input group?)"
-        exit 1
-      }
-      #? derive the target state once, then apply it to every touchpad node
-      [ -z "$state" ] && { [ "$(cat "$file")" = 1 ] && state=0 || state=1; }
-      echo "$state" > "$file"
-    done
-    if [ -z "$state" ]; then
-      ${libnotify} --urgency critical --app-name niri "No touchpad found"
-      exit 1
-    fi
-    [ "$state" = 1 ] \
-      && ${libnotify} --app-name niri "Touchpad disabled" \
-      || ${libnotify} --app-name niri "Touchpad enabled"
-  '')
   (pkgs.writeShellScriptBin "ocr-screen-region" (
     if isKDE then
       /* shell */ ''

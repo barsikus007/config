@@ -126,7 +126,11 @@ in
     #? need real ~/.ssh for `ssh -G`; ProtectHome=true mounts /home as noaccess;
     #? with tmpfs /home becomes empty, .ssh bind layers on top
     ProtectHome = lib.mkForce "tmpfs";
-    BindPaths = [ "/home/${username}/.ssh" ];
+    # TODO: unstable: https://github.com/NixOS/nixpkgs/pull/483650#issuecomment-6122317593
+    BindPaths = lib.mkForce [
+      "/dev/zfs"
+      "/home/${username}/.ssh"
+    ];
     #? ProtectHome=tmpfs also masks /run/user; re-expose it read-only so the
     #? notifier below can reach the session bus; /run/user always exists as a
     #? dir, so the bind never fails even with no session (notifier then skips)
