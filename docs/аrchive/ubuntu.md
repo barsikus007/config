@@ -20,7 +20,7 @@ su $username
 ### add github user key to authorized
 
 ```shell
-mkdir --parent ~/.ssh && curl https://github.com/barsikus007.keys --output - >> ~/.ssh/authorized_keys
+mkdir --parents ~/.ssh && curl https://github.com/barsikus007.keys --output - >> ~/.ssh/authorized_keys
 ```
 
 ### config sshd_config for security

@@ -29,7 +29,7 @@ i() {
 }
 u() {
   if [ -n "${TERMUX_VERSION:-}" ] || [ -d "/data/data/com.termux" ]; then
-    pkg update && pkg upgrade --assume-yes && pkg autoclean && pkg clean
+    pkg update && pkg upgrade --assume-yes --option Dpkg::Options::="--force-confnew" && pkg autoclean && pkg clean
     return
   fi
 
@@ -156,6 +156,8 @@ setup_ubuntu() {
   # shellcheck disable=SC2086
   (
     soft_envs
+    soft_add_ubuntu="build-essential software-properties-common $soft_add_ubuntu"
+    soft_to_purge='snapd'
     echo "Installing nala and $soft_unix $soft_base $soft_add $soft_add_ubuntu..."
     sudo apt install nala
     if [ ! -f /etc/apt/sources.list.d/nala-sources.list ]; then
@@ -165,6 +167,30 @@ setup_ubuntu() {
     sudo nala install $soft_unix $soft_base $soft_add $soft_add_ubuntu --assume-yes
     confirm "Do you want to remove $soft_to_purge?" && sudo nala purge $soft_to_purge --assume-yes
     setup_linux
+  )
+}
+
+setup_termux() {
+  # shellcheck disable=SC2086
+  (
+    soft_envs
+    soft_add_termux="tsu termux-api $soft_add_termux"
+    echo "Installing $soft_unix $soft_base $soft_add $soft_add_termux..."
+    pkg install root-repo
+    u && \
+    pkg install $soft_unix $soft_base $soft_add $soft_add_termux --assume-yes
+    setup_user
+
+    #? https://github.com/lsd-rs/lsd/issues/423
+    echo "Setting up fonts..."
+    tmpfile=$(mktemp --suffix .zip)
+    curl --silent --show-error --location https://github.com/microsoft/cascadia-code/releases/download/v2407.24/CascadiaCode-2407.24.zip --output "$tmpfile"
+    mkdir --parents /data/data/com.termux/files/usr/share/fonts/cascadia
+    unzip -j "$tmpfile" 'ttf/Cascadia*.ttf' -d /data/data/com.termux/files/usr/share/fonts/cascadia
+    ln --symbolic /data/data/com.termux/files/usr/share/fonts/cascadia/CascadiaCodeNF.ttf ~/.termux/font.ttf
+    rm "$tmpfile"
+
+    termux-setup-storage
   )
 }
 

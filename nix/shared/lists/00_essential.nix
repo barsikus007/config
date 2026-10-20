@@ -7,15 +7,17 @@ with pkgs;
   zip
   unzip
 
+  file
   gawk
+  which # * ubuntu:-
   procps # watch
   psmisc # fuser killall pstree
-  gnused # * apt:sed
-  gnugrep # * apt:grep
-  openssh # * apt:openssh-client
+  gnused # * ubuntu:sed # * termux:-
+  gnugrep # * ubuntu:grep # * termux:-
+  openssh # * ubuntu:openssh-client # * termux:-
   iproute2
-  iputils # ping tracepath # * apt:iputils-ping iputils-tracepath
-  inetutils # ping telnet traceroute whois # * apt:inetutils-telnet inetutils-traceroute whois
+  iputils # ping tracepath # * ubuntu:iputils-ping iputils-tracepath # * termux: tracepath
+  inetutils # ping telnet traceroute whois # * ubuntu:inetutils-telnet inetutils-traceroute whois # * termux: traceroute
   diffutils
   findutils
   netcat-openbsd # nc

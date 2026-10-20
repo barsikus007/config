@@ -10,6 +10,9 @@
 #? ubuntu
 sudo apt install git --assume-yes
 
+#? termux
+pkg install git --assume-yes
+
 #? all
 chsh --shell /bin/bash
 ```
@@ -26,7 +29,9 @@ cd && git clone --depth=1 https://github.com/barsikus007/config && cd -
 #? all
 cd ~/config && git pull && ./linux/install.sh && cd -
 
+#? setup functions
 setup_ubuntu
+setup_termux
 
 #? others
 setup_linux
