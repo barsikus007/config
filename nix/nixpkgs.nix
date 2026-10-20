@@ -14,7 +14,7 @@ let
     "steam-unwrapped"
     "lsfg-vk" # bottles dep
 
-    "7zz"
+    "7zip-zstd"
     "uasm" # 7zz unfree dep
     "unrar"
     "corefonts"

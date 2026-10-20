@@ -1,4 +1,8 @@
 { lib, pkgs, ... }:
+let
+  umount = lib.getExe' pkgs.util-linux "umount";
+  powerprofilesctl = lib.getExe pkgs.power-profiles-daemon;
+in
 {
   imports = [
     ./extra.nix
@@ -11,7 +15,6 @@
 
   #? default governor, same for the balanced profile
   powerManagement.cpuFreqGovernor = "schedutil";
-
   #? stop mount.cifs shares, which locks sleep process
   #! NM deauthenticates wifi in the same second logind announces the suspend, so a
   #! graceful SMB logoff has no link left and waits out x-systemd.mount-timeout,
@@ -22,10 +25,26 @@
   #! || true is load-bearing: a failed ExecStart skips ExecStop of the same unit,
   #! where every resumeCommands lives
   powerManagement.powerDownCommands = ''
-    ${lib.getExe' pkgs.util-linux "umount"} --all --types cifs --force || true
+    ${umount} --all --types cifs --force || true
   '';
 
   #? https://wiki.nixos.org/wiki/Linux_kernel#Enable_SysRq
   #? it have same security level as having force-reset power-button
   boot.kernel.sysctl."kernel.sysrq" = true;
+
+  environment.systemPackages = [
+    (pkgs.writeShellScriptBin "powerprofilesctl-cycle" ''
+      case "$(${powerprofilesctl} get 2>/dev/null)" in
+        (power-saver)
+          ${powerprofilesctl} set balanced
+          ;;
+        (balanced)
+          ${powerprofilesctl} set performance
+          ;;
+        (*)
+          ${powerprofilesctl} set power-saver
+          ;;
+      esac
+    '')
+  ];
 }

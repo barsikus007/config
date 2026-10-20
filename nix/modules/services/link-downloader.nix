@@ -127,6 +127,11 @@ in
 {
   environment.systemPackages = [ link-downloader ];
 
+  systemd.tmpfiles.rules = [
+    "d ${downloadsDir} 0755 ${username} users -"
+    "d ${watchDir} 0755 ${username} users -"
+  ];
+
   systemd.services.link-downloader = {
     description = "Watch folder link downloader via yt-dlp and aria2c";
     wantedBy = [ "multi-user.target" ];
@@ -141,7 +146,6 @@ in
       User = username;
       Restart = "always";
       RestartSec = 5;
-      WorkingDirectory = downloadsDir;
       ExecStart = lib.getExe link-downloader;
     };
   };

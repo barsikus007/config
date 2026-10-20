@@ -314,8 +314,8 @@ in
             action.spawn-sh = "zsh -c asus_anime_toggle";
           };
           "XF86Launch4" = lib.mkDefault {
-            hotkey-overlay.title = "Asus: Cycle Power Profiles";
-            action.spawn-sh = "zsh -c asus_profile_toggle";
+            hotkey-overlay.title = "Cycle Power Profiles";
+            action.spawn = [ "powerprofilesctl-cycle" ];
           };
         })
       ];

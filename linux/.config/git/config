@@ -4,6 +4,7 @@
 	ab = "!GIT_SEQUENCE_EDITOR=true git absorb --and-rebase"
 	ci = "commit"
 	co = "checkout"
+	reb = "rebase --interactive origin"
 	s = "status"
 
 [commit]

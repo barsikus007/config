@@ -4,7 +4,9 @@ import ./11_powertoys.nix { inherit pkgs; }
 ++ import ./12_python.nix { inherit pkgs; }
 ++ [
   #! other (specific cli tools)
-  _7zz-rar
+  (_7zip-zstd.override {
+    enableUnfree = true;
+  })
   gh
   gcc
   git-lfs
@@ -36,8 +38,7 @@ import ./11_powertoys.nix { inherit pkgs; }
   litecli
 
   #! GUI
-  # TODO: unstable
-  # f3d
+  f3d
   gimp3
   scrcpy
   bluetui

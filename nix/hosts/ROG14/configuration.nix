@@ -37,7 +37,8 @@
     ./sops.nix
 
     ../../modules/systemd-boot.nix
-    ../../modules/zfs/lts-kernel.nix
+    # TODO: unstable: pinned this way until next LTS release
+    ../../modules/zfs/compatible-kernel.nix
     ../../modules/zfs
     ../../modules/zfs/backup-source.nix
 
@@ -46,8 +47,6 @@
     ../../modules/services/power-profiles.nix
   ];
   home-manager.users.${username} = ./home.nix;
-  # TODO: unstable: pinned this way until next LTS release
-  boot.kernelPackages = lib.mkForce pkgs.linuxPackages_7_2;
 
   services.sanoid.datasets = lib.genAttrs [ "zroot/persistent" ] (_: {
     use_template = [ "default" ];

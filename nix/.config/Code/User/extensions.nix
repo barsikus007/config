@@ -74,7 +74,6 @@ let
     ];
 
     "sourcery.sourcery" = [ "ai" ];
-    "google.gemini-cli-vscode-ide-companion" = [ "ai" ];
     "anthropic.claude-code" = [ "ai" ];
     "singularityinc.claude-notifier" = [ "ai" ];
 

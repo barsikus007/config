@@ -82,7 +82,6 @@ in
         # TODO: research
         # (extension "languagetool" "languagetool-webextension@languagetool.org")
         # (extension "umatrix" "uMatrix@raymondhill.net")
-        # (extension "libredirect" "7esoorv3@alefvanoon.anonaddy.me")
         # (extension "clearurls" "{74145f27-f039-47ce-a470-a662b129930a}")
         #? https://github.com/refined-github/refined-github
         #? https://github.com/vknext/vk-classic-feed

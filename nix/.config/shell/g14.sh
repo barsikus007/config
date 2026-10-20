@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #? ROG G14 specific
-#? deps: tmux asusctl
+#? deps: tmux asusctl fzf vicinae yt-dlp
 asus_anime_demo_select() {
   # use fzf (default) or vicinae dmenu (--interactive) to pick a subfolder and link its frames.gif / sound.mp3 into ~/.config/rog/
   local ROG_ANIME_DIR=~/.config/rog
@@ -79,21 +79,6 @@ asus_anime_demo_toggle() {
 }
 
 
-#? asusctl specific
-asus_profile_toggle() {
-  # fan switch function (for Fn+F5 key)
-  (
-    asusctl profile next
-    FAN_STATE=$(asusctl profile get | tail --lines +2)
-    FAN_STATE_LOWER=$(echo "$FAN_STATE" | awk '{print $4}' | tr '[:upper:]' '[:lower:]')
-    [ "$FAN_STATE_LOWER" = quiet ] && FAN_STATE_LOWER=power-saver
-    PREV_ID=$(cat /tmp/asus-prev-fan-notification-id)
-    [ -z "$PREV_ID" ] && PREV_ID=0
-    notify-send "Power Profile" "$FAN_STATE" --transient --expire-time=1 --icon=power-profile-"$FAN_STATE_LOWER" --replace-id="$PREV_ID" --print-id > /tmp/asus-prev-fan-notification-id
-  )
-}
-
-
 #? laptop specific
 dgpu_check_processes() {
   fuser --verbose /dev/nvidia*
@@ -101,6 +86,7 @@ dgpu_check_processes() {
 }
 dgpu_switch_to_integrated/vfio() {
   dgpu_check_processes
+  sudo chmod 000 /dev/nvidia* 2>/dev/null || true
   #? util-linux/bin/kill
   lsof -t /dev/nvidia* 2>/dev/null | sort --unique | sudo xargs --no-run-if-empty \
     /run/current-system/sw/bin/kill --verbose --signal QUIT \

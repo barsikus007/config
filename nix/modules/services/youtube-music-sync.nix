@@ -10,7 +10,11 @@ let
   onCalendar = args.onCalendar or "daily";
   #? collections that are not music, skipped on conversion; whatever they already
   #? produced stays put, since pruning only reacts to a vanished source video
-  excludeCollections = args.excludeCollections or [ "CUM_COLLECTION" ];
+  excludeCollections =
+    args.excludeCollections or [
+      "CUM_COLLECTION"
+      "LIKED_VIDEOS"
+    ];
 
   findExclude = lib.concatMapStringsSep " " (
     collection: "-not -path ${lib.escapeShellArg "*/${collection}/*"}"

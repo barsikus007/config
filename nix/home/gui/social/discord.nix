@@ -77,7 +77,7 @@ in
       package = pinToIgpu options.programs.nixcord.discord.package.default;
     };
     vesktop = {
-      enable = true;
+      # enable = true;
       autoscroll.enable = true;
       #! same dGPU grab as discord (see pinToIgpu)
       package = pinToIgpu pkgs.vesktop;

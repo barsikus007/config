@@ -7,8 +7,9 @@
 let
   #? native wayland support (unstable)
   winePkg = pkgs.wineWow64Packages.unstableFull;
+  wineBin = lib.getExe' winePkg ".wine";
   winetricksWrapper = pkgs.writeShellScriptBin "winetricks" ''
-    WINE_BIN=${lib.getExe' winePkg ".wine"} ${lib.getExe pkgs.winetricks}
+    WINE_BIN=${wineBin} ${lib.getExe pkgs.winetricks}
   '';
 
   #? map stylix base16 palette to wine `Control Panel\Colors` (space-separated RGB)

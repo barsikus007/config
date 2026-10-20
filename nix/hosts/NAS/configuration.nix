@@ -26,7 +26,6 @@
     ./sops.nix
 
     ../../modules/systemd-boot.nix
-    ../../modules/zfs/lts-kernel.nix
     ../../modules/zfs
     ../../modules/zfs/backup-target.nix
 

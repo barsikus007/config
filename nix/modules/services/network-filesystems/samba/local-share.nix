@@ -1,5 +1,5 @@
 { username, ... }:
-#? windows-like folder sharing
+#? windows-like folder sharing: \\ROG14\Public
 #! windows now works differently; need to run as admin:
 #? reg add HKLM\SYSTEM\CurrentControlSet\Services\LanmanWorkstation\Parameters /v AllowInsecureGuestAuth /t REG_DWORD /d 1 /f ; net stop workstation ; net start workstation
 {

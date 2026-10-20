@@ -40,6 +40,7 @@
           "org.kde.kwrite.desktop"
           "neovide.desktop"
           "nvim.desktop"
+          "org.kde.ark.desktop"
         ]);
     mimeApps.associations.removed = lib.genAttrs [
       "text/javascript"

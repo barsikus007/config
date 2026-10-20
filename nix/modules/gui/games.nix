@@ -4,6 +4,9 @@
     ./obs.nix
     ./wine.nix
   ];
+  home-manager.users.${username}.imports = [
+    ../../home/gui/games
+  ];
 
   custom.persist.home.directories = [
     ".config/heroic"

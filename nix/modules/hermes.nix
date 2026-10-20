@@ -13,8 +13,8 @@
 
   custom.persist.directories = [
     "/var/lib/hermes"
-    "/var/lib/containers"
-  ];
+  ]
+  ++ lib.optional (config.services.hermes-agent.container.backend == "podman") "/var/lib/containers";
 
   services.hermes-agent = {
     enable = true;
@@ -42,11 +42,11 @@
     };
     addToSystemPackages = true;
     container = {
-      #? pkexec podman exec -d hermes-agent /data/current-package/bin/hermes dashboard --port 9119 --host 127.0.0.1 --no-open
+      #? pkexec docker exec -d hermes-agent /data/current-package/bin/hermes dashboard --port 9119 --host 127.0.0.1 --no-open
       #? http://localhost:9119
-      #? pkexec podman exec hermes-agent /data/current-package/bin/hermes dashboard --stop
+      #? pkexec docker exec hermes-agent /data/current-package/bin/hermes dashboard --stop
       enable = true;
-      backend = "podman";
+      backend = if (config.virtualisation.docker.enable or false) then "docker" else "podman";
       hostUsers = [ ]; # fuck ~/.hermes placing
       extraOptions = [ "--env=HERMES_MANAGED=false" ];
     };
@@ -82,6 +82,7 @@
 
   systemd.services.hermes-agent.preStart = lib.mkBefore ''
     systemd-tmpfiles --create --prefix=/var/lib/hermes
+    chown -R ${config.services.hermes-agent.user}:${config.services.hermes-agent.group} /var/lib/hermes/home
     rm --force /var/lib/hermes/.hermes/.managed
   '';
 

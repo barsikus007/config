@@ -283,9 +283,13 @@
     "[json][jsonc]": {
         "editor.tabSize": 4,
         "editor.formatOnSave": true,
+    },
+    //! oxc doesn't respect trailing commas in jsonc
+    "[json]": {
+        "editor.defaultFormatter": "oxc.oxc-vscode",
+    },
+    "[jsonc]": {
         "editor.defaultFormatter": "vscode.json-language-features",
-        //! oxc doesn't respect trailing commas in jsonc
-        // "editor.defaultFormatter": "oxc.oxc-vscode",
     },
     "[graphql]": {
         "editor.tabSize": 2,

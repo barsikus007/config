@@ -22,8 +22,6 @@
     ../../home/gui/office.nix
     ../../home/gui/bcompare.nix
     ../../home/gui/vm.nix
-
-    ../../home/gui/games
     ../../home/gui/games/minecraft.nix
   ];
 }

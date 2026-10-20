@@ -230,7 +230,6 @@
           ./modules/android.nix
           ./modules/diagnostic.nix
           ./modules/printer.nix
-          ./modules/hermes.nix
 
           # ./modules/desktop/manager/plasma.nix
           ./modules/desktop/manager/noctalia-niri.nix
@@ -278,6 +277,7 @@
           ./modules/services/network-filesystems/samba/nas.nix
           ./modules/services/youtube-music-sync.nix
           ./modules/services/link-downloader.nix
+          ./modules/hermes.nix
           (
             { username, ... }:
             import ./modules/containers/docker.nix {

@@ -16,11 +16,7 @@ in
     );
     nvidia-settings = nvidia.settings;
 
-    #? nixcord never in hydra cache
-    discord = hm.programs.nixcord.finalPackage.discord;
-    vesktop = hm.programs.nixcord.finalPackage.vesktop;
-
-    #? custom src rev, never in hydra cache
+    #? custom src rev
     looking-glass-client = hm.programs.looking-glass-client.package;
     keepassxc = self.packages.${system}.keepassxc;
     fsearch = self.packages.${system}.fsearch;
@@ -30,6 +26,16 @@ in
     libspeedhack = self.packages.${system}.libspeedhack;
     libfprint-goodixtls = self.packages.${system}.libfprint-goodixtls-27c6-521d;
     hyprwhspr-rs = cfg.services.hyprwhspr-rs.package;
+
+    #? unfree/electron and unpacked apps
+    discord = hm.programs.nixcord.finalPackage.discord;
+    # vesktop = hm.programs.nixcord.finalPackage.vesktop;
+    inherit (pkgs)
+      vscode
+      obsidian
+      xnconvert
+      parsec-bin
+      ;
   };
 
   #? aggregate for the CI single-job build+push; its closure is the union of all targets

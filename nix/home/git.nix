@@ -20,6 +20,7 @@
         co = "checkout";
         s = "status";
         ab = "!GIT_SEQUENCE_EDITOR=true git absorb --and-rebase";
+        reb = "rebase --interactive origin";
       };
       user.name = "barsikus007";
       user.email = "barsikus07@gmail.com";

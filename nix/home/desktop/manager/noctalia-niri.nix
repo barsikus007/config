@@ -139,7 +139,7 @@ in
       }
       // lib.attrsets.optionalAttrs config.custom.isAsus {
         "XF86Launch4" = {
-          hotkey-overlay.title = "Asus: Cycle Power Profiles";
+          hotkey-overlay.title = "Cycle Power Profiles";
           action = noctalia-ipc "power-cycle";
         };
       };

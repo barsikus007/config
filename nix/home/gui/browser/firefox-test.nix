@@ -1,15 +1,4 @@
 {
-  pkgs,
-  ...
-}:
-let
-  mkPngDataUri =
-    file:
-    "data:image/png;base64,${
-      builtins.readFile (pkgs.runCommand "icon-b64" { } "${pkgs.coreutils}/bin/base64 -w0 ${file} > $out")
-    }";
-in
-{
   custom.firefox = {
     closeWelcomeTabs = true;
     userscripts = [
