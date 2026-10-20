@@ -70,16 +70,182 @@
     #? finer GPU power management
     nvidia.powerManagement.finegrained = true;
   };
-
-  #? https://asus-linux.org/guides/nixos/
-  services = {
-    #! I want to manage GPU myself
-    supergfxd.enable = false;
-    asusd = {
+  services.lact =
+    let
+      ids = import ./ids.nix;
+    in
+    {
       enable = true;
-      #! https://gitlab.com/asus-linux/asusctl/-/issues/530#note_2101255275
-      # enableUserService = true;
+      settings = {
+        version = 7;
+        daemon = {
+          log_level = "info";
+          disable_nvapi = false;
+          admin_group = "wheel";
+        };
+        apply_settings_timer = 5;
+        gpus.${ids.gpu.discrete.lactId} = {
+          fan_control_enabled = false;
+          nvidia_gpu_vf_curve = builtins.fromJSON (builtins.readFile ./gpu-vf-curve-undervolt.json);
+        };
+      };
     };
+
+  #? https://opengamingcollective.github.io/asusctl/distributions/nixos.html
+  services.asusd = {
+    enable = true;
+    #? let power-profiles-daemon manage profiles; asusd only applies fan curves
+    asusdConfig.text = /* rust */ ''
+      (
+          platform_profile_linked_epp: false,
+          change_platform_profile_on_battery: false,
+          change_platform_profile_on_ac: false,
+          //? defaults
+          charge_control_end_threshold: 100,
+          base_charge_control_end_threshold: 100,
+          disable_nvidia_powerd_on_battery: true,
+          ac_command: "",
+          bat_command: "",
+          platform_profile_on_battery: Quiet,
+          platform_profile_on_ac: Performance,
+          profile_quiet_epp: Power,
+          profile_balanced_epp: BalancePower,
+          profile_custom_epp: Performance,
+          profile_performance_epp: Performance,
+          ac_profile_tunings: {},
+          dc_profile_tunings: {},
+          armoury_settings: {},
+      )
+    '';
+    #? keyboard backlight permanently off across all power states
+    auraConfigs."1866".text = /* rust */ ''
+      (
+          brightness: Off,
+          enabled: (
+              states: [
+                  (
+                      zone: Keyboard,
+                      boot: false,
+                      awake: false,
+                      sleep: false,
+                      shutdown: false,
+                  ),
+              ],
+          ),
+          //? defaults
+          config_name: "aura_1866.ron",
+          current_mode: Static,
+          builtins: {
+              Static: (
+                  mode: Static,
+                  zone: r#None,
+                  colour1: (
+                      r: 166,
+                      g: 0,
+                      b: 0,
+                  ),
+                  colour2: (
+                      r: 0,
+                      g: 0,
+                      b: 0,
+                  ),
+                  speed: Med,
+                  direction: Right,
+              ),
+              Breathe: (
+                  mode: Breathe,
+                  zone: r#None,
+                  colour1: (
+                      r: 166,
+                      g: 0,
+                      b: 0,
+                  ),
+                  colour2: (
+                      r: 0,
+                      g: 0,
+                      b: 0,
+                  ),
+                  speed: Med,
+                  direction: Right,
+              ),
+              Pulse: (
+                  mode: Pulse,
+                  zone: r#None,
+                  colour1: (
+                      r: 166,
+                      g: 0,
+                      b: 0,
+                  ),
+                  colour2: (
+                      r: 0,
+                      g: 0,
+                      b: 0,
+                  ),
+                  speed: Med,
+                  direction: Right,
+              ),
+          },
+          multizone_on: false,
+      )
+    '';
+    #! airplane mode xD
+    #? p=$(asusctl profile get | awk '/Active profile/ {print $3}') && asusctl fan-curve --mod-profile $p --fan cpu --data "20c:100%,44c:100%,47c:100%,50c:100%,53c:100%,56c:100%,60c:100%,98c:100%" && asusctl fan-curve --mod-profile $p --fan gpu --data "20c:100%,44c:100%,47c:100%,50c:100%,53c:100%,56c:100%,60c:100%,98c:100%" && asusctl fan-curve --mod-profile $p --enable-fan-curves true
+    #! land an airplane
+    #? asusctl fan-curve --default
+    fanCurvesConfig.text = /* rust */ ''
+      (
+          profiles: (
+              balanced: [
+                  (
+                      fan: CPU,
+                      // pwm: (28, 41, 48, 59, 71, 102, 120, 135),
+                      pwm: (0, 0, 20, 59, 71, 102, 120, 135),
+                      temp: (20, 48, 51, 54, 57, 61, 65, 98),
+                      enabled: true,
+                  ),
+                  (
+                      fan: GPU,
+                      // pwm: (35, 53, 63, 71, 86, 112, 130, 155),
+                      pwm: (0, 0, 20, 71, 86, 112, 130, 155),
+                      temp: (20, 48, 51, 54, 57, 61, 65, 98),
+                      enabled: true,
+                  ),
+              ],
+              performance: [
+                  (
+                      fan: CPU,
+                      // pwm: (45, 58, 71, 89, 102, 114, 135, 158),
+                      pwm: (0, 30, 71, 89, 102, 114, 135, 158),
+                      temp: (20, 50, 55, 60, 65, 70, 75, 98),
+                      enabled: true,
+                  ),
+                  (
+                      fan: GPU,
+                      // pwm: (63, 71, 86, 102, 112, 124, 155, 178),
+                      pwm: (0, 30, 86, 102, 112, 124, 155, 178),
+                      temp: (20, 50, 55, 60, 65, 70, 75, 98),
+                      enabled: true,
+                  ),
+              ],
+              quiet: [
+                  (
+                      fan: CPU,
+                      // pwm: (17, 28, 35, 40, 48, 58, 71, 89),
+                      pwm: (0, 0, 0, 0, 20, 40, 71, 89),
+                      temp: (20, 44, 47, 50, 53, 56, 60, 98),
+                      enabled: true,
+                  ),
+                  (
+                      fan: GPU,
+                      // pwm: (28, 35, 45, 53, 63, 71, 86, 102),
+                      pwm: (0, 0, 0, 0, 20, 40, 86, 102),
+                      temp: (20, 44, 47, 50, 53, 56, 60, 98),
+                      enabled: true,
+                  ),
+              ],
+          ),
+      )
+    '';
   };
 
   custom.powerProfiles.actions.system =
@@ -131,7 +297,7 @@
 
   #? use Fn+Arrows buttons as Home/End/PgUp/PgDown
   services.udev.extraHwdb = ''
-    #? https://asus-linux.org/faq/keyboard/remap-arrow-keys/
+    #? https://opengamingcollective.github.io/asusctl/faq/keyboard.html#can-i-re-map-the-arrow-keys
     evdev:name:*:dmi:bvn*:bvr*:bd*:svnASUS*:pn*:*
       KEYBOARD_KEY_ff3100c4=pageup    # Fn+Up
       KEYBOARD_KEY_ff3100c5=pagedown  # Fn+Down

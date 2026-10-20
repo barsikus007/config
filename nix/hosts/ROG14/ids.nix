@@ -1,3 +1,8 @@
+let
+  #? Asus GA401IV
+  subsystemVendorId = "1043";
+  subsystemDeviceId = "1F11";
+in
 {
   mic = {
     alsaCard = "Generic_1";
@@ -7,7 +12,15 @@
     deviceDescription = "Ryzen HD Audio Controller Analog Stereo";
   };
   gpu = {
-    internal = "04:00";
-    discrete = "01:00";
+    internal = {
+      pci = "04:00";
+    };
+    discrete = rec {
+      pci = "01:00";
+      #? Nvidia TU106M
+      vendorId = "10DE";
+      deviceId = "1F12";
+      lactId = "${vendorId}:${deviceId}-${subsystemVendorId}:${subsystemDeviceId}-0000:${pci}.0";
+    };
   };
 }

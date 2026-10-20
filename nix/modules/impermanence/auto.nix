@@ -13,7 +13,6 @@
       ++ lib.optional (
         config.security.sudo.enable || config.security.sudo-rs.enable
       ) "/var/db/sudo/lectured"
-      ++ lib.optional config.services.asusd.enable "/etc/asusd" # ? current anime state
       ++ lib.optional config.services.power-profiles-daemon.enable "/var/lib/power-profiles-daemon" # ? selected power-profile
       ++ lib.optional config.services.upower.enable "/var/lib/upower" # ? history of power usage
       ++ lib.optional config.services.printing.enable "/var/lib/cups"
