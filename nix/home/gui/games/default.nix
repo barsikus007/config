@@ -1,4 +1,7 @@
+{ config, flakePath, ... }:
 {
+  xdg.configFile."steam-games.ini".source =
+    config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/steam-games.ini";
   xdg.configFile."handlr/handlr.toml".text = /* toml */ ''
     [[handlers]]
     exec = "steam steam://openurl/%u"
