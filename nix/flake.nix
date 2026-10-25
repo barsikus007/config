@@ -125,11 +125,17 @@
     { self, nixpkgs, ... }@inputs:
     let
       system = "x86_64-linux";
-      pkgs = import ./nixpkgs.nix {
-        inherit system inputs;
-        overlays = [ self.overlays.default ];
+      pkgs = import nixpkgs {
+        inherit system;
+        inherit
+          ((import ./modules/nixpkgs.nix {
+            inherit inputs;
+            inherit (nixpkgs) lib;
+          }).nixpkgs
+          )
+          overlays
+          ;
       };
-
       mkSpecialArgs = username: {
         inherit
           self
@@ -150,13 +156,12 @@
       mkCoolVm =
         _name: username: modules:
         nixpkgs.lib.nixosSystem {
-          inherit system pkgs;
           specialArgs = mkSpecialArgs username;
           modules = modules ++ [
             # TODO: link current nixpkgs source to store to avoid refetching it withing guest
             ./hosts/vm
             (
-              { username, ... }:
+              { pkgs, username, ... }:
               {
                 networking.hostName = "coolvm";
 
@@ -201,13 +206,12 @@
         };
     in
     {
+      #? https://github.com/NixOS/nixpkgs/blob/dd04fdc9695de5d20a797338695de926900211c2/flake.nix#L64
       nixosConfigurations."NixOS-WSL" = nixpkgs.lib.nixosSystem {
-        inherit system pkgs;
         specialArgs = mkSpecialArgs "nixos";
         modules = [ ./hosts/NixOS-WSL/configuration.nix ];
       };
       nixosConfigurations."ROG14" = nixpkgs.lib.nixosSystem {
-        inherit system pkgs;
         specialArgs = mkSpecialArgs "ogurez";
         modules = [
           ./hosts/ROG14/configuration.nix
@@ -266,7 +270,6 @@
       };
 
       nixosConfigurations."NAS" = nixpkgs.lib.nixosSystem {
-        inherit system pkgs;
         specialArgs = mkSpecialArgs "admin";
         modules = [
           ./hosts/NAS/configuration.nix
@@ -279,18 +282,13 @@
           ./modules/services/link-downloader.nix
           ./modules/hermes.nix
           (
-            { username, ... }:
+            { pkgs, username, ... }:
             import ./modules/containers/docker.nix {
               inherit username;
               storageDriver = "zfs";
+              environment.systemPackages = with pkgs; [ litecli ];
             }
           )
-          {
-            environment.systemPackages = with pkgs; [
-              bun
-              litecli
-            ];
-          }
         ];
       };
 
@@ -303,7 +301,6 @@
 
       #? nixos-anywhere --flake ./nix#generic-VPS --generate-hardware-config nixos-facter ./nix/hosts/empty-facter.json --target-host <hostname>
       nixosConfigurations."generic-VPS" = nixpkgs.lib.nixosSystem {
-        inherit system pkgs;
         specialArgs = mkSpecialArgs "nixos";
         modules = [
           ./hosts/vps
@@ -345,10 +342,6 @@
       ];
 
       nixosConfigurations."droidvm" = nixpkgs.lib.nixosSystem {
-        pkgs = import ./nixpkgs.nix {
-          inherit inputs;
-          system = "aarch64-linux";
-        };
         specialArgs = mkSpecialArgs "ogurez";
         modules = [ ./hosts/android/droidvm.nix ];
       };
@@ -412,13 +405,7 @@
       ];
 
       nixOnDroidConfigurations.default = inputs.nix-on-droid.lib.nixOnDroidConfiguration {
-        pkgs = import ./nixpkgs.nix {
-          inherit inputs;
-          system = "aarch64-linux";
-          overlays = [
-            inputs.nix-on-droid.overlays.default
-          ];
-        };
+        pkgs = import nixpkgs { system = "aarch64-linux"; };
         extraSpecialArgs = mkSpecialArgs "nix-on-droid" // {
           flakePath = "/data/data/com.termux.nix/files/home/config/nix";
         };
@@ -466,26 +453,6 @@
         };
       };
 
-      overlays.default = _final: prev: {
-        flakePackages =
-          let
-            flattenPkgs = prev.lib.concatMapAttrs (
-              name: v:
-              if prev.lib.isDerivation v then
-                { ${name} = v; }
-              else if prev.lib.isAttrs v then
-                flattenPkgs v
-              else
-                { }
-            );
-          in
-          flattenPkgs (
-            prev.lib.filesystem.packagesFromDirectoryRecursive {
-              inherit (prev) callPackage;
-              directory = ./packages/auto;
-            }
-          );
-      };
       packages.${system} = {
         #? nix {build,run} ./nix# <tab>
         default = self.packages.${system}.coolvm-niri;
@@ -520,7 +487,6 @@
       }
       // pkgs.flakePackages;
       legacyPackages.${system} = {
-        inherit pkgs;
         #! nix flake check: need to update patches everytime
         telegram-desktop-patched = pkgs.callPackage ./packages/telegram-desktop-patched.nix { };
         ayugram-desktop-patched = pkgs.callPackage ./packages/telegram-desktop-patched.nix {

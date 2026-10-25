@@ -3,6 +3,7 @@
 {
   imports = [
     ../shared/options.nix
+    ../modules/nixpkgs.nix
 
     ../modules/ssh-secure.nix
     #! 150Kb
@@ -11,6 +12,8 @@
     #! 17Mb
     ../shared/nh.nix
   ];
+
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   #? https://nixos.org/manual/nixos/unstable/release-notes
   system.stateVersion = lib.mkDefault "26.05";

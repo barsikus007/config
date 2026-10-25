@@ -1,9 +1,4 @@
-{
-  inputs,
-  system,
-  nixpkgs ? inputs.nixpkgs,
-  overlays ? [ ],
-}:
+{ lib, inputs, ... }:
 let
   #! харам, платные приложения
   paidApps = [
@@ -52,25 +47,48 @@ let
     # "kompas3d-v24-full"
   ];
   allowUnfreePredicateGen = pkgs: pkg: builtins.elem (pkgs.lib.getName pkg) paidApps;
-  inherit (nixpkgs) lib;
+
+  autoFlakePackagesOverlay = _final: prev: {
+    flakePackages =
+      let
+        flattenPkgs = prev.lib.concatMapAttrs (
+          name: v:
+          if prev.lib.isDerivation v then
+            { ${name} = v; }
+          else if prev.lib.isAttrs v then
+            flattenPkgs v
+          else
+            { }
+        );
+      in
+      flattenPkgs (
+        prev.lib.filesystem.packagesFromDirectoryRecursive {
+          inherit (prev) callPackage;
+          directory = ../packages/auto;
+        }
+      );
+  };
 in
-import nixpkgs {
-  inherit system;
-  overlays = [
+{
+  nixpkgs.config.allowUnfreePredicate = allowUnfreePredicateGen inputs.nixpkgs;
+
+  nixpkgs.overlays = [
+    autoFlakePackagesOverlay
     (
-      _final: _prev:
+      #? map "nixpkgs-*" flake inputs as attrs of pkgs
+      _final: prev:
       builtins.mapAttrs
         (
           _pkgsName: pkgsInput:
           import pkgsInput {
-            inherit system;
+            system = prev.stdenv.hostPlatform.system;
             config.allowUnfreePredicate = allowUnfreePredicateGen pkgsInput;
           }
         )
         (
           #! not the `|>` pipe operator: pedantix' parser rejects it as invalid nix
           lib.pipe inputs [
-            (nixpkgs.lib.attrsets.filterAttrs (inputName: _: lib.strings.hasPrefix "nixpkgs-" inputName))
+            (lib.attrsets.filterAttrs (inputName: _: lib.strings.hasPrefix "nixpkgs-" inputName))
             (lib.attrsets.mapAttrs' (
               inputName: input: {
                 name = lib.strings.removePrefix "nixpkgs-" inputName;
@@ -80,7 +98,5 @@ import nixpkgs {
           ]
         )
     )
-  ]
-  ++ overlays;
-  config.allowUnfreePredicate = allowUnfreePredicateGen nixpkgs;
+  ];
 }

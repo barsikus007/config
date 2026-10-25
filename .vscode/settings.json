@@ -12,7 +12,7 @@
     "nix.serverSettings": {
         "nixd": {
             "nixpkgs": {
-                "expr": "let inputs = (builtins.getFlake (''git+file://'' + toString ./. + ''?dir=nix'')).inputs; system = ''x86_64-linux''; in (import ''${toString ./.}/nix/nixpkgs.nix'' { inherit system inputs; })",
+                "expr": "(builtins.getFlake (''git+file://'' + toString ./. + ''?dir=nix'')).nixosConfigurations.ROG14.pkgs"
             },
             "options": {
                 "nixos": {

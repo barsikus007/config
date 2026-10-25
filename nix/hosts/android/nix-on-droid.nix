@@ -13,6 +13,7 @@ in
   imports = [
     ../../shared/options.nix
     ../../shared/nix.nix
+    ../../modules/nixpkgs.nix
     ../../modules/home-manager
   ];
   android-integration.am.enable = true;

@@ -45,7 +45,7 @@
             in
             {
               # TODO: home-manager-module
-              nixpkgs.expr = "import ''${flakePath}/nixpkgs.nix'' { system = ''x86_64-linux''; inputs = ${flake}.inputs; }";
+              nixpkgs.expr = "${flake}.nixosConfigurations.ROG14.pkgs";
               options = rec {
                 nixos.expr = "${flake}.nixosConfigurations.ROG14.options";
                 home-manager.expr = "${nixos.expr}.home-manager.users.type.getSubOptions [] // ${flake}.homeConfigurations.nixd.options";

@@ -7,6 +7,7 @@
   ...
 }:
 {
+  nixpkgs.hostPlatform = "aarch64-linux";
   networking.hostName = "droidvm";
 
   imports = [
