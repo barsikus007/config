@@ -46,7 +46,7 @@
         }
       ];
     };
-    plugins = { inherit (pkgs.yaziPlugins) smart-enter rich-preview; };
+    plugins = { inherit (pkgs.yaziPlugins) smart-enter rich-preview time-travel; };
     #? https://github.com/sxyazi/yazi/tree/shipped/yazi-config/preset
     keymap = {
       mgr = {
@@ -69,6 +69,46 @@
             ];
             run = "linemode size_mtime";
             desc = "Linemode: size and mtime";
+          }
+          {
+            on = [
+              "z"
+              "z"
+            ];
+            run = "plugin fzf";
+            desc = "Jump to a file/directory via fzf";
+          }
+          {
+            on = [
+              "z"
+              "h"
+            ];
+            run = "plugin time-travel prev";
+            desc = "Go to previous snapshot";
+          }
+          {
+            on = [
+              "z"
+              "l"
+            ];
+            run = "plugin time-travel next";
+            desc = "Go to next snapshot";
+          }
+          {
+            on = [
+              "z"
+              "s"
+            ];
+            run = "plugin time-travel select";
+            desc = "Select a snapshot";
+          }
+          {
+            on = [
+              "z"
+              "e"
+            ];
+            run = "plugin time-travel exit";
+            desc = "Exit browsing snapshots";
           }
         ];
       };

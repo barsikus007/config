@@ -2,7 +2,7 @@ args:
 let
   outInterface = args.outInterface or "wg1";
   outInterfaceCfg = args.outInterfaceCfg or { configFile = "/etc/wireguard/${outInterface}.conf"; };
-  outInterfaceTable = toString (args.outInterfaceTable or (120));
+  outInterfaceTable = toString (args.outInterfaceTable or 120);
 in
 {
   networking.wg-quick.interfaces.${outInterface} = outInterfaceCfg // {

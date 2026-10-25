@@ -2,9 +2,9 @@
 
 ## [extensions](../nix/home/gui/browser/firefox.nix#L51)
 
-### [uBlock](../nix/home/gui/browser/firefox.nix#L98)
+### [uBlock](../nix/home/gui/browser/firefox.nix#L94)
 
-### [userscripts](../nix/home/gui/browser/firefox-test.nix#L15)
+### [userscripts](../nix/home/gui/browser/firefox-test.nix#L4)
 
 ## applets
 

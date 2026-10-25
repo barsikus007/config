@@ -12,7 +12,11 @@
   environment.variables.QT_QPA_PLATFORMTHEME = lib.mkForce "kde";
 
   #? make qt.platform.theme=kde setting to work
-  environment.systemPackages = with pkgs; [ kdePackages.plasma-integration ];
+  environment.systemPackages = with pkgs; [
+    kdePackages.plasma-integration
+    #? qt5 apps fallback to white palette without qt5 integration plugin
+    kdePackages.plasma-integration.qt5
+  ];
 
   qt = {
     enable = true;

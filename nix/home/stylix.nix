@@ -30,6 +30,8 @@
       gdu.enable = false;
       #! theme could be unreadable, but now it is ok
       # nixcord.enable = false;
+      #? looks fucked with fonts
+      mangohud.fonts.enable = false;
 
       firefox.profileNames = [ "default" ];
       firefox.fonts.enable = false;

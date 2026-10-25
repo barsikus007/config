@@ -11,6 +11,7 @@ with pkgs;
     cudaSupport = pkgs.stdenv.hostPlatform.isx86_64;
     rocmSupport = pkgs.stdenv.hostPlatform.isx86_64;
   })
+  rsync
   neovim
   zoxide
   ripgrep

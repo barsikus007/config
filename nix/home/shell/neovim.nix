@@ -104,7 +104,7 @@
       statusline = {
         lualine = {
           enable = true;
-          theme = lib.mkDefault "catppuccin";
+          setupOpts.options.theme = lib.mkDefault "catppuccin";
         };
       };
 

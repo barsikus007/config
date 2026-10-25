@@ -1,0 +1,514 @@
+{
+    "0": {
+        "clockspeed_offset": 0,
+        "voltage": 450
+    },
+    "1": {
+        "clockspeed_offset": 0,
+        "voltage": 456
+    },
+    "2": {
+        "clockspeed_offset": 0,
+        "voltage": 462
+    },
+    "3": {
+        "clockspeed_offset": 0,
+        "voltage": 468
+    },
+    "4": {
+        "clockspeed_offset": 0,
+        "voltage": 475
+    },
+    "5": {
+        "clockspeed_offset": 0,
+        "voltage": 481
+    },
+    "6": {
+        "clockspeed_offset": 0,
+        "voltage": 487
+    },
+    "7": {
+        "clockspeed_offset": 0,
+        "voltage": 493
+    },
+    "8": {
+        "clockspeed_offset": 0,
+        "voltage": 500
+    },
+    "9": {
+        "clockspeed_offset": 0,
+        "voltage": 506
+    },
+    "10": {
+        "clockspeed_offset": 0,
+        "voltage": 512
+    },
+    "11": {
+        "clockspeed_offset": 0,
+        "voltage": 518
+    },
+    "12": {
+        "clockspeed_offset": 0,
+        "voltage": 525
+    },
+    "13": {
+        "clockspeed_offset": 30,
+        "voltage": 531
+    },
+    "14": {
+        "clockspeed_offset": 75,
+        "voltage": 537
+    },
+    "15": {
+        "clockspeed_offset": 120,
+        "voltage": 543
+    },
+    "16": {
+        "clockspeed_offset": 150,
+        "voltage": 550
+    },
+    "17": {
+        "clockspeed_offset": 165,
+        "voltage": 556
+    },
+    "18": {
+        "clockspeed_offset": 180,
+        "voltage": 562
+    },
+    "19": {
+        "clockspeed_offset": 185,
+        "voltage": 568
+    },
+    "20": {
+        "clockspeed_offset": 170,
+        "voltage": 575
+    },
+    "21": {
+        "clockspeed_offset": 170,
+        "voltage": 581
+    },
+    "22": {
+        "clockspeed_offset": 140,
+        "voltage": 587
+    },
+    "23": {
+        "clockspeed_offset": 110,
+        "voltage": 593
+    },
+    "24": {
+        "clockspeed_offset": 80,
+        "voltage": 600
+    },
+    "25": {
+        "clockspeed_offset": 50,
+        "voltage": 606
+    },
+    "26": {
+        "clockspeed_offset": 35,
+        "voltage": 612
+    },
+    "27": {
+        "clockspeed_offset": 5,
+        "voltage": 618
+    },
+    "28": {
+        "clockspeed_offset": -10,
+        "voltage": 625
+    },
+    "29": {
+        "clockspeed_offset": -40,
+        "voltage": 631
+    },
+    "30": {
+        "clockspeed_offset": -55,
+        "voltage": 637
+    },
+    "31": {
+        "clockspeed_offset": -85,
+        "voltage": 643
+    },
+    "32": {
+        "clockspeed_offset": -100,
+        "voltage": 650
+    },
+    "33": {
+        "clockspeed_offset": -130,
+        "voltage": 656
+    },
+    "34": {
+        "clockspeed_offset": -145,
+        "voltage": 662
+    },
+    "35": {
+        "clockspeed_offset": -160,
+        "voltage": 668
+    },
+    "36": {
+        "clockspeed_offset": -175,
+        "voltage": 675
+    },
+    "37": {
+        "clockspeed_offset": -205,
+        "voltage": 681
+    },
+    "38": {
+        "clockspeed_offset": -220,
+        "voltage": 687
+    },
+    "39": {
+        "clockspeed_offset": -235,
+        "voltage": 693
+    },
+    "40": {
+        "clockspeed_offset": -250,
+        "voltage": 700
+    },
+    "41": {
+        "clockspeed_offset": -250,
+        "voltage": 706
+    },
+    "42": {
+        "clockspeed_offset": -265,
+        "voltage": 712
+    },
+    "43": {
+        "clockspeed_offset": -265,
+        "voltage": 718
+    },
+    "44": {
+        "clockspeed_offset": -280,
+        "voltage": 725
+    },
+    "45": {
+        "clockspeed_offset": -295,
+        "voltage": 731
+    },
+    "46": {
+        "clockspeed_offset": -310,
+        "voltage": 737
+    },
+    "47": {
+        "clockspeed_offset": -325,
+        "voltage": 743
+    },
+    "48": {
+        "clockspeed_offset": -340,
+        "voltage": 750
+    },
+    "49": {
+        "clockspeed_offset": -355,
+        "voltage": 756
+    },
+    "50": {
+        "clockspeed_offset": -370,
+        "voltage": 762
+    },
+    "51": {
+        "clockspeed_offset": -385,
+        "voltage": 768
+    },
+    "52": {
+        "clockspeed_offset": -400,
+        "voltage": 775
+    },
+    "53": {
+        "clockspeed_offset": -415,
+        "voltage": 781
+    },
+    "54": {
+        "clockspeed_offset": -430,
+        "voltage": 787
+    },
+    "55": {
+        "clockspeed_offset": -445,
+        "voltage": 793
+    },
+    "56": {
+        "clockspeed_offset": -460,
+        "voltage": 800
+    },
+    "57": {
+        "clockspeed_offset": -475,
+        "voltage": 806
+    },
+    "58": {
+        "clockspeed_offset": -475,
+        "voltage": 812
+    },
+    "59": {
+        "clockspeed_offset": -490,
+        "voltage": 818
+    },
+    "60": {
+        "clockspeed_offset": -505,
+        "voltage": 825
+    },
+    "61": {
+        "clockspeed_offset": -520,
+        "voltage": 831
+    },
+    "62": {
+        "clockspeed_offset": -535,
+        "voltage": 837
+    },
+    "63": {
+        "clockspeed_offset": -550,
+        "voltage": 843
+    },
+    "64": {
+        "clockspeed_offset": -550,
+        "voltage": 850
+    },
+    "65": {
+        "clockspeed_offset": -565,
+        "voltage": 856
+    },
+    "66": {
+        "clockspeed_offset": -580,
+        "voltage": 862
+    },
+    "67": {
+        "clockspeed_offset": -580,
+        "voltage": 868
+    },
+    "68": {
+        "clockspeed_offset": -595,
+        "voltage": 875
+    },
+    "69": {
+        "clockspeed_offset": -610,
+        "voltage": 881
+    },
+    "70": {
+        "clockspeed_offset": -625,
+        "voltage": 887
+    },
+    "71": {
+        "clockspeed_offset": -625,
+        "voltage": 893
+    },
+    "72": {
+        "clockspeed_offset": -640,
+        "voltage": 900
+    },
+    "73": {
+        "clockspeed_offset": -640,
+        "voltage": 906
+    },
+    "74": {
+        "clockspeed_offset": -655,
+        "voltage": 912
+    },
+    "75": {
+        "clockspeed_offset": -670,
+        "voltage": 918
+    },
+    "76": {
+        "clockspeed_offset": -670,
+        "voltage": 925
+    },
+    "77": {
+        "clockspeed_offset": -685,
+        "voltage": 931
+    },
+    "78": {
+        "clockspeed_offset": -685,
+        "voltage": 937
+    },
+    "79": {
+        "clockspeed_offset": -700,
+        "voltage": 943
+    },
+    "80": {
+        "clockspeed_offset": -700,
+        "voltage": 950
+    },
+    "81": {
+        "clockspeed_offset": -715,
+        "voltage": 956
+    },
+    "82": {
+        "clockspeed_offset": -715,
+        "voltage": 962
+    },
+    "83": {
+        "clockspeed_offset": -730,
+        "voltage": 968
+    },
+    "84": {
+        "clockspeed_offset": -730,
+        "voltage": 975
+    },
+    "85": {
+        "clockspeed_offset": -745,
+        "voltage": 981
+    },
+    "86": {
+        "clockspeed_offset": -745,
+        "voltage": 987
+    },
+    "87": {
+        "clockspeed_offset": -760,
+        "voltage": 993
+    },
+    "88": {
+        "clockspeed_offset": -760,
+        "voltage": 1000
+    },
+    "89": {
+        "clockspeed_offset": -775,
+        "voltage": 1006
+    },
+    "90": {
+        "clockspeed_offset": -775,
+        "voltage": 1012
+    },
+    "91": {
+        "clockspeed_offset": -775,
+        "voltage": 1018
+    },
+    "92": {
+        "clockspeed_offset": -790,
+        "voltage": 1025
+    },
+    "93": {
+        "clockspeed_offset": -790,
+        "voltage": 1031
+    },
+    "94": {
+        "clockspeed_offset": -790,
+        "voltage": 1037
+    },
+    "95": {
+        "clockspeed_offset": -805,
+        "voltage": 1043
+    },
+    "96": {
+        "clockspeed_offset": -805,
+        "voltage": 1050
+    },
+    "97": {
+        "clockspeed_offset": -805,
+        "voltage": 1056
+    },
+    "98": {
+        "clockspeed_offset": -805,
+        "voltage": 1062
+    },
+    "99": {
+        "clockspeed_offset": -805,
+        "voltage": 1068
+    },
+    "100": {
+        "clockspeed_offset": -805,
+        "voltage": 1075
+    },
+    "101": {
+        "clockspeed_offset": -805,
+        "voltage": 1081
+    },
+    "102": {
+        "clockspeed_offset": -805,
+        "voltage": 1087
+    },
+    "103": {
+        "clockspeed_offset": -805,
+        "voltage": 1093
+    },
+    "104": {
+        "clockspeed_offset": -805,
+        "voltage": 1100
+    },
+    "105": {
+        "clockspeed_offset": -805,
+        "voltage": 1106
+    },
+    "106": {
+        "clockspeed_offset": -805,
+        "voltage": 1112
+    },
+    "107": {
+        "clockspeed_offset": -805,
+        "voltage": 1118
+    },
+    "108": {
+        "clockspeed_offset": -805,
+        "voltage": 1125
+    },
+    "109": {
+        "clockspeed_offset": -805,
+        "voltage": 1131
+    },
+    "110": {
+        "clockspeed_offset": -805,
+        "voltage": 1137
+    },
+    "111": {
+        "clockspeed_offset": -805,
+        "voltage": 1143
+    },
+    "112": {
+        "clockspeed_offset": -805,
+        "voltage": 1150
+    },
+    "113": {
+        "clockspeed_offset": -805,
+        "voltage": 1156
+    },
+    "114": {
+        "clockspeed_offset": -820,
+        "voltage": 1162
+    },
+    "115": {
+        "clockspeed_offset": -820,
+        "voltage": 1168
+    },
+    "116": {
+        "clockspeed_offset": -820,
+        "voltage": 1175
+    },
+    "117": {
+        "clockspeed_offset": -820,
+        "voltage": 1181
+    },
+    "118": {
+        "clockspeed_offset": -820,
+        "voltage": 1187
+    },
+    "119": {
+        "clockspeed_offset": -820,
+        "voltage": 1193
+    },
+    "120": {
+        "clockspeed_offset": -820,
+        "voltage": 1200
+    },
+    "121": {
+        "clockspeed_offset": -820,
+        "voltage": 1206
+    },
+    "122": {
+        "clockspeed_offset": -820,
+        "voltage": 1212
+    },
+    "123": {
+        "clockspeed_offset": -820,
+        "voltage": 1218
+    },
+    "124": {
+        "clockspeed_offset": -820,
+        "voltage": 1225
+    },
+    "125": {
+        "clockspeed_offset": -820,
+        "voltage": 1231
+    },
+    "126": {
+        "clockspeed_offset": -820,
+        "voltage": 1237
+    },
+    "127": {
+        "clockspeed_offset": -820,
+        "voltage": 1243
+    }
+}

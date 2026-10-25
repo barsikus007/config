@@ -23,6 +23,9 @@
         [
           "application/xml"
           "application/json"
+          "text/yaml"
+          "application/yaml"
+          "application/x-yaml"
           "application/x-shellscript"
           "text/javascript"
           "application/javascript"

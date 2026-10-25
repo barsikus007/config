@@ -123,7 +123,6 @@ pkgs.testers.runNixOSTest {
         2
         3
       ];
-      networking.firewall.checkReversePath = "loose";
       networking.firewall.allowedUDPPorts = [ 51821 ];
       networking.nat = {
         enable = true;

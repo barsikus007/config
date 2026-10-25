@@ -2,7 +2,10 @@
 #? https://wiki.nixos.org/wiki/KDE_Connect
 {
   programs.kdeconnect.enable = true;
-  home-manager.users.${username}.services.kdeconnect.enable = true;
+  home-manager.users.${username}.services.kdeconnect = {
+    enable = true;
+    indicator = true;
+  };
 
   environment.systemPackages = with pkgs; [
     kdePackages.kdialog

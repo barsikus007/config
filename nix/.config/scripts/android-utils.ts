@@ -5,12 +5,27 @@ import { capture, die, dispatch, exec, pickOne, probeTcp, type Command } from '.
 const ADB_PORT = 5555;
 const PROBE_MS = 500;
 
-//? no serial given: pick one with fzf, dropping the header line adb devices prints first
+//? nothing connected: scan the network and auto-connect to the first found
+async function autoConnectDevice(): Promise<string> {
+  const first = (await adbScan())[0];
+  if (!first) die('No device connected or found');
+
+  const serial = `${first}:${ADB_PORT}`;
+  const code = await exec(['adb', 'connect', serial]);
+  if (code !== 0) die(`Failed to connect to ${serial}`);
+
+  return serial;
+}
+
+//? no serial given: pick one with fzf, auto-connecting if none online
 async function pickAndroidDevice(): Promise<string> {
   const rows = await capture(['adb', 'devices']);
   const lines = rows.split('\n').slice(1).filter(Boolean);
-  const picked = await pickOne(lines);
+  const online = lines.filter((line) => line.split(/\s+/)[1] === 'device');
 
+  if (online.length === 0) return autoConnectDevice();
+
+  const picked = await pickOne(online);
   return picked?.split(/\s+/)[0] || die('No device selected');
 }
 
@@ -155,7 +170,7 @@ async function fsDisconnect() {
   return exec(['umount', path]);
 }
 
-async function scrcpyConnect(...args: string[]) {
+async function scrcpyFast(...args: string[]) {
   const device = await resolveDevice();
   return exec([
     'scrcpy',
@@ -164,33 +179,6 @@ async function scrcpyConnect(...args: string[]) {
     '--no-audio',
     '--video-bit-rate=1M',
     `--serial=${device}`,
-    ...args,
-  ]);
-}
-
-//? connect to the first and only device, no picker
-async function scrcpyFast(...args: string[]) {
-  const rows = await capture(['adb', 'devices']);
-  const lines = rows.split('\n').slice(1).filter(Boolean);
-  const online = lines.find((line) => line.split(/\s+/)[1] === 'device');
-  let serial = online?.split(/\s+/)[0];
-
-  //? nothing connected: scan the network and auto-connect to the first found
-  if (!serial) {
-    const first = (await adbScan())[0];
-    if (!first) die('No device connected or found');
-    serial = `${first}:${ADB_PORT}`;
-    const code = await exec(['adb', 'connect', serial]);
-    if (code !== 0) return code;
-  }
-
-  return exec([
-    'scrcpy',
-    '--keyboard=uhid',
-    '--render-driver=opengles2',
-    '--no-audio',
-    '--video-bit-rate=1M',
-    `--serial=${serial}`,
     ...args,
   ]);
 }
@@ -263,7 +251,6 @@ export const commands: Record<string, Command> = {
     extraAliases: ['adbfs_yazi'],
   },
   'fs-disconnect': { alias: 'adbfs_disconnect', run: fsDisconnect },
-  scrcpy: { alias: 'scrcpy_connect', run: scrcpyConnect },
   'scrcpy-fast': { alias: 'scrcpy_fast', run: scrcpyFast },
   'scrcpy-camera': { alias: 'scrcpy_camera', run: scrcpyCamera },
   'scrcpy-camera-ffmpeg': { alias: 'scrcpy_camera_ffmpeg', run: scrcpyCameraFfmpeg },

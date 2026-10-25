@@ -28,7 +28,7 @@
   console.font = "LatArCyrHeb-16";
   services.xserver.xkb = {
     layout = "us,ru";
-    options = "grp:win_space_toggle,grp:caps_toggle";
+    options = "grp:win_space_toggle,grp:caps_toggle,grp_led:caps";
   };
   #! https://github.com/NixOS/nixpkgs/issues/529189
   console.useXkbConfig = true;

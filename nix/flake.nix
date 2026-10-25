@@ -281,14 +281,8 @@
           ./modules/services/youtube-music-sync.nix
           ./modules/services/link-downloader.nix
           ./modules/hermes.nix
-          (
-            { pkgs, username, ... }:
-            import ./modules/containers/docker.nix {
-              inherit username;
-              storageDriver = "zfs";
-              environment.systemPackages = with pkgs; [ litecli ];
-            }
-          )
+          ./modules/containers/docker.nix
+          ({ pkgs, ... }: { environment.systemPackages = with pkgs; [ litecli ]; })
         ];
       };
 

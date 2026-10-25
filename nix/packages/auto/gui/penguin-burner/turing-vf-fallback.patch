@@ -11,7 +11,7 @@ index 04d1be7..ddb7fb1 100644
 +                base_freq_khz: if st.vf_tuple_base.freq_khz > 0 {
 +                    i64::from(st.vf_tuple_base.freq_khz)
 +                } else {
-+                    i64::from(st.freq_khz)
++                    i64::from(st.freq_khz) - i64::from(ct.data.prog_freq_offset_khz)
 +                },
 +                base_voltage_uv: if st.vf_tuple_base.voltage_uv > 0 {
 +                    i64::from(st.vf_tuple_base.voltage_uv)
@@ -34,7 +34,7 @@ index c36f78b..314661f 100644
 +                    "base_freq_khz": (
 +                        int(point_status.vf_tuple_base.freq_khz)
 +                        if int(point_status.vf_tuple_base.freq_khz) > 0
-+                        else int(point_status.freq_khz)
++                        else int(point_status.freq_khz) - int(point_control.prog.freq_offset_khz)
 +                    ),
 +                    "base_voltage_uv": (
 +                        int(point_status.vf_tuple_base.voltage_uv)

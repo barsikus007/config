@@ -62,7 +62,7 @@ prek install
 - Steam
   - Top left steam logo > Settings > Compatibility
     - Enable steam play for all titles
-    - Default compatibility tool: GE-Proton
+    - Default compatibility tool: GE-Proton (Wrapped)
   - [NTFS library fix](https://github.com/ValveSoftware/Proton/wiki/Using-a-NTFS-disk-with-Linux-and-Windows#preventing-ntfs-read-errors)
   - `nvidia-offload gamemoderun mangohud %command%`
 - Telegram > Settings

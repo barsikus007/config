@@ -88,7 +88,6 @@ rec {
       npxExec = "bunx";
     in
     {
-      claude-preview = "${npxExec} @anthropic-ai/claude-code@next";
       gemini-preview = "${npxExec} @google/gemini-cli@preview";
     };
   wgAliases = mkWgAliases rec {
@@ -109,6 +108,7 @@ rec {
       watchCommand = "journalctl --follow --unit=${service}";
     };
   otherAliases = {
+    b = "btop";
     st = "systemctl-tui";
     sst = "sudo systemctl-tui";
     zps = "zpool status -v";

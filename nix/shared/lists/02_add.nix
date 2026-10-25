@@ -10,7 +10,6 @@ with pkgs;
   lsof
   mosh
   tmux
-  rsync
   zellij # * ubuntu:-
   tree
   yazi # * ubuntu:-

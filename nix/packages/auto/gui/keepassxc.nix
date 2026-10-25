@@ -6,7 +6,7 @@
   ...
 }:
 let
-  version = "2.8.0-beta1";
+  version = "2.8.0";
 in
 (keepassxc.override {
   libsForQt5 = qt6Packages;
@@ -18,7 +18,7 @@ in
       owner = "keepassxreboot";
       repo = "keepassxc";
       rev = version;
-      hash = "sha256-fksThYmGZed66zxGDxlS2SHQzJYRf+T9AuZPbaNZV5Y=";
+      hash = "sha256-821zL+xnCsHU8VvxsJh2a2LRGstSIq3tWQbWBk8g4hc";
     };
     patches = [ ];
     buildInputs = previousAttrs.buildInputs ++ [ keyutils ];

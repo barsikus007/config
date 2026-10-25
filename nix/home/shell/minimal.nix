@@ -39,7 +39,12 @@ in
     config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/scripts/";
   home.sessionPath = [ "${config.xdg.configHome}/scripts" ];
   home.shellAliases = sharedAliases;
-  home.packages = with pkgs; [ zsh-completions ];
+  home.packages = with pkgs; [
+    zsh-completions
+    (pkgs.writeShellScriptBin "cli-copy" ''
+      printf '\e]52;c;%s\a' "$(${pkgs.coreutils}/bin/base64 --wrap=0)"
+    '')
+  ];
   #? interpreter for ~/.config/scripts/*.ts, #? +41M on disk (97M logical)
   programs.bun.enable = true;
   programs.zsh = {

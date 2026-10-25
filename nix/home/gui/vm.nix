@@ -38,7 +38,7 @@
             libunwind
             elfutils
             zstd
-            xorg.libxcb
+            libxcb
             usbredir
             libdecor
           ]);

@@ -5,8 +5,8 @@ let
 in
 {
   home.sessionVariables = {
-    CLAUDE_CONFIG_DIR = "${configHome}/claude"; # ? was ~/.claude*
     WINEPREFIX = "${dataHome}/wine"; # ? was ~/.wine
+    PASEO_HOME = "${dataHome}/paseo";
 
     #! dev shit
     GOPATH = "${dataHome}/go"; # ? was ~/go

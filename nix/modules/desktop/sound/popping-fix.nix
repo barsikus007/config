@@ -5,37 +5,16 @@
         #? https://ventureo.codeberg.page/source/sound.html#choppy-audio
         "context.properties" = {
           #? multiply min-quantum while sound still popping (starting from 512)
-          "default.clock.min-quantum" = 1024;
-          "default.clock.quantum" = 4096;
-          "default.clock.max-quantum" = 8192;
+          "default.clock.min-quantum" = 1024; # default 32
         };
       };
     };
   };
 
-  #? more real times for realtime
-  # boot.kernelParams = [ "preempt=full" ];
-  #? https://ventureo.codeberg.page/source/sound.html#pipewire-lowlatency-setup
-  #? https://github.com/musnix/musnix/blob/d65f98e0b1f792365f1705653d7b2d266ceeff6e/modules/base.nix#L112
-  # users.users.${username}.extraGroups = [ "audio" ];
-  # security.pam.loginLimits = [
-  #   {
-  #     domain = "@audio";
-  #     item = "rtprio";
-  #     type = "-";
-  #     value = 95;
-  #   }
-  #   {
-  #     domain = "@audio";
-  #     item = "nice";
-  #     type = "-";
-  #     value = -19;
-  #   }
-  #   {
-  #     domain = "@audio";
-  #     item = "memlock";
-  #     type = "-";
-  #     value = "unlimited";
-  #   }
+  #? browsers and apps based on them holds rt slots for hours after audio stops and rtkit never revokes them,
+  #? so the default per-user process limit runs out and easyeffects gets denied
+  # security.rtkit.args = [
+  #   "--processes-per-user-max=64"
+  #   "--threads-per-user-max=128"
   # ];
 }

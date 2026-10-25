@@ -10,16 +10,27 @@
     ../minimal.nix
     ../../modules/ssh-secure.nix
 
-    (modulesPath + "/installer/scan/not-detected.nix")
     (modulesPath + "/profiles/qemu-guest.nix")
+
+    #? debloat
+    (modulesPath + "/profiles/minimal.nix")
+    { services.logrotate.enable = true; }
+    (modulesPath + "/profiles/perlless.nix")
+    {
+      options.system.forbiddenDependenciesRegexes = lib.mkOption {
+        apply = builtins.filter (x: x != "perl");
+      };
+      #! userborn creates users too late for impermanence on fresh installs
+      config.services.userborn.enable = false;
+    }
   ];
 
   #! redefine this for security
   security.sudo.wheelNeedsPassword = lib.mkDefault false;
 
   boot.loader.grub = {
-    #! no need to set devices, disko will add all devices that have a EF02 partition to the list already
-    # devices = [ ];
+    #! most hosters use legacy BIOS, so no systemd-boot :(
+    enable = true;
     efiSupport = true;
     efiInstallAsRemovable = true;
   };

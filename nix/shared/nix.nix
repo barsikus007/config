@@ -41,7 +41,9 @@ let
 in
 if (_class == "nixos") then
   lib.attrsets.recursiveUpdate { inherit nix; } {
-    environment.etc."nixpkgs".source = pkgs.path;
+    environment.etc."nixpkgs" = lib.mkIf config.custom.isDev {
+      source = pkgs.path;
+    };
     nix = {
       channel.enable = false;
       settings = {

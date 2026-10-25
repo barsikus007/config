@@ -1,15 +1,14 @@
 { username, ... }@args:
 let
   rootless = args.rootless or false;
-  storageDriver = args.storageDriver or null;
   #? for better security and non-root bind mounts
   #! breaks at least nextcloud-aio and grafana
   usernsRemap = args.usernsRemap or false;
 in
 {
   users.users.${username}.extraGroups = [ "docker" ];
+  virtualisation.oci-containers.backend = "docker";
   virtualisation.docker = {
-    inherit storageDriver;
     enable = true;
     rootless = {
       enable = rootless;

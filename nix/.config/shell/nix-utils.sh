@@ -233,7 +233,15 @@ _nn() {
 }
 
 nnn() {
-  sudo true && _nn "$@" && notify-send 'System build success' && exec $SHELL || notify-send 'System build failed'
+  sudo true && _nn --show-activation-logs "$@" && notify-send 'System build success' && exec $SHELL || notify-send 'System build failed'
+}
+nn_remote() {
+  local hostname=$1
+  shift
+  nh os switch ~/Projects/infra --update-input public --hostname="$hostname" --target-host="$hostname" --show-activation-logs "$@"
+}
+nnas() {
+  nn_remote NAS --build-host=NAS --elevation-strategy=passwordless "$@"
 }
 
 nix_home_manager_build_and_activate() {

@@ -71,7 +71,6 @@ in
 
         (extension "search_by_image" "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}") # https://github.com/dessant/search-by-image
         (extension "ruffle_rs" "{b5501fd1-7084-45c5-9aa6-567c2fcf5dc6}") # https://ruffle.rs/
-        (extension "text-fragment" "text-fragment@example.com")
         (extension "clipboard2file" "{7343f7d1-e6ef-4d8a-8449-d4c18850f559}") # https://github.com/clipboard2file/clipboard2file
         (extension "user-agent-string-switcher" "{a6c4a591-f1b2-4f03-b3ff-767e5bedf4e7}") # https://github.com/ray-lothian/UserAgent-Switcher
         (extension "2910149" "zakilo@syrnikovpavel.ru")

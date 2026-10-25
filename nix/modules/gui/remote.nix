@@ -4,11 +4,6 @@
   # networking.firewall.allowedTCPPorts = [ 3389 ];
   # networking.firewall.allowedUDPPorts = [ 3389 ];
 
-  services.rustdesk-server = {
-    enable = true;
-    openFirewall = true;
-    signal.relayHosts = [ "rs-sg.rustdesk.com" ];
-  };
   environment.systemPackages = with pkgs; [ rustdesk-flutter ];
 
   services.sunshine = {

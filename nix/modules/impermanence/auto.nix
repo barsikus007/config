@@ -8,7 +8,6 @@
   custom.persist = {
     directories =
       lib.optional config.networking.networkmanager.enable "/etc/NetworkManager/system-connections"
-      ++ lib.optional config.services.openssh.enable "/etc/ssh"
       ++ lib.optional config.hardware.bluetooth.enable "/var/lib/bluetooth"
       ++ lib.optional (
         config.security.sudo.enable || config.security.sudo-rs.enable
@@ -25,6 +24,13 @@
         user = "greeter";
         group = "greeter";
       };
+
+    files = lib.optionals config.services.openssh.enable (
+      lib.concatMap (key: [
+        key.path
+        "${key.path}.pub"
+      ]) config.services.openssh.hostKeys
+    );
 
     home.directories =
       lib.optionals config.virtualisation.waydroid.enable [

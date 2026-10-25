@@ -14,6 +14,7 @@
 
   custom = {
     isAsus = true;
+    isDev = true;
     # blur.enable = true;
   };
 
@@ -28,6 +29,7 @@
   #! modules here are bound to specific hardware features (including disks)
   imports = [
     ../laptop.nix
+    ./gpu/tune.nix
     # TODO: PR: file for whole 2020th ga401, not just iv; https://github.com/NixOS/nixos-hardware/issues/1450
     #? https://github.com/NixOS/nixos-hardware/blob/master/asus/zephyrus/ga401iv/default.nix
     inputs.nixos-hardware.nixosModules.asus-zephyrus-ga401iv
@@ -70,26 +72,6 @@
     #? finer GPU power management
     nvidia.powerManagement.finegrained = true;
   };
-  services.lact =
-    let
-      ids = import ./ids.nix;
-    in
-    {
-      enable = true;
-      settings = {
-        version = 7;
-        daemon = {
-          log_level = "info";
-          disable_nvapi = false;
-          admin_group = "wheel";
-        };
-        apply_settings_timer = 5;
-        gpus.${ids.gpu.discrete.lactId} = {
-          fan_control_enabled = false;
-          nvidia_gpu_vf_curve = builtins.fromJSON (builtins.readFile ./gpu-vf-curve-undervolt.json);
-        };
-      };
-    };
 
   #? https://opengamingcollective.github.io/asusctl/distributions/nixos.html
   services.asusd = {
@@ -188,9 +170,11 @@
           multizone_on: false,
       )
     '';
+    #! force stop fans
+    #? p=$(asusctl profile get | awk '/Active profile/ {print $3}') && asusctl fan-curve --mod-profile $p --fan cpu --data "20c:0%,44c:0%,47c:0%,50c:0%,53c:0%,56c:0%,60c:0%,98c:0%" && asusctl fan-curve --mod-profile $p --fan gpu --data "20c:0%,44c:0%,47c:0%,50c:0%,53c:0%,56c:0%,60c:0%,98c:0%" && asusctl fan-curve --mod-profile $p --enable-fan-curves true
     #! airplane mode xD
     #? p=$(asusctl profile get | awk '/Active profile/ {print $3}') && asusctl fan-curve --mod-profile $p --fan cpu --data "20c:100%,44c:100%,47c:100%,50c:100%,53c:100%,56c:100%,60c:100%,98c:100%" && asusctl fan-curve --mod-profile $p --fan gpu --data "20c:100%,44c:100%,47c:100%,50c:100%,53c:100%,56c:100%,60c:100%,98c:100%" && asusctl fan-curve --mod-profile $p --enable-fan-curves true
-    #! land an airplane
+    #! reset to config values
     #? asusctl fan-curve --default
     fanCurvesConfig.text = /* rust */ ''
       (

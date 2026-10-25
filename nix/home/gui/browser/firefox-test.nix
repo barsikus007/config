@@ -11,7 +11,6 @@
       "https://greasyfork.org/en/scripts/390352-youtube-stay-active-and-play-forever"
       # "https://greasyfork.org/en/scripts/518509-vk-ads-fixes"
       "https://greasyfork.org/en/scripts/555555-shikimori-404-fix"
-      # "https://greasyfork.org/en/scripts/564382-google-gemini-always-switch-to-pro-aggressive"
     ]
     ++ map (_: "https://raw.githubusercontent.com/barsikus007/config/master/browser/userscripts/${_}") [
       "ClaudeInline.user.js"

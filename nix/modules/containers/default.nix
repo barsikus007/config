@@ -10,7 +10,6 @@
     # (import ./docker.nix {
     #   inherit username;
     #   # rootless = true;
-    #   storageDriver = "zfs";
     # })
   ];
 

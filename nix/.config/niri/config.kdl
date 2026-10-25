@@ -191,6 +191,12 @@ workspace "games" {
     }
 }
 window-rule {
+    match app-id="^steam$" title="^Steam Big Picture Mode$"
+    open-fullscreen true
+    open-focused true
+    on-xdg-activate "focus"
+}
+window-rule {
     match app-id=r"^org\.prismlauncher\.PrismLauncher$"
     match app-id="^steam$"
     match app-id="^steam_app_"

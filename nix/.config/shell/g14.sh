@@ -94,6 +94,7 @@ dgpu_switch_to_integrated/vfio() {
     --timeout 1000 KILL \
     --timeout 1000 0
   sudo modprobe --remove --all nvidia{_drm,_uvm,_modeset,} && sudo modprobe vfio-pci
+  sudo chmod 666 /dev/nvidia* 2>/dev/null || true
   dgpu_check_processes
 }
 dgpu_switch_to_hybrid() {

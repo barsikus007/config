@@ -18,6 +18,7 @@ in
 {
   options.custom = {
     isAsus = mkEnableOption "Whether the machine is an ASUS laptop";
+    isDev = mkEnableOption "Whether the machine is for nix development";
     blur.enable = mkEnableOption "Enable blur";
 
     #? feature modules declare their own state here and impermanence hosts pick it up

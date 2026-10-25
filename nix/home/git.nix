@@ -19,7 +19,7 @@
         ci = "commit";
         co = "checkout";
         s = "status";
-        ab = "!GIT_SEQUENCE_EDITOR=true git absorb --and-rebase";
+        ab = "!GIT_SEQUENCE_EDITOR=true git absorb --and-rebase --base origin/master";
         reb = "rebase --interactive origin";
       };
       user.name = "barsikus007";

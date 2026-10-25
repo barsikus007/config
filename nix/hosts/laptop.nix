@@ -12,6 +12,8 @@ in
 
   systemd.settings.Manager.DefaultTimeoutStopSec = "20s";
   systemd.user.settings.Manager.DefaultTimeoutStopSec = "15s";
+  #? upstream user@.service overrides DefaultTimeoutStopSec with 120s
+  systemd.services."user@".serviceConfig.TimeoutStopSec = "15s";
 
   #? default governor, same for the balanced profile
   powerManagement.cpuFreqGovernor = "schedutil";

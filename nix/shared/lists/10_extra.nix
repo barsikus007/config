@@ -31,8 +31,7 @@ import ./11_powertoys.nix { inherit pkgs; }
   #? files monitoring
   strace
   inotify-tools
-
-  #! CLI db
+  #? db tools
   lazysql
   pgcli
   litecli
@@ -54,4 +53,6 @@ import ./11_powertoys.nix { inherit pkgs; }
   qbittorrent
   flakePackages.taskexplorer
   linux-wifi-hotspot
+  #? db tools
+  sqlitebrowser
 ]

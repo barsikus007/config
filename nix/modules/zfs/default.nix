@@ -3,6 +3,7 @@
   nixpkgs.overlays = [
     (_final: prev: { fastfetch = prev.fastfetch.override { zfsSupport = true; }; })
   ];
+  virtualisation.docker.storageDriver = lib.mkDefault "zfs";
 
   # TODO: unstable: system.stateVersion = "26.11"
   boot.zfs.forceImportRoot = lib.mkDefault false;

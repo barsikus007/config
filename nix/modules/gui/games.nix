@@ -21,7 +21,9 @@
     dedicatedServer.openFirewall = true;
     localNetworkGameTransfers.openFirewall = true;
     extraCompatPackages = with pkgs; [
+      proton-ge-bin
       (
+        #! https://github.com/ValveSoftware/steam-for-linux/issues/3453
         let
           gameDispatcher = /* python */ ''
             #!/usr/bin/env python3
@@ -61,11 +63,7 @@
                 os.environ["__GLX_VENDOR_LIBRARY_NAME"] = "nvidia"
                 os.environ["__VK_LAYER_NV_optimus"] = "NVIDIA_only"
 
-            # 2. MangoHud
-            if cfg.getboolean("mangohud", fallback=False):
-                os.environ["MANGOHUD"] = "1"
-
-            # 3. GameMode
+            # 2. GameMode
             if cfg.getboolean("gamemode", fallback=False):
                 preload = "libgamemodeauto.so.0"
                 current_preload = os.environ.get("LD_PRELOAD", "")
@@ -73,7 +71,7 @@
                     f"{preload}:{current_preload}" if current_preload else preload
                 )
 
-            # 4. binary wrapper (e.g. gamescope) - only during actual game execution
+            # 3. binary wrapper (e.g. gamescope) - only during actual game execution
             wrapper = cfg.get("wrapper", "").strip()
             is_game_run = len(sys.argv) > 1 and sys.argv[1] in ("run", "waitforexitandrun")
 
@@ -85,6 +83,7 @@
           '';
         in
         proton-ge-bin.overrideAttrs (old: {
+          steamDisplayName = "GE-Proton (Wrapped)";
           postInstall = (old.postInstall or "") + ''
             mv $steamcompattool/proton $steamcompattool/.proton-real
             cat << 'EOF' > $steamcompattool/proton

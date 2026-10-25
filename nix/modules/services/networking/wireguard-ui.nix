@@ -91,11 +91,15 @@ in
     };
 
     # https://github.com/ngoduykhanh/wireguard-ui#using-systemd
+    systemd.paths.wireguard-ui-watcher.enable =
+      config.networking.wg-quick.interfaces.${cfg.interface} ? configFile;
     systemd.paths.wireguard-ui-watcher = {
       description = "Watch ${configFile} for changes";
       wantedBy = [ "multi-user.target" ];
       pathConfig.PathModified = configFile;
     };
+    systemd.services.wireguard-ui-watcher.enable =
+      config.networking.wg-quick.interfaces.${cfg.interface} ? configFile;
     systemd.services.wireguard-ui-watcher = {
       description = "Reload WireGuard interface ${cfg.interface}";
       after = [
