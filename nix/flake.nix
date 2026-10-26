@@ -133,6 +133,7 @@
             inherit (nixpkgs) lib;
           }).nixpkgs
           )
+          config
           overlays
           ;
       };
