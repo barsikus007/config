@@ -1,5 +1,5 @@
 {
-  programs.dsearch = {
+  programs.dux-search = {
     enable = true;
     systemd.target = "graphical-session.target";
   };

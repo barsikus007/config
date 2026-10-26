@@ -32,9 +32,11 @@
     enable = true;
     openFirewall = true;
     nssmdns4 = true; # ? resolve .local hostnames (e.g. nas.local)
-    publish = {
-      enable = true;
-      userServices = true; # ? let samba auto-register the SMB service in mDNS
+    settings.publish = {
+      disable-publishing = false;
+      # ? let samba auto-register the SMB service in mDNS
+      disable-user-service-publishing = false;
+      publish-addresses = true;
     };
   };
 }

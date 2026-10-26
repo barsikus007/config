@@ -74,6 +74,16 @@ in
 
   nixpkgs.overlays = [
     autoFlakePackagesOverlay
+    # TODO: unstable
+    (_final: prev: {
+      pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+        (pyFinal: pyPrev: {
+          fastmcp-slim = pyPrev.fastmcp-slim.override {
+            mcp = pyFinal.mcp_1;
+          };
+        })
+      ];
+    })
     (
       #? map "nixpkgs-*" flake inputs as attrs of pkgs
       _final: prev:

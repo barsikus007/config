@@ -1,7 +1,4 @@
-{
-  stdenv,
-  kernel,
-}:
+{ kernel, stdenv }:
 stdenv.mkDerivation {
   inherit (kernel)
     src
@@ -10,6 +7,9 @@ stdenv.mkDerivation {
     nativeBuildInputs
     ;
   pname = "intel-iwlwifi";
+
+  makeFlags = kernel.commonMakeFlags;
+
   buildPhase = ''
     BUILT_KERNEL=$kernel_dev/lib/modules/$kernelVersion/build
 
@@ -17,13 +17,17 @@ stdenv.mkDerivation {
     cp $BUILT_KERNEL/.config        .
     cp $kernel_dev/vmlinux          .
 
-    make "-j$NIX_BUILD_CORES" modules_prepare
-    make "-j$NIX_BUILD_CORES" M=$modulePath modules
+    make "-j$NIX_BUILD_CORES" $makeFlags modules_prepare
+    make "-j$NIX_BUILD_CORES" $makeFlags M=$modulePath modules
   '';
   installPhase = ''
     make \
+      "-j$NIX_BUILD_CORES" \
+      $makeFlags \
       INSTALL_MOD_PATH="$out" \
-      XZ="xz --threads=$NIX_BUILD_CORES" \
+      DEPMOD=true \
+      INSTALL_MOD_STRIP=1 \
+      XZ="xz --check=crc32 --threads=$NIX_BUILD_CORES" \
       M="$modulePath" \
       modules_install
   '';

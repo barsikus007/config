@@ -38,7 +38,7 @@
         ".config/systemd/user/waydroid-monitor.service.d" # ? links to storage
       ]
       ++ lib.optional config.programs.throne.enable ".config/Throne"
-      ++ lib.optional config.programs.dsearch.enable ".cache/danksearch"
+      ++ lib.optional config.programs.dux-search.enable ".cache/danksearch"
       ++ lib.optional config.programs.kdeconnect.enable ".config/kdeconnect"
       ++ lib.optional config.programs.obs-studio.enable ".config/obs-studio"
       ++ lib.optional config.programs.gpu-screen-recorder.enable ".config/gpu-screen-recorder"

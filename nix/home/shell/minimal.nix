@@ -110,7 +110,6 @@ in
     enable = true;
     settings = {
       scroll_buffer_size = 100000;
-      default_mode = "locked";
       show_startup_tips = false;
     };
   };

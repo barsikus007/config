@@ -4,7 +4,6 @@
   boot = {
     plymouth.enable = true;
     consoleLogLevel = lib.mkDefault 3;
-    initrd.verbose = false;
     kernelParams = [
       "quiet"
       "udev.log_level=3"
