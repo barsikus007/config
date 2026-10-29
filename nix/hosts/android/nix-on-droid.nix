@@ -13,7 +13,6 @@ in
   imports = [
     ../../shared/options.nix
     ../../shared/nix.nix
-    ../../modules/nixpkgs.nix
     ../../modules/home-manager
   ];
   android-integration.am.enable = true;
@@ -61,7 +60,7 @@ in
   home-manager.config = {
     imports = [
       ../../home
-      ../../home/shell/minimal.nix
+      ../../home/shell
     ];
     home.shellAliases = {
       #? sh $(nom build --impure $HOME/config/nix#nixOnDroidConfigurations.default.activationPackage --no-link --print-out-paths)/activate

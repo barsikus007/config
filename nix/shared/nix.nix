@@ -58,10 +58,12 @@ else if (_class == "nixOnDroid") then
       inherit (nix) registry;
       extraOptions = ''
         experimental-features = ${builtins.concatStringsSep " " nix.settings.experimental-features}
+        connect-timeout = ${toString nix.settings.connect-timeout}
+        stalled-download-timeout = ${toString nix.settings.stalled-download-timeout}
       '';
       nixPath = [ "nixpkgs=flake:nixpkgs" ];
-      substituters = nix.settings.substituters ++ nix.settings.extra-substituters;
-      trustedPublicKeys = nix.settings.trusted-public-keys ++ nix.settings.extra-trusted-public-keys;
+      substituters = nix.settings.substituters ++ nixConfig.extra-substituters;
+      trustedPublicKeys = nixConfig.extra-trusted-public-keys;
     };
   }
 else if (_class == "homeManager") then

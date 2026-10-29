@@ -123,19 +123,22 @@
   outputs =
     { self, nixpkgs, ... }@inputs:
     let
+      mkPkgs =
+        system:
+        import nixpkgs {
+          inherit system;
+          inherit
+            ((import ./modules/nixpkgs.nix {
+              inherit inputs;
+              inherit (nixpkgs) lib;
+            }).nixpkgs
+            )
+            config
+            overlays
+            ;
+        };
       system = "x86_64-linux";
-      pkgs = import nixpkgs {
-        inherit system;
-        inherit
-          ((import ./modules/nixpkgs.nix {
-            inherit inputs;
-            inherit (nixpkgs) lib;
-          }).nixpkgs
-          )
-          config
-          overlays
-          ;
-      };
+      pkgs = mkPkgs system;
       mkSpecialArgs = username: {
         inherit
           self
@@ -399,7 +402,7 @@
       ];
 
       nixOnDroidConfigurations.default = inputs.nix-on-droid.lib.nixOnDroidConfiguration {
-        pkgs = import nixpkgs { system = "aarch64-linux"; };
+        pkgs = mkPkgs "aarch64-linux";
         extraSpecialArgs = mkSpecialArgs "nix-on-droid" // {
           flakePath = "/data/data/com.termux.nix/files/home/config/nix";
         };
