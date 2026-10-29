@@ -38,9 +38,8 @@ in
   #! https://github.com/sodiboo/niri-flake/issues/1393
   xdg.configFile."niri/config.kdl".source =
     config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/niri/config.kdl";
-  #? to make it overridable by dms-flake
-  xdg.configFile.niri-config.target = lib.mkOverride 75 "niri/nix-generated-config.kdl";
   #! https://github.com/sodiboo/niri-flake/issues/1721: append raw KDL for options niri-flake hasn't typed yet
+  xdg.configFile.niri-config.target = lib.mkOverride 75 "niri/nix-generated-config.kdl";
   xdg.configFile.niri-config.source =
     let
       inherit (inputs.niri.lib.internal) validated-config-for;

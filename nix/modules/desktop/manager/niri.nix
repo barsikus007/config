@@ -53,7 +53,6 @@ in
   home-manager.users.${username}.imports = [ ../../../home/desktop/manager/niri.nix ];
 
   services.displayManager.defaultSession = "niri";
-  services.displayManager.dux-greeter.compositor.name = "niri";
   services.greetd.settings.initial_session =
     lib.mkIf
       (

@@ -4,9 +4,6 @@
 // https://niri-wm.github.io/niri/Configuration:-Introduction
 include "nix-generated-config.kdl"
 
-//! fix dms hardcode
-layout { border { off; }; }
-
 prefer-no-csd
 
 // TODO: sadly, there is no way to ignore floating apps, it breaks with syncthingtray

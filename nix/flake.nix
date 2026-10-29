@@ -240,7 +240,6 @@
 
           # ./modules/desktop/manager/plasma.nix
           ./modules/desktop/manager/noctalia-niri.nix
-          # ./modules/desktop/manager/dms-niri.nix
           ./modules/desktop/sound
           ./modules/desktop/sound/popping-fix.nix
           ./modules/desktop/sound/laptop-mic.nix
@@ -311,7 +310,6 @@
         ./hosts/vm/niri-paravirt.nix
 
         ./modules/desktop/manager/noctalia-niri.nix
-        # ./modules/desktop/manager/dms-niri.nix
         ({ username, ... }: {
           home-manager.users.${username} = {
             imports = [
@@ -397,7 +395,6 @@
           inputs.nvf.homeManagerModules.default
           inputs.plasma-manager.homeModules.plasma-manager
           inputs.niri.homeModules.niri
-          # inputs.dms.homeModules.dank-material-shell
         ])
       ];
 
