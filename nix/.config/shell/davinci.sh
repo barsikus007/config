@@ -14,12 +14,25 @@ davinci_build() {
 
   if [ -z "$out_path" ]; then
     echo "building davinci..."
-    out_path=$(nom build "$flake_path#davinci-resolve-studio" --no-link --print-out-paths)
+    export NIXPKGS_ALLOW_UNFREE=1
+    if ! out_path=$(nom build "$flake_path#davinci-resolve-studio" --no-link --print-out-paths --impure) || [ -z "$out_path" ]; then
+      echo "error: failed to build davinci" >&2
+      return 1
+    fi
+  fi
+
+  if [ ! -e "$out_path" ]; then
+    echo "error: out_path does not exist: $out_path" >&2
+    return 1
   fi
 
   local reqs_file
   reqs_file=$(mktemp)
-  nix-store --query --requisites "$out_path" | sort --unique > "$reqs_file"
+  if ! nix-store --query --requisites "$out_path" | sort --unique > "$reqs_file" || [ ! -s "$reqs_file" ]; then
+    echo "error: failed to query requisites for $out_path" >&2
+    rm --force "$reqs_file"
+    return 1
+  fi
 
   if [ -d "$dest_dir/nix/store" ]; then
     for entry in "$dest_dir"/nix/store/*; do
