@@ -69,7 +69,6 @@
         # ".local/share/direnv"
         # ".local/share/dolphin"
         # ".local/share/kactivitymanagerd"
-        # ".local/share/kate"
         # ".local/share/klipper"
         # ".local/share/konsole"
         # ".local/share/kscreen"

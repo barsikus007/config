@@ -20,7 +20,8 @@
   };
   programs.git.settings.core.editor = "code --wait";
   programs.vscodium = {
-    # enable = true;
+    enable = true;
+    package = lib.lowPrio pkgs.vscodium;
     profiles.default = {
       enableUpdateCheck = false;
       keybindings = builtins.fromJSON (
@@ -30,13 +31,20 @@
           ''
         )
       );
-      userSettings = builtins.fromJSON (
-        builtins.readFile (
-          pkgs.runCommand "clean-json" { } ''
-            ${lib.getExe pkgs.hjson-go} -j ${../../.config/Code/User/settings.json} > $out
-          ''
-        )
-      );
+      userSettings =
+        (builtins.fromJSON (
+          builtins.readFile (
+            pkgs.runCommand "clean-json" { } ''
+              ${lib.getExe pkgs.hjson-go} -j ${../../.config/Code/User/settings.json} > $out
+            ''
+          )
+        ))
+        // {
+          "security.workspace.trust.enabled" = false;
+          "workbench.editor.showTabs" = "none";
+          "workbench.startupEditor" = "none";
+          "window.restoreWindows" = "none";
+        };
       extensions = with pkgs.vscode-extensions; [
         yzhang.markdown-all-in-one
         jnoortheen.nix-ide
@@ -49,7 +57,7 @@
     # vscode-fhs
   ];
   programs.zed-editor = {
-    # enable = true;
+    enable = true;
     extensions = [
       "comment"
       "nix"

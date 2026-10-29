@@ -38,7 +38,8 @@
           "application/x-zerosize"
         ]
         (_key: [
-          "org.kde.kate.desktop"
+          "codium.desktop"
+          "dev.zed.Zed.desktop"
           "code.desktop"
           "org.kde.kwrite.desktop"
           "neovide.desktop"

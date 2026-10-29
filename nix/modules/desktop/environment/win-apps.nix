@@ -13,7 +13,6 @@
 
     kdePackages.elisa
     kdePackages.gwenview
-    kdePackages.kate
     kdePackages.kimageformats
   ];
 }
