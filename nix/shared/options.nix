@@ -21,6 +21,31 @@ in
     isDev = mkEnableOption "Whether the machine is for nix development";
     blur.enable = mkEnableOption "Enable blur";
 
+    #? feature modules declare needed ports here and network module collects them into host firewall
+    #? declared on every host and home so modules open ports without importing host firewall
+    firewall = {
+      allowedTCPPorts = mkOption {
+        type = types.listOf types.port;
+        default = [ ];
+        description = "List of TCP ports to open in the firewall";
+      };
+      allowedUDPPorts = mkOption {
+        type = types.listOf types.port;
+        default = [ ];
+        description = "List of UDP ports to open in the firewall";
+      };
+      allowedTCPPortRanges = mkOption {
+        type = types.listOf (types.attrsOf types.port);
+        default = [ ];
+        description = "List of TCP port ranges to open in the firewall";
+      };
+      allowedUDPPortRanges = mkOption {
+        type = types.listOf (types.attrsOf types.port);
+        default = [ ];
+        description = "List of UDP port ranges to open in the firewall";
+      };
+    };
+
     #? feature modules declare their own state here and impermanence hosts pick it up
     #? declared on every host and every home, so writers never import the impermanence module
     persist = {

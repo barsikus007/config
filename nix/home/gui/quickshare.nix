@@ -1,8 +1,13 @@
 { pkgs, ... }:
+let
+  port = 12345;
+in
 {
   home.packages = with pkgs; [
     rquickshare
   ];
+
+  custom.firewall.allowedTCPPorts = [ port ];
 
   xdg.dataFile."dev.mandre.rquickshare/.settings.json" = {
     text = builtins.toJSON {
@@ -10,7 +15,7 @@
       visibility = 0;
       autostart = true;
       realclose = false;
-      port = 12345; # TODO: home-manager-module: firewall
+      inherit port;
     };
     mutable = true;
   };

@@ -2,21 +2,18 @@
   lib,
   pkgs,
   config,
-  username,
   ...
 }:
 let
-  hmConfig = config.home-manager.users.${username};
+  allFirewalls = [
+    config.custom.firewall
+  ]
+  ++ map (u: u.custom.firewall or { }) (lib.attrValues (config.home-manager.users or { }));
 in
 {
   networking.networkmanager.enable = true;
   #? dns
   services.resolved.enable = true;
-  # networking.nameservers = [
-  #   "1.1.1.1"
-  #   "9.9.9.9"
-  #   "8.8.8.8"
-  # ];
 
   #? nsncd worker starvation during resume: hostname lookups hang in dead-tunnel DNS
   #? and exhaust the 8 default workers, so unrelated passwd/group lookups (polkit ->
@@ -39,17 +36,22 @@ in
   environment.systemPackages = with pkgs; [ nixos-firewall-tool ];
 
   # networking.firewall.enable = false;
-  # TODO: unified custom config: firewall: rquickshare,syncthing
   networking.firewall = {
-    allowedTCPPorts = builtins.concatLists [
-      (lib.optionals (lib.any (pkg: lib.getName pkg == "rquickshare") hmConfig.home.packages) [ 12345 ])
-      (lib.optionals hmConfig.services.syncthing.enable [ 22000 ])
+    allowedTCPPorts = lib.pipe allFirewalls [
+      (lib.concatMap (f: f.allowedTCPPorts or [ ]))
+      lib.unique
     ];
-    allowedUDPPorts = builtins.concatLists [
-      (lib.optionals hmConfig.services.syncthing.enable [
-        21027
-        22000
-      ])
+    allowedUDPPorts = lib.pipe allFirewalls [
+      (lib.concatMap (f: f.allowedUDPPorts or [ ]))
+      lib.unique
+    ];
+    allowedTCPPortRanges = lib.pipe allFirewalls [
+      (lib.concatMap (f: f.allowedTCPPortRanges or [ ]))
+      lib.unique
+    ];
+    allowedUDPPortRanges = lib.pipe allFirewalls [
+      (lib.concatMap (f: f.allowedUDPPortRanges or [ ]))
+      lib.unique
     ];
   };
 }
