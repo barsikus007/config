@@ -1,10 +1,25 @@
 {
   lib,
   pkgs,
+  config,
   modulesPath,
   ...
 }:
 #? https://github.com/nix-community/nixos-anywhere-examples/blob/7f945ff0ae676c0eb77360b892add91328dd1f17/configuration.nix
+let
+  facterDisks = config.hardware.facter.report.hardware.disk or [ ];
+  facterDevice =
+    if builtins.length facterDisks != 1 then
+      throw "set disko.devices.disk.disk1.device because facter does not report exactly one disk"
+    else
+      let
+        names = (builtins.head facterDisks).unix_device_names or [ ];
+      in
+      if names == [ ] then
+        throw "set disko.devices.disk.disk1.device because facter reports no device path"
+      else
+        lib.findFirst (name: !(lib.hasPrefix "/dev/disk/" name)) (builtins.head names) names;
+in
 {
   imports = [
     ../minimal.nix
@@ -20,6 +35,8 @@
       options.system.forbiddenDependenciesRegexes = lib.mkOption {
         apply = builtins.filter (x: x != "perl");
       };
+      #! breaks impermanence dirs perms
+      config.system.etc.overlay.enable = false;
       #! userborn creates users too late for impermanence on fresh installs
       config.services.userborn.enable = false;
     }
@@ -43,4 +60,7 @@
   ];
 
   environment.systemPackages = import ../../shared/lists/00_essential.nix { inherit pkgs; };
+  disko.devices.disk.disk1.device = lib.mkDefault (
+    if config.hardware.facter.enable then facterDevice else "/dev/sda"
+  );
 }

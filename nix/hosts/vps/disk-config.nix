@@ -1,4 +1,4 @@
-{ lib, inputs, ... }:
+{ inputs, ... }:
 #! example to create a bios compatible gpt partition
 #? https://github.com/nix-community/nixos-anywhere-examples/blob/7f945ff0ae676c0eb77360b892add91328dd1f17/disk-config.nix
 {
@@ -8,7 +8,6 @@
 
   disko.devices = {
     disk.disk1 = {
-      device = lib.mkDefault "/dev/sda";
       type = "disk";
       content = {
         type = "gpt";
@@ -25,6 +24,8 @@
               type = "filesystem";
               format = "vfat";
               mountpoint = "/boot";
+              #! https://github.com/nix-community/disko/issues/739
+              preCreateHook = "sleep 3";
             };
           };
           root = {
