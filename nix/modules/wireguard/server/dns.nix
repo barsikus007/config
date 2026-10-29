@@ -1,10 +1,19 @@
-{ lib, pkgs, ... }@args:
-let
-  inInterface = args.inInterface or "wg0";
-  #? wg0 server address, web panel binds here so it stays reachable over wg0 only
-  inInterfaceAddress = args.inInterfaceAddress or "10.69.228.1";
-in
 {
+  lib,
+  pkgs,
+  config,
+  ...
+}:
+{
+  custom.persist.directories = [
+    {
+      directory = "/var/lib/pihole";
+      user = "pihole";
+      group = "pihole";
+      mode = "0700";
+    }
+  ];
+
   services.pihole-ftl = {
     enable = true;
 
@@ -42,21 +51,31 @@ in
       "https://raw.githubusercontent.com/blocklistproject/Lists/master/malware.txt"
     ];
 
-    # TODO: unbound???
     settings = {
       dns = {
         upstreams = [
           "1.1.1.1"
-          "1.0.0.1"
+          "9.9.9.9"
+          "8.8.8.8"
         ];
 
         domainNeeded = true;
-
-        interface = inInterface;
-        listeningMode = "SINGLE";
+        listeningMode = "NONE";
       };
 
-      misc.dnsmasq_lines = import ../../nftset.nix { inherit lib; };
+      #? https://linux.die.net/man/8/dnsmasq
+      misc.dnsmasq_lines = [
+        "bind-interfaces"
+      ]
+      ++ map (iface: "interface=${iface}") (builtins.attrNames config.networking.wg-quick.interfaces)
+      ++ [
+        "interface=lo"
+        "except-interface=podman*"
+      ]
+      ++ (import ../../nftset.nix { inherit lib; });
+      #? sudo $(systemctl cat pihole-ftl | grep -o '/nix/store/[^ ]*-pihole-ftl-[^/]*/bin/pihole-FTL') --config webserver.api.password 'password'
+      #! grep pwhash /etc/pihole/pihole.toml
+      webserver.api.pwhash = lib.mkDefault "disabled";
     };
   };
 
@@ -66,24 +85,28 @@ in
   services.pihole-web = {
     enable = true;
     ports = [
-      "127.0.0.1:80"
-      "${inInterfaceAddress}:80o"
+      "127.0.0.1:8053"
+      # "${inInterfaceAddress}:80o"
     ];
   };
 
   systemd.services.pihole-ftl.after = [
     "nftables.service"
-    "wg-quick-${inInterface}.service"
   ];
 
-  #? fix idempotency of setup service
-  systemd.services.pihole-ftl-setup.serviceConfig.SuccessExitStatus = "1";
-
-  networking.firewall.interfaces.${inInterface} = {
-    allowedUDPPorts = [ 53 ];
-    allowedTCPPorts = [
-      53
-      80
-    ];
+  #? fix idempotency of setup service and skip on boot if database already exists
+  systemd.services.pihole-ftl-setup = {
+    unitConfig.ConditionPathExists = "!/var/lib/pihole/gravity.db";
+    serviceConfig.SuccessExitStatus = "1";
   };
+
+  networking.firewall.interfaces =
+    lib.genAttrs (builtins.attrNames config.networking.wg-quick.interfaces)
+      (_: {
+        allowedUDPPorts = [ 53 ];
+        allowedTCPPorts = [
+          53
+          80
+        ];
+      });
 }

@@ -11,7 +11,6 @@ alias adb_shell_as_nix='android-utils.ts shell-nix'
 alias adbfs_connected='android-utils.ts fs-connected'
 alias adbfs_connect='android-utils.ts fs-connect'
 alias adbfs_disconnect='android-utils.ts fs-disconnect'
-alias scrcpy_connect='android-utils.ts scrcpy'
 alias scrcpy_fast='android-utils.ts scrcpy-fast'
 alias scrcpy_camera='android-utils.ts scrcpy-camera'
 alias scrcpy_camera_ffmpeg='android-utils.ts scrcpy-camera-ffmpeg'
@@ -26,7 +25,7 @@ alias pdiff='impermanence.ts diff'
 #? zsh gets real completions from scripts/completions (fpath); this is the
 #? fallback for bash on the ubuntu hosts, subcommand names only
 if [ -n "$BASH_VERSION" ]; then
-    complete -W 'scan connect disconnect shell-root shell-termux shell-nix fs-connected fs-connect fs-disconnect scrcpy scrcpy-fast scrcpy-camera scrcpy-camera-ffmpeg' android-utils.ts
+    complete -W 'scan connect disconnect shell-root shell-termux shell-nix fs-connected fs-connect fs-disconnect scrcpy-fast scrcpy-camera scrcpy-camera-ffmpeg' android-utils.ts
     complete -W 'run' capture-term.ts
     complete -W 'cheats' cheats.ts
     complete -W 'sh sha logs clear-logs' docker-utils.ts

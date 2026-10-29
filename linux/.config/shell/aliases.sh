@@ -15,8 +15,8 @@ alias awgr='sudo systemctl restart wg-quick-awg0'
 alias awgs='systemctl status wg-quick-awg0'
 alias awgu='sudo systemctl start wg-quick-awg0'
 alias awgw='sudo watch --color '\''WG_COLOR_MODE=always awg show'\'''
+alias b=btop
 alias c=clear
-alias claude-preview='bunx @anthropic-ai/claude-code@next'
 alias cpr='rsync --verbose --archive --compress --partial --progress --mkpath'
 alias cu='cd /home/ogurez/config/nix && git pull && cd -'
 alias dc='docker compose'
@@ -85,4 +85,5 @@ alias xru='sudo systemctl start dae'
 alias xrw='journalctl --follow --unit=dae'
 alias yt-dlp='uvx --with mutagen yt-dlp'
 alias yt-dlpa='yt-dlp --concurrent-fragments=16 --retries=inf'
+alias z=zellij
 alias zps='zpool status -v'

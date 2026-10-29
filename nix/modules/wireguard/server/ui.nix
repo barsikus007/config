@@ -1,9 +1,4 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}@args:
+{ lib, pkgs, ... }@args:
 let
   inInterface = args.inInterface or "awg0";
   inInterfacePort = args.inInterfacePort or 51820;

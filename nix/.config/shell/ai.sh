@@ -76,8 +76,7 @@ claude_gpt() {
     ]
     | map({(.): "gpt-6-luna"}) | add) +
     {
-      CLAUDE_CODE_AUTO_COMPACT_WINDOW: "372000",
-      CLAUDE_CODE_EFFORT_LEVEL: "high"
+      CLAUDE_CODE_AUTO_COMPACT_WINDOW: "372000"
     }
   )' "$CLAUDE_CONFIG_FILE" > "$CLAUDE_CONFIG_FILE.tmp" && mv --force "$CLAUDE_CONFIG_FILE.tmp" "$CLAUDE_CONFIG_FILE"
 }
@@ -103,8 +102,7 @@ claude_gemini() {
     | map({(.): "gemini-3.5-flash-lite"}) | add) +
     {
       CLAUDE_CODE_AUTO_COMPACT_WINDOW: "1000000",
-      CLAUDE_CODE_MAX_CONTEXT_TOKENS: "1000000",
-      CLAUDE_CODE_EFFORT_LEVEL: "high"
+      CLAUDE_CODE_MAX_CONTEXT_TOKENS: "1000000"
     }
   )' "$CLAUDE_CONFIG_FILE" > "$CLAUDE_CONFIG_FILE.tmp" && mv --force "$CLAUDE_CONFIG_FILE.tmp" "$CLAUDE_CONFIG_FILE"
 }

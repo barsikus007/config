@@ -1,4 +1,9 @@
-{ config, flakePath, ... }:
+{
+  lib,
+  config,
+  flakePath,
+  ...
+}:
 {
   programs.vicinae = {
     enable = true;
@@ -12,6 +17,8 @@
       launcher_window.client_side_decorations.enabled = true;
     };
   };
+  #! vicinae module unconditionally makes that!
+  mozilla.librewolfNativeMessagingHosts = lib.mkForce [ ];
   xdg.configFile."vicinae/settings.json".target = "vicinae/settings-static.json";
   xdg.configFile."vicinae/settings.json-real" = {
     target = "vicinae/settings.json";

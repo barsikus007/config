@@ -109,6 +109,7 @@ rec {
     };
   otherAliases = {
     b = "btop";
+    z = "zellij";
     st = "systemctl-tui";
     sst = "sudo systemctl-tui";
     zps = "zpool status -v";
