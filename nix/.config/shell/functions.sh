@@ -7,7 +7,14 @@ ssht() {
     case "$1" in
       (-*) echo "Specify hostname first"; return 1 ;;
     esac
-    ssh "$@" -t "zellij attach --create $1 options --default-mode locked --session-serialization false --theme blade-runner || tmux new -As$1 || bash || sh"
+    #! https://github.com/wezterm/wezterm/pull/7723
+    local bat_theme="Coldark-Dark"
+    local zellij_theme="default"
+    if [ "$(darkman get 2>/dev/null)" = "light" ]; then
+      bat_theme="Coldark-Cold"
+      zellij_theme="catppuccin-latte"
+    fi
+    ssh "$@" -t "BAT_THEME=$bat_theme zellij attach --create $1 options --default-mode locked --session-serialization false --theme $zellij_theme || tmux new -As$1 || bash || sh"
   )
 }
 

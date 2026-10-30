@@ -2,7 +2,6 @@
 {
   programs.bat = {
     enable = true;
-    config.theme = "Coldark-Dark";
     extraPackages = with pkgs.bat-extras; [ batgrep ];
   };
   home.shellAliases = {

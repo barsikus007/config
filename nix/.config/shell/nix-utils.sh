@@ -218,22 +218,8 @@ nix_build_time() {
   done
 }
 
-_nn() {
-  if [ -f ~/.cache/darkman/mode.txt ]; then
-    echo "Current theme is: $(cat ~/.cache/darkman/mode.txt)"
-    case "$(cat ~/.cache/darkman/mode.txt)" in
-      ("dark") nh os switch "$@" ;;
-      ("light") nh os switch --specialisation=light "$@" ;;
-      (*) nh os switch "$@" ;;
-    esac
-  else
-    echo "No theme file found"
-    nh os switch "$@"
-  fi
-}
-
 nnn() {
-  sudo true && _nn --show-activation-logs "$@" && notify-send 'System build success' && exec $SHELL || notify-send 'System build failed'
+  sudo true && nh os switch --show-activation-logs "$@" && notify-send 'System build success' && exec $SHELL || notify-send 'System build failed'
 }
 nn_remote() {
   local hostname=$1

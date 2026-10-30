@@ -83,10 +83,7 @@ let
   };
 
   includes = [ "*.nix" ];
-  excludes = [
-    "**/.direnv/*"
-    "**/modules/system/activation/*" # TODO: remove that
-  ];
+  excludes = [ "**/.direnv/*" ];
   #! the linters have to skip exactly what `nix fmt` skips - deadnix, statix and fd all take the
   #! same globs, only under different flag names
   excludeArgs =

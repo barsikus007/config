@@ -258,7 +258,6 @@
           ./modules/services/network-filesystems/samba/local-share.nix
           ./modules/services/networking/wireguard-ui.nix
           ./modules/services/hyprwhspr.nix
-          # TODO: ./modules/system/activation
           ({ lib, pkgs, ... }: {
             programs.nh.clean.enable = lib.mkForce false;
 
