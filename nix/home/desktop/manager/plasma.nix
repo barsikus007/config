@@ -32,16 +32,15 @@ in
       (mkPlasmaBinds meta.shortcuts)
       (lib.attrsets.optionalAttrs config.custom.isAsus {
         "laptop-button-rog" = {
-          name = "Laptop ROG Button";
+          name = "Asus: Show Something";
           key = "Launch (1)";
           command = "zsh -c asus_anime_demo_toggle";
         };
-        # TODO: start gpu-screen-record
-        # "laptop-button-f6" = {
-        #   name = "Laptop F6 Button";
-        #   key = "Meta+Shift+S";
-        #   command = "zsh -c ";
-        # };
+        "laptop-button-f6" = {
+          name = "Quick ScreenCapture";
+          key = "Meta+Shift+S";
+          command = "gpu-screen-recorder-record-portal";
+        };
       })
     ];
     kscreenlocker.timeout = 15;
@@ -267,9 +266,7 @@ in
       }
     ];
 
-    # ETO PIZDA
-    # TODO: isAsus
-    input.touchpads = [
+    input.touchpads = lib.mkIf config.custom.isAsus [
       {
         vendorId = "04F3";
         productId = "3098";
@@ -290,17 +287,13 @@ in
         # "Edit Tiles" = "none";
         "Overview" = "Meta+Tab";
         "Window Above Other Windows" = "Meta+Ctrl+T";
+        "Window Close" = "none";
+        "Alt-F4-Desktop" = "Alt+F4";
         "Window Fullscreen" = "F11";
         "Peek at Desktop" = "Launch (7)";
         "Switch One Desktop to the Left" = "Launch (6)";
         "Switch One Desktop to the Right" = "Launch (9)";
       };
-
-      # [plasmashell]
-      # show-on-mouse-pos=none,Meta+V,Show Clipboard Items at Mouse Position
-      # "plasmashell" = {
-      #   "show-on-mouse-pos" = "";
-      # };
 
       "services/org.kde.konsole.desktop" = {
         "_launch" = "none";
@@ -331,8 +324,6 @@ in
         ];
       };
     };
-
-    # windows.allowWindowsToRememberPositions = true;
 
     kwin.virtualDesktops = {
       rows = 1;
@@ -381,8 +372,12 @@ in
   #   gtk-enable-primary-paste = false;
   # };
 
-  # TODO: mkIf browser enabled
-  # TODO: other kwin scripts like https://store.kde.org/p/2138867 https://github.com/micha4w/kde-alt-f4-desktop
+  #? https://store.kde.org/p/2138867
+  xdg.dataFile."kwin/scripts/alt-f4-desktop".source = fetchTarball {
+    url = "https://github.com/micha4w/kde-alt-f4-desktop/archive/0e02d395075a0a9f06b18e2cb81fbf64149eae25.tar.gz";
+    sha256 = "sha256-yG1nG+mMjJcNx2EKCs5sPxdajRx8oftr9qxuYQ1UqGE=";
+  };
+
   #? https://store.kde.org/p/2313455
   # 0.0.3
   xdg.dataFile."kwin/scripts/auto-active".source = fetchTarball {
@@ -391,6 +386,20 @@ in
   };
   programs.plasma.configFile."kwinrc".Plugins = {
     "auto-activeEnabled" = true;
+    "alt-f4-desktopEnabled" = true;
     # add config, e.g., Whitelist = "sublime_text,org.kde.dolphin";
+  };
+
+  home.file."Desktop/restart-plasma.desktop" = {
+    executable = true;
+    text = ''
+      [Desktop Entry]
+      Type=Application
+      Name=Restart Plasma
+      Comment=Restart Plasma Shell
+      Exec=systemctl --user restart plasma-plasmashell.service
+      Icon=plasma
+      Terminal=false
+    '';
   };
 }

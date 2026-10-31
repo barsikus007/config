@@ -317,8 +317,8 @@
         ./modules/desktop/manager/noctalia-niri.nix
       ];
       nixosConfigurations."coolvm-plasma" = mkCoolVm "plasma" "ogurez" [
-        ./hosts/vm/kde-sunshined.nix
-        # ./hosts/vm/kde-paravirt.nix
+        ./hosts/vm/kde-paravirt.nix
+        # ./hosts/vm/kde-sunshined.nix
 
         ./modules/desktop/manager/plasma.nix
       ];
