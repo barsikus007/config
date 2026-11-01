@@ -47,9 +47,7 @@ in
     )
   ];
 
-  imports = [
-    ../.
-  ];
+  imports = [ ../. ];
   home-manager.users.${username}.imports = [ ../../../home/desktop/manager/niri.nix ];
 
   services.displayManager.defaultSession = "niri";

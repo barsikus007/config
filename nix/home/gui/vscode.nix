@@ -5,6 +5,9 @@
   flakePath,
   ...
 }:
+let
+  editor = "code --wait";
+in
 {
   custom.persist.home.directories = [
     ".config/Code"
@@ -18,7 +21,10 @@
     "Code/User/keybindings.json".source =
       config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/Code/User/keybindings.json";
   };
-  programs.git.settings.core.editor = "code --wait";
+  programs.git.settings.core = { inherit editor; };
+  home.sessionVariables = {
+    SOPS_EDITOR = editor;
+  };
   programs.vscodium = {
     enable = true;
     package = lib.lowPrio pkgs.vscodium;
@@ -32,23 +38,38 @@
         )
       );
       userSettings =
-        (builtins.fromJSON (
+        builtins.fromJSON (
           builtins.readFile (
             pkgs.runCommand "clean-json" { } ''
               ${lib.getExe pkgs.hjson-go} -j ${../../.config/Code/User/settings.json} > $out
             ''
           )
-        ))
+        )
         // {
           "security.workspace.trust.enabled" = false;
           "workbench.editor.showTabs" = "none";
           "workbench.startupEditor" = "none";
           "window.restoreWindows" = "none";
+          "window.openFilesInNewWindow" = "off";
+          "window.openFoldersInNewWindow" = "off";
+          "window.openWithoutArgumentsInNewWindow" = "off";
+          "window.menuBarVisibility" = "compact";
+          "workbench.editor.editorActionsLocation" = "titleBar";
         };
-      extensions = with pkgs.vscode-extensions; [
-        yzhang.markdown-all-in-one
-        jnoortheen.nix-ide
-      ];
+      extensions =
+        (import ../../.config/Code/User/extensions.nix { inherit pkgs; }).forTags [
+          "essential"
+          "docs"
+          "nix"
+        ]
+        ++ [
+          (pkgs.vscode-utils.extensionFromVscodeMarketplace {
+            name = "shades-of-purple";
+            publisher = "ahmadawais";
+            version = "7.3.6";
+            hash = "sha256-22ZywGew1Qh4YPi51JWTNQLKuz/nzx/iprUK96DQfYU=";
+          })
+        ];
     };
   };
   home.packages = with pkgs; [
@@ -56,19 +77,4 @@
     #! https://github.com/NixOS/nixpkgs/blob/c23193b943c6c689d70ee98ce3128239ed9e32d1/pkgs/applications/editors/vscode/generic.nix#L82
     # vscode-fhs
   ];
-  programs.zed-editor = {
-    enable = true;
-    extensions = [
-      "comment"
-      "nix"
-    ];
-    userSettings = {
-      tabs = {
-        file_icons = true;
-      };
-      telemetry = {
-        metrics = false;
-      };
-    };
-  };
 }

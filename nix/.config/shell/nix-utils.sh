@@ -229,6 +229,10 @@ nn_remote() {
 nnas() {
   nn_remote NAS --build-host=NAS --elevation-strategy=passwordless "$@"
 }
+deploy_remote() {
+  (cd ~/Projects/infra && nix flake update public)
+  deploy "$@" --skip-checks -- --log-format internal-json |& nom --json
+}
 
 nix_home_manager_build_and_activate() {
   local NIX_EVAL="$NH_FLAKE#nixosConfigurations.$HOST.config.home-manager.users.$USER.home.activationPackage"
@@ -331,4 +335,8 @@ nix_hot_reload_niri() {
   CALLBACK=""
 
   nix_hot_reload $NIX_REPL $NIX_FILE $NIX_EVAL $CONFIG_LOCATION $CALLBACK
+}
+
+nix_open_package() {
+  yazi "$(nix build --no-link --print-out-paths nixpkgs#"$1")"
 }

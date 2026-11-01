@@ -15,6 +15,7 @@ builtins.concatLists (
   nvd
   nurl
   nix-tree
+  deploy-rs
   hydra-check
   nixos-anywhere
   nix-output-monitor

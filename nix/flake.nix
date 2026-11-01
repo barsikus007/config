@@ -287,14 +287,7 @@
         ];
       };
 
-      #? nixos-anywhere --flake ./nix#NAS-vmtest --vm-test
-      nixosConfigurations."NAS-vmtest" = self.nixosConfigurations."NAS".extendModules {
-        modules = [
-          ./hosts/NAS/vmtest.nix
-        ];
-      };
-
-      #? nixos-anywhere --flake ./nix#generic-VPS --generate-hardware-config nixos-facter ./nix/hosts/empty-facter.json --target-host <hostname>
+      #? nixos-anywhere --flake ./nix#generic-VPS --phases kexec --generate-hardware-config nixos-facter ./nix/hosts/empty-facter.json --target-host <hostname>
       nixosConfigurations."generic-VPS" = nixpkgs.lib.nixosSystem {
         specialArgs = mkSpecialArgs "nixos";
         modules = [

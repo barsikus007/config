@@ -85,7 +85,6 @@ if ($env:PROTO_HOME) {
 Debug-Log aliases (Measure-Command {
 # init
 $env:BAT_PAGER="less --RAW-CONTROL-CHARS --quit-if-one-screen --mouse"
-$env:BAT_THEME="Coldark-Dark"
 Set-Alias -Option AllScope cat bat
 Function Get-Full-History { bat (Get-PSReadlineOption).HistorySavePath -l powershell }
 Set-Alias -Option AllScope history Get-Full-History

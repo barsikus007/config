@@ -48,6 +48,15 @@ gamescope --backend sdl --fullscreen --grab --force-grab-cursor --hide-cursor-de
 - d3 on nvidia (sleep)
 - `sudo setpci -s 01:00.0 CAP_PM+4.b=03`
 
+## tty recovery
+
+```shell
+#? type this at the end of "linux" line in grub, just to the end in systemd-boot
+systemd.debug_shell=tty1 systemd.mask=getty.target
+#? import tools to recovery shell
+PATH=/run/current-system/sw/bin:/run/wrappers/bin:$PATH exec zsh
+```
+
 ## ssh
 
 ### [add git key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent?platform=linux)

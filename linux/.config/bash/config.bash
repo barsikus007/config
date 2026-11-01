@@ -62,7 +62,6 @@ if hash bat &> /dev/null; then
   alias cat=bat
   export PAGER=bat
 fi
-export BAT_THEME="Coldark-Dark"
 export LESS="--mouse"
 
 #? go

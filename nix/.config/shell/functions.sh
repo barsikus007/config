@@ -41,7 +41,7 @@ s () {
 
 ds() {
   # starts fzf in phony mode (ignores internal filtering)
-  # and reloads the danksearch query on every keystroke
+  # and reloads query on every keystroke
   # enter replaces fzf with xdg-open, alt-enter opens and keeps searching
 
   # vicinae file search requires at least 3 characters

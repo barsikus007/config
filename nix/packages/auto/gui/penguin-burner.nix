@@ -1,6 +1,5 @@
 {
   lib,
-  applyPatches,
   cmake,
   fetchFromGitHub,
   makeWrapper,
@@ -12,21 +11,14 @@
 #? pkexec $(nix build ~/config/nix#penguin-burner --no-link --print-out-paths)/bin/penguin-burnerd
 #? $(nix build ~/config/nix#penguin-burner --no-link --print-out-paths)/bin/penguin-burner-cli --auto-uv-voltage-scan --auto-uv-mode efficiency --auto-uv-min-voltage-mv 625
 let
-  version = "0.8.3-unstable-2026-10-20";
+  version = "0.8.4-pr142";
 
-  rawSrc = fetchFromGitHub {
+  src = fetchFromGitHub {
     owner = "jpietek";
     repo = "PenguinBurner";
-    #? PR 131: Start Q2RTX verification on rendering events
-    rev = "bf312801eb284921181be2a5f811ece1f9558419";
-    hash = "sha256-KfVhJLhLDNKPTq/t+IFQHqB1/pD7eqmIolbijRSoeTE=";
-  };
-
-  src = applyPatches {
-    src = rawSrc;
-    patches = [
-      ./turing-vf-fallback.patch
-    ];
+    #? PR 142: Fix Turing Auto-UV V/F base tuple fallback
+    rev = "460621ccf6733af0bca0f58562499fc50d0432c4";
+    hash = "sha256-VD+X50YUF0CUhDCOk4Vr0p6cN1lPUzp7fpQyRhn1cv0=";
   };
 
   inherit (python3Packages) python;
@@ -42,7 +34,7 @@ let
     inherit version src;
     pname = "penguin-burnerd";
     nativeBuildInputs = [ makeWrapper ];
-    cargoLock.lockFile = "${rawSrc}/burnerd/Cargo.lock";
+    cargoLock.lockFile = "${src}/burnerd/Cargo.lock";
     doCheck = false;
     postPatch = ''
       substituteInPlace src/scan.rs \
@@ -74,10 +66,6 @@ python3Packages.buildPythonApplication {
     substituteInPlace stability/cuda_bruteforce.py \
       --replace-fail 'ctypes.util.find_library("cuda") or "libcuda.so.1"' \
         'ctypes.util.find_library("cuda") or "/run/opengl-driver/lib/libcuda.so.1"'
-
-    substituteInPlace runtime/support/runtime_service.py \
-      --replace-fail 'if job.get("type") == "auto_uv_scan" and job.get("pid") == os.getpid():' \
-        'if job.get("type") in {"auto_uv_scan", "profile_verification"} and job.get("pid") == os.getpid():'
   '';
   env = {
     CMAKE_INCLUDE_PATH = "${vulkan-headers}/include";
@@ -108,9 +96,18 @@ python3Packages.buildPythonApplication {
       --set-default PENGUIN_BURNER_DAEMON_PYTHON "${python.interpreter}"
   '';
   makeWrapperArgs = [
-    "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ vulkan-loader ]}:/run/opengl-driver/lib"
-    "--prefix PYTHONPATH : $out/${python.sitePackages}"
-    "--prefix PYTHONPATH : ${lib.makeSearchPath python.sitePackages deps}"
+    "--prefix"
+    "LD_LIBRARY_PATH"
+    ":"
+    "${lib.makeLibraryPath [ vulkan-loader ]}:/run/opengl-driver/lib"
+    "--prefix"
+    "PYTHONPATH"
+    ":"
+    "$out/${python.sitePackages}"
+    "--prefix"
+    "PYTHONPATH"
+    ":"
+    "${lib.makeSearchPath python.sitePackages deps}"
   ];
   pyproject = true;
   passthru = {

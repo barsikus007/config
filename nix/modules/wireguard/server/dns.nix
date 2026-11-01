@@ -65,7 +65,7 @@
 
       #? https://linux.die.net/man/8/dnsmasq
       misc.dnsmasq_lines = [
-        "bind-interfaces"
+        "bind-dynamic"
       ]
       ++ map (iface: "interface=${iface}") (builtins.attrNames config.networking.wg-quick.interfaces)
       ++ [

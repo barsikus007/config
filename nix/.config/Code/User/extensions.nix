@@ -1,5 +1,5 @@
+{ pkgs ? import <nixpkgs> { config.allowUnfree = true; } }:
 let
-  pkgs = import <nixpkgs> { };
   inherit (pkgs) lib;
 
   tags = [
@@ -195,14 +195,31 @@ let
       r = builtins.tryEval (builtins.attrNames vscodeExtensions.${p});
     in
     if r.success then r.value else [ ];
-  available = lib.flatten (
+  pairs = lib.flatten (
     map (
-      p: map (n: lib.toLower "${p}.${n}") (builtins.filter (n: !(builtins.elem n skip)) (tryNames p))
+      p:
+      let
+        names = builtins.filter (n: !(builtins.elem n skip)) (tryNames p);
+      in
+      map (n: {
+        name = lib.toLower "${p}.${n}";
+        value = vscodeExtensions.${p}.${n};
+      }) names
     ) publishers
   );
-  inNixpkgs = builtins.filter (id: builtins.elem (lib.toLower id) available) allIds;
+  lookup = builtins.listToAttrs pairs;
+  inNixpkgs = builtins.filter (id: lookup ? ${lib.toLower id}) allIds;
+  packages = map (id: lookup.${lib.toLower id}) inNixpkgs;
+  forTags =
+    tagsList:
+    let
+      ids = builtins.filter (
+        id: builtins.any (t: builtins.elem t checkedExtensions.${id}) tagsList
+      ) inNixpkgs;
+    in
+    map (id: lookup.${lib.toLower id}) ids;
 in
 {
   all = allIds;
-  inherit inNixpkgs;
+  inherit inNixpkgs packages forTags;
 }

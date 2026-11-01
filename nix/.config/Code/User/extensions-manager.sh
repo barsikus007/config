@@ -4,7 +4,7 @@ set -euo pipefail
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
 
-EXTENSIONS=$(nix eval --json --file "$DIR/extensions.nix")
+EXTENSIONS=$(nix eval --json --apply 'f: let r = f {}; in { inherit (r) all inNixpkgs; }' --file "$DIR/extensions.nix")
 
 DESIRED=$(echo "$EXTENSIONS" | jq --raw-output '.all[]' | tr '[:upper:]' '[:lower:]' | sort)
 IN_NIXPKGS=$(echo "$EXTENSIONS" | jq --raw-output '.inNixpkgs[]' | tr '[:upper:]' '[:lower:]' | sort)

@@ -70,7 +70,7 @@ window-rule {
 //? force half-screen size
 window-rule {
     match app-id=r"^org\.wezfurlong\.wezterm$"
-    match app-id="^code$"
+    match app-id="^(code|codium)$"
 
     match app-id=r"^dev\.noctalia\.Noctalia$" title="^Noctalia Settings$"
     match app-id="^wdisplays$" title="^wdisplays$"
@@ -99,7 +99,7 @@ window-rule {
     //? picture-in-picture players
     match app-id=r"^com\.ayugram\.desktop$" title="^AyuGramDesktop$"
     match app-id="^firefox$" title="^Picture-in-Picture$"
-    match app-id="^$" title="^Picture in picture$"
+    match app-id="^(|brave-browser)$" title="^Picture in picture$"
     match app-id="^mpv$"
     open-floating true
     open-on-output "eDP-1"
@@ -195,6 +195,7 @@ window-rule {
 }
 window-rule {
     match app-id=r"^org\.prismlauncher\.PrismLauncher$"
+    match app-id="^heroic$"
     match app-id="^steam$"
     match app-id="^steam_app_"
     match app-id="^gamescope$"

@@ -1,28 +1,45 @@
 {
+  lib,
+  android-tools,
   fetchFromGitHub,
-  adbfs-rootless,
   fuse3,
+  pkg-config,
+  stdenv,
 }:
-#? https://github.com/spion/adbfs-rootless/pull/73
-# (adbfs-rootless.overrideAttrs (previousAttrs: {
-#   patches = (previousAttrs.patches or [ ]) ++ [
-#     (fetchpatch {
-#       url = "github.com/spion/adbfs-rootless/pull/73.patch";
-#       hash = "sha256-S3KY3xy+939nkYyJerC+rKemcqocbxPV7bwjZKMkeJQ=";
-#     })
-#   ];
-# }))
 #? https://github.com/spion/adbfs-rootless/issues/56
-(adbfs-rootless.overrideAttrs (previousAttrs: {
-  pname = previousAttrs.pname + "-libfuse-3";
+stdenv.mkDerivation (finalAttrs: {
+  pname = "adbfs-rootless-libfuse-3";
+  version = "0-unstable-2023-03-21";
 
   src = fetchFromGitHub {
     owner = "spion";
     repo = "adbfs-rootless";
-    # rev = "feat/merge-libfuse-3";
-    rev = "cf2f8ae0feeb41e4abaf59e166d1337cc87204c8";
+    rev = "feat/merge-libfuse-3";
     hash = "sha256-FWGJyJv7c0FZ6NvepcavxWpeUT0KanU8D4B1FL7QxPI=";
   };
 
+  nativeBuildInputs = [ pkg-config ];
+
   buildInputs = [ fuse3 ];
-}))
+
+  postPatch = ''
+    # very ugly way of replacing the adb calls
+    substituteInPlace adbfs.cpp \
+      --replace-fail '"adb ' '"${android-tools}/bin/adb '
+  '';
+
+  installPhase = ''
+    runHook preInstall
+    install -D adbfs $out/bin/adbfs
+    runHook postInstall
+  '';
+
+  meta = {
+    description = "Mount Android phones on Linux with adb, no root required";
+    mainProgram = "adbfs";
+    inherit (finalAttrs.src.meta) homepage;
+    license = lib.licenses.bsd3;
+    maintainers = with lib.maintainers; [ aleksana ];
+    platforms = lib.platforms.unix;
+  };
+})

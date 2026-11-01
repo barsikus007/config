@@ -39,9 +39,7 @@
         ]
         (_key: [
           "codium.desktop"
-          "dev.zed.Zed.desktop"
           "code.desktop"
-          "org.kde.kwrite.desktop"
           "neovide.desktop"
           "nvim.desktop"
           "org.kde.ark.desktop"
