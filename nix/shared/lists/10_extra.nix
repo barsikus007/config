@@ -47,8 +47,7 @@ import ./11_powertoys.nix { inherit pkgs; }
   obsidian
   qdirstat
   xclicker
-  # TODO: unstable: https://github.com/NixOS/nixpkgs/pull/576407
-  # handbrake
+  handbrake
   antimicrox
   parsec-bin
   qbittorrent

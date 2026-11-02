@@ -82,7 +82,7 @@
       #? nixos-icons -> gschema.override -> gdm -> gnome-shell chain causes cache misses; also pulls 760M archive
       # nixos-icons.enable = false;
       #? bottles -> gtksourceview5 chain causes cache misses
-      gtksourceview.enable = false;
+      # gtksourceview.enable = false;
     };
   };
 }

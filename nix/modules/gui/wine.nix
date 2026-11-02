@@ -55,8 +55,6 @@ in
   environment.systemPackages = with pkgs; [
     winePkg
     winetricks
-    # TODO: unstable
-    # bottles
 
     (pkgs.writeShellApplication {
       name = "wine-setup";

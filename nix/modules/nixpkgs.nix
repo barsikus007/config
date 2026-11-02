@@ -7,7 +7,6 @@ let
 
     "steam"
     "steam-unwrapped"
-    "lsfg-vk" # bottles dep
 
     "7zip-zstd"
     "uasm" # 7zz unfree dep
@@ -38,7 +37,6 @@ let
     "obsidian"
     "xnconvert"
     "parsec-bin"
-    "antigravity-cli"
 
     "mprint"
     "hytale-launcher"
@@ -74,16 +72,6 @@ in
 
   nixpkgs.overlays = [
     autoFlakePackagesOverlay
-    # TODO: unstable
-    (_final: prev: {
-      pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
-        (pyFinal: pyPrev: {
-          fastmcp-slim = pyPrev.fastmcp-slim.override {
-            mcp = pyFinal.mcp_1;
-          };
-        })
-      ];
-    })
     (
       #? map "nixpkgs-*" flake inputs as attrs of pkgs
       _final: prev:

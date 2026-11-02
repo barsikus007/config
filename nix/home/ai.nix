@@ -6,8 +6,6 @@
 }:
 {
   custom.persist.home.directories = [
-    ".gemini"
-    ".cache/cloud-code" # ? gemini auth
     ".config/codex"
     ".config/opencode"
   ];
@@ -24,7 +22,6 @@
     };
   };
 
-  programs.antigravity-cli.enable = true;
   programs.claude-code = {
     enable = true;
     package =
