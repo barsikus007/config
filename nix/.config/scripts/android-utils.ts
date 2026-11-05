@@ -175,7 +175,6 @@ async function scrcpyFast(...args: string[]) {
   return exec([
     'scrcpy',
     '--keyboard=uhid',
-    '--render-driver=opengles2',
     '--no-audio',
     '--video-bit-rate=1M',
     `--serial=${device}`,
@@ -184,25 +183,32 @@ async function scrcpyFast(...args: string[]) {
 }
 
 async function scrcpyCamera(...args: string[]) {
+  // TODO: create: whole new GUI/TUI scrcpy camera manager
   const device = await resolveDevice();
-  await exec(['sudo', 'v4l2loopback-ctl', 'add', '--name', 'scrcpy Cam', '/dev/video9']);
+  if (existsSync('/dev/video9')) {
+    await exec(['sudo', 'v4l2loopback-ctl', 'delete', '/dev/video9']);
+  }
+  if (!existsSync('/dev/video9')) {
+    await exec(['sudo', 'v4l2loopback-ctl', 'add', '--exclusive-caps=1', '--name', 'scrcpy Cam', '/dev/video9']);
+  }
+  await exec(['v4l2-ctl', '--device=/dev/video9', '--set-ctrl=sustain_framerate=1']);
   return exec([
     'scrcpy',
-    '--render-driver=opengles2',
     '--video-source=camera',
     '--no-audio',
     '--v4l2-sink=/dev/video9',
+    '--camera-size=1920x1440',
     '--camera-id=0',
-    '--camera-size=2048x1536',
+    // '--camera-size=2048x1536',
     '--capture-orientation=90',
     // '--camera-id=1',
-    // '--camera-size=1640x1232',
+    // // ''--camera-size=1640x1232',
     // '--capture-orientation=270',
     // '--camera-id=2',
-    // '--camera-size=2048x1536',
+    // // ''--camera-size=2048x1536',
     // '--capture-orientation=90',
     // '--camera-id=3',
-    // '--camera-size=2048x1536',
+    // // ''--camera-size=2048x1536',
     // '--capture-orientation=90',
     '--no-window',
     `--serial=${device}`,
