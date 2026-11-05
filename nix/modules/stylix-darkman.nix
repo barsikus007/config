@@ -30,7 +30,14 @@ let
   };
 
   darkSys = extendModules {
-    modules = [ commonModule ];
+    modules = [
+      commonModule
+      {
+        home-manager.users.${username} = {
+          programs.bat.config.theme = "Coldark-Dark";
+        };
+      }
+    ];
   };
 
   # user diff
@@ -45,6 +52,8 @@ let
     target:
     lib.hasInfix "systemd/user" target
     || lib.hasInfix "mozilla/firefox" target
+    || lib.hasInfix "fontconfig" target
+    || lib.hasInfix "tmux" target
     || lib.hasInfix "zsh/" target
     || lib.hasInfix ".profile" target
     || lib.hasInfix "autostart" target

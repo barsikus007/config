@@ -37,7 +37,7 @@ let
     mkdir --parents "$stateDir"
 
     case "$mode" in
-      (light)
+      (light|*stylix-user-light*)
         farm="${userLightFarm}"
         wallpaper="${lightWallpaper}"
         colorScheme="prefer-light"
@@ -46,7 +46,7 @@ let
         plasmaScript="${lightPlasma}"
         noctaliaMode="light"
         ;;
-      (dark)
+      (dark|*stylix-user-dark*)
         farm="${userDarkFarm}"
         wallpaper="${darkWallpaper}"
         colorScheme="prefer-dark"
@@ -63,13 +63,6 @@ let
 
     ln --symbolic --force --no-dereference "$farm" "$stateDir/current"
     ln --symbolic --force --no-dereference "$wallpaper" "$stateDir/current-wallpaper"
-    ${gsettings} set org.gnome.desktop.interface color-scheme "$colorScheme" || true
-    ${gsettings} set org.gnome.desktop.interface gtk-theme "$gtkTheme" || true
-    ${gsettings} set org.gnome.desktop.interface icon-theme "$iconTheme" || true
-    #! xdg-desktop-portal-gnome caches color-scheme at its process start
-    #! restarting it alone clears ScreenCast properties on xdg-desktop-portal
-    ${systemctl} --user restart xdg-desktop-portal-gnome.service || true
-    ${systemctl} --user restart xdg-desktop-portal.service || true
     if [ -n "$plasmaScript" ]; then
       "$plasmaScript" || true
     fi
@@ -80,6 +73,9 @@ let
       ${gdbus} emit --session --object-path /kdeglobals --signal org.kde.kconfig.notify.ConfigChanged "{'General': [b'ColorScheme'], 'Colors:Window': [b'BackgroundNormal'], 'Colors:View': [b'BackgroundNormal'], 'Colors:Button': [b'BackgroundNormal'], 'Colors:Selection': [b'BackgroundNormal']}" || true
       ${gdbus} emit --session --object-path /KGlobalSettings --signal org.kde.KGlobalSettings.notifyChange 0 0 || true
     fi
+    ${gsettings} set org.gnome.desktop.interface color-scheme "$colorScheme" || true
+    ${gsettings} set org.gnome.desktop.interface gtk-theme "$gtkTheme" || true
+    ${gsettings} set org.gnome.desktop.interface icon-theme "$iconTheme" || true
     if command -v noctalia >/dev/null 2>&1; then
       noctalia msg wallpaper-set "$wallpaper" || true
       noctalia msg theme-mode-set "$noctaliaMode" || true
@@ -88,6 +84,10 @@ let
       vicinae theme set stylix || true
     fi
     pkill -SIGUSR2 btop 2>/dev/null || true
+    #! xdg-desktop-portal-gnome caches color-scheme at its process start
+    #! restarting it alone clears ScreenCast properties on xdg-desktop-portal
+    ${systemctl} --user restart xdg-desktop-portal-gnome.service || true
+    ${systemctl} --user restart xdg-desktop-portal.service || true
   '';
 in
 {
@@ -98,7 +98,13 @@ in
   home.activation.applyStylixTheme =
     lib.hm.dag.entryBetween [ "dolphinViewProperties" ] [ "dconfSettings" ]
       /* shell */ ''
-        mode=$(${lib.getExe pkgs.darkman} get 2>/dev/null || readlink "$HOME/.local/state/stylix/current" 2>/dev/null || echo "dark")
+        mode=$(${lib.getExe pkgs.darkman} get 2>/dev/null || true)
+        if [ "$mode" != "dark" ] && [ "$mode" != "light" ]; then
+          case "$(readlink "$HOME/.local/state/stylix/current" 2>/dev/null || true)" in
+            (*light*) mode="light" ;;
+            (*) mode="dark" ;;
+          esac
+        fi
         run ${stylixSwitch}/bin/stylix-switch "$mode"
       '';
 
