@@ -36,8 +36,8 @@
     };
     cursor = {
       size = 24;
-      package = pkgs.kdePackages.breeze;
-      name = "breeze_cursors";
+      package = pkgs.flakePackages.thinkable-cursors;
+      name = "THINKABLE";
     };
     opacity = lib.mkIf config.custom.blur.enable {
       desktop = 0.75;
