@@ -219,7 +219,7 @@ nix_build_time() {
 }
 
 nnn() {
-  sudo true && nh os switch --show-activation-logs "$@" && notify-send 'System build success' && exec $SHELL || notify-send 'System build failed'
+  sudo true && nh os switch --keep-going --show-activation-logs "$@" && notify-send 'System build success' && exec $SHELL || notify-send 'System build failed'
 }
 nn_remote() {
   local hostname=$1
@@ -230,8 +230,11 @@ nnas() {
   nn_remote NAS --build-host=NAS --elevation-strategy=passwordless "$@"
 }
 deploy_remote() {
-  (cd ~/Projects/infra && nix flake update public)
-  deploy "$@" --skip-checks -- --log-format internal-json |& nom --json
+  (
+    cd ~/Projects/infra || exit 1
+    nix flake update public || exit 1
+    deploy "$@" --skip-checks -- --log-format internal-json |& nom --json
+  )
 }
 
 nix_home_manager_build_and_activate() {

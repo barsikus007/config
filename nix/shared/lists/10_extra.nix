@@ -50,6 +50,7 @@ import ./11_powertoys.nix { inherit pkgs; }
   handbrake
   antimicrox
   parsec-bin
+  losslesscut
   qbittorrent
   flakePackages.taskexplorer
   linux-wifi-hotspot

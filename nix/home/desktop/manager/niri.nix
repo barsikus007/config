@@ -117,6 +117,7 @@ in
         # default-column-width = {
         #   proportion = 0.5;
         # };
+        border.enable = false;
         focus-ring = {
           enable = true;
           #? https://brand.nixos.org/documents/nixos-branding-guide.pdf

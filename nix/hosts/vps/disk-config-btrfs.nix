@@ -2,8 +2,7 @@
 
 let
   partitions =
-    (import ./disk-config.nix { inherit lib inputs; })
-    .disko.devices.disk.disk1.content.partitions;
+    (import ./disk-config.nix { inherit lib inputs; }).disko.devices.disk.disk1.content.partitions;
 in
 {
   imports = [

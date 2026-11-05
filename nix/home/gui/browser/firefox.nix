@@ -221,14 +221,49 @@ in
           # https://github.com/oddlama/nix-config/blob/f47d977efc640a669a273d896fa2a1ad6e6a9e4f/users/myuser/graphical/firefox.nix#L61
           # https://gist.github.com/lassekongo83/7026910c6a277d5d9cf37989d83e9f6d
 
-          #? https://whatismyviewport.com/
-          #  1280 × 800
-          "widget.use-xdg-desktop-portal.file-picker" = 1;
+          #? synced across devices via Firefox Sync (services.sync.prefs.sync.*)
           "general.autoScroll" = true; # middle click scroll
-          "middlemouse.paste" = false; # same
           "browser.ctrlTab.sortByRecentlyUsed" = true; # mru ^Tab
-          "browser.startup.page" = 3; # Resume previous session on startup
+          "browser.startup.page" = 3; # resume previous session on startup
+          "browser.contentblocking.category" = "strict";
+          "intl.accept_languages" = "en,ru";
+          "privacy.clearOnShutdown_v2.formdata" = true;
+          #? new tab page / top sites
+          "browser.newtabpage.activity-stream.showSponsored" = false;
+          "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
+          "browser.newtabpage.activity-stream.feeds.section.topstories" = false;
+          "browser.newtabpage.activity-stream.topSitesRows" = 2;
+          "browser.newtabpage.pinned" = builtins.toJSON [
+            {
+              url = "https://github.com/";
+              label = "GitHub";
+            }
+            {
+              url = "https://gemini.google.com/";
+              label = "Gemini";
+            }
+            {
+              url = "https://claude.ai/new";
+              label = "Claude";
+            }
+            {
+              url = "https://2ip.io/";
+              label = "Get IP";
+            }
+            {
+              url = "https://music.youtube.com/";
+              label = "Music";
+            }
+          ];
+
+          "widget.use-xdg-desktop-portal.file-picker" = 1;
+          "middlemouse.paste" = false; # middle click scroll
           "browser.translations.neverTranslateLanguages" = "ru";
+          "browser.translations.mostRecentTargetLanguages" = "en,ru";
+          "browser.aboutConfig.showWarning" = false;
+          "browser.warnOnQuitShortcut" = false;
+          "findbar.highlightAll" = true;
+          "browser.download.autohideButton" = false;
           # "devtools.chrome.enabled" = true; # Allow executing JS in the dev console
           # "browser.uitour.enabled" = false; # no tutorial please
           "browser.uidensity" = 1;
@@ -239,9 +274,6 @@ in
           "svg.context-properties.content.enabled" = true;
 
           #? disable ads and telemetry for privacy reasons
-          "browser.newtabpage.activity-stream.showSponsored" = false;
-          "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
-          "browser.newtabpage.activity-stream.feeds.section.topstories" = false;
           "toolkit.telemetry.archive.enabled" = false;
           "toolkit.telemetry.enabled" = false; # enforced by nixos
           "toolkit.telemetry.server" = "";
@@ -253,6 +285,18 @@ in
           "browser.urlbar.eventTelemetry.enabled" = false; # (default)
           "browser.send_pings" = false;
           "browser.send_pings.require_same_origin" = true;
+
+          #? network and anti-tracking
+          "network.trr.mode" = 5; # disable doh, resolve via system dns
+          "doh-rollout.disable-heuristics" = true;
+          "doh-rollout.skipHeuristicsCheck" = true;
+          "network.http.referer.disallowCrossSiteRelaxingDefault.top_navigation" = true; # prevent loose referer on cross-site jumps
+          "privacy.fingerprintingProtection" = true; # fpp, lighter alternative to rfp
+          "privacy.query_stripping.enabled" = true; # strip utm/tracking query params from urls
+          "privacy.query_stripping.enabled.pbmode" = true;
+          "privacy.trackingprotection.emailtracking.enabled" = true;
+          "privacy.trackingprotection.socialtracking.enabled" = true;
+          "privacy.bounceTrackingProtection.mode" = 1; # purge storage on bounce tracker redirect
 
           #? https://wiki.nixos.org/wiki/Accelerated_Video_Playback#NVIDIA
           "media.ffmpeg.vaapi.enabled" = true;
@@ -269,6 +313,8 @@ in
 
           "media.videocontrols.picture-in-picture.enable-when-switching-tabs.enabled" = true;
 
+          #? devtools
+          "devtools.netmonitor.persistlog" = true; # keep network requests across reloads
         };
 
         # visit

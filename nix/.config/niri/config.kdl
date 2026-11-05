@@ -196,11 +196,14 @@ window-rule {
 window-rule {
     match app-id=r"^org\.prismlauncher\.PrismLauncher$"
     match app-id="^heroic$"
+    match app-id="^zenity$" title="^ProtonFixes$"
     match app-id="^steam$"
     match app-id="^steam_app_"
     match app-id="^gamescope$"
     match app-id=r"^\.gamescope-wrapped$"
+
     match app-id="^r2modman$"
+    match app-id="^com.mtkennerly.ludusavi$"
 
     match app-id="^$" title="^Parsec$"
     match app-id=r"^\.virt-manager-wrapped$" title="^Virtual Machine Manager$"
@@ -208,7 +211,7 @@ window-rule {
 }
 window-rule {
     match app-id=r"^Minecraft\S* (1\.)?\d{1,2}\.\d*"
-    match app-id="^GT: New Horizons "
+    match app-id=r"^com\.gtnewhorizons\.Lwjgl3ifyMinecraft$"
 
     match app-id="^qemu$"
     match app-id="^remote-viewer$"

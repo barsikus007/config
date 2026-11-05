@@ -1,4 +1,22 @@
-{ lib, ... }:
+{ lib, config, ... }:
+let
+  zfsFileSystems = lib.filterAttrs (_: fs: fs.fsType == "zfs") config.fileSystems;
+  getPool = fs: lib.head (lib.splitString "/" fs.device);
+  rootPool =
+    if (config.fileSystems ? "/") && config.fileSystems."/".fsType == "zfs" then
+      getPool config.fileSystems."/"
+    else
+      null;
+  dataPools = lib.unique (
+    lib.filter (p: p != rootPool) (
+      (map getPool (lib.attrValues zfsFileSystems)) ++ (config.boot.zfs.extraPools or [ ])
+    )
+  );
+  importServices = lib.genAttrs (map (p: "zfs-import-${p}") dataPools) (_: {
+    restartIfChanged = false;
+    stopIfChanged = false;
+  });
+in
 {
   nixpkgs.overlays = [
     (_final: prev: { fastfetch = prev.fastfetch.override { zfsSupport = true; }; })
@@ -32,5 +50,13 @@
         monthly = 12 * 2;
       };
     };
+  };
+
+  #? prevent switch-to-configuration from unmounting data pools during switch
+  systemd.services = importServices // {
+    zfs-mount.restartIfChanged = false;
+    zfs-mount.stopIfChanged = false;
+    zfs-share.restartIfChanged = false;
+    zfs-share.stopIfChanged = false;
   };
 }

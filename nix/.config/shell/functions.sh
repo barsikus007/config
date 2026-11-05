@@ -195,3 +195,12 @@ desksort() {
     fi
   )
 }
+
+gui() {
+  local sock=(/run/user/$UID/niri.*.sock(N))
+  if [[ -e $sock[1] ]]; then
+    NIRI_SOCKET=$sock[1] niri msg action spawn -- "${@:-wezterm}"
+  else
+    WAYLAND_DISPLAY=wayland-1 DISPLAY=:0 "${@:-wezterm}" &> /dev/null &|
+  fi
+}

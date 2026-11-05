@@ -1,5 +1,13 @@
-{ config, flakePath, ... }:
 {
+  pkgs,
+  config,
+  flakePath,
+  ...
+}:
+{
+  #? make proton visible to external launchers (heroic, lutris) which do not read STEAM_EXTRA_COMPAT_TOOLS_PATHS
+  xdg.dataFile."Steam/compatibilitytools.d/GE-Proton".source = pkgs.proton-ge-bin.steamcompattool;
+
   xdg.configFile."steam-games.ini".source =
     config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/steam-games.ini";
 
@@ -16,6 +24,11 @@
     enable = true;
     enableSessionWide = true;
     settings = {
+      blacklist = [
+        "kclock"
+        "kclockd"
+        ".kclockd-wrapped"
+      ];
       #? 0=hidden, 1=fps, 2=horizontal, 3=standard, 4=full; by default it starts from 1
       preset = [
         0

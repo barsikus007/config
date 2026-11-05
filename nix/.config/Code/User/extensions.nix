@@ -1,4 +1,6 @@
-{ pkgs ? import <nixpkgs> { config.allowUnfree = true; } }:
+{
+  pkgs ? import <nixpkgs> { config.allowUnfree = true; },
+}:
 let
   inherit (pkgs) lib;
 

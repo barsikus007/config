@@ -26,8 +26,6 @@
       };
     });
 
-    queryLogDeleter.enable = true;
-
     lists = map (url: { inherit url; }) [
       #? base
       "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
@@ -47,8 +45,6 @@
       #? telemetry
       "https://raw.githubusercontent.com/crazy-max/WindowsSpyBlocker/master/data/hosts/spy.txt"
       "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/hosts/native.winoffice.txt"
-      #? malware
-      "https://raw.githubusercontent.com/blocklistproject/Lists/master/malware.txt"
     ];
 
     settings = {

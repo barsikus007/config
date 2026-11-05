@@ -147,7 +147,7 @@ rec {
     iusenixbtw = "fastfetch";
     nu = "nix flake update --flake ${flakePath}";
     nuu = "nix flake update nixpkgs --override-input nixpkgs nixpkgs/$(nixos-version --hash)";
-    nn = "nh os switch ${flakePath} --keep-going";
+    nn = "nh os switch ${flakePath} --keep-going --show-activation-logs";
     nn-home = "nh home switch ${flakePath}";
     nd = "nh clean all";
     nr = "nix repl --file ${flakePath}/repl.nix";

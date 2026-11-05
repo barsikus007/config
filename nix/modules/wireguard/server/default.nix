@@ -90,7 +90,7 @@ in
       systemd.services = lib.mapAttrs' (name: iface: {
         name = "wg-quick-${name}";
         value = lib.mkIf (iface.configFile != null) {
-          unitConfig.ConditionPathExists = iface.configFile;
+          unitConfig.ConditionFileNotEmpty = iface.configFile;
         };
       }) cfg.clientInterfaces;
     };
