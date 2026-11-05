@@ -1,0 +1,35 @@
+--- a/dnshackbridge.cpp
++++ b/dnshackbridge.cpp
+@@ -18,7 +18,19 @@
+ 
+ int getaddrinfo(const char* node, const char* service, const struct addrinfo* hints, struct addrinfo** res)
+ {
+-    unsetenv("LD_PRELOAD"); // Otherwise this function will be called recursively
++    const char* prev_preload = getenv("LD_PRELOAD");
++    std::string saved_preload = prev_preload ? prev_preload : "";
++    unsetenv("LD_PRELOAD");
++
++    struct PreloadGuard {
++        std::string preload;
++        ~PreloadGuard() {
++            if (!preload.empty()) {
++                setenv("LD_PRELOAD", preload.c_str(), 1);
++            }
++            unsetenv("DNSHACK_PARAMS");
++        }
++    } guard{saved_preload};
+ 
+     *res = NULL;
+ 
+@@ -31,9 +43,8 @@
+     setenv("DNSHACK_PARAMS", resolver_env.str().c_str(), 1);
+ 
+     const char* resolver_cmd = getenv("DNSHACK_RESOLVER_CMD");
+-    if (resolver_cmd == NULL) {
+-        fprintf(stderr, "DNSHACK_RESOLVER_CMD not set\n");
+-        return EAI_NONAME;
++    if (resolver_cmd == NULL || resolver_cmd[0] == '\0') {
++        resolver_cmd = "@RESOLVER_BIN@";
+     }
+ 
+     FILE* fp = popen(resolver_cmd, "r");

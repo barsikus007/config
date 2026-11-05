@@ -49,7 +49,10 @@ in
     ]
     ++ import ../../shared/lists { inherit pkgs; };
   environment.motd = "Welcome to Nix-on-Droid!";
-  environment.sessionVariables.SHELL = zsh_bin;
+  environment.sessionVariables = {
+    SHELL = zsh_bin;
+    LD_PRELOAD = "${pkgs.flakePackages.dnshack}/lib/libdnshackbridge.so";
+  };
 
   #? backup etc files instead of failing to activate generation if a file already exists in /etc
   # environment.etcBackupExtension = ".nodbackup";

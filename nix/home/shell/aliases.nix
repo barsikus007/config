@@ -120,7 +120,7 @@ rec {
     aria2ca = "aria2c --split=16 --max-connection-per-server=16 --continue";
     windows-must-die = ''killall --signal=KILL --regexp ".*\.exe"'';
     windows-must-born = "virsh destroy win10; virsh start win10 && looking-glass-client; virsh shutdown win10";
-    android-rsync-ssh = "cpr --delete --chmod=F0600 --no-owner --no-group storage/shared/Documents/Sync/home/.ssh/ ~/.ssh/";
+    android-rsync-ssh = "cpr --insecure-links --delete --chmod=D0700,F0600 --no-owner --no-group storage/shared/Documents/Sync/home/.ssh/ ~/.ssh/";
     android-yt-dlpa = "cd ~/storage/downloads && yt-dlpa";
     qrencode-clipboard = "wl-paste --no-newline | qrencode --type=ANSIUTF8";
   };
