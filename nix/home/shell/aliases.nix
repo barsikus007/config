@@ -49,6 +49,7 @@ rec {
     #? https://www.cyberciti.biz/faq/unix-linux-check-if-port-is-in-use-command/
     open-ports = "sudo lsof -i -P -n | grep LISTEN";
     open-ports-netstat = "netstat --listening";
+    throne-proxy-envs = "export HTTPS_PROXY='http://127.0.0.1:2080' ALL_PROXY='http://127.0.0.1:2080'";
   };
   networkTestAliases = {
     "1ip" = "wget --quiet --output-document - icanhazip.com";

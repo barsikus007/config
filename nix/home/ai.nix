@@ -7,7 +7,6 @@
 {
   custom.persist.home.directories = [
     ".config/codex"
-    ".config/opencode"
   ];
 
   home.packages = with pkgs; [
@@ -71,6 +70,7 @@
       timeFormat = "24-hour";
       tui = "fullscreen";
       env = {
+        CLAUDE_CODE_AUTO_MODE_SERVER = "0";
         CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC = "1";
         DISABLE_TELEMETRY = "1";
       };
@@ -153,12 +153,6 @@
     };
   };
   programs.codex.enable = true;
-  programs.opencode = {
-    enable = true;
-    package = pkgs.writeShellScriptBin "opencode" ''
-      exec ${lib.getExe pkgs.bun} x opencode-ai@latest "$@"
-    '';
-  };
   systemd.user.services.paseo = {
     Unit = {
       Description = "Paseo remote agent sessions";

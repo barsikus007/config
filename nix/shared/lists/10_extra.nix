@@ -28,6 +28,7 @@ import ./11_powertoys.nix { inherit pkgs; }
   qrencode
   shellcheck
   ffmpeg-full
+  copyparty-most
   #? files monitoring
   strace
   inotify-tools

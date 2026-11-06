@@ -2,6 +2,7 @@
 let
   umount = lib.getExe' pkgs.util-linux "umount";
   powerprofilesctl = lib.getExe pkgs.power-profiles-daemon;
+  grep = lib.getExe pkgs.gnugrep;
 in
 {
   imports = [
@@ -28,6 +29,13 @@ in
   #! where every resumeCommands lives
   powerManagement.powerDownCommands = ''
     ${umount} --all --types cifs --force || true
+
+    #? disable USB controllers wakeup so bluetooth/mouse packets cannot wake laptop in bag
+    for xhc in XHC0 XHC1; do
+      if ${grep} --quiet "^$xhc.*enabled" /proc/acpi/wakeup 2>/dev/null; then
+        echo "$xhc" > /proc/acpi/wakeup
+      fi
+    done
   '';
 
   #? https://wiki.nixos.org/wiki/Linux_kernel#Enable_SysRq

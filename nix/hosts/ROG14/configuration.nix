@@ -256,6 +256,7 @@
 
   #? asusd USB handle to AniMe (ITE 193b) dies after resume; hid-generic reclaims iface 0
   #? keyboard backlight also comes back on and needs asusd up
+  #? intel (ax200/ax210) bt controller desyncs on s3 resume leaving adapter non-connectable for ble peripherals
   powerManagement.resumeCommands =
     let
       systemctl = lib.getExe' config.systemd.package "systemctl";
@@ -263,6 +264,7 @@
     in
     /* shell */ ''
       ${systemctl} restart asusd.service
+      ${systemctl} restart bluetooth.service
       for _ in 1 2 3 4 5; do
         ${asusctl} leds set off && sleep 0.5
       done

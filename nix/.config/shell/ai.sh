@@ -64,17 +64,17 @@ claude_gpt() {
       "ANTHROPIC_DEFAULT_OPUS_MODEL",
       "ANTHROPIC_DEFAULT_FABLE_MODEL"
     ]
-    | map({(.): "gpt-6.1-sol"}) | add) +
+    | map({(.): "cpa-cp/gpt-6.1-sol"}) | add) +
     ([
       "ANTHROPIC_DEFAULT_SONNET_MODEL",
       "CLAUDE_CODE_SUBAGENT_MODEL"
     ]
-    | map({(.): "gemini-3.8-flash-high"}) | add) +
+    | map({(.): "cpa-cp/gpt-6.1-terra"}) | add) +
     ([
       "ANTHROPIC_DEFAULT_HAIKU_MODEL",
       "ANTHROPIC_SMALL_FAST_MODEL"
     ]
-    | map({(.): "gpt-6-luna"}) | add) +
+    | map({(.): "cpa-cp/gpt-6-luna"}) | add) +
     {
       CLAUDE_CODE_AUTO_COMPACT_WINDOW: "372000"
     }
@@ -89,17 +89,17 @@ claude_gemini() {
       "ANTHROPIC_DEFAULT_OPUS_MODEL",
       "ANTHROPIC_DEFAULT_FABLE_MODEL"
     ]
-    | map({(.): "gemini-3.8-flash-high"}) | add) +
+    | map({(.): "antigravity/gemini-3.8-flash-high"}) | add) +
     ([
       "ANTHROPIC_DEFAULT_SONNET_MODEL",
       "CLAUDE_CODE_SUBAGENT_MODEL"
     ]
-    | map({(.): "gemini-3.8-flash-high"}) | add) +
+    | map({(.): "antigravity/gemini-3.8-flash-high"}) | add) +
     ([
       "ANTHROPIC_DEFAULT_HAIKU_MODEL",
       "ANTHROPIC_SMALL_FAST_MODEL"
     ]
-    | map({(.): "gemini-3.5-flash-lite"}) | add) +
+    | map({(.): "antigravity/gemini-3.5-flash-lite"}) | add) +
     {
       CLAUDE_CODE_AUTO_COMPACT_WINDOW: "1000000",
       CLAUDE_CODE_MAX_CONTEXT_TOKENS: "1000000"

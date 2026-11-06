@@ -460,7 +460,6 @@ lib.recursiveUpdate base {
       builtins.genList (function: {
         mode = "subsystem";
         type = "pci";
-        managed = true;
         source.address = {
           domain = 0;
           bus = 1;

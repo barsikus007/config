@@ -11,14 +11,13 @@
 #? pkexec $(nix build ~/config/nix#penguin-burner --no-link --print-out-paths)/bin/penguin-burnerd
 #? $(nix build ~/config/nix#penguin-burner --no-link --print-out-paths)/bin/penguin-burner-cli --auto-uv-voltage-scan --auto-uv-mode efficiency --auto-uv-min-voltage-mv 625
 let
-  version = "0.8.4-pr142";
+  version = "0.8.5";
 
   src = fetchFromGitHub {
     owner = "jpietek";
     repo = "PenguinBurner";
-    #? PR 142: Fix Turing Auto-UV V/F base tuple fallback
-    rev = "460621ccf6733af0bca0f58562499fc50d0432c4";
-    hash = "sha256-VD+X50YUF0CUhDCOk4Vr0p6cN1lPUzp7fpQyRhn1cv0=";
+    rev = "v${version}";
+    hash = "sha256-CBXD7Kajut+FQFb4yPdMwyq2oujmTwWBM7VNEwKLtzs=";
   };
 
   inherit (python3Packages) python;

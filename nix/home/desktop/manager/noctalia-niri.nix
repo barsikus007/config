@@ -194,6 +194,7 @@ in
                 "privacy"
                 "notifications"
                 "network"
+                "bluetooth"
                 "brightness"
                 "volume"
                 "battery"
@@ -239,7 +240,10 @@ in
       };
       #? to make this work, add `api.noctalia.dev` to PBR
       location.auto_locate = true;
-      lockscreen.blurred_desktop = true;
+      lockscreen = {
+        blurred_desktop = true;
+        transition_duration = 1000;
+      };
       #? login_box'es sets automatically
       lockscreen_widgets =
         let
@@ -352,7 +356,7 @@ in
         greeter_sync.auto_sync = true;
         keyboard_layout.custom_labels = {
           "English (US)" = "🇺🇸";
-          Russian = "🇷🇺";
+          "Russian" = "🇷🇺";
         };
         launch_apps_as_systemd_services = true;
         mpris.blacklist = [ "firefox.instance" ];
@@ -383,7 +387,11 @@ in
 
         tray = {
           drawer = true;
-          pinned = [ "Syncthing Tray" ];
+          pinned = [
+            "Syncthing Tray"
+            "Discord"
+            "AyuGramDesktop"
+          ];
         };
         music_button = {
           type = "custom_button";
@@ -391,7 +399,10 @@ in
           actions.left = "exec dbus-send --type=method_call --dest=org.kde.plasma.browser_integration /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Raise";
         };
         privacy.hide_inactive = true;
-        network.show_label = false;
+        network = {
+          show_label = false;
+          vpn_status = "both";
+        };
         battery = {
           type = "battery";
           display_mode = "graphic";

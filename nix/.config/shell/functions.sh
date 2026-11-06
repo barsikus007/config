@@ -197,10 +197,14 @@ desksort() {
 }
 
 gui() {
-  local sock=(/run/user/$UID/niri.*.sock(N))
-  if [[ -e $sock[1] ]]; then
-    NIRI_SOCKET=$sock[1] niri msg action spawn -- "${@:-wezterm}"
-  else
-    WAYLAND_DISPLAY=wayland-1 DISPLAY=:0 "${@:-wezterm}" &> /dev/null &|
-  fi
+  [ -n "$ZSH_VERSION" ] && setopt localoptions nonomatch
+  local sock
+  for sock in /run/user/"$UID"/niri.*.sock; do
+    if [[ -e $sock ]]; then
+      NIRI_SOCKET=$sock niri msg action spawn -- "${@:-wezterm}"
+      return
+    fi
+  done
+  WAYLAND_DISPLAY=wayland-1 DISPLAY=:0 "${@:-wezterm}" &> /dev/null &
+  disown 2>/dev/null
 }

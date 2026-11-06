@@ -8,6 +8,7 @@ let
   systemctl = lib.getExe' pkgs.systemd "systemctl";
   gdbus = lib.getExe' pkgs.glib "gdbus";
   gsettings = lib.getExe' pkgs.glib "gsettings";
+  sed = lib.getExe pkgs.gnused;
 
   cfg = osConfig.stylix-activationless or null;
   userDarkFarm = cfg.farms.userDark;
@@ -79,6 +80,11 @@ let
     if command -v noctalia >/dev/null 2>&1; then
       noctalia msg wallpaper-set "$wallpaper" || true
       noctalia msg theme-mode-set "$noctaliaMode" || true
+      noctaliaSettings="$HOME/.local/state/noctalia/settings.toml"
+      if [ -f "$noctaliaSettings" ]; then
+        #! strip per-monitor overrides so disconnected outputs use default wallpaper on connect
+        ${sed} --null-data --in-place --regexp-extended 's/\[wallpaper\.monitors\.[^]]+\]\n([^[\n]*\n*)*//g' "$noctaliaSettings" || true
+      fi
     fi
     if command -v vicinae >/dev/null 2>&1; then
       vicinae theme set stylix || true

@@ -71,6 +71,7 @@ alias sst='sudo systemctl-tui'
 alias st=systemctl-tui
 alias sudo='sudo '
 alias sudoe='sudo env PATH=$PATH '
+alias throne-proxy-envs='export HTTPS_PROXY='\''http://127.0.0.1:2080'\'' ALL_PROXY='\''http://127.0.0.1:2080'\'''
 alias wgd='sudo systemctl stop wg-quick-wg0local'
 alias wgr='sudo systemctl restart wg-quick-wg0local'
 alias wgs='systemctl status wg-quick-wg0local'
