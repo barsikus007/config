@@ -1,28 +1,10 @@
-{
-  lib,
-  pkgs,
-  username,
-  ...
-}:
+{ pkgs, ... }:
 #! completely vibecoded hyprwhspr-rs integration
 #? native speech-to-text dictation (Rust fork), driven by niri keybind -> `record toggle`
 #? https://github.com/better-slop/hyprwhspr-rs
 let
-  #? which engine transcribes: "parakeet" (in-process ONNX) or "whisper" (resident whisper-server)
-  #! parakeet-tdt-0.6b-v3 is multilingual (25 langs incl. ru) and auto-detects the language, so
-  #! the --language/`"en"` patch below is a whisper-only concern
-  #! two things it does NOT have, both of which the whisper path relies on:
-  #!   1. no initial_prompt / hotwords - the transducer has no place to put one (the config's
-  #!      `parakeet.prompt` is only used to strip prompt echo from the output). So the trick that
-  #!      keeps GitHub/kubectl in latin is simply unavailable here - that is what we are testing
-  #!   2. no GPU: hyprwhspr-rs calls ParakeetTDT::from_pretrained(dir, None) = CPU execution
-  #!      provider, hardcoded. onnxruntime has no vulkan EP either, so overriding it buys nothing
-  #? the model is loaded once at daemon start and stays resident (fp32 ~2.5G RSS, int8 ~0.7G)
-  asrBackend = "parakeet";
   #? fp32 or int8 - see whspr-fetch-parakeet, re-run it after flipping this
   parakeetVariant = "fp32";
-
-  useWhisperServer = asrBackend == "whisper";
 
   #? knobs
   #! full v3 (32 decoder layers) beats turbo (4 layers) on technical russian on BOTH gpus, and on
@@ -46,14 +28,66 @@ let
   techPrompt = "Расшифровка технической речи на русском. Сохраняй названия программ и технологий латиницей: GitHub, GitLab, Docker, Kubernetes, kubectl, nginx, systemd, Nix, NixOS, Python, Rust, Wayland, niri.";
   #? curl reads the form value from this file, so no cyrillic ends up inside a shell script
   techPromptFile = pkgs.writeText "whspr-tech-prompt" techPrompt;
+  defaultConfig = pkgs.writeText "hyprwhspr-config.jsonc" /* json */ ''
+    {
+      "auto_copy_clipboard": true,
+      "audio_feedback": true,
+      "global_paste_shortcut": true,
+      "transcription": {
+        // gemini | parakeet | custom.local
+        "provider": "parakeet",
+        "request_timeout_secs": 60,
+        "max_retries": 2,
+        "gemini": {
+          "model": "antigravity/gemini-3.8-flash",
+          "api_key": "",
+          "endpoint": "<cliproxyapi-address>/v1beta/models",
+          "temperature": 0.0,
+          "max_output_tokens": 1024,
+          "prompt": "${techPrompt}"
+        },
+        "groq": {
+          "model": "whisper-large-v3-turbo",
+          "api_key": "",
+          "endpoint": "https://api.groq.com/openai/v1/audio/transcriptions",
+          "prompt": "${techPrompt}"
+        },
+        "parakeet": {
+          "model_dir": "models/parakeet/parakeet-tdt-0.6b-v3-onnx",
+          "prompt": ""
+        },
+        "custom": {
+          "local": {
+            "kind": "openai_audio_transcriptions",
+            "label": "whisper-server",
+            "endpoint": "http://127.0.0.1:${whisperPort}/inference",
+            "model": "${whisperModel}",
+            "audio_format": "wav",
+            "prompt": "${techPrompt}"
+          }
+        },
+        "whisper_cpp": {
+          "prompt": "${techPrompt}",
+          "model": "${whisperModel}",
+          "threads": 8,
+          "models_dirs": ["~/.local/share/hyprwhspr-rs/models"]
+        }
+      }
+    }
+  '';
+  initConfig = pkgs.writeShellScript "hyprwhspr-init-config" ''
+    config_dir="''${XDG_CONFIG_HOME:-$HOME/.config}/hyprwhspr-rs"
+    ${pkgs.coreutils}/bin/mkdir --parents "$config_dir"
+    config_file="$config_dir/config.jsonc"
+    if [ -e "$config_file" ] || [ -L "$config_file" ]; then exit 0; fi
+    umask 077
+    set -o noclobber
+    ${pkgs.coreutils}/bin/cat ${defaultConfig} > "$config_file"
+  '';
   #? stop the resident server after this long without a dictation, to release its ~600M
   whisperIdleSec = 300;
 
-  #? hyprwhspr expands `~` itself, but not $HOME - keep the tilde form for its json config
-  modelsDir = "~/.local/share/hyprwhspr-rs/models";
   modelsDirAbs = "\${HOME}/.local/share/hyprwhspr-rs/models";
-  #? parakeet's model_dir is resolved against the data dir instead, so it stays relative
-  parakeetDir = "models/parakeet/parakeet-tdt-0.6b-v3-onnx";
   parakeetDirAbs = "${modelsDirAbs}/parakeet/parakeet-tdt-0.6b-v3-onnx";
   statusFile = "\${HOME}/.cache/hyprwhspr-rs/status.json";
   activityStamp = "\${XDG_RUNTIME_DIR}/hyprwhspr-last-activity";
@@ -146,7 +180,8 @@ let
       case "$cls" in
         (active)
           touch "$stamp"
-          ${lib.optionalString useWhisperServer ''
+          prov=$(${pkgs.jq}/bin/jq --raw-output '.transcription.provider // empty' "$HOME/.config/hyprwhspr-rs/config.jsonc" 2>/dev/null || true)
+          if [ "$prov" = "custom.local" ] || [ "$prov" = "whisper_cpp" ]; then
             #! the server picks its device ONCE at start, so a dgpu_switch_* while it is up leaves it
             #! transcribing on the old card (and on the old model) - compare against the stamp
             if [ -d /proc/driver/nvidia/gpus ]; then now_gpu=nvidia; else now_gpu=amd; fi
@@ -157,7 +192,7 @@ let
             else
               systemctl --user start --no-block whisper-server.service || true
             fi
-          ''}
+          fi
           #? hush whatever is playing so it does not bleed into the recording, and remember that
           #? we did - so a player that was already paused is not resumed behind your back
           #! -a/--all-players, else playerctl only ever looks at the first bus name it finds -
@@ -215,47 +250,63 @@ let
   #? `whspr-status` - which GPU the resident server picked + how long recent dictations took
   whsprStatus = pkgs.writeShellScriptBin "whspr-status" ''
     set -u
-    echo "== backend: ${asrBackend} =="
-    ${lib.optionalString (!useWhisperServer) ''
-      v=$(${pkgs.coreutils}/bin/cat "${parakeetDirAbs}/.variant" 2>/dev/null || echo "MISSING - run whspr-fetch-parakeet")
-      echo "  parakeet-tdt-0.6b-v3 $v, in-process (CPU only)"
-      #? the model is resident in the daemon itself, so its RSS is the whole footprint
-      pid=$(systemctl --user show hyprwhspr-rs.service --property MainPID --value 2>/dev/null)
-      rss=$(${pkgs.gnugrep}/bin/grep --only-matching --perl-regexp 'VmRSS:\s+\K\d+' "/proc/$pid/status" 2>/dev/null || true)
-      [ -n "''${rss:-}" ] && echo "  daemon rss: $((rss / 1024))M"
-    ''}
-    ${lib.optionalString useWhisperServer ''
-      if systemctl --user is-active --quiet whisper-server.service; then
-        up=$(systemctl --user show whisper-server.service --property ActiveEnterTimestamp --value)
-        #! read the model off the live process: which one got loaded depends on the GPU picked
-        #! at start (f16 on the dGPU, quant on the iGPU), so the nix-side default would lie here
-        #? read /proc/<MainPID>/cmdline - `ps -C whisper-server` misses it (argv[0] is a store path)
-        pid=$(systemctl --user show whisper-server.service --property MainPID --value 2>/dev/null)
-        m=$(tr '\0' ' ' < "/proc/$pid/cmdline" 2>/dev/null \
-          | ${pkgs.gnugrep}/bin/grep --only-matching --perl-regexp -- '--model \S*/ggml-\K[^.]+' | head -1)
-        echo "  running (since $up), model ''${m:-unknown}, idle-stop ${toString whisperIdleSec}s"
-        #? whisper.cpp lists every vulkan device, then logs `using VulkanN` for the one it picked -
-        #! resolve N against the list, or you just print the last device it happened to enumerate
-        log=$(journalctl --user --unit whisper-server.service --boot --no-pager 2>/dev/null)
-        n=$(printf '%s' "$log" | ${pkgs.gnugrep}/bin/grep --only-matching --perl-regexp 'using Vulkan\K\d+' | tail -1)
-        if [ -n "''${n:-}" ]; then
-          printf '%s' "$log" | ${pkgs.gnugrep}/bin/grep --only-matching --perl-regexp "ggml_vulkan: $n = \K[^|]+" | tail -1 \
-            | ${pkgs.gnused}/bin/sed "s/^/  device: [Vulkan$n] /"
+    cfg="$HOME/.config/hyprwhspr-rs/config.jsonc"
+    prov=$(${pkgs.jq}/bin/jq --raw-output '.transcription.provider // empty' "$cfg" 2>/dev/null || echo "unknown")
+    echo "== backend: $prov =="
+    case "$prov" in
+      (parakeet)
+        v=$(${pkgs.coreutils}/bin/cat "${parakeetDirAbs}/.variant" 2>/dev/null || echo "MISSING - run whspr-fetch-parakeet")
+        echo "  parakeet-tdt-0.6b-v3 $v, in-process (CPU only)"
+        #? the model is resident in the daemon itself, so its RSS is the whole footprint
+        pid=$(systemctl --user show hyprwhspr-rs.service --property MainPID --value 2>/dev/null)
+        rss=$(${pkgs.gnugrep}/bin/grep --only-matching --perl-regexp 'VmRSS:\s+\K\d+' "/proc/$pid/status" 2>/dev/null || true)
+        [ -n "''${rss:-}" ] && echo "  daemon rss: $((rss / 1024))M"
+        ;;
+      (gemini)
+        m=$(${pkgs.jq}/bin/jq --raw-output '.transcription.gemini.model // "unknown"' "$cfg" 2>/dev/null || echo "unknown")
+        ep=$(${pkgs.jq}/bin/jq --raw-output '.transcription.gemini.endpoint // "unknown"' "$cfg" 2>/dev/null || echo "unknown")
+        echo "  model: $m"
+        echo "  endpoint: $ep"
+        ;;
+      (groq)
+        m=$(${pkgs.jq}/bin/jq --raw-output '.transcription.groq.model // "unknown"' "$cfg" 2>/dev/null || echo "unknown")
+        ep=$(${pkgs.jq}/bin/jq --raw-output '.transcription.groq.endpoint // "unknown"' "$cfg" 2>/dev/null || echo "unknown")
+        echo "  model: $m"
+        echo "  endpoint: $ep"
+        ;;
+      (custom.local|whisper_cpp)
+        if systemctl --user is-active --quiet whisper-server.service; then
+          up=$(systemctl --user show whisper-server.service --property ActiveEnterTimestamp --value)
+          #! read the model off the live process: which one got loaded depends on the GPU picked
+          #! at start (f16 on the dGPU, quant on the iGPU), so the nix-side default would lie here
+          #? read /proc/<MainPID>/cmdline - `ps -C whisper-server` misses it (argv[0] is a store path)
+          pid=$(systemctl --user show whisper-server.service --property MainPID --value 2>/dev/null)
+          m=$(tr '\0' ' ' < "/proc/$pid/cmdline" 2>/dev/null \
+            | ${pkgs.gnugrep}/bin/grep --only-matching --perl-regexp -- '--model \S*/ggml-\K[^.]+' | head -1)
+          echo "  running (since $up), model ''${m:-unknown}, idle-stop ${toString whisperIdleSec}s"
+          #? whisper.cpp lists every vulkan device, then logs `using VulkanN` for the one it picked -
+          #! resolve N against the list, or you just print the last device it happened to enumerate
+          log=$(journalctl --user --unit whisper-server.service --boot --no-pager 2>/dev/null)
+          n=$(printf '%s' "$log" | ${pkgs.gnugrep}/bin/grep --only-matching --perl-regexp 'using Vulkan\K\d+' | tail -1)
+          if [ -n "''${n:-}" ]; then
+            printf '%s' "$log" | ${pkgs.gnugrep}/bin/grep --only-matching --perl-regexp "ggml_vulkan: $n = \K[^|]+" | tail -1 \
+              | ${pkgs.gnused}/bin/sed "s/^/  device: [Vulkan$n] /"
+          else
+            echo "  device: unknown (no vulkan backend line in log)"
+          fi
         else
-          echo "  device: unknown (no vulkan backend line in log)"
+          echo "  stopped (starts on next dictation)"
         fi
-      else
-        echo "  stopped (starts on next dictation)"
-      fi
-      if [ -d /proc/driver/nvidia/gpus ]; then
-        echo "  nvidia: driver loaded -> dGPU offload active for new starts"
-        #? the watcher restarts the server itself, this only explains a stale device line above
-        [ "$(${pkgs.coreutils}/bin/cat "${gpuStamp}" 2>/dev/null || echo nvidia)" = nvidia ] \
-          || echo "  card changed since start -> server restarts on the next dictation"
-      else
-        echo "  nvidia: off/vfio -> falls back to the Vega iGPU"
-      fi
-    ''}
+        if [ -d /proc/driver/nvidia/gpus ]; then
+          echo "  nvidia: driver loaded -> dGPU offload active for new starts"
+          #? the watcher restarts the server itself, this only explains a stale device line above
+          [ "$(${pkgs.coreutils}/bin/cat "${gpuStamp}" 2>/dev/null || echo nvidia)" = nvidia ] \
+            || echo "  card changed since start -> server restarts on the next dictation"
+        else
+          echo "  nvidia: off/vfio -> falls back to the Vega iGPU"
+        fi
+        ;;
+    esac
 
     echo "== recent dictations =="
     #? -rs logs one benchmark table per dictation; pair audio length with the wall time
@@ -352,6 +403,364 @@ let
     done
   '';
 
+  geminiOpenAiRs = pkgs.writeText "gemini.rs" /* rust */ ''
+    use crate::config::GeminiConfig;
+    use crate::transcription::audio::{encode_to_wav, EncodedAudio};
+    use crate::transcription::postprocess::clean_transcription;
+    use crate::transcription::{BackendMetrics, TranscriptionResult};
+    use anyhow::{Context, Result};
+    use base64::engine::general_purpose::STANDARD as BASE64;
+    use base64::Engine;
+    use reqwest::{Client, Url};
+    use serde::{Deserialize, Serialize};
+    use std::cmp;
+    use std::time::{Duration, Instant};
+    use tokio::time::sleep;
+    use tracing::{info, warn};
+
+    #[derive(Clone)]
+    pub struct GeminiTranscriber {
+        client: Client,
+        endpoint: Url,
+        api_key: String,
+        prompt: String,
+        #[allow(dead_code)]
+        temperature: f32,
+        #[allow(dead_code)]
+        max_output_tokens: u32,
+        model: String,
+        request_timeout: Duration,
+        max_retries: u32,
+    }
+
+    impl GeminiTranscriber {
+        pub fn new(
+            api_key: String,
+            config: &GeminiConfig,
+            request_timeout: Duration,
+            max_retries: u32,
+            prompt: String,
+        ) -> Result<Self> {
+            let endpoint = resolve_endpoint(&config.endpoint)?;
+
+            let client = Client::builder()
+                .user_agent("hyprwhspr-rs (gemini-openai)")
+                .connect_timeout(Duration::from_secs(10))
+                .timeout(request_timeout)
+                .pool_idle_timeout(Duration::from_secs(30))
+                .build()
+                .context("Failed to build Gemini HTTP client")?;
+
+            Ok(Self {
+                client,
+                endpoint,
+                api_key,
+                prompt,
+                temperature: config.temperature,
+                max_output_tokens: config.max_output_tokens,
+                model: config.model.clone(),
+                request_timeout,
+                max_retries,
+            })
+        }
+
+        pub fn initialize(&self) -> Result<()> {
+            if self.api_key.trim().is_empty() {
+                anyhow::bail!("api_key in config or GEMINI_API_KEY is required to use the Gemini transcription backend");
+            }
+
+            info!(
+                "✅ Gemini transcription ready (model: {}, endpoint: {}, timeout: {:?})",
+                self.model, self.endpoint, self.request_timeout
+            );
+            Ok(())
+        }
+
+        pub fn provider_name(&self) -> &'static str {
+            "Gemini"
+        }
+
+        pub async fn transcribe(&self, audio_data: Vec<f32>) -> Result<TranscriptionResult> {
+            if audio_data.is_empty() {
+                return Ok(TranscriptionResult {
+                    text: String::new(),
+                    metrics: BackendMetrics::default(),
+                });
+            }
+
+            let duration_secs = audio_data.len() as f32 / 16000.0;
+            info!(
+                provider = self.provider_name(),
+                "🧠 Transcribing {:.2}s of audio via Gemini (OpenAI chat completions)", duration_secs
+            );
+
+            let encode_start = Instant::now();
+            let encoded = encode_to_wav(&audio_data).await?;
+            let audio_payload = BASE64.encode(encoded.data.as_ref());
+            let encode_duration = encode_start.elapsed();
+            let payload_bytes = audio_payload.len();
+
+            let transcribe_start = Instant::now();
+            let (raw, timings) = self.send_with_retry(&encoded, &audio_payload).await?;
+            let transcription_duration = transcribe_start.elapsed();
+            let cleaned = clean_transcription(&raw, &self.prompt);
+
+            if cleaned.is_empty() {
+                warn!("Gemini returned empty or non-speech transcription");
+            } else {
+                info!("✅ Transcription (Gemini): {}", cleaned);
+            }
+
+            let metrics = BackendMetrics {
+                encode_duration: Some(encode_duration),
+                encoded_bytes: Some(payload_bytes),
+                upload_duration: Some(timings.upload),
+                response_duration: Some(timings.response),
+                transcription_duration,
+                phases: Vec::new(),
+            };
+
+            Ok(TranscriptionResult {
+                text: cleaned,
+                metrics,
+            })
+        }
+
+        async fn send_with_retry(
+            &self,
+            audio: &EncodedAudio,
+            payload: &str,
+        ) -> Result<(String, NetworkTimings)> {
+            let attempts = cmp::max(1, self.max_retries.saturating_add(1));
+
+            for attempt in 0..attempts {
+                match self.send_once(audio, payload).await {
+                    Ok(result) => return Ok(result),
+                    Err(err) => {
+                        if attempt + 1 == attempts {
+                            return Err(err);
+                        }
+
+                        warn!(
+                            attempt = attempt + 1,
+                            max_attempts = attempts,
+                            "Gemini transcription attempt failed: {}",
+                            err
+                        );
+
+                        let backoff = Duration::from_millis(600 * (1 << attempt));
+                        sleep(backoff).await;
+                    }
+                }
+            }
+
+            Err(anyhow::anyhow!("Unknown Gemini transcription failure"))
+        }
+
+        async fn send_once(
+            &self,
+            _audio: &EncodedAudio,
+            payload: &str,
+        ) -> Result<(String, NetworkTimings)> {
+            let instruction = build_instruction(&self.prompt);
+
+            let body = OpenAiChatRequest {
+                model: &self.model,
+                messages: vec![OpenAiMessage {
+                    role: "user",
+                    content: vec![
+                        OpenAiContentPart::Text { text: &instruction },
+                        OpenAiContentPart::InputAudio {
+                            input_audio: InputAudio {
+                                data: payload,
+                                format: "wav",
+                            },
+                        },
+                    ],
+                }],
+            };
+
+            let request_start = Instant::now();
+            let mut request = self.client.post(self.endpoint.clone()).json(&body);
+
+            let token = self.api_key.trim();
+            let token = token
+                .strip_prefix("Bearer ")
+                .or_else(|| token.strip_prefix("bearer "))
+                .unwrap_or(token)
+                .trim();
+            if !token.is_empty() {
+                request = request.bearer_auth(token);
+            }
+
+            let response = request
+                .send()
+                .await
+                .context("Failed to send OpenAI chat completions transcription request")?;
+
+            let upload_duration = request_start.elapsed();
+
+            if response.status().is_success() {
+                let parse_start = Instant::now();
+                let payload: OpenAiChatResponse = response
+                    .json()
+                    .await
+                    .context("Failed to deserialize OpenAI chat completions response")?;
+                let response_duration = parse_start.elapsed();
+                let text = extract_text(payload).unwrap_or_default();
+                return Ok((
+                    text,
+                    NetworkTimings {
+                        upload: upload_duration,
+                        response: response_duration,
+                    },
+                ));
+            }
+
+            let status = response.status();
+            let raw_body = response.text().await.unwrap_or_default();
+            let message = serde_json::from_str::<OpenAiErrorResponse>(&raw_body)
+                .ok()
+                .and_then(|err_resp| err_resp.error)
+                .and_then(|err| err.message)
+                .unwrap_or_else(|| {
+                    if raw_body.trim().is_empty() {
+                        format!("Gemini transcription failed with status {status}")
+                    } else {
+                        raw_body
+                    }
+                });
+
+            Err(anyhow::anyhow!(message).context(format!("Gemini request failed ({status})")))
+        }
+    }
+
+    #[derive(Debug, Clone, Copy)]
+    struct NetworkTimings {
+        upload: Duration,
+        response: Duration,
+    }
+
+    fn build_instruction(prompt: &str) -> String {
+        let mut instruction = String::from(
+            "You are a dedicated speech-to-text engine. Return only the verbatim transcription of the provided audio.\n",
+        );
+
+        if !prompt.trim().is_empty() {
+            instruction.push_str("\nTranscription style guidance: ");
+            instruction.push_str(prompt.trim());
+        }
+
+        instruction
+    }
+
+    fn resolve_endpoint(raw: &str) -> Result<Url> {
+        let trimmed = raw.trim().trim_end_matches('/');
+        let target = if let Some(base) = trimmed.strip_suffix("/v1beta/models") {
+            format!("{base}/v1/chat/completions")
+        } else if let Some(base) = trimmed.strip_suffix("/v1beta") {
+            format!("{base}/v1/chat/completions")
+        } else if trimmed.ends_with("/chat/completions") {
+            trimmed.to_string()
+        } else if let Some(base) = trimmed.strip_suffix("/v1") {
+            format!("{base}/v1/chat/completions")
+        } else {
+            format!("{trimmed}/v1/chat/completions")
+        };
+        Url::parse(&target)
+            .with_context(|| format!("Invalid OpenAI chat completions endpoint: {target} (from {raw})"))
+    }
+
+    fn extract_text(response: OpenAiChatResponse) -> Option<String> {
+        response
+            .choices
+            .into_iter()
+            .flatten()
+            .find_map(|choice| {
+                choice.message.and_then(|msg| match msg.content {
+                    Some(ResponseContent::Text(text)) => Some(text),
+                    Some(ResponseContent::Parts(parts)) => {
+                        let combined: String = parts
+                            .into_iter()
+                            .filter_map(|p| p.text)
+                            .collect::<Vec<_>>()
+                            .join("");
+                        if combined.is_empty() {
+                            None
+                        } else {
+                            Some(combined)
+                        }
+                    }
+                    None => None,
+                })
+            })
+    }
+
+    #[derive(Serialize)]
+    struct OpenAiChatRequest<'a> {
+        model: &'a str,
+        messages: Vec<OpenAiMessage<'a>>,
+    }
+
+    #[derive(Serialize)]
+    struct OpenAiMessage<'a> {
+        role: &'static str,
+        content: Vec<OpenAiContentPart<'a>>,
+    }
+
+    #[derive(Serialize)]
+    #[serde(tag = "type")]
+    enum OpenAiContentPart<'a> {
+        #[serde(rename = "text")]
+        Text { text: &'a str },
+        #[serde(rename = "input_audio")]
+        InputAudio { input_audio: InputAudio<'a> },
+    }
+
+    #[derive(Serialize)]
+    struct InputAudio<'a> {
+        data: &'a str,
+        format: &'static str,
+    }
+
+    #[derive(Debug, Deserialize, Default)]
+    struct OpenAiChatResponse {
+        choices: Option<Vec<OpenAiChoice>>,
+    }
+
+    #[derive(Debug, Deserialize)]
+    struct OpenAiChoice {
+        message: Option<OpenAiResponseMessage>,
+    }
+
+    #[derive(Debug, Deserialize)]
+    #[serde(untagged)]
+    enum ResponseContent {
+        Text(String),
+        Parts(Vec<ResponseContentPart>),
+    }
+
+    #[derive(Debug, Deserialize)]
+    struct ResponseContentPart {
+        text: Option<String>,
+    }
+
+    #[derive(Debug, Deserialize)]
+    struct OpenAiResponseMessage {
+        content: Option<ResponseContent>,
+    }
+
+    #[derive(Debug, Deserialize, Default)]
+    struct OpenAiErrorResponse {
+        error: Option<OpenAiErrorDetail>,
+    }
+
+    #[derive(Debug, Deserialize)]
+    struct OpenAiErrorDetail {
+        message: Option<String>,
+    }
+  '';
+
   hyprwhspr-rs-patched =
     (pkgs.hyprwhspr-rs.override {
       whisper-cpp = whisper-cpp-offload;
@@ -359,6 +768,19 @@ let
       (previousAttrs: {
         doCheck = false;
         postPatch = (previousAttrs.postPatch or "") + ''
+          cp ${geminiOpenAiRs} src/transcription/gemini.rs
+          substituteInPlace src/config.rs \
+            --replace-fail 'pub max_output_tokens: u32,' 'pub max_output_tokens: u32, pub api_key: String,' \
+            --replace-fail 'max_output_tokens: default_gemini_max_output_tokens(),' 'max_output_tokens: default_gemini_max_output_tokens(), api_key: String::new(),' \
+            --replace-fail 'endpoint: default_groq_endpoint(),' 'endpoint: default_groq_endpoint(), api_key: String::new(),' \
+            --replace-fail 'pub struct GroqConfig {' 'pub struct GroqConfig { pub api_key: String,'
+          substituteInPlace src/transcription/mod.rs \
+            --replace-fail 'let api_key = env::var("GEMINI_API_KEY")' 'let api_key = if !config.transcription.gemini.api_key.trim().is_empty() { config.transcription.gemini.api_key.clone() } else { env::var("GEMINI_API_KEY")' \
+            --replace-fail '.context("GEMINI_API_KEY environment variable is not set")?;' '.unwrap_or_default() };' \
+            --replace-fail 'let api_key = env::var("GROQ_API_KEY")' 'let api_key = if !config.transcription.groq.api_key.trim().is_empty() { config.transcription.groq.api_key.clone() } else { env::var("GROQ_API_KEY")' \
+            --replace-fail '.context("GROQ_API_KEY environment variable is not set")?;' '.unwrap_or_default() };'
+          substituteInPlace src/transcription/groq.rs \
+            --replace-fail 'GROQ_API_KEY is required' 'api_key in config or GROQ_API_KEY is required'
           substituteInPlace src/whisper/manager.rs --replace-fail '"en"' '"ru"'
           substituteInPlace src/input/injector.rs --replace-fail 'debug!("Text copied to Wayland clipboard");' 'debug!("Text copied to Wayland clipboard"); return Ok(());'
           substituteInPlace src/input/injector.rs --replace-fail 'tokio::time::sleep(tokio::time::Duration::from_millis(50)).await;' 'tokio::time::sleep(tokio::time::Duration::from_millis(50)).await; let _ = std::process::Command::new("${pkgs.ydotool}/bin/ydotool").env("YDOTOOL_SOCKET", "/run/ydotoold/socket").args(["key", "29:1", "47:1", "47:0", "29:0"]).status(); return Ok(());'
@@ -369,15 +791,18 @@ in
   services.hyprwhspr-rs = {
     enable = true;
     #! whisper-cpp vulkan (GPU, no unfree, cached) wrapped for auto nvidia-offload (see whisper-cpp-offload)
-    #! three source patches (see postPatch):
+    #! four source patches (see postPatch):
     #!   1. force whisper.cpp `--language ru` (upstream hardcodes en, no config knob)
     #!   2. return early on successful wayland copy - upstream forgot return Ok(()), running arboard
     #!      right after and cancelling the first offer (causing race/lost clipboard in noctalia)
     #!   3. inject via ydotool (uinput) instead of wrtype - Electron/vscode ignores the wayland
     #!      virtual keyboard; text is already on the clipboard, so we just paste it with a real Ctrl+V
+    #!   4. gemini backend: openai chat completions format with audio input, bearer auth
     package = hyprwhspr-rs-patched;
 
   };
+
+  custom.persist.home.directories = [ ".config/hyprwhspr-rs" ];
 
   environment.systemPackages = [
     hyprwhspr-rs-patched
@@ -389,11 +814,13 @@ in
   #! the custom (http) provider pipes audio through ffmpeg before uploading - both wav and flac
   #! paths do, despite the error message only naming FLAC - and the unit PATH has no ffmpeg
   systemd.user.services.hyprwhspr-rs.path = [ pkgs.ffmpeg ];
+  systemd.user.services.hyprwhspr-rs.serviceConfig.ExecStartPre = initConfig;
 
   #! record through the easyeffects chain instead of the raw mic: -rs opens the alsa `default`
   #! node, which bypasses the filters entirely (noise removal etc. measurably help recognition)
   #? cpal has no way to name a pipewire node, but the alsa-pipewire plugin honours PIPEWIRE_NODE
   systemd.user.services.hyprwhspr-rs.environment.PIPEWIRE_NODE = "easyeffects_source";
+  systemd.user.services.hyprwhspr-rs.serviceConfig.EnvironmentFile = "-%h/.config/hyprwhspr-rs/env";
 
   #! resident whisper model: ~2.2x faster than respawning whisper-cli per dictation
   #! (548M model reloaded every time: ~8.3s vs ~3.7s on the same 6s clip)
@@ -438,10 +865,8 @@ in
       ExecStart = whisperIdleStop;
     };
   };
-  #? the units stay defined under parakeet (flipping asrBackend back should be a one-liner),
-  #? but nothing starts them: the watcher's start block is compiled out and the timer is unwired
   systemd.user.timers.whisper-server-idle-stop = {
-    wantedBy = lib.optionals useWhisperServer [ "timers.target" ];
+    wantedBy = [ "timers.target" ];
     timerConfig = {
       OnBootSec = "5min";
       OnUnitActiveSec = "1min";
@@ -449,56 +874,7 @@ in
   };
 
   #? config is read by the daemon from ~/.config/hyprwhspr-rs/config.jsonc
-  #? canonical keys live under `transcription.whisper_cpp` (top-level model/whisper_prompt are legacy)
   #? models go to modelsDir, named ggml-<whisperModel>.bin
   # curl --location --create-dirs --output ~/.local/share/hyprwhspr-rs/models/ggml-large-v3-turbo.bin https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-large-v3-turbo.bin
   # curl --location --create-dirs --output ~/.local/share/hyprwhspr-rs/models/ggml-large-v3-turbo-q5_0.bin https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-large-v3-turbo-q5_0.bin
-
-  home-manager.users.${username}.xdg.configFile."hyprwhspr-rs/config.jsonc".text = /* json */ ''
-    {
-      // put final text on clipboard too - unicode-safe fallback
-      "auto_copy_clipboard": true,
-      // ping-up / ping-down on record start/stop (sounds bundled in the package assets)
-      "audio_feedback": true,
-      // paste via Shift+Insert instead of Ctrl+V - works in terminals (wezterm) and is cyrillic-safe
-      // default Ctrl+V does not paste in terminals, so text never lands there
-      "global_paste_shortcut": true,
-      // engine is picked by `asrBackend` in the module; both sections stay here either way
-      "transcription": {
-        "provider": "${if useWhisperServer then "custom.local" else "parakeet"}",
-        // in-process NVIDIA Parakeet TDT via ONNX; model_dir is relative to the data dir
-        // ("~/.local/share/hyprwhspr-rs"), fetch it with `whspr-fetch-parakeet`
-        // `prompt` is deliberately empty: the transducer takes no initial_prompt, this key only
-        // strips prompt echo from the output, so the whisper prompt here would be cargo cult
-        "parakeet": {
-          "model_dir": "${parakeetDir}",
-          "prompt": ""
-        },
-        // the server is started on demand when recording begins, and loading large-v3 takes a
-        // few seconds - with the default 2 retries the backoff window is only 0.5+1.0s, so a
-        // short dictation could outrun the model load and die on "connection refused";
-        // backoff doubles per attempt (500ms << n), so 6 retries covers ~31s of startup
-        "max_retries": 6,
-        // talk to the resident whisper-server instead of respawning whisper-cli (which reloads
-        // the model every single time); language is set on the server side (--language ru)
-        "custom": {
-          "local": {
-            "kind": "openai_audio_transcriptions",
-            "label": "whisper-server",
-            "endpoint": "http://127.0.0.1:${whisperPort}/inference",
-            "model": "${whisperModel}",
-            "audio_format": "wav",
-            "prompt": "${techPrompt}"
-          }
-        },
-        // kept for fallback: flip provider back to "whisper_cpp" to bypass the server
-        "whisper_cpp": {
-          "prompt": "${techPrompt}",
-          "model": "${whisperModel}",
-          "threads": 8,
-          "models_dirs": ["${modelsDir}"]
-        }
-      }
-    }
-  '';
 }
