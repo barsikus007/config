@@ -467,8 +467,22 @@
           }
         );
 
-        kompas3d = pkgs.kdePackages.callPackage ./packages/kompas3d { };
-        kompas3d-fhs = pkgs.callPackage ./packages/kompas3d/fhs.nix { };
+        kompas3d-study = pkgs.kdePackages.callPackage ./packages/kompas3d { edition = "study"; };
+        kompas3d-study-fhs = pkgs.callPackage ./packages/kompas3d/fhs.nix {
+          kompas = self.packages.${system}.kompas3d-study;
+        };
+        kompas3d = self.packages.${system}.kompas3d-study;
+        kompas3d-fhs = self.packages.${system}.kompas3d-study-fhs;
+
+        kompas3d-home = pkgs.kdePackages.callPackage ./packages/kompas3d { edition = "home"; };
+        kompas3d-home-fhs = pkgs.callPackage ./packages/kompas3d/fhs.nix {
+          kompas = self.packages.${system}.kompas3d-home;
+        };
+
+        kompas3d-viewer = pkgs.kdePackages.callPackage ./packages/kompas3d { edition = "viewer"; };
+        kompas3d-viewer-fhs = pkgs.callPackage ./packages/kompas3d/fhs.nix {
+          kompas = self.packages.${system}.kompas3d-viewer;
+        };
         grdcontrol = pkgs.callPackage ./packages/grdcontrol.nix { };
 
       }

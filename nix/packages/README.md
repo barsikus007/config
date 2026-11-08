@@ -50,18 +50,24 @@ nix --extra-experimental-features "nix-command flakes" run --impure 'github:nix-
 ### [kompas3d](./kompas3d)
 
 ```shell
-nix run --impure --override-input nixpkgs nixpkgs 'github:barsikus007/config?dir=nix#kompas3d-fhs'
+# educational / study version (default, kompas3d-fhs alias available)
+nix run --impure --override-input nixpkgs nixpkgs 'github:barsikus007/config?dir=nix#kompas3d-study-fhs'
+# home edition
+nix run --impure --override-input nixpkgs nixpkgs 'github:barsikus007/config?dir=nix#kompas3d-home-fhs'
+# free viewer version
+nix run --impure --override-input nixpkgs nixpkgs 'github:barsikus007/config?dir=nix#kompas3d-viewer-fhs'
 # on non NixOS
-nix --extra-experimental-features "nix-command flakes" run --impure --override-input nixpkgs nixpkgs 'github:nix-community/nixGL' -- env NIXPKGS_ALLOW_UNFREE=1 nix run --impure --override-input nixpkgs nixpkgs 'github:barsikus007/config?dir=nix#kompas3d-fhs'
+nix --extra-experimental-features "nix-command flakes" run --impure --override-input nixpkgs nixpkgs 'github:nix-community/nixGL' -- env NIXPKGS_ALLOW_UNFREE=1 nix run --impure --override-input nixpkgs nixpkgs 'github:barsikus007/config?dir=nix#kompas3d-study-fhs'
 ```
 
 #### cleanup after store paths update
 
 ```shell
-rm ~/.config/ascon/KOMPAS-3D/24/{recent_files.xml,KOMPAS.kit.config}
+rm ~/.config/ascon/KOMPAS-3D/25/{recent_files.xml,KOMPAS.kit.config}
+rm ~/.config/ascon/KOMPAS-3D\ Viewer/25/{recent_files.xml,KOMPAS.kit.config}
 ```
 
-#### grdcontrol license service forwarding
+#### grdcontrol license service forwarding (commercial edition only)
 
 ```shell
 # launch on computer with enough system parts (remote) lol
