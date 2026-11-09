@@ -12,7 +12,7 @@
 
     ../../home/gui/syncthing.nix
     ../../home/gui/keepassxc.nix
-    ../../home/gui/quickshare.nix
+    # ../../home/gui/quickshare.nix
     ../../home/gui/neovide.nix
     ../../home/gui/mpv.nix
     ../../home/gui/vscode.nix

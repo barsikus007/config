@@ -4,7 +4,6 @@
     "org.wezfurlong.wezterm"
 
     "firefox"
-    # "brave"
 
     "code"
     "com.ayugram.desktop"

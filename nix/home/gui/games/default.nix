@@ -25,6 +25,7 @@
     enableSessionWide = true;
     settings = {
       blacklist = [
+        "mpv"
         "kclock"
         "kclockd"
         ".kclockd-wrapped"

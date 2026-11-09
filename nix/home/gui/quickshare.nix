@@ -1,4 +1,9 @@
 { pkgs, ... }:
+#! https://github.com/Martichou/rquickshare/issues/429
+#! https://github.com/Martichou/rquickshare/issues/121
+#? rquickshare seems died, move to packet (it have same issues)
+#! https://github.com/nozwock/packet/issues/162
+#! https://github.com/nozwock/packet/issues/117
 let
   port = 12345;
 in

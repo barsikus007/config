@@ -25,13 +25,13 @@
 ```shell
 folder="/sdcard/Documents/Sync/android/app_lists/`date +%Y-%m-%d`"
 mkdir --parents $folder
-for i in null com.google.android.packageinstaller com.android.vending dev.imranr.obtainium com.looker.droidify; do
+for i in null com.google.android.packageinstaller com.android.vending dev.imranr.obtainium com.looker.droidify com.android.shell; do
   pm list packages -i -3 | grep installer=$i | cut -d':' -f2 | awk '{printf "%s\n", $1}' > $folder/$i.txt
 done
 ```
 
 - show other
-  - `pm list packages -i -3 | grep -v installer=null | grep -v installer=com.google.android.packageinstaller | grep -v installer=com.android.vending | grep -v installer=dev.imranr.obtainium | grep -v installer=com.looker.droidify`
+  - `pm list packages -i -3 | grep -vE 'installer=(null|com.google.android.packageinstaller|com.android.vending|dev.imranr.obtainium|com.looker.droidify|com.android.shell)'`
 
 ### persist WiFi ADB
 

@@ -18,6 +18,7 @@
       ++ lib.optional config.virtualisation.libvirtd.enable "/var/lib/libvirt"
       ++ lib.optional config.services.fprintd.enable "/var/lib/fprint" # ? enrolled fingerprints
       ++ lib.optional config.virtualisation.waydroid.enable "/var/lib/waydroid"
+      ++ lib.optional config.virtualisation.podman.enable "/var/lib/containers"
       ++ lib.optional config.services.displayManager.noctalia-greeter.enable {
         # ? greeter sync with shell
         directory = "/var/lib/noctalia-greeter";

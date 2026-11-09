@@ -1,9 +1,7 @@
-{ pkgs, ... }:
 {
   #! vivaldi is unfree :(
   programs.chromium = {
     enable = true;
-    package = pkgs.ungoogled-chromium;
     extensions = [
       # https://chromewebstore.google.com/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm
       "cjpalhdlnbpafiamejdnhcphjbkeiagm"

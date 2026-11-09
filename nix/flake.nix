@@ -16,8 +16,7 @@
     # nixpkgs-previous.url = "nixpkgs/commit_hash";
     nixpkgs-previous.url = "nixpkgs/1c89083e451e891152365b799595cf7790a43325";
     # nixpkgs-fix-for-<smth>.url = "nixpkgs/pull/1489/head"; # ? or use https://github.com/gepbird/nixpkgs-patcher
-    #! https://github.com/dependabot/dependabot-core/issues/16410
-    nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst";
+    nixpkgs.url = "nixpkgs/nixos-unstable";
     #? more secure: https://determinate.systems/blog/nixpkgs-cooldown/
     # nixpkgs.url = "https://flakehub.com/f/DeterminateSystems/nixpkgs-weekly/0.1";
     # nixpkgs-master.url = "nixpkgs";
@@ -108,10 +107,9 @@
     };
 
     niri.url = "github:epireyn/niri-flake";
-
     hermes-agent = {
       url = "github:NousResearch/hermes-agent";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-previous";
       inputs.flake-parts.follows = "flake-parts";
     };
   };

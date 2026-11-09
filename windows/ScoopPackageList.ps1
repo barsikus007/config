@@ -9,7 +9,6 @@ anydesk
 audacity
 ayugram
 beyondcompare
-brave
 dbeaver
 dupeguru
 handbrake
