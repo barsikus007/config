@@ -1,8 +1,6 @@
-{ pkgs, ... }:
 {
   programs.keepassxc = {
     enable = true;
-    package = pkgs.flakePackages.keepassxc;
     autostart = true;
     settings = {
       General = {

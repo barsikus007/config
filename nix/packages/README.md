@@ -31,8 +31,6 @@ nix --extra-experimental-features "nix-command flakes" run --impure 'github:nix-
   - [davinci-resolve-communism](./auto/gui/davinci-resolve-studio.nix)
   - [fsearch](./auto/gui/fsearch.nix)
     - 0.3 update with index
-  - [keepassxc 2.8](./auto/gui/keepassxc.nix)
-    - [source](https://github.com/keepassxreboot/keepassxc/tree/release/2.8.x)
   - [pkg-sender](./auto/gui/pkg-sender/package.nix)
   - [shikiwatch](./auto/gui/shikiwatch/package.nix)
     - example of unusual appimage packaging

@@ -54,7 +54,7 @@ tmp_dir=$(mktemp --directory)
 trap 'rm --recursive --force "$tmp_dir"' EXIT
 
 #? glob patterns to skip when auto-discovering targets
-read -r -a SKIP_PATTERNS <<< "${EVAL_SKIP:-coolvm* *Iso*}"
+read -r -a SKIP_PATTERNS <<< "${EVAL_SKIP:-coolvm* *Iso* nixOnDroid*}"
 
 #? filter out skipped targets
 filtered_targets=()

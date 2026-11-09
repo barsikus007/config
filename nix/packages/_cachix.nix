@@ -18,7 +18,6 @@ in
 
     #? custom src rev
     looking-glass-client = hm.programs.looking-glass-client.package;
-    keepassxc = self.packages.${system}.keepassxc;
     fsearch = self.packages.${system}.fsearch;
     taskexplorer = self.packages.${system}.taskexplorer;
 

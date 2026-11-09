@@ -22,5 +22,5 @@
     '';
   };
 
-  environment.systemPackages = with pkgs; [ flakePackages.keepassxc ];
+  environment.systemPackages = with pkgs; [ keepassxc ];
 }
