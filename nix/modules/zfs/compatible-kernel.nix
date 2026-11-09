@@ -6,7 +6,7 @@
 }:
 #? https://wiki.nixos.org/wiki/ZFS#Selecting_the_latest_ZFS-compatible_Kernel
 let
-  zfsCompatibleLTSKernelPackages = lib.filterAttrs (
+  zfsCompatibleKernelPackages = lib.filterAttrs (
     name: kernelPackages:
     (builtins.match "linux_[0-9]+_[0-9]+" name) != null
     && (builtins.tryEval kernelPackages).success
@@ -14,7 +14,7 @@ let
   ) pkgs.linuxKernel.packages;
   latestKernelPackage = lib.last (
     lib.sort (a: b: (lib.versionOlder a.kernel.version b.kernel.version)) (
-      builtins.attrValues zfsCompatibleLTSKernelPackages
+      builtins.attrValues zfsCompatibleKernelPackages
     )
   );
 in

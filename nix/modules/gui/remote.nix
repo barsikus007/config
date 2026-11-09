@@ -4,7 +4,7 @@
   # networking.firewall.allowedTCPPorts = [ 3389 ];
   # networking.firewall.allowedUDPPorts = [ 3389 ];
 
-  environment.systemPackages = with pkgs; [ rustdesk-flutter ];
+  environment.systemPackages = with pkgs; [ previous.rustdesk-flutter ];
 
   services.sunshine = {
     enable = true;

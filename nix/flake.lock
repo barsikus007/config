@@ -646,6 +646,21 @@
         "type": "github"
       }
     },
+    "nixpkgs-previous": {
+      "locked": {
+        "lastModified": 1793341285,
+        "narHash": "sha256-Y1CiZ4SoBUjLQyQM/pY+rS2dXD3CHLPstF0lmOc73D4=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "1c89083e451e891152365b799595cf7790a43325",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "rev": "1c89083e451e891152365b799595cf7790a43325",
+        "type": "indirect"
+      }
+    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1793865203,
@@ -896,6 +911,7 @@
         "nixos-vfio": "nixos-vfio",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs_2",
+        "nixpkgs-previous": "nixpkgs-previous",
         "nixvirt": "nixvirt",
         "nvf": "nvf",
         "openwrt-imagebuilder": "openwrt-imagebuilder",

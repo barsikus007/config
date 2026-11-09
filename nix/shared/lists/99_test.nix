@@ -37,7 +37,7 @@ with pkgs;
   iotop
   fatrace # sudo fatrace . 2>&1 | grep firefox
 
-  yaak
+  previous.yaak
   bruno
   requestly
 

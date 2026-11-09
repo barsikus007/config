@@ -152,7 +152,10 @@
       };
     };
   };
-  programs.codex.enable = true;
+  programs.codex = {
+    enable = true;
+    package = pkgs.previous.codex;
+  };
   systemd.user.services.paseo = {
     Unit = {
       Description = "Paseo remote agent sessions";
