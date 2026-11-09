@@ -88,11 +88,6 @@
       inputs.home-manager.follows = "home-manager";
       inputs.nixpkgs-packages.follows = "nixpkgs";
     };
-    erosanix = {
-      url = "github:emmanuelrosa/erosanix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-compat.follows = "flake-compat";
-    };
     openwrt-imagebuilder = {
       url = "github:astro/nix-openwrt-imagebuilder";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -492,19 +487,6 @@
         telegram-desktop-patched = pkgs.callPackage ./packages/telegram-desktop-patched.nix { };
         ayugram-desktop-patched = pkgs.callPackage ./packages/telegram-desktop-patched.nix {
           telegram-desktop-client = pkgs.ayugram-desktop;
-        };
-
-        #! nix flake check: local src
-        #? https://github.com/emmanuelrosa/erosanix/tree/master/pkgs/mkwindowsapp
-        # link src.zip to flake dir
-        # `nvidia-offload nix run ./nix#photoshop`
-        photoshop = pkgs.callPackage ./packages/photoshop.nix {
-          inherit (inputs.erosanix.lib."${system}") mkWindowsAppNoCC copyDesktopIcons makeDesktopIcon;
-          # TODO: retest that it was fucked with unstable wine
-          # wine = wineWow64Packages.unstableFull;
-          wine = pkgs.wineWow64Packages.stable;
-          scale = 192;
-          src = ./src.zip;
         };
 
         #! nix flake check: openwrt hash drifts

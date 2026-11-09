@@ -69,7 +69,6 @@ $sort=@"
 #! both
 bind
 ddu
-gimp
 irfanview
 lessmsi
 #! laptop

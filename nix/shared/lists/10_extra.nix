@@ -39,7 +39,6 @@ import ./11_powertoys.nix { inherit pkgs; }
 
   #! GUI
   f3d
-  gimp3
   scrcpy
   bluetui
   flakePackages.fsearch # ? https://www.reddit.com/r/software/comments/t5n3cm/everything_for_linux/
@@ -51,6 +50,7 @@ import ./11_powertoys.nix { inherit pkgs; }
   handbrake
   antimicrox
   parsec-bin
+  photocraft
   losslesscut
   qbittorrent
   flakePackages.taskexplorer
