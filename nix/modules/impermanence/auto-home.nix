@@ -7,7 +7,7 @@
   custom.persist.home = {
     directories =
       lib.optional config.programs.firefox.enable ".config/mozilla/firefox"
-      ++ lib.optional config.programs.brave.enable ".config/BraveSoftware"
+      ++ lib.optional config.programs.chromium.enable ".config/chromium"
       ++ lib.optional config.programs.libreoffice.enable ".config/libreoffice"
       ++ lib.optional config.services.easyeffects.enable ".config/easyeffects"
       ++ lib.optional config.services.ludusavi.enable ".config/ludusavi"

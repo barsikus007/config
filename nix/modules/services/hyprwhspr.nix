@@ -767,6 +767,7 @@ let
     }).overrideAttrs
       (previousAttrs: {
         doCheck = false;
+        buildInputs = (previousAttrs.buildInputs or []) ++ [ pkgs.oniguruma ];
         postPatch = (previousAttrs.postPatch or "") + ''
           cp ${geminiOpenAiRs} src/transcription/gemini.rs
           substituteInPlace src/config.rs \

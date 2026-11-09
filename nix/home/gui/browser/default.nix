@@ -29,8 +29,7 @@
     let
       browsers = [
         "firefox.desktop"
-        "brave-browser.desktop"
-        "com.brave.Browser.desktop"
+        "chromium-browser.desktop"
       ];
       mappedDefaults =
         lib.genAttrs [
