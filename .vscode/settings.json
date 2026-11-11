@@ -23,6 +23,9 @@
                 // "nix-on-droid": {
                 //     "expr": "(builtins.getFlake (''git+file://'' + toString ./. + ''?dir=nix'')).nixOnDroidConfigurations.default.options",
                 // },
+                "openwrt": {
+                    "expr": "let flake = builtins.getFlake (''git+file://'' + toString ./. + ''?dir=nix''); inherit (flake.nixosConfigurations.ROG14) pkgs; in (pkgs.lib.evalModules { modules = [ ''${flake.inputs.dewclaw}/openwrt'' ]; specialArgs = { inherit pkgs; }; }).options"
+                },
             },
         }
     },
