@@ -112,6 +112,10 @@
       inputs.nixpkgs.follows = "nixpkgs-previous";
       inputs.flake-parts.follows = "flake-parts";
     };
+  bootvine = {
+      url = "git+https://codeberg.org/wvhulle/bootvine";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -220,7 +224,6 @@
 
           ./modules/nix-ld.nix
           ./modules/containers
-          ./modules/silent-boot.nix
           ./modules/network.nix
           ./modules/swap.nix
           ./modules/java.nix

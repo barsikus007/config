@@ -7,6 +7,8 @@ in
 {
   imports = [
     ./extra.nix
+
+    ../modules/cool-boot.nix
   ];
 
   hardware.bluetooth.enable = true;
