@@ -39,8 +39,7 @@
     ./sops.nix
 
     ../../modules/systemd-boot.nix
-    # TODO: unstable: pinned this way until next LTS release
-    ../../modules/zfs/compatible-kernel.nix
+    ../../modules/cachyos-kernel.nix
     ../../modules/zfs
     ../../modules/zfs/backup-source.nix
 
@@ -64,13 +63,13 @@
   #? build aarch64 derivations locally, e.g. the phone guest in hosts/android
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
-  hardware = {
-    amdgpu.opencl.enable = true;
+  hardware.amdgpu.opencl.enable = true;
 
+  hardware.nvidia = {
     #? if GPU apps fails after suspend
     # nvidia.powerManagement.enable = true;
     #? finer GPU power management
-    nvidia.powerManagement.finegrained = true;
+    powerManagement.finegrained = true;
   };
 
   #? https://opengamingcollective.github.io/asusctl/distributions/nixos.html

@@ -33,6 +33,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-cachyos-kernel = {
+      url = "github:xddxdd/nix-cachyos-kernel/release";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.flake-compat.follows = "flake-compat";
+    };
     nixos-hardware = {
       url = "nixos-hardware";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -112,7 +117,7 @@
       inputs.nixpkgs.follows = "nixpkgs-previous";
       inputs.flake-parts.follows = "flake-parts";
     };
-  bootvine = {
+    bootvine = {
       url = "git+https://codeberg.org/wvhulle/bootvine";
       inputs.nixpkgs.follows = "nixpkgs";
     };
