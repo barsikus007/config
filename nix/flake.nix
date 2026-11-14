@@ -32,44 +32,20 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    disko = {
+      url = "disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    nix-cachyos-kernel = {
-      url = "github:xddxdd/nix-cachyos-kernel/release";
-      inputs.flake-parts.follows = "flake-parts";
-      inputs.flake-compat.follows = "flake-compat";
-    };
-    nixos-hardware = {
-      url = "nixos-hardware";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nixos-wsl = {
-      url = "github:nix-community/NixOS-WSL";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-compat.follows = "flake-compat";
-    };
-    nixos-vfio = {
-      url = "github:j-brn/nixos-vfio";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
-    };
-    nixvirt = {
-      url = "github:AshleyYakeley/NixVirt";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    home-manager = {
-      url = "home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nix-on-droid = {
-      url = "github:nix-community/nix-on-droid";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
-      inputs.nmd.inputs.nixpkgs.follows = "nixpkgs";
-    };
+    #? generic nixos modules
     impermanence = {
       url = "github:nix-community/impermanence";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
+    };
+    home-manager = {
+      url = "home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     plasma-manager = {
       url = "github:nix-community/plasma-manager";
@@ -80,6 +56,37 @@
       url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
+    };
+    nixos-hardware = {
+      url = "nixos-hardware";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    #? rest nixos modules
+    sops-nix = {
+      url = "sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixos-vfio = {
+      url = "github:j-brn/nixos-vfio";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+    };
+    nixvirt = {
+      url = "github:AshleyYakeley/NixVirt";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    arion = {
+      url = "arion";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+    };
+
+    #? packages
+    nix-cachyos-kernel = {
+      url = "github:xddxdd/nix-cachyos-kernel/release";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.flake-compat.follows = "flake-compat";
     };
     nvf = {
       url = "github:notashelf/nvf";
@@ -92,25 +99,6 @@
       inputs.home-manager.follows = "home-manager";
       inputs.nixpkgs-packages.follows = "nixpkgs";
     };
-    openwrt-imagebuilder = {
-      url = "github:astro/nix-openwrt-imagebuilder";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
-    };
-    dewclaw = {
-      url = "github:MakiseKurisu/dewclaw";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
-    };
-    disko = {
-      url = "disko";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    sops-nix = {
-      url = "sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     niri.url = "github:epireyn/niri-flake";
     hermes-agent = {
       url = "github:NousResearch/hermes-agent";
@@ -120,6 +108,24 @@
     bootvine = {
       url = "git+https://codeberg.org/wvhulle/bootvine";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    #? other systems
+    nix-on-droid = {
+      url = "github:nix-community/nix-on-droid";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+      inputs.nmd.inputs.nixpkgs.follows = "nixpkgs";
+    };
+    openwrt-imagebuilder = {
+      url = "github:astro/nix-openwrt-imagebuilder";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+    };
+    dewclaw = {
+      url = "github:MakiseKurisu/dewclaw";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
     };
   };
 
@@ -213,10 +219,6 @@
     in
     {
       #? https://github.com/NixOS/nixpkgs/blob/dd04fdc9695de5d20a797338695de926900211c2/flake.nix#L64
-      nixosConfigurations."NixOS-WSL" = nixpkgs.lib.nixosSystem {
-        specialArgs = mkSpecialArgs "nixos";
-        modules = [ ./hosts/NixOS-WSL/configuration.nix ];
-      };
       nixosConfigurations."ROG14" = nixpkgs.lib.nixosSystem {
         specialArgs = mkSpecialArgs "ogurez";
         modules = [
