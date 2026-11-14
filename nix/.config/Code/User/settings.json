@@ -116,9 +116,6 @@
         // tool specific
     },
     //! AI AI AI
-    "chat.agent.enabled": false,
-    //? friendship end with copilot, now I use claude
-    "chat.disableAIFeatures": true,
     "claudeCode.hideOnboarding": true,
     "claudeCode.disableLoginPrompt": true,
     "claudeCode.preferredLocation": "panel",

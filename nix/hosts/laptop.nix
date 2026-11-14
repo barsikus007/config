@@ -30,7 +30,7 @@ in
   #! || true is load-bearing: a failed ExecStart skips ExecStop of the same unit,
   #! where every resumeCommands lives
   powerManagement.powerDownCommands = ''
-    ${umount} --all --types cifs --force || true
+    ${umount} --all --types cifs,smb3,fuse.kio-fuse --lazy --force || true
 
     #? disable USB controllers wakeup so bluetooth/mouse packets cannot wake laptop in bag
     for xhc in XHC0 XHC1; do

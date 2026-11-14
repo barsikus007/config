@@ -6,7 +6,6 @@ in
 {
   home.sessionVariables = {
     WINEPREFIX = "${dataHome}/wine"; # ? was ~/.wine
-    PASEO_HOME = "${dataHome}/paseo";
 
     #! dev shit
     GOPATH = "${dataHome}/go"; # ? was ~/go

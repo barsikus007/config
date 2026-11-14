@@ -96,6 +96,17 @@ let
       path = getHomeSource lightSys k;
     }) themeHomeKeys
   );
+  getPlasmaScript =
+    s:
+    let
+      raw = s.config.home-manager.users.${username}.home.activation.configure-plasma.data or "";
+      cleaned = lib.removeSuffix "\n" (lib.removePrefix "\n" raw);
+      words = lib.splitString " " cleaned;
+    in
+    if builtins.length words >= 2 then
+      builtins.appendContext (builtins.elemAt words 1) (builtins.getContext raw)
+    else
+      null;
 in
 {
   options.stylix-activationless = {
@@ -120,8 +131,8 @@ in
       image = lib.mkOption {
         type = lib.types.anything;
         default = pkgs.fetchurl {
-          url = "https://w.wallhaven.cc/full/zy/wallhaven-zy3r2w.png";
-          hash = "sha256-O9INURruZK+bW3ZJmSD1lj50MviTOiuLCa9j7SUehvY=";
+          url = "https://w.wallhaven.cc/full/ex/wallhaven-ex27dw.png";
+          hash = "sha256-PdslF3LmU6Vr1NN5qJRNLXZqch3q8lcj5Ar6vf5zU30=";
         };
       };
     };
@@ -141,22 +152,12 @@ in
       darkPlasma = lib.mkOption {
         internal = true;
         type = lib.types.nullOr lib.types.path;
-        default =
-          let
-            raw = darkSys.config.home-manager.users.${username}.home.activation.configure-plasma.data or "";
-            words = lib.splitString " " (lib.trim raw);
-          in
-          if builtins.length words >= 2 then builtins.elemAt words 1 else null;
+        default = getPlasmaScript darkSys;
       };
       lightPlasma = lib.mkOption {
         internal = true;
         type = lib.types.nullOr lib.types.path;
-        default =
-          let
-            raw = lightSys.config.home-manager.users.${username}.home.activation.configure-plasma.data or "";
-            words = lib.splitString " " (lib.trim raw);
-          in
-          if builtins.length words >= 2 then builtins.elemAt words 1 else null;
+        default = getPlasmaScript lightSys;
       };
     };
   };

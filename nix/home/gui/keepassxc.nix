@@ -11,7 +11,7 @@
         Enabled = true;
         BestMatchOnly = true;
         AlwaysAllowAccess = true;
-        UpdateBinaryPath = false;
+        UpdateBinaryPath = false; # home-manager manages the native messaging manifests
       };
       GUI = {
         AdvancedSettings = true;

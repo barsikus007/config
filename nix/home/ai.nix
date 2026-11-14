@@ -11,8 +11,6 @@
 
   home.packages = with pkgs; [
     mcp-nixos
-    paseo
-    paseo-desktop
   ];
   programs.mcp = {
     enable = true;
@@ -155,29 +153,5 @@
   programs.codex = {
     enable = true;
     package = pkgs.previous.codex;
-  };
-  systemd.user.services.paseo = {
-    Unit = {
-      Description = "Paseo remote agent sessions";
-      After = [ "network-online.target" ];
-      Wants = [ "network-online.target" ];
-    };
-    Install = {
-      WantedBy = [ "default.target" ];
-    };
-    Service = {
-      Environment = [
-        "PASEO_HOME=${config.xdg.dataHome}/paseo"
-        "PASEO_LISTEN=0.0.0.0:6767"
-        "PASEO_RELAY_ENABLED=false"
-        "PASEO_WEB_UI_ENABLED=true"
-      ];
-      ExecStart = "${lib.getExe pkgs.zsh} -lc 'exec ${lib.getExe' pkgs.paseo "paseo-server"}'";
-      Restart = "on-failure";
-      RestartSec = 5;
-
-      KillSignal = "SIGTERM";
-      TimeoutStopSec = 15;
-    };
   };
 }

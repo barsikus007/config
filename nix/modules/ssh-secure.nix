@@ -14,9 +14,7 @@
     enable = true;
     ports = lib.mkDefault [ 2222 ];
     settings = {
-      PermitRootLogin = lib.mkDefault "no";
       PasswordAuthentication = false;
-      ChallengeResponseAuthentication = false;
       KbdInteractiveAuthentication = false;
     };
   };

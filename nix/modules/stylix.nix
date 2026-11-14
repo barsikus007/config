@@ -31,8 +31,8 @@
     #? own base16 map from ahmadawais/shades-of-purple-vscode (super-dark); base00-07 = monotonic dark->light ramp
     base16Scheme = ./shades-of-purple-super-dark.yaml;
     image = pkgs.fetchurl {
-      url = "https://w.wallhaven.cc/full/8o/wallhaven-8o5o7k.jpg";
-      hash = "sha256-jpN1gQ8RfDuBBfV4h3un0VvCm7FUy334YO1ibnYvmqk=";
+      url = "https://w.wallhaven.cc/full/d6/wallhaven-d6288g.jpg";
+      hash = "sha256-YBHKXQuDwrRXsbdgkF4kyrcvoCxMm5KDo23Hy86O+zs=";
     };
     cursor = {
       size = 24;

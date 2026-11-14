@@ -36,6 +36,7 @@ let
   };
 in
 pkgs.testers.runNixOSTest {
+  defaults.imports = [ ../shared/options.nix ];
   #! vlans
   #? vlan1 - infranet_client
   #? vlan2 - infranet to internet

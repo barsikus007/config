@@ -23,7 +23,6 @@ in
 {
   imports = [
     ../minimal.nix
-    ../../modules/ssh-secure.nix
 
     (modulesPath + "/profiles/qemu-guest.nix")
 

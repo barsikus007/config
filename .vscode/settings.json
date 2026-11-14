@@ -17,7 +17,7 @@
                     "expr": "(builtins.getFlake (''git+file://'' + toString ./. + ''?dir=nix'')).nixosConfigurations.ROG14.options",
                 },
                 "home-manager": {
-                    "expr": "(builtins.getFlake (''git+file://'' + toString ./. + ''?dir=nix'')).nixosConfigurations.ROG14.options.home-manager.users.type.getSubOptions [] // (builtins.getFlake (''git+file://'' + toString ./. + ''?dir=nix'')).homeConfigurations.nixd.options",
+                    "expr": "let flake = builtins.getFlake (''git+file://'' + toString ./. + ''?dir=nix''); flake.nixosConfigurations.ROG14.options.home-manager.users.type.getSubOptions [] // flake.homeConfigurations.nixd.options",
                 },
                 //! this breaks other nixd options providers
                 // "nix-on-droid": {

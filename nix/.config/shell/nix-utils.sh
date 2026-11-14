@@ -233,7 +233,7 @@ deploy_remote() {
   (
     cd ~/Projects/infra || exit 1
     nix flake update public || exit 1
-    deploy "$@" --skip-checks -- --log-format internal-json |& nom --json
+    deploy --skip-checks "$@" -- --max-jobs 16 --log-format internal-json |& nom --json
   )
 }
 
