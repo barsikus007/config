@@ -150,8 +150,5 @@
       };
     };
   };
-  programs.codex = {
-    enable = true;
-    package = pkgs.previous.codex;
-  };
+  programs.codex.enable = true;
 }
