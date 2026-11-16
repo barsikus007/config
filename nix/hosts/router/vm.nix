@@ -1,10 +1,9 @@
+{ lib, mkDomainPolicy, ... }:
 {
-  lib,
-  pkgs,
-  base ? import ./base.nix { inherit lib pkgs; },
-  ...
-}:
-{
+  imports = [
+    ./base.nix
+  ];
+
   deploy = {
     host = "127.0.0.1";
     sshConfig = {
@@ -14,6 +13,8 @@
       ServerAliveInterval = 3;
       ServerAliveCountMax = 2;
     };
+    rollbackTimeout = 30;
+    rebootAllowance = 30;
   };
 
   deploySteps.packages = {
@@ -28,12 +29,9 @@
     "qemu_ga"
   ];
 
-  inherit (base) etc;
-
   uci.settings = {
     network = {
-      inherit (base.network) globals;
-      interface = base.network.interface // {
+      interface = {
         wan = {
           device = "eth1";
           proto = "dhcp";
@@ -84,9 +82,64 @@
       ];
     };
 
-    inherit (base) firewall;
-    inherit (base) dhcp;
-    inherit (base) pbr;
+    dhcp = {
+      dnsmasq = [
+        {
+          domainneeded = true;
+          localise_queries = true;
+          rebind_protection = true;
+          rebind_localhost = true;
+          local = "/lan/";
+          domain = "lan";
+          expandhosts = true;
+          authoritative = true;
+          readethers = true;
+          localservice = true;
+          ednspacket_max = 1232;
+          cachesize = 1000;
+          strictorder = true;
+          rebind_domain = [ "syncthing.net" ];
+          addnmount = [ "/var/run/pbr.dnsmasq" ];
+        }
+      ];
+      domain = [
+        {
+          name = "router";
+          ip = "192.168.1.1";
+        }
+      ];
+    };
+
+    pbr = {
+      policy = [
+        {
+          name = "wg-local";
+          interface = "ignore";
+          dest_addr = "10.13.37.0/24";
+        }
+      ]
+      ++ map mkDomainPolicy [
+        "torrents"
+        "anime-nonru"
+        "non-ru"
+        "ai"
+        "youtube"
+        "telegram"
+        "telegram-v6"
+        "discord"
+        "ru"
+        "ru-vk"
+        "ru-ya"
+        "shit-sites"
+      ]
+      ++ [
+        {
+          name = "VPN by default";
+          dest_addr = "0.0.0.0/0";
+          interface = "awg0";
+        }
+      ];
+    };
 
     system = {
       system = [
@@ -99,10 +152,6 @@
           cronloglevel = 5;
         }
       ];
-      inherit (base.system) timeserver;
     };
-
-    dropbear.dropbear = base.dropbear;
-    inherit (base) uhttpd;
   };
 }
