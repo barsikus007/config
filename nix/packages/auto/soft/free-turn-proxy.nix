@@ -6,15 +6,14 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "free-turn-proxy";
-  version = "4.0.1";
+  version = "4.1.5";
   src = fetchFromGitHub {
     owner = "hackdiaz-dev";
     repo = "free-turn-proxy";
-    # tag = "v${finalAttrs.version}";
-    rev = "d0dbec3e03e805c45600a0330be848fb6a2c7f1a";
-    hash = "sha256-cnMV7c1j0bV1PZsefkDkXtJoJzo+Ix3k0dqL9JuslK0=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-WSFNdVt/L58htENK4qYEnJsWwSNnPK1BXG4bgTjcXAo=";
   };
-  vendorHash = "sha256-H8ep4HsR2CEubgh6UKeR3AI56pRkObYNEojNo4ENyIg=";
+  vendorHash = "sha256-jLKRSoVscLgO7cyNV17x0/MH5q70PsH96UvFRVh+ZQs=";
   #? both binaries are named too generic to keep in PATH as is
   postInstall = ''
     mv $out/bin/client $out/bin/free-turn-proxy-client
@@ -35,13 +34,13 @@ buildGoModule (finalAttrs: {
   passthru.updateScript = nix-update-script { };
   meta = {
     description = "Proxy tunnel encapsulating UDP/TCP traffic over the TURN protocol";
-    homepage = "https://github.com/samosvalishe/free-turn-proxy";
-    changelog = "https://github.com/samosvalishe/free-turn-proxy/blob/v${finalAttrs.version}/CHANGELOG.md";
+    homepage = "https://github.com/hackdiaz-dev/free-turn-proxy";
+    changelog = "https://github.com/hackdiaz-dev/free-turn-proxy/blob/v${finalAttrs.version}/CHANGELOG.md";
     #? MIT text plus a "you must be kind to bunnies" clause
     license = {
       free = true;
       fullName = "Happy Bunny License (HBL)";
-      url = "https://github.com/samosvalishe/free-turn-proxy/blob/v${finalAttrs.version}/LICENSE";
+      url = "https://github.com/hackdiaz-dev/free-turn-proxy/blob/v${finalAttrs.version}/LICENSE";
     };
     platforms = lib.platforms.unix ++ lib.platforms.windows;
     mainProgram = "free-turn-proxy-client";

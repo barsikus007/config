@@ -30,6 +30,7 @@ let
     // lib.optionalAttrs (!(g.enabled or true)) { enabled = false; };
 
   etc = {
+    "init.d/free-turn-proxy".text = builtins.readFile ./files/init.d/free-turn-proxy;
     "hotplug.d/iface/26-white-ip-miner".text =
       builtins.readFile ./files/hotplug.d/iface/26-white-ip-miner;
     "hotplug.d/iface/70-pbr".text = builtins.readFile ./files/hotplug.d/iface/70-pbr;

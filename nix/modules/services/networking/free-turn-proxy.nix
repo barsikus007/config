@@ -238,7 +238,7 @@ in
         example = "https://example.com/sub.md";
         description = ''
           Subscription URL for server list
-          Format: https://github.com/samosvalishe/free-turn-proxy/blob/master/docs/sub.md
+          Format: https://github.com/hackdiaz-dev/free-turn-proxy/blob/master/docs/sub.md
         '';
       };
 
@@ -262,6 +262,35 @@ in
         type = lib.types.nullOr lib.types.ints.positive;
         default = null;
         description = "Number of parallel TURN streams (-n), null for provider default (vk: 12, direct: 1)";
+      };
+
+      streamsPerCred = lib.mkOption {
+        type = lib.types.nullOr lib.types.ints.positive;
+        default = null;
+        description = "TURN streams per cached VK credentials (only provider vk)";
+      };
+
+      platform = lib.mkOption {
+        type = lib.types.nullOr (
+          lib.types.enum [
+            "desktop"
+            "mobile"
+          ]
+        );
+        default = null;
+        description = "VK auth persona device class: desktop or mobile (only provider vk)";
+      };
+
+      manualCaptcha = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        description = "Manual VK captcha in browser instead of auto (only provider vk)";
+      };
+
+      routes = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        description = "Automatic host route management to TURN servers (requires CAP_NET_ADMIN)";
       };
 
       bond = lib.mkOption {
@@ -368,6 +397,16 @@ in
         "-n"
         (toString cfg.client.streams)
       ]
+      ++ lib.optionals (cfg.client.streamsPerCred != null) [
+        "-streams-per-cred"
+        (toString cfg.client.streamsPerCred)
+      ]
+      ++ lib.optionals (cfg.client.platform != null) [
+        "-platform"
+        cfg.client.platform
+      ]
+      ++ lib.optional cfg.client.manualCaptcha "-manual-captcha"
+      ++ lib.optional cfg.client.routes "-routes"
       ++ lib.optional cfg.client.bond "-bond"
       ++ lib.optionals (cfg.client.peer != null) [
         "-peer"
@@ -394,7 +433,18 @@ in
         cfg.client.subUrl
       ]
       ++ commonFlags cfg.client;
-      hardening = hardeningCommon;
+      hardening =
+        hardeningCommon
+        // lib.optionalAttrs cfg.client.routes {
+          AmbientCapabilities = [ "CAP_NET_ADMIN" ];
+          CapabilityBoundingSet = [ "CAP_NET_ADMIN" ];
+          RestrictAddressFamilies = [
+            "AF_INET"
+            "AF_INET6"
+            "AF_UNIX"
+            "AF_NETLINK"
+          ];
+        };
       #? client caches VK creds next to the binary or in XDG_CONFIG_HOME
       environment.XDG_CONFIG_HOME = "/var/lib/free-turn-proxy-client";
     };
