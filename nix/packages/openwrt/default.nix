@@ -78,7 +78,7 @@ let
   baseFiles = pkgs.lib.fileset.toSource {
     root = ./.;
     #! ./files is deliberately excluded: it holds what dewclaw pushes over ssh
-    #! (hotplug scripts, rc.local), keeping one source of truth per file
+    #! (hotplug scripts), keeping one source of truth per file
     fileset =
       pkgs.lib.fileset.difference
         (pkgs.lib.fileset.unions [

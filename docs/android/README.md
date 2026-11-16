@@ -41,14 +41,14 @@ done
     - [2](https://www.reddit.com/r/tasker/comments/re8k68/howto_enable_adb_wifi_after_reboot_using_ladb_app/)
     - [3](https://www.reddit.com/r/tasker/comments/rceljk/enable_adb_wifi_on_device_boot_android_11/)
   - PC
-    - `IP=192.168.1.15`
+    - `IP=10.14.88.15`
     - `adb connect $IP:$(nmap $IP -p 33000-46000 | awk "/\/tcp/" | cut --delimiter=/ --fields=1)`
       - [credits](https://stackoverflow.com/a/70878705)
 - root
   - phone
     - enable `setprop persist.adb.tcp.port 5555 && stop adbd && start adbd`
     - disable `resetprop -d persist.adb.tcp.port && stop adbd && start adbd`
-  - PC `adb connect 192.168.1.15:5555`
+  - PC `adb connect 10.14.88.15:5555`
 
 ## TODO
 

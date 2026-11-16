@@ -31,7 +31,7 @@ claude_grok() {
     | map({(.): "grok-4.7"})
     | add
     | . + {
-      CLAUDE_CODE_AUTO_COMPACT_WINDOW: "500000"
+      CLAUDE_CODE_AUTO_COMPACT_WINDOW: "400000"
     }
   )' "$CLAUDE_CONFIG_FILE" > "$CLAUDE_CONFIG_FILE.tmp" && mv --force "$CLAUDE_CONFIG_FILE.tmp" "$CLAUDE_CONFIG_FILE"
 }
@@ -101,7 +101,7 @@ claude_gemini() {
     ]
     | map({(.): "antigravity/gemini-3.5-flash-lite"}) | add) +
     {
-      CLAUDE_CODE_AUTO_COMPACT_WINDOW: "1000000",
+      CLAUDE_CODE_AUTO_COMPACT_WINDOW: "400000",
       CLAUDE_CODE_MAX_CONTEXT_TOKENS: "1000000"
     }
   )' "$CLAUDE_CONFIG_FILE" > "$CLAUDE_CONFIG_FILE.tmp" && mv --force "$CLAUDE_CONFIG_FILE.tmp" "$CLAUDE_CONFIG_FILE"

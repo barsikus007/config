@@ -1,6 +1,6 @@
 #? single source of truth for split-routing domain lists, shared by two consumers:
 #?   - modules/nftset.nix        -> dnsmasq nftset lines for pihole on the VPS
-#?   - packages/openwrt/dewclaw  -> pbr policies on the router
+#?   - hosts/router/base.nix     -> pbr policies on the router
 #? via = "exit"   -> nftset force_exit,   pbr interface awg0
 #? via = "direct" -> nftset force_direct, pbr interface wan
 #? cidrs are pbr-only: dnsmasq nftset matches domains, not networks
@@ -36,9 +36,8 @@
       domains = [
         "memepedia.ru"
         "api.github.com"
-        "githubcopilot.com"
         "instagram.com"
-        "nhentai.net"
+        "tiktok.com"
         "relays.syncthing.net"
         "crowdsec.net"
         "cachix.org"
@@ -52,6 +51,7 @@
         "anthropic.com"
         "claude.ai"
         "groq.com"
+        "githubcopilot.com"
       ];
       name = "ai";
       via = "exit";
@@ -84,9 +84,6 @@
         "yt.be"
         "ytimg.com"
         "yt3.googleusercontent.com"
-        #? not youtube, but they rode along in the same pbr policy
-        "www.instagram.com"
-        "www.tiktok.com"
       ];
       name = "youtube";
       via = "exit";

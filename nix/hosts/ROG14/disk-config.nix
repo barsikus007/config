@@ -85,8 +85,7 @@ in
         #? https://wiki.nixos.org/wiki/Samba#CIFS_mount_configuration
         #! sudo systemctl restart run-media-$USER-NAS.automount
         fsType = "cifs";
-        # device = "//NAS.lan/storage";
-        device = "//192.168.1.2/storage";
+        device = "//NAS.lan/storage";
         mountOptions = [
           #? this section prevents hanging on network split
           "x-systemd.automount"

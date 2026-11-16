@@ -72,22 +72,6 @@ in
 
   nixpkgs.overlays = [
     autoFlakePackagesOverlay
-    # TODO: unstable: https://nixpkgs-tracker.ocfox.me/?pr=587533
-    (_final: prev: {
-      glances = prev.glances.overridePythonAttrs (old: rec {
-        version = "4.5.9";
-        src = prev.fetchFromGitHub {
-          owner = "nicolargo";
-          repo = "glances";
-          tag = "v${version}";
-          hash = "sha256-CvT9GQ29xXTVxC7V2nGmfDhHLsAtF61+XMMLG8cmHww=";
-        };
-        dependencies = (builtins.filter (d: (d.pname or "") != "python-jose") old.dependencies) ++ [
-          prev.python3Packages.pyjwt
-        ];
-        doCheck = false;
-      });
-    })
     (
       #? map "nixpkgs-*" flake inputs as attrs of pkgs
       _final: prev:
