@@ -14,29 +14,6 @@ let
   systemctl = lib.getExe' pkgs.systemd "systemctl";
   busctl = lib.getExe' pkgs.systemd "busctl";
   sleep = lib.getExe' pkgs.coreutils "sleep";
-  rm = lib.getExe' pkgs.coreutils "rm";
-  touch = lib.getExe' pkgs.coreutils "touch";
-
-  #! https://github.com/noctalia-dev/noctalia/issues/3480
-  noctalia-lock-dnd = pkgs.writeShellScript "noctalia-lock-dnd" ''
-    flag="''${XDG_RUNTIME_DIR:-/run/user/$UID}/noctalia-lock-dnd"
-    noctalia_bin="${lib.getExe pkgs.noctalia}"
-
-    case "$1" in
-      (lock)
-        if [ "$("$noctalia_bin" msg notification-dnd-status 2>/dev/null)" = "off" ]; then
-          ${touch} "$flag"
-          "$noctalia_bin" msg notification-dnd-set on
-        fi
-        ;;
-      (unlock)
-        if [ -f "$flag" ]; then
-          ${rm} --force "$flag"
-          "$noctalia_bin" msg notification-dnd-set off
-        fi
-        ;;
-    esac
-  '';
 in
 {
   # imports = [ ../sound/theme.nix ];
@@ -134,12 +111,10 @@ in
       hooks = {
         session_locked = lib.concatStringsSep "; " [
           "${systemctl} --user --no-block restart suspend-after-lock.service"
-          "${noctalia-lock-dnd} lock"
         ];
         session_unlocked = lib.concatStringsSep "; " (
           [
             "${systemctl} --user --no-block stop suspend-after-lock.service"
-            "${noctalia-lock-dnd} unlock"
           ]
           ++ lib.optional (
             config.systemd.user.services ? gsr-ui-monitor-hotplug
@@ -242,6 +217,7 @@ in
       location.auto_locate = true;
       lockscreen = {
         blurred_desktop = true;
+        dnd = true;
         transition_duration = 1000;
       };
       #? login_box'es sets automatically

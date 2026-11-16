@@ -77,7 +77,6 @@ let
 
     "sourcery.sourcery" = [ "ai" ];
     "anthropic.claude-code" = [ "ai" ];
-    "singularityinc.claude-notifier" = [ "ai" ];
 
     "eamodio.gitlens" = [ "github" ];
     "github.vscode-github-actions" = [ "github" ];

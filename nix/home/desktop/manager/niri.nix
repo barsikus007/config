@@ -38,36 +38,7 @@ in
   #! https://github.com/sodiboo/niri-flake/issues/1393
   xdg.configFile."niri/config.kdl".source =
     config.lib.file.mkOutOfStoreSymlink "${flakePath}/.config/niri/config.kdl";
-  #! https://github.com/sodiboo/niri-flake/issues/1721: append raw KDL for options niri-flake hasn't typed yet
   xdg.configFile.niri-config.target = lib.mkOverride 75 "niri/nix-generated-config.kdl";
-  xdg.configFile.niri-config.source =
-    let
-      inherit (inputs.niri.lib.internal) validated-config-for;
-      inherit (config.programs.niri) finalConfig package;
-      blurKdl = lib.optionalString config.custom.blur.enable /* kdl */ ''
-        //? Apps: blur them all without xray for a better look
-        window-rule {
-            background-effect {
-                blur true
-                xray false
-            }
-        }
-        //? Noctalia: blur everywhere without xray for a better look
-        layer-rule {
-            match namespace="^noctalia-(background|launcher-overlay|dock)-.*$"
-            background-effect {
-                xray false
-            }
-        }
-      '';
-    in
-    lib.mkForce (
-      validated-config-for pkgs package ''
-        ${finalConfig}
-
-        ${blurKdl}
-      ''
-    );
   xdg.portal.enable = lib.mkForce false; # ! handled by nixos module
   services.gnome-keyring.enable = lib.mkForce false; # ! handled by nixos module
   programs.niri = {
@@ -81,6 +52,25 @@ in
       #! https://github.com/niri-wm/niri/pull/2609: maybe use when merged
       #? win95 background
       overview.backdrop-color = "#018281";
+
+      #? Apps: blur them all without xray for a better look
+      window-rules = lib.optionals config.custom.blur.enable [
+        {
+          background-effect = {
+            blur = true;
+            xray = false;
+          };
+        }
+      ];
+      #? Noctalia: blur everywhere without xray for a better look
+      layer-rules = lib.optionals config.custom.blur.enable [
+        {
+          matches = [
+            { namespace = "^noctalia-(background|launcher-overlay|dock)-.*$"; }
+          ];
+          background-effect.xray = false;
+        }
+      ];
 
       #? https://niri-wm.github.io/niri/Configuration:-Input
       input = {

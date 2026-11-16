@@ -14,7 +14,6 @@
 
   inputs = {
     # nixpkgs-previous.url = "nixpkgs/commit_hash";
-    nixpkgs-previous.url = "nixpkgs/1c89083e451e891152365b799595cf7790a43325";
     # nixpkgs-fix-for-<smth>.url = "nixpkgs/pull/1489/head"; # ? or use https://github.com/gepbird/nixpkgs-patcher
     nixpkgs.url = "nixpkgs/nixos-unstable";
     #? more secure: https://determinate.systems/blog/nixpkgs-cooldown/
@@ -102,12 +101,7 @@
     niri.url = "github:epireyn/niri-flake";
     hermes-agent = {
       url = "github:NousResearch/hermes-agent";
-      inputs.nixpkgs.follows = "nixpkgs-previous";
       inputs.flake-parts.follows = "flake-parts";
-    };
-    bootvine = {
-      url = "git+https://codeberg.org/wvhulle/bootvine";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     #? other systems
@@ -388,7 +382,7 @@
         (mkHomeCfg "nixd" [
           #! https://github.com/nix-community/nixd/issues/705#issuecomment-3103731843
           inputs.nixcord.homeModules.default
-          inputs.nvf.homeManagerModules.default
+          inputs.nvf.homeModules.default
           inputs.plasma-manager.homeModules.plasma-manager
           inputs.niri.homeModules.niri
         ])

@@ -6,7 +6,7 @@
   ...
 }:
 {
-  imports = [ inputs.nvf.homeManagerModules.default ];
+  imports = [ inputs.nvf.homeModules.default ];
 
   home.sessionVariables.MANPAGER = "nvim +Man!";
   programs.nvf = {

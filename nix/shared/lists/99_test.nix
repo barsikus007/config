@@ -37,7 +37,8 @@ with pkgs;
   iotop
   fatrace # sudo fatrace . 2>&1 | grep firefox
 
-  previous.yaak
+  # TODO: unstable: https://hydra.nixos.org/jobset/nixos/trunk-combined/latest-eval?filter=yaak
+  # yaak
   bruno
   requestly
 
