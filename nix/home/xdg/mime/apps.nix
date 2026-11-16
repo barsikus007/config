@@ -38,7 +38,7 @@
           "application/x-zerosize"
         ]
         (_key: [
-          "codium.desktop"
+          "code-scratch.desktop"
           "code.desktop"
           "neovide.desktop"
           "nvim.desktop"

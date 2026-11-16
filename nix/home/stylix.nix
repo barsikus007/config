@@ -26,7 +26,6 @@
       starship.enable = false;
       #? conflicts with custom theme
       vscode.enable = false;
-      vscodium.enable = false;
       #? theme is unreadable
       gdu.enable = false;
       #! theme could be unreadable, but now it is ok

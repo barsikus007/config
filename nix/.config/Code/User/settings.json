@@ -427,5 +427,6 @@
         "**/.forgejo/workflows/*.yml",
         "**/.forgejo/workflows/*.yaml",
     ],
+    "security.workspace.trust.enabled": false,
     // #endregion auto
 }

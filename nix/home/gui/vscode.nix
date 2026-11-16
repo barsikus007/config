@@ -6,7 +6,40 @@
   ...
 }:
 let
+  codePkg = pkgs.vscode;
+  #! https://github.com/NixOS/nixpkgs/blob/c23193b943c6c689d70ee98ce3128239ed9e32d1/pkgs/applications/editors/vscode/generic.nix#L82
+  # codePkg = pkgs.vscode-fhs
   editor = "code --wait";
+  #? reuse single scratch window for external files in niri
+  code-scratch = pkgs.writeShellScriptBin "code-scratch" ''
+    id_file="''${XDG_RUNTIME_DIR:-/tmp}/code-scratch.id"
+    scratch_id=""
+    if [ -f "$id_file" ]; then
+      scratch_id=$(${pkgs.coreutils}/bin/cat "$id_file")
+    fi
+
+    if ! ${lib.getExe pkgs.niri} msg --json windows >/dev/null 2>&1; then
+      exec ${lib.getExe codePkg} --new-window "$@"
+    fi
+
+    if [ -n "$scratch_id" ] && ${lib.getExe pkgs.niri} msg --json windows | ${lib.getExe pkgs.jq} --exit-status --argjson id "$scratch_id" '.[] | select(.id == $id and .app_id == "code")' >/dev/null 2>&1; then
+      ${lib.getExe pkgs.niri} msg action focus-window --id "$scratch_id"
+      exec ${lib.getExe codePkg} --reuse-window "$@"
+    fi
+
+    existing_ids=$(${lib.getExe pkgs.niri} msg --json windows | ${lib.getExe pkgs.jq} --compact-output '[.[] | select(.app_id == "code") | .id]')
+
+    ${lib.getExe codePkg} --new-window "$@" &
+
+    for _ in {1..40}; do
+      ${pkgs.coreutils}/bin/sleep 0.05
+      new_id=$(${lib.getExe pkgs.niri} msg --json windows | ${lib.getExe pkgs.jq} --raw-output --argjson existing "$existing_ids" '.[] | select(.app_id == "code" and (.id as $id | $existing | contains([$id]) | not)) | .id' | ${pkgs.coreutils}/bin/head --lines=1)
+      if [ -n "$new_id" ] && [ "$new_id" != "null" ]; then
+        echo "$new_id" > "$id_file"
+        break
+      fi
+    done
+  '';
 in
 {
   custom.persist.home.directories = [
@@ -82,56 +115,17 @@ in
                             f.write(content)
     EOF
   '';
-  programs.vscodium = {
-    enable = true;
-    package = lib.lowPrio pkgs.vscodium;
-    profiles.default = {
-      enableUpdateCheck = false;
-      keybindings = builtins.fromJSON (
-        builtins.readFile (
-          pkgs.runCommand "clean-json" { } ''
-            ${lib.getExe pkgs.hjson-go} -j  ${../../.config/Code/User/keybindings.json} > $out
-          ''
-        )
-      );
-      userSettings =
-        builtins.fromJSON (
-          builtins.readFile (
-            pkgs.runCommand "clean-json" { } ''
-              ${lib.getExe pkgs.hjson-go} -j ${../../.config/Code/User/settings.json} > $out
-            ''
-          )
-        )
-        // {
-          "security.workspace.trust.enabled" = false;
-          "workbench.editor.showTabs" = "none";
-          "workbench.startupEditor" = "none";
-          "window.restoreWindows" = "none";
-          "window.openFilesInNewWindow" = "off";
-          "window.openFoldersInNewWindow" = "off";
-          "window.openWithoutArgumentsInNewWindow" = "off";
-          "window.menuBarVisibility" = "compact";
-          "workbench.editor.editorActionsLocation" = "titleBar";
-        };
-      extensions =
-        (import ../../.config/Code/User/extensions.nix { inherit pkgs; }).forTags [
-          "essential"
-          "docs"
-          "nix"
-        ]
-        ++ [
-          (pkgs.vscode-utils.extensionFromVscodeMarketplace {
-            name = "shades-of-purple";
-            publisher = "ahmadawais";
-            version = "7.3.6";
-            hash = "sha256-22ZywGew1Qh4YPi51JWTNQLKuz/nzx/iprUK96DQfYU=";
-          })
-        ];
-    };
-  };
-  home.packages = with pkgs; [
-    vscode
-    #! https://github.com/NixOS/nixpkgs/blob/c23193b943c6c689d70ee98ce3128239ed9e32d1/pkgs/applications/editors/vscode/generic.nix#L82
-    # vscode-fhs
+  # TODO: extract as lib function (also from autostart)
+  xdg.dataFile."applications/code-scratch.desktop".source =
+    pkgs.runCommand "code-scratch.desktop" { }
+      ''
+        sed \
+          -e 's|^Exec=code %F$|Exec=${lib.getExe code-scratch} %F|' \
+          -e 's|^Name=Visual Studio Code$|Name=Visual Studio Code (Scratch)|' \
+          ${codePkg}/share/applications/code.desktop > $out
+      '';
+  home.packages = [
+    codePkg
+    code-scratch
   ];
 }
