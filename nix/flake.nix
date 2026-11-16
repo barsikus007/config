@@ -482,8 +482,8 @@
         };
         grdcontrol = pkgs.callPackage ./packages/grdcontrol.nix { };
 
-        openwrt-dewclaw-env = pkgs.callPackage inputs.dewclaw {
-          configuration = import ./packages/openwrt/dewclaw.nix;
+        dewclaw-env = pkgs.callPackage inputs.dewclaw {
+          configuration = import ./hosts/router;
         };
         openwrt-vm = pkgs.callPackage ./packages/openwrt/vm.nix {
           baseImage = self.legacyPackages.${system}.openwrt-x86_64;
@@ -498,10 +498,6 @@
         };
 
         #! nix flake check: openwrt hash drifts
-        # nix build ./nix#openwrt
-        # or if hash mismatch
-        # nix run <locally cloned nix-openwrt-imagebuilder>#generate-hashes <openwrt version>
-        # nix build --override-input openwrt-imagebuilder <locally cloned nix-openwrt-imagebuilder> ./nix#openwrt
         openwrt-xiaomi_ax3600 = import ./packages/openwrt/xiaomi_ax3600.nix { inherit pkgs inputs; };
         openwrt-x86_64 = import ./packages/openwrt/x86_64.nix { inherit pkgs inputs; };
       }

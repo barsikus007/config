@@ -1,6 +1,6 @@
 #? single source of truth for split-routing domain lists, shared by two consumers:
 #?   - modules/nftset.nix        -> dnsmasq nftset lines for pihole on the VPS
-#?   - packages/openwrt/dewclaw.nix -> pbr policies on the router
+#?   - packages/openwrt/dewclaw  -> pbr policies on the router
 #? via = "exit"   -> nftset force_exit,   pbr interface awg0
 #? via = "direct" -> nftset force_direct, pbr interface wan
 #? cidrs are pbr-only: dnsmasq nftset matches domains, not networks

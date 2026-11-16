@@ -103,6 +103,7 @@ in
     "fish"
     "tmux"
     "iperf3"
+    "mtr-json"
 
     #? VPN related
     "-dnsmasq"

@@ -1,0 +1,8 @@
+# Put your custom commands here that should be executed once
+# the system init finished. By default this file does nothing.
+
+# https://forum.openwrt.org/t/dynamic-dns-is-not-running-upon-power-on-or-reboot/150807/8
+# workaround for ddns not starting:
+{ sleep 120; /etc/init.d/ddns restart; }  &
+
+exit 0

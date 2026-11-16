@@ -11,11 +11,32 @@ nix --extra-experimental-features "nix-command flakes" run --impure 'github:nix-
 - on WSL Ubuntu disable pipewire QEMU section and launch with pulseaudio
   - `-audiodev pa,id=snd0,server=/mnt/wslg/PulseServer -device intel-hda -device hda-output,audiodev=snd0`
 
+## openwrt
+
+- `nix build ./nix#openwrt- <tab>`
+  - if hash mismatch
+    - `nix run <locally cloned nix-openwrt-imagebuilder>#generate-hashes <openwrt version>`
+    - `nix build --override-input openwrt-imagebuilder <locally cloned nix-openwrt-imagebuilder> ./nix#openwrt`
+- [luci web](http://0:60080)
+- Ctrl+A -> x to quit from qemu
+
+### repl
+
+```nix
+pkgs.lib.evalModules { modules = [ "${flake.inputs.dewclaw}/openwrt" (import ./nix/packages/openwrt/dewclaw) ]; specialArgs = { inherit pkgs; }; }
+```
+
+### deploy and vm test
+
+```shell
+nix run ./nix#openwrt-vm
+nix run ./nix#openwrt-vm -- --reset
+nix shell ./nix#dewclaw-env --command deploy-vm --reload
+```
+
 ## [index](https://github.com/barsikus007/config/blob/0fd574bce9a5778219e436d9665c692c2c30a2c8/nix/flake.nix#L453)
 
 - [gcc locales patched for easy ISO format](./locales-iso.nix)
-- [OpenWrt image](./packages/openwrt/xiaomi_ax3600.nix)
-  - [uci](./packages/openwrt/dewclaw.nix)
 
 ### categorized
 
