@@ -13,7 +13,7 @@ in
   #? syncoid "WARNING: mbuffer not available on target" fix
   environment.systemPackages = with pkgs; [ mbuffer ];
 
-  #? with default `true` it tries to unlock recieved backups
+  #? with default `true` it tries to unlock received backups
   boot.zfs.requestEncryptionCredentials = lib.attrNames (
     lib.filterAttrs (
       _: pool: (pool.rootFsOptions.encryption or null) != null

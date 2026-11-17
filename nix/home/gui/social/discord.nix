@@ -83,7 +83,7 @@ in
       package = pinToIgpu pkgs.vesktop;
       settings = {
         customTitleBar = true;
-        # alo set default settings
+        # also set default settings
         arRPC = true;
         splashColor = "rgb(239, 239, 240)";
         splashBackground = "rgb(32, 32, 36)";

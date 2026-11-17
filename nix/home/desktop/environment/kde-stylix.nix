@@ -1,5 +1,5 @@
 { config, ... }:
-#? non-KDE desktops, which haven't look-and-feel
+#? non-KDE desktops, which don't have look-and-feel
 #? borrowed from stylix: https://github.com/nix-community/stylix/blob/e3861617645a43c9bbefde1aa6ac54dd0a44bfa9/modules/kde/hm.nix
 let
   c = config.lib.stylix.colors;

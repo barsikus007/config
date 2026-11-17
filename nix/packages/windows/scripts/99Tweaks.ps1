@@ -8,7 +8,7 @@ Function Test-Command ($commandName) {
 
 Write-Host "disable UAC prompts" -ForegroundColor Green
 sudo Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "ConsentPromptBehaviorAdmin" -Value 0
-Write-Host "enable dev mode for symlinks (sudo is needed for `New-Item -ItemType SymbolicLink` otherwise)" -ForegroundColor Green
+Write-Host "enable dev mode for symlinks (sudo is needed for ``New-Item -ItemType SymbolicLink`` otherwise)" -ForegroundColor Green
 sudo Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock" -Name "AllowDevelopmentWithoutDevLicense" -Value 1
 
 Write-Host "remove path limit" -ForegroundColor Green
@@ -122,7 +122,7 @@ if (-not (Test-Path $Path)) { New-Item -Path $Path -Force | Out-Null }
 Set-ItemProperty -Path $Path -Name "EnableClipboardHistory" -Value 1 -Type DWord -Force
 
 #? https://superuser.com/a/1848995
-Write-Host "enable 'Beta: Use Unicode UTF-8 for worldwide language support' in Win+R -> `intl.cpl` -> Administrative -> Change system locale..."
+Write-Host "enable 'Beta: Use Unicode UTF-8 for worldwide language support' in Win+R -> ``intl.cpl`` -> Administrative -> Change system locale..."
 $Path = "HKLM:\SYSTEM\CurrentControlSet\Control\Nls\CodePage"
 sudo Set-ItemProperty -Path $Path -Name "ACP"   -Value "65001"
 sudo Set-ItemProperty -Path $Path -Name "OEMCP" -Value "65001"

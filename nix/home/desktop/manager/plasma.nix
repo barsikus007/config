@@ -120,7 +120,7 @@ in
         apply.desktopfile = "${pkgs.vscode}/share/applications/code.desktop";
       }
       {
-        description = "daninci-resolve titlebar fix";
+        description = "davinci-resolve titlebar fix";
         match.window-class = "resolve resolve";
         apply.noborder = false;
       }
@@ -338,7 +338,7 @@ in
       # "kdeglobals"."KDE"."AutomaticLookAndFeel" = true;
       # "kdeglobals"."KDE"."DefaultLightLookAndFeel" = "org.kde.breezetwilight.desktop";
       # "kdeglobals"."KDE"."DefaultDarkLookAndFeel" = "stylix";
-      #? setted by stylix
+      #? set by stylix
       # "kdeglobals"."KDE"."LookAndFeelPackage" = "stylix";
 
       #! workspace.enableMiddleClickPaste = false; don't work

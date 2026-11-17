@@ -51,7 +51,7 @@ nix build ./nix#nixos-minimalIso
 dd bs=4M conv=fsync oflag=direct status=progress if=./result/iso/nixos-minimal- of=/dev/sd
 qemu-system-x86_64 -enable-kvm -m 256 -cdrom result/iso/nixos-minimal*.iso -nic user,hostfwd=tcp::22222-:2222
 qemu-system-x86_64 -enable-kvm -m 2048 -smp 4 -cdrom result/iso/nixos-graphical*.iso -nic user,hostfwd=tcp::22222-:2222
-ssh root@localhost -p 22222 -o StrictHostKeychecking=no -o ConnectionAttempts=60
+ssh root@localhost -p 22222 -o StrictHostKeyChecking=no -o ConnectionAttempts=60
 # or just
 nh os build-vm --hostname minimalIso-x86_64-linux
 nh os build-vm --hostname minimalIso-x86_64-linux && ./result/bin/run-nixos-vm -monitor stdio
@@ -200,7 +200,7 @@ nix path-info --closure-size --human-readable ./result
 ```shell
 #? count derivations per cache
 nix path-info --all --json --json-format 1 | jq --raw-output '.[] | if (.signatures | length) > 0 then .signatures[] | split(":")[0] else "local" end' | sort | uniq --count | sort --reverse --numeric-sort
-#? list all derivations which was provided by CACHE_NAME
+#? list all derivations which were provided by CACHE_NAME
 CACHE_NAME=nix-community.cachix.org
 nix path-info --all --json --json-format 1 | jq --raw-output --arg cache_name "$CACHE_NAME" 'to_entries[] | select(.value.signatures // [] | any(contains($cache_name))) | .key [44:]' | sort | uniq --count
 ```

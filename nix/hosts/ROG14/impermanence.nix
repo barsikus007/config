@@ -54,7 +54,7 @@
         ".config/fsearch"
         ".config/glib-2.0" # TODO: generate?
         ".config/hatch" # TODO: generate
-        ".config/kdedefaults" # TODO: unneded!!!!!?
+        ".config/kdedefaults" # TODO: unneeded!!!!!?
         ".config/litecli"
         ".config/obsidian"
         ".config/qBittorrent"

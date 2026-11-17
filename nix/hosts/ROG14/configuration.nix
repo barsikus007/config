@@ -66,7 +66,7 @@
   hardware.amdgpu.opencl.enable = true;
 
   hardware.nvidia = {
-    #? if GPU apps fails after suspend
+    #? if GPU apps fail after suspend
     # nvidia.powerManagement.enable = true;
     #? finer GPU power management
     powerManagement.finegrained = true;

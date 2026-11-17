@@ -24,7 +24,7 @@ import ./11_powertoys.nix { inherit pkgs; }
   nodejs
   hadolint # ? Dockerfile
   pciutils # ? lspci
-  usbutils # ? lssub
+  usbutils # ? lsusb
   qrencode
   shellcheck
   ffmpeg-full

@@ -33,10 +33,6 @@ prek install
 
 ### [NixOS Android](./hosts/android/README.md)
 
-### [WSL distro](https://nix-community.github.io/NixOS-WSL/)
-
-`sudo nixos-rebuild switch --flake .#NixOS-WSL`
-
 ### plain [nix installer](https://github.com/NixOS/nix-installer) on existing system
 
 - TLDR

@@ -232,7 +232,7 @@ function start_encoding(from, to, settings)
     else
         local res = utils.subprocess({ args = args, max_size = 0, cancellable = false })
         if res.status == 0 then
-            mp.osd_message("Finished encoding succesfully")
+            mp.osd_message("Finished encoding successfully")
         else
             mp.osd_message("Failed to encode, check the log")
         end

@@ -41,7 +41,7 @@ in
   '';
 
   #? https://wiki.nixos.org/wiki/Linux_kernel#Enable_SysRq
-  #? it have same security level as having force-reset power-button
+  #? it has the same security level as having force-reset power-button
   boot.kernel.sysctl."kernel.sysrq" = true;
 
   environment.systemPackages = [

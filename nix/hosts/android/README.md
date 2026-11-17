@@ -16,7 +16,7 @@
 
 ## [NixOS-DroidVM](https://github.com/Droid-VM/DroidVM)
 
-Qualcomm CPUs in general has no pKVM (needed for AVF): EL2 is taken by Qualcomm Gunyah, kernel runs at EL1 and can never install KVM, while Gunyah exposes protected VMs only
+Qualcomm CPUs in general have no pKVM (needed for AVF): EL2 is taken by Qualcomm Gunyah, kernel runs at EL1 and can never install KVM, while Gunyah exposes protected VMs only
 
 protected-only limits:
 
@@ -58,9 +58,9 @@ disable NixOS iso after install
 ```shell
 adb shell su --command 'nc -L -p 2222 nc <guest-ip> 2222' &
 adb forward tcp:12222 tcp:2222
-ssh ogurez@localhost -p 12222 -o StrictHostKeychecking=no -o ConnectionAttempts=60 -o UserKnownHostsFile=/dev/null
+ssh ogurez@localhost -p 12222 -o StrictHostKeyChecking=no -o ConnectionAttempts=60 -o UserKnownHostsFile=/dev/null
 
-NIX_SSHOPTS="-p 12222 -o StrictHostKeychecking=no -o ConnectionAttempts=60 -o UserKnownHostsFile=/dev/null" nh os switch --hostname=droidvm --target-host=ogurez@localhost --elevation-strategy=passwordless
+NIX_SSHOPTS="-p 12222 -o StrictHostKeyChecking=no -o ConnectionAttempts=60 -o UserKnownHostsFile=/dev/null" nh os switch --hostname=droidvm --target-host=ogurez@localhost --elevation-strategy=passwordless
 ```
 
 ### notes

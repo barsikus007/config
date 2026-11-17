@@ -10,7 +10,7 @@
   boot.extraModulePackages = with config.boot.kernelPackages; [ xone ];
   # BT
   hardware.xpadneo.enable = true;
-  #? vibecoded shutfixes for xbox elite controller
+  #? vibecoded shitfixes for xbox elite controller
   #! disable hidraw to stop SDL/Steam Input/Proton from messing gamepad
   #! 0B22 -- BT-HID id of xbox elite controller
   #! steam-devices (60-steam-input) adds uaccess, and 73-seat-late re-adds it via a sticky tag,

@@ -278,7 +278,7 @@ in
           "toolkit.telemetry.enabled" = false; # enforced by nixos
           "toolkit.telemetry.server" = "";
           "toolkit.telemetry.unified" = false;
-          "extensions.webcompat-reporter.enabled" = false; # don't report compability problems to mozilla
+          "extensions.webcompat-reporter.enabled" = false; # don't report compatibility problems to mozilla
           "datareporting.policy.dataSubmissionEnabled" = false;
           "datareporting.healthreport.uploadEnabled" = false;
           "browser.ping-centre.telemetry" = false;
@@ -368,7 +368,7 @@ in
           engines = {
             # builtins only supports adding alias or hiding
             google.metaData.alias = "g";
-            # tabs.metaData.alias = "t"; #! tabs doesnt work for some reason!!!
+            # tabs.metaData.alias = "t"; #! tabs doesn't work for some reason!!!
             bing.metaData.hidden = true;
             "Google Exact" = {
               urls = [
@@ -642,7 +642,7 @@ in
                 "https://www.gstatic.com/lamda/images/gemini_sparkle_aurora_33f86dc0c0257da337c63.svg";
               definedAliases = [ "ge" ];
             };
-            # TODOL needs violentmonkey script which doesn't exist yet
+            # TODO: needs violentmonkey script which doesn't exist yet
             "Claude" = {
               urls = [
                 {
@@ -759,7 +759,7 @@ in
               definedAliases = [ "ym" ];
             };
 
-            #? it wont work for some strange google reason
+            #? it won't work for some strange google reason
             # "YouTube History" = {
             #   urls = [
             #     {

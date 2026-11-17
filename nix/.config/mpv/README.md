@@ -7,13 +7,13 @@
   - `snap-window`
   - `save-position-on-quit`
   - `screenshot-directory` is `desktop/`
-  - screenshot filename is more declare
+  - screenshot filename is more descriptive
   - sub font will be searched in `fonts/`
   - sub/aud language priority
   - ontop only when playing
   - profiles
     - playlist
-      - move window to right down corner
+      - move window to bottom-right corner
       - resize to 25% of screen width
     - online (http)
       - same as playlist

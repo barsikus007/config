@@ -2,7 +2,7 @@
 {
   imports = [ ./gui/browser/firefox-stylix.nix ];
 
-  #? to apply stylix setted cursors
+  #? to apply cursors set by stylix
   home.pointerCursor.enable = true;
 
   stylix = {

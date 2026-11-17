@@ -4,7 +4,7 @@
     #! not a drop-in:
     #? it failed to build random container (C slipstream-server)
     #? it failed to interpret some instructions (https://github.com/containers/podman/issues/28293)
-    #? it lacks of compose zsh completions
+    #? it lacks compose zsh completions
     ./podman.nix
 
     # (import ./docker.nix {

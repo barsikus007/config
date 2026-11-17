@@ -64,7 +64,7 @@ nix shell ./nix#dewclaw-env --command deploy-vm --reload
   - [mprint label printer driver](./auto/libs/mprint.nix)
   - goodix fprint scanner drivers for ROG14
 - soft
-  - [adbfs with libfuse experemental](./auto/soft/adbfs-rootless-libfuse-3.nix)
+  - [adbfs with libfuse experimental](./auto/soft/adbfs-rootless-libfuse-3.nix)
   - [free-turn-proxy](./auto/soft/free-turn-proxy.nix)
   - [shdotenv](./auto/soft/shdotenv.nix)
 

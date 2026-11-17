@@ -35,7 +35,7 @@ multiStdenv.mkDerivation (finalAttrs: {
   '';
 
   meta = {
-    description = "A simple dynamic library to slowdown or speedup games on Linux Resources";
+    description = "A simple dynamic library to slowdown or speedup games on Linux";
     homepage = "https://github.com/evg-zhabotinsky/libspeedhack";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [

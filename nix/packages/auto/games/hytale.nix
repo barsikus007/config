@@ -113,7 +113,7 @@ let
     hash = "sha256-eniMb/wct+vjtzXF2z8Z1XPBmwabjV8RCDyd8J1QLT0=";
   };
 
-  # convert ico to png for better compatibility
+  # resize favicon.png to 256x256
   hytaleIconPng =
     pkgs.runCommand "hytale-launcher-icon"
       {
@@ -121,7 +121,7 @@ let
       }
       ''
         mkdir --parents $out
-        # extract the largest icon from the ico file and convert to png
+        # flatten and resize png to 256x256
         convert ${hytaleIcon} -thumbnail 256x256 -alpha on -background none -flatten $out/hytale-launcher.png
       '';
 in

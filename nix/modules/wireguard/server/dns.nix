@@ -17,7 +17,7 @@
   services.pihole-ftl = {
     enable = true;
 
-    #! build pihole-ftl with HAVE_NFTSET, to emable nftset_lines below
+    #! build pihole-ftl with HAVE_NFTSET, to enable nftset_lines below
     package = pkgs.pihole-ftl.overrideAttrs (previousAttrs: {
       buildInputs = (previousAttrs.buildInputs or [ ]) ++ [ pkgs.nftables ];
       env = (previousAttrs.env or { }) // {

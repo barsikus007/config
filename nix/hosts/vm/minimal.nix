@@ -11,7 +11,7 @@
   ];
   home-manager.users.${username}.imports = [ ../../shared/zsh-compinit.nix ];
   virtualisation.vmVariant.virtualisation.forwardPorts = [
-    #? ssh localhost -p 22222 -o StrictHostKeychecking=no -o ConnectionAttempts=60
+    #? ssh localhost -p 22222 -o StrictHostKeyChecking=no -o ConnectionAttempts=60
     {
       from = "host";
       host.port = 22222;
@@ -30,7 +30,7 @@
   services.spice-vdagentd.enable = true;
   services.spice-autorandr.enable = true;
 
-  #! nix flake check: it assert these values for every nixos config
+  #! nix flake check: it asserts these values for every nixos config
   fileSystems."/" = {
     device = "/dev/disk/by-label/nixos";
     fsType = "ext4";

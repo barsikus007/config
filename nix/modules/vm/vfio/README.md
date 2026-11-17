@@ -12,7 +12,7 @@ codename `Windows-Resurrect`
 3. launch and press key at `Press any key to boot from CD or DVD......` screen
    - `virsh start win10 && for i in {1..10}; do sleep 1; virsh send-key win10 KEY_SPACE; done`
 4. wait
-   - SSH is available! `ssh Admin@192.168.122.120 -o StrictHostKeychecking=no -o UserKnownHostsFile=/dev/null -o ConnectionAttempts=60`
+   - SSH is available! `ssh Admin@192.168.122.120 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectionAttempts=60`
    - unmount installation media (will be reset by NixVirt on rebuild otherwise)
       - `virsh detach-disk win10 --config sda`
       - `virsh detach-disk win10 --config sdb`
@@ -24,7 +24,7 @@ codename `Windows-Resurrect`
 
 - system disk declared in [disko](../../hosts/ROG14/disk-config.nix)
   - size recommendations in G
-    - 15G minimalest
+    - 15G minimalest (sic!)
     - 20G minimal
     - 25G good
     - 30G+ best
@@ -33,7 +33,7 @@ codename `Windows-Resurrect`
   - `& "C:\Program Files\Virtio-Win\VioFS\virtiofs.exe" -t System -m S:`
   - or [create service](https://virtio-fs.gitlab.io/howto-windows.html#:~:text=Installing%20the%20virtiofs%20service)
 
-## libvirt domains is [managed by NixVirt](./win10.nix)
+## libvirt domains are [managed by NixVirt](./win10.nix)
 
 `virsh edit win10` is only good for experiments - the next switch overwrites it
 

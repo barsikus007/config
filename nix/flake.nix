@@ -164,7 +164,7 @@
         nixpkgs.lib.nixosSystem {
           specialArgs = mkSpecialArgs username;
           modules = modules ++ [
-            # TODO: link current nixpkgs source to store to avoid refetching it withing guest
+            # TODO: link current nixpkgs source to store to avoid refetching it within guest
             ./hosts/vm
             (
               { pkgs, username, ... }:
@@ -491,7 +491,7 @@
       }
       // pkgs.flakePackages;
       legacyPackages.${system} = {
-        #! nix flake check: need to update patches everytime
+        #! nix flake check: need to update patches every time
         telegram-desktop-patched = pkgs.callPackage ./packages/telegram-desktop-patched.nix { };
         ayugram-desktop-patched = pkgs.callPackage ./packages/telegram-desktop-patched.nix {
           telegram-desktop-client = pkgs.ayugram-desktop;

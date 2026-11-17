@@ -1,5 +1,5 @@
 { pkgs, config, ... }:
-#! unmaintaned
+#! unmaintained
 let
   inherit (config.fileSystems."/nix") device;
 in
@@ -9,7 +9,7 @@ in
   ];
   #? https://github.com/nix-community/impermanence/issues/320#issuecomment-4260870035
   boot.initrd.systemd = {
-    services.impermance-btrfs-rolling-root = {
+    services.impermanence-btrfs-rolling-root = {
       description = "Archiving existing BTRFS root subvolume and creating a fresh one";
       # specify dependencies explicitly
       unitConfig.DefaultDependencies = false;
@@ -71,7 +71,7 @@ in
       "find" = "${pkgs.findutils}/bin/find";
       "btrfs" = "${pkgs.btrfs-progs}/bin/btrfs";
       # mount & umount already exist
-    }; # NOTE: path = [...]; doesnt work for initrd, use full paths in your script or extraBin
+    }; # NOTE: path = [...]; doesn't work for initrd, use full paths in your script or extraBin
   };
 
   environment.persistence.${config.custom.persist.dir} = {

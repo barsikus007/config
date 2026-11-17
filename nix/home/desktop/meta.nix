@@ -16,7 +16,7 @@
     "bcompare"
   ];
   shortcuts = [
-    #? name is alphanumeric and -
+    #? name is alphanumeric, space and -
     {
       name = "Open Launcher";
       command = "vicinae toggle";

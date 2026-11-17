@@ -1,6 +1,5 @@
 --! vibecoded shitscript
 -- with its bound action, resolving both latin and cyrillic (ЙЦУКЕН) mappings
--- with its bound action, resolving both latin and cyrillic (ЙЦУКЕН) mappings
 -- toggle: script-binding keyboard/toggle  (bound to F1 in input.conf)
 -- while open: 1=base 2=shift 3=alt 4=ctrl layers, Esc/F1 close
 

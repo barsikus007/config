@@ -98,7 +98,7 @@ zgrep --extended-regexp "Commandline: apt(|-get)" /var/log/apt/history.log*
 [Interface]
 PostUp = DEFRT=$(ip route show default | cut --delimiter=' ' --fields=2-); for NET in 192.168.0.0/16 169.254.0.0/16 172.16.0.0/12 100.64.0.0/10 10.0.0.0/8; do ip route add $NET $DEFRT protocol 127; done
 PreDown = ip route flush protocol 127
-#! Also allow your DNS in AllowedPeers with /32 it its in wg network
+#! Also allow your DNS in AllowedPeers with /32 if it's in wg network
 ```
 
 [or one of the cool ways to do that](https://www.wireguard.com/netns/)
@@ -141,7 +141,7 @@ sudo mount --types zfs --options zfsutil,ro tank/backups/ROG14/persistent /mnt/b
 sudo zfs umount -u tank/backups/ROG14/persistent
 ```
 
-### short ommands
+### short commands
 
 - [clear arc cache](https://netpoint-dc.com/blog/zfs-caching-arc-l2arc-linux/)
   - `sync && sudo sysctl vm/drop_caches=3`
@@ -204,7 +204,7 @@ sudo bleachbit --list | grep --extended-regexp "[a-z0-9_\-]+\.[a-z0-9_\-]+" | gr
 sudo sh -c "truncate --size=0 /var/lib/docker/containers/*/*-json.log"
 ```
 
-### kill died terminals
+### kill dead terminals
 
 unknown source
 

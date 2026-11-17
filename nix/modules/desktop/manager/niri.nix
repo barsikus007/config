@@ -64,7 +64,7 @@ in
 
   programs.niri.enable = true;
 
-  #? cause it it set by module with no configuration, overriding the common settings
+  #? because it is set by the module with no configuration, overriding the common settings
   xdg.portal.config.niri."org.freedesktop.impl.portal.FileChooser" = lib.mkIf (
     config.xdg.portal.config.common ? "org.freedesktop.impl.portal.FileChooser"
   ) (lib.mkForce config.xdg.portal.config.common."org.freedesktop.impl.portal.FileChooser");
@@ -88,7 +88,7 @@ in
   systemd.user.services.portal-env-fix = {
     description = "Import session env and (re)start xdg-desktop-portal with a display";
     wantedBy = [ "graphical-session.target" ];
-    #! partOf lets it re-runs on every (re)login
+    #! partOf lets it re-run on every (re)login
     partOf = [ "graphical-session.target" ];
     before = [ "xdg-desktop-autostart.target" ];
     after = [

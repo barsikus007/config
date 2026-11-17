@@ -49,7 +49,7 @@ sudo reg add "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\TimeZoneInform
 
 ## command cheat sheet
 
-### PowerShell lifehack to bypas security policy
+### PowerShell lifehack to bypass security policy
 
 ```powershell
 PowerShell.exe -ExecutionPolicy Bypass -File <filename>
@@ -93,7 +93,7 @@ foreach ($oldvid in $oldvids) {
 
 ### shutdown commands
 
-- `shutdown /t 0 /r`  # reload now
+- `shutdown /t 0 /r`  # reboot now
 - `shutdown /t 0 /s /f`  # full shutdown
 
 ## [ROG G14](./rog14.md)

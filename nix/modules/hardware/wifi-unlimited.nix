@@ -16,15 +16,15 @@
   '';
   boot.extraModulePackages =
     let
-      iwlifi = pkgs.callPackage ../../packages/kmod/iwlwifi.nix {
+      iwlwifi = pkgs.callPackage ../../packages/kmod/iwlwifi.nix {
         inherit (config.boot.kernelPackages) kernel;
       };
-      iwlifi-larless = iwlifi.overrideAttrs {
+      iwlwifi-larless = iwlwifi.overrideAttrs {
         patches = [ ../../packages/kmod/iwlwifi-lar_disable.patch ];
       };
     in
     [
-      (lib.hiPrio iwlifi-larless)
+      (lib.hiPrio iwlwifi-larless)
     ];
   # boot.kernelPatches = [
   #   {

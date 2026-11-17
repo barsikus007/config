@@ -7,7 +7,7 @@ standalone executables for complex situations
 - for string parsing
 - for failsafe
 - for concurrency
-- for convinient reusable functions
+- for convenient reusable functions
 
 ## what belongs here
 
@@ -22,7 +22,7 @@ put a script here when it does two or more of these:
 keep it in `../shell/` when either of these is true:
 
 - it changes the interactive shell
-- it is small task
+- it is a small task
 
 ## aliases
 

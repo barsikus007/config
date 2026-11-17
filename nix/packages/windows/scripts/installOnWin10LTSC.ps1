@@ -50,7 +50,7 @@ function Update-SessionEnvironment {
 }
 Update-SessionEnvironment
 
-Write-Host "scoop inital packages installation..." -ForegroundColor Green
+Write-Host "scoop initial packages installation..." -ForegroundColor Green
 Invoke-LocalOrRemoteScript "00Bootstrap.ps1"
 Write-Host "system packages installation..." -ForegroundColor Green
 Invoke-LocalOrRemoteScript "01System.ps1"

@@ -62,7 +62,7 @@ let
     items: "-a \"${lib.concatStringsSep "|" items}\""
   ) rawTracks;
 
-  #? his live non-default settings (diffed against Config.hpp defaults): activation drops
+  #? the live non-default settings (diffed against Config.hpp defaults): activation drops
   #? these keys from the file and appends them back, every other key survives UI edits
   managedSettings = {
     "main.hotkeys_enable_option" = [ "enable_hotkeys_no_grab" ];

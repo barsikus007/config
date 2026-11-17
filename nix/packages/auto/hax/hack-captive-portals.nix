@@ -19,8 +19,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "crishoj";
     repo = "hack-captive-portals";
-    rev = "e0374ce7c3398040bc0f9fbce6b5eefb74325344"; # Latest commit from crishoj/master
-    hash = "sha256-UNYxbSwi/We1rI4fjGx8JgQQDvnr1N581BIBgbb5Vp4="; # Replace with actual hash after first build failure
+    rev = "e0374ce7c3398040bc0f9fbce6b5eefb74325344";
+    hash = "sha256-UNYxbSwi/We1rI4fjGx8JgQQDvnr1N581BIBgbb5Vp4=";
   };
 
   nativeBuildInputs = [ makeWrapper ];

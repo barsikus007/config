@@ -16,6 +16,6 @@ with pkgs;
   zoxide
   ripgrep
 
-  ncurses # tput for convinient colors in scripts # * ubuntu:ncurses-bin # * termux:ncurses-utils
+  ncurses # tput for convenient colors in scripts # * ubuntu:ncurses-bin # * termux:ncurses-utils
   # net-tools # arp
 ]

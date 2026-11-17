@@ -15,7 +15,7 @@
     #? screenshot related
     grim
     slurp
-    #? clipboardrelated
+    #? clipboard related
     wtype
     wl-clipboard
 
