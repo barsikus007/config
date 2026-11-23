@@ -16,6 +16,7 @@ let
 in
 {
   __cachix = kernelModules // {
+    inherit nvidia;
     nvidia-settings = nvidia.settings;
     #? the nixos module bakes zfs_cachyos (custom kernel) into the package
     podman = cfg.virtualisation.podman.package;
