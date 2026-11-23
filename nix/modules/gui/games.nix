@@ -84,7 +84,7 @@
         in
         proton-ge-bin.overrideAttrs (old: {
           steamDisplayName = "GE-Proton (Wrapped)";
-          postInstall = (old.postInstall or "") + ''
+          postFixup = (old.postFixup or "") + ''
             mv $steamcompattool/proton $steamcompattool/.proton-real
             cat << 'EOF' > $steamcompattool/proton
             ${gameDispatcher}

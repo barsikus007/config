@@ -32,6 +32,8 @@
       # nixcord.enable = false;
       #? looks fucked with fonts
       mangohud.fonts.enable = false;
+      # TODO: unstable: https://github.com/nix-community/stylix/pull/2557
+      wayprompt.enable = false;
 
       firefox.profileNames = [ "default" ];
       firefox.fonts.enable = false;

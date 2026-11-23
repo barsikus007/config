@@ -7,7 +7,7 @@
 let
   cfg = self.nixosConfigurations.ROG14.config;
   hm = cfg.home-manager.users.${lib.head (lib.attrNames cfg.home-manager.users)};
-  # nvidia = cfg.hardware.nvidia.package;
+  nvidia = cfg.hardware.nvidia.package;
   kernelModules = lib.listToAttrs (
     lib.imap0 (i: drv: lib.nameValuePair "kernel-module-${toString i}-${lib.getName drv}" drv) (
       lib.unique cfg.boot.extraModulePackages
@@ -16,7 +16,7 @@ let
 in
 {
   __cachix = kernelModules // {
-    # nvidia-settings = nvidia.settings;
+    nvidia-settings = nvidia.settings;
     #? the nixos module bakes zfs_cachyos (custom kernel) into the package
     podman = cfg.virtualisation.podman.package;
 
